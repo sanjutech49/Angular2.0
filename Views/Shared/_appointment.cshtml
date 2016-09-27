@@ -1,0 +1,112 @@
+﻿@using Telerik.Web.Mvc.UI
+@model List<MML.Web.LoanCenter.Models.Appointment>
+<div class="calendardiv">
+    <div class="calendarhead" id="calendarhead">
+        <div class="left0">
+            <span class="namelink">Calendar</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="calevent">
+            <span class="font15"></span>
+        </div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="minimizecalendar"  title="Minimize/Maximize Section">
+                    <div id="cminmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="calendarcontent" id="calendarcontent">
+        <article class="calendartabs">
+            <section class="calendartabs1 current">
+                <h3>
+                </h3>
+                <div id="today">
+                    <table class="appointment">
+                        <tr>
+                            <td colspan="2">@DateTime.Now.ToLongDateString()
+                            </td>
+                        </tr>
+                        @foreach ( var appointment in Model.Where( a => a.Start.Date.Equals( DateTime.Now.Date ) ) )
+                        { 
+                            <tr>
+                                <td class="td1spec">
+                                    <time>@appointment.Start.ToString( "hh:mm tt" )</time>
+                                    -
+                                    <time>@appointment.End.ToString( "hh:mm tt" )</time>
+                                </td>
+                                <td class="td2">
+                                    @appointment.Note
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </section>
+            <section class="calendartabs2">
+                <h3>
+                </h3>
+                <div id="thisweek">
+                    <table class="appointment">
+                        <tr>
+                            <td colspan="3">@DateTime.Now.AddDays( 1 ).ToLongDateString()
+                            </td>
+                        </tr>
+                        @foreach ( var appointment in Model.Where( a => a.Start.Date.Equals( DateTime.Now.Date.AddDays( 1 ) ) ) )
+                        { 
+                            <tr>
+                                <td class="td1">
+                                    <date>@appointment.Start.ToString( "MM/dd/yyyy" )</date>
+                                </td>
+                                <td class="td2">
+                                    <time>@appointment.Start.ToString( "hh:mm tt" )</time>
+                                    -
+                                    <time>@appointment.End.ToString( "hh:mm tt" )</time>
+                                </td>
+                                <td class="td3">
+                                    @appointment.Note
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </section>
+            <section class="calendartabs3">
+                <h3>
+                </h3>
+                <div id="thismonth">
+                    <table class="appointment">
+                        <tr>
+                            <td colspan="3">@(DateTime.Now.ToString( "MMMM" ) + " " + @DateTime.Now.Year.ToString())
+                            </td>
+                        </tr>
+                        @foreach ( var appointment in Model.Take( 4 ) )
+                        { 
+                            <tr>
+                                <td class="td1">
+                                    <date>@appointment.Start.ToString( "MM/dd/yyyy" )</date>
+                                </td>
+                                <td class="td2">
+                                    <time>@appointment.Start.ToString( "hh:mm tt" )</time>
+                                    -
+                                    <time>@appointment.End.ToString( "hh:mm tt" )</time>
+                                </td>
+                                <td class="td3">
+                                    @appointment.Note
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </section>
+        </article>
+        <div class="calendarwidget">
+            @Html.Telerik().Calendar().Name( "Calendar" ).Value( DateTime.Now )
+        </div>
+    </div>
+</div>

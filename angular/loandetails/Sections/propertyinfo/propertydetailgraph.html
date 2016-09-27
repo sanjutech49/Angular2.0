@@ -1,0 +1,68 @@
+﻿<div class="unit-control">
+    <div class="property-details-graph unit-body">
+        <div class="property-details-header" style="float: left;width: 335px;border-bottom: 1px dotted #BCBDBD;" >
+            <div class="estimated-purchase-value-style">
+                <div class="value-style">
+                    {{propertyInfo.effectivePropertyValue() | currency:"$":0}}&nbsp;
+                </div>
+                <div class="label-style" ng-bind="propertyInfo.effectivePropertyValueName()"></div>
+            </div>
+            
+
+
+        </div>
+        <div style="float: left;width: 335px;border-bottom: 1px solid #BCBDBD;height: 237px;">
+            <div class="bar-container">
+                <div class="bar-container-relative">
+                    <div class="bar-container-absolute">
+                        <div class="ltv-label">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().ltv | impPercentage : 1}}</div>
+                        <div class="bar-style" ltv-bar-graph ltv-value="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().ltv}}"
+                             first-reference="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().cltv}}"
+                             second-reference="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().hcltv}}"
+                             ltv-bar-height="200">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-container-relative">
+                    <div class="bar-container-absolute">
+                        <div class="ltv-label">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().cltv | impPercentage : 1}}</div>
+                        <div class="bar-style" ltv-bar-graph ltv-value="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().cltv}}"
+                             first-reference="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().ltv}}"
+                             second-reference="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().hcltv}}"
+                             ltv-bar-height="200">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bar-container">
+                <div class="bar-container-relative">
+                    <div class="bar-container-absolute">
+                        <div class="ltv-label">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().hcltv | impPercentage : 1}}</div>
+                        <div class="bar-style" ltv-bar-graph ltv-value="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().hcltv}}"
+                             first-reference="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().ltv}}"
+                             second-reference="{{propertyInfo.wrappedLoan.ref.getSubjectProperty().cltv}}"
+                             ltv-bar-height="200">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div class="bar-label">
+                LTV
+            </div>
+            <div class="bar-label">
+                CLTV
+            </div>
+            <div class="bar-label">
+                HCLTV
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+﻿<div>
+    <div class="loan-application-error-container" ng-show="showErrorContainer">
+        An error occurred while loading data
+    </div>
+    <div class="imp-loader-container" ng-show="showLoader">
+        <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+    <div ng-hide="showLoader || showErrorContainer">
+        <div class="imp-lcgrid">
+            <div class="header main flex" ng-class="{'import-docs-flyout-header': isFlyout}">
+                <div style="margin-top: 8px;">
+                    <div class="imp-doc-vault" style="margin-top:-2px;"></div>
+                    <span class="imp-text-hm-wl-prim">Doc Vault</span>
+                </div>
+                <div class="document-upload" ng-if="!isFlyout">
+                    <div class="btn-group" dropdown="">
+                        <button type="button" style="padding-bottom: 10px;"
+                                class="imp-button-hm-wm-sec group-button-prim ng-binding"
+                                ng-click="callButtonOption({btnSelected: buttonSelected, event: $event})">
+                            <div class="imp-icon-upload" style="float:left">
+                            </div>
+                            <span style="color: #208DDC; padding-bottom: 5px;">{{buttonOptions[buttonSelected].text}}</span>
+                            <span class="divider"></span>
+                        </button>
+                        <button type="button"
+                                class="dropdown-toggle group-button-sec imp-button-hm-wm-sec"
+                                dropdown-toggle=""
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            <span class="arrow"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-repeat="item in buttonOptions">
+                                <a ng-click="changeButtonOption({itemId: item.id})">
+                                    {{item.text}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="imp-expandcollapse-div imp-hyperlink" ng-class="{'import-docs-flyout-expandcollapse': isFlyout}">
+                    <span ng-click="toggleGrid({shouldToggleFlag: true})">Expand All</span>
+                    <span> | </span>
+                    <span ng-click="toggleGrid({shouldToggleFlag: false})">Collapse All</span>
+                </div>
+            </div>
+            <fieldset>
+                <div ng-repeat="(categoryName, category) in groupedDocuments">
+                    <div ng-show="filtered.length">
+                        <div class="title header" ng-class="{'import-docs-flyout-title': isFlyout}" style="height:30px;">
+                            <div ng-class="category.isExpanded ? 'imp-collapsed down':'imp-collapsed right'" ng-click="category.isExpanded = !category.isExpanded"></div>
+                            <div>
+                                <span class="lable-main" style="top: 2px; font-size: 15px;">{{ formatCategoryName({ctgName: categoryName}) }}</span>
+                            </div>
+                        </div>
+                        <div ng-show="category.isExpanded">
+                            <div class="content container" ng-class="{'import-docs-flyout-content': isFlyout}">
+                                <div class="row" ng-class="{'import-docs-flyout-row': isFlyout}">
+                                    <div ng-if="!isFlyout" class="col" style="width: 1%;">
+                                    </div>
+                                    <div ng-if="isFlyout" class="col" style="width: 2%; padding: 0px 10px 0px 5px">
+                                        Import
+                                    </div>
+                                    <div class="col" style="width: 1.5%;">
+                                        File
+                                    </div>
+                                    <div class="col" style="width: 2.5%;">
+                                        Menu
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col" style="width: 43%;">
+                                        Document Name
+                                    </div>
+                                    <div ng-if="isFlyout" class="col">
+                                        Document Name
+                                    </div>
+                                    <div ng-if="isFlyout" class="col">
+                                        <div class="actions imp-hyperlink" style="float: left; margin-bottom: 4px; padding-left: 0px !important">
+                                            <span ng-click="selectAll({ctgName: categoryName})" ng-hide="category.selectedAll">Select All</span>
+                                            <span ng-click="unselectAll({ctgName: categoryName})" ng-hide="!category.selectedAll">Unselect All</span>
+                                        </div>
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col-m">
+                                        Updated By
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col-m">
+                                        Last Updated
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col-m">
+                                        Status
+                                    </div>
+                                    <div class="col" style="width: 4.5%;" ng-if="encompassExportStatus && !isFlyout">
+                                        Export
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col" style="width: 1.5%;">
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col" style="width: 2px;">
+                                    </div>
+                                </div>
+                                <div style="flex-wrap: wrap; height: inherit;" class="row" ng-class="{'import-docs-flyout-docrow': isFlyout}" ng-repeat="document in category | filter: { removed: 'false' } as filtered">
+                                    <div ng-if="!isFlyout" class="col" style="width: 1%;">
+                                        <div ng-if="category.isUnclassified">
+                                            <input id="cbSelected_{{$parent.$parent.$index}}{{$index}}" class="imp-checkbox" type="checkbox"
+                                                   ng-model="document.submitToEdgeMac"
+                                                   ng-true-value="true"
+                                                   ng-false-value="false"
+                                                   ng-disabled="selectDisabled({doc: document})"
+                                                   ng-change="documentSelectedChanged({ctgName: categoryName})" />
+                                            <label for="cbSelected_{{$parent.$parent.$index}}{{$index}}" class="imp-lb-checkbox"></label>
+                                        </div>
+                                    </div>
+                                    <div ng-if="isFlyout" class="col" style="width: 2%;">
+                                        <input id="cbToImport_{{$parent.$parent.$index}}{{$index}}" class="imp-checkbox" type="checkbox"
+                                               ng-model="document.shouldImport"
+                                               ng-disabled="document.categoryId == 26"
+                                               ng-change="documentSelectedChanged({ctgName: categoryName, doc: document})" />
+                                        <label for="cbToImport_{{$parent.$parent.$index}}{{$index}}" class="imp-lb-checkbox" style="margin-left: 5px"></label>
+                                    </div>
+                                    <div class="col" style="width: 1.5%;">
+                                        <div class="imp-icon-pdf-small" style="margin-left: 2px;" ng-dblclick="downloadDocument({docId: document.repositoryId})">
+                                        </div>
+                                    </div>
+                                    <div class="col" style="width: 2.5%;">
+                                        <div class="imp-icon-menu" style="margin-left: 6px;" ng-click="openMenu({event: $event, doc: document})">
+                                        </div>
+                                    </div>
+                                    <div class="col" style="word-break: break-all; width: 43%">
+                                        {{document.name.concat(".").concat(document.contentType)}}
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col-m">
+                                        {{document.updatedBy}}
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col-m">
+                                        {{document.lastUpdated}}
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col-m">
+                                        <div class="imp-span-ddl-container medium">
+                                            <select class="imp-ddl" ng-model="document.status" ng-options="status.value as status.text for status in documentStatusData" ng-change="documentStatusChanged({doc: document, ctgName: categoryName})"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col" style="width: 4.5%;" ng-if="encompassExportStatus && !isFlyout">
+                                        <div class="imp-icon-export" style="float: left;" ng-if="loanNumber != 'Pending' && document.status != 6" ng-click="exportToEncompass({doc: document})">
+                                        </div>
+                                        <div class="imp-icon-export-disabled" style="float: left;" ng-if="loanNumber == 'Pending' || document.status == 6">
+                                        </div>
+                                        <div style="margin-left: 5px; float: left; margin-top: -1px;" ng-show="document.runningExportToEncompass || document.exportDocumentToEncompassStatus == 1">
+                                            <img src="../../../Content/ajax-loader-small.gif" alt="loader" />
+                                        </div>
+                                        <div class="imp-icon-ok" style="margin-left: 5px; float: left; margin-top: 2px;" ng-show="!document.runningExportToEncompass && document.exportDocumentToEncompassStatus == 2">
+                                        </div>
+                                        <div class="imp-icon-error" style="margin-left: 5px; float: left; margin-top: 1px;" ng-show="!document.runningExportToEncompass && document.exportDocumentToEncompassStatus == 3">
+                                        </div>
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col" style="width: 1.5%">
+                                        <div ng-if="document.hasHistory" class="imp-icon-history-filled" ng-click="showDocumentHistory({event: $event, doc: document})">
+                                        </div>
+                                        <div ng-if="!document.hasHistory" class="imp-icon-history-hollow">
+                                        </div>
+                                    </div>
+                                    <div ng-if="!isFlyout" class="col" style="width: 2px;">
+                                        <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" ng-click="deleteDocument({doc: document})"></imp-circle>
+                                    </div>
+                                    <div ng-if="document.status == 6" class="docvault-reject-reason && !isflyout">
+                                        <div class="imp-disclaimer text-label" ng-if="!document.rejectReasonEdit">{{document.rejectReason}}</div>
+                                        <input ng-if="document.rejectReasonEdit" type="text" ng-model="document.rejectReason" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div ng-if="category.isUnclassified && !isFlyout">
+                                        <div class="actions imp-hyperlink" style="float: left; margin-top: 10px;">
+                                            <span ng-click="selectAll({ctgName: categoryName})" ng-hide="category.selectedAll">Select All</span>
+                                            <span ng-click="unselectAll({ctgName: categoryName})" ng-hide="!category.selectedAll">Unselect All</span>
+                                        </div>
+                                        <div class="imp-main-buttons-div" style="padding-right: 0px;">
+                                            <input type="button" class="imp-button-hm-wm-prim" value="Auto Classify" ng-disabled="!category.classifyEnabled" ng-click="classifyDocuments()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div ng-if="!isFlyout" class="footer main" style="height: 55px; border-bottom: 1px solid #c6c6c6">
+                <div class="imp-main-buttons-div" style="padding-right: 15px;">
+                    <input type="button" class="imp-button-hm-wm-sec" value="Cancel" ng-click="cancel()" ng-disabled="savingDataProgress"/>
+                    <input type="button" class="imp-button-hm-wl-prim" value="Save" ng-click="save()" ng-disabled="savingDataProgress"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

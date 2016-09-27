@@ -1,0 +1,44 @@
+﻿@using MML.Contracts
+@model IGrouping<int, InvestorExtension>
+
+@{
+    string exPolicyName = ViewBag.ExPolicyName;
+    int dayIndex = ViewBag.ExtensionIndex;  
+}
+
+<table id="investor-extension" class="imp-investor-extension">
+    <caption> Extension Policy for @exPolicyName time</caption>
+    @{
+
+        <thead>
+            <tr>
+                @foreach (var item in Model)
+                {
+                    <th>
+                        @item.DayName
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                @foreach (var item in Model)
+                {
+                    <td>
+                        @{ ViewData.TemplateInfo.HtmlFieldPrefix = string.Concat("Extensions[", dayIndex, "]"); }
+                        @Html.HiddenFor(m => m.FirstOrDefault(e => e.Day == item.Day).InvestorExtensionId)
+                        @Html.HiddenFor(m => m.FirstOrDefault(e => e.Day == item.Day).ExPolicyNthTime)
+                        @Html.HiddenFor(m => m.FirstOrDefault(e => e.Day == item.Day).Day)
+                        @Html.EditorFor(m => m.FirstOrDefault(e => e.Day == item.Day).Value, "InvestorExtensionValue")
+                    </td>
+                         ++dayIndex;
+                }
+
+            </tr>
+        </tbody>
+
+
+    }
+    }
+</table>

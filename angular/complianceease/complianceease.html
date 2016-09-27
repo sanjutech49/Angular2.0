@@ -1,0 +1,104 @@
+﻿<div style="margin-top:15px;">
+    <div class="row">
+        <div class="col-lg-6" style="margin-bottom: 20px;">
+        </div>
+        <div class="imp-refresh-div imp-hyperlink" style="margin:0px;" ng-click="complianceEaseCtrl.refreshComplianceEaseData()">
+            <span>
+                Refresh
+            </span>
+            <div class="imp-icon-refresh">
+            </div>
+        </div>
+    </div>
+    <div class="imp-lcgrid">
+        <div class="header main row" style="border-bottom:2px solid #e4e8e8;">
+            <div class="imp-aus-header-title-div">
+                <span class="imp-text-hm-wl-prim" style="font-size:12px;">ComplianceEase - {{complianceEaseCtrl.complianceData[0].ceid}}</span>
+            </div>
+            <div class="imp-aus-header-buttons-div" style="margin-right:10px; margin-top:2px;">
+                <input type="button" class="imp-button-hm-wl-prim" value="Submit CE" ng-disabled="complianceEaseCtrl.processing" ng-click="complianceEaseCtrl.saveLoanAndSubmit();" />
+            </div>
+        </div>
+
+        <div class="row" style="color: #9d9d9d;background-color: #e4e8e8;border:1px solid #c6c6c6;padding:5px 0px 5px 0px;">
+            <div class="col-xxxs" style="height: auto; margin-top: 0px;">
+                File
+            </div>
+            <div class="col-s">
+                HOEPA
+            </div>
+            <div class="col-s">
+                TRID
+            </div>
+            <div class="col-s">
+                TILA
+            </div>
+            <div class="col-s">
+                RESPA
+            </div>
+            <div class="col-s">
+                State Regs
+            </div>
+            <div class="col-s">
+                Predatory
+            </div>
+            <div class="col-s">
+                Exceptions
+            </div>
+            <div class="col-s">
+                Policies
+            </div>
+            <div class="col-s">
+                Dodd-Frank
+            </div>
+            <div class="col-m">
+                Last Updated
+            </div>
+            <div class="col-s">
+                Submitted By
+            </div>
+        </div>
+
+        <div class="row" ng-repeat="report in complianceEaseCtrl.complianceData" style="border-bottom:1px solid #c6c6c6;border-right:1px solid #c6c6c6;border-left:1px solid #c6c6c6;padding:5px 0px 2px 0px;">
+            <div class="col-xxxs" style="margin-left: 2px; height: auto; margin-top: 0px; cursor: pointer;">
+                <div ng-if="report.repositoryId" class="imp-icon-pdf-small" ng-click="complianceEaseCtrl.openPDF(report.repositoryId)">
+                </div>
+                <div ng-if="report.details" class="imp-icon-error" ng-click="complianceEaseCtrl.showComplianceResultDetails($event, report.details)">
+                </div>
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.hoepa)}}', 'margin-top': '3px'}">
+                {{report.hoepa.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.trid)}}', 'margin-top': '3px'}">
+                {{report.trid.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.tila)}}', 'margin-top': '3px'}">
+                {{report.tila.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.respa)}}', 'margin-top': '3px'}">
+                {{report.respa.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.stateRegs)}}', 'margin-top': '3px'}">
+                {{report.stateRegs.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.predatory)}}', 'margin-top': '3px'}">
+                {{report.predatory.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.exceptions)}}', 'margin-top': '3px'}">
+                {{report.exceptions.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.policies)}}', 'margin-top': '3px'}">
+                {{report.policies.toUpperCase()}}
+            </div>
+            <div class="col-s" ng-style="{color:'{{complianceEaseCtrl.colorText(report.doddFrank)}}', 'margin-top': '3px'}">
+                {{report.doddFrank.toUpperCase()}}
+            </div>
+            <div class="col-m" style="margin-top:3px;">
+                {{complianceEaseCtrl.formatDate(report.lastUpdated, 'MM/DD/YYYY HH:mm')}}
+            </div>
+            <div class="col-s" style="margin-top:3px;">
+                {{report.submittedBy}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+﻿<div class="summary-section">
+    <div class="section-title section-underline">Declarations<span class="edit-link"><a ng-href="{{summaryCntrl.getDeclarationsLink()}}">edit</a></span></div>
+    <div class="summary-subsection">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">{{summaryCntrl.loan.loanApp.borrower.fullName}}</span></div>
+        <div class="form-group summary-form">
+            <div class="col-xs-2 col-xs-offset-7"><b>{{summaryCntrl.loan.loanApp.borrower.firstName}}</b></div>
+            <div class="col-xs-2"><b>{{summaryCntrl.loan.loanApp.coBorrower.firstName}}</b></div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">a. Are there any outstanding Judgments . . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.outstandingJudgmentsIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.outstandingJudgmentsIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">b. Have you been declared bankrupt withi . . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.bankrupcyIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.bankrupcyIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">c. Have you had property foreclosed up. . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.propertyForeclosedIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.propertyForeclosedIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">d. Are you party to a lawsuit?</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.partyToLawsuitIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.partyToLawsuitIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">e. Have you directly or indirectly been obli . . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.obligatedLoanIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.obligatedLoanIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">f. Are you presently delinquent or in defau . . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.presentlyDelinquentIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.presentlyDelinquentIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">g. Are you obligated to pay alimony child . . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.alimonyChildSupportObligation)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.alimonyChildSupportObligation)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">h. Is any part of the down payment borro . . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.downPaymentIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.downPaymentIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">i. Are you a co-maker or endorser on a n. . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.noteEndorserIndicator)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.noteEndorserIndicator)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">j. Are you a US Citizen?</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.isUsCitizen)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.isUsCitizen)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">k. Are you a permanent resident alien?</label>
+            <div class="col-xs-2"> {{summaryCntrl.showYesNo(summaryCntrl.declarations.isPermanentAlien)}}  </div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.isPermanentAlien)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">l. Do you intend to occupy the property a. . .</label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.propertyAsPrimaryResidence)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.propertyAsPrimaryResidence)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">m. Have you had an ownership interest </label>
+            <div class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.declarations.ownershipInterestLastThreeYears)}}</div>
+            <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2">{{summaryCntrl.showYesNo(summaryCntrl.codeclarations.ownershipInterestLastThreeYears)}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">n. What type of property did you own?</label>
+            <div ng-repeat=" typeOfProperty in  summaryCntrl.applicationData.lookup.typeOfProperty">
+                <div class="col-xs-2" ng-if="summaryCntrl.declarations.typeOfProperty==typeOfProperty.value"> {{typeOfProperty.text}} </div>
+                <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2" ng-if="summaryCntrl.codeclarations.typeOfProperty==typeOfProperty.value"> {{typeOfProperty.text}} </div>
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-7 control-label left">o. How did you hold title to the home?</label>
+            <div ng-repeat=" prior in  summaryCntrl.applicationData.lookup.priorPropertyTitle">
+                <div class="col-xs-2" ng-if="summaryCntrl.declarations.priorPropertyTitleType==prior.value"> {{prior.text}} </div>
+                <div ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'"> class="col-xs-2" ng-if="summaryCntrl.codeclarations.priorPropertyTitleType==prior.value"> {{prior.text}} </div>
+            </div>
+        </div>
+    </div>
+</div>

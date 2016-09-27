@@ -1,0 +1,53 @@
+﻿@using MML.Common
+@model MML.Web.LoanCenter.ViewModels.ManageFeesViewModel
+@{
+    var costGroup = Model.TitleAndEscrow.CostGroups.First( c => c.CostGroupNumber == ViewBag.GroupNumber );
+    var hudlineNumber = ( int )ViewBag.HUDLineNumber;
+    var subHudlineNumber = ViewBag.SubHUDLineNumber as string;
+    var costPrefix = String.Format( "TitleAndEscrow.CostGroups[{0}].Costs[{1}]", Model.TitleAndEscrow.CostGroups.IndexOf( costGroup ),
+        costGroup.Costs.FindIndex( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) ) );
+    var cost = costGroup.Costs.First( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) );
+    var gfeNumber = cost.GFENumber;
+}
+<div class="@(hudlineNumber == 1101 ? "closingCostSection1100Left closingCostSection1100LeftBorderRight" : " closingCostSection1100Left")" >
+    @if ( String.IsNullOrWhiteSpace( subHudlineNumber ) )
+    {
+        <span class="closingCostSubtitleNumber">
+            @(hudlineNumber).
+        </span>
+    }
+    else
+    {
+        <span class="closingCostSubtitleNumber" style="visibility: hidden;">
+            @(hudlineNumber).@(subHudlineNumber)
+        </span>
+    }
+    <div class="closingCostTextBoxDiv">
+        @Html.DropDownList( String.Format( "{0}.Name", costPrefix ), new SelectList( Model.FeeTitles1100, cost.Title ?? cost.Name ),
+        new
+        {
+            @class = "closingCostTextBoxFromToMedium1101",
+            @id = "txtName" + hudlineNumber + subHudlineNumber ?? ""
+        } )
+    </div>
+    <span class="closingCostText">to</span>
+    <div class="closingCostTextBoxDiv">
+        @Html.TextBox( String.Format( "{0}.Provider", costPrefix ), cost.Provider, new
+   {
+       @class = "closingCostTextBoxFromToMedium1101"
+   } )
+    </div>
+    <div class="closingCostTextBoxDiv">
+        @Html.TextBox( String.Format( "{0}.Amount", costPrefix ), DecimalExtensionMethods.ToCurrencyFormat( cost.Amount ),
+        new
+        {
+            @class = "closingCostTextBoxAmountLeft rightClick Amount" + ( cost.GFENumber == "4" ? " Calc1101TotalAmount CalculateFromBorrowerFunds" : String.Empty ) + ( cost.IsAprCost ? " blue" : "" ) + ( cost.IsLocked ? " locked" : "" ),
+            @id = "txtAmount" + hudlineNumber + subHudlineNumber ?? ""
+        } )
+    </div>
+     @if ( !String.IsNullOrEmpty( gfeNumber ) )
+     { 
+         <span class="closingCostText">(GFE #@gfeNumber)</span>
+     }
+     <span class="lockImageSection"></span>
+</div>

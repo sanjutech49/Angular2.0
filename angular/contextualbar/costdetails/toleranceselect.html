@@ -1,0 +1,64 @@
+﻿<div class="tolerance-select-container">
+    <div class='header' style="border:none;">Select Tolerance to Display</div>
+    <div class='imp-split'></div>
+    <div class='row imp-psection-row'>
+        <div class='col-m imp-disclaimer'>
+            Date
+        </div>
+        <div class="col-xxs"> 
+            &nbsp;
+        </div>
+        <div class='col-m imp-disclaimer tolerance-type'>
+            Type
+        </div>
+        <div class="col-l imp-disclaimer">
+            COC
+        </div>
+        <div class="col-xs imp-disclaimer">
+            MDIA
+        </div>
+        <div class="col-s imp-disclaimer">
+            APR
+        </div>
+        <div class="col-xs imp-disclaimer">
+            0&#37;
+        </div>
+        <div class="col-xs imp-disclaimer">
+            10&#37;
+        </div>
+        <div class="col-xs imp-disclaimer">
+            Status
+        </div>
+    </div>
+    <div class='row imp-psection-row selectable' ng-repeat="item in toleranceSelect.toleranceGroup" 
+         ng-class="{'selected-tolerance': toleranceSelect.selectedToleranceId == item.disclosureDetailsId}" 
+         ng-click="toleranceSelect.setActiveToleranceGroup(item.disclosureDetailsId)">
+        <div class='col-m'>
+            {{item.dateTime | date : 'MM/dd/yyyy h:mm a'}}
+        </div>
+        <div class="col-xxs">
+            <span class="checkmark" ng-show="toleranceSelect.activeToleranceId == item.disclosureDetailsId"></span>&nbsp;
+        </div>
+        <div class='col-m tolerance-type'>
+            {{item.type}}
+        </div>
+        <div class="col-l">
+            {{item.coc || '&nbsp;'}}
+        </div>
+        <div class="col-xs">
+            {{(item.mdia) ? 'Yes' : 'No'}}
+        </div>
+        <div class="col-s">
+            {{item.apr | impRound: 3 | impPercentage}}
+        </div>
+        <div class="col-xs">
+            {{item.totalZeroPercentTolerance | impNegativeParenthesis}}
+        </div>
+        <div class="col-xs">
+            {{item.totalTenPercentTolerance | impNegativeParenthesis}}
+        </div>
+        <div class="col-xs" ng-class="toleranceSelect.getColorCode(item.status);">
+            {{(item.status == 1) ? 'PASS' : 'FAIL'}}
+        </div>
+    </div>
+</div>

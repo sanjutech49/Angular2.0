@@ -1,0 +1,82 @@
+﻿<div class="header">
+    <div class="title">
+        <div ng-class="miscExpenses.isCollapsed.miscExpenses ? 'imp-collapsed right':'imp-collapsed down'" ng-click="miscExpenses.isCollapsed.miscExpenses = !miscExpenses.isCollapsed.miscExpenses"></div>
+        <span class="lable-main">Miscellaneous Expenses</span>
+        <div class="imp-miscellaneous"></div>
+        <div class="actions add" ng-hide="miscExpenses.commonData.disableFields" ng-click="miscExpenses.addMiscExpensesRow()"><imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>Add Item</div>
+    </div>
+</div>
+<div collapse="miscExpenses.isCollapsed.miscExpenses" class="credit-miscexpenses">
+    <div class="content container">
+        <div class="row">
+            <div class="col-xxl borrower">Borrower</div>
+            <div class="col-xxxl type">Type</div>
+            <div class="col-m">
+                <div class="amount-title">Months Left</div>
+            </div>
+            <div class="col-m">
+                <div class="amount-title">Monthly Amount</div>
+            </div>
+            <div class="col-xxxxm">Payee</div>
+            <div class="col-xxxs"></div>
+        </div>
+        <div class="row" ng-repeat="miscDebt in miscExpenses.wrappedLoan.ref.active.getCombinedMiscDebts() | orderBy:'clientIdForOrder'" ng-hide="miscDebt.isRemoved">
+            <div class="col-xxl borrower">
+                <div ng-class="miscDebt.isUserEntry ? 'imp-span-ddl-container medium' : 'imp-select-to-span-container'">
+                    <select ng-model="miscDebt.borrowerId" ng-disabled="!miscDebt.isUserEntry" ng-class="{'imp-select-to-span': !miscDebt.isUserEntry}"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in miscExpenses.wrappedLoan.ref.active.borrowerLookupList"
+                            ng-change="miscExpenses.moveDebtBetweenBorrowerAndCoBorrower(miscDebt)"
+                            class="imp-ddl" required>
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xxxl type">
+
+                <div ng-class="{'imp-span-ddl-container medium':  miscDebt.isUserEntry, 'imp-select-to-span-container': !miscDebt.isUserEntry,  'imp-has-error': !miscDebt.typeId}">
+                    <select name="type" ng-model="miscDebt.typeId" ng-disabled="!miscDebt.isUserEntry" ng-class="{'imp-select-to-span': !miscDebt.isUserEntry,  'imp-has-error': !miscDebt.typeId}"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in miscExpenses.applicationData.lookup.miscellaneousDebtTypes"
+                            class="imp-ddl"
+                            required>
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-m">
+                <div ng-show="miscDebt.typeId == 1">
+                    <input type="text" data-ng-model="miscDebt.monthsLeft" ng-blur="miscExpenses.miscellaneousDebtMonthsChanged(miscDebt)" />
+                </div>
+                <div ng-hide="miscDebt.typeId == 1">&nbsp;</div>
+            </div>
+            <div class="col-m">
+                <input type="text" imp-currency data-ng-model="miscDebt.Amount" ng-change="miscExpenses.miscellaneousAmountChanged()" ng-blur="miscExpenses.onMiscellaneousAmountChanged(miscDebt)" />
+            </div>
+            <div class="col-xxxxm">
+                <input type="text" data-ng-model="miscDebt.payee" />
+            </div>
+            <div class="col-xxxs">
+                <imp-circle size="xsmall" style="position: relative; top: -5px; margin-left: 25px"
+                            color="#F4BABC" hover-color="#e73302" is-plus="false" ng-click="miscExpenses.deleteMiscExpensesRow(miscDebt)"
+                            ng-show="miscDebt.isUserEntry && !miscExpenses.commonData.disableFields"></imp-circle>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="row-fluid">
+            <div class="row-fluid">
+                <div class="col-xl"> </div>
+                <div class="col-xxxs"> </div>
+                <div class="col-xxxs"> </div>
+                <div class="col-m"></div>
+                <div class="col-xm title">Totals</div>
+                <div class="col-xs"></div>
+                <div class="col-m value"></div>
+                <div class="col-m value">{{miscExpenses.wrappedLoan.ref.getMiscExpensesTotal() | currency:'$':2}}</div>
+                <div class="col-xxxxm"></div>
+                <div class="col-xxxs"></div>
+                <div class="col-xxxs"></div>
+                <div class="col-xxxs"></div>
+            </div>
+        </div>
+    </div>
+</div>

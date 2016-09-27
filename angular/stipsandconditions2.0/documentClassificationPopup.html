@@ -1,0 +1,80 @@
+﻿<div id="conditiondocumentclassificationPopup" class="condition-popup-container-main"
+    style="width: 480px;">
+    <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+    <form name="fmDocumentClassification" novalidate>
+    <div class="conditions-add-new-popup-header">
+        <div class="imp-document-classification-icon"></div>
+        Document Classification
+        <div class=" imp-div-close-x floatright" ng-click="documentClassificationPopup_cancel()">
+        </div>
+        <div class="imp-sa-split" style="min-width: 100%">
+        </div>
+    </div>
+    <div class="modal-body" style="padding-bottom: 10px;">
+        <div class="imp-sa-modal-row">
+            <div class="imp-sa-modal-cell-left">
+                <label>
+                    Document Type:</label>
+            </div>
+            <div class="imp-sa-modal-cell-right imp-span-ddl-container" ng-class="{  'ng-invalid' :(fmDocumentClassification.code.$invalid || fmDocumentClassification.code.$error.required)}">
+                <select name="code" ng-model="Document.DocumentTypeId" ng-options="selectedItem.EnumerationValueId as selectedItem.Code for selectedItem in DocumentTypes  | orderBy: 'Code' "
+                    class="condition-documentclassification-popup-select imp-ddl" required>
+                </select>
+                <div class="error" imp-val-required="Please select document type" ng-show="fmDocumentClassification.code.$dirty || fmDocumentClassification.code.$invalid || fmDocumentClassification.code.$error.required">
+                </div>
+            </div>
+        </div>
+        <div class="imp-sa-modal-row">
+            <div class="imp-sa-modal-cell-left">
+                <label>
+                    Borrower Names:</label>
+            </div>
+            <div class="imp-sa-modal-cell-right imp-span-ddl-container" ng-class="{  'ng-invalid' :(fmDocumentClassification.ddlBorrowerNames.$invalid || fmDocumentClassification.ddlBorrowerNames.$error.required)}">
+                <select id="ddlBorrowerNames" name="ddlBorrowerNames" ng-model="Document.BorrowerNames"
+                    ng-selected="borrowerName==Document.BorrowerNames" ng-options="borrowerName as borrowerName for borrowerName in BorrowerNames"
+                    class="condition-documentclassification-popup-select imp-ddl" required>
+                </select>
+                <div class="error" imp-val-required="Please select borrower names" ng-show="fmDocumentClassification.ddlBorrowerNames.$dirty || fmDocumentClassification.ddlBorrowerNames.$invalid || fmDocumentClassification.ddlBorrowerNames.$error.required">
+                </div>
+            </div>
+        </div>
+        <div class="imp-sa-modal-row">
+            <div class="imp-sa-modal-cell-left">
+                <label>
+                    Bank Name:</label>
+            </div>
+            <div class="imp-sa-modal-cell-right imp-div-txt-input">
+                <input name="bankName" type="text" ng-model="Document.BankName" placeholder="Enter text here..."
+                    required ng-focus="fmDocumentClassification.bankName.$invalid ? bankNameInvalid=true : bankNameInvalid=false"
+                    ng-blur="bankNameInvalid=false;" style="width: 254px;" ng-class="{'input-validation-error' : bankNameInvalid, 'ng-invalid' :(fmDocumentClassification.bankName.$invalid || fmDocumentClassification.bankName.$error.required)}" />
+            </div>
+        </div>
+        <div class="imp-sa-modal-row">
+            <div class="imp-sa-modal-cell-left">
+                <label>
+                    Account Number:</label>
+            </div>
+            <div class="imp-sa-modal-cell-right imp-div-txt-input">
+                <input name="accountNumber" type="text" ng-model="Document.AccountNumber" placeholder="Enter text here..."
+                    style="width: 254px;" required ng-focus="fmDocumentClassification.accountNumber.$invalid ? accountNumberInvalid=true : accountNumberInvalid=false"
+                    ng-blur="accountNumberInvalid=false;" ng-class="{'input-validation-error' : accountNumberInvalid, 'ng-invalid' :(fmDocumentClassification.accountNumber.$invalid || fmDocumentClassification.accountNumber.$error.required)}" />
+            </div>
+        </div>
+        <div style="float: left; min-width: 400px; padding-top: 30px;">
+            <div style="float: left;">
+                <input type="checkbox" ng-model="Document.Rejected" class="imp-checkbox" id="chbRejectDocument" />
+                <label for="chbRejectDocument" class="imp-lb-checkbox floatright" style="padding-right: 40px;">
+                    Reject Document</label>
+            </div>
+        </div>
+    </div>
+    <div class="conditions-popup-footer">
+        <div class="imp-sa-split conditions-popup-footer-separator">
+        </div>
+        <input class="imp-button-hm-wm-sec" type="button" ng-click="documentClassificationPopup_cancel()"
+            value="Cancel" />
+        <input class="imp-button-hm-wl-prim" type="button" ng-click="documentClassificationPopup_save()"
+            ng-disabled="fmDocumentClassification.$invalid" value="Save" style="width: 82px;" />
+    </div>
+    </form>
+</div>

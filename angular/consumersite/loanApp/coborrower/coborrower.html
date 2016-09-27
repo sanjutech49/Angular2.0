@@ -1,0 +1,93 @@
+﻿
+<div class="container-fluid coborrower-information col-xs-12">
+    <form> 
+        <fieldset>
+            <legend style="text-align:center">My Personal Information</legend>
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtFirstName">First Name</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtFirstName" placeholder="First Name" type="text" ng-model="firstName" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2 editor-label"><label for="txtMiddleName">Middle Name</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtMiddleName" placeholder="Middle Name (optional)" type="text" ng-model="middleName" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtLastName">Last Name</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtLastName" placeholder="Last Name" type="text" ng-model="lastName" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2"><label for="txtSuffix">Suffix</label></div>
+                <div class="col-xs-3"><input id="txtSuffix" placeholder="Jr.,Sr.,I,II (optional)" type="text" ng-model="suffix" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+            <div class="col-xs-12">
+
+                <div class="col-xs-2 editor-label"><label for="txtEmail">Email</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtEmail" placeholder="Email" type="text" ng-model="email" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2"><label for="listReferredBy">How did you hear about us?</label></div>
+                <div class="col-xs-3">
+                    <select id="listReferredBy">
+                        <option> Web</option>
+                        <option> Newspaper</option>
+                        <option> Radio</option>
+                        <option> TV</option>
+                    </select>
+                </div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtPreferredPhone">Preferred Phone</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtPreferredPhone" placeholder="Phone" type="text" ng-model="phone" /></div>
+                <div class="col-xs-1">
+                    <select id="phonetype">
+                        <option>Mobile</option>
+                        <option>Home</option>
+                        <option>Work</option>
+                    </select>
+                    <div class="col-xs-1">&nbsp;</div>
+                </div>
+
+                <div class="col-xs-2 editor-label"><label for="txtSuffix">Marital Status</label></div>
+                <div class="col-xs-3">
+                    <select id="maritalstatus">
+                        <option> Single</option>
+                        <option> Married</option>
+                        <option> Divorced</option>
+                        <option> Domestic Partner</option>
+                    </select>
+                </div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+            <div class="col-xs-12">
+
+                <div class="col-xs-2"><label for="txtDependents" ng-model="dependents">Dependents</label></div>
+                <div class="col-xs-4">
+                    <input id="txtDependents" placeholder="# (optional)" type="text" ng-model="dependents" /><input id="txtDependentsAges" placeholder="Ages (i.e. 3,8,2)" ng-model="dependentsages">
+                </div>
+
+            </div>
+
+            <div class="col-xs-12">
+
+            </div>
+
+            <div class="col-xs-12" style="text-align:center">
+                <p>
+                    <label id="lblAddCoBorrower">Add a Co-Borrower?</label> <br />
+                    <input type="radio" name="addcoborrower" id="addcoborroweryes" value="Yes" checked="checked" ng-model="vm.addCoBorrower" />
+                    <label for="addcoborroweryes">Yes</label>
+                    <input type="radio" name="addcoborrower" id="addcoborrowerno" value="No" ng-model="vm.addCoBorrower" />
+                    <label for="addcoborrowerno">No</label>
+                </p>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

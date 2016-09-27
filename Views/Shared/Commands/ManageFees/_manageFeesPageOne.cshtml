@@ -1,0 +1,82 @@
+﻿@{
+    var closingtransactioncoststable = "~/Views/Shared/Commands/ManageFees/_closingTransactionCostsTable.cshtml";
+ }
+ <div class="closingCostTransactionTypeOfLoanContainer "style="padding-top:25px;"> 
+    <div class="closingTransactionCostsTitle" style="width:1136px;">B. Type of Loan </div>
+
+    <table class="closingTransactionCostsTable closingTransactionCostsTableInnerAlignment">
+    <tr>
+        <td colspan="2">
+         <p class="closingTransactionCostsCheckBox">1.<input type="checkbox" name="fha" value="fha">FHA</p>
+         <p class="closingTransactionCostsCheckBox">2.<input type="checkbox" name="rhs" value="rhs">RHS</p>
+         <p class="closingTransactionCostsCheckBox">3.<input type="checkbox" name="conunin" value="conunin">Conv. Unins. </p><br />
+         <p class="closingTransactionCostsCheckBox">4.<input type="checkbox" name="va" value="va">VA</p>
+         <p class="closingTransactionCostsCheckBox">5.<input type="checkbox" name="convin" value="convin">Conv. Ins.</p>
+        </td>
+        <td colspan="1">
+         <b>6. File Number:</b>
+           <textarea  class="closingTransactionCostsTextarea closingTransactionCostsTextareaMiddle" ></textarea>
+        </td>
+        <td colspan="1">
+        <b>7. Loan Number:</b>
+          <textarea  class="closingTransactionCostsTextarea closingTransactionCostsTextareaMiddle" ></textarea>
+        </td>
+        <td colspan="2">
+        <b>8. Mortgage Insurance Case Number:</b>
+          <textarea  class="closingTransactionCostsTextarea closingTransactionCostsTextareaRight" ></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6">
+        <span style="font-weight: bold; float: left; margin: 5px 18px 20px 0px;display:inline;width:4%">C. Note: </span>
+        <span style="float: left; display: inline; width: 92%; margin-top: 5px;">
+        This form is furnished to give you a statement of actual settlement costs. Amounts paid to and by the settlement agent are shown. Items marked
+        “(p.o.c.)” were paid outside the closing; they are shown here for informational purposes and are not included in the totals.
+        </span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <b>D. Name & Address of Borrower:</b>
+         <textarea  class="closingTransactionCostsTextarea closingTransactionCostsTextareaLeft" ></textarea>
+        </td>
+        <td colspan="2">
+        <b>E. Name & Address of Seller:</b>
+         <textarea  class="closingTransactionCostsTextarea closingTransactionCostsTextareaMiddleSecondRow" ></textarea>
+        </td>
+        <td colspan="2">
+        <b>F. Name & Address of Lender:</b>
+         <textarea  class="closingTransactionCostsTextarea closingTransactionCostsTextareaRight" ></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" rowspan="2">
+        <b>G. Property Location:</b>
+         <textarea  class="closingTransactionCostsTextarea closingTransactionCostsTextareaLeft" ></textarea>
+        </td>
+        <td colspan="2">
+        <b>H. Settlement Agent:</b>
+         <input type="text" class="closingTransactionCostsTextBoxAmountLeftLarge closingTransactionCostsTextareaMiddleSecondRow"/>
+        </td>
+        <td colspan="2">
+        <b>I. Settlement Date:</b>
+         <input type="text" class="closingTransactionCostsTextBoxAmountLeftLarge closingTransactionCostsTextareaRight"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+       <b>Place of Settlement:</b>
+        <input type="text" class="closingTransactionCostsTextBoxAmountLeftLarge closingTransactionCostsTextareaMiddleSecondRow"/>
+       </td>
+        <td colspan="2">
+        
+        </td>
+    </tr>
+    </table>
+    <div style="margin-top:10px;">
+    
+     @Html.Partial( closingtransactioncoststable )
+
+    </div>
+
+</div>

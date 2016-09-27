@@ -1,0 +1,213 @@
+﻿<div class="imp-conditions-container">
+    <table>
+        <tr>
+                <td colspan="3" align="left">
+                    <!-- Product -->
+                    <div class="imp-conditions-loan-summary-fieldset-header">
+                        Product: <span>{{ ConditionsMainViewModel.LoanSummary.Product }}</span>
+                    </div>
+                </td>
+                <td colspan="2" align="left">
+                    <!-- Lock -->
+                        <!--<a href="#" tooltip-html-unsafe="{{lockHistoryPopup}}" tooltip-placement="bottom">Check me out!</a>-->
+                    <div class="imp-conditions-loan-summary-fieldset" ng-show="{{ ConditionsMainViewModel.LoanSummary.IsLocked }}" >
+                        LOCK EXPIRATION: <span ng-class="{expired: isDateTextExpired(ConditionsMainViewModel.LoanSummary.LockExpirationNumber)}">
+                            {{ ConditionsMainViewModel.LoanSummary.LockExpirationDate }}
+                                             <span tooltip-html-unsafe="{{lockHistoryPopup}}" tooltip-placement="bottom" tooltip-trigger="click">
+                                                 <imp-lock htmlcontent="{{lockHistoryPopup}}" color="{{ getIconColor(ConditionsMainViewModel.LoanSummary.LockExpirationNumber) }}" number="{{ ConditionsMainViewModel.LoanSummary.LockExpirationNumber | impAbs }}"></imp-lock>
+                                             </span>
+                                                  </span>
+                        <span class="imp-conditions-loan-summary-fieldset-header-lock-expiration" ng-class="{expired: isDescriptionTextExpired(ConditionsMainViewModel.LoanSummary.LockExpirationNumber)}">({{ ConditionsMainViewModel.LoanSummary.LockExpirationText }})</span>
+                    </div>
+</td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    <!-- Loan Type -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Loan Type: <span>{{ ConditionsMainViewModel.LoanSummary.LoanType }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Loan Amount -->
+                                        <div class="imp-conditions-loan-summary-fieldset">
+                        Loan Amount: <span>{{ ConditionsMainViewModel.LoanSummary.LoanAmount | currency }}
+                        <imp-loan-position-banner ng-show="{{ ConditionsMainViewModel.LoanSummary.LoanPosition }}" number="{{ ConditionsMainViewModel.LoanSummary.LoanPosition }}" color="{{ iconColors.active }}"></imp-loan-position-banner>
+                        </span>
+                    </div>
+                                </td>
+
+                                <td>
+                                    <!-- Decision Score -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Decision Score: <span>{{ ConditionsMainViewModel.LoanSummary.DecisionScore }}</span>
+                    </div>
+                                </td>
+
+                                <td>
+                                    <!-- Housing Expense -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Housing Expense: <span>{{ ConditionsMainViewModel.LoanSummary.HousingExpense | impRound: 3 | impPercentage }}</span>
+                    </div>
+                                </td>
+
+                                <td>
+                                    <!-- LTV -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        LTV: <span>{{ ConditionsMainViewModel.LoanSummary.Ltv | impRound: 3 | impPercentage }}</span>
+                    </div>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    <!-- Mortgage Type -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Mortgage Type: <span>{{ ConditionsMainViewModel.LoanSummary.MortgageType }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Subordinate -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Subordinate: <span>{{ ConditionsMainViewModel.LoanSummary.Subordinate | currency }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Occupancy -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Occupancy: <span>{{ ConditionsMainViewModel.LoanSummary.Occupancy }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- DTI -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        DTI: <span>{{ ConditionsMainViewModel.LoanSummary.Dti | impRound: 3 | impPercentage }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- CLTV -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        CLTV: <span>{{ ConditionsMainViewModel.LoanSummary.Cltv | impRound: 3 | impPercentage }}</span>
+                    </div>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    <!-- Amort Type -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Amort Type: <span>{{ ConditionsMainViewModel.LoanSummary.AmortType }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Purchase Price -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Purchase Price: <span>{{ ConditionsMainViewModel.LoanSummary.PurchasePrice | currency }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Property Type -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Property Type: <span>{{ ConditionsMainViewModel.LoanSummary.PropertyType }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Note Rate -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Note Rate: <span>{{ ConditionsMainViewModel.LoanSummary.NoteRate | impRound: 3 | impPercentage }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- HCLTV -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        HCLTV: <span>{{ ConditionsMainViewModel.LoanSummary.Hcltv| impRound: 3 | impPercentage }}</span>
+                    </div>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    <!-- Term -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Term: <span>{{ ConditionsMainViewModel.LoanSummary.Term }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Estimated Value -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        {{ ConditionsMainViewModel.LoanSummary.ValueLabel }}: <span>{{ ConditionsMainViewModel.LoanSummary.EstimatedValue | currency }}</span>                                    
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- # of Units/Stories -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        # of Units/Stories: <span>{{ ConditionsMainViewModel.LoanSummary.NumberOfUnitsOrStories }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- Qual Rate -->
+                                    <div class="imp-conditions-loan-summary-fieldset">
+                        Qual Rate: <span>{{ ConditionsMainViewModel.LoanSummary.QualRate | impRound: 3 | impPercentage }}</span>
+                    </div>
+                                </td>
+                                <td>
+                                    <!-- AUS Type -->
+                                    <div class="imp-conditions-loan-summary-fieldset">                                        
+                        AUS Type: <span>{{ ConditionsMainViewModel.LoanSummary.AusType }}</span>
+                    </div>
+                                </td>
+                                </tr>
+                                </table>
+</div>
+<imp-tabset tabset-template-url="/angular/stipsandconditions2.0/tabset.html">
+    <imp-tab id="ConditionsTab" title="Conditions" template-url="/angular/stipsandconditions2.0/conditionsSub.html" specific-class="imp-corner-left" tab-template-url="/angular/stipsandconditions2.0/tab.html"></imp-tab>
+    <imp-tab id="DocVaultTab" title="Doc Vault" template-url="/angular/stipsandconditions2.0/docVault.html" specific-class="imp-angular-subtabs" tab-template-url="/angular/stipsandconditions2.0/tab.html"></imp-tab>
+    <imp-tab id="DeliveryVaultTab" title="Delivery Vault" template-url="/angular/stipsandconditions2.0/deliveryVault.html" specific-class="imp-corner-right imp-angular-subtabs" tab-template-url="/angular/stipsandconditions2.0/tab.html"></imp-tab>
+
+    <div id="div-conditions-decision" class="div-condition-decision-status">
+        <span style="font-weight: bolder">DECISION:</span>
+        <div class="imp-span-ddl-container">
+            <select ng-model="ConditionsMainViewModel.LoanSummary.DecisionStatus" class="imp-ddl">
+                <option value="0" ng-selected="ConditionsMainViewModel.LoanSummary.DecisionStatus === 0">Choose one...</option>
+                <option ng-repeat="status in ConditionsMainViewModel.ConditionsSub.DecisionsList" value="{{status.EnumerationValueId}}" ng-selected="ConditionsMainViewModel.LoanSummary.DecisionStatus === status.EnumerationValueId">
+                    {{status.Description}}
+                </option>
+            </select>
+        </div>
+        <span class="spn-condition-decision-last-change-name">{{ConditionsMainViewModel.LastChange.UpdatedBy}}</span>
+        <span class="spn-condition-decision-last-change-date">{{ConditionsMainViewModel.LastChange.Date}}</span>
+        <div class="div-condition-decision-history" ng-class="(ConditionsMainViewModel.LastChange != null) ? 'imp-sa-grid-history' : 'imp-sa-grid-history-empty'"
+             ng-click="!ConditionsMainViewModel.LastChange || openDecisionHistoryPopup(ConditionsMainViewModel.LoanId)"></div>
+    </div>
+
+    <div class="div-conditions-dashboard-itemscount">
+        <div class="floatleft">
+            <span class="imp-span-highlighted-text span-conditions-itemcount">OPEN ITEMS</span>
+            <span class="span-conditions-itemcount"><b>PTA:</b> <span class="span-conditions-itemcount-number">  {{ (ConditionsMainViewModel.ConditionsSub.Conditions | filter:{Due.Code:'PriorToApproval'}:true).length }}  </span></span>
+            <span class="span-conditions-itemcount"><b>PTD:</b> <span class="span-conditions-itemcount-number">  {{ (ConditionsMainViewModel.ConditionsSub.Conditions | filter:{Due.Code:'PriorToDocuments'}:true).length }}  </span></span>
+            <span class="span-conditions-itemcount"><b>PTF:</b> <span class="span-conditions-itemcount-number">  {{ (ConditionsMainViewModel.ConditionsSub.Conditions | filter:{Due.Code:'PriorToFunding'}:true).length }}  </span></span>
+            <span class="span-conditions-itemcount"><b>AF:</b> <span class="span-conditions-itemcount-number">   {{ (ConditionsMainViewModel.ConditionsSub.Conditions | filter:{Due.Code:'AfterFunding'}:true).length }}  </span></span>
+            <span class="span-conditions-itemcount"><b>Total:</b> <span class="span-conditions-itemcount-number"> {{ ConditionsMainViewModel.ConditionsSub.Conditions.length }} </span></span>
+        </div>
+        <div class="div-conditions-dashboard-documentscount">
+            <span class="imp-span-highlighted-text span-conditions-itemcount">DOCUMENTS</span>
+            <span class="span-conditions-itemcount">
+                <b>Unclassified:</b>
+                <span class="span-conditions-itemcount-number">{{(ConditionsMainViewModel.ConditionsDocuments | filter:{Category:'UNCLASSIFIED'}).length}}  </span>
+            </span>
+            <span class="span-conditions-itemcount">
+                <b>Unassigned:</b>
+                <span class="span-conditions-itemcount-number"> {{(ConditionsMainViewModel.ConditionsDocuments | filter:{Category:'UNASSIGNED'}).length}} </span>
+            </span>
+        </div>
+    </div>
+
+</imp-tabset> 
+ 
+<div id="mainButtons" class="imp-main-buttons-div-outer">
+    <div class="imp-main-investor-div">
+        <span><b>Investor Website:</b></span>
+        <a ng-href="{{ConditionsMainViewModel.LoanSummary.InvestorWebSiteUrl}}" target="_blank">{{ConditionsMainViewModel.LoanSummary.InvestorWebSiteUrl}}</a>
+    </div>
+    <div class="imp-main-buttons-div">
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel" ng-click="conditions_cancel();" />
+        <input type="button" class="imp-button-hm-wl-prim" value="Save" ng-click="conditions_save();" ng-disabled="!ConditionsMainViewModel.ConditionsSub.Conditions.length && !ConditionsMainViewModel.ConditionsDocuments.length" />
+    </div>
+</div>

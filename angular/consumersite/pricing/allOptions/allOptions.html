@@ -1,0 +1,126 @@
+﻿<form id="allOptionsForm" class="form-horizontal all-options-form-full" style="border: 2px black dotted;">
+    <div class="panel-group" style="border: 2px black dotted;background-color:white;">
+        <div class="panel-heading ">
+            <h2 class="panel-title">Filter Options</h2>
+        </div>
+
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <button class="btn-link" ng-click="allOptionsCntrl.showAll=true;">Select All</button>
+                <button class="btn-link" ng-click="allOptionsCntrl.showAll=false;">Deselect All</button>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show30Fixed" />30 Yr Fixed
+                </label>
+            </div>
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show10ARM" />10 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show25Fixed" />25 Yr Fixed
+                </label>
+            </div>
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show7ARM" />7 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show20Fixed" />20 Yr Fixed
+                </label>
+            </div>
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show5ARM" />5 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show15Fixed" />15 Yr Fixed
+                </label>
+            </div>
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show3ARM" />3 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="allOptionsCntrl.vf.show10Fixed" />10 Yr Fixed
+                </label>
+            </div>
+        </div>
+        <!--
+         <div class="row col-xs-12 wrapper">
+            <label style="font-size:13px; font-weight:bolder;">Interest Rate Less Than {{allOptionsCntrl.vf.maxInterest}}%</label>
+            <slider custom-floor="1" floor="1" custom-ceiling="10" ceiling="10" step=".01" precision="2" ></slider>
+        </div>
+        
+        <div class="row col-xs-12 wrapper">
+            <label style="font-size:13px; font-weight:bolder;">Payment (P&amp;I) Less Than ${{allOptionsCntrl.vf.maxPayment }}</label>
+            <slider custom-floor="1" floor="1" custom-ceiling="1" ceiling="50000" step="1" precision="2" ng-model="allOptionsCntrl.vf.maxPayment"></slider>
+        </div>
+        <div class="row col-xs-12 wrapper">
+            <label style="font-size:13px; font-weight:bolder;">Est. Closing Cost  Less Than ${{allOptionsCntrl.vf.maxCost}}</label>
+            <slider custom-floor="1" floor="1" custom-ceiling="1000" ceiling="10" step="1" precision="2" ng-model="allOptionsCntrl.vf.maxCost"></slider>
+        </div>
+        -->
+        <div class="row  col-xs-12">
+            <div class="panel-heading col-xs-6">
+                <h2 class="panel-title">Sort By</h2>
+            </div>
+            <div class="panel-heading col-xs-6">
+                <h2 class="panel-title">Sort Order</h2>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortBy" value="Term" ng-model="allOptionsCntrl.vf.sortField" />Loan Term
+                </label>
+            </div>
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortAsc" value="ASC" ng-model="allOptionsCntrl.vf.sortDirection" />Low to High
+                </label>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortBy" value="Payment" ng-model="allOptionsCntrl.vf.sortField" />Payment
+                </label>
+            </div>
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortAsc" value="DESC" ng-model="allOptionsCntrl.vf.sortDirection" />High to Low
+                </label>
+            </div>
+        </div>
+        <div class="row  col-xs-12  text-info">
+            <div class="col-xs-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortBy" value="Rate" ng-model="allOptionsCntrl.vf.sortField" />Interest Rate
+                </label>
+            </div>
+        </div>
+        <div class="row col-xs-12 text-info">
+            <button class="btn btn-primary btn-all-options center-col-xs" ng-click="allOptionsCntrl.close()">Filter & Sort Options</button>
+        </div>
+    </div>
+</form>

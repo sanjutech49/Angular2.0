@@ -1,0 +1,166 @@
+﻿<div class="content">
+    <div class="imp-div-close-x floatleft imp-lockhistory-button-close" ng-click="copyLoan.close()"></div>
+    <div class="header">
+        <div class="title">Duplicate a Loan</div>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-md">
+                <div class="row">
+        <div class="section-header">
+                        <span class="margin-app">App</span>
+                        <span class="margin-include">Include</span>
+                        <span>&nbsp;&nbsp;</span>
+            <span>Borrowers</span>
+        </div>
+    </div>
+                <div class="app" ng-repeat="application in copyLoan.wrappedLoan.ref.getLoanApplications() | orderBy: '-isPrimary'">
+                    <div class="row">
+                        <div class="col-s">
+                            <span ng-class="{'vert-grey-extend': copyLoan.hasBorrowerValidName(application.getCoBorrower()), 'vert-gray': copyLoan.hasBorrowerValidName(application.getBorrower())}"></span>
+                        </div>
+                        <div class="col-s">
+                            <div class="imp-copyloan-numberApp">{{ $index + 1 }}</div>
+                        </div>
+                        <div class="col-s">
+                            <div ng-show="copyLoan.hasBorrowerValidName(application.getBorrower())" class="col-lg-1">
+                                <input id="includeBorrower-{{$index}}"
+                                       type="checkbox"
+                                       ng-model="copyLoan.includeBorrower[application.loanApplicationId]"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       ng-change="copyLoan.enableCreditReport()"
+                                       class="imp-checkbox" />
+                                <label for="includeBorrower-{{$index}}" class="imp-lb-checkbox"></label>
+                            </div>
+                            <div ng-show="copyLoan.hasBorrowerValidName(application.getCoBorrower())" class="imp-copyloan-checkbox-margin">
+                                <input id="includeCoBorrower-{{$index}}"
+                                       type="checkbox"
+                                       ng-model="copyLoan.includeCoBorrower[application.loanApplicationId]"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       ng-change="copyLoan.enableCreditReport()"
+                                       class="imp-checkbox" />
+                                <label for="includeCoBorrower-{{$index}}" class="imp-lb-checkbox imp-copyloan-checkbox-label-margin"></label>
+                            </div>
+                        </div>
+                        <div class="col-s">
+                            <div class="imp-copyloan-section-margin">
+                                <label class="col-xxs row-text-align imp-copyloan-col-label-pb" ng-show="copyLoan.hasBorrowerValidName(application.getBorrower()) && application.isPrimary">
+                                    {{copyLoan.getLabel(application.getBorrower(), application.isPrimary)}}
+                                </label>
+                                <label class="col-xxs row-text-align imp-copyloan-col-label-b" ng-show="copyLoan.hasBorrowerValidName(application.getBorrower()) && !application.isPrimary">
+                                    {{copyLoan.getLabel(application.getBorrower(), application.isPrimary)}}
+                                </label>
+                                <label class="col-xxs row-text-align imp-copyloan-col-label-c" ng-show="copyLoan.hasBorrowerValidName(application.getCoBorrower())">
+                                    {{copyLoan.getLabel(application.getCoBorrower(), application.isPrimary)}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-s">
+                            <div class="imp-copyloan-name-margin" ng-show="copyLoan.hasBorrowerValidName(application.getBorrower())">{{ application.getBorrower().fullName }}</div>
+                            <div class="imp-copyloan-cname-margin" ng-show="copyLoan.hasBorrowerValidName(application.getCoBorrower())">{{ application.getCoBorrower().fullName }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="imp-copyloan-credit-section">
+                            <div class="col-s">
+                                <div class="col-lg-1 imp-copyloan-checkbox-margin" ng-show="application.credit.isCreditReportValid()">
+                                    <input id="includeCreditReport-{{$index}}"
+                                           type="checkbox"
+                                           ng-model="copyLoan.includeCreditReport[application.loanApplicationId]"
+                                           ng-true-value="true"
+                                           ng-false-value="false"
+                                           ng-change="copyLoan.getCheckboxes()"
+                                           ng-disabled="!copyLoan.enableCreditCheckbox[application.loanApplicationId]"
+                                           class="imp-checkbox" />
+                                    <label for="includeCreditReport-{{$index}}" class="imp-lb-checkbox imp-copyloan-checkbox-margin-left"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-s">
+                            <div class="imp-copyloan-credit-report">
+                                Credit Report #:&nbsp;
+                                <div class="imp-copyloan-credit-number">
+                                    <i ng-show="!application.credit.isCreditReportValid()">Expired</i>
+                                    <p ng-show="application.credit.isCreditReportValid()">100142158HQ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md imp-copyloan-right-section">
+        <div class="section-header">
+            <span>Include</span>
+                    <span>&nbsp;&nbsp;</span>
+            <span>Loan Information</span>
+        </div>
+                <div class="col-s">
+                    <div class="imp-copyloan-checkbox-property">
+                        <input id="ap-checkbox-{{$index}}"
+                               type="checkbox"
+                               ng-model="copyLoan.copySubjectPropertyFlag"
+                               ng-true-value="true"
+                               ng-false-value="false"
+                               class="imp-checkbox"/>
+                        <label for="ap-checkbox-{{$index}}" class="imp-lb-checkbox imp-copyloan-checkbox-label-property"></label>
+                        <span class="imp-copyloan-property-address">Property Address </span>
+                        <span class="imp-copyloan-span-margin">{{copyLoan.formatAddress(copyLoan.wrappedLoan.ref.getSubjectProperty())}}</span>
+                    </div>
+                </div>
+                <div class="col-s imp-copyloan-margin-right">
+                    <div class="row imp-psection-row imp-copyloan-modal-margin">
+                        <div class="col-lg-5">
+                            <span class="imp-copyloan-span-margin-left">Loan Purpose</span>
+                        </div>
+                        <div class="col-lg-7 imp-copyloan-margin-left">
+                            <div class="imp-span-ddl-container medium">
+                                <select name="loanPurpose"
+                                        class="imp-ddl"
+                                        ng-model="copyLoan.loanPurpose"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in copyLoan.getLoanPurposeTypes()"
+                                        ng-blur="copyLoan.onLoanPurposeChange()"></select>
+                            </div>
+                        </div>
+    </div>
+</div>
+                <div class="col-s imp-copyloan-margin-right">
+                    <div class="row imp-psection-row imp-copyloan-modal-margin imp-copyloan-ddl-margin">
+                        <div class="col-lg-5">
+                            <span class="imp-copyloan-span-margin-left"> Lien Position </span>
+                        </div>
+                        <div class="col-lg-7 imp-copyloan-margin-left">
+                            <div class="imp-span-ddl-container medium">
+                                <select name="lienPosition"
+                                        class="imp-ddl"
+                                        ng-model="copyLoan.lienPosition"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in copyLoan.getLienPositions()"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-s imp-copyloan-margin-right">
+                    <div class="row imp-psection-row imp-copyloan-modal-margin-date">
+                        <div class="col-lg-5">
+                            <span class="imp-copyloan-span-margin-left">Closing Date</span>
+                        </div>
+                        <div class="col-lg-7 imp-copyloan-margin-left">
+                            <imp-date-picker display-picker="true" ng-model="copyLoan.closingDate" date-settings="{appendToBody: true,
+                                             defaultValidationEnabled:false,
+                                             closingDateValidationEnabled:true}"
+                                             type="text" min="01/01/1900">
+                            </imp-date-picker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="imp-main-buttons-div imp-button-section">
+        <div class="imp-button-wrapper">
+            <input type="button" class="imp-button-hm-wm-sec" value="Cancel" ng-click="copyLoan.close()" />
+            <input type="button" class="imp-button-hm-wl-prim" value="Duplicate Loan" ng-disabled="!copyLoan.enableDuplicateLoan" ng-click="copyLoan.duplicateLoan()" />
+        </div>
+    </div>
+</div>

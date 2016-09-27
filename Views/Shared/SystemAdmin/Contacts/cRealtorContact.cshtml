@@ -1,0 +1,163 @@
+﻿@using MML.Contracts
+@model MML.Web.LoanCenter.ViewModels.ContactsProfileViewModel
+@Html.HiddenFor( x => x.cRealtorContact.RealtorContactId )
+@Html.HiddenFor( model => model.cRealtorContact.PictureId, new { @id = "cPictureId" } )           
+        <div class="separator">
+            <span>@ViewBag.ContactTypeSpecificTitle</span>
+        </div> 
+        <div class="rowCompanyProfileContainer">
+
+            <div class="cCompanyLeft">
+                Enable Integrations
+            </div>
+
+            <div class="cCompanyRight cCompanyPositionText imp-div-contacts-rblContainer">
+                @Html.RadioButtonFor(model => model.cRealtorContact.EnableIntegrations, true, Model.cRealtorContact != null && Model.cRealtorContact.EnableIntegrations ? new { @checked = "checked", @class = "imp-radio", @id = "contactsEnableIntegrationsOn", @onclick = (Model.cRealtorContact.Deactivated || Model.cCompany.Deactivated) ? "return false" : "" } as object : new { @class = "imp-radio", @id = "contactsEnableIntegrationsOn", @onclick = (Model.cRealtorContact.Deactivated || Model.cCompany.Deactivated) ? "return false" : "" } as object) <label for="contactsEnableIntegrationsOn" class="imp-lbl-radio"> On</label>
+                @Html.RadioButtonFor(model => model.cRealtorContact.EnableIntegrations, false, (Model.cRealtorContact != null && !Model.cRealtorContact.EnableIntegrations) || Model.cRealtorContact == null ? new { @checked = "checked", @class = "imp-radio", @id = "contactsEnableIntegrationsOff", @onclick = (Model.cRealtorContact.Deactivated || Model.cCompany.Deactivated) ? "return false" : "" } as object : new { @class = "imp-radio", @id = "contactsEnableIntegrationsOff", @onclick = (Model.cRealtorContact.Deactivated || Model.cCompany.Deactivated) ? "return false" : "" } as object)<label for="contactsEnableIntegrationsOff" class="imp-lbl-radio"> Off</label> 
+            </div>
+        </div> 
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                License Number
+            </div>
+
+            <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cRealtorContact.RealtorLicenseNumber )
+            </div>
+        </div>
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                Contact ID
+            </div>
+
+            <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cRealtorContact.WebsiteContactId )
+                @Html.ValidationMessageFor( model => model.cRealtorContact.WebsiteContactId )
+            </div>
+        </div>
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                Contact URL For Reference
+            </div>
+
+            <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cRealtorContact.ContactURLForReference )
+                @Html.ValidationMessageFor( model => model.cRealtorContact.ContactURLForReference )
+            </div>
+        </div>
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                HBM ID
+            </div>
+            <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cRealtorContact.HBMId )
+            </div>
+        </div>
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                Picture:
+            </div>
+            <div class="cCompanyRight">
+                <div style="float:left;">
+                <img id="fileView" style="height:70px;width:60px;border-width:0px;" src='@Url.Action( "DownloadPicture", "SystemAdmin", new { repositoryItemId = @Model.cRealtorContact.PictureId } )'/>                  
+                </div>
+                <div style="float:left; padding-top:5px;">
+                <div id="buttonUploadImage" class="imp-button-contacts-hm-wm-sec-upload">
+                    Choose File</div>
+                <input id="file" type="file" style="display: none;" />
+                </div>
+            </div>
+        </div>
+        <div class="rowCompanyProfileContainer">
+            <div id="cPictureUploadFailedValidationMessage" style="float:left;color:Red; display:none; padding-left:15px;"></div>
+        </div>
+        <div class="separator">
+            <span>Source of Business</span>
+        </div> 
+
+        <div class="rowCompanyProfileContainer rowCompanyProfileContainer-sec" style="color:black;font-size:15px;">How did you hear about us ?</div>
+        <div class="rowCompanyProfileContainer rowCompanyProfileContainer-sec">
+            <div class="rowCompanyProfileContainer-subcontainer">
+            <div class="companyProfileTop companyProfile-div-text">
+                Lead Source ID
+            </div>
+
+            <div class="companyProfileTop">
+               @Html.TextBoxFor( model => model.cRealtorContact.LeadSourceId, new { @readonly = "readonly" } )
+
+            </div>
+           </div>
+            <div  class="rowCompanyProfileContainer-subcontainer">
+                <div class="companyProfileTop-sec companyProfile-div-text">
+                    Description
+                </div>
+
+                <div class="companyProfileTop-sec">
+                    @Html.EditorFor( model => model.cRealtorContact.Description )
+                    @Html.ValidationMessageFor( model => model.cRealtorContact.Description )
+                </div>
+           </div>
+
+          <div class="rowCompanyProfileContainer-subcontainer">
+            <div class="companyProfileTop companyProfile-div-text">
+                CRM Campaign
+            </div>
+
+            <div class="companyProfileTop">
+                @Html.EditorFor( model => model.cRealtorContact.CRMCampaignId )
+                @Html.ValidationMessageFor( model => model.cRealtorContact.CRMCampaignId )
+            </div>
+           </div>
+        </div>
+<div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#buttonUploadImage').click(function () {
+            $('#file').click();
+
+        });
+
+        $('#file').change(function () {
+
+            var formdata = new FormData(); //FormData object
+            var fileInput = document.getElementById('file');
+            //Iterating through each files selected in fileInput
+            for (i = 0; i < fileInput.files.length; i++) {
+                //Appending each file to FormData object
+                formdata.append(fileInput.files[i].name, fileInput.files[i]);
+            }
+            //Creating an XMLHttpRequest and sending
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/SystemAdmin/Upload');
+            xhr.send(formdata);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+
+                    var message = JSON.parse(xhr.responseText);
+                    var pictureId = message.PictureId;
+
+                    if (pictureId != "00000000-0000-0000-0000-000000000000") {
+                        $('#cPictureId').val(pictureId);
+                        $("#fileView").attr("src", "/SystemAdmin/DownloadPicture?repositoryItemId=" + pictureId);
+                    }
+
+                    if (message.Message != "") {
+                        $('#cPictureUploadFailedValidationMessage').show();
+                        $('#cPictureUploadFailedValidationMessage').text(message.Message);
+                    }
+                    else {
+                        $('#cPictureUploadFailedValidationMessage').hide();
+                    }
+                }
+            }
+            return false;
+        });
+    });
+      
+</script>            
+
+
+
+

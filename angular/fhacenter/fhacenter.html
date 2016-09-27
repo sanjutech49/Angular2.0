@@ -1,0 +1,254 @@
+﻿<div class="products-center">
+    <div class="main-container">
+    <div class="section">
+        <div>
+            <div class="title">
+                <div>FHA Determining Factors</div>
+                <div class="hyperlink" ng-hide="true">guidelines</div>
+            </div>
+            <div>
+                <div class="content-row">
+                    <div class="left-section">
+                        <div class="imp-psection-label">Loan Purpose</div>
+                    </div>
+                    <div class="right-section">
+                        {{::fhaCenter.getText('loantype', fhaCenter.wrappedLoan.ref.loanPurposeType)}}
+                    </div>
+                </div>
+                <div class="content-row" ng-if="fhaCenter.wrappedLoan.ref.loanPurposeType == fhaCenter.loanTypeEnum.Refinance">
+                    <div class="left-section">
+                        <div class="imp-psection-label" style="padding-top: 6px !important;">Currently have a FHA Loan on Subject Property?</div>
+                    </div>
+                    <div class="right-section">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl" ng-model="fhaCenter.wrappedLoan.ref.otherInterviewData.fhaInformation.isCurrentLoanFHA" ng-change="fhaCenter.getFHAProducts()">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="left-section">
+                        <div class="imp-psection-label">Occupancy Type</div>
+                    </div>
+                    <div class="right-section">
+                        {{fhaCenter.getText('occupancytype', fhaCenter.wrappedLoan.ref.primary.occupancyType)}}
+                    </div>
+                </div>
+                <div class="content-row" ng-if="fhaCenter.wrappedLoan.ref.loanPurposeType == fhaCenter.loanTypeEnum.Refinance">
+                    <div class="left-section">
+                        <div class="imp-psection-label">Does the Borrower want cash out?</div>
+                    </div>
+                    <div class="right-section">
+                        {{fhaCenter.getText('cashout', fhaCenter.wrappedLoan.ref.financialInfo.cashOut)}}
+                    </div>
+                </div>
+                <div class="content-row" ng-if="fhaCenter.wrappedLoan.ref.loanPurposeType == fhaCenter.loanTypeEnum.Refinance">
+                    <div class="left-section">
+                        <div class="imp-psection-label">Does the borrower want to payoff subordinate financing?</div>
+                    </div>
+                    <div class="right-section">
+                        {{fhaCenter.getText('payoff')}}
+                    </div>
+                </div>
+                    <div class="content-row" ng-if="fhaCenter.wrappedLoan.ref.loanPurposeType == fhaCenter.loanTypeEnum.Refinance">
+                        <div class="left-section">
+                            <div style="padding-top: 6px !important;" class="imp-psection-label">Is the subordinate lien purchase money or over 12 mo old?</div>
+                        </div>
+                        <div class="right-section">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl" ng-model="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.isPurchaseMoneyOrOverAYear" ng-change="fhaCenter.getFHAProducts()" tooltip-placement="right" tooltip-trigger="focus"
+                                        tooltip-html-unsafe="
+                                    <div class='imp-tooltip' style='width:250px;'>
+                                        <div class='tooltip-content'>
+                                            The unpaid principal balance of
+                                            any purchase money junior Mortgage as of the month prior to mortgage Disbursement;<br /><br />
+                                            The unpaid principal balance of any junior liens over 12 months old as of the date of mortgage Disbursement. If the balance or any portion of an equity
+                                            line of credit in excess of $1,000 was advanced within the past 12 months and was for purposes other than repairs and rehabilitation of the Property,
+                                            that portion above and beyond $1,000 of the line of credit is not eligible for inclusion in the new Mortgage;
+                                        </div>
+                                    </div>">
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                <div class="content-row">
+                    <div class="left-section">
+                        <div class="imp-psection-label">Zip code of subject property to determine FHA county limit</div>
+                    </div>
+                    <div class="right-section">
+                        {{fhaCenter.wrappedLoan.ref.getSubjectProperty().zipCode}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="title" style="margin-top: 50px;">
+                <div>FHA Addendum Questionnaire</div>
+            </div>
+            <div class="content-row">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Purpose of Loan for Addendum</div>
+                </div>
+                <div class="right-section">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl" ng-options="item.value as item.text for item in fhaCenter.applicationData.lookup.vaLoanPurposes" ng-model="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.loanPurpose">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="content-row" ng-if="fhaCenter.isAdjacentVisible()">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Is the property adjacent to any rental properties involving eight or more units in which you have financial interest?</div>
+                </div>
+                <div class="right-section">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl" ng-options="item.value as item.text for item in fhaCenter.applicationData.lookup.yesNo" ng-model="fhaCenter.isPropertyAdjacent" ng-model-options="{ getterSetter: true }">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="content-row">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Do you own more than four dwellings?</div>
+                </div>
+                <div class="right-section">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl" ng-options="item.value as item.text for item in fhaCenter.applicationData.lookup.yesNo" ng-model="fhaCenter.moreThenFourDwellingsOwned" ng-model-options="{ getterSetter: true }">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="content-row">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">I have received info on lead paint poisoning<br />(if property is built before 1978)</div>
+                </div>
+                <div class="right-section">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl" ng-options="item.value as item.text for item in fhaCenter.applicationData.lookup.yesNo" ng-model="fhaCenter.leadPaintPoisoningInfoReceived" ng-model-options="{ getterSetter: true }">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="content-row">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Do you own or have sold other real estate in the past 60 mo on which there was a HUD/FHA mortgage?</div>
+                </div>
+                <div class="right-section">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl" ng-options="item.value as item.text for item in fhaCenter.applicationData.lookup.yesNo" ng-model="fhaCenter.realEstatePastSixtyMonths" ng-model-options="{ getterSetter: true }">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="content-row" ng-if="fhaCenter.isPropertyToBeSoldVisible()">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Is the property to be sold?</div>
+                </div>
+                <div class="right-section">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl" ng-options="item.value as item.text for item in fhaCenter.applicationData.lookup.yesNo" ng-model="fhaCenter.propertyToBeSold" ng-model-options="{ getterSetter: true }">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="content-row" ng-if="fhaCenter.propertyToBeSold()">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Sales Price</div>
+                </div>
+                <div class="right-section">
+                    <imp-input-currency ng-model="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.salesPrice"></imp-input-currency>
+                </div>
+            </div>
+            <div class="content-row" ng-if="fhaCenter.propertyToBeSold()">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Original Mortgage Amount</div>
+                </div>
+                <div class="right-section">
+                    <imp-input-currency ng-model="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.originalMortgageAmount"></imp-input-currency>
+                </div>
+            </div>
+            <div class="content-row" ng-if="fhaCenter.propertyToBeSold()">
+                <div class="left-section">
+                    <div class="imp-psection-label move-from-top">Property Address</div>
+                </div>
+                <div class="right-section">
+                    <imp-address-control ng-model="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.propertyToBeSoldAddressViewModel" is-unit-visible="false" states="fhaCenter.applicationData.lookup.allStates"></imp-address-control>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="title">
+            <div class="btn-group ddl" dropdown="">
+                <div class="ng-binding" style="min-width: 196px;" ng-class="{'enabled': fhaCenter.eligibleProudctsExists && fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.fhaProductId == 0, 'disable-title': !fhaCenter.eligibleProudctsExists }">
+                    {{fhaCenter.getSelectedFHAProduct().text}}
+                </div>
+                <div class="ddl-image"
+                     dropdown-toggle=""
+                     aria-haspopup="true"
+                     aria-expanded="false">
+                    <span class="arrow"></span>
+                </div>
+
+                <ul class="dropdown-menu item-list" role="menu" ng-if="fhaCenter.eligibleProudctsExists">
+                    <li ng-repeat="item in fhaCenter.applicationData.lookup.fhaProducts | orderBy: 'value'" ng-show="fhaCenter.isFhaProductVisible(item)">
+                        <a ng-class="{'selected': item.selected}" ng-model="item" ng-click="fhaCenter.selectFHAProduct(item.value)">{{::item.text}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class="calculator" ng-if="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.fhaProductId > 0">
+                <div class="calculator-row">
+                    <div class="left-section">
+                        <div>FHA Case Number</div>
+                    </div>
+                    <div class="right-section">
+                        <input type="text" class="input-text" style="text-align:left" ng-model="fhaCenter.wrappedLoan.ref.agencyCaseNumber" />
+                    </div>
+                </div>
+                <div ui-view="calculator"></div>
+                <div class="calculator-row">
+                    <div class="left-section">
+                        <div class="main-label">Total New Mortgage Amount</div>
+                    </div>
+                    <div class="right-section">
+                        <div class="total">{{fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.totalNewMortgageAmount | impCurrency}}</div>
+                    </div>
+                </div>
+                <div class="calculator-row" style="margin-top: 40px; margin-bottom: 5px;" ng-switch="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.isEligible">
+                    <div class="imp-icon-green-checkmark" style="margin-right: 10px;" ng-switch-when="true"></div>
+                    <div class="imp-result-message">
+                        <div class="success" ng-switch-when="true">FHA Eligible</div>
+                        <div class="failed" ng-switch-when="false">FHA Not Eligible</div>
+                    </div>
+                </div>
+                <div class="calculator-row" style="margin-top: 5px;" ng-if="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.isEligible != null">
+                    <div class="imp-psection-label" ng-switch="fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.isEligible">
+                        <span>The Base Loan Amt. of {{fhaCenter.wrappedLoan.ref.loanAmount | impCurrency}} is </span>
+                        <span ng-switch-when="true">less than or equal to </span>
+                        <span ng-switch-when="false">greater than </span>
+                        <span>the Max. Base Mortgage of {{fhaCenter.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.maxBaseMortgage | impCurrency}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="imp-main-buttons-div" style="border-top: 3px solid #1fb25a; width: 100%; margin-top: 40px; padding-right:0px;">
+    <div style="width:217px; float:right;">
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" style=" font-size:12px;" ng-click="fhaCenter.cancelChanges()" />
+        <input type="button" class="imp-button-hm-wl-prim" value="Save" style=" font-size:12px;" ng-click="fhaCenter.saveChanges()" />
+    </div>
+</div>

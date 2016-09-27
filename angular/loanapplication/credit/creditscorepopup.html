@@ -1,0 +1,63 @@
+﻿<div class="imp-tooltip credit-fico-popup-container">
+    <div class="imp-div-close-x floatright" style="margin:9px;" onclick="$('#credit-score').trigger('click')"></div>
+    <div class="credit-fico-popup">
+        <table style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>Bureau</th>
+                    <td><b>Borrower</b></td>
+                    <td ng-show="creditCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan"><b>Co-Borrower</b></td>
+                </tr>
+            </thead>
+
+            <tfoot style="border-top: none">
+                <tr>
+                    <th style="line-height:normal">Middle</br>Score</th>
+                    <td class="decision-score">
+                        <span class="imp-text-enhanced-color">
+                            {{creditCtrl.wrappedLoan.ref.active.getBorrower().ficoScore.decisionScore}}
+
+                        </span>
+                    </td>
+                    <td class="decision-score" ng-show="creditCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        <span class="imp-text-enhanced-color">
+                            {{creditCtrl.wrappedLoan.ref.active.getCoBorrower().ficoScore.decisionScore}}
+                        </span>
+                    </td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                <tr>
+                    <th>Equifax</th>
+                    <td>
+                        {{creditCtrl.formatFICOScore(creditCtrl.wrappedLoan.ref.active.getBorrower().ficoScore.equifax)}}
+                    </td>
+                    <td ng-show="creditCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        {{creditCtrl.formatFICOScore(creditCtrl.wrappedLoan.ref.active.getCoBorrower().ficoScore.equifax)}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Experian</th>
+                    <td>
+                        {{creditCtrl.formatFICOScore(creditCtrl.wrappedLoan.ref.active.getBorrower().ficoScore.experian)}}
+                    </td>
+                    <td ng-show="creditCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        {{creditCtrl.formatFICOScore(creditCtrl.wrappedLoan.ref.active.getCoBorrower().ficoScore.experian)}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Transunion</th>
+                    <td>
+                        {{creditCtrl.formatFICOScore(creditCtrl.wrappedLoan.ref.active.getBorrower().ficoScore.transunion)}}
+                    </td>
+                    <td ng-show="creditCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        {{creditCtrl.formatFICOScore(creditCtrl.wrappedLoan.ref.active.getCoBorrower().ficoScore.transunion)}}
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>

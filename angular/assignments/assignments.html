@@ -1,0 +1,164 @@
+﻿<div class="assignments-modal-content">
+    <div class="header">
+        <div class="title">Assign loan information</div>
+        <div style="width: 25%;float: left;">
+            <input id="enableDigitalDocsCall"
+                   type="checkbox"
+                   ng-model="assignmentsCtrl.enableDigitalDocsCall"
+                   ng-true-value="true"
+                   ng-false-value="false"
+                   class="imp-checkbox" ng-disabled="!assignmentsCtrl.isEditable()" />
+            <label for="enableDigitalDocsCall" class="imp-lb-checkbox" style="float: left;padding-right: 0px;" ng-disabled="!assignmentsCtrl.isEditable()"></label>
+            <label style="font-size: 12px;">Enable Digital Docs Call</label>
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="col" style="float:left">
+            <div style="float:left">
+                <div class="item">
+                    <div class="text">
+                        LOS Loan #
+                    </div>
+                    <div class="field">
+                        <input type="text" ng-model="assignmentsCtrl.loanNumber" ng-disabled="assignmentsCtrl.isEditable()? assignmentsCtrl.wrappedLoan.ref.loanNumber != 'Pending': true" />
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="text">
+                        LOS Folder
+                    </div>
+                    <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': assignmentsCtrl.isEditable()? assignmentsCtrl.wrappedLoan.ref.loanNumber != 'Pending': true}">
+                        <select class="imp-ddl" ng-model="assignmentsCtrl.losFolderId" ng-options="losFolder.losFolderId as losFolder.folderName for losFolder in assignmentsCtrl.applicationData.losFolders | orderBy:'folderName'" ng-disabled="assignmentsCtrl.isEditable()? assignmentsCtrl.wrappedLoan.ref.loanNumber != 'Pending': true">
+                            <option value='' selected disabled style="color:#999;display:none">Los Folder</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="assignments-left-section">
+                <div class="item">
+                    <div class="text">
+                        Channel
+                    </div>
+                    <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': assignmentsCtrl.isEditable()? !assignmentsCtrl.isCurrentUserAdmin: true}">
+                        <select ng-change="assignmentsCtrl.onChannelChange()" ng-model="assignmentsCtrl.channelId" ng-options="channel.channelId as channel.name for channel in assignmentsCtrl.applicationData.companyProfile.channels | orderBy:'name'" ng-disabled="assignmentsCtrl.isEditable()? !assignmentsCtrl.isCurrentUserAdmin: true" class="imp-ddl">
+                            <option value='' selected class="assignments-option">Channel</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="text">
+                        Channel Manager
+                    </div>
+                    <div class="field">
+                        <input type="text" ng-value="assignmentsCtrl.getChannelManager()" ng-disabled="true" />
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="text">
+                        Division
+                    </div>
+                    <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': assignmentsCtrl.isEditable()? !assignmentsCtrl.isCurrentUserAdmin: true}">
+                        <select ng-change="assignmentsCtrl.onDivisionChange()" ng-model="assignmentsCtrl.divisionId" ng-options="division.divisionId as division.divisionName for division in assignmentsCtrl.divisions | orderBy:'divisionName'" ng-disabled="assignmentsCtrl.isEditable()? !assignmentsCtrl.isCurrentUserAdmin: true" class=" imp-ddl">
+                            <option value='' selected class="assignments-option">Division</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="text">
+                        Division Manager
+                </div>
+                    <div class="field">
+                        <input type="text" ng-value="assignmentsCtrl.getDivisionManager()" ng-disabled="true" />
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="text">
+                        Branch
+                    </div>
+                    <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': assignmentsCtrl.isEditable()? !assignmentsCtrl.isCurrentUserAdmin: true}">
+                        <select ng-change="assignmentsCtrl.onBranchChange()" ng-model="assignmentsCtrl.branchId" ng-options="branch.branchId as branch.name for branch in assignmentsCtrl.branches | orderBy:'name'" ng-disabled="assignmentsCtrl.isEditable()? !assignmentsCtrl.isCurrentUserAdmin: true" class=" imp-ddl">
+                            <option value='' selected class="assignments-option">Branch</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="text">
+                        Branch Manager
+                    </div>
+                    <div class="field">
+                        <input type="text" ng-value="assignmentsCtrl.getBranchManager()" ng-disabled="true" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col" style="float:right">
+            <div class="item">
+                <div class="text">
+                    Loan Officer
+                </div>
+                <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': !assignmentsCtrl.isEditable()}">
+                    <select ng-disabled="!assignmentsCtrl.isEditable()" ng-change="assignmentsCtrl.onConciergeChange()" ng-model="assignmentsCtrl.conciergeId" ng-options="concierge.userAccountId as concierge.firstName + ' '+ concierge.lastName for concierge in assignmentsCtrl.concierges | orderBy:'firstName + lastName'" class="imp-ddl">
+                        <option value='' selected class="assignments-option">Concierge</option>
+                    </select>
+                </div>
+            </div>
+            <div class="item" style="height: 24px;">
+                <div class="text">
+                    NMLS #
+                </div>
+                <div class="text">
+                    <span>{{assignmentsCtrl.nmlsNumber}}</span>
+                </div>
+            </div>
+            <div class="assignments-right-section">
+                <div class="item">
+                    <div class="text">
+                        Sales Manager
+                    </div>
+                    <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': !assignmentsCtrl.isEditable()}">
+                        <select ng-disabled="!assignmentsCtrl.isEditable()" ng-model="assignmentsCtrl.salesManagerId" ng-options="sm.userAccountId as sm.firstName + ' '+ sm.lastName for sm in assignmentsCtrl.salesManagers | orderBy:'firstName + lastName'" class="imp-ddl">
+                            <option value='' selected class="assignments-option">Sales Manager</option>
+                        </select>
+                    </div>
+                </div>
+            <div class="item">
+                <div class="text">
+                        Team Leader
+                    </div>
+                <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': !assignmentsCtrl.isEditable()}">
+                    <select ng-disabled="!assignmentsCtrl.isEditable()" ng-model="assignmentsCtrl.teamLeaderId" ng-options="tl.userAccountId as tl.firstName + ' '+ tl.lastName for tl in assignmentsCtrl.teamLeaders | orderBy:'firstName + lastName'" class="imp-ddl">
+                        <option value='' selected class="assignments-option">Team Lead</option>
+                    </select>
+                </div>
+                </div>
+                <div class="item">
+                    <div class="text">
+                    LOA
+                </div>
+                <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': !assignmentsCtrl.isEditable()}">
+                    <select ng-disabled="!assignmentsCtrl.isEditable()" ng-change="assignmentsCtrl.onLOAChange()" ng-model="assignmentsCtrl.LOAId" ng-options="loa.userAccountId as loa.firstName + ' '+ loa.lastName for loa in assignmentsCtrl.LOAs | orderBy:'firstName + lastName'" class="imp-ddl">
+                        <option value='' selected class="assignments-option">LOA</option>
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <div class="text">
+                    Loan Processor
+                </div>
+                <div class="imp-span-ddl-container medium" style="width: 185px; margin-left:0px;" ng-class="{'imp-is-disabled': !assignmentsCtrl.isEditable()}">
+                    <select ng-disabled="!assignmentsCtrl.isEditable()" ng-model="assignmentsCtrl.loanProcessorId" ng-change="assignmentsCtrl.onLoanProcessorChange()" ng-options="loanProcessor.userAccountId as loanProcessor.firstName + ' '+ loanProcessor.lastName for loanProcessor in assignmentsCtrl.loanProcessors | orderBy:'firstName + lastName'" class="imp-ddl">
+                        <option value='' selected class="assignments-option">Loan Processor</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="buttons">
+        <div class='imp-button-div-hs-ws-sec' ng-click="assignmentsCtrl.close()">Cancel</div>
+        <div class='imp-button-div-hs-ws-prim' style="border: 1px solid #0271DA;" ng-click="assignmentsCtrl.applyChanges()" ng-hide="!assignmentsCtrl.isEditable()">Save</div>
+    </div>
+</div>

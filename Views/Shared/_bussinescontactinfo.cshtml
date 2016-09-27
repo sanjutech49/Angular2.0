@@ -1,0 +1,886 @@
+﻿@using MML.Common.Helpers
+@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Enums
+@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using MML.Common;
+@model MML.Web.LoanCenter.ViewModels.BusinessContactInfoViewModel
+@{
+    int contactTypeSelectedValue = Model.BusinessContact.LoanContactsContactType;
+
+    List<SelectListItem> contactTypelist = new SelectList( from SystemAdminContactTypesEnum s in Enum.GetValues( typeof( SystemAdminContactTypesEnum ) )
+                                                            select new SelectListItem { Text = ( s ).GetStringValue(), Value = ( ( int )s ).ToString() }, "Value", "Text", contactTypeSelectedValue ).ToList();
+    contactTypelist.Insert( 0, ( new SelectListItem { Text = "Select One", Value = "-1" } ) );
+    
+  
+  
+
+}
+
+
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+
+
+<script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.extend.js")" type="text/javascript"></script> 
+
+
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/ToDictionary.js" type="text/javascript"></script>
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/Log.js" type="text/javascript"></script>
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/zipdata.js" type="text/javascript"></script>
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/Validation.js" type="text/javascript"></script>
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/AppraisalRequest.js" type="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+    function ChangeForBasedOnBusinessContactCategory(sender) {   
+        var dropDownVal = $('#businessContactCategory').val();
+//        if (dropDownVal == 10) {
+//            $('#OtherFrame').attr("style", "display:none");
+//            $('#SelllersFrame').removeAttr("style");
+//        }
+//        else {
+            $('#SelllersFrame').attr("style", "display:none");
+            $('#OtherFrame').removeAttr("style");
+       // }
+        return;
+    }
+
+    function ClosePopup() {
+        $("#divconversationlogpopup_success").hide();
+        $('.modalBackground').css('display', 'none');
+        BussinesContactDetails.CloseBusinessContactPopup();
+    };
+     
+    var IsZipCodeValid = false;
+    var IsZipCodeValidOther = false;
+
+    $(function () {
+       
+//        
+//        
+//        $("#txtOtherContactFirstName" ).rules( "add", 
+//        {
+//            required: true,
+//            minlength: 2,
+//            messages: {
+//                        required: "Required input",
+//                        minlength: jQuery.format("Please, at least {0} characters are necessary")
+//                       }   
+//        });
+
+//       var form = $("#bussinessContactInfoFormId");
+//       $("form").removeData("validator");
+//       $("form").removeData("unobtrusiveValidation");
+//       //        form.data('validator').settings.ignore = '';
+//        $.validator.unobtrusive.parse("#bussinessContactInfoFormId");
+//        
+
+      
+
+        if(@(Model.BusinessContact.IsLoanApplicationCompleted.ToString().ToLower()))
+        {
+         $(":input").each( function() {
+            $(this).attr("disabled","disabled");
+         });
+        }
+
+        $("#businessContactPopup").draggable({ handle: "div.conversationlogsectionheadtitle" });
+        $("#txtZipCode, #txtOtherZipCode").unmask().mask("?99999");
+        $(".txtPhone").unmask().mask("?(999) 999-9999");
+        $('.jqTransform').jqTransform();
+
+        $("#divconversationlogpopup_success").draggable({ handle: "div.conversationlogsectionheadtitle" });
+        $("#divconversationlogpopup_success").hide(); 
+
+        //set on load to be Individual contact Type selected
+        var sellerType = @( Model.BusinessContact != null ? ( int )Model.BusinessContact.SellerType : 0);
+        RadioBtnClick($('.radioBtnContactType[value=\"' + sellerType + '\"]').click().val());
+
+        $('.radioBtnContactType').click(function (event) {
+            RadioBtnClick($(this).val());
+            RadioBtnSellerTypeClick($(this).val());
+        });
+
+        $("#txtZipCode").bind("blur", function () {     
+              IsZipCodeValid = false;
+            $(this).FillAndValidateZipCode({cityID: 'txtCityContact', stateID: 'contactState', IsValid: function (isZipValid) {
+                IsZipCodeValid = isZipValid;
+            }
+            });  
+        });   
+
+         $("#txtOtherZipCode").bind("blur", function () {
+             var zip = $(this).val();
+
+             if(zip == "")
+             {
+                 $(this).removeClass("notValid");
+                 $("#validationTooltip").hide();
+                 var dropDownList = $('#contactStateOther').val(-1);
+//                 var dropDownList = $('#contactStateOther').data('tDropDownList');
+//                 dropDownList.value('-1');
+                 $('#txtOtherCityContact').val("");
+             }
+             else
+             {
+                IsZipCodeValidOther = false;
+                $(this).FillAndValidateZipCodeContacts({cityID: 'txtOtherCityContact', stateID: 'contactStateOther', IsValid: function (isZipValid) {
+                                                    IsZipCodeValidOther = isZipValid;
+                }, isTelerik: false , functionExecute: function () {
+					 $("#frmBusinessContacts").validate().element("#txtOtherCityContact");
+					 var isValid  = ValidateContactStateOther(true);
+                 }
+                });  
+                  
+             }
+        });        
+        
+        $("#txtOtherZipCode").bind("keyup", function () 
+        {
+          if ($(this).val().length == 5 && $(this).val().indexOf("_") == -1)
+          {        
+            IsZipCodeValidOther = false;
+            $(this).FillAndValidateZipCodeContacts({cityID: 'txtOtherCityContact', stateID: 'contactStateOther', IsValid: function (isZipValid) {
+                IsZipCodeValidOther = isZipValid;
+            }, isTelerik: false , functionExecute: function () {
+					 $("#frmBusinessContacts").validate().element("#txtOtherCityContact");
+					 var isValid  = ValidateContactStateOther(true);
+                 }
+            });  
+          }      
+        });    
+        
+         $("#txtZipCode").bind("keyup", function () {
+         if ($(this).val().length == 5 && $(this).val().indexOf("_") == -1)
+         {        
+            IsZipCodeValid = false;
+            $(this).FillAndValidateZipCode({cityID: 'txtCityContact', stateID: 'contactState', IsValid: function (isZipValid) {
+                IsZipCodeValid = isZipValid;
+            }
+            });  
+          }      
+        }); 
+        
+        
+        $("#businessContactCategory").change(function() {
+//            var isValid = $("#businessContactCategory").ValidateComboBox({
+//            isRadComboBox: false,
+//            defaultValue: '-1'
+//                });
+            
+            if ($("#businessContactCategory").val() != 11)
+                $(".businessContactsSubTypesContainer").css("display", "none");
+            else
+                $(".businessContactsSubTypesContainer").css("display", "");
+
+        });
+        
+        
+        $("#contactStateOther").change(function() 
+            {
+
+            var elem = $(this);
+            if (elem.val() == -1)
+            {
+               elem.addClass("notValid");
+              ValidationQtipPopUp(elem, "Please select State");
+            }  
+            else
+              {
+                elem.removeClass("notValid");
+                elem.qtip("destroy");
+            } 
+
+        });
+        
+//   $('#contactStateOther').bind('blur', function () {
+//       var elem = $("#contactStateOther");
+//        elem.qtip("destroy");
+//    }).bind('focus', function () {
+//        var elem = $("#contactStateOther");
+//        ValidationQtipPopUp(elem, "Please select State");
+//    });
+        
+        
+         InitializeContactsControlsValidationDesign();
+    });
+
+    //Click radio button logic
+    function RadioBtnClick(value) {
+        if (value == "0") {
+            $('#BankLLC').removeClass('notdisplayed').addClass('notdisplayed');
+            $('#Individual').removeClass('notdisplayed');  
+        }
+        else {
+            $('#Individual').removeClass('notdisplayed').addClass('notdisplayed');
+            $('#BankLLC').removeClass('notdisplayed');          
+        }
+    }
+      function RadioBtnSellerTypeClick(value) {
+
+      $("#validationtooltip").hide();
+
+      var selectedSellerType;
+
+       if (value == "1") {
+        selectedSellerType = "Bank";
+       }
+       else if (value == "2") {
+        selectedSellerType = "LLC";
+       }
+       else {
+        selectedSellerType = "Individual";
+       }
+
+       var sellerType = $("#hdnSellerType").val();
+       var businessContactId = $("#hdnBusinessContactId").val();      
+
+       if (businessContactId != "00000000-0000-0000-0000-000000000000" && sellerType == selectedSellerType) { 
+       BussinesContactDetails.GetBusinessContactInformation(businessContactId);
+       }
+       else { 
+       BussinesContactDetails.ClearData();
+       }    
+    }
+
+    function IfFormIsValid(element) 
+    {
+           var form = $("#frmBusinessContacts");
+           $("form").removeData("validator");
+           $("form").removeData("unobtrusiveValidation");
+       
+            $.validator.unobtrusive.parse("#frmBusinessContacts");
+            var isValid = form.validate().form();
+
+            isValid = ValidateContactStateOther(isValid);
+ 
+
+//            if(isValid)
+//              isValid = $("#businessContactCategory").ValidateComboBox({
+//            isRadComboBox: false,
+//            defaultValue: '-1'
+//                });
+//        
+//              if(isValid)
+//               isValid = $("#txtOtherCompany").ValidateRequiredFormFields({
+//                       fieldName: "Company",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//               if(isValid)
+//               isValid = $("#txtOtherContactFirstName").ValidateRequiredFormFields({
+//                       fieldName: "First Name",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//        
+//               if(isValid)
+//               isValid = $("#txtOtherContactLastName").ValidateRequiredFormFields({
+//                       fieldName: "Last Name",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//               if(isValid)
+//               isValid = $("#txtStreetAddressOther").ValidateRequiredFormFields({
+//                       fieldName: "Street Address",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//               if(isValid)
+//               isValid = $("#txtOtherContactPhonePreferred").ValidatePhoneField({
+//                      fieldName: "Preferred Phone",
+//                       isRequired: true,
+//                       fullNumber: true
+//                   });
+        
+//               if(isValid)
+//               isValid = $("#txtOtherContactPhoneAlternate").ValidatePhoneField({
+//                      fieldName: "Alternate Phone",
+//                       isRequired: false
+//                   });
+        
+
+//            if(isValid)
+//              isValid = $("#businessContactCategory").ValidateComboBox({
+//            isRadComboBox: false,
+//            defaultValue: '-1'
+//                });
+//        
+//              if(isValid)
+//               isValid = $("#txtOtherCompany").ValidateRequiredFormFields({
+//                       fieldName: "Company",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//               if(isValid)
+//               isValid = $("#txtOtherContactFirstName").ValidateRequiredFormFields({
+//                       fieldName: "First Name",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//        
+//               if(isValid)
+//               isValid = $("#txtOtherContactLastName").ValidateRequiredFormFields({
+//                       fieldName: "Last Name",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//               if(isValid)
+//               isValid = $("#txtStreetAddressOther").ValidateRequiredFormFields({
+//                       fieldName: "Street Address",
+//                       maxLength: 60,
+//                       minLenght: 1
+//                   });
+//        
+//               if(isValid)
+//               isValid = $("#txtOtherContactPhonePreferred").ValidatePhoneField({
+//                      fieldName: "Preferred Phone",
+//                       isRequired: true,
+//                       fullNumber: true
+//                   });
+        
+//               if(isValid)
+//               isValid = $("#txtOtherContactPhoneAlternate").ValidatePhoneField({
+//                      fieldName: "Alternate Phone",
+//                       isRequired: false
+//                   });
+        
+//               if(isValid)
+//               isValid = $("#txtOtherContactEmail").ValidateRequiredFormFields({
+//                       fieldName: "Email",
+//                       maxLength: 100,
+//                       minLenght: 1
+//                   });
+        
+//                if($('#txtOtherContactEmail').val() != "" && isValid)
+//                    isValid = $('#txtOtherContactEmail').ValidateEmail();
+
+//                if (isValid && !IsZipCodeValid && $('#txtZipCode').val() != "") 
+//                {
+//                    setValid($("#txtZipCode"), false, zipCodeInvalidMessage);
+//                }
+        
+                if(isValid)
+                {
+                   var txtOtherZipCode = $("#txtOtherZipCode");
+                   txtOtherZipCode.FillAndValidateZipCodeContacts({cityID: 'txtOtherCityContact', stateID: 'contactStateOther',
+                            IsValid: function(isZipValid)
+                            {
+                                IsZipCodeValidOther = isZipValid;
+
+                                if (!IsZipCodeValidOther ) 
+                                {
+//                                    setValid(txtOtherZipCode, false, zipCodeInvalidMessage);
+                                    isValid = false;
+                                    txtOtherZipCode.addClass("notValid");
+                                    ValidationQtipPopUp(txtOtherZipCode, "Zip code is not valid.");
+                                }
+                                else 
+                                {
+                                   
+                                    txtOtherZipCode.removeClass("notValid");
+                                    txtOtherZipCode.qtip("destroy");
+                                }
+                                
+
+                                if (txtOtherZipCode.val() == "") {
+                                    var dropDownList = $('#contactStateOther').val(-1);
+//                                    var dropDownList = $('#contactStateOther').data('tDropDownList');
+//                                    dropDownList.value('-1');
+
+                                   txtOtherZipCode.val("");
+                                }
+
+//                                 if ((isValid && IsZipCodeValid) || (isValid && IsZipCodeValidOther) || (isValid && txtOtherZipCode.val() == "")) {
+                                if (isValid && IsZipCodeValidOther) {
+                                    var businesscontactid = $(element).attr('businesscontactid');
+                                    AppraisalRequest.CheckIsDuplicateLoanLoginCompanyAndContact(element);
+                                }
+                            }, isTelerik: false  , functionExecute: function () {
+					 $("#frmBusinessContacts").validate().element("#txtOtherCityContact");
+					 var isValid  = ValidateContactStateOther(true);
+                 }});
+                }
+        
+                if (!isValid && $(".input-validation-error").first().attr("id") != "cCompany_ContactType" && $(".input-validation-error").first().attr("id") != "cCompany_StateId") {
+                    $(".input-validation-error,.notValid").first().focus();
+                }
+        
+        return false;
+    }
+
+    function ValidateContactStateOther(isValid) {
+     
+            var contactStateOther = $("#contactStateOther");
+            if (contactStateOther.val() == -1)
+            {
+                isValid = false;
+                contactStateOther.addClass("notValid");
+                ValidationQtipPopUp(contactStateOther, "Please select State");
+            }  
+            else
+            {
+                contactStateOther.removeClass("notValid");
+                contactStateOther.qtip("destroy");
+            }
+        return isValid;
+    }
+</script>
+<div id="validationTooltip" style="position: absolute; width: 233px; height: 55px;
+    background-image: url('../../Content/images/tooltip/ValidationTooltipContactsBackground.png');
+    display: none; z-index: 999;">
+    <div id="validationTooltipClose" style="float: right; cursor: pointer; height: 10px;
+        width: 10px; margin-right: 12px; margin-top: 8px;">
+    </div>
+    <span id="spnTooltipMessage" style="float: left; color: #ff0000; font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px; padding-left: 33px; padding-top: 9px; width: 176px;">Please Enter
+        Value!</span>
+</div>
+@using ( Ajax.BeginForm( null, null, null, new AjaxOptions { HttpMethod = "Post" }, new { @id = "frmBusinessContacts", @class = "" } ) )
+{
+    <div id="businessContactPopup" class="businessContactPopup LoanCenterPopup ">
+    <div style="visibility: hidden;" id="uxUserAccountId">@Model.UserAccountId</div>
+    <div class="conversationlogsectionheadcontent">
+        <div class=" imp-div-AdminCompanyContacts-title" style="width: 90%; float: left; margin-top: 0;">
+            <span class="namelink">Business Contact Info</span>
+        </div>
+        <div class=" imp-div-close-x" style="float:right;margin-top:-5px;" onclick="BussinesContactDetails.CloseBusinessContactPopup()"></div>
+@*        <a id="closeconversationlog" onclick="BussinesContactDetails.CloseBusinessContactPopup()"
+            title="Minimize/Maximize Section">
+            <div id="minmaxconversationlog" class="close">
+            </div>
+        </a>*@
+       @* <div class="conversationlogheadline">
+        </div>*@
+        <div class="imp-div-globalToLoanContactsSeparator"  style="min-width: 100%;"></div>
+    </div>
+    <div id="conversationlogcontentsection" class=" imp-div-container-contactsTxtInput">
+        @Html.HiddenFor( m => m.BusinessContact.SellerType, new { id = "hdnSellerType", @class = "hdnSellerType" } )
+        @Html.HiddenFor( m => m.BusinessContact.BusinessContactId, new { id = "hdnBusinessContactId", @class = "hdnBusinessContactId" } )
+
+        @Html.HiddenFor( m => m.BusinessContact.LoanContactsCompanyId, new { id = "hdnLoanContactsCompanyId", @class = "hdnLoanContactsCompanyId" } )
+        @Html.HiddenFor( m => m.BusinessContact.LoanContactsContactId, new { id = "hdnLoanContactsContactId", @class = "hdnLoanContactsContactId" } )
+        
+        
+        <div id="conversationlogcontent" class="conversationlogcontent" style="margin-top: -10px;">
+            <div class="contactPopupRow contactRowMarginTop30">
+                <div class="contactPopupRowLeftSection popupLabelWidth">
+                    <span class="contactPopupRowSpan">Type </span>
+                </div>
+                <div class="contactPopupRowInput">
+                    @*@Html.Telerik().DropDownListFor( m => m.BusinessContact.BusinessContactCategory ).Name( "businessContactCategory" ).HtmlAttributes( new { @class = "phoneTypesComboBox contactTypeWidth240" } ).BindTo( contactTypelist ).ClientEvents( events => events.OnChange( "ChangeForBasedOnBusinessContactCategory" ).OnLoad( "ChangeForBasedOnBusinessContactCategory" ) ).Enable(Model.BusinessContact.LoanContactsContactId == 0)*@
+                    <span class="imp-span-ddl-contacts-container @{if ( Model.BusinessContact.CompanyContactsType != -1 )
+                                                                   { <text>container-input-disabled</text>}}">
+                        @Html.DropDownListFor( model => model.BusinessContact.CompanyContactsType, ( IEnumerable<SelectListItem> )contactTypelist, Model.BusinessContact.CompanyContactsType != -1 ? new { @class = "imp-ddl-contacts imp-ddl-contacts-disabled", disabled = "disabled", @onload = "ChangeForBasedOnBusinessContactCategory", @id = "businessContactCategory", @style = "width:240px;" } as object
+
+                                                                                                                                                                                                        : new { @class = "imp-ddl-contacts", @onload = "ChangeForBasedOnBusinessContactCategory", @id = "businessContactCategory", @style = "width:240px;" } as object )
+                    </span>
+                     @Html.ValidationMessageFor( model => model.BusinessContact.CompanyContactsType )
+                </div>
+            </div>
+           
+              <div class="businessContactsSubTypesContainer" style="@{ if ( ( int )ContactsTypeEnum.Realtor != contactTypeSelectedValue )
+                                                                       {
+                                                                    <text>display: none;</text>
+                                                                       }
+                                                                       else
+                                                                       {
+                                                                    <text> </text>
+                                                                       } }">
+
+                    <div class="contactPopupRowInput">
+                    <div class="businessContactsSubTypes" style="margin-left: 6px;">
+                      @Html.RadioButton( "LoanContactsContactSubType", ( int )ContactSubTypeEnum.SellersAgent,
+                                                    ( int )ContactSubTypeEnum.SellersAgent == Model.BusinessContact.LoanContactsContactSubType
+                                                      ? new { @checked = "checked", @class = "impradiocontacts", @id = "sellerAgentRbl" } as object
+                                                               : new { @class = "impradiocontacts", @id = "sellerAgentRbl" } as object ) <label for="sellerAgentRbl" class="implabelradiocontacts  ">Seller's Agent</label>
+                      </div>
+                       <div class="businessContactsSubTypes">
+                       @Html.RadioButton( "LoanContactsContactSubType", ( int )ContactSubTypeEnum.BuyersAgent,
+                                                ( int )ContactSubTypeEnum.BuyersAgent == Model.BusinessContact.LoanContactsContactSubType
+                                                                        ? new { @checked = "checked", @class = "impradiocontacts", @id = "buyerAgentRbl" } as object
+                                                               : new { @class = "impradiocontacts", @id = "buyerAgentRbl" } as object ) <label for="buyerAgentRbl" class="implabelradiocontacts  "> Buyer's Agent</label>
+                      </div>
+                    </div>
+                </div>
+            
+            <!-- begin display -->
+            <div id="SelllersFrame" style="display: none;">
+                <div class="contactPopupRow">
+                    <div class="contactPopupRowLeftSection popupLabelWidth">
+                        <span class="contactPopupRowSpan">Seller Type </span>
+                    </div>
+                    <div class="contactPopupRowInput">
+                        <div class="filterItem">
+                            <input class="radioBtnContactType radioButtonIndividual" type="radio" name="sellerType" value="0" @(Model.BusinessContact.SellerType == MML.Contracts.SellerType.Individual ? "checked=\"checked\"" : "") />Individual</div>
+                        <div class="filterItem">
+                            <input class="radioBtnContactType radioButtonBank" type="radio" name="sellerType" value="1" @(Model.BusinessContact.SellerType == MML.Contracts.SellerType.Bank ? "checked=\"checked\"" : "") />Bank</div>
+                        <div class="filterItem">
+                            <input class="radioBtnContactType radioButtonLLC" type="radio" name="sellerType" value="2" @(Model.BusinessContact.SellerType == MML.Contracts.SellerType.LLC ? "checked=\"checked\"" : "") />LLC</div>
+                    </div>
+                </div>
+                <div id="Individual">
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Seller 1:</span>
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">First Name </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtFirstName" id="txtContactFirstName" value="@Model.BusinessContact.FirstName" />
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan txtLastName">Last Name </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField" id="txtContactLastName" value="@Model.BusinessContact.LastName" />
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Preferred Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            <input type="text" class="txtPhone" id="txtContactPhonePreferred" value="@(Model.BusinessContact.Seller != null ? Model.BusinessContact.Seller.ContactPhonePreferredSeller : String.Empty)"/>
+                        </div>
+                        @Html.Telerik().DropDownListFor( m => m.BusinessContact.Seller.ContactPhonePreferredSellerType ).Name( "prefferedPhoneCategory" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.Seller.ContactPhonePreferredSellerType.GetHashCode() ) )
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Alternate Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            <input class="txtPhone" id="txtContactPhoneAlternate" value="@(Model.BusinessContact.Seller != null ? Model.BusinessContact.Seller.ContactPhoneAlternateSeller : String.Empty)"/>
+                        </div>
+                        @Html.Telerik().DropDownListFor( m => m.BusinessContact.Seller.ContactPhoneAlternateSellerType ).Name( "alternatePhoneCategory" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.Seller.ContactPhoneAlternateSellerType.GetHashCode() ) )
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Email</span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtValidate txtEmail" id="txtContactEmail" value="@Model.BusinessContact.Email"/>
+                        </div>
+                    </div>
+                    <div class="contactPopupRow" >
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Reference Number</span>
+                        </div>
+                        <div class="contactPopupRowInput" style="vertical-align:middle">
+                            <input type="text" style="vertical-align:middle" class="contactPopupRowInputField" id="txtReferenceNumberSeller1" value="@( Model.BusinessContact != null ? Model.BusinessContact.ReferenceNumber : String.Empty)" maxlength="15"/>
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Seller 2:</span>
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">First Name </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtFirstNameAltSeller" id="txtContactFirstNameSecondSeller" value="@Model.BusinessContact.SellerAlt.FirstNameSeller" />
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Last Name </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtLastNameAltSeller" id="txtContactLastNameSecondSeller" value="@Model.BusinessContact.SellerAlt.LastNameSeller" />
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Preferred Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            <input type="text" class="txtPhone" id="txtContactPhonePreferredSecondSeller" value="@(Model.BusinessContact.SellerAlt != null ? Model.BusinessContact.SellerAlt.ContactPhonePreferredSeller : String.Empty)"/>
+                        </div>
+                        @Html.Telerik().DropDownListFor( m => m.BusinessContact.SellerAlt.ContactPhonePreferredSellerType ).Name( "prefferedPhoneCategorySecondSeller" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.SellerAlt.ContactPhonePreferredSellerType.GetHashCode() ) )
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Alternate Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            <input class="txtPhone" id="txtContactPhoneAlternateSecondSeller" value="@(Model.BusinessContact.SellerAlt != null ? Model.BusinessContact.SellerAlt.ContactPhoneAlternateSeller : String.Empty)"/>
+                        </div>
+                        @Html.Telerik().DropDownListFor( m => m.BusinessContact.SellerAlt.ContactPhoneAlternateSellerType ).Name( "alternatePhoneCategorySecondSeller" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.SellerAlt.ContactPhoneAlternateSellerType.GetHashCode() ) )
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Email</span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtValidate txtEmailAltSeller" id="txtContactEmailSecondSeller" value="@Model.BusinessContact.SellerAlt.EmailSeller"/>
+                        </div>
+                    </div>
+                    <div class="contactPopupRow contactRowMarginBottom10" >
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Reference Number</span>
+                        </div>
+                        <div class="contactPopupRowInput" style="vertical-align:middle">
+                            <input type="text" style="vertical-align:middle" class="contactPopupRowInputField" id="txtReferenceNumberSeller2" value="@( Model.BusinessContact.SellerAlt != null ? Model.BusinessContact.SellerAlt.ReferenceNumberAlternateSeller : String.Empty)" maxlength="15"/>
+                        </div>
+                    </div>
+                </div>
+                <div id="BankLLC">
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Company </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtCompany" id="txtCompany" value="@Model.BusinessContact.CompanyName" />
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Contact </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtContact" id="txtContactCompany" value="@Model.BusinessContact.CompanyContactName" />
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Preferred Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            <input class="txtPhone" id="txtContactPhonePreferredCompany" value="@(Model.BusinessContact.Seller != null ? Model.BusinessContact.Seller.ContactPhonePreferredSeller : String.Empty)"/>
+                        </div>
+                        @Html.Telerik().DropDownListFor( m => m.BusinessContact.Seller.ContactPhonePreferredSellerType ).Name( "prefferedPhoneCategoryCompany" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.Seller.ContactPhonePreferredSellerType.GetHashCode() ) )
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Alternate Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            <input class="txtPhone" id="txtContactPhoneAlternateCompany" value="@(Model.BusinessContact.Seller != null ? Model.BusinessContact.Seller.ContactPhoneAlternateSeller : String.Empty)"/>
+                        </div>
+                        @Html.Telerik().DropDownListFor( m => m.BusinessContact.Seller.ContactPhoneAlternateSellerType ).Name( "alternatePhoneCategoryCompany" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.Seller.ContactPhoneAlternateSellerType.GetHashCode() ) )
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Email</span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            <input type="text" class="contactPopupRowInputField txtValidateCompany txtEmail" id="txtContactEmailCompany" value="@Model.BusinessContact.Email"/>
+                        </div>
+                    </div>
+                    <div class="contactPopupRow" >
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Reference Number</span>
+                        </div>
+                        <div class="contactPopupRowInput" style="vertical-align:middle">
+                            <input type="text" style="vertical-align:middle" class="contactPopupRowInputField" id="txtReferenceNumberBankLLC" value="@( Model.BusinessContact != null ? Model.BusinessContact.ReferenceNumber : String.Empty)" maxlength="15"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="contactPopupRow contactRowMarginTop20">
+                    <div class="contactPopupRowLeftSection popupLabelWidth">
+                        <span class="contactPopupRowSpan">Street Address </span>
+                    </div>
+                    <div class="contactPopupRowInput">
+                        <input type="text" class="contactPopupRowInputField txtStreetAddress" id="txtStreetAddress" value="@(Model.BusinessContact.Address != null ? Model.BusinessContact.Address.StreetName : String.Empty)" />
+                    </div>
+                </div>
+                <div class="contactPopupRow">
+                    <div class="contactPopupRowLeftSection contactRowLeftWidthAuto">
+                        <span class="contactPopupRowSpanFloatR">Zip Code </span>
+                    </div>
+                    <div class="contactPopupRowInput contactRowInputAutoWidth">
+                        <input type="text" class="contactPopupRowInputField contactZipCode" id="txtZipCode" value="@(Model.BusinessContact.Address != null ? Model.BusinessContact.Address.ZipCode : String.Empty)" />
+                    </div>
+                    <div class="contactPopupRowLeftSection contactRowLeftWidthAuto">
+                        <span class="contactPopupRowSpanFloatR">City </span>
+                    </div>
+                    <div class="contactPopupRowInput contactRowInputAutoWidth">
+                        <input type="text" class="contactPopupRowInputField contactCity txtCity" id="txtCityContact" value="@(Model.BusinessContact.Address != null ? Model.BusinessContact.Address.CityName : String.Empty)" />
+                    </div>
+                    <div class="contactPopupRowLeftSection contactRowLeftWidthAuto">
+                        <span class="contactPopupRowSpanFloatR">ST </span>
+                    </div>
+                    <div class="contactPopupRowInput contactRowInputAutoWidth">
+                        @if ( Model.BusinessContact != null && Model.BusinessContact.Address != null )
+                        {
+                            @Html.Telerik().DropDownListFor( m => m.BusinessContact.Address.StateName ).Name( "contactState" ).HtmlAttributes( new { @class = "phoneTypesComboBox contactState" } ).BindTo( new SelectList( Model.States, "Value", "Name", ( Model.States != null && Model.States.FirstOrDefault( x => x.Value == Model.BusinessContact.Address.StateId ) != null ) ? Model.States.FirstOrDefault( x => x.Value == Model.BusinessContact.Address.StateId ).Value : -1 ) )
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- end display -->
+            <!-- begin smaller display -->
+            <div id="OtherFrame">
+                <div id="Individual">
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Company </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            @*<input type="text" class="contactPopupRowInputField txtCompany" id="txtOtherCompany" value="@Model.BusinessContact.CompanyName" style="width: 234px;"/>*@
+                            @Html.TextBoxFor( model => model.BusinessContact.CompanyName, new { @id = "txtOtherCompany", @class = "contactPopupRowInputField txtFirstName", @style = "width: 234px;" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.CompanyName )
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">First Name </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                           @* <input type="text" class="contactPopupRowInputField txtFirstName" id="txtOtherContactFirstName" value="@Model.BusinessContact.FirstName" style="width: 234px;"/>*@
+                            @Html.TextBoxFor( model => model.BusinessContact.FirstName, new { @id = "txtOtherContactFirstName", @class = "contactPopupRowInputField txtFirstName", @style = "width: 234px;" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.FirstName )
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Last Name </span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            @*<input type="text" class="contactPopupRowInputField txtLastName" id="txtOtherContactLastName" value="@Model.BusinessContact.LastName" style="width: 234px;" name ="BusinessContact.LastName"/>*@
+                            @Html.TextBoxFor( model => model.BusinessContact.LastName, new { @id = "txtOtherContactLastName", @class = "contactPopupRowInputField txtLastName", @style = "width: 234px;" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.LastName )
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Street Address</span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            @*<input type="text" class="contactPopupRowInputField txtStreetAddress" id="txtStreetAddressOther" value="@Model.BusinessContact.Address.StreetName" style="width: 234px;"/>*@
+                            @Html.TextBoxFor( model => model.BusinessContact.Address.StreetName, new { @id = "txtStreetAddressOther", @class = "contactPopupRowInputField txtStreetAddress", @style = "width: 234px;" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.Address.StreetName )
+
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Zip Code </span>
+                        </div>
+                    
+                        <div class="contactPopupRowInput ">
+                            @*<input type="text" class="contactPopupRowInputField contactZipCode" id="txtOtherZipCode" value="@(Model.BusinessContact.Address != null ? Model.BusinessContact.Address.ZipCode : String.Empty)" />*@
+                            @Html.TextBoxFor( model => model.BusinessContact.Address.ZipCode, new { @id = "txtOtherZipCode", @class = "contactPopupRowInputField contactZipCode" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.Address.ZipCode )
+                        </div>
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">City </span>
+                        </div>
+                        <div class="contactPopupRowInput ">
+                            @*<input type="text" class="contactPopupRowInputField contactCity txtCity" id="txtOtherCityContact" value="@(Model.BusinessContact.Address != null ? Model.BusinessContact.Address.CityName : String.Empty)" />*@
+                            @Html.TextBoxFor( model => model.BusinessContact.Address.CityName, new { @id = "txtOtherCityContact", @class = "contactPopupRowInputField  contactCity txtCity" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.Address.CityName )
+                        </div>
+                     </div>
+                     <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">State </span>
+                        </div>
+                        <div class="contactPopupRowInput ">
+                            @if ( Model.BusinessContact != null && Model.BusinessContact.Address != null )
+                            {
+                                @*@Html.Telerik().DropDownListFor( m => m.BusinessContact.Address.StateName ).Name( "contactStateOther" ).HtmlAttributes( new { @class = "phoneTypesComboBox contactState" } ).BindTo( new SelectList( Model.States, "Value", "Name", ( Model.States != null && Model.States.FirstOrDefault( x => x.Value == Model.BusinessContact.Address.StateId ) != null ) ? Model.States.FirstOrDefault( x => x.Value == Model.BusinessContact.Address.StateId ).Value : -1 ) )*@
+                                <span class="imp-span-ddl-contacts-container">
+                                    @Html.DropDownListFor( model => model.BusinessContact.Address.StateName, new SelectList( Model.States, "Value", "Name", ( Model.States != null && Model.States.FirstOrDefault( x => x.Value == Model.BusinessContact.Address.StateId ) != null ) ? Model.States.FirstOrDefault( x => x.Value == Model.BusinessContact.Address.StateId ).Value : -1 ),
+                                    new { @class = "imp-ddl-contacts phoneTypesComboBox contactState", @id = "contactStateOther", @style = "width:53px;" } as object )
+                                </span>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Preferred Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            @*<input type="text" class="txtPhone" id="txtOtherContactPhonePreferred" style="width: 130px" value="@( Model.BusinessContact.Seller != null ? Model.BusinessContact.Seller.ContactPhonePreferredSeller : String.Empty)"/>*@
+                            @Html.TextBoxFor( model => model.BusinessContact.Seller.ContactPhonePreferredSeller, new { @id = "txtOtherContactPhonePreferred", @class = "txtPhone", @style = "width: 130px" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.Seller.ContactPhonePreferredSeller )
+                        </div>
+                        @if ( Model.BusinessContact != null && Model.BusinessContact.Seller != null )
+                        {
+                              @*@Html.Telerik().DropDownListFor( m => m.BusinessContact.Seller.ContactPhonePreferredSellerType ).Name( "prefferedPhoneCategoryOther" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.Seller.ContactPhonePreferredSellerType.GetHashCode() ) )*@
+                            <span class="imp-span-ddl-contacts-container">
+                                    @Html.DropDownList( "prefferedPhoneCategoryOther", new SelectList( from PhoneNumberType s in Enum.GetValues( typeof( PhoneNumberType ) )
+                                                                                                       select new SelectListItem { Text = ( s ).GetStringValue(), Value = ( ( int )s ).ToString() }, "Value", "Text", ( int )Model.BusinessContact.Seller.ContactPhonePreferredSellerType ),
+                                    new { @class = "imp-ddl-contacts phoneTypesComboBox", @id = "prefferedPhoneCategoryOther", @style = "width:97px;" } as object )
+                           </span>
+                        }
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Alternate Phone </span>
+                        </div>
+                        <div class="contactPopupRowInput contactRowInputAutoWidth">
+                            <input type="text" class="txtPhone" id="txtOtherContactPhoneAlternate" style="width: 130px" value="@( Model.BusinessContact.Seller != null ? Model.BusinessContact.Seller.ContactPhoneAlternateSeller : String.Empty)"/>
+                        </div>
+                        @if ( Model.BusinessContact != null && Model.BusinessContact.Seller != null )
+                        {
+                            @*@Html.Telerik().DropDownListFor( m => m.BusinessContact.Seller.ContactPhoneAlternateSellerType ).Name( "alternatePhoneCategoryOther" ).HtmlAttributes( new { @class = "phoneTypesComboBox" } ).BindTo( new SelectList( Model.PhoneTypes, "Value", "Name", Model.BusinessContact.Seller.ContactPhoneAlternateSellerType.GetHashCode() ) )*@
+                            <span class="imp-span-ddl-contacts-container">
+                                     @Html.DropDownList( "alternatePhoneCategoryOther", new SelectList( from PhoneNumberType s in Enum.GetValues( typeof( PhoneNumberType ) )
+                                                                                                        select new SelectListItem { Text = ( s ).GetStringValue(), Value = ( ( int )s ).ToString() }, "Value", "Text", ( int )Model.BusinessContact.Seller.ContactPhoneAlternateSellerType ),
+                                    new { @class = "imp-ddl-contacts phoneTypesComboBox", @id = "alternatePhoneCategoryOther", @style = "width:97px;" } as object )
+                           </span>
+                        }
+                    </div>
+                    <div class="contactPopupRow">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Email</span>
+                        </div>
+                        <div class="contactPopupRowInput">
+                            @*<input type="text" class="contactPopupRowInputField txtValidate txtEmail" style="width: 234px;" id="txtOtherContactEmail" value="@( Model.BusinessContact != null ? Model.BusinessContact.Email : String.Empty)"/>*@
+                            @Html.TextBoxFor( model => model.BusinessContact.Email, new { @id = "txtOtherContactEmail", @class = "contactPopupRowInputField txtValidate txtEmail", @style = "width: 234px" } )
+                            @Html.ValidationMessageFor( model => model.BusinessContact.Email )
+                        </div>
+                    </div>
+                    <div class="contactPopupRow" style="vertical-align:middle">
+                        <div class="contactPopupRowLeftSection popupLabelWidth">
+                            <span class="contactPopupRowSpan">Reference Number</span>
+                        </div>
+                        <div class="contactPopupRowInput" style="vertical-align:middle">
+                            <input  type="text" style="vertical-align:middle;width: 234px;" class="contactPopupRowInputField" id="txtReferenceNumber" value="@( Model.BusinessContact != null ? Model.BusinessContact.ReferenceNumber : String.Empty)" maxlength="15"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="imp-div-globalToLoanContactsSeparator"  style="min-width: 100%;margin-top: 22px;"></div>
+            <!-- end smaller display -->
+            <div class="buttonsSectionBusinessContactPopup" style="width: 202px; padding-right: 0px;">
+                @if ( !Model.BusinessContact.IsLoanApplicationCompleted )
+                { <div style="float: right;">
+                    <div class="btnSaveBusinessContactPopup imp-button-contacts-hl-wl-prim imp-div-businesscontacts-secondnbutton" onclick="IfFormIsValid(this)" businesscontactid="@Model.BusinessContact.BusinessContactId">
+                        Save</div>
+                </div>
+                }
+                <div style="float: right;">
+                    <div class="btnCancelBusinessContactPopup imp-button-contacts-hl-wl-sec" onclick="BussinesContactDetails.CloseBusinessContactPopup()">
+                        Cancel</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

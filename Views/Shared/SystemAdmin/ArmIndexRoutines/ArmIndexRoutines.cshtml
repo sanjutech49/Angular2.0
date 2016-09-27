@@ -1,0 +1,312 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Common.Helpers
+@using MML.Contracts
+@using MML.Web.LoanCenter.ViewModels;
+@using System.Linq;
+@using MML.Web.LoanCenter.Helpers.MvcHelpers;
+
+@model List<ArmIndex>
+
+<style type="text/css">
+
+
+
+#titleHeader
+{
+    padding-left: 10px;
+    font-size:1.4em;
+    color: black;
+    font-weight: normal;
+    padding: 5px 0 5px 0;
+    
+}
+
+.centeredContent
+{
+    width: 90%;
+    margin-left: 5%;
+}
+
+.rowsingle
+{
+    padding: 5px 0 5px 15px;
+}
+
+.rowdouble
+{
+    padding: 10px 0 10px 15px;
+}
+
+.formLeftColumn
+{
+    float: left;
+    padding-right: 100px;
+}
+
+.formRightColumn
+{
+    margin-left: 300px;
+}
+
+.roundedTextBox
+{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;  
+}
+
+.fsIndex
+{
+    border: 1px solid #E1E1E1;
+}
+
+.armFieldset
+{
+    padding-bottom: 15px;
+    width: 90%;
+}
+
+.lblText.vAlign
+{
+    position: absolute;
+    margin-top: 5px;
+}
+
+.uxIndexValue
+{
+    width: 50px !important;
+    font-size: 0.9em !important ;
+    text-align: center;
+}
+
+.uxURL
+{
+    font-style: italic;
+    font-size: 0.85em !important;
+}
+
+.white
+{
+    color: White !important;
+}
+
+.mainContainer
+{
+    padding-left: 45px;
+    padding-top: 15px;
+}
+
+.menuHeader
+{
+    font-size:1.8em;
+    color: Black;
+    font-weight: bold;
+}
+
+.contentContainer
+{
+    padding-top: 15px;
+    border: 1px solid #E1E1E1;
+    border-radius: 5px; 
+    margin-top: 10px; 
+    width: 800px; 
+    height: auto
+}
+
+#content
+{
+    width: 100%; 
+    padding-top: 15px;
+    
+}
+
+.spnNew
+{
+    color: #1e62d0;
+    margin-left: 75px;
+}
+
+#errorMessage
+{
+    color: Red;
+    font-weight: bold;
+}
+
+.button
+{
+    margin-left: 79%;
+    padding-left: 17px;
+}
+
+</style>
+
+<script type="text/javascript">
+
+function updateIndices(data) {
+
+    $("#errorMessage").hide();
+
+    // indices 
+    var liborIndex = data[data.map(function (e) {
+        return e.IndexType
+    }).indexOf(0)].IndexValue;
+
+    var treasuryIndex = data[data.map(function (e) {
+        return e.IndexType
+    }).indexOf(1)].IndexValue;
+    
+    // dates
+    var lastTimeScrapedLibor = data[data.map(function (e) {
+        return e.IndexType
+    }).indexOf(0)].LastTimeScraped;
+
+
+    var lastTimeScrapedTreasury = data[data.map(function (e) {
+        return e.IndexType
+    }).indexOf(0)].LastTimeScraped;
+
+    if (lastTimeScrapedLibor !== undefined && lastTimeScrapedTreasury !== undefined) {
+        var dateLibor = new Date(parseInt(lastTimeScrapedLibor.substr(6))).format("MM/dd/yyyy h:mm:ss tt")
+        var dateTreasury = new Date(parseInt(lastTimeScrapedTreasury.substr(6))).format("MM/dd/yyyy h:mm:ss tt")
+
+        $("#lblLiborTimestamp label").text(dateLibor);
+        $("#lblTreasuryTimestamp label").text(dateTreasury);
+    }
+
+    $("#uxLiborIndexValue").val(liborIndex);
+    $("#uxTreasuryIndexValue").val(treasuryIndex);
+
+    $("#lblLiborTimestamp label").animate({
+        color: "#1e62d0"
+    },
+    1000, 
+    function() {
+        $(".spnNew").fadeIn(500);
+    });
+
+    $("#lblTreasuryTimestamp label").animate({
+        color: "#1e62d0"
+    },
+    1000,
+    function() {
+        $(".spnNew").fadeIn(500);
+    });
+
+
+
+}
+
+
+function showErrorMessage() {
+    $("#errorMessage").show();
+    $(".spnNew").hide();
+}
+
+$(document).ready(function () {
+    $("#errorMessage").hide();
+    $(".spnNew").hide();
+});
+
+
+</script>
+
+    <div class="mainContainer">
+    <div class = "menuHeader">
+        <span>General settings</span>
+    </div>
+    <div id="ArmIndexRoutinesContainer" class="contentContainer">
+
+        <div id="titleHeaderContainer" class="centeredContent" style="border-bottom: 2px solid #3A9167;">
+            <span id="titleHeader"> ARM Index Routines </span>
+        </div>
+
+        <div id = "content" class="centeredContent" style="padding-bottom: 15px;">
+
+
+            <div id = "divLibor" class="armFieldset">
+                @using ( Html.BeginFieldset( "LIBOR", new { Id = "fsLibor", Class = "fsIndex" }, new { Id = "lgndLibor", Class = "lgndLibor" } ) )
+                {
+                    <div class="rowdouble">
+                        <div class = "formLeftColumn">
+                            <span class="lblText">URL: </span>
+                        </div>
+                        <div class="formRightColumn uxURL">
+                     
+                            @Html.Label( "", Model.FirstOrDefault(p => p.IndexType == IndexType.Libor).URL )
+                        </div>
+                    </div>
+            
+                    <div class="rowdouble">
+                        <div class = "formLeftColumn">
+                            <span class="lblText vAlign">Index Value: </span>
+                        </div>
+                        <div class="formRightColumn">
+                            @Html.TextBox( "IndexValue", Model.FirstOrDefault(p => p.IndexType == IndexType.Libor).IndexValue , new { id = "uxLiborIndexValue", @class = "uxIndexValue roundedTextBox", @readonly = "readonly", @disabled = "true" } )
+                        </div>
+                    </div>
+            
+                    <div class="rowdouble">
+                        <div class = "formLeftColumn">
+                            <span class="lblText">Last time run on: </span>
+                        </div>
+                        <div class="formRightColumn" id="lblLiborTimestamp">
+                            @Html.Label( Model.FirstOrDefault( p => p.IndexType == IndexType.Libor ).LastTimeScraped.ToString( "MM/dd/yyyy h:mm:ss tt" ) )
+                            <span class="spnNew"> NEW!</span>
+                        </div>
+                    </div>
+            
+                       
+                }
+            </div>
+
+            <div id = "divTreasury" class="armFieldset">
+                @using ( Html.BeginFieldset( "Treasury", new { Id = "fsTreasury", Class = "fsIndex" }, new { Id = "lgndTreasury", Class = "lgndTreasury" } ) )
+                {
+                    <div class="rowdouble">
+                        <div class = "formLeftColumn">
+                            <span class="lblText">URL: </span>
+                        </div>
+                        <div class="formRightColumn uxURL">
+                            @Html.Label( "", Model.First(p => p.IndexType == IndexType.Treasury).URL )
+                        </div>
+                    </div>
+            
+                    <div class="rowdouble">
+                        <div class = "formLeftColumn">
+                            <span class="lblText vAlign">Index Value: </span>
+                        </div>
+                        <div class="formRightColumn">
+                             @Html.TextBox( "IndexValue", Model.FirstOrDefault(p => p.IndexType == IndexType.Treasury).IndexValue , new { id = "uxLiborIndexValue", @class = "uxIndexValue roundedTextBox", @readonly = "readonly", @disabled = "true" } )
+                        </div>
+                    </div>
+            
+                    <div class="rowdouble">
+                        <div class = "formLeftColumn">
+                            <span class="lblText">Last time run on: </span>
+                        </div>
+                        <div class="formRightColumn" id = "lblTreasuryTimestamp">
+                            @Html.Label( Model.FirstOrDefault( p => p.IndexType == IndexType.Treasury ).LastTimeScraped.ToString( "MM/dd/yyyy h:mm:ss tt" ) )
+                            <span class="spnNew">NEW!</span>
+                        </div>
+                    </div>
+        
+                }
+            </div>
+
+            <div id = "errorMessage">
+                <span>Failed to retrieve new values!</span>
+            </div>
+            <div id = "btnRetrieveCurrentIndices">
+                @Ajax.ActionLink( "Retrieve", "RetrieveCurrentIndices", null, new AjaxOptions
+               {
+                   HttpMethod = "POST",
+                   OnSuccess = "updateIndices(data);",
+                   OnFailure = "showErrorMessage();",
+               }, new { @class = "imp-button-contacts-hl-wl-prim button white" } )
+            </div>
+
+        </div>
+
+    </div>
+</div>

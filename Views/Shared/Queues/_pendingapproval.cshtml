@@ -1,0 +1,294 @@
+﻿@model MML.Web.LoanCenter.ViewModels.PendingApprovalViewModel
+@using MML.Contracts
+@using Telerik.Web.Mvc.UI
+@using MML.Common
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div class="fleft">
+                <span id="currentWorkQueueType" class="namelink">Review Required</span></div>
+            <div class="smallarrow">
+            </div>
+        </div>
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.TotalItems.ToString()</span> <span class="font15">Review Required
+                items</span>
+        </div>
+        <div class="right1">
+            <div class="left1">
+             <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@MML.Common.Helpers.EnumHelper.GetStringValue( ( ( MML.Web.LoanCenter.Helpers.Utilities.PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).ActivityType )</span>
+          </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul class="pendingApprovalActivityFilterUl">
+                                <li></li>
+                                <li id="fallloans" class="lower">@Ajax.ActionLink( "All Loans", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('All Loans')" }, new { id = "afallloans" } )</li>
+                                <div style="border-width: 1px 0 1px 0; border-style: solid; width: 180px; margin-bottom:-1px;">
+                                <li id="fmultiple" class="lower">@Ajax.ActionLink( "Multiple", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Multiple')" }, new { id = "afmultiple" } )</li>
+                                </div>
+                                <li id="fcompleteloanapp" class="lower">@Ajax.ActionLink( "Complete Loan Application", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Complete Loan Application')" }, new { id = "afcompleteloanapp" } )</li>
+                                <li id="freviewdisclosures" class="lower">@Ajax.ActionLink( "Review Disclosures", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Review Disclosures')" }, new { id = "afreviewdisclosures" } )</li>
+                                <li id="forderappraisal" class="lower">@Ajax.ActionLink( "Order Appraisal", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Order Appraisal')" }, new { id = "aforderappraisal" } )</li>
+                                <li id="fuploaddoc" class="lower">@Ajax.ActionLink( "Upload Documents", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Upload Documents')" }, new { id = "afuploaddoc" } )</li>
+                                <li id="freviewapproveappraisal" class="lower">@Ajax.ActionLink( "Confirm Receipt of Appraisal", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Confirm Receipt of Appraisal')" }, new { id = "afreviewapproveappraisal" } )</li>
+                                <li id="fsecurerate" class="lower">@Ajax.ActionLink( "Secure My Rate", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Secure My Rate')" }, new { id = "afsecurerate" } )</li>
+                                <li id="freissuegfe" class="lower">@Ajax.ActionLink( "Reissue GFE and Disclosures", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=9" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Review GFE and Disclosures')" }, new { id = "afreissuegfe" } )</li>
+                                <li id="fsigning" class="lower">@Ajax.ActionLink( "Signing", "Execute", "Command", new { Command = "PendingApprovalGridDateFilter,ActivityFilter=10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Signing')" }, new { id = "afsigning" } )</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday">
+                    <div id="minmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="listandpage">
+        <div class="pendingapprovalcontent">
+            <table class="pendingapprovaltable">
+                <tr class="pendingapprovalsubjects" id="trGridHeader">
+                    <td>
+                    </td>
+                    <td class="t0">
+                    </td>
+                    <td style="display: none">
+                    </td>
+                    <td class="t1">@Ajax.ActionLink( AccountHelper.IsConciergeOnly() ? "LOA" : "Concierge", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('ConciergeFullName')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('ConciergeFullName')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('ConciergeFullName')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('ConciergeFullName')" } )
+                    </td>
+                    <td class="t2">@Ajax.ActionLink( "Loan Number", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('LoanNumber')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('LoanNumber')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('LoanNumber')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('LoanNumber')" } )
+                    </td>
+                    <td class="t3">@Ajax.ActionLink( "Borrower", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('BorrowerFullName')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('BorrowerFullName')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('BorrowerFullName')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('BorrowerFullName')" } )
+                    </td>     
+                    <td class="t4">@Ajax.ActionLink( "Program Name", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('ProgramName')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('ProgramName')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('ProgramName')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('ProgramName')" } )
+                    </td>
+                    <td class="t5">@Ajax.ActionLink( "Amount", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('Amount')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('Amount')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('Amount')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Amount')" } )
+                    </td>
+                    <td class="t6">@Ajax.ActionLink( "Rate", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('Rate')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('Rate')", OnBegin = "PendingApprovalGrid.PendingApprovaleDataOnBegin('Rate')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Rate')" } )
+                    </td>
+                    <td class="t7">@Ajax.ActionLink( "Lock Date", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('LockDate')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('LockDate')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('LockDate')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('LockDate')" } )
+                    </td> 
+                    <td class="t8">@Ajax.ActionLink( "App Date", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('Date')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('Date')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('Date')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Date')" } )
+                    </td>
+                    <td class="t9">@Ajax.ActionLink( "Docs", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=9" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('NumberOfDocs')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('NumberOfDocs')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('NumberOfDocs')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('NumberOfDocs')" } )
+                    </td>
+                    <td class="t10">@Ajax.ActionLink( "Submitted Activity", "Execute", "Command", new { Command = "PendingApprovalGridSorting,Column=10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('ActivityName')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('ActivityName')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('ActivityName')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('ActivityName')" } )
+                    </td>
+                </tr>
+                @if ( Model.PendingApprovalItems != null )
+                {
+                    for ( int i = 0; i < Model.PendingApprovalItems.Count; i++ )
+                    {
+                        if (Model.PendingApprovalItems[i].PendingApprovalViewItems != null)
+                        {
+                    <tr class="@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ClassCollection last"  id="task_@{@String.Format( "{0}P", i )}" onclick="SelectedTask('@String.Format( "{0}P", i )','@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ClassCollection', true, 'PendingApproval')">
+                        <td>
+                                    <div class="biggreen" id="arrowdiv_@{@String.Format("{0}P", i)}">
+                                    </div>
+                                    @if (Model.PendingApprovalItems[i].PendingApprovalViewItems.Count > 1)
+                                    {
+                                        <div class="childIndicator" id="childIndicator_@{@String.Format("{0}P", i)}" onclick="$(this).unbind('click'); SelectedTask('@String.Format("{0}P", i)',
+                                        '@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ClassCollection', false, 'PendingApproval')">
+                                
+                                        </div>  
+                                    }
+                                </td>
+                        <td>
+                            <div class="@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ExceptionClassCollection exceptionIcon">
+                            </div>
+                        </td>
+                        <td style="display: none" class="loanid">@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LoanId</td>
+                        <td style="display: none" class="encryptedloanid">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.PendingApprovalItems[ i ].PendingApprovalViewItems[ 0 ].LoanId.ToString(), EncriptionKeys.Default ) )</td>
+                        <td>
+                        <span class="@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LicenseExpiredClass" title="@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LicenseExpiredMessage">
+                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ConciergeFullName
+                        </span>
+                        </td>
+                        <td class="textcenter">
+                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LoanNumber
+                        </td>
+                        <td>@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].BorrowerFullName
+                        </td>
+                        <td>
+                            <span title="@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ProgramName">@(Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ProgramName.Length > 25 ? String.Format("{0}...", Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ProgramName.Substring(0, 23))
+                          : Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ProgramName) </span>
+                        </td>
+                        <td>
+                          @Model.PendingApprovalItems[i].PendingApprovalViewItems[0].MortgageAmount.ToString().ToMoney()
+                        </td>
+                        <td>
+                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[0].Rate.ToString("n3")
+                        </td>
+                         <td>
+
+                          @if (Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LockDate != DateTime.MinValue)
+                          {
+                              if (Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LockStatus != -1 && (LockStatus)Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LockStatus == LockStatus.LockRequested)
+                              {                
+                                <div style="cursor: pointer;" class="lockRequested" onmouseover="PendingApprovalGrid.PendingApprovalShowLockRequestedPopup('@i')" onmouseout="PendingApprovalGrid.PendingApprovalHideLockRequestedPopup('@i')">
+                                    <div class="divLockRequestedImage">
+                                    </div>                                    
+                                </div>
+                                <div style="display: none;" class="divLockRequestedPopup @i">
+                                    <div>
+                                        Lock Requested</div>
+                                    <span class="lockExpireDate">@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LockDate.ToString("MM/dd/yyyy")</span>
+                                    <span class="lockExpireTime">@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LockDate.ToString("hh:mm tt")</span>
+                                </div>
+                              }
+                              else
+                              {
+                                <span class="lockExpireDate">@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LockDate.ToString("MM/dd/yyyy")</span>
+                                <span class="lockExpireTime">@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].LockDate.ToString("hh:mm tt")</span>
+                              }
+                          }
+                        </td>
+                        <td>@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].Date.ToString("MM/dd/yyyy")
+                        </td>
+                       <td>@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].NumberOfDocs
+                        </td>
+                        <td>@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ActivityName</td>
+                        <td style="display: none" class="activityId">@Model.PendingApprovalItems[i].PendingApprovalViewItems[0].ActivityId </td>
+
+                    </tr>
+                                // Render child loans
+                                for (int j = 1; j < Model.PendingApprovalItems[i].PendingApprovalViewItems.Count; j++)
+                                {
+                                    <tr class="@Model.PendingApprovalItems[ i ].PendingApprovalViewItems[ j ].ClassCollection childloan"  id="task_@{@String.Format("{0}P{1}", i, j)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.PendingApprovalItems[ i ].PendingApprovalViewItems[ j ].ClassCollection', true, 'PendingApproval')" style="display:none">
+                                        <td></td>
+                                        <td>
+                                            <div class="@Model.PendingApprovalItems[i].PendingApprovalViewItems[j].ExceptionClassCollection exceptionIcon">
+                                            </div>
+                                        </td>
+                                        <td style="display: none" class="loanid">
+                                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[j].LoanId
+                                        </td>
+                                        <td>
+                                            @*ConciergeFullName*@
+                                        </td>
+                                        <td class="textcenter">
+                                            @*LoanNumber*@
+                                        </td>
+                                        <td>
+                                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[j].BorrowerFullName
+                                        </td>
+                                        <td>
+                                            @*ProgrammeName*@
+                                        </td>
+                                        <td>
+                                            @*MortgageAmount*@
+                                        </td>
+                                        <td>
+                                            @*Rate*@
+                                        </td>
+                                        <td>
+                                            @*LockDate*@
+                                        </td>
+                                        <td>
+                                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[j].Date.ToString("MM/dd/yyyy")
+                                        </td>
+                                        <td>
+                                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[j].NumberOfDocs
+                                        </td>
+                                        <td>
+                                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[j].ActivityName
+                                        </td>
+                                        <td style="display: none" class="activityId">
+                                            @Model.PendingApprovalItems[i].PendingApprovalViewItems[j].ActivityId
+                                        </td>
+                                    </tr>
+                                
+                                }
+                        }      
+                    }
+                }
+            </table>
+        </div>
+        <div class="todolistfooter">
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+                @if ( Model.TotalItems != 0 )
+                {     
+                    @(( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage * 10 - 9) <span>-</span> @(( ( MML.Web.LoanCenter.Helpers.Utilities.PendingApprovalListState )HttpContext.Current.Session[ "PendingApprovalListState" ] ).CurrentPage * 10 - ( 10 - @Model.PendingApprovalItems.Count )) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+                }
+                else if ( Model.TotalItems == 0 )
+                {
+                    <span>0 records</span>
+                }
+            </div>
+            @if ( Model.PageCount > 1 )
+            { 
+                <div id="pagingDiv" class="normalfont left20">
+                    @if ( Model.TotalItems != 0 )
+                    {
+                        if ( ( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage != 1 )
+                        {               
+                        <a href="javascript:void(0)" onclick="PendingApprovalGrid.PendingApprovalDataHelper('command=PendingApprovalGridPaging,Page=@(( ( PendingApprovalListState )HttpContext.Current.Session[ "PendingApprovalListState" ] ).CurrentPage - 1)')">
+                            <div class="leftarrow">
+                            </div>
+                        </a>
+                        }
+                        else
+                        {
+                        <div class="leftarrow">
+                        </div>
+                        }
+                        <div class="left1010">
+                            @if ( Model.CurrentPage > 10 )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "PendingApprovalGridPaging,Page={0}",
+                                 ( Model.PageCount >= ( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage - 10 ) ?
+                                 ( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage - 10 :
+                                 Model.PageCount )
+                           },
+                                                                                                       new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('Page, plusTen')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('Page, plusTen')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('Page, plusTen')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                            @for ( int j = Model.StartPage; j <= Model.EndPage; j++ )
+                            {
+                                if ( j != ( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage )
+                                { 
+                                @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "PendingApprovalGridPaging,Page={0}", j ) },
+                                                                                                                                                      new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "PendingApprovalGrid.PendingApprovalDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "PendingApprovalGrid.PendingApprovalDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "PendingApprovalGrid.PendingApprovalDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "PendingApprovalGrid.PendingApprovalDataOnSuccess('Page{0}')", j ) }, new { @class = "page" } )
+                                }
+                                else
+                                { 
+                                @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "PendingApprovalGridPaging,Page={0}", j ) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "PendingApprovalGrid.PendingApprovalDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "PendingApprovalGrid.PendingApprovalDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "PendingApprovalGrid.PendingApprovalDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "PendingApprovalGrid.PendingApprovalDataOnSuccess('Page{0}')", j ) }, new { @class = "pageselected" } )
+                                }
+                            }
+                            @if ( Model.LastPageDots == false )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "PendingApprovalGridPaging,Page={0}",
+                               ( Model.PageCount >= ( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage + 10 ) ?
+                               ( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage + 10 :
+                               Model.PageCount )
+                           },
+                                                                                                       new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PendingApprovalGrid.PendingApprovalDataOnFailure('Page, plusTen')", OnComplete = "PendingApprovalGrid.PendingApprovalDataOnComplete('Page, plusTen')", OnBegin = "PendingApprovalGrid.PendingApprovalDataOnBegin('Page, plusTen')", OnSuccess = "PendingApprovalGrid.PendingApprovalDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                        </div>
+                        if ( ( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage != Model.PageCount )
+                            {              
+                        <a href="javascript:void(0)" onclick="PendingApprovalGrid.PendingApprovalDataHelper('command=PendingApprovalGridPaging,Page=@(( ( PendingApprovalListState )HttpContext.Current.Session[ SessionHelper.PendingApprovalListState ] ).CurrentPage + 1)')">
+                            <div class="rightarrow">
+                            </div>
+                        </a>
+                            }
+                            else
+                            { 
+                        <div class="rightarrow">
+                        </div>
+                            }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

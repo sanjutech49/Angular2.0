@@ -1,0 +1,91 @@
+﻿@using Telerik.Web.Mvc.UI
+@using MML.Common
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.ManageFeesViewModel
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<div class="managefeesdiv completesection" id="manageFeesSection">
+    <div class="managefeeshead">
+        <div class="left0">
+            <span class="namelink">Closing Costs</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="titleInformation">@Model.TitleInformation <span class="spnLeadSourceInfo">@Model.LeadSourceInformation</span></div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="closeManageFees" class="xclose" title="Close Section" onclick="ManageFees.OnCloseManageFeesSection()">
+                </a><a id="minimizemanagefees" class="minimizesection" title="Minimize/Maximize Section"
+                    onclick="ManageFees.BindManageFeesMinimize()">
+                    <div id="managefeesminmax" class="minmax min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    @{
+        var closingtransactioncosts = "~/Views/Shared/Commands/ManageFees/_manageFeesPageOne.cshtml";
+        var closingcosts = "~/Views/Shared/Commands/ManageFees/_closingcosts.cshtml";
+        var managefeespagethree = "~/Views/Shared/Commands/ManageFees/_manageFeesPageThree.cshtml";    
+    }
+    <div style="width: 1158px; border-left: 1px solid #B4B4B4; border-right: 1px solid #B4B4B4;">
+        <div class="divSaveCostsManageFees">
+            <input type="button" id="btnSaveCostsUp" class="btnSaveCosts imp-button-hm-wm-prim"
+                value='Save Costs' />
+        </div>
+        <div class="managefeesTabsContainer">
+            <div class="managefeesTabsSubContainer">
+                <div class="managefeesTabs" id="manageFeesTab1">
+                    Page 1</div>
+                <div class="managefeesTabs managefeesTabsSelected" id="manageFeesTab2">
+                    Page 2
+                    <img src="/Content/images/greenTabArrowDown.png" class="managefeesTabsSelectedArrow"
+                        alt="Arrow" /></div>
+                <div class="managefeesTabs" id="manageFeesTab3">
+                    Page 3</div>
+            </div>
+        </div>
+        <div class="manageFeesRoundedContainerHeader" style="width: 760px; float: right;
+            margin-right: 10px;">
+            <div class="headerleftcorner">
+            </div>
+            <div class="closingCostHeaderItems" style="width: 215px">
+                <div class="closingCostHeaderItemsTitle">
+                    Date Created:</div>
+                <span>@Model.TitleAndEscrow.CostHeaderDateCreated</span>
+            </div>
+            <div class="closingCostHeaderItems" style="width: 220px">
+                <div class="closingCostHeaderItemsTitle">
+                    Last Modified:</div>
+                <span>@Model.TitleAndEscrow.CostHeaderDateModified</span>
+            </div>
+            <div class="closingCostHeaderItems" style="width: 225px">
+                <div class="closingCostHeaderItemsTitle">
+                    User:</div>
+                <span>@Model.TitleAndEscrow.CostHeaderModifiedBy</span>
+            </div>
+            <div class="closingCostHistoryImageGreen closingCostHeaderItemsHistory" onclick="ManageFees.ManageFeesShowCostsHistory()"
+                id="costHistoryIcon">
+            </div>
+            <div class="headerrightcorner">
+            </div>
+        </div>
+        <div style="clear: both;">
+        </div>
+    </div>
+    <div id="managefeescontent" class="managefeescontent maincontent">
+        <div class="manageFeesPage" id="manageFeesPage1" style="display: none">
+            @Html.Partial( closingtransactioncosts )
+        </div>
+        <div class="manageFeesPage" id="manageFeesPage2">
+            @Html.Partial( closingcosts, Model )
+        </div>
+        <div class="manageFeesPage" id="manageFeesPage3" style="display: none">
+            @Html.Partial( managefeespagethree )
+        </div>
+        <div class="divSaveCostsManageFees">
+            <input type="button" id="btnSaveCosts" class="btnSaveCosts imp-button-hm-wm-prim" value='Save Costs' />
+        </div>
+    </div>
+</div>

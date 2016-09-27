@@ -1,0 +1,148 @@
+﻿<div ng-repeat="employmentInfoItem in employmentInfo.borrowerWithInfo.AdditionalEmploymentInfoCollection" class="additional">
+    <div ng-if="!employmentInfoItem.isRemoved">
+        <div class="income-employer additional section-1">
+            <div class="title">
+                Additional Employer {{$index + 1}}
+                <div class="remove-employer" ng-click="employmentInfo.removeEmploymentInfo(employmentInfoItem)">
+                    <imp-circle size="xsmall" style="vertical-align: middle"
+                                color="#F4BABC" hover-color="#e73302" is-plus="false"></imp-circle>
+                </div>
+
+            </div>
+            <div class="line" style="margin-top: 0;"></div>
+            <br />
+
+            <div class="section">
+                <div class="row">
+                    <div class="col-s">
+                        Employment Status
+                    </div>
+                    <div class="col-m">
+                        <div class="imp-span-ddl-container medium" ng-class="{'disabled' : employmentInfo.isDisabled}">
+                            <select name=""
+                                    class="imp-ddl"
+                                    ng-model="employmentInfoItem.EmploymentStatusId"
+                                    ng-options="emS.value as emS.text for emS in employmentInfo.employmentStatuses"
+                                    ng-disabled="employmentInfo.isDisabled"
+                                    ng-change="employmentInfo.employmentStatusChanged(employmentInfoItem)"
+                                    options-disabled="emS.disabled for emS in employmentInfo.employmentStatuses"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-s">
+                        Employment Type
+                    </div>
+                    <div class="col-m">
+                        <div class="imp-span-ddl-container medium" ng-class="{'disabled' : employmentInfo.isDisabled}">
+                            <select name=""
+                                    class="imp-ddl"
+                                    ng-model="employmentInfoItem.EmploymentTypeId"
+                                    ng-options="emT.value as emT.text for emT in employmentInfo.additionalEmploymentTypes"
+                                    ng-disabled="employmentInfo.isDisabled"
+                                    ng-change="employmentInfo.additionalEmploymentTypeChanged(employmentInfoItem)"
+                                    options-disabled="emT.disabled for emT in employmentInfo.additionalEmploymentTypes"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-s">
+                        Position
+                    </div>
+                    <div class="col-m">
+                        <input type="text"
+                               ng-model="employmentInfoItem.positionDescription"
+                               ng-disabled="employmentInfo.isDisabled"
+                               ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployedAdditional(employmentInfoItem.positionDescription, employmentInfoItem)}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-s">
+                        Type of Business
+                    </div>
+                    <div class="col-m">
+                        <input type="text"
+                               ng-model="employmentInfoItem.typeOfBusiness"
+                               ng-disabled="employmentInfo.isDisabled"
+                               ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployedAdditional(employmentInfoItem.typeOfBusiness, employmentInfoItem) }">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-s">
+                        Years on this job
+                    </div>
+                    <div class="col-m">
+                        <div class="input-group" style="width: 96%">
+                            <input type="text" placeholder="mm/dd/yyyy" class="form-control" style="text-align: left;"
+                                   ng-model="employmentInfoItem.employmentStartDate" imp-date="" min="01/01/1900"
+                                   ng-disabled="employmentInfo.isDisabled" ng-blur="employmentInfo.onYearsOnThisJobChanged(employmentInfoItem)"
+                                   ng-class="employmentInfo.validateIsSalariedOrSelfEmployedAdditional(employmentInfoItem.employmentStartDate, employmentInfoItem) ? 'imp-has-error' : 'imp-has-error-broder-right-none'">
+                            <span class="date-mid-group" ng-class="{'disabled' : employmentInfo.isDisabled}">to</span>
+                            <input ng-show="employmentInfoItem.EmploymentStatusId == employmentInfo.enums.employmentStatus.current"
+                                   type="text" placeholder="Current" class="form-control current" ng-class="{'disabled' : employmentInfo.isDisabled}"
+                                   style="border-left: none; text-align: center;" ng-disabled="true">
+                            <input ng-show="employmentInfoItem.EmploymentStatusId != employmentInfo.enums.employmentStatus.current"
+                                   type="text" placeholder="mm/dd/yyyy" onfocus="this.placeholder = ''" onblur="this.placeholder = 'mm/dd/yyyy'"
+                                   class="form-control" style="text-align: left;" ng-model="employmentInfoItem.employmentEndDate"
+                                   imp-date="" min="01/01/1900" ng-disabled="employmentInfo.isDisabled" ng-blur="employmentInfo.onYearsOnThisJobChanged(employmentInfoItem)"
+                                   ng-class="employmentInfo.validateIsSalariedOrSelfEmployedAdditional(employmentInfoItem.employmentEndDate, employmentInfoItem) ? 'imp-has-error' : 'imp-has-error-broder-left-none'">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-s">
+                        Years in same field
+                    </div>
+                    <div class="col-m">
+                        <input type="text" imp-numeric
+                               ng-model="employmentInfoItem.yearsInThisProfession"
+                               ng-disabled="employmentInfo.isDisabled"
+                               ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployedAdditional(employmentInfoItem.yearsInThisProfession, employmentInfoItem)}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-s">
+                        Company Name
+                    </div>
+                    <div class="col-m">
+                        <input type="text"
+                               ng-model="employmentInfoItem.name"
+                               ng-disabled="employmentInfo.isDisabled"
+                               ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployedAdditional(employmentInfoItem.name, employmentInfoItem)}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-s">
+                        Business Phone
+                    </div>
+                    <div class="col-m">
+                        <input type="text"
+                               ui-mask="(999) 999-9999"
+                               ng-model="employmentInfoItem.businessPhone"
+                               ng-disabled="employmentInfo.isDisabled"
+                               ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployedAdditional(employmentInfoItem.businessPhone, employmentInfoItem)}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="padding: 0;">
+                        <imp-address-control ng-model="employmentInfoItem.address"
+                                             is-county-visible="false"
+                                             is-unit-visible="false"
+                                             placeholder-street-name="Company Street Address"
+                                             placeholder-city-name="Company City"
+                                             ng-disabled="employmentInfo.isDisabled"
+                                             validation="{sixPicesCompleted: employmentInfo.areSixPiecesAcquired, validate: employmentInfoItem.isSalariedEmployeeOrSelfEmployed }"
+                                             states="employmentInfo.dropDownLists.states"></imp-address-control>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <income-information employment-info="employmentInfoItem"
+                            is-disabled="employmentInfo.isDisabled"
+                            amount-periods="employmentInfo.amountPeriods"
+                            are-six-pieces-acquired="employmentInfo.areSixPiecesAcquired">
+        </income-information>
+    </div>
+</div>

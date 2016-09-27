@@ -1,0 +1,499 @@
+﻿<div>
+    <fieldset class=" imp-psection-container">
+
+        <!-- Borrower Information -->
+        <div class="borrower-section">
+            <div class="borrower-section-header">
+                <div class="imp-psection-header">
+                    <div class="imp-sa-grid-row-collaps right" style="margin-left: -20px; margin-top: 10px;"
+                         ng-class="{down: loanScenario.isBorrowerSectionShown, 'right marginTop': !loanScenario.isBorrowerSectionShown}"
+                         ng-click="loanScenario.collapseExpand('BorrowerSection')"></div>
+                    <div class="fleft imp-psection-title imp-psection-title-element">Borrower Information</div>
+                    <div class="fleft imp-personal-borrower-img"></div>
+                </div>
+            </div>
+            <div class="borrower-section-body" ng-show="loanScenario.isBorrowerSectionShown">
+                <div class="row" style="margin-left: 0px;">
+                    <div class="imp-psection-subtitle col-lg-4">
+                        <div>Name</div>
+                    </div>
+                    <div class="imp-psection-subtitle col-lg-4">
+                        <div>Contact</div>
+                    </div>
+                    <div style="margin-left: -5px;" class="imp-psection-subtitle col-lg-4">
+                        <div>Employment & Background</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4" style="width:30%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">First Name</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.NameInfo.FirstName" />
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Middle Name</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.NameInfo.MiddleName" />
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Last Name</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.NameInfo.LastName" />
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Suffix</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" placeholder="Jr., Sr., II, III" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.NameInfo.Suffix" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:30%">
+                        <div class='row imp-psection-row'>
+                            <div class='col-lg-5'>
+                                <div class='imp-psection-label'>Preferred Phone</div>
+                            </div>
+                            <imp-phone phone-number="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.ContactInfo.PreferredPhoneNumber"
+                                       selected-phone-type="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.ContactInfo.PrefferedPhoneType"
+                                       phone-types-options="loanScenario.loanScenarioViewModel.PersonalInformation.PhoneNumberTypeList"
+                                       custom-filters="loanScenario.phoneFunctions"
+                                       number-required="true"
+                                       fields-disabled="false">
+                            </imp-phone>
+                        </div>
+                        <div class='row imp-psection-row'>
+                            <div class='col-lg-5'>
+                                <div class='imp-psection-label'>Alternate Phone</div>
+                            </div>
+                            <imp-phone phone-number="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.ContactInfo.AlternatePhoneNumber"
+                                       selected-phone-type="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.ContactInfo.AlternatePhoneType"
+                                       phone-types-options="loanScenario.loanScenarioViewModel.PersonalInformation.PhoneNumberTypeList"
+                                       custom-filters="loanScenario.phoneFunctions"
+                                       number-required="false"
+                                       fields-disabled="false">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label fleft">Email</div>
+                                <div class="imp-personal-account-management-img floatright"
+                                     imp-popover="angular/loanapplication/personal/manageuseraccountmodal.html"
+                                     tooltip-placement="bottom"
+                                     tooltip-trigger="click"
+                                     style="margin-top:4px; margin-right: 4px;">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.ContactInfo.Email" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:31%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Employment Status</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl" ng-change="loanScenario.onEmploymentStatusChange()"
+                                            ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.EmploymentStatus"
+                                            ng-options="employmentType.Value as employmentType.Text for employmentType in loanScenario.loanScenarioViewModel.PersonalInformation.EmploymentStatusList"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row" ng-hide="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.EmploymentStatus == 4">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label" ng-bind="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.EmploymentStatus == 3 ? 'Retired at least 2 years?' : 'On the job 2 years?'"></div>
+                            </div>
+                            <div style="margin: 2px -6px 0px 0px" class="col-lg-1">
+                                <input id="cbBorrowerTwoYearsOnJob"
+                                       type="checkbox"
+                                       ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.OnTheJob2Years"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       class="imp-checkbox" />
+                                <label for="cbBorrowerTwoYearsOnJob" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">U.S. Citizen</div>
+                            </div>
+                            <div style="margin: 2px -6px 0px 0px" class="col-lg-1">
+                                <input id="cbBorrowerCitizen"
+                                       type="checkbox"
+                                       ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.USCitizen"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       class="imp-checkbox" />
+                                <label for="cbBorrowerCitizen" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row" ng-show="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.USCitizen == false">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">Permanent <br /> Resident Alien</div>
+                            </div>
+                            <div style="margin: 2px -6px 0px 0px" class="col-lg-1">
+                                <input id="cbBorrowerPermanentResidentAlien"
+                                       type="checkbox"
+                                       ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.PermanentAlien"
+                                       ng-checked="!loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.USCitizen"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       ng-click="loanScenario.onPermanentAlienChange($event)"
+                                       class="imp-checkbox" />
+                                <label for="cbBorrowerPermanentResidentAlien" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Yrs of School</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" maxlength="2" imp-numeric ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.EmploymentAndBackgroundInfo.YearsOfSchool" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-left: 0px;">
+                    <div class="imp-psection-subtitle col-lg-12">
+                        <div>Personal</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4" style="width:30%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Date of Birth</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-date-picker display-picker="true" type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.DateOfBirth"></imp-date-picker>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">SSN</div>
+                            </div>
+                            <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(loanScenario.wrongBorrowerSSN) ? 'imp-has-error' : ''" style="width: 94%;" type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.SSN" ng-blur="loanScenario.onSSNBlur(1)" />
+                            </div>
+                            <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(loanScenario.wrongBorrowerSSN) ? 'imp-has-error' : ''" class="imp-psection-left-borderadius" type="text" ng-model="loanScenario.confirmBorrowerSSN" ng-blur="loanScenario.onSSNBlur(1)" />
+                            </div>
+                            <div style="width:60%; margin-left:140px; position:absolute; margin-top:20px;" ng-show="loanScenario.wrongBorrowerSSN">
+                                <span class="imp-error-label" style="color:#ef1126;">SSN does not match</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:30%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Marital Status</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl"
+                                            ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.MartialStatus"
+                                            ng-options="status.Value as status.Text for status in loanScenario.loanScenarioViewModel.PersonalInformation.MartialStatusList"
+                                            ng-change="loanScenario.onMaritalStatusActionChanged()"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Dependents</div>
+                            </div>
+                            <div style="width: 20%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input style="width: 94%;" placeholder="Number" type="text"
+                                       ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.NumberOfDependents"
+                                       ng-required="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.AgesOfDependents != ''"
+                                       ng-blur="loanScenario.onBorrowerNumberOfDependentsBlur(loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.AgesOfDependents, loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.NumberOfDependents)"
+                                       ng-focus="loanScenario.onBorrowerNumberOfDependentsFocus()"
+                                       ng-class="loanScenario.borrowerDependentsError ? 'imp-has-error' : '' " />
+                            </div>
+                            <div style="width: 36%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input id="focused" placeholder="Ages (i.e. 3,8,12)" class="imp-psection-left-borderadius" type="text"
+                                       ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.AgesOfDependents"
+                                       ng-required="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.NumberOfDependents != ''"
+                                       ng-blur="loanScenario.onBorrowerAgesOfDependentsBlur(loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.AgesOfDependents, loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.NumberOfDependents)"
+                                       ng-focus="loanScenario.onBorrowerAgesOfDependentsFocus()"
+                                       ng-class="loanScenario.borrowerDependentsError ? 'imp-has-error' : '' " />
+                                <div ng-show="loanScenario.borrowerDependentsError" style="color:red; font-size: 11px;">Invalid dependents data</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:31%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">How did you hear <br /> about us?</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl"
+                                            ng-options="item.Value as item.Text for item in loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.HowDidYouHearAboutUsList"
+                                            ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.Borrower.PersonalInfo.HowDidYouHearAboutUs"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CoBorrower Information -->
+        <div class="coBorrower-section">
+            <div class="coBorrower-section-header">
+                <div class="imp-psection-header">
+                    <div class="imp-sa-grid-row-collaps right" style="margin-left: -20px; margin-top: 10px;"
+                         ng-class="{down: loanScenario.isCoborrowerSectionShown, 'right marginTop': !loanScenario.isCoborrowerSectionShown}"
+                         ng-click="loanScenario.collapseExpand('CoBorrowerSection')"></div>
+                    <div class="fleft imp-psection-title imp-psection-title-element">CoBorrower Information</div>
+                    <div class="fleft imp-personal-coborrower-img"></div>
+                    <div style="float: right; margin-right: 10px;" ng-show="loanScenario.isSwitchBorrowerCoBorrowerShown">
+                        <div class="fleft imp-psection-title-element" style="margin-left: 25px;">Switch Co-Borrower to Borrower</div>
+                        <div class="fleft" style="margin-top: 4px;">
+                            <input id="cbCoBorrowerToBorrowerSwitch"
+                                   type="checkbox"
+                                   ng-model="loanScenario.switchCoBorrowerToBorrower"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox" />
+                            <label for="cbCoBorrowerToBorrowerSwitch" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="coBorrower-section-body" ng-show="loanScenario.isCoborrowerSectionShown">
+                <div class="row" style="margin: 10px -6px;">
+                    <div style="width: 345px;" class="fleft imp-psection-title-element">Is your registered spouse or partner going to be on the loan?</div>
+                    <label style="margin: 5px;" class="imp-switch fleft">
+                        <input type="checkbox"
+                               ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.IsSpouseOnTheLoan"
+                               ng-change="loanScenario.onIsSpouseOnTheLoanChange(true)" /><i></i>
+                        <div ng-show="loanScenario.loanScenarioViewModel.PersonalInformation.IsSpouseOnTheLoan" style="color:white;font-size: 10px;position: absolute;margin-left: 5px;margin-top: -25px;">YES</div>
+                        <div ng-show="!loanScenario.loanScenarioViewModel.PersonalInformation.IsSpouseOnTheLoan" style="color:white;font-size: 10px;position: absolute;margin-left: 25px;margin-top: -25px;">NO</div>
+                    </label>
+                </div>
+                <div class="coBorrower-section-coBorrowerInfo" ng-show="loanScenario.isSpouseOnTheLoanSelected">
+                    <div class=" row" style="margin-left: 0px;">
+                        <div class="imp-psection-subtitle col-lg-4">
+                            <div>Name</div>
+                        </div>
+                        <div class="imp-psection-subtitle col-lg-4">
+                            <div>Contact</div>
+                        </div>
+                        <div style="margin-left: -5px;" class="imp-psection-subtitle col-lg-4">
+                            <div>Employment & Background</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4" style="width:30%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">First Name</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.NameInfo.FirstName" />
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Middle Name</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.NameInfo.MiddleName" />
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Last Name</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.NameInfo.LastName" />
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Suffix</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" placeholder="Jr., Sr., II, III" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.NameInfo.Suffix" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="width:30%">
+                            <div class='row imp-psection-row'>
+                                <div class='col-lg-5'>
+                                    <div class='imp-psection-label'>Preferred Phone</div>
+                                </div>
+                                <imp-phone phone-number="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.ContactInfo.PreferredPhoneNumber"
+                                           selected-phone-type="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.ContactInfo.PrefferedPhoneType"
+                                           phone-types-options="loanScenario.loanScenarioViewModel.PersonalInformation.PhoneNumberTypeList"
+                                           custom-filters="loanScenario.phoneFunctions"
+                                           number-required="true"
+                                           fields-disabled="false">
+                                </imp-phone>
+                            </div>
+                            <div class='row imp-psection-row'>
+                                <div class='col-lg-5'>
+                                    <div class='imp-psection-label'>Alternate Phone</div>
+                                </div>
+                                <imp-phone phone-number="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.ContactInfo.AlternatePhoneNumber"
+                                           selected-phone-type="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.ContactInfo.AlternatePhoneType"
+                                           phone-types-options="loanScenario.loanScenarioViewModel.PersonalInformation.PhoneNumberTypeList"
+                                           custom-filters="loanScenario.phoneFunctions"
+                                           number-required="false"
+                                           fields-disabled="false">
+                                </imp-phone>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Email</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.ContactInfo.Email" ng-disabled="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.ContactInfo.EmailFieldDisabled" ng-change="loanScenario.onCoBorrowerEmailChange()" />
+                                    <div ng-show="loanScenario.showEmailDisclaimerSameAsBorrower" style="color:#A3A3A3; line-height:18px; font-style: italic;">Using the same email as the borrower will create a shared login</div>
+                                    <div ng-show="loanScenario.showEmailDisclaimerDifferentThanBorrower" style="color:#A3A3A3; line-height:18px; font-style: italic;">Using a different email than the borrower will create a separate login for the co-borrower</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="width:31%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Employment Status</div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="imp-span-ddl-container medium">
+                                        <select class="imp-ddl"
+                                                ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.EmploymentStatus"
+                                                ng-options="employmentType.Value as employmentType.Text for employmentType in loanScenario.loanScenarioViewModel.PersonalInformation.EmploymentStatusList"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row" ng-hide="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.EmploymentStatus == 4">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label" ng-bind="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.EmploymentStatus == 3 ? 'Retired at least 2 years?' : 'On the job 2 years?'"></div>
+                                </div>
+                                <div style="margin: 2px -6px 0px 0px" class="col-lg-1">
+                                    <input id="cbCoBorrowerTwoYearsOnJob"
+                                           type="checkbox"
+                                           ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.OnTheJob2Years"
+                                           ng-true-value="true"
+                                           ng-false-value="false"
+                                           class="imp-checkbox" />
+                                    <label for="cbCoBorrowerTwoYearsOnJob" class="imp-lb-checkbox"></label>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">U.S. Citizen</div>
+                                </div>
+                                <div style="margin: 2px -6px 0px 0px" class="col-lg-1">
+                                    <input id="cbCoBorrowerCitizen"
+                                           type="checkbox"
+                                           ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.USCitizen"
+                                           ng-true-value="true"
+                                           ng-false-value="false"
+                                           class="imp-checkbox" />
+                                    <label for="cbCoBorrowerCitizen" class="imp-lb-checkbox"></label>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row" ng-show="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.USCitizen == false">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label imp-psection-two-lines-labels">Permanent <br /> Resident Alien</div>
+                                </div>
+                                <div style="margin: 2px -6px 0px 0px" class="col-lg-1">
+                                    <input id="cbCoBorrowerPermanentResidentAlien"
+                                           type="checkbox"
+                                           ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.PermanentAlien"
+                                           ng-checked="!loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.USCitizen"
+                                           ng-true-value="true"
+                                           ng-false-value="false"
+                                           ng-click="loanScenario.onPermanentAlienChange($event)"
+                                           class="imp-checkbox" />
+                                    <label for="cbCoBorrowerPermanentResidentAlien" class="imp-lb-checkbox"></label>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Yrs of School</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" maxlength="2" imp-numeric ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.EmploymentAndBackgroundInfo.YearsOfSchool" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="imp-psection-subtitle col-lg-12">
+                            <div>Personal</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4" style="width:30%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Date of Birth</div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <imp-date-picker display-picker="true" type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.DateOfBirth"></imp-date-picker>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">SSN</div>
+                                </div>
+                                <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(loanScenario.wrongCoBorrowerSSN) ? 'imp-has-error' : ''" style="width: 94%;" type="text" ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.SSN" ng-blur="loanScenario.onSSNBlur(2)" />
+                                </div>
+                                <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(loanScenario.wrongCoBorrowerSSN) ? 'imp-has-error' : ''" class="imp-psection-left-borderadius" type="text" ng-model="loanScenario.confirmCoBorrowerSSN" ng-blur="loanScenario.onSSNBlur(2)" />
+                                </div>
+                                <div style="width:60%; margin-left:140px; position:absolute; margin-top:20px;" ng-show="loanScenario.wrongCoBorrowerSSN">
+                                    <span class="imp-error-label" style="color:#ef1126;">SSN does not match</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="width:30%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Dependents</div>
+                                </div>
+                                <div style="width: 20%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input style="width: 94%;" placeholder="Number" type="text"
+                                           ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.NumberOfDependents"
+                                           ng-required="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.AgesOfDependents != ''"
+                                           ng-blur="loanScenario.onCoBorrowerNumberOfDependentsBlur(personal.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.AgesOfDependents, personal.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.NumberOfDependents)"
+                                           ng-focus="loanScenario.onCoBorrowerNumberOfDependentsFocus()"
+                                           ng-class=" loanScenario.coBorrowerDependentsError ? 'imp-has-error' : '' " />
+                                </div>
+                                <div style="width: 36%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input placeholder="Ages (i.e. 3,8,12)" class="imp-psection-left-borderadius" type="text"
+                                           ng-model="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.AgesOfDependents"
+                                           ng-required="loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.NumberOfDependents != ''"
+                                           ng-blur="loanScenario.onCoBorrowerAgesOfDependentsBlur(loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.AgesOfDependents, loanScenario.loanScenarioViewModel.PersonalInformation.CoBorrower.PersonalInfo.NumberOfDependents)"
+                                           ng-focus="loanScenario.onCoBorrowerAgesOfDependentsFocus()"
+                                           ng-class="loanScenario.coBorrowerDependentsError ? 'imp-has-error' : '' " />
+                                    <div ng-show="loanScenario.coBorrowerDependentsError" style="color:red; font-size: 11px;">Invalid dependents data</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</div>

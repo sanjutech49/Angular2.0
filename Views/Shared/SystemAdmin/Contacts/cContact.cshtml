@@ -1,0 +1,265 @@
+﻿@using MML.Contacts
+@using MML.Web.LoanCenter.Helpers.Enums
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.ContactsProfileViewModel
+  @{
+
+     var contactViewName = Model.cCompany.ContactType != -1 ?  "~/Views/Shared/SystemAdmin/Contacts/c" + ( ( SystemAdminContactTypesEnum )Model.cCompany.ContactType ) + "Contact.cshtml" : String.Empty;
+     ViewBag.ContactTypeSpecificTitle = "Type Specific Information";
+
+ }     
+ 
+<script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.extend.js")" type="text/javascript"></script> 
+   
+  <div class="systemAdminBussinessContactsPopup">
+  @using ( Ajax.BeginForm( "SaveCompanyProfileContact", "SystemAdmin", null, new AjaxOptions { HttpMethod = "Post" }, new { @id = "frmContact" } ) )
+  {
+       @Html.AntiForgeryToken()   
+      @Html.HiddenFor( model => model.cContact.ContactId, new { @id = "cContactId" } )   
+      @Html.HiddenFor( model => model.cContact.CompanyId, new { @id = "hdnCompanyId" } )  
+      @Html.Hidden( "hdnContactType", Model.cCompany.ContactType ) 
+      @Html.HiddenFor( x => x.cContact.ContactIdSerializable, new { @id = "ContactIdSerializable" } )  
+      
+    <div class=" imp-div-AdminCompanyContacts-title" style="float:left;">
+        <span>@if (Model.cContact != null && Model.cContact.ContactId == 0 )
+              { <text>Add Contact</text>}
+              else
+              { <text>Edit Contact</text> } </span>
+    </div>
+      <div class=" imp-div-close-x" style="float:right;margin-top:10px;" onclick="Contacts.CloseSystemAdminBusinessContactPopup()"></div>
+       <div class="imp-div-globalToLoanContactsSeparator"  style="min-width: 100%;"></div>
+      <fieldset class="imp-companyInformation-fieldset">
+        <legend >Contact Information</legend>  
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Contact Type
+            </div>
+
+            <div class="cCompanyRight">
+              @Html.TextBox( "cCompanyContactType", Model.cCompany.ContactType != -1 ? MML.Common.Helpers.EnumHelper.GetStringValue( ( SystemAdminContactTypesEnum )Model.cCompany.ContactType ) : "None", new { @disabled = "disabled", @readonly = "readonly", @class = "businessContactsViewOnly" } )
+                
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Company Name
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.CompanyName, new { @disabled = "disabled", @readonly = "readonly", @class = "businessContactsViewOnly" } )
+          
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Street Address
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.StreetAddress, new { @disabled = "disabled", @readonly = "readonly", @class = "businessContactsViewOnly" } )
+         
+            </div>
+        </div>
+
+       <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            City
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.City, new { @disabled = "disabled", @readonly = "readonly", @class = "businessContactsViewOnly" } )
+            
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Company Phone Number
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.CompanyPhoneNumber, new { @disabled = "disabled", @readonly = "readonly", @class = "businessContactsViewOnly" } )
+          
+            </div>
+        </div>
+         <div class="separator">
+            <span></span>
+        </div>  
+           
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            First Name
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cContact.FirstName, new { @id = "txtcContactFirstName" } )
+            @Html.ValidationMessageFor( model => model.cContact.FirstName )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Last Name
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cContact.LastName, new { @id = "txtcContactLastName" } )
+            @Html.ValidationMessageFor( model => model.cContact.LastName )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Phone Number
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cContact.PhoneNumber, new { @id = "txtcContactPhoneNumber" } )
+            @Html.ValidationMessageFor( model => model.cContact.PhoneNumber )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Email
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cContact.Email, new { @id = "txtcContactEmail" } )
+            @Html.ValidationMessageFor( model => model.cContact.Email )
+            </div>
+        </div>
+          <div class="rowCompanyProfileContainer">
+              <div class="cCompanyLeft">
+                  Deactivate
+              </div>
+              <div class="cCompanyRight cCompanyPositionText">
+                  <div style="float: left">
+                     @* @Html.CheckBoxFor( x => x.cContact.Deactivated, ( Model.cCompany.Deactivated || ( Model.cRealtorContact != null && Model.cRealtorContact.IsContactCoBranded ) ) ? new { onclick = "return false" } : new object() )*@
+
+                 @Html.CheckBoxFor(x => x.cContact.Deactivated, (Model.cCompany.Deactivated || (Model.cRealtorContact != null && Model.cRealtorContact.IsContactCoBranded)) ? new { @onclick = "return false", @id = "companyContactsContactDisabled", @class = "imp-checkbox" } : new { @onclick = "Contacts.EnableIntegrationOff()", @id = "companyContactsContactDisabled", @class = "imp-checkbox" })
+                <label for="companyContactsContactDisabled" class="imp-lb-checkbox"></label>
+                  </div>
+              </div>
+       </div>
+        <span id="cContactType">
+               @if ( @Html.ViewExists( contactViewName ) && Model.cCompany.ContactType != -1 )
+               {              
+                        @Html.Partial( contactViewName, Model )
+               }          
+        </span>
+
+               <div id="cContactsDuplicateValidationMsg" style="float:left;color:Red;margin-top:10px;"></div>
+              
+        </fieldset>   
+       <div class="imp-div-globalToLoanContactsSeparator"  style="min-width: 100%;"></div>
+        <div class="buttonContainer-companyProfileContainer-div" style="margin-top: 15px;">
+            <div class="imp-button-contacts-hl-wl-sec" id="cancelCompanyProfile" onclick="Contacts.CloseSystemAdminBusinessContactPopup()">Cancel</div>
+            <div class="imp-button-contacts-hl-wl-prim imp-div-businesscontacts-secondnbutton" id="saveCompanyProfileContact" onclick="Contacts.CheckIsDuplicateLoginContact(this)">Save</div>  
+            
+        </div> 
+  }   
+ </div>
+
+ <script type="text/javascript">
+     $(document).ready(function () {
+         $("#txtcContactFirstName").focus();
+     $("#txtcContactPhoneNumber").val($("#txtcContactPhoneNumber").val()).unmask().mask("?(999) 999-9999");
+     InitiateAutocompleteForContacts("txtcContactFirstName");
+     InitiateAutocompleteForContacts("txtcContactLastName");
+     InitiateAutocompleteForContacts("txtcContactPhoneNumber");
+     InitiateAutocompleteForContacts("txtcContactEmail");
+ });
+     var _cContactListCache = {};
+     function InitiateAutocompleteForContacts(fieldId) {
+         $("#" + fieldId).autocomplete({
+                 source: function(request, response) {
+
+                     response(null);
+                     var searchTerm = request.term;
+                     var sourceFieldId = $(this).attr("id");
+                     var sourceFieldTerm = "";
+
+                     var contactFirstNameTerm = $("#txtcContactFirstName").val();
+                     var contactLastNameTerm = $("#txtcContactLastName").val();
+                     
+                     var str = $("#txtcContactPhoneNumber").val();
+                     var matches = str.match(/[0-9]+/g);
+                     if (str != "")
+                         str = str.substring(0, str.lastIndexOf(matches[matches.length - 1]) + 1);
+                      
+                     var contactPhoneNumberTerm = str;
+                      
+                     var contactEmailTerm = $("#txtcContactEmail").val();
+                     var companyId = $('#hdnCompanyId').val();
+
+                     if ((searchTerm in _cContactListCache) && (_cContactListCache[searchTerm].length > 0)) {
+                         response($.map(_cContactListCache[searchTerm, companyId, contactFirstNameTerm, contactLastNameTerm, contactPhoneNumberTerm, contactEmailTerm], function (item) {
+                             return { firstName: item.FirstName,
+                                 lastName: item.LastName,
+                                 phoneNumber: item.PhoneNumber,
+                                 email: item.Email,
+                                 companyId: item.CompanyId,
+                                 contactId: item.ContactId,
+                                 contactType: item.ContactType
+
+                             };
+                         }));
+                         return;
+                     }
+
+                     $.getJSON("SystemAdmin/FilterCContactsBySearchString", { 
+                       searchText: searchTerm              , companyId: companyId
+                     , firstName: contactFirstNameTerm     , lastName: contactLastNameTerm
+                     , phoneNumber: contactPhoneNumberTerm , email: contactEmailTerm
+                     }, function(data) {
+                         _cContactListCache[searchTerm, companyId, contactFirstNameTerm, contactLastNameTerm, contactPhoneNumberTerm, contactEmailTerm] = data;
+                         response($.map(data, function(item) {
+                             return { firstName: item.FirstName,
+                                 lastName: item.LastName,
+                                 phoneNumber: item.PhoneNumber,
+                                 email: item.Email,
+                                 companyId: item.CompanyId,
+                                 contactId: item.ContactId,
+                                 contactType: item.ContactType
+
+                             };
+                         }));
+
+                     });
+                 },
+                 select: function(event, ui) {
+
+                     //             $('#txtcContactFirstName').val(ui.item ? ui.item.firstName : "");
+                     //             $('#txtcContactLastName').val(ui.item ? ui.item.lastName : "");
+                     //             $('#txtcContactPhoneNumber').val(ui.item ? ui.item.phoneNumber : "");
+                     //             $('#txtcContactEmail').val(ui.item ? ui.item.email : "");
+
+                     if (ui.item && ui.item.lastName != "" && ui.item.email != "" && ui.item.phoneNumber != "") {
+                         Contacts.CloseSystemAdminBusinessContactPopup();
+                         Contacts.OpenContactsPopup(ui.item.contactId, ui.item.companyId, $('#hdnContactType').val());
+                     }
+                     return false;
+
+                 }
+             }).data("autocomplete")._renderItem = function(ul, item) {
+                 var separator = ", ";
+                 if (item.lastName == "" && item.email == "" && item.phoneNumber == "")
+                     separator = "";
+
+                 return $("<li>").data("item.autocomplete", item)
+                     .append("<a style='overflow: hidden;'><span class='imp-cCompanyAutocomplete-span-title'>" + item.firstName + " " + item.lastName + "<span><br><span class='imp-cCompanyAutocomplete-span-subcontent'>" + item.email + separator + item.phoneNumber + "</span></a>")
+                     .appendTo(ul);
+             };
+     }
+ </script>
+
+
+ 

@@ -1,0 +1,41 @@
+﻿<div id="signOffCondition" class="conditions-sign-off-popup-container conditions-sign-off-popup-container-main">
+    <form name="frmSignOffCondition">
+    <div class="conditions-add-new-popup-header">
+        <div class=" imp-div-close-x floatright" style="margin-top: -15px; margin-right: -1px;
+            padding: 1px; margin-top: -2px;" ng-click="conditions_signoffpopup_cancel()">
+        </div>
+        <div style="padding: 1px; margin-top: -3px;" class="imp-complete-icon">
+        </div>
+        <div>        
+            Sign-Off Condition   
+        </div>
+        <div class="imp-sa-split" style="min-width: 100%">
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="condition-add-new-popup-select-section" style="margin-top: -5px;">
+            <div id="codeName" class="condition-add-new-popup-code-name" style="line-height: 30px;">
+                Condition: {{ Code }}
+            </div>
+            <div style="line-height: 35px;">
+                All documents are Cleared or Waived.
+            </div>
+            <div>
+                Would you like to Sign-Off the Condition or add a new item?
+            </div>
+        </div>
+    </div>
+    <div class="conditions-popup-footer" style="padding-bottom: 0px; margin-bottom: -15px;">
+        <div class="imp-sa-split conditions-popup-footer-separator">
+        </div>
+        <div class="conditions-sign-off-popup-button-container">
+            <button class="imp-button-sec-general" style="width: 90px;" ng-click="conditions_signoffpopup_cancel()">
+                Cancel</button>
+            <button class="imp-button-hm-wm-prim" style="width: 130px;" ng-click="conditions_signoffpopup_addNewItem()">
+                Add New Item</button>
+            <button class="imp-button-hm-wm-prim" style="width: 95px;"  ng-click="conditions_signoffpopup_signOff()">
+                Sign-Off</button>
+        </div>
+    </div>
+    </form>
+</div>

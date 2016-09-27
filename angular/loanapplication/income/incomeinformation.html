@@ -1,0 +1,51 @@
+﻿<div class="section-2">
+    <div class="row">
+        <div class="col-xxl top">
+            Income Type
+        </div>
+        <div class="col-xxxl top">
+            Amount
+        </div>    
+        <div class="col-xl" style="text-align: right">
+            <span style="margin-right: 26px;">Calculated</span> <br />
+            Monthly Income
+        </div>
+        <div class="line"></div>
+    </div>
+
+    <div class="row" ng-init="incomeInformation.disableIncomeTypes()" ng-repeat="incomeInfoItem in incomeInformation.employmentInfo.incomeInformationCollection">
+        <div class="col-xxl">{{incomeInfoItem.incomeType}}</div>
+        <div class="col-xxxl">
+            <div class="input-group">
+                <div class="income-current-employer-right-wrapper">
+                    <input type="text" class="form-control" value="" ng-model="incomeInfoItem.Amount"
+                           imp-currency="" negative-values="{{incomeInformation.employmentInfo.EmploymentTypeId==incomeInformation.enums.employmentType.selfEmployed && incomeInfoItem.incomeTypeId==incomeInformation.enums.incomeTypeEnum.selfEmployedIncome }}"
+                           ng-disabled="incomeInformation.isDisabled || incomeInfoItem.incomeTypeDisabled"
+                           ng-change="incomeInformation.checkIfSixPiecesAreAcquired()"
+                           ng-blur="incomeInformation.onIncomeAmountChanged(incomeInfoItem); incomeInformation.validateIncome(incomeInfoItem)"
+                           ng-class="{'imp-has-error': incomeInformation.validateBaseOrPartSalary(incomeInfoItem)}">
+                    <span class="input-group-btn" style="width: 0;"></span>
+                </div>
+                <div class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short imp-span-ddl-container-short-3" ng-class="{'disabled' :  incomeInformation.isDisabled || incomeInfoItem.incomeTypeDisabled}">
+                    <select class="imp-ddl"
+                            ng-model="incomeInfoItem.preferredPaymentPeriodId"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in incomeInformation.amountPeriods"
+                            ng-change="incomeInformation.onIncomeAmountChanged(incomeInfoItem)"
+                            ng-disabled="incomeInformation.isDisabled || incomeInfoItem.incomeTypeDisabled"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl">
+            <div class="income-calc-monthly" style="padding-left: 0; text-align: right">{{incomeInfoItem.calculatedMonthlyAmount | impCurrency:""}}</div>
+        </div>
+    </div>
+    <div class="line"></div>
+
+    <div style="float: right; padding-right: 103px; text-align: right">
+        <div class="title">
+            <div><span style="margin-right: -22px;">Total Monthly</span> <span class="value" style="float: right">{{incomeInformation.employmentInfo.totalMonthlyAmount  | impCurrency}}</span></div>
+        </div>
+    </div>
+
+</div>
+

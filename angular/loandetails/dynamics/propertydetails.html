@@ -1,0 +1,244 @@
+﻿<div class="imp-modal flayout">
+    <div class="header">
+        <span class="imp-text-enhanced-color">Subject Property Details</span>
+    </div>
+    <div class="imp-split"></div>
+    <br />
+
+    <div class="container property-details">
+        <div class="section" style=" width:93%;">
+
+            <div class="row">
+                <div class="first-column">&nbsp;</div>
+
+                <!--<div class="second-column">
+                    <div class="imp-icon-pdf floatleft"></div> 
+                    <div class="title" > Appraisal   </div>                   
+                </div>-->
+
+                <!--<div class="third-column">
+                    <div class="imp-icon-pdf floatleft"></div>
+                    <div class="title">
+                        Title
+                    </div> 
+                 </div>-->
+                <div class="fourth-column">
+                    <div class="floatleft title" style="margin-left:0px;">Final Subject Property Information</div>
+                    <div class="imp-icon-question-mark question-mark-position floatleft icon" ></div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="first-column" style="margin-top:12px;">Address & County</div>
+                <!--<div class="second-column" style="line-height:30px;">
+                    &nbsp;
+                </div>
+                <div class="third-column" style="line-height:30px;">
+                    &nbsp;
+                </div>-->  
+                <div class="fourth-column">
+                    <div class="imp-psection-row">
+                        <imp-address-control ng-model="propertyDetailsController.propertyDetailsViewModel" is-county-visible="true"
+                                             states="propertyDetailsController.licencedStates"></imp-address-control>
+                    </div>
+                </div>
+            </div>  
+            
+            <div class="row" style="margin-top:15px;">
+                <div class="first-column">Appraised Value</div>
+                <!--<div class="second-column">
+                    &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.appraisedValue}}
+                </div>
+                <div class="third-column">
+                    &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.appraisedValue}}
+                </div>-->
+                <div class="fourth-column">
+                    <input type="text" style="width:190px;" imp-currency ng-model="propertyDetailsController.propertyDetailsViewModel.appraisedValue" 
+                           ng-disabled="!propertyDetailsController.applicationData.currentUser.hasPrivilege('Appraised Value')" />
+                </div>
+            </div>  
+            
+            
+            <div class="row" style="margin-top:15px;">
+                <div class="first-column">Property Type</div>
+                <!--<div class="second-column">
+                    &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.propertyType}}
+                </div>
+                <div class="third-column">
+                    &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.propertyType}}
+                </div>-->
+                <div class="fourth-column">
+                    <div class="imp-span-ddl-container">
+                        <select class="imp-ddl ng-pristine ng-valid ng-touched" style="width:200px;"
+                                ng-model="propertyDetailsController.propertyDetailsViewModel.propertyType"
+                                ng-options="dpt.value as dpt.text for dpt in propertyDetailsController.applicationData.lookup.subjectPropertyTypes"></select>
+                </div>
+            </div>  
+            </div>  
+                <div class="row" style="margin-top:-5px;"
+                     ng-show="propertyDetailsController.propertyDetailsViewModel.propertyType == 2||
+                     propertyDetailsController.propertyDetailsViewModel.propertyType == 1||
+                     propertyDetailsController.propertyDetailsViewModel.propertyType == 11">
+                    <div class="first-column" ng-hide="propertyDetailsController.propertyDetailsViewModel.propertyType == 2">
+                        Number of units
+                    </div>
+                    <div class="first-column" ng-if="propertyDetailsController.propertyDetailsViewModel.propertyType == 2">
+                        Number of stories
+                    </div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.numberOfUnits}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.numberOfUnits}}
+                    </div>-->
+                    <div class="fourth-column" ng-if="propertyDetailsController.propertyDetailsViewModel.propertyType == 1||
+                     propertyDetailsController.propertyDetailsViewModel.propertyType == 11">
+                        <div class="imp-span-ddl-container">
+                            <select class="imp-ddl ng-pristine ng-valid ng-touched" style="width:200px;" ng-model="propertyDetailsController.propertyDetailsViewModel.numberOfUnits">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fourth-column" ng-if="propertyDetailsController.propertyDetailsViewModel.propertyType == 2">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.numberOfStories" />
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top:15px;">
+                    <div class="first-column">Property Rights</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.propertyRights}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.propertyRights}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <div class="imp-span-ddl-container">
+                            <select class="imp-ddl ng-pristine ng-valid ng-touched" style="width:200px;"
+                                    ng-model="propertyDetailsController.propertyDetailsViewModel.propertyRights"
+                                    ng-options="dpt.value as dpt.text for dpt in propertyDetailsController.applicationData.lookup.propertyRights"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-5px;">
+                    <div class="first-column">Short Legal</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.shortLegal}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.shortLegal}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.shortLegal" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-5px;">
+                    <div class="first-column">Full Legal</div>
+                    <!--<div class="second-column">
+                        <div class="imp-icon-info-on floatleft"></div>
+                        <div class="floatleft" style="margin-left:3px; margin-top:2px;">
+                            &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.fullLegal}}
+                        </div>
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.fullLegal}}
+                    </div>-->
+                    <div class="fourth-column" style="margin-left:-5px;">
+                        <div class="imp-icon-info-on floatleft icon" ng-click="propertyDetailsController.fullLegalDescriptionEdit($event, propertyDetailsController)"></div>
+                        <div class="floatleft" style="margin-left:3px; margin-top:10px;">{{propertyDetailsController.propertyDetailsViewModel.fullLegal}}</div>
+                    </div>
+                </div>
+
+
+
+                <div class="row" style="margin-top:15px;">
+                    <div class="first-column">Project Type</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.projectType}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.projectType}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.projectType" />
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top:-5px;">
+                    <div class="first-column">Project Name</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.projectName}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.projectName}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.projectName" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-5px;">
+                    <div class="first-column">CPM Project ID#</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.projectId}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.projectId}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.projectId" />
+                    </div>
+                </div>
+
+
+
+                <div class="row" style="margin-top:15px;">
+                    <div class="first-column">Property Review</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.propertyReview}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.propertyReview}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.propertyReview" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-5px;">
+                    <div class="first-column">Form Number</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.formNumber}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.formNumber}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.formNumber" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-5px;">
+                    <div class="first-column">Property Form Type</div>
+                    <!--<div class="second-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.appraisalPropertyDetails.propertyFormType}}
+                    </div>
+                    <div class="third-column">
+                        &nbsp;{{propertyDetailsController.propertyDetailsViewModel.titlePropertyDetails.propertyFormType}}
+                    </div>-->
+                    <div class="fourth-column">
+                        <input type="text" style="width:190px;" ng-model="propertyDetailsController.propertyDetailsViewModel.propertyFormType" />
+                    </div>
+                </div>
+
+
+            </div>
+    </div>
+
+    <div class="imp-split"></div>
+    <div class="footer">
+        <button type="button" class="imp-button-hm-wm-sec" ng-click="propertyDetailsController.cancel()">Cancel </button>
+        <button type="button" class="imp-button-hm-wm-prim" ng-click="propertyDetailsController.saveclose()" style="width:130px;">Done</button>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿<div class="unit-control ld-grid-contrl">
+
+    <div class="unit-header">
+
+        Assets
+        <!--Hidden due to PBI 26768 -->
+       <!--<div class="view-link">view assets</div>-->
+    </div>
+
+    <div class="unit-body margin-top-small">
+        <div class="title-item">
+            <div class="left-side">&nbsp;</div>
+            <div class="first-column">Borrower</div>
+            <div class="second-column">Co-Borrower</div>
+            <div class="third-column">Total</div>
+        </div>
+
+        <div class="item"
+             ng-init="borrowerFinancials = loanDetails.wrappedLoan.ref.getFinancialsTotal(loanDetails.wrappedLoan.ref.primary, 'borrower');
+             bothBorrowers = loanDetails.wrappedLoan.ref.primary.isSpouseOnTheLoan;
+             coBorrowerFinancials = !bothBorrowers ? 0 : loanDetails.wrappedLoan.ref.getFinancialsTotal(loanDetails.wrappedLoan.ref.primary, 'coborrower');
+             totalForBothFinancials = loanDetails.wrappedLoan.ref.getFinancialsTotal(loanDetails.wrappedLoan.ref.primary, 'bothForBorrowerAndCoborrower');">
+            <div class="left-side">Financial</div>
+            <div class="first-column">{{(borrowerFinancials == null || borrowerFinancials == 0 ? ' ' : borrowerFinancials)  | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="second-column">{{((coBorrowerFinancials == null || coBorrowerFinancials == 0) ? ' ' : coBorrowerFinancials)  | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="third-column">{{((totalForBothFinancials == null || totalForBothFinancials == 0) ? ' ' : (totalForBothFinancials)) | impRound: 2 | impCurrency}}&nbsp;</div>
+        </div>
+
+        <div class="item"
+             ng-init="borrowerAutomobiles = loanDetails.wrappedLoan.ref.getAutomobilesTotal(loanDetails.wrappedLoan.ref.primary, 'borrower');
+             coBorrowerAutomobiles = !bothBorrowers ? 0 : loanDetails.wrappedLoan.ref.getAutomobilesTotal(loanDetails.wrappedLoan.ref.primary, 'coborrower');
+             totalForBothAutomobiles = loanDetails.wrappedLoan.ref.getAutomobilesTotal(loanDetails.wrappedLoan.ref.primary, 'bothForBorrowerAndCoborrower');">
+            <div class="left-side">Automobiles</div>
+            <div class="first-column">{{(borrowerAutomobiles == null || borrowerAutomobiles == 0 ? ' ' : borrowerAutomobiles) | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="second-column">{{((coBorrowerAutomobiles == null || coBorrowerAutomobiles == 0) ? ' ' : coBorrowerAutomobiles) | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="third-column">{{((totalForBothAutomobiles == null || totalForBothAutomobiles == 0) ? ' ' : (totalForBothAutomobiles)) | impRound: 2 | impCurrency}}&nbsp;</div>
+        </div>
+
+        <div class="item"
+             ng-init="borrowerLifeInsurance = loanDetails.wrappedLoan.ref.getLifeInsuranceTotal(loanDetails.wrappedLoan.ref.primary, 'borrower');
+            coBorrowerLifeInsurance = !bothBorrowers ? 0 : loanDetails.wrappedLoan.ref.getLifeInsuranceTotal(loanDetails.wrappedLoan.ref.primary, 'coborrower');
+             totalForBothLifeInsurance = loanDetails.wrappedLoan.ref.getLifeInsuranceTotal(loanDetails.wrappedLoan.ref.primary, 'bothForBorrowerAndCoborrower');">
+            <div class="left-side">Life Insurance</div>
+            <div class="first-column">{{(borrowerLifeInsurance == null || borrowerLifeInsurance == 0 ? ' ' : borrowerLifeInsurance) | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="second-column">{{((coBorrowerLifeInsurance == null || coBorrowerLifeInsurance == 0) ? ' ' : coBorrowerLifeInsurance) | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="third-column">{{((totalForBothLifeInsurance == null  || totalForBothLifeInsurance == 0) ? ' ' : (totalForBothLifeInsurance))  | impRound: 2 | impCurrency}}&nbsp;</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side" ng-class="{'total': loanDetails.wrappedLoan.ref.getLoanApplications().length == 1}">
+                <span ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">Sub Total</span>
+                <span ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length == 1">Total</span>
+            </div>
+            <div ng-class="{'total-bold': loanDetails.wrappedLoan.ref.getLoanApplications().length == 1}">
+                <div class="first-column">{{((borrowerFinancials + borrowerAutomobiles + borrowerLifeInsurance) == 0 ? ' ' : (borrowerFinancials + borrowerAutomobiles + borrowerLifeInsurance)) | impRound: 2 | impCurrency}}&nbsp;</div>
+                <div class="second-column">{{(((coBorrowerFinancials + coBorrowerAutomobiles + coBorrowerLifeInsurance) == 0) ? ' ' : (coBorrowerFinancials + coBorrowerAutomobiles + coBorrowerLifeInsurance)) | impRound: 2 | impCurrency}}&nbsp;</div>
+                <div class="third-column grand-subtotal">{{((totalForBothLifeInsurance + totalForBothAutomobiles + totalForBothFinancials) == 0 ? ' ' : (totalForBothLifeInsurance + totalForBothAutomobiles + totalForBothFinancials)) | impRound: 2 | impCurrency}}&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">
+            <div class="left-side">Add'l Mortgagees</div>
+            <div class="first-column">&nbsp;</div>
+            <div class="second-column">&nbsp;</div>
+            <div class="third-column"
+                 mb-popover="angular/loanDetails/monthlyLiabilities/assets.html"
+                 mb-popover-title="Additional Mortgagees - Assets">
+                {{(loanDetails.additionalMortgageesAssets == null || loanDetails.additionalMortgageesAssets == 0 ? ' ' : loanDetails.additionalMortgageesAssets)   | impRound: 2 | impCurrency}}&nbsp;
+            </div>
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">
+            <div class="left-side total">Total</div>
+            <div class="first-column total">&nbsp;</div>
+            <div class="second-column total">&nbsp;</div>
+            <div class="third-column grand-total">{{ loanDetails.grandTotal | impRound: 2 | impCurrency }}&nbsp;</div>
+        </div>
+    </div>
+</div>

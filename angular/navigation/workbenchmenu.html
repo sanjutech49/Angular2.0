@@ -1,0 +1,9 @@
+﻿<div class="imp-nav-bar-col">
+    <div class="item dropdown-menu-workbench-item">
+        <div class="items">
+            <ul>
+                <li ng-class="{'imp-inactive': !navCtrl.applicationData.currentUser.hasPrivilege(navCtrl.enums.privileges.MailroomWorkbench)}" ng-click="navCtrl.applicationData.currentUser.hasPrivilege(navCtrl.enums.privileges.MailroomWorkbench)?navCtrl.openFirstLoanFromMailList():''"><div>Mailroom</div></li>
+            </ul>
+        </div>
+    </div>
+</div>

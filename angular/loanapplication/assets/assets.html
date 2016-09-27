@@ -1,0 +1,280 @@
+﻿<div>
+    <div class="imp-loader-container" ng-show="assets.showLoader">
+        <img src="../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+
+    <div class="imp-lcgrid">
+        <fieldset class="imp-assets-container" ng-hide="assets.showLoader" ng-disabled="assets.disableFields">
+            <!-- Assets Title Row -->
+            <div class=" header main" style="border: none">
+                <div class="title">
+                    <span class="imp-text-hm-wl-prim ">Assets</span>
+                </div>
+                <div class="actions imp-hyperlink">
+                    <span cursor:pointer;" ng-click="assets.expandAll()">Expand All</span>
+                    <span>|</span>
+                    <span cursor:pointer;" ng-click="assets.collapseAll()">Collapse All</span>
+                </div>
+            </div>
+
+            <!-- Financial Subtitle Row-->
+            <div class="header" style="height: 32px; border: none; line-height: 40px;">
+                <div class="title">
+                    <div ng-class="!assets.expandFinancials ? 'imp-collapsed right':'imp-collapsed down'" ng-click="assets.collapseExpand('financials', $index)"></div>
+                    <span class="lable-main">Financial</span>
+                    <img style="margin-left: 2px;margin-top: -15px;" src="../../Content/assets-financial.png" />
+                    <div class="actions add" style="height: 35px;"
+                         ng-click="assets.addFinancials($event)"
+                         ng-hide="assets.disableFields">
+                        <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>Add Item
+                    </div>
+                </div>
+            </div>
+
+            <div class="imp-assets-financials" ng-show="assets.expandFinancials">
+                <div class="container" style="border: none;">
+                    <!-- Financial grid header title -->
+                    <div class="row">
+                        <div class="col-xxl">
+                            <span>Borrower</span>
+                        </div>
+                        <div class="col-xl">
+                            <span>Financial Institution</span>
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxs" style="width: 3.4%;">
+                            <span>Info</span>
+                        </div>
+                        <div class="col-xm">
+                            <span>Account #</span>
+                        </div>
+                        <div class="col-xxxxm">
+                            <span>Account Type</span>
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxxm">
+                            <span>Amount</span>
+                        </div>
+                    </div>
+                    <!-- Financial grid content-->
+                    <div class="imp-assets-grid-row row" ng-repeat="item in assets.wrappedLoan.ref.active.getCombinedAssetsFinancials() track by $index" ng-hide="item.isRemoved">
+                        <div class="col-xxl">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl ddlFinancials"
+                                        ng-model="item.borrowerFullName"
+                                        ng-options="borrowerListItem.value as borrowerListItem.text for borrowerListItem in assets.borrowers"
+                                        ng-change="assets.toggleAsset(item)">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl">
+                            <input type="text"
+                                   ng-disabled="item.assetType == assets.assetTypeEnum.NotRequired"
+                                   ng-class="{'imp-has-error': !assets.wrappedLoan.ref.active.isAssetsCompleted() && assets.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !item.institiutionContactInfo.companyName}"
+                                   style="margin-left: -2px;"
+                                   ng-model="item.institiutionContactInfo.companyName" />
+                        </div>
+                        <div class="col-xxxs"></div>
+                        <div class="col-xxs" style="width: 3.4%;">
+                            <div class="imp-icon" ng-click="assets.showItemInfo(item, $event)">
+                                <imp-icon-info ng-hide="item.assetType == assets.assetTypeEnum.NotRequired"
+                                               has-value="item.institiutionContactInfoModified">
+                                </imp-icon-info>
+                            </div>
+                        </div>
+                        <div class="col-xm">
+                            <input type="text" ng-disabled="item.assetType == assets.assetTypeEnum.NotRequired"
+                                   ng-class="{'imp-has-error':  !(assets.wrappedLoan.ref.active.isAssetsCompleted()) && assets.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !item.accountNumber}"
+                                   style="width: 98%;"
+                                   ng-model="item.accountNumber" />
+                        </div>
+                        <div class="col-xxxxm">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl" 
+                                        ng-model="item.assetType" 
+                                        ng-options="type.value as type.text for type in assets.applicationData.lookup.accountTypes"
+                                        ng-change="assets.clearFinancialAssetsValues(item)">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xxxs"></div>
+                        <div class="col-xxxm">
+                            <input type="text"
+                                   ng-disabled="item.assetType == assets.assetTypeEnum.NotRequired"
+                                   ng-class="{'imp-has-error':  !assets.wrappedLoan.ref.active.isAssetsCompleted() && assets.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (!item.monthlyAmount || item.monthlyAmount == 0)}"
+                                   imp-currency
+                                   data-ng-model="item.monthlyAmount"
+                                   ng-change="assets.calculateTotal('finances')"
+                                   ng-keypress="assets.addFinancials($event)" />
+                        </div>
+                        <imp-circle ng-hide="assets.disableFields || assets.wrappedLoan.ref.active.getCombinedAssetsFinancials().length < 2" size="xsmall" color="#F4BABC" style="margin-left:18px;" is-plus="false" hover-color="#e73302" ng-click="assets.removeFinancials(item)"></imp-circle>
+                    </div>
+                </div>
+                <!-- Financial grid totals -->
+                <div class="imp-assets-grid-row-blank">
+                    <div class="imp-assets-total-text fleft"> Total </div>
+                    <div class="imp-assets-total-value fleft"> {{assets.totalFinancesAmount | currency}} </div>
+                </div>
+            </div>
+            <!-- Automobiles Subtitle Row -->
+            <div class="header" style="height: 32px; border: none; line-height: 40px;">
+                <div class="title">
+                    <div ng-class="!assets.expandAutomobiles ? 'imp-collapsed right':'imp-collapsed down'" ng-click="assets.collapseExpand('automobiles', $index)"></div>
+                    <span class="lable-main">Automobiles Owned</span>
+                    <img style="margin-left: 2px;margin-top: -19px;" src="../../Content/assets-automobiles.png" />
+                    <div class="actions add" style="height: 35px;"
+                         ng-hide="assets.disableFields"
+                         ng-click="assets.addAutomobiles($event)">
+                        <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>Add Item
+                    </div>
+                </div>
+            </div>
+
+            <div class="imp-assets-automobiles" ng-show="assets.expandAutomobiles">
+                <div class="container" style="border: none;">
+                    <!-- Automobile grid header title -->
+                    <div class="row">
+                        <div class="col-xxl">
+                            <span>Borrower</span>
+                        </div>
+                        <div class="col-xl">
+                            <span>Make</span>
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxs" style="width: 3.4%;">
+                        </div>
+                        <div class="col-xm">
+                            <span>Year</span>
+                        </div>
+                        <div class="col-xxxxm">
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxxm">
+                            <span>Amount</span>
+                        </div>
+                    </div>
+                    <!-- Automobile grid content-->
+                    <div class="imp-assets-grid-row row" ng-repeat="auto in assets.wrappedLoan.ref.active.getCombinedAssetsAutomobiles() track by $index" ng-hide="auto.isRemoved">
+                        <div class="col-xxl">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl ddlAutomobiles"
+                                        ng-model="auto.borrowerFullName"
+                                        ng-options="borrowerListItem.value as borrowerListItem.text for borrowerListItem in assets.borrowers"
+                                        ng-change="assets.toggleAsset(auto)"></select>
+                            </div>
+                        </div>
+                        <div class="col-xl">
+                            <input type="text" ng-model="auto.automobileMake" />
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxs" style="width: 3.4%;">
+                        </div>
+                        <div class="col-xm">
+                            <input type="text" ng-model="auto.automobileYear" imp-numeric maxlength="4" />
+                        </div>
+                        <div class="col-xxxxm">
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxxm">
+                            <input type="text" imp-currency data-ng-model="auto.monthlyAmount" ng-change="assets.calculateTotal('automobiles')" ng-keypress="assets.addAutomobiles($event)" />
+                        </div>
+                        <imp-circle ng-hide="assets.disableFields" size="xsmall" color="#F4BABC" style="margin-left:18px;" is-plus="false" hover-color="#e73302" ng-click="assets.removeAutomobiles(auto)"></imp-circle>
+                    </div>
+                </div>
+                <!-- Automobile grid totals -->
+                <div class="imp-assets-grid-row-blank">
+                    <div class="imp-assets-total-text fleft"> Total </div>
+                    <div class="imp-assets-total-value fleft"> {{assets.totalAutomobilesAmount | currency}} </div>
+                </div>
+            </div>
+
+            <!-- Life Insurance Subtitle Row -->
+            <div class="header" style="height: 32px; border: none; line-height: 40px;">
+                <div class="title">
+                    <div ng-class="!assets.expandLifeInsurance ? 'imp-collapsed right':'imp-collapsed down'" ng-click="assets.collapseExpand('insurances', $index)"></div>
+                    <span class="lable-main">Life Insurance</span>
+                    <img style="margin-left: 2px;margin-top: -19px;" src="../../Content/assets-lifeinsurance.png" />
+                    <div class="actions add" style="height: 35px;"
+                         ng-hide="assets.disableFields"
+                         ng-click="assets.addInsurances($event)">
+                        <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>Add Item
+                    </div>
+                </div>
+            </div>
+
+            <div class="imp-assets-insurances" ng-show="assets.expandLifeInsurance">
+                <div class="container" style="border: none;">
+                    <!-- Life Insurance grid header title-->
+                    <div class="row">
+                        <div class="col-xxl">
+                            <span>Borrower</span>
+                        </div>
+                        <div class="col-xl">
+                            <span>Face Amount</span>
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxs" style="width: 3.4%;">
+                        </div>
+                        <div class="col-xm">
+                        </div>
+                        <div class="col-xxxxm">
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxxm">
+                            <span>Net Face Value</span>
+                        </div>
+                    </div>
+                    <!-- Life Insurance grid content -->
+                    <div class="row" ng-repeat="insurance in assets.wrappedLoan.ref.active.getCombinedAssetsLifeInsurence() track by $index" ng-hide="insurance.isRemoved">
+                        <div class="col-xxl">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl ddlInsurance"
+                                        ng-model="insurance.borrowerFullName"
+                                        ng-options="borrowerListItem.value as borrowerListItem.text for borrowerListItem in assets.borrowers"
+                                        ng-change="assets.toggleAsset(insurance)"></select>
+                            </div>
+                        </div>
+                        <div class="col-xl">
+                            <input type="text" imp-currency data-ng-model="insurance.lifeInsuranceFaceValue" />
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxs" style="width: 3.4%;">
+                        </div>
+                        <div class="col-xm">
+                        </div>
+                        <div class="col-xxxxm">
+                        </div>
+                        <div class="col-xxxs">
+                        </div>
+                        <div class="col-xxxm">
+                            <input type="text" imp-currency data-ng-model="insurance.monthlyAmount" ng-change="assets.calculateTotal('insurances')" ng-keypress="assets.addInsurances($event)" />
+                        </div>
+                        <imp-circle ng-hide="assets.disableFields" size="xsmall" color="#F4BABC" style="margin-left:18px;" is-plus="false" hover-color="#e73302" ng-click="assets.removeInsurances(insurance)"></imp-circle>
+                    </div>
+                </div>
+                <!-- Life Insurance grid totals -->
+                <div class="imp-assets-grid-row-blank">
+                    <div class="imp-assets-total-text fleft"> Total </div>
+                    <div class="imp-assets-total-value fleft"> {{assets.totalNetFaceAmount | currency}} </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="imp-assets-grid-row-blank" ng-hide="assets.showLoader">
+        <div class="fleft imp-assets-total-text"> Sub Total Liquid Assets </div>
+        <div class="fleft imp-assets-total-value" style="margin-left: 3.1%;"> {{assets.totalLiquidAssets | currency}} </div>
+        <br />
+        <div class="fleft imp-assets-total-text" style="font-size:18px;"> Total Assets </div>
+        <div class="fleft imp-assets-total-value" style=" margin-left: 8.1%;  font-size:18px;"> {{assets.wrappedLoan.ref.getTotalAssetsWithoutDownPayment() | currency}} </div>
+    </div>
+</div>

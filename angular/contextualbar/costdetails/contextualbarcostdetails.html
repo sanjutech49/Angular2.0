@@ -1,0 +1,147 @@
+﻿<div class="imp-contextual-bar-cost-details" >
+    <div class="container">
+        <div ng-switch on="conBarCtrl.wrappedLoan.ref.loanPurposeType == conBarCtrl.enums.LoanTransactionTypes.Purchase">
+            <div ng-switch-when="true" class="costs-bar-container purchase">
+                <div class="closing-costs-container">
+                    <a ui-sref="loanCenter.loan.cost.details">
+                        <div class="costs-label">
+                            Closing Costs
+                        </div>
+                        <div class="imp-disclaimer">
+                            {{conBarCtrl.totals.closingCosts.borrowerTotal | currency:"$"}}
+                        </div>
+                        <div class="cost-detail-indicator" ng-class="{'active': conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'}"></div>
+                    </a>
+                </div>
+                <div class="transactional-summery-container">
+                    <a ui-sref="loanCenter.loan.cost.transactional">
+                        <div class="costs-label imp-hyperlink hyperlink">
+                            Transactional Summary
+                        </div>
+                        <div class="imp-disclaimer">
+                            {{ 'From Brorrower ' | oweDueTextFilter : conBarCtrl.totalFromBorrower }} {{conBarCtrl.totalFromBorrower | currency:"$"}}
+                        </div>
+                        <div class="cost-detail-indicator" ng-class="{'active': conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'transactional-summary'}"></div>
+                    </a>
+                </div>
+                <div class="divider"></div>
+                <div class="tolerance-container">
+                    <div ng-click="conBarCtrl.toleranceModal()" class="imp-hyperlink hyperlink">
+                        <div class="costs-label">
+                            Tolerance
+                        </div>
+                        <div class="imp-disclaimer">
+                            <span ng-class="conBarCtrl.getColorCode(conBarCtrl.zeroPercentTolerance, 0)">
+                                {{conBarCtrl.zeroPercentTolerance | impNegativeParenthesis}}
+                            </span> /
+                            <span ng-class="conBarCtrl.getColorCode(conBarCtrl.tenPercentTolerance, 10)">
+                                {{conBarCtrl.tenPercentTolerance | impNegativeParenthesis}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="fees-container" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'">
+                    <div class="costs-label">
+                        <a ng-click='conBarCtrl.toggleAutomatedFees();' class="imp-hyperlink hyperlink">Don't overwrite Fees</a>
+                    </div>
+                    <div class="imp-disclaimer">
+                        {{conBarCtrl.wrappedLoan.ref.smartGFEEnabled ? 'On' : 'Off'}}
+                    </div>
+                </div>
+                <div class="divider" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'"></div>
+                <div class="paid-container" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'">
+                    <div class="paid-label">
+                        Borrower Paid
+                    </div>
+                    <div class="at-closing">At Closing</div>
+                    <div class="before-closing">Before Closing</div>
+                </div>
+                <div class="divider" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'"></div>
+                <div class="paid-container" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'">
+                    <div class="paid-label">
+                        Seller Paid
+                    </div>
+                    <div class="at-closing">At Closing</div>
+                    <div class="before-closing">Before Closing</div>
+                </div>
+                <div class="divider" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'"></div>
+                <div class="paid-container" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'">
+                    <div class="paid-label">
+                        Other Paid
+                    </div>
+                    <div class="at-closing">At Closing</div>
+                    <div class="before-closing">Before Closing</div>
+                </div>
+                <div class="divider last" ng-show="conBarCtrl.wrappedLoan.ref.closingCost.activeTab == 'closing-costs'"></div>
+            </div>
+            <div ng-switch-when="false" class="costs-bar-container refinance">
+                <div class="closing-costs-container">
+                    <div class="costs-label">
+                        <div class="imp-hyperlink hyperlink" ng-click="conBarCtrl.scrollTo('closingCosts')">Closing Costs</div>
+                    </div>
+                    <div class="imp-disclaimer">
+                        {{conBarCtrl.totals.closingCosts.borrowerTotal | currency:"$"}}
+                    </div>
+                </div>
+                <div class="payoffs-container">
+                    <div class="costs-label">
+                        <div class="imp-hyperlink hyperlink" ng-click="conBarCtrl.scrollTo('payoffs')">Payoffs</div>
+                    </div>
+                    <div class="imp-disclaimer">
+                        {{conBarCtrl.totals.payOffSectionTotal | currency:"$"}}
+                    </div>
+                </div>
+                <div class="cash-to-close-container">
+                    <div class="costs-label">
+                        <div class="imp-hyperlink hyperlink" ng-click="conBarCtrl.scrollTo('cashToClose')">Cash to Close</div>
+                    </div>
+                    <div class="imp-disclaimer">
+                        {{conBarCtrl.totals.calculatedCashToClose.finalTotal | currency:"$"}}
+                    </div>
+                </div>
+                <div class="tolerance-container">
+                    <div ng-click="conBarCtrl.toleranceModal()" class="imp-hyperlink hyperlink">
+                        <div class="costs-label">
+                            Tolerance
+                        </div>
+                        <div class="imp-disclaimer">
+                            <span ng-class="conBarCtrl.getColorCode(conBarCtrl.zeroPercentTolerance, 0)">
+                                {{conBarCtrl.zeroPercentTolerance | impNegativeParenthesis}}
+                            </span> /
+                            <span ng-class="conBarCtrl.getColorCode(conBarCtrl.tenPercentTolerance, 10)">
+                                {{conBarCtrl.tenPercentTolerance | impNegativeParenthesis}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fees-container">
+                    <div class="costs-label">
+                        <a ng-click='conBarCtrl.toggleAutomatedFees();' class="imp-hyperlink hyperlink">Don't overwrite Fees</a>
+                    </div>
+                    <div class="imp-disclaimer">
+                        {{conBarCtrl.wrappedLoan.ref.smartGFEEnabled ? 'On' : 'Off'}}
+                    </div>
+                </div>
+                <div class="paid-container"></div>
+                <div class="divider"></div>
+                <div class="paid-container">
+                    <div class="paid-label">
+                        Borrower Paid
+                    </div>
+                    <div class="at-closing">At Closing</div>
+                    <div class="before-closing">Before Closing</div>
+                </div>
+                <div class="divider"></div>
+                <div class="paid-container">
+                    <div class="paid-label">
+                        Other Paid
+                    </div>
+                    <div class="at-closing">At Closing</div>
+                    <div class="before-closing">Before Closing</div>
+                </div>
+                <div class="divider last"></div>
+            </div>
+        </div>
+    </div>
+</div>

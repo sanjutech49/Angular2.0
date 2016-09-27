@@ -1,0 +1,99 @@
+﻿<div id="divCreditTabContent">
+
+    <div class="loan-application-error-container" ng-show="creditCtrl.showErrorContainer">
+        An error occurred while loading data
+    </div>
+
+    <div class="imp-loader-container" ng-show="creditCtrl.showLoader">
+        <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+
+    <div ng-hide="creditCtrl.showLoader || creditCtrl.showErrorContainer">
+        <div class="credit-div-borrower-info">
+            <div ng-show="creditCtrl.displayCreditScores()">
+
+                <div class="field">
+                    {{creditCtrl.wrappedLoan.ref.active.getBorrower().fullName}}:
+                    <span class="imp-text-enhanced-color decision-score value">
+                        {{creditCtrl.wrappedLoan.ref.active.getBorrower().ficoScore.decisionScore}}
+                    </span>
+                </div>
+
+                <div class="field"
+                     ng-show="creditCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    {{creditCtrl.wrappedLoan.ref.active.getCoBorrower().fullName}}:
+                    <span class="imp-text-enhanced-color decision-score value">
+                        {{creditCtrl.wrappedLoan.ref.active.getCoBorrower().ficoScore.decisionScore}}
+                    </span>
+                </div>
+
+                <div class="field normal" style="margin-right: 60px;">
+                    Tri-Merge<div id="credit-score" class="imp-icon decision-score" imp-popover="angular/loanapplication/credit/creditscorepopup.html"
+                                  tooltip-placement="bottom" tooltip-trigger="click" watch="creditCtrl.wrappedLoan.ref.active">
+                        <imp-icon-info></imp-icon-info>
+                    </div>
+                </div>
+
+                <div class="field normal">
+                    Credit Report<div style="margin-top: -8px; margin-left: 10px;" class="imp-icon-pdf"
+                                      ng-click="creditCtrl.DownloadDocument(creditCtrl.wrappedLoan.ref.active.credit.creditFileStoreItemId)">
+                    </div>
+                </div>
+            </div>
+            <div ui-view="runCredit">
+            </div>
+        </div>
+        <div class="imp-lcgrid">
+
+            <div class="div-warning-notification" ng-show="creditCtrl.wrappedLoan.ref.active.credit.creditReportMessageVisible">
+                <div class="div-warning-icon">
+                    !
+                </div>
+                <div style="padding: 1px 0px 5px;">
+                    <span ng-bind="creditCtrl.wrappedLoan.ref.active.credit.creditReportMessage"></span>
+                </div>
+            </div>
+
+            <div class="header main" ng-style="{ 'margin-top': creditCtrl.wrappedLoan.ref.active.credit.creditReportMessageVisible ? '0' : '30px' }">
+                <div class="title">
+                    <span class="imp-text-hm-wl-prim">Detailed Credit Information</span>
+                </div>
+                <div class="actions imp-hyperlink">
+                    <span ng-click="creditCtrl.toggleGrid(false)">Expand All</span>
+                    <span> | </span>
+                    <span ng-click="creditCtrl.toggleGrid(true)">Collapse All</span>
+                </div>
+            </div>
+
+            <fieldset ng-disabled="creditCtrl.CreditTabViewModel.DisableFields">
+                <div ui-view="realEstate"></div>
+                <div ui-view="liabilities"></div>
+                <div ui-view="collections" ng-show="creditCtrl.showCollections()"></div>                             
+                <div ui-view="publicRecords" ng-show="creditCtrl.showPublicRecords()"></div>
+                <div ui-view="miscExpenses"></div>
+                
+            </fieldset>
+
+            <div class="imp-total-footer" style="border-bottom: none;">
+                <div class="row">
+                    <div class="col-md-2" style="padding:0px;"></div>
+                    <div class="col-md-3 cell">
+                        <div class="text-label" style="width:85px;">Net Worth</div>
+                        <div class="value-label">{{creditCtrl.totalNetWorth | impCurrency}}</div>
+                    </div>
+                    <div class="col-md-3 cell">
+                        <div class="text-label" style="width:120px;">Total Liabilities</div>
+                        <div class="value-label">{{creditCtrl.totalLiabilities | currency:'$':2}}</div>
+
+                    </div>
+                    <div class="col-md-3 cell">
+                        <div class="text-label" style="width:120px;">Total Payments</div>
+                        <div class="value-label">{{creditCtrl.totalPaymentAmount | currency:'$':2}}</div>
+                    </div>
+                    <div class="col-md-1" style="padding: 0"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

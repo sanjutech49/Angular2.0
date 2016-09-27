@@ -1,0 +1,49 @@
+﻿@model MML.Web.LoanCenter.ViewModels.CCompanyHistoryViewModel
+<div id="businessContactHistoryRoot" class="businessContactHistoryRoot" style="width: 575px;
+    margin-left: -340px; z-index: 110;min-height: 235px;">
+    <div id="businessContactHistoryHead" class="businessContactHistoryHead">
+        <div style="width: 535px; padding-left: 25px; font-weight: bold;">
+            <div class=" imp-div-AdminCompanyContacts-title" style="width: 90%; float: left; margin-top: 10px;">
+                <span class="namelink">Business Contact History</span>
+             </div>
+            <div class=" imp-div-close-x" onclick="Contacts.CloseCompanyHistoryPopup()" style="float: right; margin-top: 6px;"></div>
+
+        </div>
+    </div>
+
+    <div class="imp-div-globalToLoanContactsSeparator"  style="margin-left: 1%; width: 98%;"></div>
+    <div class="divBusinessContactHistoryBody" style="width: 500px;">
+        <div class="imp-div-contacts-table-Container" >
+            <div class="imp-div-contacts-table-header">
+                <div class="" style="margin-left: 10px; width: 170px">
+                    Modified Date
+                </div>
+                <div class="" style="width: 110px">
+                    Status
+                </div>
+                <div class="" style="width: 160px">
+                    Modified By
+                </div>
+            </div>
+            
+            @foreach ( var historyItem in Model.CompanyHistoryItems )
+            {
+                <div id="divRow" runat="server" class="imp-div-contacts-table-row" style="width: 500px;
+                    margin-left: 0px;">
+                    <div id="divClosingDate" class="divBusinessContactHistoryColumn" style="width: 160px">
+                        @String.Format( "{0:MM/dd/yyyy hh:mm tt}", historyItem.ModifiedDate )
+                    </div>
+                    <div id="divDateOfChange" class="divBusinessContactHistoryColumn" style="width: 100px">
+                        @String.Format( "{0}", historyItem.Status ? "Deactivated" : "Activated" )
+                    </div>
+                    <div id="divModifiedBy" class="divBusinessContactHistoryColumn" style="width: 190px">
+                        @historyItem.ModifiedBy
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+
+    <div class="imp-div-globalToLoanContactsSeparator"  style="margin-left: 1%;margin-bottom: 35px; width: 98%;"></div>
+</div>

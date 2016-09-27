@@ -1,0 +1,73 @@
+﻿<div class="row">
+    <div ng-show="lenderCredit.hoverEdit && !lenderCredit.editMode " class="imp-icon-pen"></div>
+    <div class="col-a">
+        <div class="sub-col-s"></div>
+        <div class="sub-col-xs"><span class="imp-disclaimer">{{$index + 1 | numberFixedLength:2}}</span></div>
+        <div class="sub-col-l">
+            <div class="imp-span-ddl-container medium" 
+                 ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields}"
+                 style="width: 44%">
+                <select name="lenderCreditTypes-{{$index}}"
+                        class="imp-ddl"
+                        ng-model="lenderCredit.name"
+                        ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                        ng-options="selectedItem.text as selectedItem.text for selectedItem in costDetailsCtrl.applicationData.lookup.lenderCreditsTypes">
+                    <option value='' selected disabled style="color:#999;display:none">Lender Credits Types</option>
+                </select>
+            </div>
+            <div class="imp-span-ddl-container medium"
+                 ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields}"
+                 style="width: 47%">
+                <select name="paidByAtClosing-{{lenderCredit.SectionId}}-{{$index}}"
+                        class="imp-ddl"
+                        ng-model="lenderCredit.otherPaid.paidBy"
+                        ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                        ng-options="selectedItem.value as selectedItem.text for selectedItem in costDetailsCtrl.applicationData.lookup.lenderPaidBy">
+                    <option value='' selected disabled style="color:#999;display:none">Paid By</option>
+                </select>
+            </div>
+            <div class="imp-icon-lock" ng-if="lenderCredit.isLocked || lenderCredit.editMode" ng-class="{'un': !lenderCredit.isLocked}" ng-click="lenderCredit.isLocked = !lenderCredit.isLocked" style="float: right;"></div>
+        </div>
+    </div>
+    <div class="col-s">        
+        <input type="text"
+               ng-model="lenderCredit.otherPaid.atClosing"
+               display-currency-sign="false"
+               ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+               class="amount"
+               ng-change="costDetailsCtrl.lenderAmountChange()"
+               imp-currency="">
+        
+    </div>
+    <div class="col-s">        
+            <input type="text"
+                   disabled="disabled"
+                   class="amount"                   
+                   style="float:left;">
+        
+    </div>
+    <div>
+        <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style=" margin-right: -30px; margin-top: 4px; position: absolute;"
+                    ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                    ng-click="costDetailsCtrl.deleteLenderCreditItem(lenderCredit)"></imp-circle>
+    </div>
+</div>
+<div class="row">
+    <div class="col-a">
+        <div class="sub-col-s"></div>
+        <div class="sub-col-xs"></div>
+        <div class="sub-col-l">
+            <input type="text"
+                   ng-model="lenderCredit.description"
+                   ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                   style="width:93%"
+                   placeholder="Additional Rebate " />
+        </div>
+    </div>
+    <div class="col-s">
+        <span class="cvalue"></span>
+    </div>
+    <div class="col-s">
+        <span class="cvalue"></span>
+    </div>
+</div>

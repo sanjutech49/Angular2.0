@@ -1,0 +1,352 @@
+﻿@using MML.Common.Helpers
+@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Enums
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using Telerik.Web.Mvc.UI
+@model MML.Web.LoanCenter.ViewModels.ContactsProfileViewModel
+  @{
+   
+     var companyViewName = Model.cCompany.ContactType != -1 ? "~/Views/Shared/SystemAdmin/Company/c" + ( ( SystemAdminContactTypesEnum )Model.cCompany.ContactType ) + "Company.cshtml" : String.Empty;   
+     ViewBag.CompanyTypeSpecificTitle = "Company Type Specific Information";
+     List<SelectListItem> contactTypelist = new SelectList( from SystemAdminContactTypesEnum s in Enum.GetValues( typeof( SystemAdminContactTypesEnum ) )
+                                                            orderby ( s ).GetStringValue()
+                                                            select new SelectListItem { Text = ( s ).GetStringValue(), Value = ( ( int )s ).ToString() }, "Value", "Text", Model.cCompany.ContactType ).ToList();
+     contactTypelist.Insert( 0, ( new SelectListItem { Text = "Select One", Value = "-1" } ) );
+  
+
+
+ }
+
+ <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.extend.js")" type="text/javascript"></script> 
+
+
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/zipdata.js" type="text/javascript"></script>
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/Validation.js" type="text/javascript"></script>
+
+ 
+  <div class="systemAdminBussinessContactsPopup">
+  @using ( Ajax.BeginForm( "SaveCompanyProfile", "SystemAdmin", null, new AjaxOptions { HttpMethod = "Post" }, new { @id = "frmCCompany", @class = "" } ) )
+  {
+     @Html.AntiForgeryToken()    
+     @Html.HiddenFor(x=>x.cCompany.CompanyId, new { @id="cCompanyId"})  
+     @Html.HiddenFor( x => x.cCompany.CompanyIdSerializable, new { @id = "CompanyIdSerializable" } )  
+    <div class=" imp-div-AdminCompanyContacts-title" style="float:left;">
+       <span> @if(Model.cCompany.CompanyId == 0){ <text>Add Company</text>}else{ <text>Edit Company</text> } </span>
+    </div>
+    <div class=" imp-div-close-x" style="float:right;margin-top:10px;" onclick="Contacts.CloseSystemAdminBusinessContactPopup()"></div>
+    <div class="imp-div-globalToLoanContactsSeparator"  style="min-width: 100%;"></div>
+    <fieldset class="imp-companyInformation-fieldset">
+        <legend >Company Information</legend>  
+           
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Contact Type
+            </div>
+
+            <div class="cCompanyRight" >
+            @if ( Model.cCompany.CompanyId != 0 )
+            { <text>@Html.HiddenFor( model => model.cCompany.ContactType )</text>}
+            
+            @*@Html.Telerik().DropDownListFor( model => model.cCompany.ContactType ).BindTo( ( IEnumerable<SelectListItem> )contactTypelist ).HtmlAttributes( Model.cCompany.CompanyId != 0 ? new { @class = "imp-valideTelerikDDLContacts imp-valideTelerikDDLContactsDisable imp-CContacts-telerikDropDown" } : new { @class = "imp-valideTelerikDDLContacts imp-CContacts-telerikDropDown" } ).Enable( Model.cCompany.CompanyId == 0 )*@
+            <span class="imp-span-ddl-contacts-container @{if( Model.cCompany.CompanyId != 0){ <text>container-input-disabled</text>}}">@Html.DropDownListFor( model => model.cCompany.ContactType, ( IEnumerable<SelectListItem> )contactTypelist, Model.cCompany.CompanyId != 0 ? new { @class = "imp-ddl-contacts imp-ddl-contacts-disabled", disabled = "disabled", @style = "width: 205px;" } as object : new { @class = "imp-ddl-contacts", @style = "width: 205px;" } as object )</span>
+             @Html.ValidationMessageFor( model => model.cCompany.ContactType )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Company Name
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.CompanyName, new { @id = "txtcCompanyName" } )
+            @Html.ValidationMessageFor( model => model.cCompany.CompanyName )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Street Address
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.StreetAddress, new { @id = "txtcCompanyStreetAddress" } )
+            @Html.ValidationMessageFor( model => model.cCompany.StreetAddress )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            City
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.City, new { @id = "txtcCompanyCity" } )
+            @Html.ValidationMessageFor( model => model.cCompany.City )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            State
+            </div>
+
+            <div class="cCompanyRight">
+            @*@Html.Telerik().DropDownListFor( model => model.cCompany.StateId ).BindTo( new SelectList( Model.States, "Value", "Name", Model.cCompany.StateId ) ).Name( "cCompany.StateId" ).HtmlAttributes( new { @class = "ddlcCompanyState imp-CContacts-telerikDropDown", @style = "width:50px;" } )        *@
+             <span class="imp-span-ddl-contacts-container">
+             @Html.DropDownListFor( model => model.cCompany.StateId, new SelectList( Model.States, "Value", "Name", Model.cCompany.StateId ), new { @class = "imp-ddl-contacts", @style = "width:50px;" } as object )</span>
+            @Html.ValidationMessageFor( model => model.cCompany.StateId )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Zip
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.Zip, new { @id = "txtcCompanyZip", @class = "txtZip", @style = "width:130px;" } )
+            @Html.ValidationMessageFor( model => model.cCompany.Zip )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Company Phone Number
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.TextBoxFor( model => model.cCompany.CompanyPhoneNumber, new { @id = "CCompanyPhoneNumber" } )
+            @Html.ValidationMessageFor( model => model.cCompany.CompanyPhoneNumber )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+            Company License Number
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.EditorFor( model => model.cCompany.LicenseNumber )
+            @Html.ValidationMessageFor( model => model.cCompany.LicenseNumber )
+            </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer">
+            <div  class="cCompanyLeft">
+            Web URL
+            </div>
+
+            <div class="cCompanyRight">
+            @Html.EditorFor( model => model.cCompany.WebURL )
+            @Html.ValidationMessageFor( model => model.cCompany.WebURL )
+            </div>
+        </div>
+       <div class="rowCompanyProfileContainer">
+            <div  class="cCompanyLeft">
+            Deactivate
+            </div>
+            <div class="cCompanyRight cCompanyPositionText">
+                <div style="float:left"> 
+               
+                @Html.CheckBoxFor(x => x.cCompany.Deactivated, (Model.cRealtorCompany != null && Model.cRealtorCompany.IsCompanyCoBranded) ? new { @onclick = "return false", @id = "cCompany_Deactivated", @class = "imp-checkbox" } : new { @onclick = "", @id = "cCompany_Deactivated", @class = "imp-checkbox" })
+                <label for="cCompany_Deactivated" class="imp-lb-checkbox"></label>
+                
+                </div> 
+                @if ( Model.cCompany.DeactivationHistoryRecordsExist )
+                {<div class="globalContactsHistoryImageActive" onclick="Contacts.CContactProfileShowHistory()" id="cContactProfileHistoryIcon"></div>}
+                else
+                { <div class="globalContactsHistoryImageInactive" id="cContactProfileHistoryIcon"></div>}
+                
+           </div>
+       </div>
+
+        <span id="cContactType">
+           @if ( @Html.ViewExists( companyViewName ) && Model.cCompany.ContactType != -1 )
+           {              
+                    @Html.Partial( companyViewName, Model )
+           }
+        </span>    
+
+
+
+           <div id="cContactsDuplicateValidationMsg" style="float:left;color:Red;margin-top:10px;"></div>
+    </fieldset>   
+      <div class="imp-div-globalToLoanContactsSeparator" style="min-width: 100%;"></div>
+      <div class="buttonContainer-companyProfileContainer-div" style="margin-top: 15px;">
+      <div class="imp-button-contacts-hl-wl-sec" id="cancelCompanyProfile" onclick="Contacts.CloseSystemAdminBusinessContactPopup()">Cancel</div>
+      <div class="imp-button-contacts-hl-wl-prim imp-div-businesscontacts-secondnbutton" id="saveCompanyProfile" onclick="Contacts.CheckIsDuplicateLoginCompany(this)">Save</div>  
+               
+     </div> 
+  }
+  </div>
+<div id="businessContactsHistoryPopup" class="businessContactsHistoryPopup divClosingCostsHistoryPopup">
+</div>
+<div class="customMessageCompany imp-div-chooseBuyerSellerAgentPoPup-container" >
+    <div class="imp-div-chooseBuyerSellerAgentPoPup-title " style="float:left;">
+        Warning
+    </div>
+    <div class=" imp-div-close-x" style="float:right;margin-top:5px;margin-right: 5px;" onclick="Contacts.ClosePopupCompany()"></div>
+    <div class="imp-div-globalToLoanContactsSeparator"></div>
+    <div style="padding: 10px; text-align: left;">
+        <span id="spanMessageCompany"></span>
+
+    </div>
+    <div class="imp-div-globalToLoanContactsSeparator"></div>
+    <div class="imp-div-chooseBuyerSellerAgentPoPup-button-container">
+            <div class="imp-button-contacts-hm-wm-sec" onclick="Contacts.ClosePopupCompany()">Cancel</div>
+            <div class="imp-button-contacts-hm-wm-prim imp-div-businesscontacts-secondnbutton" onclick="Contacts.DeactivationConfirmedCompany(this)">Continue</div>  
+           
+    </div>
+    <div style="clear: both"></div>
+</div>
+ <div class="ui-widget">
+<label for="txtcCompanyName"></label>
+<label for="txtcCompanyStreetAddress"></label>
+<label for="txtcCompanyCity"></label>
+<label for="txtcCompanyZip"></label>
+</div>
+
+ <script type="text/javascript">
+     var _cCompanyListCache = {};
+     function InitiateAutocompleteForCompany(fieldId) {
+         $("#" + fieldId).autocomplete({
+
+             source: function (request, response) {
+
+                 response(null);
+                 var searchTerm = request.term;
+                 var sourceFieldId = $(this).attr("id");
+                 var sourceFieldTerm = "";
+
+                 var companyNameTerm = $("#txtcCompanyName").val();
+                 var companyStreetAddressTerm = $("#txtcCompanyStreetAddress").val();
+                 var companyCityTerm = $("#txtcCompanyCity").val();
+                 var companyZipTerm = $("#txtcCompanyZip").val();
+                 companyZipTerm = companyZipTerm.replace( /[^0-9]/g , '');
+                 var companyStateIdTerm = $("#cCompany_StateId").val();
+
+                 switch (sourceFieldId) {
+                     case "txtcCompanyName":
+                         sourceFieldTerm = "companyName";
+                         break;
+                     case "txtcCompanyStreetAddress":
+                         sourceFieldTerm = "streetAddress";
+                         break;
+                     case "txtcCompanyCity":
+                         sourceFieldTerm = "city";
+                         break;
+                     case "txtcCompanyZip":
+                         sourceFieldTerm = "zipCode";
+                         break;
+                     default:
+                         sourceFieldTerm = "companyName";
+                 }
+
+                 var contactTypeTerm = $("#cCompany_ContactType").val();
+
+                 if ((searchTerm in _cCompanyListCache) && (_cCompanyListCache[searchTerm].length > 0)) {
+                     response($.map(_cCompanyListCache[searchTerm, contactTypeTerm, sourceFieldTerm, companyNameTerm, companyStreetAddressTerm, companyCityTerm, companyZipTerm, companyStateIdTerm],
+                         function (item) {
+                             return { companyName: item.CompanyName, streetAddress: item.StreetAddress, zip: item.Zip, city: item.City
+                 , contactType: item.ContactType, stateId: item.StateId, cCompanyId: item.CompanyId
+                             };
+                         }));
+                     return;
+                 }
+
+                 $.getJSON("SystemAdmin/FilterCCompaniesBySearchString", {
+                     searchText: searchTerm, contactType: contactTypeTerm
+                 , sourceField: sourceFieldTerm, companyName: companyNameTerm, streetAddress: companyStreetAddressTerm
+                 , city: companyCityTerm, zipCode: companyZipTerm, stateId: companyStateIdTerm
+                 }, function (data) {
+                     _cCompanyListCache[searchTerm, contactTypeTerm, sourceFieldId] = data;
+                     response($.map(data, function (item) {
+                         return { companyName: item.CompanyName, streetAddress: item.StreetAddress, zip: item.Zip, city: item.City
+                 , contactType: item.ContactType, stateId: item.StateId, cCompanyId: item.CompanyId
+                         };
+                     }));
+
+                 });
+             },
+             select: function (event, ui) {
+
+                 if (ui.item.zip != "" && ui.item.city != "" && ui.item.streetAddress != "") {
+                     Contacts.CloseSystemAdminBusinessContactPopup();
+                     Contacts.OpenCompanyPopup(ui.item.cCompanyId);
+                 }
+                 return false;
+
+             }
+         }).data("autocomplete")._renderItem = function (ul, item) {
+             var separator = ", ";
+             if (item.zip == "" && item.city == "" && item.streetAddress == "")
+                 separator = "";
+
+             return $("<li>").data("item.autocomplete", item)
+                     .append("<a style='overflow: hidden;'><span class='imp-cCompanyAutocomplete-span-title'>" + item.companyName + "<span><br><span class='imp-cCompanyAutocomplete-span-subcontent'>" + item.zip + separator + item.city + " " + item.streetAddress + "</span></a>")
+                     .appendTo(ul);
+         };
+
+     }
+     
+     $(document).ready(function () {
+         InitializeContactsControlsValidationDesign();
+
+         if ($("#cCompanyId").val()==0)
+         { $("#cCompany_ContactType").focus(); }
+        else
+        { $("#txtcCompanyName").focus(); }
+          
+         $("#txtcCompanyZip").keyup(function () {
+             var IsZipCodeValidBPresent = false;
+
+             if ($("#txtcCompanyZip").val().length > 4) {
+                 $(this).FillAndValidateZipCodeContacts({ cityID: 'txtcCompanyCity', stateID: 'cCompany_StateId', IsValid: function (isZipValid) {
+                     IsZipCodeValidBPresent = isZipValid;
+
+                 }, isTelerik: false, functionExecute: function () {
+                     $("#frmCCompany").validate().element("#txtcCompanyCity");
+                     $("#frmCCompany").validate().element("#cCompany_StateId");
+                 }
+                 });
+             }
+
+         });
+
+         $('select#cCompany_ContactType').change(function () {
+             Contacts.GetcCompanyTypeView($("#cCompanyId").val(), $(this).val());
+
+
+         });
+
+         //         $("#cCompany_ContactType").bind("valueChange", function () {
+
+         //             Contacts.GetcCompanyTypeView($("#cCompanyId").val(), $(this).data("tDropDownList").value());
+
+         //             if ($(this).data("tDropDownList").value() == -1)
+         //                 $("#frmCCompany").validate().element("#cCompany_ContactType");
+
+         //         });
+         
+
+         $("#cCompany_StateId").bind("valueChange", function () {
+             $("#frmCCompany").validate().element("#cCompany_StateId");
+         });
+
+         $("#CCompanyPhoneNumber").val($("#CCompanyPhoneNumber").val()).unmask().mask("?(999) 999-9999");
+         $("#txtcCompanyZip").attr("Value", $("#txtcCompanyZip").val()).unmask().mask("?99999");
+
+         InitiateAutocompleteForCompany("txtcCompanyName");
+         InitiateAutocompleteForCompany("txtcCompanyStreetAddress");
+         InitiateAutocompleteForCompany("txtcCompanyCity");
+         InitiateAutocompleteForCompany("txtcCompanyZip");
+
+     });
+
+
+ </script>

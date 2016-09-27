@@ -1,0 +1,140 @@
+﻿<div>
+    <div class="income-employer section-1">
+        <div class="title">
+            Current Employer
+        </div>
+        <div class="line"></div>
+        <br />
+
+        <div class="section">
+            <div class="row">
+                <div class="col-s">
+                    Employment Type
+                </div>
+                <div class="col-m">
+                    <div class="imp-span-ddl-container medium" ng-class="{'disabled' : employmentInfo.isDisabled}">
+                        <select name=""
+                                class="imp-ddl"
+                                ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().EmploymentTypeId"
+                                ng-options="eType.value as eType.text for eType in employmentInfo.employmentTypes"
+                                ng-disabled="employmentInfo.isDisabled"
+                                ng-change="employmentInfo.employmentTypeChanged()"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed">
+                <div class="col-s">
+                    <span>{{employmentInfo.positionDescription}}</span>
+                </div>
+                <div class="col-m">
+                    <input type="text"
+                           ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().positionDescription"
+                           ng-disabled="employmentInfo.isDisabled"
+                           ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployed(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().positionDescription) || employmentInfo.validateIsActiveMilitaryDuty(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().positionDescription)}">
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed || employmentInfo.isMilitary">
+                <div class="col-s">
+                    Type of Business
+                </div>
+                <div class="col-m">
+                    <input type="text"
+                           ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().typeOfBusiness"
+                           ng-disabled="employmentInfo.isDisabled"
+                           ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployed(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().typeOfBusiness)}">
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.isOtherUnemployed">
+                <div class="col-s">
+                    <span>{{employmentInfo.yearsText}}</span>
+                </div>
+                <div class="col-m">
+                    <div class="input-group" style="width:96%" >
+                        <input type="text" class="form-control" style="text-align: left;" placeholder="mm/dd/yyyy"
+                               ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().employmentStartDate" imp-date min="01/01/1900"
+                               ng-disabled="employmentInfo.isDisabled" ng-blur="employmentInfo.onYearsOnThisJobChanged()"
+                               ng-class="employmentInfo.validateEmploymentStartAndRetiredDate(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().employmentStartDate) ||
+                                         employmentInfo.validateIsSalariedOrSelfEmployed(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().employmentStartDate) ||
+                                         employmentInfo.validateIsActiveMilitaryDuty(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().employmentStartDate)  ? 'imp-has-error' : 'imp-has-error-broder-right-none'">
+                        <span class="date-mid-group" ng-class="{'disabled' : employmentInfo.isDisabled}">to</span>
+                        <input type="text" placeholder="Current" class="form-control current" ng-class="{'disabled' : employmentInfo.isDisabled}"
+                               style="border-left: none; text-align: center;" ng-disabled="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed">
+                <div class="col-s">
+                    Years in same field
+                </div>
+                <div class="col-m">
+                    <input type="text" imp-numeric
+                           ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().yearsInThisProfession"
+                           ng-disabled="employmentInfo.isDisabled"
+                           ng-class="{'imp-has-error': employmentInfo.validateIsActiveMilitaryDuty(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().yearsInThisProfession) ||
+                                        employmentInfo.validateIsSalariedOrSelfEmployed(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().yearsInThisProfession)}">
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed || !employmentInfo.isMilitary">
+                <div class="col-s">
+                    Branch
+                </div>
+                <div class="col-m">
+                    <div class="imp-span-ddl-container medium" ng-class="{'disabled' : employmentInfo.isDisabled, 'imp-has-error': employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isActiveMilitaryDuty &&
+                                employmentInfo.areSixPiecesAcquired && employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().branchOfService == -1}">
+                        <select name=""
+                                class="imp-ddl"
+                                ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().branchOfService"
+                                ng-options="b.value as b.text for b in employmentInfo.branches"
+                                ng-disabled="employmentInfo.isDisabled"
+                                ng-class="{'imp-has-error': employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isActiveMilitaryDuty &&
+                                            employmentInfo.areSixPiecesAcquired && employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().branchOfService == -1}"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed || employmentInfo.isMilitary">
+                <div class="col-s">
+                    Company Name
+                </div>
+                <div class="col-m">
+                    <input type="text"
+                           ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().name"
+                           ng-disabled="employmentInfo.isDisabled"
+                           ng-class="{'imp-has-error': employmentInfo.validateIsSalariedOrSelfEmployed(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().name) }">
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed">
+                <div class="col-s">
+                    Business Phone
+                </div>
+                <div class="col-m">
+                    <input type="text"
+                           ui-mask="(999) 999-9999"
+                           ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().businessPhone"
+                           ng-disabled="employmentInfo.isDisabled"
+                           ng-class="{'imp-has-error':  employmentInfo.validateIsSalariedOrSelfEmployed(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().businessPhone) || employmentInfo.validateIsActiveMilitaryDuty(employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().businessPhone)}">
+                </div>
+            </div>
+            <div class="row" ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed">
+                <div style="padding:0;">
+                    <imp-address-control ng-model="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().address"
+                                         is-county-visible="false"
+                                         is-unit-visible="false"
+                                         placeholder-street-name="Company Street Address"
+                                         placeholder-city-name="Company City"
+                                         ng-disabled="employmentInfo.isDisabled"
+                                         validation="{sixPicesCompleted: employmentInfo.areSixPiecesAcquired, validate: employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isSalariedEmployeeOrSelfEmployed || employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isActiveMilitaryDuty}"
+                                         states="employmentInfo.dropDownLists.states"></imp-address-control>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo().isRetiredOrUnemployed">
+        <income-information employment-info="employmentInfo.borrowerWithInfo.getCurrentEmploymentInfo()"
+                            is-disabled="employmentInfo.isDisabled"
+                            amount-periods="employmentInfo.amountPeriods"
+                            wrapped-loan="employmentInfo.wrappedLoan"
+                            are-six-pieces-acquired="employmentInfo.areSixPiecesAcquired">
+        </income-information>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿<div class="percent-tolerance-container" ng-class="{'last': lastSection == true}">  
+    <div class='header' style="border:none;">{{headerTitle}}</div>
+    <div class='imp-split'></div>
+    <div class='row imp-psection-row'>
+        <div class='col-l imp-disclaimer'>
+            Item
+        </div>
+        <div class='col-m imp-disclaimer'>
+            Disclosed
+        </div>
+        <div class="col-m imp-disclaimer">
+            Current Fee
+        </div>
+    </div>
+    <div class='row imp-psection-row' ng-if="cost.hide != true" ng-repeat="cost in model.costs">
+        <div class='col-l' ng-class="{'imp-tolerance-modal-vlh': cost.name.length > 18}">
+            {{cost.name}}
+        </div>
+        <div class='col-m'>
+            {{cost.disclosedTotalAmountForTolerance | number : 2}}
+        </div>
+        <div class="col-m">
+            {{cost.totalAmountForTolerance | number : 2}}
+        </div>
+    </div>
+    <div class='row imp-psection-row totals'>
+        <div class='col-l boldText'>
+            Total
+        </div>
+        <div class='col-m boldText'>
+            {{model.disclosedTotal | currency:"$"}}
+        </div>
+        <div class="col-m boldText">
+            {{model.currentTotal | currency:"$"}}
+        </div>
+    </div>
+    <div class='imp-split'></div>
+    <div ng-show="threshHold != '100'">
+        <div class='row imp-psection-row'>
+            <div class='col-l'>
+                Change &#36;
+            </div>
+            <div class='col-m'>
+                &nbsp;
+            </div>
+            <div class="col-m bold" ng-class="getColorCode(model.changePercent);">
+                {{model.changeDollar | currency:"$"}}
+            </div>
+        </div>
+        <div class='row imp-psection-row'>
+            <div class='col-l'>
+                Change &#37;
+            </div>
+            <div class='col-m'>
+                &nbsp;
+            </div>
+            <div class="col-m bold" ng-class="getColorCode(model.changePercent);">
+                {{model.changePercent | impNegativeParenthesis: '%'}}
+            </div>
+        </div>
+        <div class='row imp-psection-row'>
+            <div class='col-l'>
+                Amount to Cure
+            </div>
+            <div class='col-m'>
+                &nbsp;
+            </div>
+            <div class="col-m bold" ng-class="getColorCode(model.changePercent);">
+                {{model.amountToCure | currency:"$"}}
+            </div>
+        </div>
+    </div>
+    
+</div>

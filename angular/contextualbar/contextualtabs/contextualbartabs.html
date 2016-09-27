@@ -1,0 +1,19 @@
+﻿<div style="border-bottom: 1px solid #c6c6c6;" >
+    <div class="imp-contextual-bar-tabs-container imp-contextual-bar-product-pricing imp-contextual-bar-details">
+        <div class="container">
+            <div class="glyphicon glyphicon-backward imp-contextual-arrow-left imp-contextual-arrows"
+                 ng-click="conBarTabsCtrl.slideContextualBar(true)"
+                 style="display: none">
+            </div>
+            <contextual-tabs style="display: block; width: 1060px; height: 35px; margin-left: 0px; float: left; padding-left: 20px;"></contextual-tabs>
+            <div class="glyphicon glyphicon-forward imp-contextual-arrow-right imp-contextual-arrows "
+                 ng-click="conBarTabsCtrl.slideContextualBar(false)"
+                 style="display: none">
+            </div>
+        </div>
+        <div class="glyphicon imp-contextual-chevron-up"
+             ng-class="{'imp-contextual-chevron-down' : conBarTabsCtrl.wrappedLoan.ref.isContextualBarCollapsed}"
+             ng-click="conBarTabsCtrl.toggleIsContextualBarCollapsed()">         
+        </div>
+    </div>
+</div>

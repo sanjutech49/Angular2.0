@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- LEFT TEMPORARILY UNTIL STYLING IS MIGRATED-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!--@TODO - REMOVE ConsumerSiteFeatureStyle.css-->
+    <link rel="stylesheet" href="../../../Content/ConsumerSiteFeatureStyle.css">
+    <link rel="stylesheet" href="../../../Content/ConsumerSite/PricingFeatureStyle.css">
+    
+</head>
+<body>
+    <div ng-include src="'../../../angular/consumersite/pricing/pricing.header.html'"></div>
+    <div class="page-body">
+        <div ng-include src="'/angular/consumersite/pricing/pricing.filter.html'"></div>
+        <div class="row" ng-show="pricingCntrl.showAllOptions">
+            <div class="col-push-11"></div>
+            <div class="xs-12"><div class="product-grid-view-details" ng-click="pricingCntrl.showAllOptionsModal()">Filter&nbsp;&amp;&nbsp;Sort&nbsp;Options</div></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row pricing-content pricing-left-margin">
+                <div ng-include src="'/angular/consumersite/pricing/pricing.search.html'"></div>
+                <div ng-include src="'/angular/consumersite/pricing/pricing.products.html'"></div>
+                <div><input type="hidden" ng-model="pricingCntrl.showAdvancedSearch"></div>
+                <div><input type="hidden" ng-model="pricingCntrl.showGrid"></div>
+                <div><input type="hidden" ng-model="pricingCntrl.showAllOptions"></div>
+                <div><input type="hidden" ng-model="pricingCntrl.state"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

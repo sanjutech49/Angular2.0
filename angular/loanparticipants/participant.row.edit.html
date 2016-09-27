@@ -1,0 +1,76 @@
+﻿<div class="row edit" ng-mouseover="hover = true" ng-mouseleave="hover = false" ng-class="{'edit': mode == 'edit', 'add': mode == 'add'}">
+    <div class="col-m">
+        <div class="imp-span-ddl-container small">
+            <select name="company-select"
+                    class="imp-ddl company-select"
+                    ng-model="item.companyType"
+                    ng-options="v.legalEntityTypeKey as v.legalEntityTypeString for (k, v) in companyTypes"
+                    ng-change="">
+                <option value='' selected='' disabled='' style="color:#999;display:none">Select</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xl">
+        <div><input ng-model="item.companyName" type="text" class="imp-currency" ng-blur="log(item)"/></div>
+        <div class="top-space">
+            <!--<div class="inline imp-disclaimer">Lic #</div> -->
+            <div class="inline"><input ng-model="item.companyLicenseNumber" type="text" class="imp-currency" /></div>
+        </div>
+    </div>
+    <div class="col-xl">
+        <address-widget ng-model="item.propertyList[0]"
+                        street-name='item.propertyList[0].streetName'
+                        city-name='item.propertyList[0].cityName'
+                        state-name='item.propertyList[0].stateName'
+                        zip-code='item.propertyList[0].zipCode'
+                        is-county-visible="false"
+                        is-unit-visible="false"
+                        placeholder-street-name="Street"
+                        placeholder-city-name="City"
+                        placeholder-state-name="St."
+                        city-width='65'
+                        state-width='45'
+                        zip-width='35'>
+        </address-widget>
+    </div>
+    <div class="col-xl">
+        <div><input ng-model="fullName" type="text" class="imp-currency" ng-blur="splitName(fullName)" /></div>
+        <div class="top-space">
+            <!-- <div class="inline imp-disclaimer">Lic #</div> -->
+            <div class="inline"><input ng-model="item.licenseNumber" type="text" class="imp-currency" /></div>
+        </div>
+    </div>
+    <div class="col-l">
+        <div>
+            <div class="inline">
+                <imp-phone phone-number="item.personPhone.Mobile.phoneNumber"
+                           disable-phone-type-options="true">
+                </imp-phone>
+            </div>
+            <div class="inline imp-disclaimer phone">{{(item.personPhone.Mobile.typeStr == null) ? 'Mobile' : item.personPhone.Mobile.typeStr}}</div>
+        </div>
+        <div class="top-space">
+            <div class="inline">
+                <imp-phone phone-number="item.personPhone.Office.phoneNumber"
+                           disable-phone-type-options="true">
+                </imp-phone>
+            </div>
+            <div class="inline imp-disclaimer phone">{{ (item.personPhone.Office.typeStr == null) ? 'Office' : item.personPhone.Office.typeStr}}</div>
+        </div>
+    </div>
+    <div class="col-xl">
+        <input ng-model="item.emailAddressList.list[0].value.emailAddress" type="text" class="imp-currency" />
+        <div class="top-space">
+            <div class="inline">
+                <imp-phone phone-number="item.companyPhone.Fax.phoneNumber"
+                           disable-phone-type-options="true">
+                </imp-phone>
+            </div>
+            <div class="inline imp-disclaimer phone">{{(item.companyPhone.Fax.typeStr == null) ? 'Fax' : item.companyPhone.Fax.typeStr}}</div>
+        </div>
+    </div>
+    <div class="col-s">
+        <div class="imp-icon-pen" ng-show="hover" ng-click=" (mode == 'edit') ? changeTemplate('view') : addItem()"></div>
+        <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style="margin-right: -30px; margin-top:-3px; position: absolute; z-index: 1;" ng-click="removeItem();" ng-show="hover && mode != 'add'"></imp-circle>
+    </div>
+</div>

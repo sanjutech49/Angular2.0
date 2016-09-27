@@ -1,0 +1,54 @@
+﻿@using MML.Contracts
+@model Investor
+<div class="imp-sa-grid-subrow">
+    <div class="imp-sa-grid-col-1" style="padding-right: 20px;">
+        <span class="imp-sa-grid-section-header">Product name </span>
+    </div>
+    <div class="imp-sa-grid-col-2">
+        <span class="imp-sa-grid-section-header">Product identifier </span>
+    </div>
+</div>
+@foreach ( InvestorProduct investorProduct in Model.InvestorProducts )
+{
+    string inactive = ( investorProduct.Active == null || ( bool )investorProduct.Active ) ? "active" : ( Model.Active == false ? "inactive" : "active" );
+
+    string disabled = ( investorProduct.Active == null || ( bool )investorProduct.Active ) ? "active" : ( Model.Active == false ? "disabled" : "inactive" );
+    string activateDeactivate = ( investorProduct.Active == null || ( bool )investorProduct.Active ) ? "false" : "true";
+    string inactiveTitle = (investorProduct.Active == null ||(bool)investorProduct.Active) ? "Active" : "Inactive";
+
+    string investorProductOnClickDelete = investorProduct.HasLoansAssociated ? "" : string.Format("InvestorConfiguration.ActivateDeactivate({0}, {1}, {2}, {3})", investorProduct.InvestorId, investorProduct.InvestorProductId, activateDeactivate, "true");
+    string deleteClass = string.Concat("imp-sa-grid-delete", investorProduct.HasLoansAssociated ? " ddisabled" : "");
+
+    string investorProductOnClickActive = inactive == "active" ? "InvestorConfiguration.ShowWarningMessage(" + investorProduct.InvestorId + ", '" + investorProduct.ProductName + "'," + investorProduct.InvestorProductId + "," + activateDeactivate + ")" : "";
+    string investorProductOnClickEdit = activateDeactivate == "false" ? "InvestorConfiguration.OpenPopup('InvestorProductDetails'," + investorProduct.InvestorId + "," + investorProduct.InvestorProductId + ")" : "";
+    
+    
+    <div class="imp-sa-grid-subrow-container">
+        <div class="imp-sa-grid-subrow @inactive" >
+            <div style="display: none">
+                @investorProduct.InvestorProductId
+            </div>
+            <div class="imp-sa-grid-col-1" style="padding-right: 20px; word-break: break-all;">
+                @investorProduct.ProductName
+            </div>
+            <div class="imp-sa-grid-col-2">
+                @investorProduct.RuCode
+            </div>
+            <div class="imp-sa-grid-col-r1">
+                @{
+               
+                }
+                <div class="imp-sa-grid-active"  onclick="@investorProductOnClickActive">
+                    <canvas id="active"  class="canvas-active @disabled" width="21" height="23" title="@inactiveTitle"></canvas>
+                </div>
+                <div class="imp-sa-grid-edit" onclick="@investorProductOnClickEdit">
+                    <div class="imp-button-pen @(activateDeactivate == "false" ? "active" : "inactive")" title="Edit" style="float: left">
+                    </div>
+                </div>
+                <div class="@deleteClass" onclick="@investorProductOnClickDelete">
+                    <canvas id="icon" title="Delete" class="del @(investorProduct.HasLoansAssociated ? "inactive" : "active")" width="26" height="26" style="margin-right: 2px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+}

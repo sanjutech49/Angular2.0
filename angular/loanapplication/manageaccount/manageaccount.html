@@ -1,0 +1,158 @@
+﻿<div class='imp-popover imp-body manage-user-account-modal'>
+    <div class='container'>
+        <div class='header' style="line-height: 20px;">Manage User Account</div>
+        <div class='imp-split'></div>
+        <form name="manageUserAccountForm" novalidate>
+            <div class="content">
+                <div class='row' style="margin-top: 7px;" ng-if="modalpopoverCtrl.model.userAccount.isCoBorrower">
+                    <div class='col-s'>
+                        <div class='imp-psection-label'>Co-Borrower Account</div>
+                    </div>
+                    <div class='col-m'>
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl" ng-options="option.value as option.text for option in modalpopoverCtrl.model.accountOptions"
+                                    ng-model="modalpopoverCtrl.model.coBorrowerAccountOptionId"
+                                    ng-change="modalpopoverCtrl.ctrl.onAccountOptionChange(modalpopoverCtrl.model, modalpopoverCtrl.ctrl)"
+                                    imp-autofocus="{{modalpopoverCtrl.model.userAccount.isCoBorrower}}"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class='row' style="margin-top: 7px;" ng-if="modalpopoverCtrl.model.isEmailVisible">
+                    <div class='col-s'>
+                        <div class='imp-psection-label'>Email</div>
+                    </div>
+                    <div class='col-m'>
+                        <imp-email fields-disabled="modalpopoverCtrl.model.isEmailDisabled"
+                                   username="modalpopoverCtrl.model.userAccount.username"
+                                   on-email-blur="modalpopoverCtrl.ctrl.onEmailBlur(modalpopoverCtrl.model, modalpopoverCtrl.ctrl)"
+                                   is-valid="modalpopoverCtrl.model.userAccount.usernameTaken || (modalpopoverCtrl.model.userAccount.isEmailValid && manageUserAccountForm.username.$dirty && manageUserAccountForm.username.$invalid)"
+                                   is-autofocus="!modalpopoverCtrl.model.userAccount.isCoBorrower">
+                        </imp-email>
+                    </div>
+                </div>
+                <div class='row' ng-if="modalpopoverCtrl.model.isConfirmEmailVisible">
+                    <div class='col-s'>
+                        <div class='imp-psection-label'>Confirm Email</div>
+                    </div>
+                    <div class='col-m'>
+                        <input type="text" name="confirmEmail"
+                               ng-model="modalpopoverCtrl.model.userAccount.confirmEmail"
+                               ng-paste="modalpopoverCtrl.ctrl.preventPaste($event)"
+                               ng-class="{ 'input-validation-error': modalpopoverCtrl.model.userAccount.invalidConfirm}"
+                               ng-blur="modalpopoverCtrl.ctrl.onConfirmEmailBlur(modalpopoverCtrl.model, modalpopoverCtrl.ctrl)" />
+                    </div>
+                </div>
+                <div class="existing-email" ng-if="modalpopoverCtrl.model.isVerifyAccountInformationVisible" ng-include src="'angular/loanapplication/manageaccount/verifyaccountinformation.html'">
+
+                </div>
+                <div ng-if="!modalpopoverCtrl.model.isVerifyAccountInformationVisible">
+                    <div class="row" ng-if="modalpopoverCtrl.model.isJointAccountMessageVisible">
+                        <div class="col-md-11">
+                            <span class="separate">The Joint Account can be modified within the Borrower Popup.</span>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="modalpopoverCtrl.model.isOnlineUserVisible">
+                        <div class="col-s">
+                            <div class="imp-psection-label">Online User</div>
+                        </div>
+                        <div class="col-m">
+                            <div class="row-radio-container">
+                                <input type="radio" class="imp-radio" ng-disabled="(modalpopoverCtrl.model.userAccount.isCoBorrower && !modalpopoverCtrl.ctrl.isBorrowerOnline)" ng-model="modalpopoverCtrl.model.userAccount.isOnlineUser" ng-value="true" />
+                                <label class="imp-lbl-radio" ng-click="(modalpopoverCtrl.model.userAccount.isCoBorrower && !modalpopoverCtrl.ctrl.isBorrowerOnline)? modalpopoverCtrl.model.userAccount.isOnlineUser = false : modalpopoverCtrl.model.userAccount.isOnlineUser = true">Yes</label>
+                            </div>
+                            <div class="row-radio-container">
+                                <input type="radio" class="imp-radio" ng-disabled="(modalpopoverCtrl.model.userAccount.isCoBorrower && modalpopoverCtrl.ctrl.isBorrowerOnline)" ng-model="modalpopoverCtrl.model.userAccount.isOnlineUser" ng-value="false" />
+                                <label class="imp-lbl-radio" ng-click="(modalpopoverCtrl.model.userAccount.isCoBorrower && modalpopoverCtrl.ctrl.isBorrowerOnline)? modalpopoverCtrl.model.userAccount.isOnlineUser = true : modalpopoverCtrl.model.userAccount.isOnlineUser = false">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- If statement stub to see if user is online -->
+                    <div ng-if="modalpopoverCtrl.model.userAccount.isOnlineUser">
+                        <div class="row" ng-if="modalpopoverCtrl.model.isQuestionAndAnswerVisible">
+                            <div class="col-s">
+                                <div class="imp-psection-label">Security Question</div>
+                            </div>
+                            <div class='col-m '>
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl" ng-options="question.value as question.text for question in modalpopoverCtrl.model.securityQuestions"
+                                            ng-model="modalpopoverCtrl.model.userAccount.securityQuestionId"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="modalpopoverCtrl.model.isQuestionAndAnswerVisible">
+                            <div class="col-s">
+                                <div class="imp-psection-label">Security Answer</div>
+                            </div>
+                            <div class='col-m'>
+                                <input type="text" name="securityAnswer"
+                                       ng-model="modalpopoverCtrl.model.userAccount.securityAnswer"
+                                       ng-class="{ 'input-validation-error': modalpopoverCtrl.model.userAccount.invalidSecurityAnswer && manageUserAccountForm.securityAnswer.$dirty}" />
+                            </div>
+                        </div>
+                        <div class="row" ng-if="modalpopoverCtrl.model.isResendActivationVisible">
+                            <div class="col-s">
+                                <div class="imp-psection-label">Re-Send Activation Email</div>
+                            </div>
+                            <div class='col-m'>
+                                <div class="row-radio-container">
+                                    <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.sendActivationEmail" ng-value="true" />
+                                    <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.sendActivationEmail = true">Yes</label>
+                                </div>
+                                <div class="row-radio-container">
+                                    <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.sendActivationEmail" ng-value="false" />
+                                    <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.sendActivationEmail = false" ng-disabled="modalpopoverCtrl.ctrl.IsResendActive">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="modalpopoverCtrl.model.isResendValidationVisible">
+                            <div class="col-s">
+                                <div class="imp-psection-label">Re-Send Validation Email</div>
+                            </div>
+                            <div class='col-m'>
+                                <div class="row-radio-container">
+                                    <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.userAccount.sendVerificationEmail" ng-value="true" />
+                                    <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.userAccount.sendVerificationEmail = true">Yes</label>
+                                </div>
+                                <div class="row-radio-container">
+                                    <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.userAccount.sendVerificationEmail" ng-value="false" disabled="disabled" />
+                                    <label class="imp-lbl-radio" ng-click="" disabled="disabled">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="modalpopoverCtrl.model.isPasswordVisible">
+                            <div class="col-s">
+                                <div class="imp-psection-label">Reset Password</div>
+                            </div>
+                            <div class='col-m'>
+                                <div class="row-radio-container">
+                                    <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.userAccount.resetPassword" ng-value="true"
+                                           ng-disabled="modalpopoverCtrl.model.userAccount.isResetPasswordDisabled" />
+                                    <label class="imp-lbl-radio"
+                                           ng-click="modalpopoverCtrl.ctrl.resetPasswordChanged(modalpopoverCtrl.model, true, $event)">Yes</label>
+                                </div>
+                                <div class="row-radio-container">
+                                    <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.userAccount.resetPassword" ng-value="false"
+                                           ng-disabled="modalpopoverCtrl.model.userAccount.isResetPasswordDisabled" />
+                                    <label class="imp-lbl-radio"
+                                           ng-click="modalpopoverCtrl.ctrl.resetPasswordChanged(modalpopoverCtrl.model, false, $event)">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='imp-split'></div>
+                <div class='footer'>
+                    <div class="buttons">
+                        <button class='imp-button-hm-wl-sec' ng-click="modalpopoverCtrl.ctrl.cancelChanges(modalpopoverCtrl.ctrl)"> {{modalpopoverCtrl.ctrl.cancelButton}}</button>
+                        <span ng-if="modalpopoverCtrl.model.isActionButtonVisible">
+                            <button class="imp-button-hm-wxl-prim"
+                                    ng-click="modalpopoverCtrl.ctrl.saveUserAccount(modalpopoverCtrl.model, modalpopoverCtrl.ctrl);"
+                                    ng-disabled="modalpopoverCtrl.ctrl.isDisabledActionBtn(modalpopoverCtrl.model, modalpopoverCtrl.ctrl)">
+                                {{modalpopoverCtrl.model.actionButtonText}}
+                            </button>
+                        </span>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>

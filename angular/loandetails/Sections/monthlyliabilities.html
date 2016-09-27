@@ -1,0 +1,61 @@
+﻿<div class="unit-control ld-grid-contrl">
+    <div class="unit-header">
+        Monthly Liabilities
+        <!--Hidden due to PBI 26768 -->
+       <!--<div class="view-link">view credit/liabilities</div>-->
+    </div>
+    <div class="unit-body margin-top-small">
+        <div class="title-item">
+            <div class="left-side">&nbsp;</div>
+            <div class="first-column">Borrower</div>
+            <div class="second-column">Co-Borrower</div>
+            <div class="third-column">Total</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side">Neg. Cash Flow</div>
+            <div class="first-column">{{(!loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getBorrower(),true)) ? ' ' : loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getBorrower(),true) | impAbs | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="second-column">{{(!loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getCoBorrower(),true)) ? ' ' : loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getCoBorrower(),true) | impAbs | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="third-column">{{(!(loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getBorrower(),true) + loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getCoBorrower(),true))) ? ' ' : (loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getBorrower(),true) + loanDetails.wrappedLoan.ref.getCashFlowForNetRentalIncomes(loanDetails.wrappedLoan.ref.primary.getCoBorrower(),true)) | impAbs | impRound: 2 | impCurrency}}&nbsp;</div>
+        </div>
+
+        <div ng-init="borrowerPayment = loanDetails.getBorrowerOtherPayment();
+                      coBorrowerPayment = loanDetails.getCoBorrowerOtherPayment();
+                      borrowerAddlMorgages = loanDetails.getAdditionalMortgages(0);
+                      coBorrowerAddlMorgages = loanDetails.getAdditionalMortgages(1);">
+        </div>
+
+        <div class="item">
+            <div class="left-side">Other Payments</div>
+            <div class="first-column">{{ borrowerPayment | hideZero  | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="second-column">{{coBorrowerPayment | hideZero | impRound: 2 | impCurrency}}&nbsp;</div>
+            <div class="third-column">{{((borrowerPayment + coBorrowerPayment) == 0 ? ' ' : (borrowerPayment + coBorrowerPayment)) | impRound: 2 | impCurrency}}&nbsp;</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side" ng-class="{'total': loanDetails.wrappedLoan.ref.getLoanApplications().length == 1}">
+                <span ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">Sub Total</span>
+                <span ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length == 1">Total</span>
+            </div>
+            <div ng-class="{'total-bold': loanDetails.wrappedLoan.ref.getLoanApplications().length == 1}">
+                <div class="first-column">{{loanDetails.wrappedLoan.ref.cashFlowBorrower() + borrowerPayment | hideZero | impAbs| impRound: 2 | impCurrency}}&nbsp;</div>
+                <div class="second-column">{{loanDetails.wrappedLoan.ref.cashFlowCoBorrower() + coBorrowerPayment | hideZero | impAbs| impRound: 2 | impCurrency}}&nbsp;</div>
+                <div class="third-column grand-subtotal">{{loanDetails.wrappedLoan.ref.cashFlowBorrower() + borrowerPayment + loanDetails.wrappedLoan.ref.cashFlowCoBorrower() + coBorrowerPayment | hideZero | impAbs | impRound: 2 | impCurrency}}&nbsp;</div>
+            </div>
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">
+            <div class="left-side">Add'l Mortgagees</div>
+            <div class="first-column">&nbsp;</div>
+            <div class="second-column">&nbsp;</div>
+            <div class="third-column" ng-model="loanDetails.borrowers">{{((borrowerAddlMorgages + coBorrowerAddlMorgages) == 0 ? ' ' : (borrowerAddlMorgages + coBorrowerAddlMorgages)) | impRound: 2 | impCurrency}}&nbsp;</div>
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">
+            <div class="left-side total">Total</div>
+            <div class="first-column total ">&nbsp;</div>
+            <div class="second-column total">&nbsp;</div>
+            <div class="third-column grand-total">{{borrowerAddlMorgages + loanDetails.wrappedLoan.ref.cashFlowBorrower() + borrowerPayment + coBorrowerAddlMorgages + loanDetails.wrappedLoan.ref.cashFlowCoBorrower() + coBorrowerPayment | hideZero | impRound: 2 | impCurrency}}&nbsp;</div>
+        </div>
+    </div>
+</div>

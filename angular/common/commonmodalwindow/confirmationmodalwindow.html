@@ -1,0 +1,16 @@
+﻿<div class="modal-body">
+    <div class="modal-body-half">
+        <div ng-class="commonModalCtrl.headerClass">{{commonModalCtrl.header}}</div>
+        <div ng-class="commonModalCtrl.messageClass" ng-bind-html="commonModalCtrl.message"></div>
+    </div>
+    <div class="modal-body-half" style="margin-top:20px;">
+        <button ng-class="{'imp-button-div-hm-wm-sec confirmation-modal-closeButton' : commonModalCtrl.ctrlButtons,
+                            'imp-button-hm-wm-prim confirmation-modal-closeButton' : !commonModalCtrl.ctrlButtons}"
+                ng-click="commonModalCtrl.close()">
+            {{commonModalCtrl.btnCloseText}}
+        </button>
+        <button ng-repeat="button in commonModalCtrl.ctrlButtons" ng-class="button.styleClass" ng-style="{'width': button.width, 'height': button.height}"
+                ng-click="commonModalCtrl.buttonCallback(button.callback)">
+            {{button.title}}</button>
+    </div>
+</div>

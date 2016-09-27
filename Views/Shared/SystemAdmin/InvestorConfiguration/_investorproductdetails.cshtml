@@ -1,0 +1,132 @@
+﻿@model MML.Web.LoanCenter.ViewModels.InvestorConfiguration.InvestorProductDetailsViewModel
+@using MML.Web.LoanCenter.Extensions
+
+
+<div class="imp-sa-popup-content" style="width: 800px; height: 525px; margin-left: -400px; margin-top: -240px; font-size: 12px;">
+    @using (Ajax.BeginForm("InvestorProductDetails", "InvestorConfiguration", null, new AjaxOptions { HttpMethod = "POST" }, new { @id = "investor-product-details" }))
+    {
+        <div class="imp-sa-modal-header">
+            <span>
+                @if (Model.InvestorProduct.InvestorProductId == -1)
+                {
+                    <text>Add Product</text>
+                }
+                else
+                {
+                    <text>Edit Product</text>
+                }
+            </span>
+            <div onclick="InvestorConfiguration.CurrentPage=$('#CurrentPage').val();InvestorConfiguration.ClosePopup();" style="float: right;" class="imp-div-close-x">
+            </div>
+        </div>
+        @Html.HiddenFor(i => i.InvestorProduct.InvestorId)
+        @Html.HiddenFor(i => i.InvestorProduct.InvestorProductId)
+        @Html.HiddenFor(i => i.InvestorProduct.InvestorProductRule.InvestorRuleId)
+        @Html.HiddenFor(i => i.InvestorProduct.RuCode, new { id = "hdnInvestorProductRuCode", disabled = true })
+
+
+        <div class="imp-sa-split">
+        </div>
+        <div id="divInvestorErrorMsg" class="input-validation-error" style="width: 745px; margin-left: 10px; display: none"></div>
+
+        <div class="imp-sa-modal-row" style="clear: both; margin-top: 30px">
+            <div class="imp-sa-modal-cell-left">
+                @Html.LabelFor(i => i.InvestorProduct.ProductName)
+            </div>
+            <div class="imp-sa-modal-cell-right">
+                @Html.TextBoxFor(i => i.InvestorProduct.ProductName, new { @id = "txtInvestorProductName", @class = "" })
+                @Html.ValidationMessageFor(i => i.InvestorProduct.ProductName)
+            </div>
+        </div>
+        <div class="imp-sa-modal-row" style="clear: both">
+            <div class="imp-sa-modal-cell-left">
+                @Html.LabelFor(i => i.InvestorProduct.RuCode)
+            </div>
+            <div class="imp-sa-modal-cell-right">
+                @Html.TextBoxFor(i => i.InvestorProduct.RuCode, new { @id = "txtInvestorProductCode" })
+                @Html.ValidationMessageFor(i => i.InvestorProduct.RuCode)
+            </div>
+        </div>
+        <div class="imp-sa-modal-row" style="clear: both">
+            <div style="width: 99px; float: left; font-size: 12px; margin-left: 39px; margin-top:-10px;">
+                @Html.LabelFor(i => i.InvestorProduct.FREOfferingIdentifier)
+            </div>
+            <div class="imp-sa-modal-cell-right">
+                @Html.TextBoxFor(i => i.InvestorProduct.FREOfferingIdentifier, new { @id = "txtFREOfferingIdentifier" })
+                @Html.ValidationMessageFor(i => i.InvestorProduct.FREOfferingIdentifier)
+            </div>
+        </div>
+        <div class="imp-sa-modal-row" style="clear: both">
+            <div class="imp-sa-modal-cell-left" style="padding-left: 7px;">
+                @Html.LabelFor(i => i.InvestorProduct.DefaultPricing)
+            </div>
+            <div class="imp-sa-modal-cell-right">
+                @Html.RadioButtonForEnum(i => i.InvestorProduct.DefaultPricing, new { @data_val = "false", @data_val_required = "", @onClick = "InvestorConfiguration.SelectDefaultPricing(this);", @class = "imp-radio" })
+                @Html.ValidationMessageFor(i => i.InvestorProduct.DefaultPricing)
+            </div>
+
+        </div>
+        <div class="imp-sa-modal-row" style="clear: both">
+            <div class="imp-sa-modal-cell-left" style="padding-left: 7px;">
+                @Html.LabelFor(i => i.InvestorProduct.CDTIPricingTypes)
+            </div>
+            <div class="imp-sa-modal-cell-right">
+                @Html.CheckBoxListFor(i => i.InvestorProduct.CDTIPricingTypes, Model.InvestorProduct.CDTIPricingTypes.ToSelectList(), new { @style = "float:left" })
+                @Html.ValidationMessageFor(i => i.InvestorProduct.CDTIPricingTypes)
+
+            </div>
+
+        </div>
+        <div class="imp-sa-modal-row" style="clear: both">
+            <div style="float: left; margin-left: 66px;">
+
+                @Html.LabelFor(i => i.InvestorProduct.AusTypes)
+            </div>
+            <div style="float: left; margin-left: 17px">
+                @Html.CheckBoxListFor(i => i.InvestorProduct.AusTypes, Model.InvestorProduct.AusTypes.ToSelectList(), new { @style = "float:left" })
+                @Html.ValidationMessageFor(i => i.InvestorProduct.AusTypes)
+            </div>
+        </div>
+        <div class="imp-sa-modal-row" style="clear: both;">
+            <div style="width: 99px; float: left; font-size: 12px; margin-left: 43px;">
+                @Html.LabelFor(i => i.InvestorProduct.InvestorProductRule.InvestorRulesConfigurationId)
+            </div>
+            <div id="divInvestorRules" style="float: left;">
+                @Html.RadioButtonListForInvestorMatrix(i => i.InvestorProduct.InvestorProductRule.InvestorRulesConfigurationId,
+                 i => i.InvestorProduct.InvestorProductRule.UserDefinedValues, Model.InvestorRules, substringToReplace: "[User Defined Value]",
+                 htmlAttributesRadioButton: new { @class = "imp-radio", @data_val = "false", @data_val_number = "" },
+              htmlAttributesLabel: new { @class = "imp-lbl-radio", @style = "margin-bottom: 5px; display:inline; " },
+              htmlAttributesTxtBox: new { @data_val = "false", @class = "imp-percent", @style = "width: 50px; font-size: inherit;" })
+                @Html.ValidationMessageFor(i => i.InvestorProduct.InvestorProductRule.InvestorRulesConfigurationId)
+            </div>
+        </div>
+        <div class="imp-sa-modal-row" style="clear: both">
+            <div class="imp-sa-modal-cell-left" style="margin-left: -9px;">
+                @Html.LabelFor(i => i.InvestorWebsiteUrl)
+            </div>
+            <div class="imp-sa-modal-cell-right">
+                @Html.TextBoxFor(i => i.InvestorWebsiteUrl)
+                @Html.ValidationMessageFor(i => i.InvestorWebsiteUrl)
+            </div>
+        </div>
+        <div class="imp-sa-split">
+        </div>
+        var isAdd = Model.InvestorProduct.InvestorProductId == -1 ? "true" : "false";
+        <div style="float: right; padding-right: 20px; padding-top: 10px;">
+            <div class="imp-button-div-hm-wm-sec" id="btn-cancel-ivestor-product" onclick="InvestorConfiguration.CurrentPage=$('#CurrentPage').val(); InvestorConfiguration.ClosePopup();">
+                Cancel
+            </div>
+            <div class="imp-button-div-hm-wm-prim" id="btn-save-investor-product" onclick="InvestorConfiguration.CheckIsDuplicateRecord('InvestorProductDetails', 'investor-product-details', @isAdd, true)">
+                Save
+            </div>
+        </div>
+
+    }
+
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        InvestorConfiguration.InvestorProductDOMReady();
+    });
+</script>

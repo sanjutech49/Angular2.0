@@ -1,0 +1,55 @@
+﻿<div class="auth">
+    <div class="help">
+        <a href="#">
+            <i class="glyphicon glyphicon-question-sign"></i>
+        </a>
+        Help
+    </div>
+    <div class="center">
+        <img src="../../../../Content/images/Consumer/logo.png" />
+        <h2>Secure Portal</h2>
+        <div class="bar-well">
+            <!--{{ authCtrl.borrowers }}-->
+            <div ng-show="!authCtrl.hasAuthenticationContext">
+                Sorry, we could not process your request.  Please check to make sure your token has not expired.
+            </div>
+            <form class="form-horizontal" ng-show="authCtrl.hasAuthenticationContext">
+
+                <!--<div class="form-group" ng-repeat="b in authCtrl.borrowers">
+                    <div class="col-sm-3 control-label"><label>{{b.name}}</label></div>
+                    <div class="col-sm-4">
+                        <div class="input-group" ng-class="{verified: b.pinValid === true, incorrect: b.pinValid === false}">
+                            <input type="password" class="form-control imp-disclaimer" placeholder="Last 4 of SSN" maxlength="4" ng-model="b.InputPIN" />
+                            <div class="input-state"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 control-label text-sm-left"><a href="#/esign" class="continue-without hidden" ng-class="{hidden: !b.showContinueWithoutLink}">{{b.continueWithoutText}}</a></div>
+                </div>-->
+
+                <div class="form-group">
+                    <div class="col-sm-3 control-label auth-name-label"><label>{{authCtrl.borrower.fullName}}</label></div>
+                    <div class="col-sm-4">
+                        <div class="input-group password-input-group" ng-class="{verified: authCtrl.borrower.isAuthenticated === true, incorrect: authCtrl.borrower.isAuthenticated === false}">
+                            <input type="password" class="form-control imp-disclaimer" placeholder="Last 4 of SSN" maxlength="4" ng-model="authCtrl.borrower.inputPIN" ng-change="authCtrl.inputPINChanged()" />
+                            <div class="input-state"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 control-label text-sm-left continue-without"><a class="hidden" ng-class="{hidden: !authCtrl.borrower.showContinueWithoutLink}" ng-click="authCtrl.continueWithoutClick()">{{authCtrl.borrower.continueWithoutText}}</a></div>
+                </div>
+                <div class="form-group" ng-show="authCtrl.authenticationViewModel.hasCoBorrower">
+                    <div class="col-sm-3 control-label auth-name-label"><label>{{authCtrl.coBorrower.fullName}}</label></div>
+                    <div class="col-sm-4">
+                        <div class="input-group password-input-group" ng-class="{verified: authCtrl.coBorrower.isAuthenticated === true, incorrect: authCtrl.coBorrower.isAuthenticated === false}">
+                            <input type="password" class="form-control imp-disclaimer" placeholder="Last 4 of SSN" maxlength="4" ng-model="authCtrl.coBorrower.inputPIN" ng-change="authCtrl.inputPINChanged()" />
+                            <div class="input-state"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 control-label text-sm-left continue-without"><a class="hidden" ng-class="{hidden: !authCtrl.coBorrower.showContinueWithoutLink}" ng-click="authCtrl.continueWithoutClick()">{{authCtrl.coBorrower.continueWithoutText}}</a></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-4"><button type="submit" class="imp-button-general btn-continue" ng-click="authCtrl.authenticateUser()" ng-disabled="!authCtrl.isContinueButtonEnabled">Continue</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,322 @@
+﻿<div class="lender-info">
+    <div class="title">
+        Lender & Loan Information
+    </div>
+    <div class="line"></div>
+    <br />
+
+    <div class="section">
+        <div class="row">
+            <div class="col-xxxl">
+                Borrower
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium" ng-class="{'disabled' :  realEstateItemCtrl.pledgedAssetModel.liabilityDisabled,
+                 'ng-invalid ng-dirty' : realEstateItemCtrl.pledgedAssetModel.isLenderSectionVisible && formRealEstateInformation.debtsAccountOwnershipType.$touched && formRealEstateInformation.debtsAccountOwnershipType.$invalid}">
+                    <select name="debtsAccountOwnershipType"
+                            class="imp-ddl"
+                            ng-model="realEstateItemCtrl.pledgedAssetModel.debtsAccountOwnershipType"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.debtAccountOwnershipTypes"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Lender Name
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" name="companyName"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isReoValidationRequired && !realEstateItemCtrl.pledgedAssetModel.companyData.companyName}"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.companyData.companyName"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12" style="padding:0px;">
+                <imp-address-control ng-model="realEstateItemCtrl.pledgedAssetModel.companyData.addressViewModel"
+                                     is-county-visible="false"
+                                     is-unit-visible="false"
+                                     placeholder-street-name="Lender Street"
+                                     placeholder-city-name="Lender City"
+                                     ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                                     states="realEstateItemCtrl.lookup.allStates"></imp-address-control>
+            </div>
+        </div>
+        <div class="row" style="margin-top:-1px">
+            <div class="col-xxxl">
+                Attn
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.companyData.attn"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Phone
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.companyData.phone"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                       ui-mask="(999) 999-9999">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Fax
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.companyData.fax"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                       ui-mask="(999) 999-9999">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Email
+            </div>
+            <div class="col-xxxxxl">
+                <imp-email fields-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                           username="realEstateItemCtrl.pledgedAssetModel.companyData.email">
+                </imp-email>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="row">
+            <div class="col-xxxl">
+                Lien Position
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium" ng-class="{'disabled' :  realEstateItemCtrl.pledgedAssetModel.liabilityDisabled,
+                    'ng-invalid ng-dirty' : realEstateItemCtrl.pledgedAssetModel.isLenderSectionVisible && formRealEstateInformation.lienPosition.$touched && formRealEstateInformation.lienPosition.$invalid}">
+                    <!--
+                        DO NOT CHANGE THE <select/> NAME!!!
+                        IT MUST REMAIN [name="lienPosition"]
+                        @see [realEstateItemCtrl.resetLienPositionsJQuery()] for details
+                    -->
+                    <select name="lienPosition"
+                            class="imp-ddl"
+                            ng-class="{'imp-has-error': realEstateItemCtrl.isReoValidationRequired && !realEstateItemCtrl.lienPosition && realEstateItemCtrl.pledgedAssetModel.getProperty().propertyId}"
+                            ng-model="realEstateItemCtrl.lienPosition"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lienPositionLookups"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                            options-disabled="p.disabled for p in realEstateItemCtrl.lienPositionLookups">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Loan Type
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium" ng-class="{'disabled' :  realEstateItemCtrl.pledgedAssetModel.liabilityDisabled}">
+                    <select name="type"
+                            class="imp-ddl"
+                            ng-change="realEstateItemCtrl.loanTypeChanged(realEstateItemCtrl.pledgedAssetModel)"
+                            ng-model="realEstateItemCtrl.pledgedAssetModel.pledgedAssetLoanType"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lookup.pledgedAssetsLoanTypes"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Acct &nbsp;#
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.accountNumber"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                High Limit
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" placeholder="$" name="highLimit"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.maximumCreditLine"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.helocHighLimitValidation()}"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.pledgedAssetModel.pledgedAssetLoanType != realEstateItemCtrl.enums.PledgedAssetLoanType.Heloc"
+                       imp-currency="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Unpaid Balance
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" placeholder="$" name="unpaidBalance"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isReoValidationRequired && !realEstateItemCtrl.pledgedAssetModel.unpaidBalance}"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.unpaidBalance"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                       imp-currency="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Minimum Payment
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" placeholder="$" name="minPayment"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isReoValidationRequired && !realEstateItemCtrl.pledgedAssetModel.minPayment}"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.minPayment"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                       imp-currency="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl" style="width: 38%;">
+                From Credit - Balance:
+            </div>
+            <div class="col-xxxxxl" style="width: 25%; margin-top:4px;">
+                {{realEstateItemCtrl.pledgedAssetModel.originalUnpaidBalance | currency:'$':2}}
+            </div>
+            <div class="col-xxxl" style="width: 16%;">
+                Payment:
+            </div>
+            <div class="col-xxxxxl" style="width: 21%; margin-top:4px;">
+                {{realEstateItemCtrl.pledgedAssetModel.originalMinAmount | currency:'$':2}}
+            </div>
+        </div>
+        <div class="row">
+            <div ng-show="realEstateItemCtrl.displayImpoundList">
+                <div class="col-xxxl">
+                    Included in Payments
+                </div>
+                <div class="col-xxxxxl">
+                    <div class="imp-span-ddl-container medium" ng-class="{'disabled' :  realEstateItemCtrl.pledgedAssetModel.liabilityDisabled}">
+                        <select name="type"
+                                class="imp-ddl"
+                                ng-change="realEstateItemCtrl.updateDTI(true)"
+                                ng-model="realEstateItemCtrl.selectedImpound"
+                                ng-model-options="{ getterSetter: true }"
+                                ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lookup.impoundList"
+                                ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="row">
+            <div class="col-xxxl">
+                Loan Origination Date
+            </div>
+            <div class="col-xxxxxl" style="width: 58%">
+                <imp-date-picker display-picker="false"
+                                 type="text"
+                                 ng-model="realEstateItemCtrl.pledgedAssetModel.loanOriginationDate"
+                                 date-settings="{defaultValidationEnabled: false, validateIsDate: true, placeholder: 'mm/dd/yyyy'}">
+                </imp-date-picker>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Interest Rate
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" data-ng-model="realEstateItemCtrl.pledgedAssetModel.reoInfo.interestRate" round-three-decimals="true" return-float="true" imp-percentage />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Loan Term
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" ng-model="realEstateItemCtrl.pledgedAssetModel.reoInfo.loanTerm" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Amortization Type
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium">
+                    <select class="imp-ddl"
+                            ng-model="realEstateItemCtrl.pledgedAssetModel.reoInfo.amortizationType"
+                            ng-options="item.value as item.text for item in realEstateItemCtrl.lookup.amortizationTypes"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl" style="margin-top:0px;">
+                Negative Amortization Feature
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium">
+                    <select class="imp-ddl"
+                            ng-model="realEstateItemCtrl.pledgedAssetModel.reoInfo.NegativeAmortizationFeature"
+                        <option value="">Select One</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Prepayment Penalty
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium">
+                    <select class="imp-ddl"
+                            ng-model="realEstateItemCtrl.pledgedAssetModel.reoInfo.PrePaymentPenalty"
+                        <option value="">Select One</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Prepayment Percentage
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" data-ng-model="realEstateItemCtrl.pledgedAssetModel.reoInfo.prePaymentPercentage" round-three-decimals="true" return-float="true" imp-percentage />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xxxl">
+                Open Date
+            </div>
+            <div class="col-xxxxxl" style="width: 58%">
+                <imp-date-picker display-picker="false"
+                                 type="text"
+                                 ng-model="realEstateItemCtrl.pledgedAssetModel.accountOpenDate"
+                                 date-settings="{defaultValidationEnabled: false, validateIsDate: true, placeholder: 'mm/dd/yyyy'}">
+                </imp-date-picker>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl">
+                Late Payment History
+            </div>
+            <div class="col-xxxxxl">
+                <div ng-class="realEstateItemCtrl.pledgedAssetModel.priorAdverseRatings.length ? 'imp-historyIcon' : 'imp-historyIcon-empty'"
+                     ng-click="realEstateItemCtrl.pledgedAssetModel.priorAdverseRatings.length && realEstateItemCtrl.showPriorAdverseRatingHistory($event, realEstateItemCtrl.pledgedAssetModel.priorAdverseRatings)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

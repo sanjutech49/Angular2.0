@@ -1,0 +1,55 @@
+﻿<div ng-controller="monthlyIncomeController as monthlyIncome">
+    <div class="unit-body unit-control imp-monthly-liability ld-grid-contrl margin-top-small"
+         <!--ng-init="borrowerIncome = loanDetails.wrappedLoan.ref.getIncome(loanDetails.wrappedLoan.ref.active.getBorrower());
+         coBorrowerIncome = loanDetails.wrappedLoan.ref.getIncome(loanDetails.wrappedLoan.ref.active.getCoBorrower());
+         borrowerCashFlow = loanDetails.wrappedLoan.ref.getCashFlow(loanDetails.wrappedLoan.ref.active.getBorrower());
+         coBorrowerCashFlow = loanDetails.wrappedLoan.ref.getCashFlow(loanDetails.wrappedLoan.ref.active.getCoBorrower());"--> >
+        <div class="title-item">
+            <div class="left-side">&nbsp;</div>
+            <div class="first-column">Borrower</div>
+            <div class="second-column">Co-Borrower</div>
+            <div class="third-column">Total</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side">Base Income</div>
+            <div class="first-column"> &nbsp;<!--{{borrowerIncome.total | impRound: 2 | impCurrency}}--></div>
+            <div class="second-column"> &nbsp;<!--{{coBorrowerIncome.total | impRound: 2 | impCurrency}}--> </div>
+            <div class="third-column"> &nbsp; sdf <!--{{(borrowerIncome.total + coBorrowerIncome.total) | impRound: 2 | impCurrency}}--></div>
+        </div>
+
+        <!--<div class="item">
+            <div class="left-side">Other Income</div>
+            <div class="first-column">&nbsp; {{borrowerIncome.other | impRound: 2 | impCurrency}}</div>
+            <div class="second-column">&nbsp; {{coBorrowerIncome.other | impRound: 2 | impCurrency}}</div>
+            <div class="third-column">&nbsp; {{(borrowerIncome.other + coBorrowerIncome.other) | impRound: 2 | impCurrency}} </div>
+        </div>
+
+        <div class="item">
+            <div class="left-side">Positive Cash Flow</div>
+            <div class="first-column">&nbsp; {{borrowerCashFlow.positive | impRound: 2 | impCurrency}}</div>
+            <div class="second-column">&nbsp; {{coBorrowerCashFlow.positive | impRound: 2 | impCurrency}}</div>
+            <div class="third-column"> &nbsp; {{(borrowerCashFlow.positive + coBorrowerCashFlow.positive) | impRound: 2 | impCurrency}}</div>
+        </div>
+
+        TODO: Implement multiborrower
+        <div class="item">
+            <div class="left-side">Add’l Mortgagees</div>
+            <div class="first-column">&nbsp; {{0 | impRound: 2 | impCurrency}}</div>
+            <div class="second-column">&nbsp; {{0 | impRound: 2 | impCurrency}}</div>
+            <div class="third-column"
+                 mb-popover="angular/loanDetails/monthlyincome/monthlyincome.html"
+                 mb-popover-title="Additional Mortgagees - Monthly Income"
+                 ng-model="loanDetails.borrowers">
+                &nbsp; {{0 | impRound: 2 | impCurrency}}
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="left-side total">Totals</div>
+            <div class="first-column total ">&nbsp; {{(borrowerIncome.total + borrowerIncome.other + borrowerCashFlow.positive) | impRound: 2 | impCurrency}}</div>
+            <div class="second-column total">&nbsp;  {{(coBorrowerIncome.total + coBorrowerIncome.other + coBorrowerCashFlow.positive) | impRound: 2 | impCurrency}} </div>
+            <div class="third-column grand-total">&nbsp; {{(borrowerIncome.total + borrowerIncome.other + borrowerCashFlow.positive + coBorrowerIncome.total + coBorrowerIncome.other + coBorrowerCashFlow.positive) | impRound: 2 | impCurrency}} </div>
+        </div>-->
+    </div>
+</div>

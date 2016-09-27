@@ -1,0 +1,98 @@
+﻿<div class="personal-information">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center" ng-if="personalCntrl.isBorrower">My Personal Information</div>
+                <div class="row section-title center" ng-if="!personalCntrl.isBorrower">Co-Borrower Personal Information</div>
+                <div class="row section-content">
+                    <div class="col-lg-4 col-lg-offset-2">
+                        <div class="form-group">
+                            <label class="col-md-3 col-lg-4 control-label" for="textinput">First Name</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control input-md" id="FirstName" placeholder="First Name" ng-model="personalCntrl.borrower.firstName" ng-minlength="2" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-lg-4 control-label" for="textinput">Middle Name</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control input-md" id="MiddleName" placeholder="Middle Name (optional)" ng-model="personalCntrl.borrower.middleName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-lg-4 control-label" for="textinput">Last Name</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control input-md" id="LastName" placeholder="Last Name" ng-model="personalCntrl.borrower.lastName" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-lg-4 control-label" for="textinput">Suffix</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control input-md" id="Suffix" placeholder="Jr.,Sr.,I,II (optional)" ng-model="personalCntrl.borrower.suffix" />
+                            </div>
+                        </div>
+                        <div ng-if="personalCntrl.isBorrower" class="form-group">
+                            <label class="col-md-3 col-lg-4 control-label" for="hearTypeSelect">How did you Hear about us?</label>
+                            <div class="col-md-7">
+                                <select class="form-control" id="hearTypeSelect" ng-model="personalCntrl.loan.loanApp.howDidYouHearAboutUs" ng-options="hearType.value as hearType.text for hearType in personalCntrl.applicationData.lookup.howDidYouHearAboutUsList">
+                                    <option value="" disabled>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group" ng-if="personalCntrl.isBorrower">
+                            <label class="col-md-3 col-lg-4 control-label" for="borroweremail">Email</label>
+                            <div class="col-md-7">
+                                <input type="email" class="form-control input-md" id="borroweremail" placeholder="Enter your Email" ng-model="personalCntrl.borrower.email" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-lg-4 control-label" for="PreferredPhone">Preferred Phone</label>
+                            <div class="col-md-7">
+                                <div class="input-group dual-input-70-30">
+                                    <input type="tel" class="form-control" id="PreferredPhone" placeholder="Preferred Phone" ng-model="personalCntrl.borrower.phone" required />
+                                    <select class="form-control" ng-model="personalCntrl.borrower.phoneType" ng-options="phonetype.value as phonetype.text for phonetype in personalCntrl.applicationData.lookup.phoneNumberTypes" required>
+                                        <option value="" disabled>Select One</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="personalCntrl.isBorrower">
+                            <label class="col-md-3 col-lg-4 control-label" for="maritalstatus">Marital Status</label>
+                            <div class="col-md-7">
+                                <select class="form-control" id="maritalstatus" ng-model="personalCntrl.borrower.maritalStatus" ng-options="maritalStatusType.value as maritalStatusType.text for maritalStatusType in personalCntrl.applicationData.lookup.maritalStatuses" required>
+                                    <option value="" disabled>Select</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-lg-4 control-label" for="textinput">Dependents</label>
+                            <div class="col-md-7">
+                                <div class="input-group dual-input-spaced">
+                                    <input type="text" class="form-control" id="Dependents" placeholder="# (optional)" ng-model="personalCntrl.borrower.dependents" />
+                                    <input type="text" class="form-control second-input" id="DependentsAges" placeholder="Ages (i.e. 3,8,2)" ng-model="personalCntrl.borrower.dependentsages">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row section-question center" ng-if="personalCntrl.isBorrower">
+                    <div class="col-xs-12">
+                        <div class="section-question-text">
+                            Add a Co-Borrower?
+                        </div>
+                        <div class="section-question-radio">
+                            <div class="form-group">
+                                <input type="radio" name="hasCoBorrower" id="hasCoBorrower" ng-value="true" ng-model="personalCntrl.loan.loanApp.hasCoBorrower" required />
+                                <label class="radio-inline" for="hasCoBorrower">Yes</label>
+
+                                <input type="radio" name="hasCoBorrower" id="hasNoCoBorrower" ng-value="false" ng-model="personalCntrl.loan.loanApp.hasCoBorrower" required />
+                                <label class="radio-inline" for="hasNoCoBorrower">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

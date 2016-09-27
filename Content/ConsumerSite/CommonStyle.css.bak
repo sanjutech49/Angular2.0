@@ -1,0 +1,156 @@
+﻿/* Bootstrap has breakpoints at 768px(sm), 992px(md), 1200px(lg)
+@media (min-width: 768px) {
+    .my-class {
+        padding: 10px 10% 5px 10%;
+    }
+}
+*/
+
+
+/*==================================================
+ * Important Global Classes
+ * ===============================================*/
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #3d3d3d;
+}
+.mgt_05 {
+    margin-top: 0.5em;
+}
+.mgt_2 {
+    margin-top: 2em;
+}
+.link {
+    color: #6d63e0;
+    cursor: pointer;
+}
+.inline {
+    display: inline-block;
+}
+
+/*==================================================
+ * Input Validation Classes
+ * ===============================================*/
+
+input.ng-dirty.ng-invalid:not([disabled]),
+input.ng-touched.ng-invalid:not([disabled]) {
+    background-color: #fdeaea;
+    border: 1px solid #ef1126 !important;
+    color: #a3a3a3 !important;
+}
+.select-validation.input-validation-error:not([disabled]),
+.select-validation.ng-dirty.ng-invalid:not([disabled]),
+.select-validation.ng-dirty.ng-invalid:not([disabled]):hover,
+.select-validation.ng-dirty.ng-invalid:not([disabled]):focus,
+.select-validation.ng-touched.ng-invalid:not([disabled]),
+.select-validation.ng-touched.ng-invalid:not([disabled]):hover,
+.select-validation.ng-touched.ng-invalid:not([disabled]):focus {
+    border-color: #ef1126 !important;
+    background-color: #FDEAEA !important;
+    color: #a3a3a3;
+}
+.input-match div.input-state:after {
+    content: "doesn't match";
+    color: red;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button,
+input[type=date]::-webkit-calendar-picker-indicator,
+input[type=month]::-webkit-inner-spin-button,
+input[type=month]::-webkit-outer-spin-button,
+input[type=month]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=date]::-webkit-calendar-picker-indicator,
+input[type=month]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+/*==================================================
+ * Checkboxes
+ * ===============================================*/
+
+.form-group .checkbox {
+    text-align: left;
+    margin-left: 45px;
+}
+input[type=checkbox] + label {
+    font-weight: 100;
+    padding-left: 13px;
+}
+.form-group .checkbox-lg {
+    margin-bottom: 9px;
+}
+.checkbox-label-lg {
+    font-size: 15px;
+}
+
+/*==================================================
+ * Radio Buttons
+ * ===============================================*/
+
+input[type=radio] + label {
+    font-weight: 100;
+    margin-right: 13%;
+    padding-left: 3px;
+}
+input[type=radio] + label.last {
+    margin-right: 0%;
+}
+.section-question-radio {
+    padding-left: 7%;
+}
+.section-question-radio input[type=radio] + label {
+    margin-right: 6%;
+}
+
+/*==================================================
+ * Text Alignment
+ * ===============================================*/
+
+.left {
+    text-align: left !important;
+}
+.center {
+    text-align: center !important;
+}
+.right {
+    text-align: right !important;
+}
+
+/*==================================================
+ * Text Colors
+ * ===============================================*/
+
+.black-text {
+    color: #000000 !important;
+}
+.grey-text {
+    color: #9d9d9d !important;
+}
+.red-text {
+    color: #EF1126 !important;
+}
+.red-text-header {
+    color: #EF1126;
+    font-weight: bold;
+}
+.green-text-header {
+    color: #1FB25A;
+    font-weight: bold;
+}
+
+/*==================================================
+ * Font-Weight
+ * ===============================================*/
+
+.bold {
+    font-weight: bold !important;
+}
+.thin {
+    font-weight: 100;
+}

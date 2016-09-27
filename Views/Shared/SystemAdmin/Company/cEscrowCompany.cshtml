@@ -1,0 +1,41 @@
+﻿@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.ContactsProfileViewModel
+@Html.HiddenFor( x => x.cEscrowCompany.EscrowCompanyId )
+@{ Html.RegisterFormContextForValidation();}
+            <div class="separator">
+                <span>@ViewBag.CompanyTypeSpecificTitle</span>
+            </div>
+                           
+            <div class="rowCompanyProfileContainer">
+                <div class="cCompanyLeft">
+                RealEC Provider ID
+                </div>
+
+                <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cEscrowCompany.RealECProviderId )
+                @Html.ValidationMessageFor( model => model.cEscrowCompany.RealECProviderId )
+                </div>
+            </div>
+            <div class="rowCompanyProfileContainer">
+                <div class="cCompanyLeft">
+                Routing Number
+                </div>
+
+                <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cEscrowCompany.RoutingNumber )
+                 @Html.ValidationMessageFor( model => model.cEscrowCompany.RoutingNumber )
+                </div>
+            </div>
+            <div class="rowCompanyProfileContainer">
+                <div class="cCompanyLeft">
+                ABA Number
+                </div>
+
+                <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cEscrowCompany.ABANumber )
+                @Html.ValidationMessageFor( model => model.cEscrowCompany.ABANumber )
+                </div>
+            </div>
+  
+

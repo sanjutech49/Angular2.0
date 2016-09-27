@@ -1,0 +1,43 @@
+﻿@using MML.Contracts
+@using Telerik.Web.Mvc.UI
+@model MML.Web.LoanCenter.ViewModels.AppraisalViewModel
+
+
+@if ( Model.Documents != null && Model.Documents.Count > 0 )
+{
+<br />
+<div class="sctRow clear">
+    <div class="uploadDocument">
+        <span>Document name</span>
+    </div>
+    <div class="uploadDropDown">
+        <span>Document type</span>
+    </div>
+    <div class="uploadCheckBox">
+        <span>Submitted</span>
+    </div>
+</div>
+}
+@foreach ( Document document in Model.Documents )
+{
+    for ( int i = 0; i < document.Files.Count; i++ )
+    {
+        if ( document.Files[ i ].CurrentStatus != UploadedFileStatus.Removed )
+        {
+            <div id="@document.Files[ i ].UploadedFileId" class="uploadedDocumentFileDataContainer sctRow clear file">
+                <div class="uploadDocumentContent">
+                    @Html.CheckBox( "chkUpload_" + document.Files[ i ].UploadedFileId, document.Files[ i ].LenderXFile.Checked )
+                    @Html.Label( "lblUpload_" +  document.DocumentId, HttpUtility.UrlDecode( document.Files[ i ].Filename ?? String.Empty ) )
+                </div>
+                <div class="uploadDropDownContent">
+                    @(Html.Telerik().DropDownListFor( n => n.Documents.FirstOrDefault( d => d.DocumentId.Equals( document.DocumentId ) ).DocumentCategory.DocumentCategoryId )
+                    .Name( "uxDropdownDocumentCategory_" + i ).Enable( false ).HtmlAttributes( new { style = "float: left; width: 150px;" } ).BindTo( Model.DocumentCategoryTypes ))
+                </div>
+                <div class="uploadCheckBox">
+                    @Html.CheckBox( "chkSubmited_" + document.Files[ i ].UploadedFileId, document.Files[ i ].LenderXFile.Submitted, new { disabled = "disabled", value = document.Files[ i ].LenderXFile.LenderXFileId } )
+                </div>
+            </div>
+        }
+    }
+
+}

@@ -1,0 +1,33 @@
+﻿<div class="summary-section">
+    <!--<div class="section-title section-underline">Asset Information<span class="edit-link"><a href="#/assets/0">edit</a></span></div>-->
+    <div class="section-title section-underline">Asset Information<span class="edit-link"><a ng-href="{{summaryCntrl.getAssetsLink()}}">edit</a></span></div>
+    <div ng-repeat="asset in summaryCntrl.assetActives">
+        <div class="summary-subsection" ng-if="asset.financialInstitutionName!=''">
+            
+            <div class="form-group summary-form">
+                <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Belongs To</label>
+                <div ng-repeat="ownerType in summaryCntrl.ownerTypeLookup">
+                    <div class="col-xs-6 col-lg-8" ng-if="ownerType.value==asset.ownerType">{{ownerType.text}}</div>
+                </div>
+            </div>
+            <div class="form-group summary-form" ng-if="accountType.value>0">
+                <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Account Type</label>
+                <div ng-repeat="accountType in summaryCntrl.applicationData.lookup.accountTypes">
+                    <div class="col-xs-6 col-lg-8" ng-if="accountType.value==asset.assetType">{{accountType.text}}</div>
+                </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Financial Institution</label>
+                <div class="col-xs-6 col-lg-8">{{asset.financialInstitutionName}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Account #</label>
+                <div class="col-xs-6 col-lg-8">{{asset.accountNumber}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Amount</label>
+                <div class="col-xs-6 col-lg-8">{{asset.assetValue | currency : "$" : 0 }}</div>
+        </div>
+     </div>
+   </div>
+</div>

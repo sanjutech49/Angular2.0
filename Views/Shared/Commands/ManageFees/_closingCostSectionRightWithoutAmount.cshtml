@@ -1,0 +1,41 @@
+﻿@using MML.Common
+@model MML.Web.LoanCenter.ViewModels.ManageFeesViewModel
+@{
+    var costGroup = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == ViewBag.GroupNumber);
+    var hudlineNumber = (int)ViewBag.HUDLineNumber;
+    var subHudlineNumber = ViewBag.SubHUDLineNumber as string;
+    var costPrefix = String.Format( "TitleAndEscrow.CostGroups[{0}].Costs[{1}]", Model.TitleAndEscrow.CostGroups.IndexOf( costGroup ),
+        costGroup.Costs.FindIndex( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) ) );
+    var cost = costGroup.Costs.First( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) );
+
+    var htmlAttrFromSellersFunds = new Dictionary<string, object>()
+    {
+    { "class", "closingCostTextBoxAmountRight Amount CalculateFromSellersFunds borderMarginLeftSection"  + (cost.IsAprCost ? " blue" : "") + (subHudlineNumber != null ? String.Format(" Calc{0}SubHudlineGroupSellerFunds", hudlineNumber):"")},
+    { "id" , "txtFromSellersFunds" + hudlineNumber + subHudlineNumber ?? ""}
+    };
+
+    if ( Model.TitleAndEscrow.IsRefinance || (hudlineNumber == 801 && subHudlineNumber == null) )
+    {
+        htmlAttrFromSellersFunds.Add("disabled", "disabled");
+        htmlAttrFromSellersFunds.Add( "previouslydisabled", "True" );
+    }
+
+    var htmlAttrPocAmount = new Dictionary<string, object>()
+    {
+    { "class", "closingCostTextBoxAmountRight Amount ptcPopup CalculateFromPocAmount" + ( cost.IsAprCost ? " blue" : "" ) + ( subHudlineNumber != null ? String.Format(" Calc{0}SubHudlineGroupPocAmount", hudlineNumber) : "" )},
+    { "id" ,"txtPocAmount" + hudlineNumber + subHudlineNumber ?? ""},
+    { "hudlineNumber" , + hudlineNumber + subHudlineNumber ?? ""}
+    };
+
+    if ( hudlineNumber == 801 && subHudlineNumber == null )
+    {
+        htmlAttrPocAmount.Add( "disabled", "disabled" );
+        htmlAttrPocAmount.Add( "previouslydisabled", "True" );
+    }   
+    
+}
+
+<span class="borderLeftClosingCostSectionWithoutAmount"></span>
+@Html.TextBox( String.Format( "{0}.FromSellersFunds", costPrefix ), DecimalExtensionMethods.ToCurrencyFormat( cost.FromSellersFunds ), htmlAttrFromSellersFunds )
+<span class="borderLeftClosingCostSectionWithoutAmount" style="margin-left:-5px;"></span>
+@Html.TextBox(String.Format("{0}.PocAmount", costPrefix), DecimalExtensionMethods.ToCurrencyFormat(cost.PocAmount),htmlAttrPocAmount)

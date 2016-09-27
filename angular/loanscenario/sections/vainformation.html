@@ -1,0 +1,189 @@
+﻿<div class="va-information">
+    <div class="section-header">
+        <div class="section-body">
+            <div ng-class="{'imp-psection-subtitle-noborder margin-bottom': !loanScenario.wrappedLoan.ref.vaInformation.isvaLoan, 'imp-psection-subtitle' : loanScenario.wrappedLoan.ref.vaInformation.isvaLoan }"
+                 style="float:left; width: 100%; padding-bottom:0px;">
+
+                <div class="mainCb">
+                    <input id="cbVAinformation"
+                           type="checkbox"
+                           ng-model="loanScenario.wrappedLoan.ref.vaInformation.isvaLoan"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           class="imp-checkbox"
+                           ng-change="loanScenario.onVAinformationChange()" />
+                    <label for="cbVAinformation" class="imp-lb-checkbox"></label>
+                </div>
+
+                <div style="width:110px; float:left">VA Information</div>
+            </div>
+            <div class="row loan-scenario-va-information ng-scope" ng-show="loanScenario.wrappedLoan.ref.vaInformation.isvaLoan">
+
+                <div class="col-lg-4" style="width: 30%;">
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-5">
+                            <div class="imp-psection-label">
+                                Military Service<span class="imp-asterisks"> *</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl"
+                                        ng-options="ms.value as ms.text for ms in loanScenario.applicationData.lookup.militaryService"
+                                        ng-model="loanScenario.wrappedLoan.ref.vaInformation.militaryService"
+                                        ng-class="{'imp-has-error' : (!loanScenario.wrappedLoan.ref.vaInformation.militaryService || loanScenario.wrappedLoan.ref.vaInformation.militaryService == '0') && loanScenario.validateForm}">
+                                    <option value="">Select One</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-5">
+                            <div class="imp-psection-label">
+                                Military Branch<span class="imp-asterisks"> *</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl"
+                                        ng-options="mb.value as mb.text for mb in loanScenario.applicationData.lookup.militaryBranch"
+                                        ng-model="loanScenario.wrappedLoan.ref.vaInformation.militaryBranch"
+                                        ng-class="{'imp-has-error' : (!loanScenario.wrappedLoan.ref.vaInformation.militaryBranch || loanScenario.wrappedLoan.ref.vaInformation.militaryBranch == '0') && loanScenario.validateForm}">
+                                    <option value="">Select One</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-5">
+                            <div class="imp-psection-label">
+                                Service Status<span class="imp-asterisks"> *</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl"
+                                        ng-options="mb.value as mb.text for mb in loanScenario.applicationData.lookup.militaryServiceStatus"
+                                        ng-model="loanScenario.wrappedLoan.ref.vaInformation.serviceStatus"
+                                        ng-class="{'imp-has-error' : (!loanScenario.wrappedLoan.ref.vaInformation.serviceStatus || loanScenario.wrappedLoan.ref.vaInformation.serviceStatus == '0') && loanScenario.validateForm}">
+                                    <option value="">Select One</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4" style="width: 30%;">
+
+                    <div class="row imp-psection-row" ng-hide="loanScenario.wrappedLoan.ref.loanPurposeType == 1">
+                        <div class="col-lg-11 vaLbRight">
+                            <div class="imp-psection-label">
+                                Current loan on subject property a VA loan?
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 vaCbLeft">
+                            <input id="cbCurrentLoanOnSubjectProperty"
+                                   ng-model="loanScenario.wrappedLoan.ref.vaInformation.isCurrentLoanVA"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-change="loanScenario.onCurrentLoanOnSubjectPropertyChange()" />
+                            <label for="cbCurrentLoanOnSubjectProperty" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                    <div ng-show="!loanScenario.wrappedLoan.ref.vaInformation.isCurrentLoanVA">
+
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-11 vaLbRight">
+                                <div class="imp-psection-label">
+                                    Used your VA eligibility in the past?
+                                </div>
+                            </div>
+
+                            <div class="col-lg-1 vaCbLeft">
+                                <input id="cbUseVAInPast"
+                                       type="checkbox"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       ng-model="loanScenario.wrappedLoan.ref.vaInformation.isVaUsedInPast"
+                                       ng-change="loanScenario.onIsVaUsedInPastChange()"
+                                       class="imp-checkbox" />
+                                <label for="cbUseVAInPast" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+
+                        <div class="row imp-psection-row" ng-show="loanScenario.wrappedLoan.ref.vaInformation.isVaUsedInPast" style="margin-bottom: 0px;">
+                            <div class="col-lg-11 vaLbRight">
+                                <div class="imp-psection-label">
+                                    Is your loan already paid off?
+                                </div>
+                            </div>
+
+                            <div class="col-lg-1 vaCbLeft">
+                                <input id="cbAlreadyPaidOff"
+                                       type="checkbox"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       ng-model="loanScenario.wrappedLoan.ref.vaInformation.vaLoanPaidOff"
+                                       class="imp-checkbox" />
+                                <label for="cbAlreadyPaidOff" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4" style="width: 30%;">
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-11 vaLbRight">
+                            <div class="imp-psection-label">
+                                Currently receiving service related VA Disability Benefits?
+                            </div>
+                        </div>
+                        <div class="col-lg-1 vaCbLeft">
+                            <input id="cbReceivingVADisabilityBenefits"
+                                   type="checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.vaInformation.disabilityBenefits"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-change="loanScenario.onReceivingVADisabilityBenefitsChange()" />
+                            <label for="cbReceivingVADisabilityBenefits" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                    <div class="row imp-psection-row" ng-hide="loanScenario.wrappedLoan.ref.vaInformation.disabilityBenefits">
+                        <div class="col-lg-11 vaLbRight">
+                            <div class="imp-psection-label">
+                                Add VA Funding Fee to Loan Amount?
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 vaCbLeft">
+                            <input id="cbIncludingVAfundingFeeInLoanAmount"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.vaInformation.includeVAFee" />
+                            <label for="cbIncludingVAfundingFeeInLoanAmount" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

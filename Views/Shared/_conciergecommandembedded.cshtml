@@ -1,0 +1,38 @@
+﻿@using MML.Web.LoanCenter.Helpers.Utilities
+@{
+    ViewBag.Title = "_conciergecommandembedded";
+}
+@model MML.Web.LoanCenter.Models.ConciergeCommandEmbedded
+<div class="conciergecommandembeddeddiv completesection">
+   @if (!Model.HideHeader)
+   {
+       <div class="conciergecommandembeddedhead" id="conciergecommandembeddedhead">
+           <div class="left0">
+               <span class="namelink" id="nameofview">@Model.Title</span>
+           </div>
+           <div class="smallarrow">
+           </div>
+           <div class="titleInformation">@Model.TitleInformation <span class="spnLeadSourceInfo">@Model.HearAboutUs</span></div>
+           <div class="additionalInformation">@Model.AdditionalInformation</div>
+           <div class="right1">
+               <div class="left1">
+               </div>
+               <div class="right0">
+                   <a id="closeIFrame" class="xclose" title="Close Section" onclick="ConciergeCommandEmbedded.CloseConciergeCommandEmbedded()"></a>
+                   <a id="minimizeconciergecommandembedded" class="minimizesection" title="Minimize/Maximize Section"  onclick="ConciergeCommandEmbedded.BindOpenConciergeEmbeddedCommandMinimize()">
+                       <div id="conciergecommandembeddedminmax" class="minmax min">
+                       </div>
+                   </a>
+               </div>
+           </div>
+       </div>
+   }
+    <div id="conciergecommandembeddedcontent" class="conciergecommandembeddedcontent maincontent">
+        <div id="conciergeEmbeddedFrameLoading" style="height: 100px; text-align: center;
+            margin-top: 45px; display: block;">
+            <img src="@CDNHelper.ImagesStaticContentUrl/Content/ajax-loader.gif" alt="Loading..." />
+        </div>
+        <iframe id="conciergeEmbeddedFrame" src="@Model.ConciergeUrl" class="embeddedIframe" style="display: none;" onload="ConciergeCommandEmbedded.ShowIFrame()" scrolling="no">
+        </iframe>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿<div class="imp-compliance-check-popup failed">
+    <div class="header">
+        <div>Compliance Check Did Not Pass</div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div>The following issues were encountered for this loan:</div>
+        </div>
+        <div class="row" ng-repeat="complianceCheckError in complianceCheckFailedPopupCtrl.errorList">
+            <div>{{complianceCheckFailedPopupCtrl.getComplianceCheckErrorText(complianceCheckError.errorId)}}</div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <button class='imp-button-hm-wm-sec' ng-click="complianceCheckFailedPopupCtrl.cancel()">Close</button>
+        <button class='imp-button-hm-wm-prim' ng-click="complianceCheckFailedPopupCtrl.done()">Open &amp; Review</button>
+    </div>
+</div>
+

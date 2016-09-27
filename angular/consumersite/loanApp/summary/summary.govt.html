@@ -1,0 +1,59 @@
+﻿<div class="summary-section">
+    <div class="section-title section-underline">Government Monitoring</div>
+    <div class="summary-subsection">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">{{summaryCntrl.loan.loanApp.borrower.fullName}}</span><span class="edit-link"><a ng-href="{{summaryCntrl.getBorrowerGovermentMonitoringLink()}}"> edit</a></span></div>
+        <div class="form-group summary-form">
+
+
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">What is your Ethnicity?</label>
+          <!--left off here-->
+            <div ng-repeat="ethnicityType in summaryCntrl.applicationData.lookup.ethnicities">
+                <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.declarations.ethnicityId==ethnicityType.value">{{ethnicityType.text}}</div>
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.declarations.ethnicityId==undefined">I do not wish to furnish this information</div>
+
+        </div>
+
+
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">What is your Race?</label>
+            <div ng-repeat="raceType in summaryCntrl.applicationData.lookup.races">                
+                <div class="col-xs-6 col-lg-8" ng-if="raceType.value==summaryCntrl.declarations.race">{{raceType.text}}</div>
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.declarations.race==undefined">I do not wish to furnish this information</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">What is your Gender?</label>
+            
+            <div ng-repeat="sexType in summaryCntrl.applicationData.lookup.sexTypes">
+                <div class="col-xs-6 col-lg-8" ng-if="sexType.value==summaryCntrl.declarations.sexId">{{sexType.text}}</div>
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.declarations.sexId==undefined">I do not wish to furnish this information</div>
+        </div>
+    </div>
+    <div class="summary-subsection" ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">{{summaryCntrl.loan.loanApp.coBorrower.fullName}}</span><span class="edit-link"><a ng-href="{{summaryCntrl.getCoBorrowerGovermentMonitoringLink()}}">edit</a></span></div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">What is your Ethnicity?</label>
+            <div ng-repeat="ethnicityType in summaryCntrl.applicationData.lookup.ethnicities">
+                <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.codeclarations.ethnicityId==ethnicityType.value">{{ethnicityType.text}}</div>
+
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.codeclarations.ethnicityId==undefined">I do not wish to furnish this information</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">What is your Race?</label>
+            <div ng-repeat="raceType in summaryCntrl.applicationData.lookup.races">
+                <div class="col-xs-6 col-lg-8" ng-if="raceType.value==summaryCntrl.codeclarations.race">{{raceType.text}}</div>
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.codeclarations.race==undefined">I do not wish to furnish this information</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">What is your Gender?</label>
+            <div ng-repeat="sexType in summaryCntrl.applicationData.lookup.sexTypes">
+                <div class="col-xs-6 col-lg-8" ng-if="sexType.value==summaryCntrl.codeclarations.sexId">{{sexType.text}}</div>
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.codeclarations.sexId==undefined">I do not wish to furnish this information</div>
+        </div>
+    </div>
+</div>

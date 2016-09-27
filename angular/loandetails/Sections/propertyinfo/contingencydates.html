@@ -1,0 +1,25 @@
+﻿<div class="row">
+    <div class="col-m">
+        <div class="row-height">
+            <div class="date-label">
+                <span ng-if="loanDetails.wrappedLoan.ref.approvalContingencyDate.dateValue != '0001-01-01T00:00:00' && loanDetails.wrappedLoan.ref.approvalContingencyDate.dateValue != null" >{{loanDetails.wrappedLoan.ref.approvalContingencyDate.dateValue | date:'MM/dd/yyyy'}}</span>&nbsp;
+            </div>
+            <div class="imp-sa-date-picker date-icon-position" ng-click="loanDetails.showApprovalContingencyDatePopup($event)"></div>
+        </div>
+        <div class="label-style">
+            Approval Contingency
+        </div>
+    </div>
+    <div class="col-s"></div>
+    <div class="col-m">
+        <div class="row-height">
+            <div class="date-label">
+                <span ng-if="loanDetails.wrappedLoan.ref.appraisalContingencyDate.dateValue != '0001-01-01T00:00:00' && loanDetails.wrappedLoan.ref.appraisalContingencyDate.dateValue != null">{{loanDetails.wrappedLoan.ref.appraisalContingencyDate.dateValue | date:'MM/dd/yyyy'}}</span>&nbsp;
+            </div>
+            <div class="imp-sa-date-picker date-icon-position" ng-click="loanDetails.showAppraisalContingencyDatePopup($event)"></div>
+        </div>
+        <div class="label-style">
+            Appraisal Contingency
+        </div>
+    </div>
+</div>

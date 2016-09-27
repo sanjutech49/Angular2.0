@@ -1,0 +1,947 @@
+﻿/*region commonFeatureClasses*/
+
+
+/*==================================================
+ * General Classes
+ * ===============================================*/
+
+a[ng-click] {
+    /*make all links that don't have an href still behave like links*/
+    cursor: pointer;
+}
+.text-bold {
+    font-weight: bold;
+}
+.inline {
+    display: inline-block;
+}
+
+/*Bootstrap has breakpoints at 768px(sm), 992px(md), 1200px(lg) */
+
+@media (min-width: 768px) {
+    /* .text-sm-left aligns text to the left only on wider screens, otherwise centered */
+    .text-sm-left {
+        text-align: left !important;
+    }
+}
+
+/*==================================================
+ * View Related Classes
+ * ===============================================*/
+
+.view-body {
+    /*Need to push down the body content 40px;*/
+    padding-top: 40px;
+}
+.page-title {
+    color: #1fb25a;
+    font-size: 17px;
+    font-weight: bold;
+}
+.page-title > img.pen-img {
+    height: 37px;
+    margin-right: 4px;
+    margin-top: -12px;
+    margin-left: -7px;
+}
+.page-title .icon-house-white {
+    height: 28px;
+    margin-top: -9px;
+    margin-right: 7px;
+    margin-left: -5px;
+}
+.page-content {
+    margin-top: 30px;
+    padding: 0% 5%;
+    margin-bottom: 150px;
+}
+.page-body {
+    margin-top: 5px;
+}
+@media (min-width: 1200px) {
+    .page-content {
+        padding: 0% 10%;
+    }
+}
+.imp-psection-subtitle > div {
+    display: inline-block;
+}
+.imp-psection-subtitle > div.subtitle-text {
+    margin-top: -8px;
+    margin-left: 2px;
+    vertical-align: text-top;
+}
+.green-separator {
+    margin: 10px 0px;
+    border-top: 2px solid #1fb25a;
+}
+
+/*==================================================
+ * Number Circle
+ * ===============================================*/
+
+.number-circle {
+    font-family: trebuchet ms;
+    display: inline-block;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 21px;
+    padding: 8px;
+    position: relative;
+    background-color: #208ddc;
+}
+.number-circle .height_fix {
+    margin-top: 100%;
+}
+.number-circle .number-circle-content {
+    color: #fcf6f6;
+    font-size: 14.5px;
+    font-weight: bold;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    text-align: left;
+    margin-top: -13px;
+    padding-left: 6px;
+}
+
+/*==================================================
+ * Modal Dialogs
+ * ===============================================*/
+
+.modal-dialog {
+    margin-top: 90px;
+}
+@media (min-width: 992px) {
+    .modal-dialog {
+        width: 900px;
+    }
+}
+
+/*endregion commonFeatureClasses*/
+
+
+/*region navigationBar*/
+
+
+/*==================================================
+ * Navigation Bar
+ * ===============================================*/
+
+.navbar {
+    height: 40px;
+    min-height: 40px;
+    background: -webkit-linear-gradient(left, #1167B8, #119C57);
+    background: -o-linear-gradient(left, #1167B8, #119C57);
+    background: -moz-linear-gradient(left, #1167B8, #119C57);
+    background: linear-gradient(left, #1167B8, #119C57);
+    background: -ms-linear-gradient(left, #1167B8, #119C57);
+    padding-left: 0%;
+    padding-right: 0%;
+}
+@media (min-width: 1100px) {
+    /*at large widths give the navbar some space on left and right*/
+    .navbar {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+/*==================================================
+ * Navigation Bar - logo
+ * ===============================================*/
+
+.navbar-brand {
+    /* The logo image sits within this div */
+    padding: 5px 0px 0px 5px !important;
+    height: 40px;
+}
+.logo-img {
+    height: 32px;
+}
+.nav-vertical-divider {
+    /*vertical divider*/
+    border-left: 1px solid #3899A9;
+    height: 19px;
+    margin-top: 10px;
+    margin-left: 135px;
+}
+
+/*==================================================
+ * Navigation Bar - Collapsed region on small devices
+ * ===============================================*/
+
+
+/*
+ * Open dropdowns on hover instead of click.
+ */
+
+@media (min-width: 768px) {
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+}
+.navbar-toggle {
+    /*    the button that opens the navbar on small devices*/
+    padding: 0px 10px;
+    margin: 4px 20px 4px 4px;
+    height: 30px;
+    border: none;
+}
+.navbar-toggle .icon-bar {
+    background-color: white !important;
+    width: 27px;
+    opacity: 0.7;
+    background-image: none;
+    /* to undo the [class^="icon-"], [class*=" icon-"] { background-image: url("/Content/bootstrap/img/glyphicons-halflings.png"); } in impLayoutCss-1.css and CommonStyle.css.  */
+}
+.navbar-collapse {
+    background: -webkit-linear-gradient(left, #1167B8, #119C57);
+    background: -o-linear-gradient(left, #1167B8, #119C57);
+    background: -moz-linear-gradient(left, #1167B8, #119C57);
+    background: linear-gradient(left, #1167B8, #119C57);
+    background: -ms-linear-gradient(left, #1167B8, #119C57);
+}
+@media (min-width: 768px) {
+    .navbar-collapse {
+        background: none;
+    }
+}
+.dropdown-toggle > .dropdown-menu > a:hover {
+    color: white;
+    opacity: 0.9;
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover {
+    color: inherit;
+    background-color: transparent;
+    font-weight: bold;
+}
+.dropdown-menu > .active > a:hover {
+    font-weight: bold;
+}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+        color: white;
+        opacity: 0.7;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+        opacity: 0.9;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover {
+        color: white;
+        opacity: 0.9;
+        font-weight: bold;
+        background-color: transparent;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover {
+        opacity: 1.0;
+    }
+}
+
+/*==================================================
+ * Navigation Bar - Green Check Image For Completed Status
+ * ===============================================*/
+
+.navbar-default .navbar-nav > li .img-green-check {
+    height: 20px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+.navbar-default .navbar-nav > li .img-green-check-placemark {
+    height: 20px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    width: 24px;
+}
+
+/*==================================================
+ * Navigation Bar - Link Styles
+ * ===============================================*/
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    /*link colors*/
+    font-size: 15px;
+    opacity: 0.7;
+    color: white;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    padding-right: 0px;
+    /*    IMPORTANT: The margin-top here sets the vertical alignment for the nav links*/
+    margin-top: -6px;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    opacity: 0.9;
+}
+@media (min-width: 1100px) {
+    /*    give the links a little more space on large widths*/
+    .navbar-default .navbar-nav > li > a,
+    .navbar-default .navbar-nav > li > a:hover,
+    .navbar-default .navbar-nav > li > a:focus {
+        margin-left: 30px;
+    }
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: white;
+    opacity: 0.9;
+    font-weight: bold;
+    background-color: transparent;
+}
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    opacity: 1.0;
+}
+
+/*==================================================
+ * Settings icon
+ * ===============================================*/
+
+.signout i {
+    color: white;
+    opacity: 0.7;
+    font-size: 22px;
+    margin: 6px 15px 0px 15px;
+}
+.signout i:hover {
+    opacity: 0.9;
+}
+.navbar .nav li.dropdown.open > .dropdown-toggle {
+    background-color: transparent !important;
+    /* to override .navbar .nav li.dropdown.open>.dropdown-toggle { background-color: white; } in iMPLayoutCss-1.css */
+}
+
+/*endregion navigationBar*/
+
+
+/*region authentication*/
+
+
+/*==================================================
+ * Authentication Page
+ * ===============================================*/
+
+.auth {
+    width: 100%;
+    text-align: center;
+    color: #9d9d9d;
+    font-size: 15px;
+}
+.auth .help {
+    text-align: right;
+    margin: 10px;
+    padding-right: 5%;
+}
+.auth .glyphicon-question-sign {
+    color: blue;
+}
+.auth div.center {
+    margin-top: 70px;
+}
+.auth h2 {
+    margin-left: -47px;
+    font-size: 17px;
+    /*    font-weight: lighter;*/
+}
+.auth .bar-well {
+    width: 100%;
+    max-width: 800px;
+    background: #FFF;
+    margin: 35px auto;
+    padding: 20px 0px;
+    margin-left: -11px;
+    position: relative;
+}
+@media (min-width: 768px) {
+    .auth .bar-well {
+        /*The padding here gives it the left offset on widescreen*/
+        padding: 25px 0px 20px 83px;
+        margin: auto;
+    }
+}
+.auth .bar-well:before,
+.auth .bar-well:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    -webkit-box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    -moz-border-radius: 300px / 15px;
+    border-radius: 300px / 15px;
+}
+@media (min-width: 768px) {
+    .auth .bar-well:before,
+    .auth .bar-well:after {
+        left: 50px;
+        right: 50px;
+    }
+}
+.auth .form-group {
+    /* Bootstrap override for .form-group { margin-bottom: 15px; } */
+    margin-bottom: 4px;
+}
+.auth .auth-name-label {
+    padding-top: 7px;
+    padding-bottom: 4px;
+    white-space: nowrap;
+    direction: rtl;
+}
+@media (min-width: 768px) {
+    .auth .auth-name-label > label {
+        /*The margin here pushes the name closer to the input */
+        margin-right: -17px;
+    }
+}
+.auth label {
+    /*Needed for mvc user agent stylesheet giving label a height of 21*/
+    height: 17px;
+    font-weight: 100;
+}
+.auth .password-input-group {
+    margin-top: 2px;
+    width: 220px;
+    /* the display: inline-block; is the key to getting it to center on small devices*/
+    display: inline-block;
+}
+.auth .password-input-group input[type="password"] {
+    padding-top: 7px;
+    height: 30px;
+    width: 100%;
+    font-size: 15px;
+    max-width: 220px;
+    color: #9E9E9E;
+    /* Bootstrap override for .input-group .form-control:first-child that sets right border radii to 0 */
+    border-radius: 4px !important;
+}
+.auth .password-input-group div.input-state {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    z-index: 100;
+}
+.auth .password-input-group.verified .input-state {
+    color: #1fb25a;
+}
+.auth .password-input-group.verified .input-state:after {
+    content: "Verified";
+}
+.auth .password-input-group.incorrect .input-state {
+    color: #ef1126;
+}
+.auth .password-input-group.incorrect .input-state:after {
+    content: "Incorrect PIN";
+}
+.auth .input-group.incorrect input[type="password"] {
+    border: 1px solid #ef1126;
+}
+.auth .continue-without {
+    padding-top: 6px;
+    padding-bottom: 4px;
+    white-space: nowrap;
+}
+.auth .continue-without > a {
+    color: #208ddc;
+    text-decoration: none;
+}
+@media (min-width: 768px) {
+    .auth .continue-without > a {
+        /*The margin here pushes the link text closer to the input*/
+        margin-left: -10px;
+    }
+}
+.auth .btn-continue {
+    margin: 15px 0px 0px 0px;
+    width: 220px;
+    height: 30px;
+    font-size: 14px;
+}
+
+/*endregion authentication*/
+
+
+/*region eSigning*/
+
+
+/*==================================================
+ * eSigning page
+ * ===============================================*/
+
+.esign {
+    margin-top: 40px;
+    font-size: 16px;
+}
+.esign .instruction-table {
+    margin: 15px 0px;
+}
+.esign .instruction-table td {
+    vertical-align: top;
+}
+.esign .instruction-table td.instruction-text {
+    padding-left: 10px;
+}
+.esign .instruction-img {
+    width: 100%;
+    /*    max-width: 590px;*/
+}
+.esign .text-invisible {
+    color: transparent;
+}
+.esign .btn {
+    font-size: 12px;
+    height: 30px;
+    padding: 6px 20px;
+    margin-bottom: 5px;
+}
+.esign .btn-continue {
+    width: 120px;
+    background-color: #0271DA;
+}
+
+/*endregion eSigning*/
+
+
+/*region eConsentModal*/
+
+
+/*==================================================
+ * eConsent Modal
+ * ===============================================*/
+
+.modal-backdrop {
+    top: 0px;
+}
+.econsent-modal .modal-header {
+    padding: 0px 0px 4px 0px;
+    margin: 20px 20px 15px 20px;
+}
+.econsent-modal .modal-header {
+    border-color: #E6E6E6 !important;
+}
+.econsent-modal .modal-body {
+    padding: 0px 10px;
+    margin: 0px 10px;
+}
+.econsent-modal .scrollbox {
+    height: 142px;
+    overflow-y: scroll;
+    border: 1px solid #E6E6E6;
+    padding: 5px 5px 10px 5px;
+    font-size: 12px;
+    line-height: 1.3em;
+    z-index: -1;
+}
+.econsent-modal .title {
+    text-align: center;
+    font-weight: bold;
+}
+.econsent-modal .heading {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.econsent-modal .indent {
+    padding-left: 40px;
+}
+.econsent-modal .econsent-form {
+    padding: 14px 0px 0px 0px;
+}
+.econsent-modal .econsent-select {
+    max-width: 300px;
+    display: inline-block;
+    height: 29px;
+    margin-top: -5px;
+    padding-top: 4px;
+}
+.econsent-modal label {
+    font-weight: normal;
+}
+.econsent-modal .checkboxes {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+.econsent-modal .checkbox-text {
+    /*    margin-top: 2px;*/
+}
+.econsent-modal .disabled {
+    color: #A4A4A4;
+}
+.econsent-modal .modal-footer {
+    border-color: #E6E6E6 !important;
+    margin: 10px 0px 40px 0px;
+    padding-top: 16px;
+}
+.econsent-modal .modal-footer .btn {
+    font-size: 12px;
+    height: 30px;
+    padding: 6px 20px;
+    margin: 0px;
+}
+.econsent-modal .modal-footer .btn-continue {
+    width: 140px;
+    margin-left: 4px;
+}
+
+/*endregion eConsentModal*/
+
+
+/*region eSigningRoom*/
+
+
+/*==================================================
+ * eSigning Room
+ * ===============================================*/
+
+.esigningRoom-container {
+    margin-top: -42px;
+}
+.eSigningRoomIFrame {
+    width: 100%;
+    height: 95vh;
+    /*% of view height*/
+    min-height: 600px;
+    border: 0px;
+}
+
+/*endregion eSigningRoom*/
+
+
+/*region successModal*/
+
+
+/*==================================================
+ * Success Modal
+ * ===============================================*/
+
+.success-modal {
+    width: 92.5%;
+    height: 85.5%;
+    margin: 30px;
+    border-radius: 3px;
+    align-content: center;
+}
+.success-modal .success-header {
+    font-size: 17px;
+    color: #3d3d3d;
+    font-weight: bold;
+    border-bottom: solid 1px gray
+}
+.success-modal .success-font {
+    font-size: 15px;
+    color: #3d3d3d;
+}
+.success-modal .success-icon {
+    margin-top: 20px;
+}
+.success-modal .thank-you-text {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.success-modal .btn-continue {
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+    padding-top: 6px;
+    margin-top: 35px;
+}
+
+/*endregion successModal*/
+
+
+/*region eConsentSettings*/
+
+
+/*==================================================
+ * eConsent Settings
+ * ===============================================*/
+
+.econsent-settings {
+    font-size: 15px;
+    color: #3d3d3d;
+}
+.econsent-settings .page-body {
+    margin-top: 25px;
+}
+.econsent-settings .column-header {
+    font-weight: bold;
+    border-bottom: 1px solid #bdbebe;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+.econsent-settings .acceptance {
+    line-height: 28px;
+}
+@media (min-width: 992px) {
+    .econsent-settings .acceptance {
+        min-height: 117px;
+    }
+}
+.econsent-settings .acceptance .img-check {
+    margin-top: -3px;
+    margin-right: 7px;
+    height: 20px;
+}
+.econsent-settings .acceptance .img-check-placemark {
+    margin-top: -3px;
+    margin-right: 7px;
+    height: 20px;
+    width: 24px;
+}
+.econsent-settings .btn {
+    font-size: 12px;
+    height: 30px;
+    padding: 6px 20px;
+    margin-bottom: 5px;
+}
+.econsent-settings .btn-save {
+    width: 80px;
+    margin: 3px 0px 5px -5px;
+}
+.econsent-settings .scrollbox {
+    height: 200px;
+    overflow-y: scroll;
+    font-size: 12px;
+    border: 1px solid #E6E6E6;
+    padding: 5px 5px 10px 5px;
+    line-height: 1.3em;
+    z-index: -1;
+}
+.econsent-settings .title {
+    text-align: center;
+    font-weight: bold;
+}
+.econsent-settings .heading {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.econsent-settings .indent {
+    padding-left: 40px;
+}
+.econsent-settings .decline-header {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.econsent-settings .econsent-form {
+    padding: 0px 0px 0px 0px;
+}
+.econsent-settings label {
+    font-size: 12px;
+    font-weight: normal;
+}
+.econsent-settings .checkboxes {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+.econsent-settings .checkbox-text {
+    margin-top: 2px;
+}
+
+/*endregion eConsentSettings*/
+
+
+/*region appraisal*/
+
+
+/*==================================================
+ * Order Appraisal Screen
+ * ===============================================*/
+
+.appraisal.page-content {
+    padding: 0% 10% !important;
+}
+.appraisal {
+    font-size: 15px;
+    color: #3d3d3d;
+}
+.appraisal .imp-psection-subtitle {
+    margin-bottom: 10px;
+    /* fix for ie */
+    border-image: -ms-linear-gradient(left, rgba(194, 194, 194, 0.53), rgba(174, 174, 174, 0.07), transparent) 100% 1 100% 0;
+}
+.appraisal .review-section {
+    max-width: 670px;
+}
+.appraisal .disclaimer-region {
+    margin-top: 55px;
+    font-size: 9px;
+    color: #9d9d9d;
+    padding: 0% 3% 0% 0%;
+}
+@media (min-width: 992px) {
+    /* Set a fixed height and lock disclaimer text to bottm */
+    .appraisal .review-section {
+        height: 335px;
+    }
+    .appraisal .disclaimer-region {
+        margin-top: 0px;
+        position: absolute;
+        bottom: 0;
+        padding: 0% 10% 0% 0%;
+    }
+}
+.appraisal .currency-column {
+    padding-right: 10%;
+}
+.appraisal .col-checkbox > div {
+    display: inline-block;
+}
+.appraisal .row {
+    margin-bottom: 9px;
+}
+.appraisal .form-group {
+    margin-bottom: 11px;
+}
+.appraisal .form-control {
+    padding: 2px 0px 0px 2px;
+}
+.appraisal .imp-address-control > div {
+    /* override .imp-address-control>div{width:inherit} from iMPLayoutCss-1.css Line 460 */
+    width: 100%;
+}
+.appraisal .form-horizontal .form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.appraisal .form-horizontal .col {
+    /* Needed to override bootstrap columns or 'Credit Card Type' label doesn't line up with select. */
+    line-height: 1em;
+}
+.appraisal .form-horizontal label {
+    min-width: 110px;
+    padding-top: 4px;
+}
+.appraisal .form-horizontal select,
+.appraisal .form-horizontal input {
+    height: 21px;
+    max-width: 312px;
+    font-size: 12px;
+    color: #3d3d3d;
+}
+.appraisal .credit-card-form {
+    margin-right: 12px;
+}
+.appraisal select:disabled,
+.appraisal input:disabled {
+    color: #9c9c9c;
+    background: #efefef;
+}
+@media (min-width: 768px) {
+    .appraisal .form-horizontal .control-label {
+        text-align: left;
+    }
+}
+.appraisal label {
+    /*    Needed for mvc user agent stylesheet giving label a height of 21*/
+    height: 17px;
+    font-weight: 100;
+    color: #9c9c9c;
+    font-size: 12px;
+}
+.appraisal .expiration-month-select,
+.appraisal .expiration-year-select,
+.appraisal .preferred-phone input,
+.appraisal .preferred-phone select {
+    display: inline-block;
+}
+.appraisal .expiration-month-select,
+.appraisal .expiration-year-select {
+    width: 48%;
+}
+.appraisal .expiration-month-select {
+    margin-right: 2px;
+}
+.appraisal .preferred-phone input {
+    width: 69%;
+}
+.appraisal .preferred-phone select {
+    width: 28%;
+}
+.appraisal .dummy-label {
+    min-width: 20px !important;
+}
+.appraisal .special-instructions label {
+    padding: 5px 0px 25px 0px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #3d3d3d;
+}
+.appraisal .special-instructions textarea {
+    width: 99%;
+    max-width: 612px;
+    height: 87px;
+    font-size: 12px;
+    resize: none;
+}
+.appraisal .btn {
+    font-size: 12px;
+    height: 30px;
+}
+.appraisal .btn-place-order {
+    margin-left: -5px;
+    width: 120px;
+}
+.appraisal .appr-body-container {
+    margin-left: 15px;
+    margin-right: auto;
+    min-height: 100%;
+    text-align: left;
+}
+.appraisal .appr-body-container .imp-address-control .street,
+.appraisal .appr-body-container .imp-address-control .unit,
+.appraisal .appr-body-container .imp-address-control .city,
+.appraisal .appr-body-container .imp-address-control .state,
+.appraisal .appr-body-container .imp-address-control .zip,
+.appraisal .appr-body-container .imp-address-control .county {
+    height: 24px;
+    margin-bottom: 0px;
+    display: inline-block;
+    vertical-align: top;
+}
+.appraisal .appr-body-container .imp-address-control .street {
+    width: 100%;
+}
+.appraisal .appr-body-container .imp-address-control .unit {
+    margin-left: 2%;
+    width: 70%;
+}
+.appraisal .appr-body-container .imp-address-control .city,
+.appraisal .appr-body-container .imp-address-control .county {
+    width: 54%;
+}
+.appraisal .appr-body-container .imp-address-control .zip {
+    max-width: 68px;
+}
+.appraisal .appr-body-container .imp-address-control .state {
+    max-width: 75px;
+}
+.appraisal .appr-body-container .imp-address-control .input-group,
+.appraisal .appr-body-container .imp-address-control .row-split {
+    margin-bottom: 5px;
+    max-width: 485px;
+}
+@media (min-width: 1600px) {
+    /* move all the controls a little bit to the right for big big screen. */
+    .appraisal .appr-body-container .imp-address-control .street {
+        width: 122%;
+    }
+    .appraisal .appr-body-container .imp-address-control .unit {
+        margin-left: 48%;
+    }
+    .appraisal .appr-body-container .imp-address-control .city,
+    .appraisal .appr-body-container .imp-address-control .county {
+        width: 63%;
+    }
+}
+
+/*endregion appraisal*/

@@ -1,0 +1,113 @@
+﻿<div class="container condition-container">
+    <div ng-class="{'selected-row': category == conditionsCtrl.selectedCategory,
+                    'selectable': category != conditionsCtrl.selectedCategory,
+                    'selected': hover && category != conditionsCtrl.selectedCategory}"
+         ng-mouseenter="hover = true"
+         ng-mouseleave="hover = false"
+         ng-click="conditionsCtrl.setSelectedCategory(category)">
+        <div class="header">
+            <div ng-class="isCollapsed ? 'imp-collapsed right' : 'imp-collapsed down'"
+                 ng-click="isCollapsed = !isCollapsed">
+            </div>
+            <span ng-show="!condition.curativeItems.length" class="checkmark">&nbsp;</span>
+            <span ng-show="condition.curativeItems.length > 0" class="col-xs">{{condition.curativeItems.length}}</span>
+            <span class="col-s imp-disclaimer" ng-dblclick="isCollapsed = !isCollapsed">{{condition.configurationViewModelCode.code}}</span>
+            <span class="col-l">{{condition.configurationViewModelCode.title}}</span>
+            <div class="col-l comment-container">
+                <input class="comment-input" type="text" data-ng-model="condition.comment" />
+                <div class="comment-history" ng-class="(condition.commentHistoryExists) ? 'imp-sa-grid-history' : 'imp-sa-grid-history-empty'"
+                     ng-click="!condition.commentHistoryExists || conditionsCtrl.conditionHistoryController.openCommentHistoryPopUp(condition)"></div>
+            </div>
+        </div>
+    </div>
+    <div class="attribute-container"
+         ng-show="condition.curativeItems.length > 0 && !isCollapsed">
+        <div class="col-m attr-label">
+            <span class="imp-disclaimer">Source:</span>
+            <a popover="this is test" popover-placement="bottom" class="hyperlink">{{ condition.conditionSource.code }}</a>
+        </div>
+        <div class="col-xs attr-divider imp-disclaimer"> | </div>
+        <div class="col-l">
+            <span class="imp-disclaimer">Obtains:</span>
+            <div class="imp-span-ddl-container imp-span-ddl-condition-details-container clean">
+                <select ng-model="condition.assignedTo" ng-options="assigned.roleName for assigned in conditionsCtrl.viewModel.conditionsSub.assignedToList | orderBy: 'roleName' track by assigned.roleId" class="imp-ddl clean">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs attr-divider imp-disclaimer"> | </div>
+        <div class="col-l">
+            <span class="imp-disclaimer">Due:</span>
+            <div class="imp-span-ddl-container imp-span-ddl-condition-details-container clean">
+                <select ng-model="condition.due" ng-options="due.description for due in conditionsCtrl.viewModel.conditionsSub.dueList track by due.enumerationValueId | orderBy: 'description'" class="imp-ddl clean">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs attr-divider imp-disclaimer"> | </div>
+        <div class="col-l">
+            <span class="imp-disclaimer">Clears:</span>
+            <div class="imp-span-ddl-container imp-span-ddl-condition-details-container clean">
+                <select ng-model="condition.due" ng-options="due.description for due in conditionsCtrl.viewModel.conditionsSub.dueList track by due.enumerationValueId | orderBy: 'description'" class="imp-ddl clean">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs attr-divider imp-disclaimer"> | </div>
+        <div class="col-m attr-label internal">
+            <!-- Need to redo these keys -->
+            <input type="checkbox" ng-model="condition.internalOnly" class="imp-checkbox"
+                   id="internalOnly_{{groupIndex}}_{{categoryIndex}}_{{$index}}" />
+            <span class="imp-disclaimer" for="internalOnly_{{groupIndex}}_{{categoryIndex}}_{{$index}}" class="imp-lb-checkbox">
+                Internal Only
+            </span>
+        </div>
+        <div ng-show="condition.isSignedOff">
+            <div class="imp-complete-icon">
+            </div>
+            <label>
+                {{condition.userSignedOff.userName}}
+            </label><label>
+                {{condition.signOffDate | date: 'MM/dd/yyyy h:mm a'}}
+            </label>
+        </div>
+    </div>
+            <!-- Here is an example of a delete button.  This includes logic for condition row delete --/>
+        <div class="floatright" ng-init="isCondDeleteDisabled = deleteConditionDisabled(condition)">
+            <div ng-show="ConditionsMainViewModel.Privileges.Delete" ng-disabled="isCondDeleteDisabled" ng-style="isCondDeleteDisabled ? {cursor: 'default'} : {cursor: 'pointer'}"
+                    style="margin-right: 10px;" ng-click="isCondDeleteDisabled || conditionRemoved(condition)">
+                <imp-circle size="small" style="padding-top: 3px; margin-right: -3px; display:block" color="{{ isCondDeleteDisabled ? iconColors.disabled : iconColors.del }}"></imp-circle>
+            </div>
+        </div>
+        <!--    -->
+    <div class="container document-container"
+         ng-show="condition.curativeItems.length > 0 && !isCollapsed">
+        <div class="row doc-row">
+            <div class="col-xs  imp-disclaimer">File</div>
+            <div class="col-xs  imp-disclaimer">Note</div>
+            <div class="col-xl imp-disclaimer">Item</div>
+            <div class="col-xxs imp-disclaimer">For</div>
+            <div class="col-m  imp-disclaimer">Status</div>
+            <div class="col-l  imp-disclaimer">Updated By</div>
+            <div class="col-s  imp-disclaimer">Last Updated</div>
+            <div class="col-xs imp-disclaimer">&nbsp;</div>
+        </div>
+        <div class="row doc-row" ng-repeat="item in condition.curativeItems">
+            <div class="col-xs">
+                <div class="imp-icon-pdf-small icon-pdf" ng-class=""></div>
+            </div>
+            <div class="col-xs">
+                <div class="imp-notes" ng-class="conditionsCtrl.notesController.getNotesIcon(item.notes)" ng-click="conditionsCtrl.notesController.openAddItemNotePopUp(item.notes, item.Description, conditionsCtrl.viewModel.currentUser, condition.isSignedOff)"></div>
+            </div>
+            <div class="col-xl">{{item.item.Code + ' '  + (item.description == null ? '' : item.description) }}</div>
+            <div class="col-xxs icon-for">{{item.for.sourceDescription}}</div>
+            <div class="col-m">{{item.status.description}}</div>
+            <div class="col-l">{{item.updatedBy.userName}}</div>
+            <div class="col-s">{{item.updatedDate | date: 'MM/dd/yyyy h:mm a'}}</div>
+            <div class="col-xs icon-hist">
+                <div class="imp-sa-grid-history comment-history" ng-class="(condition.commentHistoryExists) ? 'imp-sa-grid-history' : 'imp-sa-grid-history-empty'"
+                     ng-click="!condition.commentHistoryExists || conditionsCtrl.conditionHistoryController.openCommentHistoryPopUp(condition)"></div>
+            </div>
+        </div>
+    </div>
+</div>

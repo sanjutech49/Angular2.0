@@ -1,0 +1,155 @@
+﻿@model MML.Web.LoanCenter.ViewModels.LoanDetailsViewModel
+@using MML.Common.Helpers
+@using MML.Common
+<div class="loanpurposebubble2">
+    <div class="triangle">
+    </div>
+    <div class="loanpurposetooltip2">
+        <div class="loanpurposetooltip2g">
+            <div class="close" id="closePopupContainer">
+            </div>
+            <table>
+                <tr>
+                    <td colspan="4" class="line1">
+                        Loan Purpose
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="first1">
+                        Loan Type
+                    </td>
+                    <td colspan="3" class="first2 regularfont">
+                        @Model.LoanType
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1">
+                        Loan Program
+                    </td>
+                    <td colspan="3" class="regularfont">
+                        @Model.LoanProgram
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="line3">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Loan Amount
+                    </td>
+                    <td class="regularfont">
+                        @Model.LoanAmount
+                    </td>
+                    <td>
+                        Property Address
+                    </td>
+                    <td colspan="3" class="regularfont">
+                        @Model.StreetName
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Interest Rate
+                    </td>
+                    <td class="regularfont">
+                        @Model.Rate
+                    </td>
+                    <td>
+                    </td>
+                    <td colspan="3" class="regularfont">
+                        @Model.PropertyAddress
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        APR
+                    </td>
+                    <td class="regularfont">
+                        @Model.Apr
+                    </td>
+                    <td class="first3">
+                        Estimated Value
+                    </td>
+                    <td class="regularfont">
+                        @Model.EstimatedValue
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Loan Point (%)
+                    </td>
+                    <td class="regularfont">
+                        @Model.LoanPointsPercentage
+                    </td>
+                    <td>
+                        Property Type
+                    </td>
+                    <td class="regularfont">
+                        @Model.PropertyType
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Loan Point ($)
+                    </td>
+                    <td class="regularfont">
+                        @Model.LoanPointsAmount
+                    </td>
+                    <td>
+                        Occupancy Type
+                    </td>
+                    <td class="regularfont">
+                        @Model.OccupancyType
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lock Period
+                    </td>
+                    <td class="regularfont">
+                        @Model.LockDays days
+                    </td>
+                    <td>
+                        LTV
+                    </td>
+                    <td class="regularfont">
+                        @if ( Model.LTV != 0 )
+                        {
+                            @Model.LTV.ToString().ToRate()
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lock Date
+                    </td>
+                    <td class="regularfont">
+                        @Model.LockDate
+                    </td>
+                    <td>
+                        CLTV
+                    </td>
+                    <td class="regularfont">
+                        @if ( Model.CLTV != 0 )
+                        {
+                            @Model.CLTV.ToString().ToRate()
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Loan Number
+                    </td>
+                    <td class="regularfont">
+                        @Model.LoanNumber
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="line2">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿<div class="imp-tooltip share-comparison-report-container"
+     ng-style="{'height': modalpopoverCtrl.ctrl.shareComparisonModalHeight(modalpopoverCtrl.model.comparisonNumberOfAdditionalRecipients)}">
+
+    <div class="share-comparison-report-content">
+        <div class="share-comparison-report-header">
+            <div class="imp-large-black-bar-graph-icon"></div>
+            <div style="margin-left:5px;">Share Comparison Report</div>
+        </div>
+        <div class="pb-row">
+            <div>
+                First Name
+            </div>
+            <div>
+                <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="modalpopoverCtrl.model.comparisonModel.firstName">
+            </div>
+        </div>
+        <div class="pb-row">
+            <div>
+                Last Name
+            </div>
+            <div>
+                <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="modalpopoverCtrl.model.comparisonModel.lastName">
+            </div>
+        </div>
+        <div class="pb-row">
+            <div>
+                Email
+            </div>
+            <input type="text" ng-model="modalpopoverCtrl.model.comparisonModel.email" ng-disabled="modalpopoverCtrl.model.isBorrowerOnlineUser"
+                   ng-blur="modalpopoverCtrl.model.isEmailValid = modalpopoverCtrl.ctrl.onEmailBlur(modalpopoverCtrl.model.comparisonModel.email)"
+                   ng-class="{'imp-has-error': modalpopoverCtrl.model.isEmailValid || (modalpopoverCtrl.model.email.$dirty && !modalpopoverCtrl.model.isEmailValid)}" />
+        </div>
+        <div class="pb-row" ng-repeat="item in modalpopoverCtrl.model.comparisonModel.additionalRecipients.slice(0, modalpopoverCtrl.model.comparisonNumberOfAdditionalRecipients) track by $index">
+            <div>
+                Additional Recipient
+            </div>
+            <div>
+                <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="item.email"
+                       ng-blur="item.isEmailValid = modalpopoverCtrl.ctrl.onEmailBlur(item.email)"
+                       ng-class="{'imp-has-error': item.isEmailValid || (item.email.$dirty && !item.isEmailValid)}" />
+            </div>
+        </div>
+        <div class="pb-row" ng-if="modalpopoverCtrl.model.comparisonNumberOfAdditionalRecipients < 5">
+            <div></div>
+            <div style="padding-right:50px;" ng-click="modalpopoverCtrl.model.comparisonNumberOfAdditionalRecipients = modalpopoverCtrl.model.comparisonNumberOfAdditionalRecipients + 1">
+                <span style="vertical-align:middle !important;">
+                    <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>
+                </span>
+                <span class="add-additional-recipients">Add Additional Recipient</span>
+            </div>
+        </div>
+
+        <div class="share-comparison-report-footer">
+            <button type="button" class="imp-button-hm-wm-sec footer-button" onclick="$(this).parents('.tooltip').prev().trigger('click');">
+                Cancel Changes
+            </button>
+            <button type="button" class="imp-button-hm-wm-sec footer-button" ng-click="modalpopoverCtrl.ctrl.saveAndSendUserSelectedProductCategories(modalpopoverCtrl.model.comparisonModel)">
+                Save
+            </button>
+            <button type="button" class="imp-button-div-hs-ws-prim send-button" ng-click="modalpopoverCtrl.ctrl.saveAndSendUserSelectedProductCategories(modalpopoverCtrl.model.comparisonModel, true)">
+                Send
+            </button>
+        </div>
+
+    </div>
+
+</div>

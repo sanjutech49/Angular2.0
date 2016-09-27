@@ -1,0 +1,6 @@
+﻿@using MML.Web.LoanCenter.Helpers.Utilities;
+@using MML.Common.Helpers;
+@{
+    var version = Session[SessionHelper.LoanCenterVersion] != null ? (int)Session[SessionHelper.LoanCenterVersion] : 2;
+    Layout = version == 2 ?"~/Views/Shared/_OldLayout.cshtml": "~/Views/Shared/_MainLayout.cshtml";
+}

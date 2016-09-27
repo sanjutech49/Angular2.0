@@ -1,0 +1,28 @@
+﻿<div class="imp-simple-grid">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl">
+                Title
+            </div>
+            <div class="col-l">
+                Date Added
+            </div>
+            <div class="col-xxxxxl">
+                Status
+            </div>
+        </div>
+        <div class="row" ng-repeat="log in auditlogCtrl.logs">
+            <div class="col-xxl">
+                {{log.title}}
+            </div>
+            <div class="col-l">
+                {{log.dateAdded}}
+            </div>
+            <div class="col-xxxxxl">
+                {{log.status}}
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+

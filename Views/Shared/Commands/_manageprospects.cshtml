@@ -1,0 +1,192 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Common
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.ManageProspectsViewModel
+<div class="manageprospectsdiv completesection">
+    <div class="manageprospectshead">
+        <div class="left0">
+            <span class="namelink">Manage Prospects</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="titleInformation">@Model.TitleInformation <span class="spnLeadSourceInfo">@Model.HearAboutUs</span></div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="closeManageProspects" class="xclose" title="Close Section" onclick="CloseCommandSection()">
+                </a><a id="minimizemanageprospects" class="minimizesection" title="Minimize/Maximize Section" onclick="ManageProspects.BindManageProspectsMinimize()" >
+                    <div id="manageprospectsminmax" class="minmax min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="manageprospectscontent" class="manageprospectscontent maincontent">
+        <div id = "prospectstatusandinternalcontactsObj" class="prospectstatusandinternalcontacts" style="height: 205px;">
+            <div class="title">
+                Prospect Status and Internal Contacts
+            </div>
+            <div class="content">
+                <table class="assignloaninfotable">
+                    <tr>
+                        <td colspan="2">
+                            <div style="float: left;">
+                                 <b>Select Channel/Branch Location</b>
+                            </div>
+                        </td>
+                        <td colspan="2" style="padding-left:5px">
+                            <div style="float: left">                                 
+                            </div>
+                        </td>
+                        <td colspan="2" >
+                            <b>Change Propect Status</b>
+                        </td>
+                    </tr>
+                    <tr style="height:30px">
+                        <td style="width:60px">
+                           <div style="float: left;"> Channel:</div>
+                        </td>
+                        <td style="float: left; width:255px">
+                           <div id="channelFilter" style="float: left; width:220px">
+                               @Html.Telerik().DropDownListFor( m => m.ChannelId ).BindTo( new SelectList( Model.Channels, "Value", "Text" ) ).ClientEvents( e => e.OnChange( "ManageProspects.ChannelOnChange" ) ).Name( "ddlChannelId" ).Enable( AccountHelper.IsInRole( RoleName.Administrator ) )
+                            </div>
+                        </td>
+                        <td style="width: 10px; padding-left:5px">
+                             <div style="float: left;">LOA:</div>
+                        </td>
+                         <td style="float: left; width: 255px;">
+                             <div style="float: left;">
+                                @Html.Telerik().DropDownListFor( c => c.LoaInfoList ).Name( "ddlLoa" ).HtmlAttributes( new { style = "width:170px;" } ).BindTo( new SelectList( Model.LoaInfoList, "UserAccountId", "ConciergeName", Model.SelectedLoa ) )
+                             </div>
+                         </td>
+                        <td style="width: 100px; padding-left:5px">
+                          <div style="float: left">
+                                 <div style="float: left;">Status:</div>
+                            </div>
+                        </td>
+                        <td style="width: 235px; float: right; padding-right:20px">
+                               <div style="float: right;">@Html.Telerik().DropDownListFor( s => s.Statuses ).Name( "ddlStatus" ).BindTo( new SelectList( Model.Statuses, "Key", "Value", Model.SelectedStatus ) )</div>
+                        </td>
+                    </tr>
+                    <tr style="height:30px">
+                        <td style="width:60px">
+                           <div style="float: left;"> Division:</div>
+                        </td>
+                         <td style="float: left; width:255px">
+                           <div id="divisionFilter" style="float: left;padding-top:0px; width:220px">
+                               @Html.Telerik().DropDownListFor( m => m.DivisionId ).BindTo( new SelectList( Model.Divisions, "Value", "Text" ) ).ClientEvents( e => e.OnChange( "ManageProspects.DivisionOnChange" ) ).Name( "ddlDivisionId" ).Enable( AccountHelper.IsInRole( RoleName.Administrator ) )
+                            </div>
+                        </td>
+                        <td style="width: 150px; padding-left:5px">
+                               <div style="float: left;">Loan Processor:</div>
+                        </td>
+                        <td style="float: left; width: 255px;">
+                            <div style="float: left;">
+                                @Html.Telerik().DropDownListFor( m => m.SelectedCallCenter ).Name( "ddlCallCenter" ).HtmlAttributes( new { style = "width:170px;" } ).BindTo( new SelectList( Model.CallCenterInfoList, "UserAccountId", "CallCenterName", Model.SelectedCallCenter ) )
+                            </div>
+                        </td>
+                        <td style="width: 100px; padding-left:5px">
+                        </td>
+                        <td style="width: 235px; padding-left:5px">
+                        </td>
+                    </tr>
+                    <tr style="height:30px">
+                        <td style="width:60px">
+                             <div style="float: left;"> Branch:</div>
+                        </td>
+                         <td style="float: left; width:255px">
+                              <div id="branchFilter" style="float: left; width:220px">
+                                @Html.Telerik().DropDownListFor( m => m.BranchId ).BindTo( new SelectList( Model.Branches, "Value", "Text" ) ).ClientEvents( e => e.OnChange( "ManageProspects.BranchOnChange" ) ).Name( "ddlBranchId" ).Enable( AccountHelper.IsInRole( RoleName.Administrator ) )
+                            </div>
+                        </td>
+                        <td style="width: 150px; padding-left:5px">
+                             <div style="float: left;"></div>
+                        </td>
+                        <td style="float: left; width: 255px;">
+                             <div style="float: left;"></div>
+                        </td>
+                         <td colspan="2">
+                           <div style="float: left">
+                                
+                            </div>
+                        </td>
+                    </tr>
+                     <tr style="height:29px">
+                         <td style="width:60px">
+                           Concierge:
+                         </td>
+                         <td style="float: left; width:255px">
+                             @Html.Telerik().DropDownListFor( c => c.ConciergeInfoList ).Name( "ddlConcierge" ).BindTo( new SelectList( Model.ConciergeInfoList, "UserAccountId", "ConciergeName", Model.SelectedConcierge ) )
+                         </td>
+                        <td style="width: 150px; padding-left:5px">
+                               <div style="float: left;"></div>
+                        </td>
+                         <td style="float: left; width: 255px;">
+                            <div style="float: left;"></div>
+                        </td>
+                        <td style="width: 100px; padding-left:5px">
+                            <div class="manageprospectnotification" style="float: right; "></div>
+                        </td>
+                        <td style="width: 235px; float: right; padding-right:20px">
+                        @*       <div style="float: right; ">
+                                    
+                                    <div class="bluebutton imp-button-div-hs-ws-prim" onclick="ManageProspects.ManageProspectsSave('@Model.LoanId', '@Model.ProspectId', '@Model.CompanyId')">Submit</div>
+                                    
+                                </div>*@
+                        </td>
+                    
+                    </tr>
+                    <tr style="height: 30px">
+                        <td style="width: 140px">
+                            <div style="float: left;">
+                                Concierge NMLS#:</div>
+                        </td>
+                        <td style="float: left; width: 255px; padding-bottom: 7px;">
+                            <div style="float: left;">@Html.TextBoxFor( m => m.NMLSNumber, new { style = "width: 194px; background-color: lavender", maxlength = 20, @readonly = "readonly" } )</div>
+                        </td>
+                        <td style="width: 150px; padding-left: 5px">
+                        </td>
+                        <td style="float: left; width: 255px;">
+                        </td>
+                        <td style="width: 100px; padding-left: 5px">
+                        </td>
+                        <td style="width: 235px; float: right; padding-right: 20px">
+                               <div style="float: right; ">
+                                    <div class="bluebutton imp-button-div-hs-ws-prim" onclick="ManageProspects.ManageProspectsSave('@Model.LoanId', '@Model.ProspectId', '@Model.CompanyId')">Submit</div>
+                                </div>
+                        </td>
+                    </tr>
+                  </table>     
+            </div>
+        </div>
+
+        <div  class="conversationlognotes"> 
+        <div class="titleBlue">Rate Options</div>
+        <div id ="rateOptionsBoxOnManageProspects"></div>
+
+    </div>
+   
+
+
+   <script type="text/javascript">
+       ShowProcessingInfo();
+       $.ajax({
+           type: "GET",
+           url: 'Home/ShowRateOption',
+           data: 'loanId=' + '@Model.LoanId' + '&prospectId=' + $('.tablelistselected').find('.prospectid').text() + "&builtInMode=true",
+           success: function (result) {
+               $('#rateOptionsBoxOnManageProspects').html(result);
+           },
+           error: function (xhr) {
+               HideProcessingInfo();
+           },
+           complete: function () {
+               HideProcessingInfo();
+               BindRateOptionsDetails();
+           }
+       })
+       
+   </script>

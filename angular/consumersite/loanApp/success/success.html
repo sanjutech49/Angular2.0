@@ -1,0 +1,96 @@
+﻿<div class="credit-scores">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center">My Credit Scores</div>
+                <div class="row section-content ">
+                    <div class="col-md-6 col-md-offset-3 section-underline credit-score-region">
+                        <div class="row">
+                            <div class="col-xs-7 col-sm-5 right">
+                                <div class="credit-score-row">
+                                    <div class="section-subtitle-lg right">{{ successCntrl.BorrowerFullName }}</div>
+                                </div>
+                                <div class="credit-score-row">
+                                    <div class="credit-bar right" ng-style="{'opacity': 1, 'width': successCntrl.BorrowerFICOScores.experian / 3.0 + 25}">
+                                        {{ successCntrl.BorrowerFICOScores.experian }}
+                                    </div>
+                                </div>
+
+                                <div class="credit-score-row">
+                                    <div class="credit-bar right" ng-style="{'opacity': 1, 'width': successCntrl.BorrowerFICOScores.equifax / 3.0 + 25}">
+                                        {{ successCntrl.BorrowerFICOScores.equifax }}
+                                    </div>
+                                </div>
+
+                                <div class="credit-score-row">
+                                    <div class="credit-bar right" ng-style="{ 'opacity': 1, 'width': successCntrl.BorrowerFICOScores.transunion / 3.0 + 25 }">
+                                        {{ successCntrl.BorrowerFICOScores.transunion }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-sm-2 center">
+                                <div class="credit-score-row"></div>
+                                <div class="credit-score-row">
+                                    <div class="credit-label center">Experian</div>
+                                </div>
+                                <div class="credit-score-row">
+                                    <div class="credit-label center">Equifax</div>
+                                </div>
+                                <div class="credit-score-row">
+                                    <div class="credit-label center">TransUnion</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-5 left" ng-if="successCntrl.CoBorrowerFullName !== '' && successCntrl.CoBorrowerFullName !== 'New Application'">
+                                <div class="credit-score-row">
+                                    <div class="section-subtitle-lg left">{{ successCntrl.CoBorrowerFullName }}</div>
+                                </div>
+                                <div class="credit-score-row">
+                                    <div class="credit-bar right" ng-style="{ 'opacity': 1, 'width': successCntrl.CoBorrowerFICOScores.experian / 3.0 + 25 }">
+                                        {{ successCntrl.CoBorrowerFICOScores.experian }}
+                                    </div>
+                                </div>
+
+                                <div class="credit-score-row">
+                                    <div class="credit-bar right" ng-style="{ 'opacity': 1, 'width': successCntrl.CoBorrowerFICOScores.equifax / 3.0 + 25 }">
+                                        {{ successCntrl.CoBorrowerFICOScores.equifax }}
+                                    </div>
+                                </div>
+
+                                <div class="credit-score-row">
+                                    <div class="credit-bar right" ng-style="{ 'opacity': 1, 'width': successCntrl.CoBorrowerFICOScores.transunion / 3.0 + 25 }">
+                                        {{ successCntrl.CoBorrowerFICOScores.transunion }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row section-content">
+                    <div class="col-xs-12 center">
+                        <img class="img-stairs" src="../Content/images/ConsumerSite/stairs.png" />
+                        <span class="my-next-step">My Next Step</span>
+                    </div>
+                </div>
+                <div class="row section-content center">
+                    <div class="section-subtitle-lg">You can quickly <b>save days</b> on your loan</div>
+                    <div class="section-subtitle">by enabling us to send you documents electronically.</div>
+                </div>
+                <div class="row section-content center ">
+                    <div class="col-xs-12 ">
+                        <button class="btn btn-primary">Enable Electronic Delivery</button>
+                    </div>
+                </div>
+                <div class="row section-content-lg center">
+                    <div class="section-subtitle-lg">If you’d like a Loan Officer to help</div>
+                    <div class="section-subtitle">you can request a call or call us at (800) 555-5555.</div>
+                </div>
+                <div class="row section-content center ">
+                    <div class="col-xs-12 ">
+                        <button class="btn btn-secondary">Request a Call</button>
+                    </div>
+                </div>
+                <!--end section content-->
+            </div>
+        </div>
+    </div>
+</div>

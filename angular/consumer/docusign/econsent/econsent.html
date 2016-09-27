@@ -1,0 +1,94 @@
+﻿<!--<div id="econsent-modal-container">
+    <div class="modal-body">
+        <div>Placemarker for modal popup.</div>
+        <button ng-click="ModalEConsentCtrl.cancel()">Cancel</button>
+    </div>
+</div>-->
+
+<div class="econsent-modal">
+    <div class="modal-header">
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+        <h4 class="modal-title">eConsent</h4>
+    </div>
+    <div class="modal-body">
+        <div class="scrollbox">
+            <div ng-include src="'/angular/consumer/eConsentTerms.html'"></div>
+        </div>
+        <form class="form-horizontal econsent-form">
+            <!--{{ModalEConsentCtrl.view.borrowers}}
+        {{ModalEConsentCtrl.selectedBorrower}}-->
+            <div class="control-group" ng-show="!ModalEConsentCtrl.isMultiBorrower">
+                <div class="controls">
+                    <label class="control-label" for="selectbasic">eConsent for</label>
+                    <span>{{ ModalEConsentCtrl.selectedBorrower.fullName }}</span>
+                </div>
+            </div>
+            <div class="control-group" ng-show="ModalEConsentCtrl.isMultiBorrower">
+                <div class="controls">
+                    <label class="control-label" for="selectbasic">eConsent for&nbsp;</label>
+                    <select name="selectbasic" class="form-control econsent-select"
+                            ng-model="ModalEConsentCtrl.selectedBorrower"
+                            ng-options="b.fullName for b in ModalEConsentCtrl.borrowers"
+                            ng-change="ModalEConsentCtrl.selectedBorrowerChanged()">
+                        <option value="">Select One</option>
+                    </select>
+                    <!--<select name="selectbasic" class="form-control econsent-select">
+                    <option>Select One</option>
+                    <option>Anakin Skywalker</option>
+                    <option>Hans Solo</option>
+                </select>-->
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls checkboxes" ng-class="{disabled: !ModalEConsentCtrl.enableCheckboxes}">
+                    <label class="checkbox" for="agreeCheckbox">
+                        <input type="checkbox" id="agreeCheckbox" 
+                               ng-disabled="!ModalEConsentCtrl.enableCheckboxes" 
+                               ng-model="ModalEConsentCtrl.agreeChecked" 
+                               ng-change="ModalEConsentCtrl.agreeChanged()">
+                        <div class="checkbox-text">I agree to the terms above and to continue my home loan application online</div>
+                    </label>
+                    <label class="checkbox" for="disagreeCheckbox">
+                        <input type="checkbox" id="disagreeCheckbox" 
+                               ng-disabled="!ModalEConsentCtrl.enableCheckboxes" 
+                               ng-model="ModalEConsentCtrl.disagreeChecked" 
+                               ng-change="ModalEConsentCtrl.disagreeChanged()">
+                        <div class="checkbox-text"><b>We</b> decline the terms above and would like to complete out home loan application offline (a concierge will contact you)</div>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn imp-button-sec-general" ng-click="ModalEConsentCtrl.cancel()">Cancel</button>
+                <button class="btn imp-button-general btn-continue" ng-disabled ="!ModalEConsentCtrl.agreeChecked && !ModalEConsentCtrl.disagreeChecked" ng-click="ModalEConsentCtrl.continue()">Continue</button>
+            </div>
+        </form>
+
+        <!--<form class="form-horizontal econsent-form">
+            <div class="control-group">
+                <div class="controls">
+                    <label class="control-label" for="selectbasic">eConsent for&nbsp;</label>
+                    <select name="selectbasic" class="form-control econsent-select">
+                        <option>Select One</option>
+                        <option>Anakin Skywalker</option>
+                        <option>Hans Solo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls checkboxes disabled">
+                    <label class="checkbox" for="checkboxes-0">
+                        <input type="checkbox" name="checkboxes" id="checkboxes-0" value="Option one" disabled><span>I agree to the terms above and to continue my home loan application online</span>
+                    </label>
+                    <label class="checkbox" for="checkboxes-1">
+                        <input type="checkbox" name="checkboxes" id="checkboxes-1" value="Option two" disabled><span><b>We</b> decline the terms above and would like to complete out home loan application offline</span>
+                        </br/><span>(a concierge will contact you)</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn imp-button-sec-general" data-dismiss="modal" ng-click="ModalEConsentCtrl.cancel()">Cancel</button>
+                <button type="button" class="btn imp-button-sec-general btn-continue disabled" data-dismiss="modal">Continue</button>
+            </div>
+        </form>-->
+    </div>
+</div>

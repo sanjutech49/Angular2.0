@@ -1,0 +1,6 @@
+﻿<div>
+    <div class="col-md-3">{{ item.financialInstitutionName || 'Financial Institution'}}</div>
+    <div class="col-md-3">{{ item.borrowerFullName || 'Borrower'}}</div>
+    <div class="col-md-3">{{ item.assetTypeName || 'Account Type' }}</div>
+    <div class="col-md-2">{{ (item.assetValue | currency) || '$0'}}</div>
+</div>

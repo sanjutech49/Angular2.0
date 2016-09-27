@@ -1,0 +1,31 @@
+﻿<div class='imp-popover imp-body'>
+    <div class='container'>
+        <div class="imp-div-close-x floatright" onclick="$(this).parents('.tooltip').prev().trigger('click');"></div>
+        <div class='header'>Net Rental Income History</div>
+        <div class='imp-split'></div>
+        <div class="content">
+            <div class="row">
+                <div class="col-m">
+                    User
+                </div>
+                <div class="col-l">
+                    Changes
+                </div>
+                <div class="col-s">
+                    Date of Change
+                </div>
+            </div>
+            <div class="row" ng-repeat="history in otherIncomeInfo.incomeHistory">
+                <div class="col-m">
+                    {{history.modifiedBy}}
+                </div>
+                <div class="col-l">
+                    {{history.changes}}
+                </div>
+                <div class="col-s">
+                    {{history.modifiedDate | date : 'short'}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

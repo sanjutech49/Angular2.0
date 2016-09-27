@@ -1,0 +1,33 @@
+﻿<div ng-class="{'row-stripped': stripped}" class="row date-cost-item edit edit-mode" ng-init="hover = false" ng-mouseover="hover = true" ng-mouseleave="hover = false">
+    <div class="col-a">
+        <div class="sub-col-s"></div>
+        <div class="sub-col-xs imp-disclaimer">{{ item.displayLineNumber }}</div>
+        <div class="sub-col-l">
+            <div class="imp-span-ddl-container small" ng-if="item.costName != 18 &&  item.costName != 24">
+                <select name="transactionRow-3-{{transactionRowCtrl.number}}"
+                        class="imp-ddl"
+                        ng-model="item.costName"
+                        ng-options="v.ledgerEntryName as v.ledgerEntryNameString for (k, v) in dictionary"
+                        ng-change="change()">
+                    <option value='' selected='' disabled='' style="color:#999;display:none">Select an option</option>
+                </select>
+            </div>
+            <input ng-model="item.costNameString" type="text" class="imp-currency" ng-if="item.costName == 18 || item.costName == 24" />
+        </div>
+        <div class="sub-col-l">
+            <div class="input-group cost-date-group">
+                <input type="text" class="form-control" style="border-right: none; text-align: left;" placeholder="mm/dd/yyyy"
+                       ng-model="item.startDate" imp-date min="01/01/1900">
+                <span class="date-mid-group">to</span>
+                <input type="text" class="form-control" style="border-left: none; text-align: center; padding-right: 2px;" placeholder="mm/dd/yyyy"
+                       ng-model="item.endDate" imp-date min="01/01/1900">
+            </div>
+       </div>
+    </div>
+    <div class="col-m">
+        <span class="cvalue">
+            <input type="text" ng-model="item.amount" style="width: 60px;" class="imp-currency" imp-currency="" display-currency-sign="false" ng-blur="save(mode)" />
+        </span>
+    </div>
+    <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style="margin-right: -30px; margin-top: 4px; position: absolute;" ng-show="hover && mode != 'add'" ng-click="remove();"></imp-circle>
+</div>

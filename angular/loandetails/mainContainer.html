@@ -1,0 +1,160 @@
+﻿<div class="loan-details-container" style="margin-bottom:10px;">
+
+    <!--<div mb-popover="angular/loanDetails/housingExpense/housingexpense.html" mb-popover-title="Additional Mortgagees - Housing Expense Break Down" ng-model="loanDetails.borrowers">Click Here For HousingExpense</div>-->
+    <!--<div mb-popover="angular/loanDetails/monthlyLiabilities/monthlyliabilities.html" mb-popover-title="Additional Mortgagees - Monthly Liabilities" ng-model="loanDetails.borrowers">Click Here For MonthlyLiabilities</div>-->
+    <!--<div mb-popover="angular/loanDetails/assets/assetsdetails.html" mb-popover-title="Additional Mortgagees - Assets" ng-model="loanDetails.borrowers">Click Here For Assets</div>-->
+
+
+
+    <div class="imp-lcgrid section-1 " style="margin-top:30px;">
+        <div ng-include="'angular/loandetails/sections/titlerow.html'">
+        </div>
+    </div>
+
+    <div class="imp-lcgrid section-1">
+        <div class="unit">
+            <div style="height: 94px">
+                <div ng-include="'angular/loandetails/sections/productInformation.html'">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="unit unit-space">
+            <div style="height: 94px">
+                <div ui-view="housingExpensesChart"></div>
+            </div>
+
+        </div>
+
+        <div class="unit unit-space">
+            <div style="height: 94px">
+                <div ui-view="sectionSevenBarChart">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="imp-lcgrid section-1">
+
+        <div class="unit">
+            <div style="height: 420px">
+                <div ng-include="'angular/loandetails/sections/pricingInformation.html'">
+                </div>
+            </div>
+
+            <div ng-include="'angular/loandetails/sections/monthlyIncome.html'">
+            </div>
+        </div>
+
+        <div class="unit unit-space">
+            <div style="height: 420px">
+                <div ui-view="housingExpenses"></div>
+            </div>
+
+            <div ng-include="'angular/loandetails/sections/monthlyLiabilities.html'">
+            </div>
+
+        </div>
+
+        <div class="unit unit-space">
+            <div ui-view="sectionSeven">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="imp-lcgrid section-2">
+
+        <div class="unit">
+            <div style="height:188px;">
+                <div ng-include="'angular/loandetails/sections/debtToIncome.html'">
+                </div>
+            </div>
+
+            <div ng-include="'angular/loandetails/sections/assets.html'">
+            </div>
+        </div>
+
+        <div class="huge-unit">
+            <div ui-view="propertyInfo">
+            </div>
+            <div class="unit">
+                <div ui-view="propertyDetailGraph"></div>
+            </div>
+            <div class="unit unit-space">
+                <div ui-view="propertyDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="imp-lcgrid section-2">
+
+        <div class="unit">
+            <div ng-include="'angular/loandetails/sections/underwritingInformation.html'">
+            </div>
+
+        </div>
+
+        <div class="unit unit-space">
+            <div ng-include="'angular/loandetails/sections/secondaryInformation.html'">
+            </div>
+
+        </div>
+
+        <div class="unit unit-space">
+            <div ng-include="'angular/loandetails/sections/loanAgentsAndParties.html'">
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div style="margin-bottom:50px; clear:both;">
+    <div class="btn-group-container" style=" float:left;">
+        <input type="button" class="imp-button-hm-wm-sec" style=" margin-top:5px;" value="Submit for Approval"
+               ng-click="loanDetails.submitForApproval()" ng-if="loanDetails.applicationData.currentUser.isWholesale" ng-disabled="loanDetails.isApprovalDisabled()">
+
+        <imp-contextual-button ng-if="loanDetails.applicationData.currentUser.hasPrivilege('View Export To Encompass Button') && !loanDetails.applicationData.currentUser.isWholesale"
+                               css-class-action="imp-button-sec-general group-button-prim" css-class-dropdown="dropdown-toggle group-button-sec imp-button-sec-general" css-class-dropdown-menu="dropdown-menu-encompass dropdown-menu"
+                               items="loanDetails.exportToEncompassActions" execute-command="loanDetails.callExportToEncompassAction" selected-item="loanDetails.exportToEncompassAction">
+        </imp-contextual-button>
+    </div>
+    <div class="btn-group-container loan-details-buttons">
+
+        <button type="button" class="imp-button-hm-wm-sec loan-details-cancel" ng-click="loanDetails.cancel()">
+            Cancel Changes
+        </button>
+
+        <!--<div class="btn-group" dropdown style="margin-right:-10px;">
+            <button type="button" class="imp-button-general group-button-prim" ng-disabled="loanDetails.disablePricingButton()" style="width:165px;" ng-click="loanDetails.callPricingAction()">
+
+                <span class="divider"></span>
+            </button>
+            <button type="button" ng-disabled="loanDetails.disablePricingButton()"
+                    class="dropdown-toggle group-button-sec  imp-button-general" dropdown-toggle>
+                <span class="arrow"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="item in loanDetails.pricingActions">
+                    <a ng-click="loanDetails.showPricingAction(item)"></a>
+                </li>
+            </ul>
+        </div>-->
+
+        <button type="button" class="imp-button-general " ng-disabled="loanDetails.disablePricingButton()" style="width:160px;padding-top: 4px !important" ng-click="loanDetails.callPricingAction()">
+            {{loanDetails.pricingActions[1].name}}
+            <span class="divider"></span>
+        </button>
+
+        <imp-contextual-button css-class-action="imp-button-general group-button-prim" css-class-dropdown="dropdown-toggle group-button-sec  imp-button-general" css-class-dropdown-menu="dropdown-menu-discl dropdown-menu"
+                               items="loanDetails.saveDiscloseActions" execute-command="loanDetails.callSaveDiscloseAction" selected-item="loanDetails.saveDiscloseAction">
+        </imp-contextual-button>
+
+    </div>
+
+</div>
+
+

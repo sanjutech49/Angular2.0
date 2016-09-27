@@ -1,0 +1,22 @@
+﻿<div id="conditionErrorPopup" class="condition-popup-container-main width680">
+    <div class="imp-div-popup-header">
+        <div class="conditions-item-notes-popup-header-div">{{ErrorPopupCtrl.CurativeErrorPopupModel.errorHeader}}</div>
+        <div class=" imp-div-close-x floatright" style="margin-top: -25px;" ng-click="ErrorPopupCtrl.cancel()">
+        </div>
+        <div class="imp-sa-split" style="min-width: 100%">
+        </div>
+    </div>
+    <div class="modal-body">
+        <label class="boldFont12" style="float: left;">
+            Error Message: &nbsp;
+        </label>
+        <label class="font12" style="float: left;">
+            {{ ErrorPopupCtrl.CurativeErrorPopupViewModel.errorMessage }}
+        </label>
+    </div>
+    <div class="imp-div-popup-footer" style="padding-top: 15px;">
+        <div class="imp-sa-split" style="min-width: 100%; margin-bottom: 15px;"></div>
+        <button class="imp-button-hm-wm-prim" ng-click="ErrorPopupCtrl.okay()">Okay</button>
+        <button class="imp-button-hm-wm-sec" data-dismiss="modal" ng-click="ErrorPopupCtrl.cancel()">Cancel</button>
+    </div>
+</div>

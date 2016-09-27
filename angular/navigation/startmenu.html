@@ -1,0 +1,30 @@
+﻿<!-- START mega menu template -->
+<div class="imp-nav-bar-col">
+    <div class="item">
+        <div class="items">
+            <ul class="commands">
+                <li id="new-prospect" ng-click="navCtrl.openProspect()"> 
+                    <div class="imp-new-prospect"></div>
+                    <div class="title">
+                        New<br />
+                        Prospect
+                    </div>
+                </li>
+                <li id="new-refi" ng-click="navCtrl.createNewLoanApplication(false, true, navCtrl.enums.LoanTransactionTypes.Refinance)">
+                    <div class="imp-new-refi"></div>
+                    <div class="title">
+                        New <br />
+                        Refinance
+                    </div>
+                </li>
+                <li id="new-purchase" ng-click="navCtrl.createNewLoanApplication(false, true, navCtrl.enums.LoanTransactionTypes.Purchase)">
+                    <div class="imp-new-purchase"></div>
+                    <div class="title">
+                        New <br />
+                        Purchase
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> 

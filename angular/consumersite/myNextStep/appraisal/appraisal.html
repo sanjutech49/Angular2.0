@@ -1,0 +1,252 @@
+﻿<div class="appraisal-container demo_margin" ng-form="appraisalForm">
+    <!--<div>Appraisal Placemarker</div>-->
+
+    <div class="appraisal page-content">
+        <div class="page-title"><img class="icon-house-white" src="../../../../Content/images/Consumer/icon-house-white.png">Order Your Appraisal</div>
+        <!-- <div class="page-title"><div class="imp-icon-house-white"></div>Order Your Appraisal</div>-->
+        <div class="page-body">
+            <div class="row">
+                <div class="col-md-4 review-section">
+                    <div class="imp-psection-subtitle">
+                        <div class="number-circle">
+                            <div class="height_fix"></div>
+                            <div class="number-circle-content">1</div>
+                        </div>
+                        <div class="subtitle-text">Review Appraisal Products</div>
+                    </div>
+                    <div ng-repeat="product in appraisalCntrl.appraisalProducts">
+                        <div class="row">
+                            <div class="col-xs-9">{{ product.name || 'Example Product'}}</div>
+                            <div class="col-xs-3 text-right currency-column">{{ (product.amount | currency) || '0$' }}</div>
+                        </div>
+                    </div>
+                    <div class="row text-bold">
+                        <div class="col-xs-9 text-right">Total</div>
+                        <div class="col-xs-3 text-right currency-column">{{ (appraisalCntrl.totalProductAmount | currency) || '$0'}}</div>
+                    </div>
+                    <div class="row disclaimer-region">
+                        <div class="col-xs-12 imp-disclaimer">Please select existing or enter new credit card information to be used for payment of the Appraisal Fee/s. The Cardholder acknowledges that the Appraisal Fee is NONREFUNDABLE once the appraisal inspection has taken place. The Cardholder also authorizes the following additional charges to be applied to the credit card above if such appraisal-related services must be performed in connection with the loan: rush fees, second appraisals, appraisal updates, field reviews, inspection and completion reports, desk reviews, drive-by and marketability reports, operating income statements, rent surveys and additional fees for multi-unit or unique properties</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="imp-psection-subtitle">
+                        <div class="number-circle">
+                            <div class="height_fix"></div>
+                            <div class="number-circle-content">2</div>
+                        </div>
+                        <div class="subtitle-text">Enter Payment Information</div>
+                    </div>
+                    <div>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputCreditCardType">Credit Card Type</label>
+                                </div>
+                                <div class="col col-sm-8">
+                                    <select type="text" class="form-control" id="inputCreditCardType"
+                                            ng-model="appraisalCntrl.creditCardType"
+                                            required>
+                                        <option value="" disabled selected>Select One</option>
+                                        <option value="discover">Discover</option>
+                                        <option value="mastercard">Mastercard</option>
+                                        <option value="visa">Visa</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputCreditCardNumber">Credit Card #</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control imp-disclaimer" id="inputCreditCardNumber"
+                                           ng-model="appraisalCntrl.creditCardNumber"
+                                           imp-credit-card-check>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputCCV">CCV #</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control imp-disclaimer" id="inputCCV" placeholder="3 Digit Code on Back of Card"
+                                           ng-model="appraisalCntrl.ccvNumber"
+                                           ng-minlength="3"
+                                           ng-maxlength="3"
+                                           ng-pattern="/^\d+$/">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputExpirationMonth">Expiration Date</label>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="col-lg-6 input-group-select appraisal_month_select">
+                                        <select type="text" class="form-control expiration-month-select" id="inputExpirationMonth"
+                                                ng-model="appraisalCntrl.creditCardExpirationMonth"
+                                                required>
+                                            <option value="" disabled selected>Month</option>
+                                            <option value="01">01 - Jan</option>
+                                            <option value="02">02 - Feb</option>
+                                            <option value="03">03 - Mar</option>
+                                            <option value="04">04 - Apr</option>
+                                            <option value="05">05 - May</option>
+                                            <option value="06">06 - Jun</option>
+                                            <option value="07">07 - Jul</option>
+                                            <option value="08">08 - Aug</option>
+                                            <option value="09">09 - Sep</option>
+                                            <option value="10">10 - Oct</option>
+                                            <option value="11">11 - Nov</option>
+                                            <option value="12">12 - Dec</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 input-group-select appraisal_year_select">
+                                        <select type="text" class="form-control expiration-year-select" id="inputExpirationYear"
+                                                ng-model="appraisalCntrl.creditCardExpirationYear"
+                                                required>
+                                            <option value="" disabled selected>Year</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2019">2019</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputNameOnCard">Name on Card</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control imp-disclaimer" id="inputNameOnCard"
+                                           ng-model="appraisalCntrl.nameOnCreditCard"
+                                           ng-minlength="7">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-checkbox">
+                                    <label class="control-label">Billing address same as current address</label>
+                                    <input id="chkBillingAddressSame" type="checkbox" class="imp-checkbox" ng-model="appraisalCntrl.isBillingSameAsProperty" checked>
+                                    <label for="chkBillingAddressSame" class="imp-lb-checkbox dummy-label"></label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="appr-body-container">
+                        <div class="imp-psection-row">
+                            <imp-address-control ng-model="appraisalCntrl.billingAddress"
+                                                 is-county-visible="true"
+                                                 is-licensed-states="true"
+                                                 ng-disabled="appraisalCntrl.isBillingSameAsProperty"></imp-address-control>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                    <div class="imp-psection-subtitle">
+                        <div class="number-circle">
+                            <div class="height_fix"></div>
+                            <div class="number-circle-content">3</div>
+                        </div>
+                        <div class="subtitle-text">Who Should the Appraiser Contact</div>
+                    </div>
+                    <div>
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputPreferredContact">Preferred Contact</label>
+                                </div>
+                                <div class="col col-sm-8">
+                                    <select class="form-control" ng-model="appraisalCntrl.contactRelation" ng-change="appraisalCntrl.setPreferredContact()" required>
+                                        <option value="borrower">Borrower</option>
+                                        <option value="buyeragent">Buyer Agent</option>
+                                        <option value="coborrower">Co-Borrower</option>
+                                        <option value="propertymanager">Property Manager</option>
+                                        <option value="selleragent">Seller Agent</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputFirstName">First Name</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control imp-disclaimer" id="inputFirstName" ng-model="appraisalCntrl.firstName"
+                                           ng-disabled="appraisalCntrl.isBorrowerContact()"
+                                           ng-minlength="3"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputLastName">Last Name</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control imp-disclaimer" id="inputLastName" ng-model="appraisalCntrl.lastName"
+                                           ng-disabled="appraisalCntrl.isBorrowerContact"
+                                           ng-minlength="3"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputEmail">Email</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control imp-disclaimer" id="inputEmail" ng-model="appraisalCntrl.email"
+                                           ng-disabled="appraisalCntrl.isBorrowerContact"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-4">
+                                    <label class="control-label" for="inputPreferredPhone">Preferred Phone</label>
+                                </div>
+                                <div class="col col-sm-8">
+                                    <div class="col-sm-9 appraisal_month_select preferred-phone">
+                                        <input type="text" class="form-control" id="inputPreferredPhone"
+                                               ng-model="appraisalCntrl.phone"
+                                               ng-disabled="appraisalCntrl.isBorrowerContact"
+                                               ng-minlength="10"
+                                               ng-maxlength="10"
+                                               ng-pattern="/^\d+$/"
+                                               required>
+                                    </div>
+                                    <div class="col-sm-3 appraisal_year_select preferred-phone">
+                                        <span class="input-group-select">
+                                            <select type="text" class="form-control" id="inputPhoneType"
+                                                    ng-model="appraisalCntrl.phoneType"
+                                                    ng-disabled="appraisalCntrl.isBorrowerContact()"
+                                                    ng-options="item.id as item.name for item in appraisalCntrl.phoneTypeOptions"></select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group special-instructions">
+                                <div class="col col-sm-12">
+                                    <label class="control-label" for="inputNameOnCard">Special Instructions</label>
+                                </div>
+                                <div class="col col-sm-12">
+                                    <textarea class="form-control" ng-model="appraisalCntrl.specialInstructions"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="green-separator"></div>
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-md-3 col-md-offset-9">
+                    <button class="imp-button-general btn-place-order" ng-click="appraisalCntrl.placeOrder()" ng-disabled="appraisalForm.$invalid">Place Order</button>
+                    <button class="imp-button-general" ng-click="appraisalCntrl.goToUploadDocuments()">Skip to Document Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

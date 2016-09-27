@@ -1,0 +1,71 @@
+﻿
+<div class="row">
+    <div class="col-lg-13 imp-text-enhanced-color">
+        An account already exists for the email address you entered. <br />
+        Please verify account information.
+    </div>
+</div>
+<div class="row" ng-if="modalpopoverCtrl.model.isVerifyBorrowerNameVisible">
+    <div class="col-md-7">
+        Verify Borrower is: <span class="imp-text-hs-wl-prim">{{ modalpopoverCtrl.model.borrowerFirstName + ' ' + modalpopoverCtrl.model.borrowerLastName }}</span>
+    </div>
+    <div class="col-md-4">
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifyBorrowerName" ng-value="true" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifyBorrowerName = true">Yes</label>
+        </div>
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifyBorrowerName" ng-value="false" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifyBorrowerName = false">No</label>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="modalpopoverCtrl.model.isVerifyCoBorrowerNameVisible">
+    <div class="col-md-7">
+        Verify Co-Borrower is: <span class="imp-text-hs-wl-prim">{{ modalpopoverCtrl.model.coBorrowerFirstName + ' ' + modalpopoverCtrl.model.coBorrowerLastName }}</span>
+    </div>
+    <div class="col-md-4">
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifyCoBorrowerName" ng-value="true" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifyCoBorrowerName = true">Yes</label>
+        </div>
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifyCoBorrowerName" ng-value="false" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifyCoBorrowerName = false">No</label>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="modalpopoverCtrl.model.isVerifySubjectPropertyAddressVisible">
+    <div class="col-md-7">
+        Verify Recent Subject Property Address is: <br />
+        <span class="imp-text-hs-wl-prim"> {{ modalpopoverCtrl.model.recentSubjectPropertyAddress.fullAddressString }}</span>
+    </div>
+    <div class="col-md-4">
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifySubjectPropertyAddress" ng-value="true" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifySubjectPropertyAddress = true">Yes</label>
+        </div>
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifySubjectPropertyAddress" ng-value="false" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifySubjectPropertyAddress = false">No</label>
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="modalpopoverCtrl.model.isVerifySecurityQuestionVisible">
+    <div class="col-md-7">
+        Verify answer to the security question: <br />
+        <span class="imp-text-hs-wl-prim">{{modalpopoverCtrl.model.securityQuestion}} <br /> </span>
+        Answer:
+        <span class="imp-text-hs-wl-prim">{{modalpopoverCtrl.model.userAccount.securityAnswer}}</span>
+    </div>
+    <div class="col-md-4">
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifySecurityQuestion" ng-value="true" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifySecurityQuestion = true">Yes</label>
+        </div>
+        <div class="row-radio-container">
+            <input type="radio" class="imp-radio" ng-model="modalpopoverCtrl.model.VerifySecurityQuestion" ng-value="false" />
+            <label class="imp-lbl-radio" ng-click="modalpopoverCtrl.model.VerifySecurityQuestion = false">No</label>
+        </div>
+    </div>
+</div>

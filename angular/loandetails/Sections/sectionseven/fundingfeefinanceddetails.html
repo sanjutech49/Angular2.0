@@ -1,0 +1,28 @@
+﻿<div class="imp-popover imp-body edit-section-seven funding-fee-financed-details">
+    <div class="header">Funding Fee Financing Details</div>
+    <div class="body">
+        <div class="item">
+            <div class="text" ng-if="modalpopoverCtrl.model.mortgageType == 1">Total UFMIP Funding Fee</div> <!-- FHA -->
+            <div class="text" ng-if="modalpopoverCtrl.model.mortgageType == 5">Total Gov't Funding Fee</div> <!-- USDA -->
+            <div class="text" ng-if="modalpopoverCtrl.model.mortgageType == 4">Total VA Funding Fee</div> <!-- VA -->
+            <div class="field">
+                <span type="text" style="float:left">{{ modalpopoverCtrl.model.costAmount | currency : "$"}}</span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="text adjsuted">
+                Amount Financed
+            </div>
+            <div class="field">
+                <input type="text" name="newAmount" return-float="true" ng-change="modalpopoverCtrl.ctrl.isAmountFinancedValid(modalpopoverCtrl.model)" ng-model="modalpopoverCtrl.model.maxAllowedFundingFeeAmount" imp-currency="" display-currency-sign="true" negative-values="false" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="buttons">
+        <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+        <input class="imp-button-div-hs-ws-prim" ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)" value="Done">
+    </div>
+
+</div>

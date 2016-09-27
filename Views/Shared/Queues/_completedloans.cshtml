@@ -1,0 +1,281 @@
+﻿@model MML.Web.LoanCenter.ViewModels.CompletedLoansViewModel
+@using MML.Contracts
+@using Telerik.Web.Mvc.UI
+@using MML.Common
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div class="fleft">
+                <span id="currentWorkQueueType" class="namelink">Completed Loans</span></div>
+            <div class="smallarrow">
+            </div>
+        </div>
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.TotalItems.ToString()</span> <span class="font15">Completed Loans
+                items</span>
+        </div>
+        <div class="right1">
+            <div class="left1">
+                <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@MML.Common.Helpers.EnumHelper.GetStringValue(((MML.Web.LoanCenter.Helpers.Utilities.CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).BoundDate)</span>
+            </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul>
+                                <li></li>
+                                <li id="ftoday" class="lower">@Ajax.ActionLink("Today", "Execute", "Command", new { Command = "CompletedLoansGridDateFilter,DateFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Today')" }, new { id = "aftoday" })</li>
+                                <li id="ftomorrow" class="lower">@Ajax.ActionLink("Yesterday", "Execute", "Command", new { Command = "CompletedLoansGridDateFilter,DateFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Tomorrow')" }, new { id = "aftomorrow" })</li>
+                                <li id="fthisweek" class="lower">@Ajax.ActionLink("Last Week", "Execute", "Command", new { Command = "CompletedLoansGridDateFilter,DateFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('This Week')" }, new { id = "afthisweek" })</li>
+                                <li id="fnextweek" class="lower">@Ajax.ActionLink("Last Month", "Execute", "Command", new { Command = "CompletedLoansGridDateFilter,DateFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Next Week')" }, new { id = "afnextweek" })</li>
+                                <li id="fthismonth" class="lower">@Ajax.ActionLink("All Open", "Execute", "Command", new { Command = "CompletedLoansGridDateFilter,DateFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('This Month')" }, new { id = "afthismonth" })</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday">
+                    <div id="minmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="listandpage">
+        <div class="completedloanscontent">
+            <table class="completedloanstable">
+                <tr class="completedloanssubjects" id="trGridHeader">
+                    <td>
+                    </td>
+                    <td class="t0">
+                    </td>
+                    <td style="display: none">
+                    </td>
+                    <td class="t1">@Ajax.ActionLink("Concierge", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('ConciergeFullName')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('ConciergeFullName')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('ConciergeFullName')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('ConciergeFullName')" })
+                    </td>
+                    <td class="t2">@Ajax.ActionLink("Alerts#", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('Alerts')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('Alerts')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('Alerts')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Alerts')" })
+                    </td>
+                    <td class="t3">@Ajax.ActionLink("Docs", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('Docs')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('Docs')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('Docs')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Docs')" })
+                    </td>                         
+                    <td class="t4">@Ajax.ActionLink("Loan#", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('LoanNumber')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('LoanNumber')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('LoanNumber')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('LoanNumber')" })
+                    </td>
+                    <td class="t5">@Ajax.ActionLink("App Date", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('AppDate')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('AppDate')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('AppDate')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('AppDate')" })
+                    </td>
+                    <td class="t6">@Ajax.ActionLink("Borrower", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('BorrowerFullName')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('BorrowerFullName')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('BorrowerFullName')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('BorrowerFullName')" })
+                     <div class="completedBorrowerStatusArrow">
+                            <div class="completedBorrowerStatusFilter">
+                                <ul id="completedBorrowerStatusFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(String.IsNullOrEmpty(((CompletedLoansListState)Session[SessionHelper.CompletedLoansListState]).BorrowerStatusFilter) ? "lowers" : "lower")">
+                                                @Ajax.ActionLink("Show All", "Execute", "Command", new { Command = "CompletedLoansBorrowerStatusFilter,BorroweStatusFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess()" })
+                                            </li>
+                                            @foreach (BorrowerStatusType borrowerStatusType in Model.BorrowerStatusList)
+                                            {
+                                                <li class="@(((CompletedLoansListState)Session[SessionHelper.CompletedLoansListState]).BorrowerStatusFilter != null && ((CompletedLoansListState)Session[SessionHelper.CompletedLoansListState]).BorrowerStatusFilter == borrowerStatusType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink(borrowerStatusType.GetStringValue(), "Execute", "Command", new { Command = "CompletedLoansBorrowerStatusFilter,BorroweStatusFilter=" + borrowerStatusType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess()" })
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t7">@Ajax.ActionLink("Program", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('ProgramName')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('ProgramName')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('ProgramName')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('ProgramName')" })
+                    </td> 
+                    <td class="t8">@Ajax.ActionLink("Loan Amount", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('MortgageAmount')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('MortgageAmount')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('MortgageAmount')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('MortgageAmount')" })
+                    </td>
+                    <td class="t9">@Ajax.ActionLink("Rate", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=9" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('Rate')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('Rate')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('Rate')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Rate')" })
+                    </td>
+                    <td class="t10">@Ajax.ActionLink("Lock Expire Date", "Execute", "Command", new { Command = "CompletedLoansGridSorting,Column=10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('LockExpireDate')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('LockExpireDate')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('LockExpireDate')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('LockExpireDate')" })
+                    </td>
+                </tr>
+                @if (Model.CompletedLoansItems != null)
+                {
+                    for (int i = 0; i < Model.CompletedLoansItems.Count; i++)
+                    {
+                        if (Model.CompletedLoansItems[i].CompletedLoansViewItems != null)
+                        {
+                            <tr class="@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ClassCollection"  id="task_@{@String.Format("{0}P", i)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ClassCollection', false, 'Completed')">
+                                <td>
+                                    <div class="biggreen" id="arrowdiv_@{@String.Format("{0}P", i)}">
+                                            </div>
+                                            @if (Model.CompletedLoansItems[i].CompletedLoansViewItems.Count > 1)
+                                            {
+                                                <div class="childIndicator" id="childIndicator_@{@String.Format("{0}P", i)}" onclick="$(this).unbind('click'); SelectedTask('@String.Format("{0}P", i)',
+                                                '@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ClassCollection', false, 'Completed')">
+                                
+                                                </div>  
+                                            }
+                                </td>
+                                <td>
+                                    <div class="@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ExceptionClassCollection exceptionIcon">
+                                    </div>
+                                </td>
+                        <td style="display: none" class="loanid">@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LoanId</td>
+                        <td style="display: none" class="encryptedloanid">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.CompletedLoansItems[ i ].CompletedLoansViewItems[ 0 ].LoanId.ToString(), EncriptionKeys.Default ) )</td>
+                        <td>
+                        <span class="@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LicenseExpiredClass" title="@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LicenseExpiredMessage">
+                            @Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ConciergeFullName
+                        </span>
+                        </td>
+                        <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].Alerts
+                        </td>
+                        <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].Docs
+                        </td>
+                        <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LoanNumber
+                        </td>
+                        <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].AppDate.ToString("MM/dd/yyyy")
+                        </td>
+                        <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].BorrowerFullName
+                        </td>
+                        <td>
+                            <span rel="ProgramNameToolTip,LoanId=@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LoanId.ToString()" class="PopupTrigger2 cursorhand" title="@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ProgramName">@(Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ProgramName.Length > 25 ? String.Format("{0}...", Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ProgramName.Substring(0, 23))
+                : Model.CompletedLoansItems[i].CompletedLoansViewItems[0].ProgramName) </span>
+                        </td>
+                        <td class="width100">
+                            <div class="numbersrightloanamount">@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].MortgageAmount.ToString().ToMoney()</div>
+                        </td>
+                        <td class="width100">
+                            <div class="numbersrightrate">@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].Rate.ToString("n3") %</div>
+                        </td>
+                         <td>
+                            @if (Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LockExpireDate != DateTime.MinValue)
+                            {
+                                <span class="lockExpireDate">@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LockExpireDate.ToString("MM/dd/yyyy")</span>
+                                <span class="lockExpireTime">@Model.CompletedLoansItems[i].CompletedLoansViewItems[0].LockExpireDate.ToString("hh:mm tt")</span>
+                            }
+                        </td>
+                    </tr>
+                            // Render child loans
+                            for (int j = 1; j < Model.CompletedLoansItems[i].CompletedLoansViewItems.Count; j++)
+                            {
+                                <tr class="@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].ClassCollection childloan"  id="task_@{@String.Format("{0}P{1}", i, j)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].ClassCollection', true, 'Completed')" style="display:none">
+                                    <td>
+                                        <!-- Empty Slot -->
+                                    </td>
+                                    <td>
+                                        <div class="@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].ExceptionClassCollection exceptionIcon">
+                                        </div>
+                                    </td>
+                                    <td style="display: none" class="loanid">@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].LoanId
+                                    </td>
+                                    <td>
+                                    
+                                    </td>
+                                    <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].Alerts
+                                    </td>
+                                    <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].Docs
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].AppDate.ToString("MM/dd/yyyy")
+                                    </td>
+                                    <td>@Model.CompletedLoansItems[i].CompletedLoansViewItems[j].BorrowerFullName
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                     <td>
+                                        
+                                    </td>   
+                                </tr>                               
+                            }
+                        }
+                    }
+                }
+            </table>
+        </div>
+        <div class="todolistfooter">
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+                @if (Model.TotalItems != 0)
+                {     
+                    @(((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage * 10 - 9) <span>-</span> @(((MML.Web.LoanCenter.Helpers.Utilities.CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage * 10 - (10 - @Model.CompletedLoansItems.Count)) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+                }
+                else if (Model.TotalItems == 0)
+                {
+                    <span>0 records</span>
+                }
+            </div>
+            @if (Model.PageCount > 1)
+            { 
+                <div id="pagingDiv" class="normalfont left20">
+                    @if (Model.TotalItems != 0)
+                    {
+                        if (((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage != 1)
+                        {               
+                        <a href="javascript:void(0)" onclick="CompletedLoansGrid.CompletedLoansDataHelper('command=CompletedLoansGridPaging,Page=@(((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage - 1)')">
+                            <div class="leftarrow">
+                            </div>
+                        </a>
+                        }
+                        else
+                        {
+                        <div class="leftarrow">
+                        </div>
+                        }
+                        <div class="left1010">
+                            @if (Model.CurrentPage > 10)
+                            {
+                                @Ajax.ActionLink("...", "Execute", "Command", new
+                           {
+                               Command = String.Format("CompletedLoansGridPaging,Page={0}",
+                                 (Model.PageCount >= ((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage - 10) ?
+                                 ((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage - 10 :
+                                 Model.PageCount)
+                           },
+                                                                                                                                               new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('Page, plusTen')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('Page, plusTen')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('Page, plusTen')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Page, plusTen')" }, new { @class = "page" })
+                            }
+                            @for (int j = Model.StartPage; j <= Model.EndPage; j++)
+                            {
+                                if (j != ((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage)
+                                { 
+                                @Ajax.ActionLink(String.Format("{0} ", j), "Execute", "Command", new { Command = String.Format("CompletedLoansGridPaging,Page={0}", j) },
+                                                                                                                                                                                                                              new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format("CompletedLoansGrid.CompletedLoansDataOnFailure('Page{0}')", j), OnComplete = String.Format("CompletedLoansGrid.CompletedLoansDataOnComplete('Page{0}')", j), OnBegin = String.Format("CompletedLoansGrid.CompletedLoansDataOnBegin('Page{0}')", j), OnSuccess = String.Format("CompletedLoansGrid.CompletedLoansDataOnSuccess('Page{0}')", j) }, new { @class = "page" })
+                                }
+                                else
+                                { 
+                                @Ajax.ActionLink(String.Format("{0} ", j), "Execute", "Command", new { Command = String.Format("CompletedLoansGridPaging,Page={0}", j) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format("CompletedLoansGrid.CompletedLoansDataOnFailure('Page{0}')", j), OnComplete = String.Format("CompletedLoansGrid.CompletedLoansDataOnComplete('Page{0}')", j), OnBegin = String.Format("CompletedLoansGrid.CompletedLoansDataOnBegin('Page{0}')", j), OnSuccess = String.Format("CompletedLoansGrid.CompletedLoansDataOnSuccess('Page{0}')", j) }, new { @class = "pageselected" })
+                                }
+                            }
+                            @if (Model.LastPageDots == false)
+                            {
+                                @Ajax.ActionLink("...", "Execute", "Command", new
+                           {
+                               Command = String.Format("CompletedLoansGridPaging,Page={0}",
+                               (Model.PageCount >= ((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage + 10) ?
+                               ((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage + 10 :
+                               Model.PageCount)
+                           },
+                                                                                                                                               new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CompletedLoansGrid.CompletedLoansDataOnFailure('Page, plusTen')", OnComplete = "CompletedLoansGrid.CompletedLoansDataOnComplete('Page, plusTen')", OnBegin = "CompletedLoansGrid.CompletedLoansDataOnBegin('Page, plusTen')", OnSuccess = "CompletedLoansGrid.CompletedLoansDataOnSuccess('Page, plusTen')" }, new { @class = "page" })
+                            }
+                        </div>
+                            if (((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage != Model.PageCount)
+                            {              
+                        <a href="javascript:void(0)" onclick="CompletedLoansGrid.CompletedLoansDataHelper('command=CompletedLoansGridPaging,Page=@(((CompletedLoansListState)HttpContext.Current.Session[SessionHelper.CompletedLoansListState]).CurrentPage + 1)')">
+                            <div class="rightarrow">
+                            </div>
+                        </a>
+                            }
+                            else
+                            { 
+                        <div class="rightarrow">
+                        </div>
+                            }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

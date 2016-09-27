@@ -1,0 +1,58 @@
+﻿<div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">A. Purchase Price of Subject Property</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="purchase.wrappedLoan.ref.fhaScenarioViewModel.purchasePrice" ng-blur="purchase.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">B. Appraisal Value of Subject Property</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-disabled="purchase.isAppraisedValueDisabled()" ng-model="purchase.wrappedLoan.ref.fhaScenarioViewModel.appraisalValue" ng-blur="purchase.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">C. Inducement to Purchase + Excess Contribution</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="purchase.wrappedLoan.ref.fhaScenarioViewModel.inducementOfPurchaseWithExcessContribution" ng-blur="purchase.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>1st Calc:</strong> LTV Limit (Lesser of (A - C) or B) * 96.5%</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{purchase.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.ltvLimit | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>2nd Calc:</strong> {{purchase.wrappedLoan.ref.getSubjectProperty().countyName}} County Limit</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{purchase.wrappedLoan.ref.fhaCountyLoanLimit | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Maximum Base Mortgage (Lesser of 1st or 2nd Calculation)</div>
+        </div>
+        <div class="right-section field-value">
+            =<span class="bold">{{purchase.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.maxBaseMortgage | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">New UFMIP (Max Base Mortgage x 1.75%)</div>
+        </div>
+        <div class="right-section field-value">
+            <span class="success">+</span><span>{{purchase.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newUFMIP | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+</div>

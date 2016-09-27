@@ -1,0 +1,114 @@
+﻿<div>
+    <div class="col-xs-12 col-sm-2 product-search-region" style="margin-left:5px;">
+        <form id="searchForm" class="form-horizontal product-search-form">
+            <!--style="border: 1px red solid;"-->
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-md-12 control-label" for="selectbasic">Loan&nbsp;Purpose</label>
+                    <div class="col-md-12">
+                        <select id="selectbasic" name="selectbasic" class="form-control loan-purpose-select" ng-model="pricingCntrl.loanPurposeType"
+                                ng-options="lp.val|number as lp.text for lp in pricingCntrl.loanPurpose"
+                                ng-click="pricingCntrl.showAdvancedSearchModal();"></select>
+                    </div>
+                </div>
+                <!--Refi Properties-->
+                <div class="form-group" ng-show="pricingCntrl.isRefi">
+                    <label class="col-md-12 control-label">Zip&nbsp;Code</label>
+                    <div class="col-md-12">
+                        <input type="text" ng-model="pricingCntrl.loan.getLoan().getSubjectProperty().zipCode"
+                               class="form-control input-md" ng-click="pricingCntrl.showAdvancedSearchModal();">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="pricingCntrl.isRefi">
+                    <label class="col-md-12 control-label">Existing&nbsp;1st&nbsp;Mortgage</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control input-md"
+                               ng-model="pricingCntrl.loan.firstMortgage"
+                               format-currency ng-click="pricingCntrl.showAdvancedSearchModal();">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="pricingCntrl.isRefi">
+                    <label class="col-md-12 control-label">Cash&nbsp;Out</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control input-md"
+                               ng-model="pricingCntrl.loan.cashOutAmount"
+                               format-currency ng-click="pricingCntrl.showAdvancedSearchModal();">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="pricingCntrl.isRefi">
+                    <label class="col-md-12 control-label" for="textinput">Estimated Property&nbsp;Value</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control input-md"
+                               ng-model="pricingCntrl.loan.getLoan().getSubjectProperty().currentEstimatedValue"
+                               format-currency ng-click="pricingCntrl.showAdvancedSearchModal();">
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="pricingCntrl.isRefi">
+                    <label class="col-md-12 control-label" for="selectbasic">Credit&nbsp;Score</label>
+                    <div class="col-md-12">
+                        <select ng-click="pricingCntrl.showAdvancedSearchModal();" id="selectbasic" name="selectbasic" class="form-control loan-purpose-select" ng-model="pricingCntrl.loan.getLoan().otherInterviewData.selectedDecisionScoreRange"
+                                ng-options="ficoScore.value as ficoScore.text for ficoScore in pricingCntrl.applicationData.lookup.ficoScore"></select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="pricingCntrl.isRefi">
+                    <label class="col-md-12 control-label" for="lblLoanAmount">Desired&nbsp;Loan&nbsp;Amount</label>
+                    <div class="col-md-12">
+                        <!--@todo: get proper CSS class-->
+                        <output id="lblLoanAmount" style="font-weight: 700; font-size: 17px">{{pricingCntrl.loan.loanAmount | currency}}</output>
+                    </div>
+                </div>
+
+                <!--Purchase Properties-->
+                <div class="form-group" ng-show="pricingCntrl.isPurch">
+                    <label class="col-md-12 control-label" for="textinput">Purchase&nbsp;Price</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control input-md"
+                               ng-model="pricingCntrl.loan.getLoan().getSubjectProperty().purchasePrice"
+                               format-currency ng-click="pricingCntrl.showAdvancedSearchModal();">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="pricingCntrl.isPurch">
+                    <label class="col-md-12 control-label" for="textinput">Down&nbsp;Payment</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control input-md"
+                                   ng-model="pricingCntrl.loan.getLoan().getSubjectProperty().purchasePrice"
+                                   format-currency ng-click="pricingCntrl.showAdvancedSearchModal();">
+                        </div>
+                </div>
+                <div class="form-group" ng-show="pricingCntrl.isPurch">
+                    <label class="col-md-12 control-label">Zip&nbsp;Code</label>
+                    <div class="col-md-12">
+                        <input type="text" ng-model="pricingCntrl.loan.getLoan().getSubjectProperty().zipCode" class="form-control input-md" ng-click="pricingCntrl.showAdvancedSearchModal();">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="pricingCntrl.isPurch">
+                    <label class="col-md-12 control-label" for="selectbasic">Credit&nbsp;Score</label>
+                    <div class="col-md-12">
+                        <select ng-click="pricingCntrl.showAdvancedSearchModal();" id="selectbasic" name="selectbasic" class="form-control loan-purpose-select" ng-model="pricingCntrl.loan.getLoan().otherInterviewData.selectedDecisionScoreRange"
+                                ng-options="ficoScore.value as ficoScore.text for ficoScore in pricingCntrl.applicationData.lookup.ficoScore"
+                                ng-click="pricingCntrl.showAdvancedSearchModal();"></select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="pricingCntrl.isPurch">
+                    <label class="col-md-12 control-label" for="lblLoanAmount">Desired&nbsp;Loan&nbsp;Amount</label>
+                    <div class="col-md-12">
+                        <!--@todo: get proper CSS class-->
+                        <output id="lblLoanAmount" style="font-weight: 700; font-size: 17px">{{pricingCntrl.loan.loanAmount | currency}}</output>
+                    </div>
+                </div>
+                <!--
+                <div><button class="btn-link" ng-click="pricingCntrl.showAdvancedSearchModal()">Show&nbsp;Advanced&nbsp;Options</button></div>
+                    -->
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-get-my-rates" ng-click="pricingCntrl.getProducts()">Get My Rates</button>
+                    </div>
+
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

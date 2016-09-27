@@ -1,0 +1,97 @@
+﻿@using MML.Contracts
+@model MML.Web.LoanCenter.ViewModels.ContactsProfileViewModel
+
+         <div class="separator">
+            <span>@ViewBag.ContactTypeSpecificTitle</span>
+        </div>     
+            
+        <div class="rowCompanyProfileContainer">
+
+            <div class="cCompanyLeft">
+                Enable Integrations
+            </div>
+
+            <div class="cCompanyRight cCompanyPositionText imp-div-contacts-rblContainer">
+                @Html.RadioButtonFor(model => model.cEmployerContact.EnableIntegrations, true, Model.cEmployerContact != null && Model.cEmployerContact.EnableIntegrations ? new { @checked = "checked", @class = "imp-radio", @id = "contactsEnableIntegrationsOn" } as object : new { @class = "imp-radio", @id = "contactsEnableIntegrationsOn" } as object) <label for="contactsEnableIntegrationsOn" class="imp-lbl-radio  "> On</label>
+                @Html.RadioButtonFor(model => model.cEmployerContact.EnableIntegrations, false, (Model.cEmployerContact != null && !Model.cEmployerContact.EnableIntegrations) || Model.cEmployerContact == null ? new { @checked = "checked", @class = "imp-radio", @id = "contactsEnableIntegrationsOff" } as object : new { @class = "imp-radio", @id = "contactsEnableIntegrationsOff" } as object)<label for="contactsEnableIntegrationsOff" class="imp-lbl-radio  "> Off</label> 
+
+            </div>
+        </div> 
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                Contact ID
+            </div>
+
+            <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cEmployerContact.WebsiteContactId )
+            </div>
+        </div>
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                Contact URL For Reference
+            </div>
+
+            <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cEmployerContact.ContactURLForReference )
+                 @Html.ValidationMessageFor( model => model.cEmployerContact.ContactURLForReference )
+            </div>
+        </div>
+                        
+        <div class="rowCompanyProfileContainer">
+            <div class="cCompanyLeft">
+                HBM ID
+            </div>
+
+            <div class="cCompanyRight">
+                @Html.EditorFor( model => model.cEmployerContact.HBMId )
+            </div>
+        </div>
+
+        <div class="separator">
+            <span>Source of Business</span>
+        </div>
+        <div class="rowCompanyProfileContainer rowCompanyProfileContainer-sec" style="width:550px;color:black;font-size:15px;">How did you hear about us ?</div>  
+        <div class="rowCompanyProfileContainer rowCompanyProfileContainer-sec" style="width:550px;">
+            <div class="rowCompanyProfileContainer-subcontainer">
+            <div class="companyProfileTop companyProfile-div-text">
+                Lead Source ID
+            </div>
+
+            <div class="companyProfileTop">
+            <input value=" @if ( Model.cEmployerContact != null && !String.IsNullOrEmpty( Model.cEmployerContact.LeadSourceId ) )
+                            {<text>Model.cEmployerContact.LeadSourceId </text>}" readonly="readonly"/>
+
+            </div>
+        </div>
+            <div  class="rowCompanyProfileContainer-subcontainer">
+                <div class="companyProfileTop-sec companyProfile-div-text">
+                    Description
+                </div>
+
+                <div class="companyProfileTop-sec">
+                    @Html.EditorFor( model => model.cEmployerContact.Description )
+                    @Html.ValidationMessageFor( model => model.cEmployerContact.Description )
+                </div>
+        </div>
+
+        <div class="rowCompanyProfileContainer-subcontainer">
+            <div class="companyProfileTop companyProfile-div-text">
+                CRM Campaign
+            </div>
+
+            <div class="companyProfileTop">
+                @Html.EditorFor( model => model.cEmployerContact.CRMCampaignId )
+                @Html.ValidationMessageFor( model => model.cEmployerContact.CRMCampaignId )
+            </div>
+        </div>
+          <div class="rowCompanyProfileContainer rowCompanyProfileContainer-sec">
+                <div class="divcContactProfileDeactiveSection">
+                <span>Deactivate</span>   
+                @Html.EditorFor( x => x.cEmployerContact.Deactivated )</div>
+           </div>
+        </div>
+            
+
+
+                        
+

@@ -1,0 +1,81 @@
+﻿<div class="alert-preferences">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center">Alert Preferences</div>
+                <div class="row section-content">
+                    <div class="col-md-5 col-md-offset-1 col-lg-4 col-lg-offset-2">
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-3">
+                                <div class="checkbox section-subtitle-lg">
+                                    <input type="checkbox" id="allowEmail" ng-model="alertPrefCntrl.enableEmailAlerts">
+                                    <label for="allowEmail"> Email Alerts</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-3">
+                                <input type="email" class="form-control" placeholder="email 1" ng-disabled="!alertPrefCntrl.enableEmailAlerts" ng-model="alertPrefCntrl.alertEmails[0]">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-3">
+                                <input type="email" class="form-control" placeholder="email 2" ng-disabled="!alertPrefCntrl.enableEmailAlerts" ng-model="alertPrefCntrl.alertEmails[1]">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-3">
+                                <input type="email" class="form-control" placeholder="email 3" ng-disabled="!alertPrefCntrl.enableEmailAlerts" ng-model="alertPrefCntrl.alertEmails[2]">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-4">
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-2">
+                                <div class="checkbox section-subtitle-lg">
+                                    <input type="checkbox" id="allowMobile" ng-model="alertPrefCntrl.enableMobileAlerts">
+                                    <label for="allowMobile">Mobile Alerts</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-2">
+                                <input type="text" class="form-control"
+                                       ng-disabled="!alertPrefCntrl.enableMobileAlerts"
+                                       ng-model="alertPrefCntrl.alertMobiles[0]"
+                                       ui-mask="(999) 999-9999"
+                                       placeholder="(___) ___-____" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-2">
+                                <input type="text" class="form-control"
+                                       ng-disabled="!alertPrefCntrl.enableMobileAlerts"
+                                       ng-model="alertPrefCntrl.alertMobiles[1]"
+                                       ui-mask="(999) 999-9999"
+                                       placeholder="(___) ___-____" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-2 col-lg-7 col-lg-offset-2">
+                                <input type="text" class="form-control"
+                                       ng-disabled="!alertPrefCntrl.enableMobileAlerts"
+                                       ng-model="alertPrefCntrl.alertMobiles[2]"
+                                       ui-mask="(999) 999-9999"
+                                       placeholder="(___) ___-____" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="alertPrefCntrl.enableMobileAlerts">
+                    <div class="row section-content center">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="section-subtitle-lg">You will be sent activation codes to your mobile devices. Please confirm activation by entering these codes on the next page.</div>
+                            <div class="section-content section-subtitle-xs">By checking the Mobile Alerts box, I consent to receive periodic phone calls and/or text messages about services from partners of NewLeaf Lending Alerts at the phone number provided, including a wireless number using automated technology. Messaging frequency will be dsent will I understand that message/data rates may apply. Submitting this form is required for NewLeaf Lending Alerts partners to contact me, without obligation to engage with their brand. If you wish to stop receiving text messages from New Leaf Lending Alerts you may opt out at any time by unchecking the Mobile Alerts check box or texting STOP to cancel.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

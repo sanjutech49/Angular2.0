@@ -1,0 +1,6 @@
+﻿<div class="sub-col-l">
+    <div class="imp-icon-lock" ng-if="loanCost.canBeLocked && (loanCost.isLocked && !loanCost.editMode || loanCost.editMode)"
+         ng-class="{'un': !loanCost.isLocked}" ng-click="loanCost.isLocked = !loanCost.isLocked"
+         ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields">
+    </div>
+</div> 

@@ -1,0 +1,169 @@
+﻿<div class="imp-popover imp-body edit-section-seven">
+    
+    <div class="header">Edit Section VII - Details of Transaction</div>
+    
+    <div class="body" ng-switch on="modalpopoverCtrl.model.loanPurposeType">
+
+        <div class="item">
+
+            <div class="text">
+
+                Loan Amount
+
+            </div>
+
+            <div class="field">
+
+                <input type="text" ng-model="modalpopoverCtrl.model.loanAmount" ng-blur="modalpopoverCtrl.ctrl.downPaymentRules(modalpopoverCtrl.model, 'LoanAmount');" imp-currency />
+
+            </div>
+
+        </div>
+
+        <!--Refinance section-->
+        <div class="refinance" ng-switch-when="2">
+
+            <div class="item">
+
+                <div class="text">
+
+                    Estimated Value
+
+                </div>
+
+                <div class="field">
+
+                    <input type="text" ng-model="modalpopoverCtrl.model.subjectProperty.currentEstimatedValue" imp-currency />
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="text">
+
+                    Cash Out
+
+                </div>
+
+                <div class="field">
+
+                    <div class="input-group" style="width: 158px;">
+                        <input type="text" class="form-control" value="" ng-model="modalpopoverCtrl.model.financialInfo.cashOutAmount" ng-change="modalpopoverCtrl.ctrl.onCashoutChange()"imp-currency />
+                        <span class="input-group-btn" style="width: 0;"></span>
+                        <div class="imp-span-ddl-container medium select-picker" style="width: 75px;">
+                            <select class="imp-ddl" ng-model="modalpopoverCtrl.model.financialInfo.cashOut" ng-options="dpt.value as dpt.text for dpt in modalpopoverCtrl.ctrl.applicationData.lookup.cashoutDropdownOptions"></select>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="text">
+
+                    Purchase Date
+
+                </div>
+
+                <div class="field">
+
+                    <input type="text" placeholder="mm/dd/yyyy" class="form-control" ng-model="modalpopoverCtrl.model.subjectProperty.purchaseDate" imp-date imp-select-on-click />
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="text">
+
+                    Original Purchase Price
+
+                </div>
+
+                <div class="field">
+
+                    <input type="text" ng-model="modalpopoverCtrl.model.subjectProperty.purchasePrice" imp-currency />
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--Purchase section-->
+        <div class="purchase" ng-switch-when="1">
+
+            <div class="item">
+
+                <div class="text">
+
+                    Purchase Price
+
+                </div>
+
+                <div class="field">
+
+                    <input type="text" ng-model="modalpopoverCtrl.model.subjectProperty.purchasePrice" ng-blur="modalpopoverCtrl.ctrl.downPaymentRules(modalpopoverCtrl.model, 'PurchasePrice');" imp-currency />
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="text">
+
+                    Down Payment
+
+                </div>
+
+                <div class="field">
+
+                    <div class=" input-group" style="width:158px;">
+                        <input type="text" ng-model="modalpopoverCtrl.model.downPayment" ng-blur="modalpopoverCtrl.ctrl.downPaymentRules(modalpopoverCtrl.model, 'DownPayment');" imp-currency />
+                        <span class="input-group-btn" style="width:0px;"></span>
+                        <input type="text" class="form-control unit" ng-model="modalpopoverCtrl.model.downPaymentPercent"
+                               ng-blur="modalpopoverCtrl.ctrl.downPaymentRules(modalpopoverCtrl.model, 'DownPaymentPercentage')" imp-percentage return-float="true" style="float:none;  width:55px;" />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="text">
+
+                    Down Payment Source
+
+                </div>
+
+                <div class="field">
+
+                    <div class="imp-span-ddl-container medium select-picker" style="width: 158px; margin-left:0px;">
+                        <select class="imp-ddl"
+                                ng-model="modalpopoverCtrl.model.financialInfo.downPaymentTypeCode"
+                                ng-options="dpt.value as dpt.text for dpt in modalpopoverCtrl.ctrl.applicationData.lookup.downPaymentSourcesTypes"></select>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    <div class="buttons">
+        <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+        <div class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Done</div>
+    </div>
+
+</div>

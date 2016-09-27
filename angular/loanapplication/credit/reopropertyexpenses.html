@@ -1,0 +1,169 @@
+﻿<div class="title">
+    Property Expenses
+</div>
+<div class="line"></div>
+<br>
+
+<div class="section section-property-expenses">
+
+    <div class=" row">
+        <div class="col-xxxl"> Property Tax</div>
+        <div class="col-xxxxxl">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="$" name="propertyTax"
+                       ng-model="realEstateItemCtrl.propertyTax"
+                       ng-model-options="{ getterSetter: true, updateOn: 'blur' }"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isLienPositionFirstValidation() && !realEstateItemCtrl.propertyTax() && realEstateItemCtrl.pledgedAssetModel.borrowerDebtCommentId != 1}"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()" imp-currency="">
+                <span class="input-group-btn" style="width: 0px;"></span>
+
+                <div class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short-4" ng-class="{'disabled' : realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()}">
+                    <!-- ng-class was removed because validation dont need to affect select box -->
+                    <select class="imp-ddl imp-ddl-short"
+                            ng-change="realEstateItemCtrl.propertyTaxPayPeriodChanged()"
+                            ng-model="realEstateItemCtrl.propertyTaxExpense.preferredPayPeriod"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lookup.propertyExpensesPayPeriods"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxxl">
+            Home Owner Ins.
+        </div>
+        <div class="col-xxxxxl">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="$"
+                       ng-model="realEstateItemCtrl.homeOwner"
+                       ng-model-options="{ getterSetter: true, updateOn: 'blur' }"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isLienPositionFirstValidation() && (realEstateItemCtrl.homeOwner() == 0 ? false : !realEstateItemCtrl.homeOwner())}"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"
+                       imp-currency="">
+                <span class="input-group-btn" style="width:0px;"></span>
+
+                <div class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short-4" ng-class="{'disabled' :  realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()}">
+                    <select class="imp-ddl imp-ddl-short"
+                            ng-change="realEstateItemCtrl.homeOwnerPayPeriodChanged()"
+                            ng-model="realEstateItemCtrl.homeOwnerExpense.preferredPayPeriod"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lookup.propertyExpensesPayPeriods"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xxxl">
+            Flood Insurance
+        </div>
+        <div class="col-xxxxxl">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="$"
+                       ng-model="realEstateItemCtrl.floodInsurance"
+                       ng-model-options="{ getterSetter: true, updateOn: 'blur' }"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"
+                       imp-currency="">
+                <span class="input-group-btn" style="width:0px;"></span>
+
+                <div class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short-4" ng-class="{'disabled' :  realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()}">
+                    <select class="imp-ddl imp-ddl-short"
+                            ng-change="realEstateItemCtrl.floodInsurancePayPeriodChanged()"
+                            ng-model="realEstateItemCtrl.floodInsuranceExpense.preferredPayPeriod"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lookup.propertyExpensesPayPeriods"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="realEstateItemCtrl.isLoanHarp && realEstateItemCtrl.pledgedAssetModel.property.doYouPayMortgageInsurance">
+        <div class="col-xxxl" style="margin-top:0px">&nbsp;</div>
+        <div class="col-xxxxxl">&nbsp;&nbsp;&nbsp;</div>
+    </div>
+</div>
+
+
+<div class="section section-property-expenses">
+
+    <div class="row">
+        <div class="col-xxxl"> HOA Dues </div>
+        <div class="col-xxxxxl">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="$"
+                       ng-model="realEstateItemCtrl.hoaDues"
+                       ng-model-options="{ getterSetter: true, updateOn: 'blur' }"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isLienPositionFirstValidation() && (realEstateItemCtrl.pledgedAssetModel.getProperty().propertyType == 2 || realEstateItemCtrl.pledgedAssetModel.getProperty().propertyType == 3)
+                                  && !realEstateItemCtrl.hoaDues() && realEstateItemCtrl.pledgedAssetModel.borrowerDebtCommentId != 1}"
+                       imp-currency="">
+                <span class="input-group-btn" style="width:0px;"></span>
+
+                <div class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short-4" ng-class="{'disabled' :  realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()}">
+                    <select class="imp-ddl imp-ddl-short"
+                            ng-change="realEstateItemCtrl.hoaDuesPayPeriodChanged()"
+                            ng-model="realEstateItemCtrl.hoaDuesExpense.preferredPayPeriod"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lookup.propertyExpensesPayPeriods"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"></select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="realEstateItemCtrl.isLoanHarp">
+        <div>
+            <div class="col-xxxl" style="margin-top:0px">
+                Do you currently have mortgage insurance?
+            </div>
+            <div class="col-xxxxxl">
+
+                <input type="radio" class="imp-radio" ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().doYouPayMortgageInsurance"
+                       ng-value="1" ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()" />
+                <label ng-click="realEstateItemCtrl.harpMortgageInsuranceChanged(1)" class="imp-lbl-radio">Yes</label>
+
+                <input type="radio" class="imp-radio" ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().doYouPayMortgageInsurance"
+                       ng-value="0" ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()" />
+                <label ng-click="realEstateItemCtrl.harpMortgageInsuranceChanged(0)" class="imp-lbl-radio">No</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xxxl">
+            Mortgage Ins.
+        </div>
+        <div class="col-xxxxxl">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="$"
+                       ng-model="realEstateItemCtrl.mortgageInsurance"
+                       name="mortgageInsurance"
+                       ng-change="showHarpMIlabel = true"
+                       ng-model-options="{ getterSetter: true, updateOn: 'blur' }"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.pledgedAssetModel.borrowerDebtCommentId == 1 || realEstateItemCtrl.disableMortgageInsurance || realEstateItemCtrl.addressNotSelected()"
+                       imp-currency="">
+                <span class="input-group-btn" style="width:0px;"></span>
+
+                <div class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short-4" ng-class="realEstateItemCtrl.getMortgageInsurancePreferredPayPeriodStyle(formRealEstateInformation)">
+                    <select class="imp-ddl imp-ddl-short" ng-class="realEstateItemCtrl.getMortgageInsurancePreferredPayPeriodStyle(formRealEstateInformation)"
+                            ng-change="realEstateItemCtrl.mortgageInsurancePayPeriodChanged()"
+                            ng-model="realEstateItemCtrl.mortgageInsuranceExpense.preferredPayPeriod"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.lookup.propertyExpensesPayPeriods"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.pledgedAssetModel.borrowerDebtCommentId == 1 || realEstateItemCtrl.disableMortgageInsurance || realEstateItemCtrl.addressNotSelected()"></select>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    
+    <div ng-show="realEstateItemCtrl.isLoanHarp  && realEstateItemCtrl.pledgedAssetModel.property.doYouPayMortgageInsurance ">
+        <div class="col-xxxl" style="margin-top:0px"></div>
+        <div ng-if="!showHarpMIlabel" class="col-xxxxxl imp-text-enhanced-color">&nbsp;&nbsp;</div>
+        <div ng-show="showHarpMIlabel && realEstateItemCtrl.mortgageInsurance " class="col-xxxxxl imp-text-enhanced-color">Current MI will carry over to new loan</div>
+    </div>
+   
+    <div class="row" ng-show="!realEstateItemCtrl.isLoanHarp">
+    </div>
+
+</div>
+

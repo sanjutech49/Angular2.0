@@ -1,0 +1,202 @@
+﻿@model MML.Web.LoanCenter.ViewModels.OfficerTasksViewModel
+@using Telerik.Web.Mvc.UI
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div class="fleft">
+                <span id="currentWorkQueueType" class="namelink">@MML.Common.Helpers.EnumHelper.GetStringValue(((MML.Web.LoanCenter.Helpers.Utilities.OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).BoundDate)<span>'s
+                    To Do List</span></span></div>
+            <div class="smallarrow">
+            </div>
+        </div>
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.TotalItems.ToString()</span> <span class="font15">Tasks</span>
+        </div>
+        <div class="right1">
+            <div class="left1">
+                <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@(MML.Common.Helpers.EnumHelper.GetStringValue(((MML.Web.LoanCenter.Helpers.Utilities.OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).BoundDate))</span>
+            </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul>
+                                <li></li>
+                                <li id="ftoday" class="lower">@Ajax.ActionLink("Today", "Execute", "Command", new { Command = "TaskGridDateFilter,DateFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Today')" }, new { id = "aftoday" })</li>
+                                <li id="ftomorrow" class="lower">@Ajax.ActionLink("Tomorrow", "Execute", "Command", new { Command = "TaskGridDateFilter,DateFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Tomorrow')" }, new { id = "aftomorrow" })</li>
+                                <li id="fthisweek" class="lower">@Ajax.ActionLink("This Week", "Execute", "Command", new { Command = "TaskGridDateFilter,DateFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "TaskGrid.OfficerDataOnSuccess('This Week')" }, new { id = "afthisweek" })</li>
+                                <li id="fnextweek" class="lower">@Ajax.ActionLink("Next Week", "Execute", "Command", new { Command = "TaskGridDateFilter,DateFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Next Week')" }, new { id = "afnextweek" })</li>
+                                <li id="fthismonth" class="lower">@Ajax.ActionLink("This Month", "Execute", "Command", new { Command = "TaskGridDateFilter,DateFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "TaskGrid.OfficerDataOnSuccess('This Month')" }, new { id = "afthismonth" })</li>
+                                <li id="fallopen" class="lower">@Ajax.ActionLink("All Open", "Execute", "Command", new { Command = "TaskGridDateFilter,DateFilter=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "TaskGrid.OfficerDataOnSuccess('All Open')" }, new { id = "afallopen" })</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday" title="Minimize/Maximize Section">
+                    <div id="minmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="listandpage">
+        <div class="todolistcontent">
+            <table class="tasktable">
+                <tr class="tasktablesubjects">
+                    <td class="t0">
+                    </td>
+                    <td style="display: none">
+                    </td>
+                    <td class="t1">@Ajax.ActionLink("Date", "Execute", "Command", new { Command = "TaskGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Date')", OnComplete = "TaskGrid.OfficerDataOnComplete('Date')", OnBegin = "TaskGrid.OfficerDataOnBegin('Date')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Date')" })
+                    </td>
+                    <td class="t2">@Ajax.ActionLink("Time", "Execute", "Command", new { Command = "TaskGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Time')", OnComplete = "TaskGrid.OfficerDataOnComplete('Time')", OnBegin = "TaskGrid.OfficerDataOnBegin('Time')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Time')" })
+                    </td>
+                    <td class="t3">@Ajax.ActionLink("Due Date", "Execute", "Command", new { Command = "TaskGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Due Date')", OnComplete = "TaskGrid.OfficerDataOnComplete('Due Date')", OnBegin = "TaskGrid.OfficerDataOnBegin('Due Date')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Due Date')" })
+                    </td>
+                    <td class="t4">@Ajax.ActionLink("Subject/Task", "Execute", "Command", new { Command = "TaskGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Subject/Task')", OnComplete = "TaskGrid.OfficerDataOnComplete('Subject/Task')", OnBegin = "TaskGrid.OfficerDataOnBegin('Subject/Task')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Subject/Task')" })
+                    </td>
+                    <td class="t5">@Ajax.ActionLink("Contact", "Execute", "Command", new { Command = "TaskGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Contact')", OnComplete = "TaskGrid.OfficerDataOnComplete('Contact')", OnBegin = "TaskGrid.OfficerDataOnBegin('Contact')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Contact')" })
+                    </td>
+                    <td class="t6">@Ajax.ActionLink("Loan Purpose", "Execute", "Command", new { Command = "TaskGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Loan Purpose')", OnComplete = "TaskGrid.OfficerDataOnComplete('Loan Purpose')", OnBegin = "TaskGrid.OfficerDataOnBegin('Loan Purpose')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Loan Purpose')" })
+                    </td>
+                    <td class="t7">@Ajax.ActionLink("Status", "Execute", "Command", new { Command = "TaskGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Status')", OnComplete = "TaskGrid.OfficerDataOnComplete('Status')", OnBegin = "TaskGrid.OfficerDataOnBegin('Status')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Status')" })
+                    </td>
+                    <td class="t8" colspan="2">@Ajax.ActionLink("Last Activity On", "Execute", "Command", new { Command = "TaskGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Last Activity On')", OnComplete = "TaskGrid.OfficerDataOnComplete('Last Activity On')", OnBegin = "TaskGrid.OfficerDataOnBegin('Last Activity On')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Last Activity On')" })
+                    </td>
+                    <td class="t9">@Ajax.ActionLink("Owner", "Execute", "Command", new { Command = "TaskGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Owner')", OnComplete = "TaskGrid.OfficerDataOnComplete('Owner')", OnBegin = "TaskGrid.OfficerDataOnBegin('Owner')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Owner')" })
+                    </td>
+                </tr>
+                @if (Model.OfficerTasks != null)
+                {
+                    for (int i = 0; i < Model.OfficerTasks.Count; i++)
+                    {
+                        <tr class="@Model.OfficerTasks[i].ClassCollection" id="task @i" onclick="SelectedTask('@i','@Model.OfficerTasks[i].ClassCollection')">
+                            <td>
+                                <div class="biggreen" id="arrowdiv @i">
+                                </div>
+                            </td>
+                            <td style="display: none" class="taskid">@Model.OfficerTasks[i].TaskId</td>
+                            <td>@Model.OfficerTasks[i].DateAndTime.ToString("MM/dd/yyyy")
+                            </td>
+                            <td class="time">@Model.OfficerTasks[i].DateAndTime.ToString("h:mm tt")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td class="duedatered">@Model.OfficerTasks[i].DueDate.ToString("MM/dd/yyyy")
+                            </td>
+                            <td>
+                                <span rel="TaskSubjectTooltip,TaskId=@Model.OfficerTasks[i].TaskId" class="PopupTrigger cursorhand">@Model.OfficerTasks[i].Subject</span>
+                            </td>
+                            <td>
+                                <span rel="TaskContactTooltip,TaskId=@Model.OfficerTasks[i].TaskId" class="PopupTrigger cursorhand">@(StringHelper.FormatStringForDisplay(Model.OfficerTasks[i].ContactFirstName) + " " + StringHelper.FormatStringForDisplay(Model.OfficerTasks[i].ContactLastName))</span>
+                            </td>
+                            <td>
+                                <span rel="TaskLoanPurposeTooltip,TaskId=@Model.OfficerTasks[i].TaskId" class="PopupTrigger cursorhand">@(MML.Common.Helpers.EnumHelper.GetStringValue(Model.OfficerTasks[i].LoanType))</span>
+                            </td>
+                            <td>@(MML.Common.Helpers.EnumHelper.GetStringValue(Model.OfficerTasks[i].Status))
+                            </td>
+                            <td>@Model.OfficerTasks[i].LastActivityOn.ToString("MM/dd/yyyy") 
+                            </td>
+                            <td class="time">@Model.OfficerTasks[i].LastActivityOn.ToString("h:mm tt") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                             @Html.Telerik().DropDownListFor(m => m.OfficerTasks[i].OwnerId).Name(i.ToString()).BindTo(new SelectList(Model.TaskOwners, "Value", "Text", Model.OfficerTasks[i].OwnerId)).ClientEvents(events => events.OnChange("ChangeOwner")).HtmlAttributes(new { @class = "t-grid-header2" })
+                            </td>
+                        </tr>		        
+                    }
+                }
+            </table>
+        </div>
+        <div class="todolistfooter">
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+                @if (Model.TotalItems != 0)
+                {     
+                    @((((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage) * 10 - 9) <span>-</span> @((((MML.Web.LoanCenter.Helpers.Utilities.OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage) * 10 - (10 - @Model.OfficerTasks.Count)) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+                }
+                else if (Model.TotalItems == 0)
+                {
+                    <span>0 records</span>
+                }
+            </div>
+            @if (Model.PageCount > 1)
+            { 
+                <div id="pagingDiv" class="normalfont left20">
+                    @if (Model.TotalItems != 0)
+                    {
+                        if ((((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage) != 1)
+                        {
+                         <a href="javascript:void(0)" onclick="TaskGrid.OfficerDataHelper('Command=TaskGridPaging,Page=@((((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage) - 1)')">    
+                            <div class="leftarrow">
+                            </div>
+                        </a>
+                        }
+                        else
+                        {
+                        <div class="leftarrow">
+                        </div>
+                        }
+                        <!-- begin number of pages -->
+                   
+                        <div class="left1010">
+
+                                @if (Model.CurrentPage > 10)
+                                {
+                                    @Ajax.ActionLink("...", "Execute", "Command", new
+                               {
+                                   Command = String.Format("TaskGridPaging,Page={0}",
+                                   (Model.PageCount >= ((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage - 10) ?
+                                               ((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage - 10 :
+                                               Model.PageCount)
+                               },
+                                    new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Page, plusTen')", OnComplete = "TaskGrid.OfficerDataOnComplete('Page, plusTen')", OnBegin = "TaskGrid.OfficerDataOnBegin('Page, plusTen')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Page, plusTen')" }, new { @class = "page" })
+                                }
+           
+
+                                @for (int j = Model.StartPage; j <= Model.EndPage; j++)
+                                {
+                                    if (j != (((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage))
+                                    { 
+                                        @Ajax.ActionLink(String.Format("{0} ", j), "Execute", "Command", new { Command = String.Format("TaskGridPaging,Page={0}", j) },
+                                            new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format("TaskGrid.OfficerDataOnFailure('Page{0}')", j), OnComplete = String.Format("TaskGrid.OfficerDataOnComplete('Page{0}')", j), OnBegin = String.Format("TaskGrid.OfficerDataOnBegin('Page{0}')", j), OnSuccess = String.Format("TaskGrid.OfficerDataOnSuccess('Page{0}')", j) }, new { @class = "page" })
+                                    }
+                                    else
+                                    { 
+                                        @Ajax.ActionLink(String.Format("{0} ", j), "Execute", "Command", new { Command = String.Format("TaskGridPaging,Page={0}", j) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format("TaskGrid.OfficerDataOnFailure('Page{0}')", j), OnComplete = String.Format("TaskGrid.OfficerDataOnComplete('Page{0}')", j), OnBegin = String.Format("TaskGrid.OfficerDataOnBegin('Page{0}')", j), OnSuccess = String.Format("TaskGrid.OfficerDataOnSuccess('Page{0}')", j) }, new { @class = "pageselected" })
+                                    }
+                                }
+
+                            @if (Model.LastPageDotsTask == false)
+                            {
+                                @Ajax.ActionLink("...", "Execute", "Command", new
+                           {
+                               Command = String.Format("TaskGridPaging,Page={0}",
+                               (Model.PageCount >= ((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage + 10) ?
+                                   ((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage + 10 :
+                                   Model.PageCount)
+                           },
+                                    new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "TaskGrid.OfficerDataOnFailure('Page, plusTen')", OnComplete = "TaskGrid.OfficerDataOnComplete('Page, plusTen')", OnBegin = "TaskGrid.OfficerDataOnBegin('Page, plusTen')", OnSuccess = "TaskGrid.OfficerDataOnSuccess('Page, plusTen')" }, new { @class = "page" })
+                            }
+           
+                        </div>
+                
+                        <!-- end number of pages -->
+                
+                            if ((((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage) != Model.PageCount)
+                            { 
+                        <a href="javascript:void(0)" onclick="TaskGrid.OfficerDataHelper('Command=TaskGridPaging,Page=@((((OfficerTaskListState)HttpContext.Current.Session["OfficerTaskListState"]).CurrentPage) + 1)')">   
+                            <div class="rightarrow">
+                            </div>
+                        </a>
+                            }
+                            else
+                            { 
+                        <div class="rightarrow">
+                        </div>
+                            }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿<div class="imp-modal flayout">
+    <div class="header">
+        <span class="imp-text-enhanced-color" style="font-weight: bold">Documents for Loan {{importDocCtrl.loanNumber}} {{importDocCtrl.borrowerName}}</span>
+    </div>
+    <div class="imp-split"></div>
+    <br />
+    <div style="width: 93%; margin-left: 40px">
+        <imp-doc-vault is-flyout="true"
+                       show-error-container="docVault.showErrorContainer"
+                       show-loader="docVault.showLoader"
+                       grouped-documents="importDocCtrl.groupedDocuments.ref"
+                       format-category-name="importDocCtrl.formatCategoryName(ctgName)"
+                       toggle-grid="importDocCtrl.toggleGrid(shouldToggleFlag)"
+                       select-disabled="false"
+                       document-selected-changed="importDocCtrl.documentSelectedChanged(ctgName, doc)"
+                       download-document="importDocCtrl.downloadDocument(docId)"
+                       open-menu="importDocCtrl.openDocVaultFlyoutMenu(event, doc)"
+                       show-document-history="docVault.showDocumentHistory(event, doc)"
+                       select-all="importDocCtrl.selectAll(ctgName)"
+                       unselect-all="importDocCtrl.unselectAll(ctgName)">
+        </imp-doc-vault>
+    </div>
+    <div style="width: 1076px; margin-left: 40px; border-top: 1px solid #c6c6c6">
+    </div>
+    <div class="imp-split" style="padding-top: 90px"></div>
+    <div class="buttons" style="padding-top: 20px; margin-left: 40px">
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel" ng-click="importDocCtrl.cancel()" />
+        <input type="button" class="imp-button-hm-wl-prim" style="padding-left: 40px; padding-right: 40px" value="Import" ng-disabled="importDocCtrl.importDisabled()" ng-click="importDocCtrl.importDocs()" />
+    </div>
+</div>

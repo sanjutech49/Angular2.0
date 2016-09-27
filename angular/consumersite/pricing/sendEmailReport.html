@@ -1,0 +1,67 @@
+﻿<center>
+    <div id="dvSendReport">
+
+
+        <div class="container-fluid property-information col-xs-12">
+            <div class="col-xs-6 ">
+                <span style="font-weight:bold;font-size:20pt;"> Send My Report!</span>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">&nbsp;</div>
+            <div class="col-xs-6">
+                This will send you a detailed comparison of your favorite loans.
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">&nbsp;</div>
+            <div class="col-xs-6">
+                <input id="txtEmailAddress" class="input" placeholder="My Email Address" type="text" ng-model="sendEmailReportCntrl.emailAddress" ng-minlength="1" required />
+            </div>
+
+            <div class="row">&nbsp;</div>
+            <div class="col-xs-6">
+                <input id="txtFirstName" placeholder="First Name" type="text" ng-model="sendEmailReportCntrl.firstName" ng-minlength="1" required />
+            </div>
+
+            <div class="row">&nbsp;</div>
+            <div class="col-xs-6">
+                <input id="txtLastName" placeholder="Last Name" type="text" ng-model="sendEmailReportCntrl.lastName" ng-minlength="1" required />
+            </div>
+
+            <div class="row">&nbsp;</div>
+            <div class="col-xs-6">
+                <input id="txtAdditionalRecipients" placeholder="Additional Recipient Email Address" type="text" ng-model="sendEmailReportCntrl.additionalRecipients" />
+            </div>
+
+            <div class="row">&nbsp;</div>
+
+            <div class="col-xs-6" style="margin-top:5px;">
+
+                <div class="row section-content left">
+                    <button class="btn btn-secondary"><i class="fa fa-plus-circle"></i> Add More Recipients</button>
+
+                </div>
+
+            </div>
+
+            <div class="row">&nbsp;</div>
+
+            <div class="col-xs-6" style="margin-left:290px;">
+                <div class="col-xs-1">
+                    <div class="row section-content center">
+                        <button class="btn btn-primary"><i class="fa fa-plus-circle"></i> Send </button>
+
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="row section-content center">
+                        <button class="btn btn-secondary" ng-click="pricingCntrl.clickCancelSendReportClick()"><i class="fa fa-plus-circle"></i> Cancel</button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</center>

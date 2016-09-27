@@ -1,0 +1,43 @@
+﻿<div class="unit-control property-details-contrl">
+    <div class="unit-body">
+    <div class="item">
+        <div class="left-side">Property Rights</div>
+        <div class="right-side">
+            <div class="imp-select-to-span-container medium">
+                <select class="imp-ddl ng-pristine ng-valid ng-touched imp-ddl imp-select-to-span"
+                        style="width:200px; background-color: transparent;" ng-disabled="true"
+                        ng-model="propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyRights"
+                        ng-options="dpt.value as dpt.text for dpt in propertyInfo.applicationData.lookup.propertyRights"></select>
+            </div>
+    </div>
+    </div>
+    <div class="item" style="height: 86px">
+        <div class="left-side">Legal Desicription</div>
+        <div class="right-side">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().shortLegal}}&nbsp;</div>
+    </div>
+    <div class="item">
+        <div class="left-side">Project Type</div>
+        <div class="right-side">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().projectType}}&nbsp;</div>
+    </div>
+    <div class="item">
+        <div class="left-side">Project Name</div>
+        <div class="right-side">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().projectName}}&nbsp;</div>
+    </div>
+    <div class="item" style="height: 105px">
+        <div class="left-side">CPM Project ID#</div>
+        <div class="right-side">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().projectId}}&nbsp;</div>
+    </div>
+    <div class="item">
+        <div class="left-side">Property Review</div>
+        <div class="right-side">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyReview}}&nbsp;</div>
+    </div>
+    <div class="item">
+        <div class="left-side">Form Number</div>
+        <div class="right-side">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().formNumber}}&nbsp;</div>
+    </div>
+    <div class="item">
+        <div class="left-side">Property Form Type</div>
+        <div class="right-side">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyFormType}}&nbsp;</div>
+    </div>
+</div>
+</div>

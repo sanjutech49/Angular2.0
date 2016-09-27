@@ -1,0 +1,33 @@
+﻿@using MML.Web.LoanCenter.Helpers.Utilities
+@{
+    ViewBag.Title = "_getStarted";
+}
+@model MML.Web.LoanCenter.Models.GetStarted
+<div class="getstarteddiv completesection">
+    <div class="getstartedhead" id="getstartedhead">
+        <div class="left0">
+            <span class="namelink">@Model.SectionTitle</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="closeIFrame" class="xclose" title="Close Section" onclick="CloseCommandSection()"></a>
+                <a id="minimizestartnewprospect" class="minimizesection" title="Minimize/Maximize Section">
+                    <div id="startnewprospectminmax" class="minmax min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="getstartedcontent" class="getstartedcontent maincontent">
+        <div id="borrowerEmbeddedFrameLoading" style="height: 100px; text-align: center;
+            margin-top: 45px; display: block;">
+            <img src="@CDNHelper.ImagesStaticContentUrl/Content/ajax-loader.gif" alt="Loading..." />
+        </div>
+        <iframe id="borrowerEmbeddedFrame" src="@Model.BorrowerUrl" class="embeddedIframe" style="display: none;" onload="GetStarted.ShowIFrame()">
+        </iframe>
+    </div>
+</div>

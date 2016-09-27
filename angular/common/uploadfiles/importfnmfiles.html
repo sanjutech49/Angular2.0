@@ -1,0 +1,64 @@
+﻿<div>
+    <div id="upload-files" class="imp-popover imp-body upload-files" style="width: 365px;padding-top: 10px;">
+        <div class="header" style="text-align: left;float:left">
+            <div class="title" style="width: 250px;float: left;padding-top: 15px;">{{importFnmCtrl.importFnmParams.title}}</div>
+
+            <div class="actions add" file-select file-types="'.pdf,.fnm'" pre-select-fnm="importFnmCtrl.importFnmParams.preSelectPrimaryFnm">
+                <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="margin-right: -3px;position: relative;top: 8px;"></imp-circle>  Add Files
+            </div>
+        </div>
+        <div class="body">
+            <!--<div class="item">
+                <div class="text">
+                    <div style="width: 300px;">
+                        Please select the "Choose File(s)" button and select one or more files to upload
+                    </div>
+                </div>
+                <div style="float: right; margin-top: 2px;">
+                    <div class='imp-button-div-hs-wm-prim' file-select>Choose File(s)</div>
+                </div>
+            </div>-->
+            <div class="item">
+                <div class="text" style="color: grey;">
+                    Select one or more FNM 3.2 files in addition to any supporting PDF documentation
+                </div>
+            </div>
+            <div class="item" ng-show="importFnmCtrl.files.length">
+                <div class="text" style="color: grey;">
+                    Primary
+                </div>
+            </div>
+            <div ng-repeat="file in importFnmCtrl.files track by $index">
+                <div class="file">
+                    <div style="float: left;  margin-top: 2px;" ng-show="importFnmCtrl.getFileExtension(file.name.toLowerCase()) == 'fnm'">
+                        <input id="primary{{$index.toString()}}"
+                               type="checkbox"
+                               ng-click="importFnmCtrl.selectPrimaryFNM($index)"
+                               ng-model="file.isPrimary"
+                               ng-true-value="true"
+                               ng-false-value="false"
+                               class="imp-checkbox" />
+                        <label for="primary{{$index.toString()}}" class="imp-lb-checkbox" style="float: left;padding-right: 0px;"></label>
+                    </div>
+                    <div class="file-name" ng-style="importFnmCtrl.getFileExtension(file.name.toLowerCase()) != 'fnm' ? {'margin-left': '22px'} : {'margin-left': '0px'}" style="width:300px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                        {{file.name}}
+                    </div>
+                    <div class="delete">
+                        <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" ng-click="importFnmCtrl.savingDataInProgress || importFnmCtrl.deleteFile($index)"></imp-circle>
+                    </div>
+                </div>
+            </div>
+            <div class="item" style="border-bottom: 1px solid #bdbebe;">
+                <!--<div class="text" style="color:red;  margin-top: 5px;" ng-show="importFnmCtrl.uploadDocumentsError">
+                    One or more files have a size larger than 48MB or have an invalid extension.
+                </div>-->
+            </div>
+            <div class="buttons">
+                <!--<div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+                <div class='imp-button-div-hs-ws-prim' ng-click="importFnmCtrl.importFnmCtrl()">Save</div>-->
+                <input type="button" style="height: 24px; padding: 0px 25px 0px 25px; font-size: 13px;" class="imp-button-hm-wl-sec" value="Close" ng-disabled="importFnmCtrl.savingDataInProgress" ng-click="importFnmCtrl.close()" />
+                <input type="button" style="height: 24px; padding: 0px 25px 0px 25px;; font-size: 13px;" class='imp-button-hm-wl-prim' value="Upload & Review" ng-disabled="importFnmCtrl.files.length == 0 || importFnmCtrl.savingDataInProgress" ng-click="importFnmCtrl.fnmUploadAndReview()" />
+            </div>
+        </div>
+    </div>
+</div>

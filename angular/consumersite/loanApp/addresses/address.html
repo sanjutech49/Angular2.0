@@ -1,0 +1,119 @@
+﻿<div class="address">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center top">{{addressCntrl.isBorrower ? 'My' : addressCntrl.coBorrowerName}} Current Address Information</div>
+                <div class="row section-content center-col-md">
+                    <div class="col-lg-3 col-lg-offset-1">
+                        <address-widget content-url="'/angular/consumersite/loanApp/templates/addressWidget.template-left.html'"
+                                        street-name='addressCntrl.addressCurrent.streetName'
+                                        city-name='addressCntrl.addressCurrent.cityName'
+                                        state-name='addressCntrl.addressCurrent.stateName'
+                                        zip-code='addressCntrl.addressCurrent.zipCode'
+                                        is-county-visible="false"
+                                        is-unit-visible="false"
+                                        placeholder-street-name="Street"
+                                        placeholder-city-name="City"
+                                        placeholder-state-name="State"
+                                        placeholder-zip-code-name="Zip"
+                                        ng-required="true">
+                        </address-widget>
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-1">
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="txtYearsAtAddress">Time at address</label>
+                            <div class="col-lg-1">
+                                <div class="input-group dual-input">
+                                    <input type="text" id="txtYearsAtAddress" class=" form-control" placeholder="Years" ng-model="addressCntrl.borrower.currentAddress.timeAtAddressYears" />
+                                    <input type="text" id="txtMonthsAtAddress" class="form-control" placeholder="No. Months" ng-model="addressCntrl.borrower.currentAddress.timeAtAddressMonths" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="selectbasic">Mailing address different</label>
+                            <div class="col-lg-1">
+                                <div class="radio-group">
+                                    <input type="radio" name="mailaddress" id="mailaddressyes" ng-model="addressCntrl.isSameMailingAsBorrowerCurrentAddress" ng-value="false" checked="checked" value="true" />
+                                    <label for="mailaddressyes">Yes</label>
+                                    <input type="radio" name="mailaddress" id="mailaddressno" ng-model="addressCntrl.isSameMailingAsBorrowerCurrentAddress" ng-value="true" value="false" />
+                                    <label for="mailaddressno">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="!addressCntrl.isSameMailingAsBorrowerCurrentAddress">
+                    <div class="row section-title center">My Mailing Address</div>
+                    <div class="row section-content center-col">
+                        <div class="col-xs-12">
+                            <address-widget content-url="'/angular/consumersite/loanApp/templates/addressWidget.template2.html'"
+                                            street-name='addressCntrl.addressMailing.streetName'
+                                            city-name='addressCntrl.addressMailing.cityName'
+                                            state-name='addressCntrl.addressMailing.stateName'
+                                            zip-code='addressCntrl.addressMailing.zipCode'
+                                            is-county-visible="false"
+                                            is-unit-visible="false"
+                                            placeholder-street-name="Street"
+                                            placeholder-city-name="City"
+                                            placeholder-state-name="State"
+                                            placeholder-zip-code-name="Zip"
+                                            ng-required="true">
+                            </address-widget>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="addressCntrl.isPreviousAddressRequired">
+                    <div class="row section-title center">My Previous Address Information</div>
+                    <div class="row section-subtitle center">We need at least 2 years of current address information.</div>
+                    <div class="row section-content center-col-md">
+                        <div class="col-lg-3 col-lg-offset-1">
+                            <address-widget content-url="'/angular/consumersite/loanApp/templates/addressWidget.template-left.html'"
+                                            street-name='addressCntrl.addressPrevious.streetName'
+                                            city-name='addressCntrl.addressPrevious.cityName'
+                                            state-name='addressCntrl.addressPrevious.stateName'
+                                            zip-code='addressCntrl.addressPrevious.zipCode'
+                                            is-county-visible="false"
+                                            is-unit-visible="false"
+                                            placeholder-street-name="Street"
+                                            placeholder-city-name="City"
+                                            placeholder-state-name="State"
+                                            placeholder-zip-code-name="Zip"
+                                            ng-required="true">
+                            </address-widget>
+                        </div>
+                        <div class="col-lg-5 col-lg-offset-1">
+                            <div class="form-group">
+                                <label class="col-lg-6 control-label" for="selectbasic">Did you own or rent?</label>
+                                <div class="col-lg-1">
+                                    <select id="selectbasic" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-6 control-label" for="textinput">Time at address</label>
+                                <div class="col-lg-1">
+                                    <div class="input-group dual-input">
+                                        <input type="text" class="form-control" placeholder="Years">
+                                        <input type="text" class="form-control" placeholder="Months">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="addressCntrl.isBorrower">
+                    <div class="row center section-content section-question-text">
+                        Does {{addressCntrl.coBorrowerName}} have a different current address?
+                    </div>
+                    <div class="row center">
+                        <div class="col-xs-12 section-question-radio">
+                            <input type="radio" name="sameaddress2" value="true" ng-value="true" ng-model="addressCntrl.isCoborrowerAddressSame" />
+                            <label for="sameaddressyes2">Yes</label>
+                            <input type="radio" name="sameaddress2" value="false" checked="checked" ng-value="false" ng-model="addressCntrl.isCoborrowerAddressSame" />
+                            <label for="sameaddressno">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

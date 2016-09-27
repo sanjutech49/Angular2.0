@@ -1,0 +1,129 @@
+﻿<div class="container-fluid personal-information col-xs-12" >
+    <form>
+        <fieldset>
+            <legend style="text-align:center">Purchase Information</legend>
+
+
+            <div class="col-xs-12" style="text-align:center">
+                <p>
+                    <label id="lblBuyingProcess">Where are you in the buying process?</label> <br />
+                    <input type="radio" name="buyingprocess" id="buyprocessyes" value="yes" checked="checked" ng-model="vm.buyingprocess" />
+                    <label for="buyingprocessyes">Just starting</label>
+                    <input type="radio" name="buyingprocess" id="buyingprocessno" value="No" ng-model="vm.buyingprocess" />
+                    <label for="buyingprocessno">My offer has been accepted</label>
+                </p>
+
+            </div>
+
+            <div class="col-xs-12" style="text-align:center">
+                <p>
+                    <label id="lblproppurchinfo">Information on the property I'm purchasing</label>
+                </p>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtStreet">Street</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtStreet" placeholder="Street" type="text" ng-model="Street" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2 editor-label"><label for="txtZipCode">Zip</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtZipCode" placeholder="ZipCode" type="text" ng-model="ZipCode" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtState">State</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtState" placeholder="State" type="text" ng-model="ZipCode" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2 editor-label"><label for="txtCity">City</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtCity" placeholder="City" type="text" ng-model="ZipCode" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtOccupancyType">Occupancy Type</label></div>
+                <div class="col-xs-3">
+                    <select id="occupancytype">
+                        <option> Primary Residence</option>
+                        <option> Business</option>
+                        <option> Rental</option>
+                    </select>
+                </div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtPropertyType">Property Type</label></div>
+                <div class="col-xs-3">
+                    <select id="propertytype">
+                        <option> Single</option>
+                        <option> Duplex</option>
+                        <option> Multi</option>
+                    </select>
+                </div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtNoOfUnits">No of Units</label></div>
+                <input type="radio" name="NOU" id="NOU1" value="1" checked="checked" ng-model="vm.NoOfUnits" />
+                <label for="NOU1">1</label>
+                <input type="radio" name="NOU" id="NOU2" value="2" ng-model="vm.NoOfUnits" />
+                <label for="NOU2">2</label>
+                <input type="radio" name="NOU" id="NOU3" value="3" ng-model="vm.NoOfUnits" />
+                <label for="NOU3">3</label>
+                <input type="radio" name="NOU" id="NOU4" value="4" ng-model="vm.NoOfUnits" />
+                <label for="NOU4">4</label>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="col-xs-2"><label for="txtOrigPurchPrice" ng-model="origpurchprice">Orig. Purchase Price</label></div>
+                <div class="col-xs-3">
+                    <input id="txtOrigPurchPrice" placeholder="Orig. Purch Price" type="text" ng-model="origpurchprice" /><input id="txtOrigPurchPrice" placeholder="Date" ng-model="dependentsages">
+                </div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2"><label for="txtMonthlyHOA">Monthly HOA Dues</label></div>
+                <div class="col-xs-3"><input id="txtMonthlyHOA" placeholder="$ (if you have them)" type="text" ng-model="monthlyHOA" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+            </div>
+
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtEstValue">Estimated Value</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtEstValue" placeholder="$" type="text" ng-model="EstimatedValue" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2 editor-label"><label for="txtLoanAmt">Loan Amount</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtLoanAmt" placeholder="$" type="text" ng-model="loanAmt" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+
+            <div class="col-xs-12">
+                <div class="col-xs-2 editor-label"><label for="txtDownPayment">Down Payment</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtDownPayment" placeholder="$" type="text" ng-model="DownPayment" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+
+                <div class="col-xs-2 editor-label"><label for="txtDownPaymentBounce">Down Payment Bounce</label></div>
+                <div class="col-xs-3 editor-field"><input id="txtDownPaymentBounce" placeholder="$" type="text" ng-model="DownPaymentBounce" /></div>
+                <div class="col-xs-1">&nbsp;</div>
+            </div>
+
+
+
+            <div class="col-xs-12" style="text-align:center">
+                <p>
+                    <label id="lblSameAddress">Is your current address the same?</label> <br />
+                    <input type="radio" name="sameaddress" id="sameaddressyes" value="Yes" checked="checked" ng-model="vm.sameaddress" />
+                    <label for="sameaddressyes">Yes</label>
+                    <input type="radio" name="sameaddress" id="sameaddressno" value="No" ng-model="vm.sameaddress" />
+                    <label for="sameaddressno">No</label>
+                </p>
+            </div>
+        </fieldset>
+    </form>
+</div>

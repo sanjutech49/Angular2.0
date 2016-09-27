@@ -1,0 +1,37 @@
+﻿<div><input type="hidden" ng-model="PricingController.productFilter" ng-changed="PricingController.filterChanged()"></div>
+
+<div class="row product-grid-row">
+    <div class="col-md-1 product-loan-type">
+        <div class="product-grid-loan-term-text">{{product.TitleYears}} Yr</div>
+        <div>{{ product.AmortizationType }}</div>
+    </div>
+    <div class="col-md-1 fav-col" ng-show="product.compare" ng-click="product.compare=!product.compare"><i class="fa fa-heart"></i></div>
+    <div class="col-md-1 fav-col" ng-hide="product.compare" ng-click="product.compare=!product.compare"><i class="fa fa-heart-o"></i></div>
+    <div class="col-md-2">
+        <div>{{product.APR | number:3}}&#37</div>
+        <div class="grey-text">Rate ({{product.Rate | number:3}}&#37)</div>
+        <div class="relativity-bar relativity-bar-apr"
+             ng-style="{ opacity: (pricingCntrl.metricsPricingAPR.max - product.APR)/(pricingCntrl.metricsPricingAPR.max - pricingCntrl.metricsPricingAPR.min) * .8 + .2, width: ((product.APR - pricingCntrl.metricsPricingAPR.min) * 1. /(pricingCntrl.metricsPricingAPR.max - pricingCntrl.metricsPricingAPR.min) * 75 + 25) + '%'}">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="product-grid-payment-text">${{ product.MonthlyPayment | number:0 }}</div>
+        <div class="grey-text">Payment (P&I)</div>
+        <div class="relativity-bar relativity-bar-payment"
+             ng-style="{ opacity: (pricingCntrl.metricsPricingMonthlyPayment.max - product.MonthlyPayment)/(pricingCntrl.metricsPricingMonthlyPayment.max - pricingCntrl.metricsPricingMonthlyPayment.min) * .8 + .2, width: ((product.MonthlyPayment - pricingCntrl.metricsPricingMonthlyPayment.min) * 1. /(pricingCntrl.metricsPricingMonthlyPayment.max - pricingCntrl.metricsPricingMonthlyPayment.min) * 75 + 25) + '%'}">
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div>${{ product.TotalCost | number:0 }}</div>
+        <div class="grey-text">Est. Closing Cost</div>
+        <div class="relativity-bar relativity-bar-closing-cost"
+             ng-style="{ opacity: (pricingCntrl.metricsPricingTotalCost.max - product.TotalCost)/(pricingCntrl.metricsPricingTotalCost.max - pricingCntrl.metricsPricingTotalCost.min) * .8 + .2, width: ((product.TotalCost - pricingCntrl.metricsPricingTotalCost.min) * 1. / (pricingCntrl.metricsPricingTotalCost.max - pricingCntrl.metricsPricingTotalCost.min) * 75 + 25) + '%' }">
+        </div>
+    </div>
+   
+    <div class="col-md-3 product-grid-select-rate-div">
+        <div class="product-select-rate-div"><button class="btn btn-primary btn-select-rate" ng-click="pricingCntrl.selectProduct(product.productId)">Select Rate</button></div>
+        <div class="product-grid-view-details" ng-click="pricingCntrl.getProductDetails(product.productId, $event)">View Details</div>
+    </div>
+</div>
+

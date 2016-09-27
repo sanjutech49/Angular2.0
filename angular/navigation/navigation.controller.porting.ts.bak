@@ -1,0 +1,238 @@
+﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../ts/global/global.ts" />
+/// <reference path="../ts/generated/viewModels.ts" />
+/// <reference path="../loancenter/loancenter.constants.porting.ts" />
+/// <reference path="../ts/global/global.ts" />
+/// <reference path="../loancenter/loancenter.app.ts" />
+
+module loanCenter {
+
+    export class NavigationController {
+
+        // @todo - add types to all members
+        startItemOpen = false;
+        startItemHover = false;
+        loanItemOpen = false;
+        loanItemHover = false;
+        contactsItemOpen = false;
+        toolsItemOpen = false;
+        reportsItemOpen = false;
+        favoritesItemOpen = false;
+        settingsItemOpen = false;
+        tabNames: loanCenter.LoanApplicationTabs;
+        loanAppTabs;
+        currentQueue;
+        selectedLoanId;
+        queueName;
+        prospectId;
+        MailRoomGrid;
+        documentId;
+
+        NavigationModel: any = {
+            ContextualType: loanCenter.ContextualTypes.None
+        };
+
+        // @TODO - ensure that all these services exist
+        // @TODO - get rid of $rootScope
+
+        static className = 'NavigationController';
+
+        static $inject = ['$rootScope', 'NavigationSvc', 'ConciergeCommandEmbedded', 'AssignLoanInfo', 'Appraisal', 'ManageFees', 'WorkQueueCommands',
+            'ManageProspects', 'WorkQueueTypes', 'LoanDetails', 'LoanServices', 'ViewInBorrower', 'Search', 'SystemAdmin'];
+
+        constructor(private $rootScope, private NavigationSvc, private ConciergeCommandEmbedded, private AssignLoanInfo,
+            private Appraisal, private ManageFees, private WorkQueueCommands, private ManageProspects, private WorkQueueTypes,
+            private LoanDetails, private LoanServices, private ViewInBorrower, private Search, private SystemAdmin) {
+
+            this.loanAppTabs = NavigationSvc.LoanAppTabs;
+            this.$rootScope.userAccountId = $('#hdnLoggedUserAccountId').val();
+            this.SetValueForLoan();
+            this.$rootScope.navigation = '';
+        }
+
+        public OpenLink = (linkName) => {
+            this.loanItemOpen = false;
+            this.loanItemHover = false;
+            if (linkName == 'CostDetails') {
+                this.$rootScope.navigation = 'CostDetails';
+                this.NavigationSvc.OpenItem(this.NavigationModel, loanCenter.ContextualTypes.CostDetails);
+            }
+        }
+
+        startNewProspect = () => {
+            this.startItemOpen = false;
+            this.startItemHover = false;
+
+            this.$rootScope.navigation = 'LoanScenario';
+            this.NavigationSvc.OpenItem(this.NavigationModel, loanCenter.ContextualTypes.LoanScenario)
+        }
+
+        openLoanApplication = (selectedTab) => {
+            this.loanItemOpen = false;
+            this.loanItemHover = false;
+
+            this.$rootScope.navigation = 'LoanApplication';
+            this.$rootScope.selectedTab = selectedTab;
+
+
+
+            angular.forEach(this.NavigationSvc.LoanAppTabs,(tab, tabName) => {
+                if (selectedTab.toLowerCase() === tabName.toLowerCase()) {
+                    tab.isSelected = true;
+                } else {
+                    tab.isSelected = false;
+                }
+            });
+
+            this.NavigationSvc.OpenItem(this.NavigationModel, loanCenter.ContextualTypes.LoanApplication);
+            // ConciergeCommandEmbedded.OpenConciergeEmbeddedCommand(WorkQueueCommands.ManageLoanApplication, this.queueName, this.selectedLoanId, this.prospectId);
+        }
+
+        openCommand = (commandName) => {
+            this.NavigationSvc.OpenCommand(commandName);
+            this.$rootScope.navigation = '';
+            this.$rootScope.ContextualType = '';
+        }
+
+        openLoanDetails = () => {
+            this.loanItemOpen = false;
+            this.loanItemHover = false;
+
+            this.$rootScope.navigation = 'LoanDetails';
+            this.NavigationSvc.OpenItem(this.NavigationModel, loanCenter.ContextualTypes.LoanDetails);
+        }
+
+        openDocuments = () => {
+            this.loanItemOpen = false;
+            this.loanItemHover = false;
+
+            this.$rootScope.navigation = "Documents";
+        }
+
+        openAus = () => {
+            this.loanItemOpen = false;
+            this.loanItemHover = false;
+
+            this.$rootScope.navigation = "AUS";
+        }
+
+        updateValuesOnRowChange = () => {
+            this.SetValueForLoan();
+        }
+
+        openConciergeEmbeddedCommand = (action) => {
+            this.loanItemOpen = false;
+            this.loanItemHover = false;
+            var loanId = this.selectedLoanId;
+            var queueName = this.queueName;
+            var prospectId = this.prospectId;
+            var userAccountId = $('.tablelistselected').find('.userAccountId').text().trim();
+
+            switch (action) {
+                case "AssignLoanInfo":
+                    this.AssignLoanInfo.AssignLoanInfoLoad(loanId);
+                    break;
+                case "Activities":
+                    this.ConciergeCommandEmbedded.OpenConciergeEmbeddedCommand(this.WorkQueueCommands.ManageActivities, this.currentQueue, loanId, prospectId);
+                    break;
+                case "Alerts":
+                    this.ConciergeCommandEmbedded.OpenConciergeEmbeddedCommand(this.WorkQueueCommands.ManageAlerts, this.currentQueue, loanId, prospectId);
+                    break;
+                case "Appraisal":
+                    this.Appraisal.OpenAppraisalFormCommand(loanId, prospectId);
+                    break;
+                case "Credit":
+                    this.ConciergeCommandEmbedded.OpenConciergeEmbeddedCommand(this.WorkQueueCommands.ManageCredit, this.currentQueue, loanId, prospectId);
+                    break;
+                case "Disclosures":
+                    if (this.currentQueue == this.WorkQueueTypes.MailRoom) {
+                        this.MailRoomGrid.MailRoomOpenDisclosures(loanId, this.documentId, userAccountId);
+                    }
+                    else
+                        this.ConciergeCommandEmbedded.OpenConciergeEmbeddedCommand(this.WorkQueueCommands.ManageDisclosures, this.currentQueue, loanId, prospectId);
+                    break;
+                case "Documents":
+                    this.ConciergeCommandEmbedded.OpenConciergeEmbeddedCommand(this.WorkQueueCommands.ManageDocuments, this.currentQueue, loanId, '');
+                    break;
+                case "ManageLoan":
+                    this.ConciergeCommandEmbedded.OpenConciergeEmbeddedSubCommand(this.WorkQueueCommands.ManageLoan, this.currentQueue, loanId, prospectId, 1);
+                    break;
+                case "Escrow":
+                    this.ManageFees.ManageFeesLoad(loanId, prospectId);
+                    break;
+                case "ManageProspects":
+                    this.ManageProspects.ManageProspectsLoad(loanId, prospectId, true);
+                    break;
+                // TODO - remove jQuery
+                case "LoanDetails":
+                    $("#detailsSection").hide();
+                    $("#detailsSection").html("");
+                    this.LoanDetails.LoanDetailsCommand(this.currentQueue, loanId, prospectId);
+                    break;
+                case "LoanServices":
+                    this.LoanServices.LoanServicesLoad(loanId, true);
+                    break;
+                case "ViewInBorrower":
+                    this.ViewInBorrower(loanId, userAccountId);
+                    break;
+                case "FileManagement":
+                    this.ConciergeCommandEmbedded.OpenConciergeEmbeddedCommand(this.WorkQueueCommands.FileManagement, this.currentQueue, loanId, prospectId);
+                    break;
+                case "disabled":
+                    return false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // TODO - remove jQuery
+        logout = (url, borrowerUrl) => {
+
+            // Logout borrower
+            window.open(borrowerUrl, "_blank", "width=200,height=110,menubar=no,resizable=no,scrollbars=no,status=no,titlebar=no,toolbar=no");
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                success: (data) => {
+                    window.location = data;
+                }
+            });
+        }
+
+        mainSearch = (value) => {
+            if (value)
+                this.Search.SearchDataHelper(false, value);
+            this.$rootScope.navigation = '';
+            this.$rootScope.ContextualType = '';
+        }
+
+        sysAdminSearch = (value) => {
+            if (value)
+                this.SystemAdmin.Search(undefined, value);
+        };
+
+        mainClear = () => {
+            this.Search.SearchDataHelper(true, "");
+        };
+
+        sysAdminClear = () => {
+            this.SystemAdmin.Search(undefined, '');
+        };
+
+        public SetValueForLoan = () => {
+            var SelectedLoan = this.NavigationSvc.SelectLoanFromQueue();
+
+            this.$rootScope.selectedLoanId = SelectedLoan.LoanId;
+            this.queueName = SelectedLoan.QueueName;
+            this.prospectId = $('.tablelistselected').find('.prospectid').text().trim();
+            this.NavigationSvc.SetNavigationLinks(SelectedLoan.LoanId);
+
+        }
+    }
+}
+
+moduleRegistration.registerController(moduleNames.loanCenter, loanCenter.NavigationController);
+
+

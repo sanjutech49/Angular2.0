@@ -1,0 +1,278 @@
+﻿<div class="products">
+    <div class="header" style="z-index:900; position: fixed;" id="productsHeader" set-body-container-position>
+        <div class="row">
+            <div class="title col-a margin" style="margin-right: 5px;">
+                <div select-item>Product</div>
+                <!-- Commented out, PBI 26437 -->
+                <!--<div class="imp-icon-filter" select-item ng-click="pricingResults.switchMainTableView()"> </div>-->
+            </div>
+
+            <div class="title col-m margin" select-item ng-if="pricingResults.wrappedLoan.ref.loanPurposeType == '1'" style="padding-left:4px;"> P&I </div>
+            <div class="title col-m margin" select-item ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'"> P&I </div>
+
+            <div class="title col-m margin" select-item> Rate </div>
+
+            <div class="title col-s margin" select-item> Days </div>
+
+            <div ng-show="pricingResults.priceDisplayType =='perc'" class="title col-m margin" select-item>
+                Price %
+            </div><div ng-show="pricingResults.priceDisplayType =='perc'" class="imp-icon-blue-arrow-down" ng-click="pricingResults.openPricePercentageOrPoints($event, {})" style="margin-left: -23px;"></div>
+
+            <div ng-show="pricingResults.priceDisplayType =='points'" class="title col-m margin" select-item>
+                Points
+            </div><div ng-show="pricingResults.priceDisplayType =='points'" class="imp-icon-blue-arrow-down" ng-click="pricingResults.openPricePercentageOrPoints($event, {})" style="margin-left: -23px;"></div>
+
+
+            <div class="title col-l margin" select-item> Price $ </div>
+
+            <div class="title dropdown-group">
+                <div select-item>
+                    <div ng-show="pricingResults.costType == '1'" style="width:40px">Closing Costs</div>
+                    <div ng-show="pricingResults.costType == '2'" style="width:40px; padding-left: 5px;">CC+ Pre</div>
+                    <div ng-show="pricingResults.costType == '3'" style="width:40px">CC+Pre+ Esc</div>
+                </div> <div class="imp-icon-blue-arrow-down" ng-click="pricingResults.openClosingCostMenu($event, {})"></div>
+            </div>
+            <div class="title col-m" select-item> Cash to(from) </div>
+
+            <div class="title col-m" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'" select-item> Monthly Savings</div>
+
+            <div class="title dropdown-group" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'">
+                <div class="dropdown-selected-item" select-item>
+                    <div ng-show="pricingResults.savingsDropdownOption == '1'">Life of Loan Savings</div>
+                    <div ng-show="pricingResults.savingsDropdownOption == '3'">3 Years Savings</div>
+                    <div ng-show="pricingResults.savingsDropdownOption == '5'">5 Years Savings</div>
+                    <div ng-show="pricingResults.savingsDropdownOption == '7'">7 Years Savings</div>
+                    <div ng-show="pricingResults.savingsDropdownOption == '10'">10 Years Savings</div>
+                    <div ng-show="pricingResults.savingsDropdownOption == '15'">15 Years Savings</div>
+                    <div ng-show="pricingResults.savingsDropdownOption == '25'">25 Years Savings</div>
+                </div>
+                <div class="imp-icon-blue-arrow-down" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-click="pricingResults.openLifeOfLoanMenu($event, {})" style="margin-left: -21px;"></div>
+            </div>
+
+            <div class="title col-m" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'" select-item> Break Even</div>
+
+            <div class="title col-s" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'">
+                <div class="imp-icon-question-mark" style="margin-top: 0px;cursor: pointer;margin-left: 5px;" ng-click="pricingResults.openSavingsCalculationsModal()"></div>
+            </div>
+
+            <div class="title col-s margin"> &nbsp;</div>
+
+            <div class="title col-s">
+                <!-- Commented out, PBI 26437 -->
+                <!--<div class="imp-icon-compare-product-on"></div>-->
+            </div>
+
+        </div>
+
+    </div>
+        <div class="body" style="padding-top:35px;">
+
+        <div class="product-group" ng-repeat="productGroup in pricingResults.sortedProductGoupsArray">
+
+            <div ng-class="{'category-row-hiden-bottom-border' : productGroup.productType=='dummyProductType'}">
+                <div class="category-row" ng-class="{'category-row-hiden' : productGroup.productType == 'dummyProductType' }"> {{::productGroup.productType}} </div>
+            </div>
+            <div style="width:100%; border-bottom: 2px dotted #efefef;" ng-repeat="products  in pricingResults.sortedProductsArray[productGroup.productType]">
+                <div class="row" ng-repeat="product in pricingResults.sortedProductPricingArray[productGroup.productType][products.productName]" ng-dblclick="pricingResults.collapseExpand(products)" ng-click="pricingResults.selectEligibleRow( $parent.$parent.$index.toString() + $parent.$index.toString() + $index.toString(), $event, product)" ng-class="{'selected-row':$parent.$parent.$index.toString() + $parent.$index.toString() + $index.toString()  == pricingResults.selectedEligibleRow, 'product-expired' : product.isexpired}">
+
+                    <div ng-class="{ 'imp-sa-grid-row-collaps' : $first, 'empty' : !$first, 'down row-margin-top': products.productRowExpanded && $first, 'right': !products.productRowExpanded && $first, 'expired' : product.isExpired, 'active' : !product.isExpired , 'purchase' : pricingResults.wrappedLoan.ref.loanPurposeType != '1'}"
+                         ng-click="pricingResults.collapseExpand(products)" style="margin-left:-15px;"></div>
+                    <div ng-if="product.isExpired" ng-class="{ 'exp-label' : product.isExpired }">
+                        <span ng-show="$first" ng-class="{'background-white':!$first}">Exp</span>
+                    </div>
+                    <div class="col-a" ng-class="{ 'hide-line product-name' : $first && !$last, 'hide-line': !$first && !$last, 'background-white' : !$first, 'expired' : product.isExpired, 'active' : !product.isExpired }"
+                         tooltip-html-unsafe="
+                        <div class='imp-tooltip' style='width:230px;'><div style='padding:15px;font-weight:normal;'><div>{{::product.productName }}</div></div></div>"
+                        tooltip-placement="bottom" tooltip-trigger="mouseenter" tooltip-class="imp-simple-tooltip">
+                        <span class="product-name-title" ng-show="$first"> {{::product.productName }} </span> &nbsp;<span ng-show="$first" class="product-indentifier">({{::product.productIdentifier}})</span> &nbsp;
+                        <span class="mi-label" ng-show="product.paymentBreakdownModalVM.isMI">MI</span>
+
+                    </div>
+
+                    <div class="col-m" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }">
+                        <span class="pi-label" id="payment-breakdown-modal" imp-popover="angular/pricingresults/other/paymentbreakdownmodal.html" watch="product"
+                              tooltip-placement="bottom" tooltip-trigger="click" style="cursor:pointer">{{ product.principalAndInterest | currency : "" : 0 }}</span>
+                    </div>
+
+                    <div class="col-m" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }">{{::product.rate | currency : "" : 3}}</div>
+
+                    <div class="col-s" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }">{{::product.days }}</div>
+
+                    <div ng-show="pricingResults.priceDisplayType =='perc'" class="col-m" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }">{{::product.pricePercentage | currency : "" : 3}}</div>
+
+                    <div ng-show="pricingResults.priceDisplayType =='points'" class="col-m" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }">{{::product.pricePoints | currency : "" : 3}}</div>
+
+                    <div class="dropdown-group" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }">{{::product.priceAmount | currency : "" : 0}}</div>
+
+                    <div class="dropdown-group blue-text" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" ng-click="pricingResults.viewDetailedClosingCost($event, product)">
+                        <span id="detailed-closing-costs-estimated" ng-show="pricingResults.costType == '1'"
+                              style="cursor:pointer">{{::product.closingCosts | currency : "" : 0}}</span>
+                        <span id="detailed-closing-costs-est-pre" ng-show="pricingResults.costType == '2'"
+                              style="cursor:pointer">{{::product.costDetails.thirdPartyAndPrepaids | currency : "" : 0}}</span>
+                        <span id="detailed-closing-costs-est-pre-res" ng-show="pricingResults.costType == '3'"
+                              style="cursor:pointer">{{ product.costDetails.thirdPartyPrepaidsAndReserves | currency : "" : 0 }}</span>
+                    </div>
+
+                    <div class="col-m" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }">{{product.cashToFrom}}</div>
+
+                    <div class="col-m  blue-background " ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'">{{::product.monthlySavings | currency : "" : 0}}</div>
+
+                    <div ng-if="pricingResults.savingsDropdownOption == '1' && pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" class="dropdown-group blue-background ">{{::product.lifeOfLoanSavings | currency : "" : 0}}</div>
+                    <div ng-if="pricingResults.savingsDropdownOption == '3' && pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" class="dropdown-group blue-background ">{{::product.threeYrSavings | currency : "" : 0}}</div>
+                    <div ng-if="pricingResults.savingsDropdownOption == '5' && pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" class="dropdown-group blue-background ">{{::product.fiveYrSavings | currency : "" : 0}}</div>
+                    <div ng-if="pricingResults.savingsDropdownOption == '7' && pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" class="dropdown-group blue-background ">{{::product.sevenYrSavings | currency : "" : 0}}</div>
+                    <div ng-if="pricingResults.savingsDropdownOption == '10' && pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" class="dropdown-group blue-background ">{{::product.tenYrSavings | currency : "" : 0}}</div>
+                    <div ng-if="pricingResults.savingsDropdownOption == '15' && pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" class="dropdown-group blue-background ">{{::product.fifteenYrSavings | currency : "" : 0}}</div>
+                    <div ng-if="pricingResults.savingsDropdownOption == '25' && pricingResults.wrappedLoan.ref.loanPurposeType != '1'" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" class="dropdown-group blue-background ">{{::product.twentyFiveYrSavings | currency : "" : 0}}</div>
+
+                    <div class="col-m blue-background" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'">{{::product.breakEven}} Mo</div>
+
+                    <div class="col-s" ng-if="pricingResults.wrappedLoan.ref.loanPurposeType != '1'"> &nbsp;</div>
+
+                    <div class="col-s apply" ng-class="{ 'expired' : product.isExpired, 'active' : !product.isExpired }" ng-click="pricingResults.applyProduct(product)"> {{ (pricingResults.repricing && pricingResults.wrappedLoan.ref.loanId != null) ? 'Update' : 'Apply' }} </div>
+
+                    <div class="col-s">
+                        <div style="margin: 0px 0px 0px; float: left; padding-left: 17px;">
+                            <input type="checkbox" id="compare{{ $parent.$parent.$index.toString() + $parent.$index.toString() + $index.toString() }}"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   ng-model="product.compare"
+                                   class="imp-checkbox" />
+                            <label class="imp-lb-checkbox" for="compare{{ $parent.$parent.$index.toString() + $parent.$index.toString() + $index.toString() }}"></label>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div ng-show="products.productRowExpanded">
+
+                    <div class="expanded-product-table">
+
+                        <div class="title-row">
+                            <div class="first-part">
+                                <div class="first-title-row">
+                                    <div class="first-title-row-left">
+                                        <!-- Commented out, PBI 26437 -->
+                                        <!--Guidelines | Overlays-->
+                                    </div>
+                                    <div class="imp-left-arrow" ng-click="pricingResults.lockDaysPrevious()"></div>
+
+                                </div>
+                                <div class="second-title-row">
+                                    <div class="second-title-row-left">
+                                        <div class="first-part-cell">P&I</div>
+                                        <div class="first-part-cell">Margin</div>
+                                        <div class="first-part-cell">Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: flex;justify-content: flex-start; min-width: 600px" ng-init="p = pricingResults.allProductsGrouped[products.productIndex]">
+                                <div class="second-part" ng-repeat="(key, val) in p[pricingResults.utilities.keys(p)[0]] | orderBy : parseInt(key) " ng-show="$index <= pricingResults.lockDaysLimit.max && $index >= pricingResults.lockDaysLimit.min">
+                                    <div class="first-title-row-middle">
+
+                                        <div>{{::key }} Days - {{::val[0].closeDate | date:"M/d/yy"}}</div>
+                                    </div>
+                                    <div class="second-title-row-middle">
+                                        <div class="second-part-cell">Price %</div>
+                                        <div class="second-part-cell">Price $</div>
+                                        <div class="second-part-cell">Closing</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="third-part">
+                                <div class="first-title-row-right">
+                                    <div class="imp-right-arrow " ng-click="pricingResults.lockDaysNext(6)"></div>
+                                </div>
+                                <div class="second-title-row-right">
+                                    <div class="third-part-cell-l" style="padding-left:34px;">Product Adjustments</div>
+                                    <div class="third-part-cell-s">Points</div>
+                                    <div class="third-part-cell-s">Rate</div>
+                                    <div class="third-part-cell-m">Margin</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="table-content">
+                            <div>
+
+                                <div class="table-content-rows" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="p in pricingResults.allProductsGrouped[products.productIndex]">
+                                    <div class="rows-left-part">
+                                        <div class="first-part-cell">{{::p[pricingResults.utilities.keys(p)[0]][0].principalAndInterest | currency : "" : 0}}</div>
+                                        <div class="first-part-cell">{{::p[pricingResults.utilities.keys(p)[0]][0].margin | currency : "" : 3}}</div>
+                                        <div class="first-part-cell">{{::p[pricingResults.utilities.keys(p)[0]][0].rate | currency : "" : 3}}</div>
+                                    </div>
+
+                                    <div class="horisontal-content">
+                                        <div ng-repeat="pricing in p | orderBy : +pricing[0].Days" class="rows-right-part disclaimer-cell"
+                                             ng-show="$index <= pricingResults.lockDaysLimit.max && $index >= pricingResults.lockDaysLimit.min"
+                                             ng-class="{ 'selected' : pricing[0].register }">
+                                            <div style="padding-top: 3px;">
+                                                <input type="checkbox" id="add{{pricing[0].productId.toString()}}"
+                                                       ng-true-value="true"
+                                                       ng-false-value="false"
+                                                       ng-model="pricing[0].register"
+                                                       ng-change="pricingResults.registerProduct(pricing[0])"
+                                                       class="imp-checkbox command-width" />
+                                                <label class="imp-lb-checkbox"
+                                                       for="add{{pricing[0].productId.toString()}}"
+                                                       style="padding-right:2px"></label>
+
+                                            </div>
+
+
+                                            <div ng-show="pricingResults.applicationData.currentUser.isWholesale" class="second-part-cell "> {{::pricing[0].pricePoints | currency : "" : 3 }}</div>
+                                            <div ng-show="!pricingResults.applicationData.currentUser.isWholesale" class="second-part-cell "> {{::pricing[0].pricePercentage | currency : "" : 3 }}</div>
+                                            <div class="second-part-cell "> {{::pricing[0].priceAmount | currency : "" : 0 }}</div>
+                                            <div class="second-part-cell cost-cell-color">{{::pricing[0].closingCosts | currency : "" : 0 }}</div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                            <div class="adj-adv-container">
+                                <div>
+                                    <div class="fico-row" ng-repeat="adj in products.adjustments">
+                                        <div class="third-part-cell-l" style="color:#9d9d9d;font-size:10px;">{{::adj.reason }}</div>
+                                        <div class="third-part-cell-s third-part-cell-text" style="color:#9d9d9d;font-size:10px;">{{::adj.value }}</div>
+                                        <div class="third-part-cell-s third-part-cell-text">0</div>
+                                        <div class="third-part-cell-m third-part-cell-text">0</div>
+                                    </div>
+                                </div>
+
+                                <div class="total-row">
+                                    <div class="third-part-cell-l">Totals</div>
+                                    <div class="third-part-cell-s bolded-cell third-part-cell-text">{{::products[0].adjustmentSum }}</div>
+                                    <div class="third-part-cell-s bolded-cell third-part-cell-text">0</div>
+                                    <div class="third-part-cell-m bolded-cell third-part-cell-text">0</div>
+                                </div>
+                                <!-- Commented out, PBI 26437 -->
+                                <!--<div class="note-adv-row">
+                                        Notes/Advisories
+                                    </div>
+                                    <div class="note-cell">
+                                        1. For this scenario, AUS Not Specified was run through eligibilty and pricing as LP.
+                                    </div>
+                                </div>-->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

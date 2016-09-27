@@ -1,0 +1,26 @@
+﻿<div class="imp-tooltip appraised-history-popup-container" >
+    <div class="imp-div-close-x floatright" style="margin: 11px 10px 5px;" onclick="$(this).parents('.tooltip').prev().trigger('click');"></div>
+    <div class="appraised-history-popup-content">
+        <div class="header">Appraised Value History </div>
+
+        <div class="first-row">
+            <span class="item">User</span>
+            <span class="item-1">Value</span>
+            <span class="item-2">Date of Change</span>
+        </div>
+        <div ng-repeat="appraisedValueHistory in modalpopoverCtrl.ctrl.AppraisedValueHistories">
+            <div class="row">
+                <span class="item">{{appraisedValueHistory.User}}</span>
+                <span class="item-1">{{appraisedValueHistory.Value | impCurrency }}</span>
+                <span class="item-2">{{appraisedValueHistory.DateOfChange}}</span>
+            </div>
+        </div>
+
+        <!--<div class="row">
+            <span class="item">Anakin-Skywalker-Vader</span>
+            <span class="item-1">$1,300,000.00</span>
+            <span class="item-2">12/22/14 2:30pm</span>
+        </div>-->
+
+    </div>
+</div>

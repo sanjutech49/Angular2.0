@@ -1,0 +1,346 @@
+﻿@model MML.Web.LoanCenter.ViewModels.AlertsViewModel
+@using MML.Common
+@using MML.Contracts
+@using Telerik.Web.Mvc.UI
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div class="fleft"><span id="currentWorkQueueType" class="namelink">Alerts</span></div>
+        <div class="smallarrow">
+        </div>
+        </div>
+        
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.NumberOfAlerts.ToString()</span>  <span class="font15">Alerts</span>
+            
+        </div>
+        <div class="right1">
+            <div class="left1">
+                <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@MML.Common.Helpers.EnumHelper.GetStringValue( ( ( MML.Web.LoanCenter.Helpers.Utilities.AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).BoundDate )</span>
+            </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul>
+                                <li></li>
+                                <li id="ftoday" class="lower">@Ajax.ActionLink( "Today", "Execute", "Command", new { Command = "AlertGridDateFilter,DateFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess('Today')" }, new { id = "aftoday" } )</li>
+                                <li id="ftomorrow" class="lower">@Ajax.ActionLink( "Yesterday", "Execute", "Command", new { Command = "AlertGridDateFilter,DateFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess('Tomorrow')" }, new { id = "aftomorrow" } )</li>
+                                <li id="fthisweek" class="lower">@Ajax.ActionLink( "Last Week", "Execute", "Command", new { Command = "AlertGridDateFilter,DateFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess('This Week')" }, new { id = "afthisweek" } )</li>
+                                <li id="fnextweek" class="lower">@Ajax.ActionLink( "Last Month", "Execute", "Command", new { Command = "AlertGridDateFilter,DateFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess('Next Week')" }, new { id = "afnextweek" } )</li>
+                                <li id="fthismonth" class="lower">@Ajax.ActionLink( "All Open", "Execute", "Command", new { Command = "AlertGridDateFilter,DateFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess('This Month')" }, new { id = "afthismonth" } )</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday" title="Minimize/Maximize Section">
+                    <div id="minmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="listandpage">
+         <div class="alertcontent">
+            <table class="alerttable">
+                <tr class="alertsubjects" id="trGridHeader">
+                       <td>
+                    </td>
+                    <td class="t0">
+                    </td>
+                    <td style="display: none">
+                    </td>
+                    <td class="t1">@Ajax.ActionLink( AccountHelper.IsConciergeOnly() ? "LOA" : "Concierge", "Execute", "Command", new { Command = "AlertGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('ConciergeFullName')", OnComplete = "AlertGrid.AlertDataOnComplete('ConciergeFullName')", OnBegin = "AlertGrid.AlertDataOnBegin('ConciergeFullName')", OnSuccess = "AlertGrid.AlertDataOnSuccess('ConciergeFullName')" } )
+                    </td>
+                    <td class="t2">@Ajax.ActionLink( "Alerts", "Execute", "Command", new { Command = "AlertGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('NumberofAlerts')", OnComplete = "AlertGrid.AlertDataOnComplete('NumberofAlerts')", OnBegin = "AlertGrid.AlertDataOnBegin('NumberofAlerts')", OnSuccess = "AlertGrid.AlertDataOnSuccess('NumberofAlerts')" } )
+                    </td>
+                    <td class="t3">@Ajax.ActionLink( "Docs", "Execute", "Command", new { Command = "AlertGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Due Date')", OnComplete = "AlertGrid.AlertDataOnComplete('Due Date')", OnBegin = "AlertGrid.AlertDataOnBegin('Due Date')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Contact')" } )
+                    </td>
+                    <td class="t4">@Ajax.ActionLink( "Borrower", "Execute", "Command", new { Command = "AlertGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnComplete('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                    </td>
+                     <td class="t5">@Ajax.ActionLink( "Purpose", "Execute", "Command", new { Command = "AlertGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnFailure('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                      <div class="alertsLoanPurposeArrow">
+                            <div class="alertsLoanPurposeFilter">
+                                <ul id="alertsLoanPurposeFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).LoanPurposeFilter == null || ( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).LoanPurposeFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "AlertsLoanPurposeTypeFilter,LoanPurposeFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess()" } )
+                                            </li>
+                                            @foreach ( MML.Contracts.LoanTransactionType loanTransactionType in Model.LoanPurposeList )
+                                            {
+                                                <li class="@(( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).LoanPurposeFilter != null && ( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).LoanPurposeFilter == loanTransactionType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( loanTransactionType.GetStringValue(), "Execute", "Command", new { Command = "AlertsLoanPurposeTypeFilter,LoanPurposeFilter=" + loanTransactionType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess()" } )
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t6">@Ajax.ActionLink( "Loan#", "Execute", "Command", new { Command = "AlertGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Subject/Task')", OnComplete = "AlertGrid.AlertDataOnComplete('Subject/Task')", OnBegin = "AlertGrid.AlertDataOnBegin('Subject/Task')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Loan Purpose')" } )
+                    </td>
+                     <td class="t7">@Ajax.ActionLink( "Program", "Execute", "Command", new { Command = "AlertGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnComplete('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t8">@Ajax.ActionLink( "App Date", "Execute", "Command", new { Command = "AlertGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Contact')", OnComplete = "AlertGrid.AlertDataOnComplete('Contact')", OnBegin = "AlertGrid.AlertDataOnBegin('Contact')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Source')" } )
+                    </td>
+                  
+                   
+                    <td class="t9">@Ajax.ActionLink( "Amount", "Execute", "Command", new { Command = "AlertGridSorting,Column=9" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnComplete('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t10">@Ajax.ActionLink( "Rate", "Execute", "Command", new { Command = "AlertGridSorting,Column=10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnComplete('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t11">@Ajax.ActionLink( "Lock", "Execute", "Command", new { Command = "AlertGridSorting,Column=11" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnComplete('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t12">@Ajax.ActionLink( "Current Activity", "Execute", "Command", new { Command = "AlertGridSorting,Column=12" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnComplete('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                       <div class="alertsActivityFilterArrow">
+                            <div class="alertsActivityFilter">
+                                <ul id="alertsActivityFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).ActivityTypeFilter == null || ( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).ActivityTypeFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "All Activities", "Execute", "Command", new { Command = "AlertGridActivityTypeFilter,ActivityTypeFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess()" }, new { @class = "pipelineActivityFilterOneRow" } )
+                                            </li>
+                                            @foreach ( MML.Contracts.ActivityType activityType in Model.ActivityTypeList )
+                                            {
+                                                <li class="@(activityType.GetStringValue().Length > 29 ? "pipelineActivityFilterTwoRows" : String.Empty) 
+                                                @(( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).ActivityTypeFilter != null && ( ( AlertsListState )Session[ SessionHelper.AlertsListState ] ).ActivityTypeFilter == activityType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( activityType.GetStringValue(), "Execute", "Command", new { Command = "AlertGridActivityTypeFilter,ActivityTypeFilter=" + activityType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "AlertGrid.AlertDataOnSuccess" }, new { @class = activityType.GetStringValue().Length > 29 ? "pipelineActivityFilterTwoRows" : "pipelineActivityFilterOneRow" } )
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t13">@Ajax.ActionLink( "Activity Status", "Execute", "Command", new { Command = "AlertGridSorting,Column=13" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Status')", OnComplete = "AlertGrid.AlertDataOnComplete('Status')", OnBegin = "AlertGrid.AlertDataOnBegin('Status')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Status')" } )
+                    </td>
+                    
+                </tr>
+                @if ( Model.AlertItems != null )
+                {
+                    for ( int i = 0; i < Model.AlertItems.Count; i++ )
+                    {
+                        if ( Model.AlertItems[ i ].AlertViewItems != null )
+                        {
+                            <tr class="@Model.AlertItems[ i ].AlertViewItems[ 0 ].ClassCollection"  id="task_@{@String.Format( "{0}P", i )}" onclick=" SelectedTask('@String.Format( "{0}P", i )', '@Model.AlertItems[ i ].AlertViewItems[ 0 ].ClassCollection') ">
+                                <td>
+                                    <div class="biggreen" id="arrowdiv_@{@String.Format("{0}P", i)}">
+                                    </div>
+                                    @if ( Model.AlertItems[ i ].AlertViewItems.Count > 1 )
+                                    {
+                                        <div class="childIndicator" id="childIndicator_@{@String.Format( "{0}P", i )}" onclick="$(this).unbind('click'); SelectedTask('@String.Format( "{0}P", i )',
+                                        '@Model.AlertItems[ i ].AlertViewItems[ 0 ].ClassCollection', false, 'Alert')">
+                                
+                                        </div>  
+                                    }
+                                </td>
+                                <td>
+                                    <div class="@Model.AlertItems[ i ].AlertViewItems[ 0 ].ExceptionClassCollection">
+                                    </div>
+                                </td>
+                       
+                                <td style="display: none" class="loanid">@Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanId</td>
+                                <td style="display: none" class="encryptedloanid">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanId.ToString(), EncriptionKeys.Default ) )</td>
+                                <td style="display: none" class="prospectid">@Model.AlertItems[ i ].AlertViewItems[ 0 ].ConciergeId</td>
+                                <td>
+                                    <span class="@Model.AlertItems[ i ].AlertViewItems[ 0 ].LicenseExpiredClass" title="@Model.AlertItems[ i ].AlertViewItems[ 0 ].LicenseExpiredMessage">
+                                        @Model.AlertItems[ i ].AlertViewItems[ 0 ].ConciergeFullName
+                                    </span>
+                                </td>
+                                <td class="textcenter numberOfAlerts">@Model.AlertItems[ i ].AlertViewItems[ 0 ].NumberOfAlerts.ToString()
+                                </td>
+                                <td class="Docs">@Model.AlertItems[ i ].AlertViewItems[ 0 ].NumberOfDocsToReview.ToString()
+                                </td>
+                                <td class="alertBorrower">
+                                    <span title="@Model.AlertItems[ i ].AlertViewItems[ 0 ].FullName">@(Model.AlertItems[ i ].AlertViewItems[ 0 ].FullName.Length
+                                                                                                        > 15 ? String.Format( "{0}...", Model.AlertItems[ i ].AlertViewItems[ 0 ].FullName.Substring( 0, 15 ) )
+                                                                                                            : Model.AlertItems[ i ].AlertViewItems[ 0 ].FullName)
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="PopupTrigger2 cursorhand">@(MML.Common.Helpers.EnumHelper.GetStringValue( ( ( LoanTransactionType )Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanType ) ))
+                                    </span>
+                                </td>
+                                <td class="alertLoanNumber">@Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanNumber.ToString()
+                                </td>
+                                <td class="alertProgram">
+                                    <span rel="ProgramNameToolTip,LoanId=@Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanId.ToString()" class="PopupTrigger2 cursorhand" title="@Model.AlertItems[ i ].AlertViewItems[ 0 ].ProgramName">@(Model.AlertItems[ i ].AlertViewItems[ 0 ].ProgramName.Length
+                                                                                                                                                                                                                                         > 28 ? String.Format( "{0}...", Model.AlertItems[ i ].AlertViewItems[ 0 ].ProgramName.Substring( 0, 26 ) )
+                                                                                                                                                                                                                                             : Model.AlertItems[ i ].AlertViewItems[ 0 ].ProgramName)
+                                    </span>
+                                </td>
+                                <td class="alertDocs">@Model.AlertItems[ i ].AlertViewItems[ 0 ].OpenDate.ToString( "MM/dd/yyyy" )
+                                </td>
+                                <td class="alertDocs">@Model.AlertItems[ i ].AlertViewItems[ 0 ].MortgageAmount.ToString().ToMoney()
+                                </td>
+                                <td class="alertDocs">@Model.AlertItems[ i ].AlertViewItems[ 0 ].Rate.ToString( "n3" ) %
+                                </td>
+                                <td class="alertDocs">
+                                    @if ( Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanApplicationDate != DateTime.MinValue )
+                                    {
+                                        <span class="lockExpireDate">@Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanApplicationDate.ToString( "MM/dd/yyyy" )</span>
+                                        <span class="lockExpireTime">@Model.AlertItems[ i ].AlertViewItems[ 0 ].LoanApplicationDate.ToString( "hh:mm tt" )</span>
+                                    }
+                                </td>
+                                <td class="alertCurrentActivity">
+                                    <span title="@Model.AlertItems[ i ].AlertViewItems[ 0 ].ActivityName">@Model.AlertItems[ i ].AlertViewItems[ 0 ].ActivityName
+                                    </span>
+                                </td>
+                                <td>@Model.AlertItems[ i ].AlertViewItems[ 0 ].ActivityStatus.ToString()
+                                </td>
+                            </tr>
+                            //Render childs loans
+                            for ( int j = 1; j < Model.AlertItems[ i ].AlertViewItems.Count; j++ )
+                            {
+                                <tr class="@Model.AlertItems[ i ].AlertViewItems[ j ].ClassCollection childloan"  id="task_@{@String.Format("{0}P{1}", i, j)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.AlertItems[ i ].AlertViewItems[ j ].ClassCollection', true, 'Alert')" style="display:none">
+                                    <td></td>
+                                    <td>
+                                        <div class="@Model.AlertItems[ i ].AlertViewItems[ j ].ExceptionClassCollection">
+                                        </div>
+                                    </td>
+                       
+                                    <td style="display: none" class="loanid">@Model.AlertItems[ i ].AlertViewItems[ j ].LoanId
+                        
+                                    </td>
+                                    <td style="display: none" class="prospectid">@Model.AlertItems[ i ].AlertViewItems[ j ].ConciergeId</td>
+                                    <td>
+                                        @*ConciergeFullName*@
+                                    </td>
+                                    <td class="textcenter">@Model.AlertItems[ i ].AlertViewItems[ j ].NumberOfAlerts.ToString()
+                                    </td>
+                                    <td class="Docs">@Model.AlertItems[ i ].AlertViewItems[ j ].NumberOfDocsToReview.ToString()
+                                    </td>
+                                    <td class="alertBorrower">
+                                        <span title="@Model.AlertItems[ i ].AlertViewItems[ j ].FullName">@(Model.AlertItems[ i ].AlertViewItems[ j ].FullName.Length
+                                                                                                            > 15 ? String.Format( "{0}...", Model.AlertItems[ i ].AlertViewItems[ j ].FullName.Substring( 0, 15 ) )
+                                                                                                                : Model.AlertItems[ i ].AlertViewItems[ j ].FullName)
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @*Purpose*@
+                                    </td>
+                                    <td >
+                                        @*LoanNumber*@
+                                    </td>
+                                    <td>
+                                        @*ProgramName*@
+                                    </td>
+                                    <td class="alertDocs">@Model.AlertItems[ i ].AlertViewItems[ j ].OpenDate.ToString( "MM/dd/yyyy" )
+                                    </td>
+                                    <td > @*Rate*@ </td>
+                                    <td > @*Ammount*@ </td>
+                                    <td class="alertDocs">
+                                        @if ( Model.AlertItems[ i ].AlertViewItems[ j ].LoanApplicationDate != DateTime.MinValue )
+                                        {
+                                            <span class="lockExpireDate">@Model.AlertItems[ i ].AlertViewItems[ j ].LoanApplicationDate.ToString( "MM/dd/yyyy" )</span>
+                                            <span class="lockExpireTime">@Model.AlertItems[ i ].AlertViewItems[ j ].LoanApplicationDate.ToString( "hh:mm tt" )</span>
+                                        }
+                                    </td>
+                                    <td class="alertCurrentActivity">
+                                        <span title="@Model.AlertItems[ i ].AlertViewItems[ j ].ActivityName">@Model.AlertItems[ i ].AlertViewItems[ j ].ActivityName
+                                        </span>
+                                    </td>
+                                    <td>@Model.AlertItems[ i ].AlertViewItems[ j ].ActivityStatus.ToString()
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    }
+                }
+            </table>
+        </div>
+        <div class="todolistfooter">
+        
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+        @if ( Model.TotalItems != 0 )
+        {     
+                @(( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage * 10 - 9) <span>-</span> @(( ( MML.Web.LoanCenter.Helpers.Utilities.AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage * 10 - ( 10 - @Model.AlertItems.Count )) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+        }
+        else if ( Model.TotalItems == 0 )
+        {
+            <span>0 records</span>
+        }
+                </div>
+            @if ( Model.PageCount > 1 )
+            { 
+            <div id="pagingDiv" class="normalfont left20">
+            @if ( Model.TotalItems != 0 )
+            {
+                if ( ( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage != 1 )
+                {               
+                 <a href="javascript:void(0)" onclick="AlertGrid.AlertDataHelper('command=AlertGridPaging,Page=@(( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage - 1)')">				
+                    <div class="leftarrow">
+                    </div>
+                </a>
+                }
+                else
+                {
+                <div class="leftarrow">
+                    </div>
+                }
+                <div class="left1010">
+                        @if ( Model.CurrentPage > 10 )
+                        {
+                            @Ajax.ActionLink( "...", "Execute", "Command", new
+                       {
+                           Command = String.Format( "AlertGridPaging,Page={0}",
+                           ( Model.PageCount >= ( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage - 10 ) ?
+                           ( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage - 10 :
+                           Model.PageCount )
+                       },
+                                           new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Page, plusTen')", OnComplete = "AlertGrid.AlertDataOnComplete('Page, plusTen')", OnBegin = "AlertGrid.AlertDataOnBegin('Page, plusTen')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                        }
+                    
+                    @for ( int j = Model.StartPage; j <= Model.EndPage; j++ )
+                    {
+                        if ( j != ( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage )
+                        { 
+                        @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "AlertGridPaging,Page={0}", j ) },
+                                                                              new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "AlertGrid.AlertDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "AlertGrid.AlertDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "AlertGrid.AlertDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "AlertGrid.AlertDataOnSuccess('Page{0}')", j ) }, new { @class = "page" } )
+                        }
+                        else
+                        { 
+                        @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "AlertGridPaging,Page={0}", j ) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "AlertGrid.AlertDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "AlertGrid.AlertDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "AlertGrid.AlertDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "AlertGrid.AlertDataOnSuccess('Page{0}')", j ) }, new { @class = "pageselected" } )
+                        }
+                    }
+                    @if ( Model.LastPageDots == false )
+                    {
+                        @Ajax.ActionLink( "...", "Execute", "Command", new
+                   {
+                       Command = String.Format( "AlertGridPaging,Page={0}",
+                       ( Model.PageCount >= ( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage + 10 ) ?
+                       ( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage + 10 :
+                       Model.PageCount )
+                   },
+                                                new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "AlertGrid.AlertDataOnFailure('Page, plusTen')", OnComplete = "AlertGrid.AlertDataOnComplete('Page, plusTen')", OnBegin = "AlertGrid.AlertDataOnBegin('Page, plusTen')", OnSuccess = "AlertGrid.AlertDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                    }
+                </div>
+                    if ( ( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage != Model.PageCount )
+                    {              
+				        <a href="javascript:void(0)" onclick="AlertGrid.AlertDataHelper('command=AlertGridPaging,Page=@(( ( AlertsListState )HttpContext.Current.Session[ "AlertsListState" ] ).CurrentPage + 1)')">
+					        <div class="rightarrow">
+                            </div>
+				        </a>
+                    }
+                    else
+                    { 
+                <div class="rightarrow">
+                    </div>
+                    }
+            }
+            </div>
+            }
+        </div>
+    </div>
+</div>

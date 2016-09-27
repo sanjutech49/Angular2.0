@@ -1,0 +1,53 @@
+﻿<div class="modal-body">
+
+    <div class="column-options-header">
+        {{columnOptionsCtrl.modalTitle}}
+    </div>
+
+    <div class="flex">
+        <div>
+            <div class="list-title list-title-margin-bottom">{{columnOptionsCtrl.availableColumnsTitle}}</div>
+            <div class="list" ng-keydown="$event.shiftKey && ($event.which == 38 || $event.which == 40) && columnOptionsCtrl.columnOptionsHandler($event, 'available')" tabindex="0">
+                <div ng-repeat="column in columnOptionsCtrl.availableColumns track by $index" class="list-row flex"
+                     ng-class="{ 'selected-row' : columnOptionsCtrl.availableColumns[$index].selected, 'hover-row': !columnOptionsCtrl.availableColumns[$index].selected && columnOptionsCtrl.availableColumns[$index].hover }"
+                     ng-click="columnOptionsCtrl.columnOptionsHandler($event, 'available', $index);"
+                     ng-mouseenter="columnOptionsCtrl.availableColumns[$index].hover = !columnOptionsCtrl.availableColumns[$index].selected"
+                     ng-mouseleave="columnOptionsCtrl.availableColumns[$index].hover = false">
+                    <div>
+                        {{column.columnName}}
+                    </div>
+                    <div class="imp-icon-blue-thin-arrow-right" ng-click="columnOptionsCtrl.moveTo($event, columnOptionsCtrl.availableColumns, columnOptionsCtrl.selectedColumns, false, $index)" ng-show="columnOptionsCtrl.availableColumns[$index].selected || columnOptionsCtrl.availableColumns[$index].hover"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="flex list-title">
+                <div>{{columnOptionsCtrl.selectedColumnsTitle}}</div>
+                <div>
+                    <div class="imp-icon-blue-thin-arrow-up" ng-click="columnOptionsCtrl.moveUp()"></div>
+                    <div class="imp-icon-blue-thin-arrow-down" ng-click="columnOptionsCtrl.moveDown()"></div>
+                </div>
+            </div>
+            <div class="list" ng-keydown="$event.shiftKey && ($event.which == 38 || $event.which == 40) && columnOptionsCtrl.columnOptionsHandler($event, 'selected')" tabindex="0">
+                <div ng-repeat="column in columnOptionsCtrl.selectedColumns track by $index" class="list-row"
+                     ng-class="{ 'selected-row' : columnOptionsCtrl.selectedColumns[$index].selected, 'hover-row': !columnOptionsCtrl.selectedColumns[$index].selected && columnOptionsCtrl.selectedColumns[$index].hover }"
+                     ng-click="columnOptionsCtrl.columnOptionsHandler($event, 'selected', $index)"
+                     ng-mouseenter="columnOptionsCtrl.selectedColumns[$index].hover = !columnOptionsCtrl.selectedColumns[$index].selected"
+                     ng-mouseleave="columnOptionsCtrl.selectedColumns[$index].hover = false">
+                    <div class="imp-icon-blue-thin-arrow-left" ng-click="columnOptionsCtrl.moveTo($event, columnOptionsCtrl.selectedColumns, columnOptionsCtrl.availableColumns, true, $index)" ng-show="columnOptionsCtrl.selectedColumns[$index].selected || columnOptionsCtrl.selectedColumns[$index].hover"></div>
+                    <span ng-class="{ 'hover-margin': !columnOptionsCtrl.selectedColumns[$index].selected && !columnOptionsCtrl.selectedColumns[$index].hover }">{{column.columnName}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column-options-footer">
+        <button type="button" class="imp-button-hm-wm-sec footer-button" ng-click="columnOptionsCtrl.close()">
+            Cancel
+        </button>
+        <button type="button" class="imp-button-hm-wm-prim footer-button" ng-click="columnOptionsCtrl.update()">
+            Update
+        </button>
+    </div>
+
+</div>

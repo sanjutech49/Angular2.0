@@ -1,0 +1,188 @@
+﻿@model MML.Contracts.WorkQueueItemDetails
+@using MML.Common.Helpers
+<div class="contactbubble">
+    <div class="triangle">
+    </div>
+    <div class="contacttooltip">
+        <div class="contacttooltipg">
+            <div class="close" id="closePopupContainer"></div>
+        <table>            
+            <tr>
+                <td colspan="2" class="line1">
+                    Contact
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="first">
+                    BORROWER:
+                </td>
+            </tr>
+            <tr>                
+                <td style="height:5px;"></td>
+                <td colspan="2" style="color: rgb(71, 129, 211); font-style: italic; font-weight: bold; font-size: medium; float:right; height:5px;">                
+                       <div style="width: 35px; height: 120px; margin-right:21px;">
+                        @(Model.IsBorrowerOnlineUser.HasValue && Model.IsBorrowerOnlineUser.Value ? "Online User" : "Offline User")
+                        @if ( Model.IsBorrowerOnlineUser.HasValue && Model.BorrowerESign == "N" )
+                        {
+                            <div class="notSignedEDisclosure"></div>
+                        }
+                        </div>
+                </td>                
+            </tr>
+            <tr>
+                <td class="first">
+                   First Name
+                </td>
+                <td class="regularfont">
+                @(String.IsNullOrEmpty(Model.BorrowerFirstName) ? "-" : Model.BorrowerFirstName)
+                </td>
+            </tr>
+             <tr>
+                <td class="first">
+                   Middle Name
+                </td>
+                <td class="regularfont">
+                @(String.IsNullOrEmpty( Model.BorrowerMiddleName ) ? "-" : Model.BorrowerMiddleName)
+                </td>
+            </tr>
+             <tr>
+                <td class="first">
+                   Last Name
+                </td>
+                <td class="regularfont">
+                @(String.IsNullOrEmpty( Model.BorrowerLastName ) ? "-" : Model.BorrowerLastName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Preffered Phone
+                </td>
+                <td class="regularfont">
+                @if ( !String.IsNullOrEmpty( Model.BorrowerPreferredPhone ) )
+                {
+                    @StringHelper.FormatPhoneNumber( Model.BorrowerPreferredPhone ) <span>(</span>@Model.BorrowerPreferredPhoneType<span>)</span>
+                }
+                else
+                {
+                    @:- 
+                }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Alternate Phone
+                </td>
+                <td class="regularfont">
+                @if ( !String.IsNullOrEmpty( Model.BorrowerAlternatePhone ) )
+                { 
+                @StringHelper.FormatPhoneNumber( Model.BorrowerAlternatePhone ) <span>(</span>@Model.BorrowerAlternatePhoneType<span>)</span>
+                }
+                else
+                {
+                    @:- 
+                }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td class="regularfont"><a class="contactemail" href="mailto: @Model.BorrowerEmail">@Model.BorrowerEmail</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="line1" style="height:5px;">                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="first">
+                    CO-BORROWER:
+                </td>
+            </tr>
+             <tr>                
+                <td style="height:5px;"></td>
+                <td colspan="2" style="color: rgb(71, 129, 211); font-style: italic; font-weight: bold; font-size: medium; float:right; height:5px;">                
+                       <div style="width: 35px; height: 120px; margin-right:21px;">
+                        @{
+                            if ( !Model.IsCoBorrowerOnlineUser.HasValue )
+                            {
+                                @:
+                            }
+                            else if ( Model.IsCoBorrowerOnlineUser.Value )
+                            {  @:Online User
+                              }
+                            else
+                            {  @:Offline User
+                              }
+                        }
+                        @if ( Model.IsCoBorrowerOnlineUser.HasValue && Model.CoBorrowerESign == "N" )
+                        {
+                            <div class="notSignedEDisclosure"></div>
+                        }
+                        </div>
+                </td>                
+            </tr>
+            <tr>
+                <td class="first">
+                   First Name
+                </td>
+                <td class="regularfont">
+                @(String.IsNullOrEmpty( Model.CoBorrowerFirstName ) ? "-" : Model.CoBorrowerFirstName)
+                </td>
+            </tr>
+             <tr>
+                <td class="first">
+                   Middle Name
+                </td>
+                <td class="regularfont">
+                @(String.IsNullOrEmpty( Model.CoBorrowerMiddleName ) ? "-" : Model.CoBorrowerMiddleName)
+                </td>
+            </tr>
+             <tr>
+                <td class="first">
+                   Last Name
+                </td>
+                <td class="regularfont">
+                @(String.IsNullOrEmpty( Model.CoBorrowerLastName ) ? "-" : Model.CoBorrowerLastName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Preffered Phone
+                </td>
+                <td class="regularfont">
+                @if ( !String.IsNullOrEmpty( Model.CoBorrowerPreferredPhone ) )
+                {
+                    @StringHelper.FormatPhoneNumber( Model.CoBorrowerPreferredPhone ) <span>(</span>@Model.CoBorrowerPreferredPhoneType<span>)</span>
+                }
+                else
+                {
+                    @:- 
+                }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Alternate Phone
+                </td>
+                <td class="regularfont">
+                @if ( !String.IsNullOrEmpty( Model.CoBorrowerAlternatePhone ) )
+                { 
+                @StringHelper.FormatPhoneNumber( Model.CoBorrowerAlternatePhone ) <span>(</span>@Model.CoBorrowerAlternatePhoneType<span>)</span>
+                }
+                else
+                {
+                    @:- 
+                }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td class="regularfont"><a class="contactemail" href="mailto: @Model.CoBorrowerEmail">@Model.CoBorrowerEmail</a>
+                </td>
+            </tr>
+        </table>
+    </div></div>
+</div>

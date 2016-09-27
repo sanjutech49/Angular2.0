@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/CommonStyle.css" rel="stylesheet" />
+    <link href="~/Content/CFeaturesStyle.css" rel="stylesheet" />
+</head>
+<body ng-app="docusign">
+    <div>
+        @RenderBody()
+        @Html.Partial("_footer")
+    </div>
+
+    <script>
+        var consumer;
+        (function (consumer) {
+            var settings = (function () {
+                settings = {};
+                //to use reference consumer.settings.restApiRoot
+                settings.restApiRoot = '@(System.Configuration.ConfigurationManager.AppSettings["RestApiRoot"])';
+                return settings;
+            })();
+            consumer.settings = settings;
+        })(consumer || (consumer = {}));
+    </script>
+
+
+    @*Base libraries*@
+    <script src="~/Scripts/underscore-min.js"></script>
+    <script src="~/Scripts/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/bootstrap-3.3.5/js/bootstrap.js"></script>
+
+    @*Angular code*@
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/ui-router/0.2.13/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/angular-block-ui.js"></script>
+    <script src="~/Scripts/angular-grid/angularGrid.js"></script>
+    <script src="~/Scripts/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="~/Scripts/angular/angular-resource.min.js"></script>
+    <script src="~/Scripts/angular/angular-animate.min.js"></script>
+    <script src="~/Scripts/ui-utils/ui-utils.js"></script>
+    <script src="~/Scripts/angular-ui/ui-mask.min.js"></script>
+    <script src="~/angular/consumer/consumer.module.js"></script>
+    <script src="~/angular/consumer/consumer.config.js"></script>
+    <script src="~/angular/consumer/consumer.service.js"></script>
+    <script src="~/angular/consumer/authentication/authentication.helpermethods.js"></script>
+    <script src="~/angular/consumer/authentication/authentication.controller.js"></script>
+    <script src="~/angular/consumer/docusign/navigation/consumernavbar.controller.js"></script>
+    <script src="~/angular/consumer/docusign/esigning/instructions/esigningInstructions.controller.js"></script>
+    <script src="~/angular/consumer/docusign/econsent/econsent.controller.js"></script>
+    <script src="~/angular/consumer/docusign/esigning/confirmation/success.controller.js"></script>
+    <script src="~/angular/consumer/docusign/appraisal/appraisal.controller.js"></script>
+    <script src="~/angular/consumer/docusign/docupload/docupload.controller.js"></script>
+    <script src="~/angular/consumer/docusign/econsentsettings/econsentsettings.controller.js"></script>
+</body>
+</html>

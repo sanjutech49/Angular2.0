@@ -1,0 +1,170 @@
+﻿<div class="unit-control">
+
+    <div class="unit-header">
+
+        Housing Expenses Break Down
+
+    </div>
+
+    <div class="unit-body housing-expenses">
+        <div class="item item-header">
+            <div class="left-column">&nbsp;</div>
+            <div class="middle-column">
+                <div class="label-current">Current</div>
+                <div class="circle current-circle-color icon-position"></div>
+
+            </div>
+            <div class="right-column">
+                <div class="imp-calculator-icon calc-icon-position" style="cursor: pointer" ng-click="housingExpenses.showImpoundCalculator($event)"></div>
+                <div class="label-new-amt">New</div>
+                <div class="circle new-circle-color icon-position"></div>
+
+            </div>
+        </div>
+        <div class="item">
+
+            <div class="left-column">Rent</div>
+            <div class="middle-column">
+                &nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.rent | hideZero | impCurrency}}
+            </div>
+            <div class="right-column">
+                &nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.newRent | hideZero | impCurrency}}
+            </div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">First Mtg. P & I</div>
+            <div class="middle-column">&nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.firstMtgPi | hideZero | impCurrency }}</div>
+            <div class="right-column">&nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.newFirstMtgPi | hideZero | impCurrency }}</div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">
+                <div ng-show="!housingExpenses.isMoreThan2Mortgages()">Second Mtg. P & I</div>
+                <div ng-show="housingExpenses.isMoreThan2Mortgages()"> Other Mtgs. P & I</div>
+            </div>
+            <div class="middle-column">&nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.secondMtgPi | hideZero | impCurrency }}</div>
+            <div class="right-column">&nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.newSecondMtgPi | hideZero | impCurrency }}</div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">Hazard Insurance</div>
+            <div class="middle-column" ng-class="{'impounded-italic' : housingExpenses.currentHomeOwnerExpense().impounded}">
+                &nbsp;{{housingExpenses.currentHomeOwnerExpense().monthlyAmount | hideZero | impCurrency }}
+                <span ng-show="housingExpenses.currentHomeOwnerExpense().impounded && housingExpenses.currentHomeOwnerExpense().monthlyAmount != 0">*</span>
+            </div>
+            <div class="right-column" ng-class="{'impounded-italic' : housingExpenses.homeOwnerCost().impounded}">
+                &nbsp;{{housingExpenses.homeOwnerCost().amountPerMonth | hideZero | impCurrency }}
+                <span ng-show="housingExpenses.homeOwnerCost().impounded && housingExpenses.homeOwnerCost().amountPerMonth!= 0">*</span>
+            </div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">Flood Insurance</div>
+            <div class="middle-column" ng-class="{'impounded-italic' : housingExpenses.currentFloodInsuranceExpense().impounded}">
+                &nbsp;{{housingExpenses.currentFloodInsuranceExpense().monthlyAmount | hideZero | impCurrency}}
+                <span ng-show="housingExpenses.currentFloodInsuranceExpense().impounded && housingExpenses.currentFloodInsuranceExpense().monthlyAmount != 0">*</span>
+            </div>
+            <div class="right-column" ng-class="{'impounded-italic' : housingExpenses.floodInsuranceCost().impounded}">
+                &nbsp;{{housingExpenses.floodInsuranceCost().amountPerMonth | hideZero | impCurrency}}
+                <span ng-show="housingExpenses.floodInsuranceCost().impounded && housingExpenses.floodInsuranceCost().amountPerMonth > 0">*</span>
+            </div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">Taxes</div>
+            <div class="middle-column" ng-class="{'impounded-italic' : housingExpenses.currentPropertyTaxExpense().impounded}">
+                &nbsp;{{housingExpenses.currentPropertyTaxExpense().monthlyAmount | hideZero | impCurrency}}
+                <span ng-show="housingExpenses.currentPropertyTaxExpense().impounded && housingExpenses.currentPropertyTaxExpense().monthlyAmount != 0">*</span>
+            </div>
+            <div class="right-column" ng-class="{'impounded-italic' : housingExpenses.propertyTaxCost().impounded}">
+                &nbsp;{{housingExpenses.propertyTaxCost().amountPerMonth | hideZero | impCurrency}}
+                <span ng-show="housingExpenses.propertyTaxCost().impounded && housingExpenses.propertyTaxCost().amountPerMonth != 0">*</span>
+            </div>
+
+        </div>
+        <div class="item" ng-if="housingExpenses.usdaAnnualCost().amountPerMonth != 0">
+
+            <div class="left-column">{{housingExpenses.usdaAnnualCost().name}}</div>
+            <div class="middle-column">
+            </div>
+            <div class="right-column" ng-class="{'impounded-italic' : housingExpenses.usdaAnnualCost().impounded}">
+                &nbsp;{{housingExpenses.usdaAnnualCost().amountPerMonth | hideZero | impCurrency}}
+                <span ng-show="housingExpenses.usdaAnnualCost().impounded && housingExpenses.usdaAnnualCost().amountPerMonth != 0">*</span>
+            </div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">Mtg. Insurance</div>
+            <div class="middle-column" ng-class="{'impounded-italic' : housingExpenses.currentMortgageInsuranceExpense().impounded}">
+                &nbsp;{{housingExpenses.currentMortgageInsuranceExpense().monthlyAmount | hideZero | impCurrency}}
+                <span ng-show="housingExpenses.currentMortgageInsuranceExpense().impounded && housingExpenses.currentMortgageInsuranceExpense().monthlyAmount!= 0">*</span>
+            </div>
+            <div class="right-column mortgageInsurance" ng-class="{'impounded-italic' : housingExpenses.mortgageInsuranceCost().impounded}" ng-click="housingExpenses.showConventionalMortgageInsuranceModal($event)">
+                &nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.newMtgInsurance | hideZero | impCurrency}}
+                <span ng-hide="!housingExpenses.wrappedLoan.ref.housingExpenses.newMtgInsurance">*</span>
+            </div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">HOA</div>
+            <div class="middle-column" ng-class="{'impounded-italic' : housingExpenses.currentHOAExpense().impounded}">
+                &nbsp;{{housingExpenses.currentHOAExpense().monthlyAmount | hideZero | impCurrency}}
+            </div>
+            <div class="right-column" ng-class="{'impounded-italic' : housingExpenses.wrappedLoan.ref.housingExpenses.newHoaImpounded}">
+                &nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.newHoa | hideZero | impCurrency}}
+            </div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column">Other</div>
+            <div class="middle-column">&nbsp;{{housingExpenses.wrappedLoan.ref.housingExpenses.other | hideZero | impCurrency}}</div>
+            <div class="right-column">&nbsp;{{housingExpenses.getTotalOtherInsuranceCosts() | hideZero | impCurrency}}</div>
+
+        </div>
+
+        <div class="item">
+            <div class="left-column" ng-class="{ 'total-bold-black': loanDetails.wrappedLoan.ref.getLoanApplications().length == 1}">
+                <span ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">Sub Total</span>
+                <span ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length == 1">Total</span>
+            </div>
+            <div class="total-expenses-middle-column" ng-class="{ 'grand-subtotal': loanDetails.wrappedLoan.ref.getLoanApplications().length > 1}">&nbsp;{{housingExpenses.totalCurrentExpenses() | hideZero | impCurrency}}</div>
+            <div class="total-expenses-right-column" ng-class="{ 'grand-subtotal': loanDetails.wrappedLoan.ref.getLoanApplications().length > 1}">&nbsp;{{ housingExpenses.wrappedLoan.ref.loanLock.newMonthlyPayment | hideZero | impCurrency }}</div>
+
+        </div>
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">
+
+            <div class="left-column">Add'l Mortgagees</div>
+            <div class="middle-column">{{ housingExpenses.wrappedLoan.ref.housingExpenses.addlMortgagees | hideZero | impCurrency }}</div>
+            <!-- NOTE: THIS ONE IS ONLY FOR TESTING PURPOSES REMOVE IT BEFORE CHECK IN!!! -->
+            <div class="right-column">&nbsp;</div>
+            <!-- NOTE: THIS ONE IS ONLY FOR TESTING PURPOSES REMOVE IT BEFORE CHECK IN!!! -->
+
+        </div>
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.getLoanApplications().length > 1">
+            <div class="left-column">
+                <span class="total-expenses-left-column total-bold">Total</span>
+            </div>
+            <div class="total-expenses-middle-column grand-subtotal total-bold">&nbsp;{{housingExpenses.totalCurrentExpenses(true) | hideZero| impCurrency}}</div>
+            <div class="total-expenses-right-column grand-subtotal total-bold">&nbsp;{{housingExpenses.wrappedLoan.ref.loanLock.newMonthlyPayment | hideZero | impCurrency}}</div>
+
+        </div>
+        <div class="item">
+
+            <div class="left-column-impounds">*Total Impounds</div>
+            <div class="middle-column-impounds">&nbsp;</div>
+            <div class="right-column-impounds">&nbsp;{{housingExpenses.totalImpounds() | hideZero | impCurrency}}</div>
+
+        </div>
+
+    </div>
+
+</div>

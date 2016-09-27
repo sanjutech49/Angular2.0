@@ -1,0 +1,65 @@
+﻿<div class="unit-control">
+    <div class="section-VII-bar-chart unit-body">
+        <div class="bar-container" ng-switch on="sectionSeven.cashFromBorrower()">
+            <div class="bar-container-left">
+                <div class="cash-from-borrower-color cash-from-borrower-bar-position"
+                     ng-switch-when="true"
+                     borrower-cash-bar-graph
+                     total-amount="{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount}}"
+                     cash-from-to-borrower="{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.cashFromToBorrower | impAbs}}"
+                     total-amount-bar-width="167">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="bar-container-right">
+                <div class="total-amount-color total-amount-bar-position">
+                    &nbsp;
+                </div>
+                <div class="cash-to-borrower-color cash-to-borrower-bar-position"
+                     ng-switch-when="false"
+                     borrower-cash-bar-graph
+                     total-amount="{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount}}"
+                     cash-from-to-borrower="{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.cashFromToBorrower | impAbs}}"
+                     total-amount-bar-width="167">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="amount-container-left">
+                <div class="floatleft" ng-switch on="sectionSeven.cashFromBorrower()">
+                    <div class="floatleft" ng-switch-when="true">
+                        <div class="circle cash-from-borrower-color circle-position"></div>
+                    </div>
+                    <div class="floatleft" ng-switch-when="false">
+                        <div class="circle cash-to-borrower-color circle-position"></div>
+                    </div>
+                </div>
+                <div class="value-container" ng-switch on="sectionSeven.cashFromBorrower()">
+                    <div class="value-style">
+                        {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.cashFromToBorrower | impAbs | impCurrency}}&nbsp;
+                    </div>
+                    <div class="label-style" ng-switch-when="true">
+                        Cash from Borrower
+                    </div>
+                    <div class="label-style" ng-switch-when="false">
+                        Cash to Borrower
+                    </div>
+                </div>
+            </div>
+            <div class="amount-container-right">
+                <div class="floatleft">
+                    <div class="circle total-amount-color circle-position"></div>
+                </div>
+                <div class="value-container">
+                    <div class="value-style">
+                        {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount | impCurrency }}&nbsp;
+                    </div>
+                    <div class="label-style">
+                        Total Loan Amount
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿<div class="imp-tooltip prior-adverse-rating-container">
+    <div class="imp-div-close-x floatright" style="margin: -20px -20px 0px 0px;" onclick="$(this).parents('.tooltip').prev().trigger('click');"></div>
+    <div class="prior-adverse-rating-content">
+        <div class="header">Late Payment History</div>
+        <div class="title">
+            <span class="item">Date</span>
+            <span class="item-1">Code</span>
+            <span class="item-2">Type</span>
+        </div>
+        <div class="scroll">
+            <div ng-repeat="adverseRating in modalpopoverCtrl.model">
+                <div class="row">
+                    <span class="item">{{adverseRating.date | date:'MM/dd/yyyy'}}</span>
+                    <span class="item-1">{{adverseRating.code}}</span>
+                    <span class="item-2">{{modalpopoverCtrl.ctrl.lookups.getStringValue(modalpopoverCtrl.ctrl.lookups.mannerOfPaymentRatings, adverseRating.mannerOfPaymentRating)}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

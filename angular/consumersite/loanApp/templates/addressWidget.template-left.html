@@ -1,0 +1,43 @@
+﻿<div class="form-group">
+    <label class="col-lg-8 control-label" for="textinput">{{ placeholderStreetName }}</label>
+    <div class="col-lg-1">
+        <input type="text" class=" form-control" 
+               placeholder="{{ placeholderStreetName }}" 
+               ng-model="$parent.streetName" 
+               ng-change="onStreetNameChange()" 
+               ng-required="{{ $parent.required }}">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-8 control-label" for="textinput">{{ placeholderZipCodeName + ' / ' + placeholderStateName}}</label>
+    <div class="col-lg-1">
+        <div class="input-group dual-input-zip-state">
+            <input type="text" class="form-control zip" imp-numeric imp-select-on-click
+                   placeholder="{{ placeholderZipCodeName }}"
+                   maxlength="5"
+                   ng-model="$parent.zipCode"
+                   ng-change="fetchZipData()"
+                   ng-disabled="isDisabled && !zipEnabled"
+                   ng-blur="validateZipOnBlur()"
+                   ng-class="{'imp-asterisks-in-placeholder': zipAsterisksRequired}"
+                   ng-required="{{ $parent.required }}" />
+            <select class="form-control select-validation"
+                    ng-model="$parent.stateName"
+                    ng-options="selectedItem.text as selectedItem.text for selectedItem in states"
+                    ng-disabled="isDisabled"
+                    ng-required="{{ $parent.required }}">
+                <option value='' selected disabled style="color:#999;display:none">{{placeholderStateName}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-lg-8 control-label" for="textinput">{{ placeholderCityName }}</label>
+    <div class="col-lg-1">
+        <input type="text" class="form-control"
+               placeholder="{{ placeholderCityName }}"
+               ng-model="$parent.cityName"
+               ng-disabled="isDisabled"
+               ng-required="{{ $parent.required }}" />
+    </div>
+</div>

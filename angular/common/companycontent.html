@@ -1,0 +1,53 @@
+﻿<div class="rowitem" ng-if="modalpopoverCtrl.ctrl.liabilityTypes">
+    <div class="left-column">Liability</div>
+    <div class="right-column">
+        <div class="imp-span-ddl-container medium">
+            <select name="liabillityFor"
+                    class="imp-ddl"
+                    ng-model="modalpopoverCtrl.model.liabillityFor"
+                    ng-options="selectedItem.value as selectedItem.text for selectedItem in modalpopoverCtrl.ctrl.liabilityTypes"
+                    ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                    required></select>
+        </div>
+    </div>
+</div>
+    <div class="rowitem">
+        <div class="left-column">Name</div>
+        <div class="right-column">
+            <input type='text' class='imp-textbox-hm-wxxxl-prim' ng-model="modalpopoverCtrl.model.companyName" />
+        </div>
+    </div>
+
+    <div class="rowitem">
+        <div class="left-column">Attn</div>
+        <div class="right-column">
+            <input type='text' class="imp-textbox-hm-wxxxl-prim" ng-model="modalpopoverCtrl.model.attn" />
+        </div>
+    </div>
+
+    <div class="rowitem">
+        <div class="left-column">Phone</div>
+        <div class="right-column">
+            <input type='text' class='imp-textbox-hm-wxxxl-prim' ng-model="modalpopoverCtrl.model.phone" ui-mask="(999) 999-9999" />
+        </div>
+    </div>
+
+    <div class="rowitem">
+        <div class="left-column">Fax</div>
+        <div class="right-column">
+            <input type='text' class='imp-textbox-hm-wxxxl-prim' ng-model="modalpopoverCtrl.model.fax" ui-mask="(999) 999-9999" />
+        </div>
+    </div>
+
+    <div class="rowitem">
+        <div class="left-column">Email</div>
+        <div class="right-column">
+            <imp-email username="modalpopoverCtrl.model.email"></imp-email>
+        </div>
+    </div>
+
+    <div class="rowitem address">
+        <div class="left-column">Subject Address</div>
+    </div> 
+    <imp-address-control ng-model="modalpopoverCtrl.model.addressViewModel" is-unit-visible="false" states="modalpopoverCtrl.ctrl.states"></imp-address-control>
+ 

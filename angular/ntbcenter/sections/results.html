@@ -1,0 +1,51 @@
+﻿<div ng-repeat="benefit in ntbCenter.wrappedLoan.ref.ntbBenefitActivations | orderBy: ntbCenter.orderBenefit">
+    <div class="content-row" ng-show="ntbCenter.getDataNtbConfiguration(benefit.ntbBenefitEnumId, ntbCenter.wrappedLoan.ref.getSubjectProperty().stateName, 'state') != null">
+        <div class="left-section-checkbox">
+            <div class="declarations-row-right">
+                <input id="ntb_{{benefit.ntbBenefitEnumId}}"
+                       type="checkbox"
+                       ng-model="benefit.active"
+                       ng-change="benefit.isManual = true"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox">
+                <label for="ntb_{{benefit.ntbBenefitEnumId}}" class="imp-lb-checkbox"></label>
+            </div>
+        </div>
+        <div class="right-section-checkbox">
+            <label style="font-size: 12px;">{{ntbCenter.getDataNtbConfiguration(benefit.ntbBenefitEnumId, ntbCenter.wrappedLoan.ref.getSubjectProperty().stateName, 'description')}}</label>
+            <div ng-show="ntbCenter.getDataNtbConfiguration(benefit.ntbBenefitEnumId, ntbCenter.wrappedLoan.ref.getSubjectProperty().stateName, 'isCostRelated')">
+                <div style="display:flex; justify-content:space-between;">
+                    <div style="width:240px;">
+                        <span class="imp-psection-label">Cash to Borrower</span>
+                        <input type="text" style="width:130px;" ng-disabled="true" imp-currency ng-model="ntbCenter.wrappedLoan.ref.CashFromToBorrower" />
+                    </div>
+                    <div style="width:240px;  text-align:right;">
+                        <span class="imp-psection-label">Cost & Fees</span>
+                        <input type="text" style="width:130px;" ng-disabled="true" imp-currency ng-model="ntbCenter.wrappedLoan.ref.closingCost.totals.closingCosts.borrowerTotal" />
+                    </div>
+                </div>
+            </div>
+            <div ng-show="ntbCenter.getDataNtbConfiguration(benefit.ntbBenefitEnumId, ntbCenter.wrappedLoan.ref.getSubjectProperty().stateName,'hasExplanation')">
+                <input type="text" style="width:98%;" ng-disabled="!benefit.active" placeholder="Enter borrower explanation here" ng-model="benefit.explanation" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" content-row" ng-show="ntbCenter.wrappedLoan.ref.getSubjectProperty().stateName == 'RI'">
+    <div class="multi-column">
+        <label style="font-size: 12px;">
+            Bona Fide Personal Reason
+        </label>
+    </div>
+    <div class="multi-column" style="width: 350px;">
+        <div class="imp-span-ddl-container medium">
+            <select class="imp-ddl"
+                    ng-options="item.value as item.text for item in ntbCenter.applicationData.lookup.bonaFidePersonalReason"
+                    ng-change="ntbCenter.updateBonaFideCheckbox(ntbCenter.wrappedLoan.ref.bonaFidePersonalReasonId)"
+                    ng-model="ntbCenter.wrappedLoan.ref.bonaFidePersonalReasonId">
+                <option value="">Select One</option>
+            </select>
+        </div>
+    </div>
+</div>

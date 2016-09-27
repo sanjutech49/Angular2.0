@@ -1,0 +1,98 @@
+﻿<div class="product-name">
+    Locking Information
+</div>
+<div class="pgrid">
+    <div class="header">
+        <div class="divider">
+        </div>
+    </div>
+    <div class="container locking-info">
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Product Search</span>
+            </div>
+            <div class="col-xxl">
+                <span>{{lockingpricingCtrl.wrappedLoan.ref.loanLock.productSearchDate | date:"EEE, MM/dd/yyyy h:mma PST"}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Lock Requested</span>
+            </div>
+            <div class="col-xxl">
+                <span> {{lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockRequested | date:"EEE, MM/dd/yyyy h:mma PST"}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Lock Fulfilled</span>
+            </div>
+            <div class="col-xxl">
+                <span>{{lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockFullfilled | date:'EEE, MM/dd/yyyy h:mma PST'}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Lock Period</span>
+            </div>
+            <div class="col-xxl">
+                <span>{{lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockPeriod}} days &nbsp;</span>
+                <span ng-show="lockingpricingCtrl.wrappedLoan.ref.loanLock.extendedDays > 0">
+                    <span class="vertical-divider">|</span>
+                    +{{ lockingpricingCtrl.wrappedLoan.ref.loanLock.extendedDays }} extended
+                    <span ng-if="lockingpricingCtrl.wrappedLoan.ref.loanLock.extendedDays > 1">
+                        days
+                    </span>
+                    <span ng-if="lockingpricingCtrl.wrappedLoan.ref.loanLock.extendedDays == 1">
+                        day
+                    </span>
+
+                </span>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Lock Expiration</span>
+            </div>
+            <div class="col-xxl">
+                <div class="lock-expiration" ng-class="{expired: lockingpricingCtrl.isDescriptionTextExpired(lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockExpirationNumber)}" ng-if="lockingpricingCtrl.wrappedLoan.ref.lockingInformation.isLocked">
+                    <span>
+                        {{ lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockExpirationDate | date:"EEE, MM/dd/yyyy h:mma PST"}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Lock Denied</span>
+            </div>
+            <div class="col-xxl">
+                <span>{{lockingpricingCtrl.wrappedLoan.ref.loanLock.lockDeniedDate | date:"EEE, MM/dd/yyyy h:mma PST"}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Lock Cancelled</span>
+            </div>
+            <div class="col-xxl">
+                <span>{{lockingpricingCtrl.wrappedLoan.ref.loanLock.lockCancelledDate | date:"EEE, MM/dd/yyyy h:mma PST"}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                <span class="imp-disclaimer">Reason Given</span>
+            </div>
+            <div class="col-xxl">
+                <span>{{lockingpricingCtrl.wrappedLoan.ref.loanLock.reasonGiven}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

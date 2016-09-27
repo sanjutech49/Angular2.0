@@ -1,0 +1,17 @@
+﻿@using MML.Common
+@model MML.Web.LoanCenter.ViewModels.ManageFeesViewModel
+@{
+    var costGroup = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == ViewBag.GroupNumber);
+    var hudlineNumber = (int)ViewBag.HUDLineNumber;
+    var subHudlineNumber = ViewBag.SubHUDLineNumber as string;
+    var costPrefix = String.Format("TitleAndEscrow.CostGroups[{0}].Costs[{1}]", Model.TitleAndEscrow.CostGroups.IndexOf(costGroup),
+        costGroup.Costs.FindIndex( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) ) );
+    var cost = costGroup.Costs.First( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) );
+
+    var htmlAttr = new Dictionary<string, object>()
+    {
+        { "class", ViewBag.ClassName },
+        { "id" , "txtName" + hudlineNumber + subHudlineNumber ?? ""}
+    };
+}
+@Html.TextBox(String.Format("{0}.Name", costPrefix), cost.Name ?? cost.Title, htmlAttr)

@@ -1,0 +1,417 @@
+﻿@model MML.Web.LoanCenter.ViewModels.ContactViewModel
+@using MML.Common
+@using Telerik.Web.Mvc.UI
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div id="currentWorkQueueType" class="fleft">
+                <span class="namelink">Prospects</span></div>
+            <div class="smallarrow">
+            </div>
+        </div>
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.TotalItems.ToString()</span> <span class="font15">Prospects</span>
+        </div>
+        <div class="right1">
+            <div class="left1">
+                <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@MML.Common.Helpers.EnumHelper.GetStringValue( ( ( MML.Web.LoanCenter.Helpers.Utilities.ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).BoundDate )</span>
+            </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul>
+                                <li></li>
+                                <li id="ftoday" class="lower">@Ajax.ActionLink( "Today", "Execute", "Command", new { Command = "ProspectGridDateFilter,DateFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Today')" }, new { id = "aftoday" } )</li>
+                                <li id="ftomorrow" class="lower">@Ajax.ActionLink( "Yesterday", "Execute", "Command", new { Command = "ProspectGridDateFilter,DateFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Tomorrow')" }, new { id = "aftomorrow" } )</li>
+                                <li id="fthisweek" class="lower">@Ajax.ActionLink( "Last Week", "Execute", "Command", new { Command = "ProspectGridDateFilter,DateFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('This Week')" }, new { id = "afthisweek" } )</li>
+                                <li id="fnextweek" class="lower">@Ajax.ActionLink( "Last Month", "Execute", "Command", new { Command = "ProspectGridDateFilter,DateFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Next Week')" }, new { id = "afnextweek" } )</li>
+                                <li id="fthismonth" class="lower">@Ajax.ActionLink( "All Open", "Execute", "Command", new { Command = "ProspectGridDateFilter,DateFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('This Month')" }, new { id = "afthismonth" } )</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday" title="Minimize/Maximize Section">
+                    <div id="minmax" class="min">
+                    </div>
+
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="listandpage">
+        <div class="prospectcontent">
+            <table class="prospecttable">
+                <tr class="prospectsubjects" id="trGridHeader">
+                    <td>
+                    </td>
+                    <td class="t0">
+                    </td>
+                    <td>
+                    </td>
+                    <td style="display: none">
+                    </td>
+                    <td style="display: none">
+                    </td>
+               
+                    <td class="t1">@Ajax.ActionLink( "Date", "Execute", "Command", new { Command = "ProspectGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('Date')", OnComplete = "ProspectGrid.ProspectDataOnComplete('Date')", OnBegin = "ProspectGrid.ProspectDataOnBegin('Date')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Date')" } )
+                    </td>
+                    <td class="t2">@Ajax.ActionLink( "Time", "Execute", "Command", new { Command = "ProspectGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('Time')", OnComplete = "ProspectGrid.ProspectDataOnComplete('Time')", OnBegin = "ProspectGrid.ProspectDataOnBegin('Time')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Time')" } )
+                    </td>
+                    <td class="t3">@Ajax.ActionLink( "Contact", "Execute", "Command", new { Command = "ProspectGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('ContactName')", OnComplete = "ProspectGrid.ProspectDataOnComplete('ContactName')", OnBegin = "ProspectGrid.ProspectDataOnBegin('ContactName')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('ContactName')" } )
+                    </td>
+                    <td class="t4">@Ajax.ActionLink( "Loan Purpose", "Execute", "Command", new { Command = "ProspectGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('LoanType')", OnComplete = "ProspectGrid.ProspectDataOnComplete('LoanType')", OnBegin = "ProspectGrid.ProspectDataOnBegin('LoanType')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('LoanType')" } )
+                     <div class="prospectLoanPurposeArrow">
+                            <div class="prospectLoanPurposeFilter">
+                                <ul id="prospectLoanPurposeFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( ContactListState )Session[ SessionHelper.ContactListState ] ).LoanPurposeFilter == null || ( ( ContactListState )Session[ SessionHelper.ContactListState ] ).LoanPurposeFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "ProspectLoanPurposeTypeFilter,LoanPurposeFilter=-1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "ProspectGrid.ProspectDataOnSuccess()" } )
+                                            </li>
+                                            @foreach ( MML.Contracts.LoanTransactionType loanTransactionType in Model.LoanPurposeList )
+                                            {
+                                                <li class="@(( ( ContactListState )Session[ SessionHelper.ContactListState ] ).LoanPurposeFilter != null && ( ( ContactListState )Session[ SessionHelper.ContactListState ] ).LoanPurposeFilter == loanTransactionType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( loanTransactionType.GetStringValue(), "Execute", "Command", new { Command = "ProspectLoanPurposeTypeFilter,LoanPurposeFilter=" + loanTransactionType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "ProspectGrid.ProspectDataOnSuccess()" } )
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t5">@Ajax.ActionLink( "Status", "Execute", "Command", new { Command = "ProspectGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('StatusId')", OnComplete = "ProspectGrid.ProspectDataOnComplete('StatusId')", OnBegin = "ProspectGrid.ProspectDataOnBegin('StatusId')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('StatusId')" } )
+                        <div class="contactStatusFilterArrow">
+                            <div class="contactStatusFilter">
+                                <ul id="contactStatusFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( ContactListState )Session[ SessionHelper.ContactListState ] ).ContactStatusFilter == null || ( ( ContactListState )Session[ SessionHelper.ContactListState ] ).ContactStatusFilter == -1 ? "lowers" : "lower")">
+                                                @Ajax.ActionLink("Show All", "Execute", "Command", new { Command = "ContactStatusFilter,StatusFilter=-1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo();", OnComplete = "ProspectGrid.ProspectDataOnComplete()" })
+                                            </li>
+                                            @foreach ( System.Web.WebPages.Html.SelectListItem selectListItem in Model.ProspectStatusList )
+                                            {
+                                                <li class="@(( ( ContactListState )Session[ SessionHelper.ContactListState ] ).ContactStatusFilter != null && ( ( ContactListState )Session[ SessionHelper.ContactListState ] ).ContactStatusFilter == Int32.Parse(selectListItem.Value) ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink(selectListItem.Text, "Execute", "Command", new { Command = "ContactStatusFilter,StatusFilter=" + selectListItem.Value }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo();", OnComplete = "ProspectGrid.ProspectDataOnComplete()" })
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t6">@Ajax.ActionLink( "App Date", "Execute", "Command", new { Command = "ProspectGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('StatusId')", OnComplete = "ProspectGrid.ProspectDataOnComplete('StatusId')", OnBegin = "ProspectGrid.ProspectDataOnBegin('StatusId')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('StatusId')" } )
+                    </td>
+                    <td class="t7">@Ajax.ActionLink( "Application", "Execute", "Command", new { Command = "ProspectGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('StatusId')", OnComplete = "ProspectGrid.ProspectDataOnComplete('StatusId')", OnBegin = "ProspectGrid.ProspectDataOnBegin('StatusId')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('StatusId')" } )
+                    </td>
+                    <td class="t8" colspan="2">@Ajax.ActionLink("Last Activity On", "Execute", "Command", new { Command = "ProspectGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('Last Activity On')", OnComplete = "ProspectGrid.ProspectDataOnComplete('Last Activity On')", OnBegin = "ProspectGrid.ProspectDataOnBegin('Last Activity On')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Last Activity On')" })
+                    </td>
+                    <td class="t9">@Ajax.ActionLink( AccountHelper.IsConciergeOnly() ? "Loan Processor/LOA" : "LO/Concierge", "Execute", "Command", new { Command = "ProspectGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('ConciergeName')", OnComplete = "ProspectGrid.ProspectDataOnComplete('ConciergeName')", OnBegin = "ProspectGrid.ProspectDataOnBegin('ConciergeName')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('ConciergeName')" } )
+                        @if ( !AccountHelper.IsConciergeOnly() || AccountHelper.HasPrivilege( PrivilegeName.ViewQueuesFilter ) )
+                        {
+                        <div class="prospectLoanLoConciergeArrow">
+                                <div class="prospectLoanLoConciergeFilter">
+                                    <ul id="prospectLoanLoConciergeFilter">
+                                        <li><a href="#">&nbsp;</a>
+                                            <ul>
+                                                <li></li>
+                                                <li class="@(( ( ContactListState )Session[ SessionHelper.ContactListState ] ).ConciergeFilter == -1 ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "ProspectConciergeFilter,ConciergeFilter=-1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo();", OnSuccess = "ProspectGrid.ProspectDataOnSuccess()" } )
+                                                </li>
+                                                @if ( Model.ProspectConciergeFilterList != null )
+                                                {
+                                                    foreach ( var loconcierge in Model.ProspectConciergeFilterList )
+                                                    {
+                                                    <li class="@( loconcierge.Selected ? "lowers" : "lower")">
+                                                        @Ajax.ActionLink( loconcierge.Text, "Execute", "Command", new { Command = "ProspectConciergeFilter,ConciergeFilter=" + loconcierge.Value }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo();", OnSuccess = "ProspectGrid.ProspectDataOnSuccess();" } )
+                                                    </li>
+                                                    }
+                                                }                                                
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
+                @if ( Model.Contacts != null )
+                {
+                    for ( int i = 0; i < Model.Contacts.Count; i++ )
+                    {
+                        if ( Model.Contacts[ i ].ContactViewItems != null )
+                        { 
+                            <tr class="@Model.Contacts[ i ].ContactViewItems[ 0 ].ClassCollection" id="task_@{@String.Format( "{0}P", i )}" onclick="SelectedTask('@String.Format( "{0}P", i )','@Model.Contacts[ i ].ContactViewItems[ 0 ].ClassCollection', false, 'Prospect')">
+                            <td>
+                                <div class="biggreen" id="arrowdiv_@{@String.Format( "{0}P", i )}">
+                                </div>
+                                @if ( Model.Contacts[ i ].ContactViewItems.Count > 1 )
+                                {
+                                        <div class="childIndicator" id="childIndicator_@{@String.Format( "{0}P", i )}" onclick="$(this).unbind('click'); SelectedTask('@String.Format( "{0}P", i )',
+                                        '@Model.Contacts[ i ].ContactViewItems[ 0 ].ClassCollection', false, 'Pipeline')">
+                                
+                                        </div>  
+                                }
+                            </td>
+                             <td>
+                                <div class="@Model.Contacts[ i ].ContactViewItems[ 0 ].ExceptionClassCollection">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="encryptedloanid" style="display: none">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.Contacts[ i ].ContactViewItems[ 0 ].LoanId.ToString(), EncriptionKeys.Default ) )
+                                </div>
+                            </td>
+                            <td style="display: none" class="prospectid">@Model.Contacts[ i ].ContactViewItems[ 0 ].ContactId
+                            </td>
+                            <td style="display: none" class="userAccountId">@Model.Contacts[ i ].ContactViewItems[ 0 ].UserAccountId
+                            </td>
+                            <td style="display: none" class="loanid">@Model.Contacts[ i ].ContactViewItems[ 0 ].LoanId</td>
+                            <td style="display: none" class="encryptedloanid">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.Contacts[ i ].ContactViewItems[ 0 ].LoanId.ToString(), EncriptionKeys.Default ) )</td>
+                            <td>@Model.Contacts[ i ].ContactViewItems[ 0 ].CreationTime.ToString( "MM/dd/yyyy" )
+                            </td>
+                            <td class="time">@Model.Contacts[ i ].ContactViewItems[ 0 ].CreationTime.ToString( "h:mm tt" )
+                            </td>
+                            <td>
+                                <span rel="ProspectContactTooltip,ContactId=@Model.Contacts[ i ].ContactViewItems[ 0 ].ContactId,LoanId=@Model.Contacts[ i ].ContactViewItems[ 0 ].LoanId.ToString()" class="PopupTrigger2 cursorhand">@Model.Contacts[ i ].ContactViewItems[ 0 ].BorrowerName</span>
+                            </td>
+                            <td>
+                                <span rel="ProspectLoanPurposeToolTip,ContactId=@Model.Contacts[ i ].ContactViewItems[ 0 ].ContactId,LoanId=@Model.Contacts[ i ].ContactViewItems[ 0 ].LoanId.ToString()" class="PopupTrigger2 cursorhand">@(MML.Common.Helpers.EnumHelper.GetStringValue( Model.Contacts[ i ].ContactViewItems[ 0 ].LoanType ))</span>
+                            </td>
+                            <td>
+                                  @( Html.Telerik().DropDownListFor( m => m.Contacts[ i ].ContactViewItems[ 0 ].StatusId ).Name( i.ToString() )
+                              .BindTo( new SelectList( Model.ProspectStatusList, "Value", "Text", Model.Contacts[ i ].ContactViewItems[ 0 ].StatusId ) )
+                                .ClientEvents( events => events.OnChange( "ChangeProspectStatus" ) )
+                                .HtmlAttributes( new { @class = "t-grid-header2", @style = "display:inline;" } ))
+                                                   
+                            </td>
+                            <td>
+                                @switch ( Model.Contacts[ i ].ContactViewItems[ 0 ].IsPreApprovalRequest )
+                                {
+                                    case 1:
+                                    <span style="font-weight: bold">PreApproval</span>
+                                        break;
+                                    case 2:
+                                    <span></span>
+                                        break;
+                                    default:
+                                    <span class="redbold">
+                                    @(Model.Contacts[ i ].ContactViewItems[0].ApplicationDate != DateTime.MinValue ? Model.Contacts[ i ].ContactViewItems[0].ApplicationDate.ToString( "MM/dd/yyyy" ) : String.Empty)
+                                    </span>
+                                                      break;
+                                }
+                            </td>
+                            <td class="applicationStep">@Model.Contacts[ i ].ContactViewItems[ 0 ].Application
+                            </td>
+                            <td>
+                                @switch ( Model.Contacts[ i ].ContactViewItems[ 0 ].LastActivityByImpersonatedUser )
+                                {
+                                    case 1:
+                                    <span style="color: black; font-weight: bold">@Model.Contacts[ i ].ContactViewItems[ 0 ].LastActivityOn.ToString( "MM/dd/yyyy" )</span>
+                                                                             break;
+                                    default:
+                                    <span>@Model.Contacts[ i ].ContactViewItems[ 0 ].LastActivityOn.ToString( "MM/dd/yyyy" ) </span>
+                                     break;
+                                }
+                            </td>
+                            <td class="time width70">
+                                @switch ( Model.Contacts[ i ].ContactViewItems[ 0 ].LastActivityByImpersonatedUser )
+                                {
+                                    case 1:
+                                    <span style="color: black; font-weight: bold">@Model.Contacts[ i ].ContactViewItems[ 0 ].LastActivityOn.ToString( "h:mm tt" )</span>
+                                                                             break;
+
+                                    default:
+                                    <span>@Model.Contacts[ i ].ContactViewItems[ 0 ].LastActivityOn.ToString( "h:mm tt" )</span>
+                                     break;
+                                }
+                            </td>
+                            <td id="trLicenseExpired@(Model.Contacts[ i ].ContactViewItems[ 0 ].ContactId)" style="min-width: 150px;" title="@Model.Contacts[ i ].ContactViewItems[ 0 ].LicenseExpiredMessage">
+                                <div id="divLicenseExpired@(Model.Contacts[ i ].ContactViewItems[ 0 ].ContactId)" class="@Model.Contacts[ i ].ContactViewItems[ 0 ].LicenseExpiredClass">
+                                </div>
+                                <span>@Model.Contacts[ i ].ContactViewItems[ 0 ].Concierge</span>
+                            </td>
+                            </tr>
+                            
+                    //render child loans
+                    for ( int j = 1; j < Model.Contacts[ i ].ContactViewItems.Count; j++ )
+                            {
+                                <tr class="@Model.Contacts[ i ].ContactViewItems[ j ].ClassCollection childloan"  id="task_@{@String.Format("{0}P{1}", i, j)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.Contacts[ i ].ContactViewItems[ j ].ClassCollection', true, 'Prospect', '@String.Format("task_{0}P{1}", i, j)' )"  style="display:none">
+                                 <td>
+                            </td>
+                             <td>
+                                <div class="@Model.Contacts[ i ].ContactViewItems[ j ].ExceptionClassCollection">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="encryptedloanid" style="display: none">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.Contacts[ i ].ContactViewItems[ j ].LoanId.ToString(), EncriptionKeys.Default ) )
+                                </div>
+                            </td>
+                            <td style="display: none" class="prospectid">@Model.Contacts[ i ].ContactViewItems[ j ].ContactId
+                            </td>
+                            <td style="display: none" class="userAccountId">@Model.Contacts[ i ].ContactViewItems[ j ].UserAccountId
+                            </td>
+                            <td style="display: none" class="loanid">@Model.Contacts[ i ].ContactViewItems[ j ].LoanId
+                            </td>
+                            <td>@Model.Contacts[ i ].ContactViewItems[ j ].CreationTime.ToString( "MM/dd/yyyy" )
+                            </td>
+                            <td class="time">@Model.Contacts[ i ].ContactViewItems[ j ].CreationTime.ToString( "h:mm tt" )
+                            </td>
+                            <td>
+                                <span rel="ProspectContactTooltip,ContactId=@Model.Contacts[ i ].ContactViewItems[ j ].ContactId,LoanId=@Model.Contacts[ i ].ContactViewItems[ j ].LoanId.ToString()" class="PopupTrigger2 cursorhand">@Model.Contacts[ i ].ContactViewItems[ j ].BorrowerName</span>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                  @( Html.Telerik().DropDownListFor( m => m.Contacts[ i ].ContactViewItems[ j ].StatusId ).Name( i.ToString() )
+                              .BindTo( new SelectList( Model.ProspectStatusList, "Value", "Text", Model.Contacts[ i ].ContactViewItems[ j ].StatusId ) )
+                                .ClientEvents( events => events.OnChange( "ChangeProspectStatus" ) )
+                                .HtmlAttributes( new { @class = "t-grid-header2", @style = "display:inline;" } ))
+                                                   
+                            </td>
+                            <td>
+                             @switch ( Model.Contacts[ i ].ContactViewItems[ 0 ].IsPreApprovalRequest )
+                             {
+                                 case 1:
+                                    <!-- <span style="font-weight: bold">PreApproval</span> !-->
+                                    @String.Empty
+                                     break;
+                                 case 2:
+                                    <span></span>
+                                        break;
+                                    default:
+                                    <span class="redbold">
+                                    <!-- @(Model.Contacts[ i ].ContactViewItems[0].ApplicationDate != DateTime.MinValue ? Model.Contacts[ i ].ContactViewItems[0].ApplicationDate.ToString( "MM/dd/yyyy" ) : String.Empty) -->
+                                    @String.Empty
+                                    </span>
+                                                      break;
+                             }
+                            </td>
+                                    <td class="applicationStep">
+                                        @Model.Contacts[i].ContactViewItems[j].Application
+                                </td>
+
+                            <td>
+                                @switch ( Model.Contacts[ i ].ContactViewItems[ j ].LastActivityByImpersonatedUser )
+                                {
+                                    case 1:
+                                    <span style="color: black; font-weight: bold">@Model.Contacts[ i ].ContactViewItems[ j ].LastActivityOn.ToString( "MM/dd/yyyy" )</span>
+                                                                             break;
+                                    default:
+                                    <span>@Model.Contacts[ i ].ContactViewItems[ j ].LastActivityOn.ToString( "MM/dd/yyyy" ) </span>
+                                     break;
+                                }
+                            </td>
+                            <td class="time width70">
+                                @switch ( Model.Contacts[ i ].ContactViewItems[ j ].LastActivityByImpersonatedUser )
+                                {
+                                    case 1:
+                                    <span style="color: black; font-weight: bold">@Model.Contacts[ i ].ContactViewItems[ j ].LastActivityOn.ToString( "h:mm tt" )</span>
+                                                                             break;
+
+                                    default:
+                                    <span>@Model.Contacts[ i ].ContactViewItems[ j ].LastActivityOn.ToString( "h:mm tt" )</span>
+                                     break;
+                                }  
+                            </td>
+                            <td>
+                            </td>
+                              </tr>
+
+                                }
+                        }
+                    }
+                }
+            </table>
+        </div>
+        <div class="todolistfooter">
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+                @if ( Model.TotalItems != 0 )
+                {     
+                    @(( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage * 10 - 9) <span>-</span> @(( ( MML.Web.LoanCenter.Helpers.Utilities.ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage * 10 - ( 10 - @Model.Contacts.Count )) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+            
+                }
+                else if ( Model.TotalItems == 0 )
+                {
+                    <span>0 records</span>
+                }
+            </div>
+            @if ( Model.PageCount > 1 )
+            { 
+                <div id="pagingDiv" class="normalfont left20">
+                    @if ( Model.TotalItems != 0 )
+                    {
+                        if ( ( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage != 1 )
+                        {               
+                        <a href="javascript:void(0)" onclick="ProspectGrid.ProspectDataHelper('command=ProspectGridPaging,Page=@(( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage - 1)')">
+                            <div class="leftarrow">
+                            </div>
+                        </a>
+                        }
+                        else
+                        {
+                        <div class="leftarrow">
+                        </div>
+                        }
+                        <div class="left1010">
+                            @if ( Model.CurrentPage > 10 )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "ProspectGridPaging,Page={0}",
+                               ( Model.PageCount >= ( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage - 10 ) ?
+                               ( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage - 10 :
+                               Model.PageCount )
+                           },
+                            new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('Page, plusTen')", OnComplete = "ProspectGrid.ProspectDataOnComplete('Page, plusTen')", OnBegin = "ProspectGrid.ProspectDataOnBegin('Page, plusTen')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                            @for ( int j = Model.StartPage; j <= Model.EndPage; j++ )
+                            {
+                                if ( j != ( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage )
+                                { 
+                                @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "ProspectGridPaging,Page={0}", j ) },
+                        new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "ProspectGrid.ProspectDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "ProspectGrid.ProspectDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "ProspectGrid.ProspectDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "ProspectGrid.ProspectDataOnSuccess('Page{0}')", j ) }, new { @class = "page" } )
+                                }
+                                else
+                                { 
+                                @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "ProspectGridPaging,Page={0}", j ) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "ProspectGrid.ProspectDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "ProspectGrid.ProspectDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "ProspectGrid.ProspectDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "ProspectGrid.ProspectDataOnSuccess('Page{0}')", j ) }, new { @class = "pageselected" } )
+                                }
+                            }
+                            @if ( Model.LastPageDots == false )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "ProspectGridPaging,Page={0}",
+                               ( Model.PageCount >= ( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage + 10 ) ?
+                               ( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage + 10 :
+                               Model.PageCount )
+                           },
+                            new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "ProspectGrid.ProspectDataOnFailure('Page, plusTen')", OnComplete = "ProspectGrid.ProspectDataOnComplete('Page, plusTen')", OnBegin = "ProspectGrid.ProspectDataOnBegin('Page, plusTen')", OnSuccess = "ProspectGrid.ProspectDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                        </div>
+                            if ( ( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage != Model.PageCount )
+                            {              
+                        <a href="javascript:void(0)" onclick="ProspectGrid.ProspectDataHelper('command=ProspectGridPaging,Page=@(( ( ContactListState )HttpContext.Current.Session[ "ContactListState" ] ).CurrentPage + 1)')">
+                            <div class="rightarrow">
+                            </div>
+                        </a>
+                            }
+                            else
+                            { 
+                        <div class="rightarrow">
+                        </div>
+                            }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿<div class="row view" ng-mouseover="hover = true" ng-mouseleave="hover = false">
+    <div class="col-m">{{getCompanyTypeFromInt(item.companyType) || '&nbsp;'}}</div>
+    <div class="col-xl">
+        <div>{{item.companyName || '&nbsp;'}}</div>
+        <div class="break">
+            <div class="inline imp-disclaimer">Lic #</div>
+            <div class="inline">{{item.companyLicenseNumber || '&nbsp;'}}</div>
+        </div>
+    </div>
+    <div class="col-xl">{{item.propertyList[0].streetName || '&nbsp;'}} {{item.propertyList[0].streetAddress1 }} {{item.propertyList[0].streetAddress2 }}, {{item.propertyList[0].cityName || '&nbsp;'}}, {{item.propertyList[0].stateName || '&nbsp;'}} {{item.propertyList[0].zipCode || '&nbsp;'}}</div>
+    <div class="col-xl">
+        <div>{{item.name.firstName}} {{item.name.lastName}}</div>
+        <div class="break">
+            <div class="inline imp-disclaimer">Lic #</div>
+            <div class="inline">{{item.licenseNumber || '&nbsp;'}}</div>
+        </div>
+    </div>
+    <div class="col-l">
+        <!-- Company / Contact -->
+        <div>
+            <div class="inline">{{ (item.personPhone.Mobile.phoneNumber | impFormatTelephone) || '&nbsp;'}}</div>
+            <div class="inline imp-disclaimer" ng-class="{'phone': item.personPhone.Mobile.phoneNumber == ''}">{{ item.personPhone.Mobile.phoneNumber == '' ? '&nbsp;' : item.personPhone.Mobile.typeStr}}</div>
+        </div>
+        <div>
+            <div class="inline">{{ (item.personPhone.Office.phoneNumber | impFormatTelephone) || '&nbsp;'}}</div>
+            <div class="inline imp-disclaimer" ng-class="{'phone': item.personPhone.Office.phoneNumber == ''}">{{ (item.personPhone.Office.phoneNumber == '') ? '&nbsp;' : item.personPhone.Office.typeStr}}</div>
+        </div>
+    </div>
+    <div class="col-xl">
+        <a href="mailto:{{item.emailAddressList.list[0].value.emailAddress}}">{{item.emailAddressList.list[0].value.emailAddress || '&nbsp;'}}</a>
+        <div>
+            <div class="inline">{{ (item.companyPhone.Fax.phoneNumber | impFormatTelephone) || '&nbsp;'}}</div>
+            <div class="inline imp-disclaimer" ng-class="{'phone': item.companyPhone.Fax.phoneNumber == ''}">{{ item.companyPhone.Fax.phoneNumber == '' ? '&nbsp;' : item.companyPhone.Fax.typeStr}}</div>
+        </div>
+    </div>
+    <div class="col-s">
+        <div class="imp-icon-pen" ng-show="hover" ng-click="changeTemplate('edit')"></div>
+        <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style="margin-right: -30px; margin-top:-3px; position: absolute; z-index: 1;" ng-click="removeItem();" ng-show="hover"></imp-circle>
+    </div>
+</div>

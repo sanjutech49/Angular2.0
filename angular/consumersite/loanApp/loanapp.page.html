@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- LEFT TEMPORARILY UNTIL STYLING IS MIGRATED-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--@TODO - REMOVE ConsumerSiteFeatureStyle.css-->
+    <link rel="stylesheet" href="../../../Content/ConsumerSiteFeatureStyle.css">
+    <link rel="stylesheet" href="../../../Content/ConsumerSite/LoanAppFeatureStyle.css">
+
+</head>
+<body>
+    <ng-form name="loanForm" class="form-horizontal" novalidate>
+        <div class="center-block">
+            <banner />
+            <div ui-view class="view-body"></div>
+            <div class="text-center">
+                <save-continue form="loanForm" />
+            </div>
+        </div>
+    </ng-form>
+</body>
+</html>
+

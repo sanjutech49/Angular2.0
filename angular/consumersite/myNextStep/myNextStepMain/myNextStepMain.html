@@ -1,0 +1,130 @@
+﻿<div class="home-page-banner">
+    <div class="col-xs-12 col-md-6 col-md-offset-3 center">
+        <div class="my-next-step-header inline">My Next Step</div>
+        <button class="btn btn-primary btn-myNextStep">
+            <i class="fa fa-folder-open-o"></i>
+            <div class="btn-myNextStep-text inline">Sign Disclosures</div>
+        </button>
+    </div>
+</div>
+<form class="form-horizontal">
+    <div class="view-body personal-information container-fluid">
+        <div class="row">
+            <div class="row section-content home-page-property-section center">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="inline first">
+                        <div>{{myNextStepMainCntrl.street || 'Address'}}</div>
+                        <div>{{myNextStepMainCntrl.formattedAddress || 'Not Found'}}</div>
+                    </div>
+
+                    <div class="inline">
+                        <div>{{myNextStepMainCntrl.loanNumber || '00000'}}</div>
+                        <label class="home-page-label">Loan #</label>
+                    </div>
+
+                    <div class="inline">
+                        <div>{{myNextStepMainCntrl.interestRate || '0.00%'}}</div>
+                        <label class="home-page-label">Int Rate</label>
+                    </div>
+                    <div class="inline">
+                        <div>{{myNextStepMainCntrl.apr || '0.00%'}}%</div>
+                        <label class="home-page-label">APR</label>
+                    </div>
+
+                    <div class="inline">
+                        <div>{{(myNextStepMainCntrl.loanAmount | currency) || '$0'}}</div>
+                        <label class="home-page-label">Loan Amount</label>
+                    </div>
+                    <div class="inline">
+                        <div>{{(myNextStepMainCntrl.downPayment | currency) || '$0'}}</div>
+                        <label class="home-page-label">Downpayment</label>
+                    </div>
+                    <div class="inline">
+                        <div>{{(myNextStepMainCntrl.payment | currency) || '$0'}}</div>
+                        <label class="home-page-label">Payment</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row section-content section-title center">My Loan Status</div>
+            <div class="row section-content-sm section-subtitle center">Your Loan Disclosure Package has been generated and sent to you.</div>
+            <div class="row section-content-sm center">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="section-underline home-page-underline"></div>
+                </div>
+            </div>
+            <div class="row center">
+                <div class="col-xs-12">
+                    <div class="home-page-progress-section">
+                        <div class="inline complete">Application</div>
+                        <img class="home-page-arrow" src="../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+                        <div class="inline active">Disclosures</div>
+                        <img class="home-page-arrow" src="../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+                        <div class="inline">In Processing</div>
+                        <img class="home-page-arrow" src="../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+                        <div class="inline">In Underwriting</div>
+                        <img class="home-page-arrow" src="../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+                        <div class="inline">Approved</div>
+                        <img class="home-page-arrow" src="../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+                        <img class="home-page-finish-flag" src="../Content/images/ConsumerSite/icon-finish-flag.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="row section-content-lg">
+                <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-0">
+                            <div class="section-title center">My Action Items</div>
+                            <div class="home-page-action-items content">
+                                <div>
+                                    <i class="fa fa-files-o"></i>
+                                    <a ng-href="{{myNextStepMainCntrl.getLoanReviewLink()}}">Review My Loan Application</a>
+                                </div>
+                                <div>
+                                    <i class="fa fa-folder-open-o"></i>
+                                    <a ng-href="{{myNextStepMainCntrl.getDisclosuresLink()}}" ng-show="{{myNextStepMainCntrl.canNavigateDisclosures()}}">Sign My Disclosures</a>
+                                    <span class="imp-disclaimer" ng-hide="{{myNextStepMainCntrl.canNavigateDisclosures()}}">Sign My Disclosures</span>
+                                </div>
+                                <div>
+                                    <i class="fa fa-dollar"></i>
+                                    <a ng-href="{{myNextStepMainCntrl.getAppraisalLink()}}" ng-show="{{myNextStepMainCntrl.canNavigateAppraisal()}}">Order My Appraisal</a>
+                                    <span class="imp-disclaimer" ng-hide="{{myNextStepMainCntrl.canNavigateAppraisal()}}">Order My Appraisal</span>
+                                </div>
+                                <div>
+                                    <i class="fa fa-upload"></i>
+                                    <a ng-href="{{myNextStepMainCntrl.getDocUploadLink()}}" ng-show="{{myNextStepMainCntrl.canNavigateDocUpload()}}">Upload My Documents</a>
+                                    <span class="imp-disclaimer" ng-hide="{{myNextStepMainCntrl.canNavigateDocUpload()}}">Upload My Documents</span>
+                                </div>
+                                <div>
+                                    <i class="fa fa-file-o"></i>
+                                    <a ng-href="{{myNextStepMainCntrl.getDocReviewLink()}}" ng-show="{{myNextStepMainCntrl.canNavigateDocReview()}}">Documents for My Review</a>
+                                    <span class="imp-disclaimer" ng-hide="{{myNextStepMainCntrl.canNavigateDocReview()}}">Documents for My Review</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4 home-page-indicator-section">
+                            <div class="section-content center ">
+                                <progress-spinner width="200" height="200" percent="myNextStepMainCntrl.getProgress()" anim-init="false"></progress-spinner>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-0">
+                            <div class="section-title center">My Contacts</div>
+                            <div class="home-page-contacts">
+                                <div>
+                                    <i class="fa fa-caret-down"></i>My Loan Officer
+                                    <div class="home-page-contact-info">
+                                        <div><b>Anakin Skywalker</b></div>
+                                        <div>Loan Officer | (555) 555-5555</div>
+                                        <div class="link">askywalkervader@abc.com</div>
+                                    </div>
+                                </div>
+                                <div><i class="fa fa-caret-right"></i>My Processor</div>
+                                <div><i class="fa fa-caret-right"></i>My Realtor</div>
+                                <div><i class="fa fa-caret-right"></i>My Escrow Agent</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

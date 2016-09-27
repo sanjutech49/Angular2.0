@@ -1,0 +1,215 @@
+﻿<div ng-class="{'dropdown-menu dropdown-menu-loan-item display-block': ($root.loanItemOpen || $root.loanItemHover), 'dropdown-menu dropdown-menu-loan-item': !($root.loanItemOpen || $root.loanItemHover), 'dropdown-menu-loan-item-short' : loanMenu.mortgageType !=  loanMenu.enums.MortageType.FHA && loanMenu.mortgageType !=  loanMenu.enums.MortageType.VA}"
+     ng-init="wholesaleStyle = loanMenu.isWholesaleUser ? { 'min-width': '485px'} : ''"
+     ng-style="wholesaleStyle">
+    <div class="imp-nav-bar-col">
+        <div class="item">
+            <div class="title">
+                Loan Application
+            </div>
+            <div class="items">
+                <ul>
+                    <li ng-if="false"><div ng-click="openProspect('loanCenter.loan.loanScenario.sections')">Prospect</div></li>
+                    <li><div ng-click="loanMenu.openLoanApplication('loanCenter.loan.loanApplication.personal')">Personal</div></li>
+                    <li ng-class="{'imp-inactive': loanMenu.loanAppTabs.all.isDisabled}"><div ng-click="loanMenu.loanAppTabs.all.isDisabled || loanMenu.openLoanApplication('loanCenter.loan.loanApplication.property')">Property</div></li>
+                    <li ng-class="{'imp-inactive': loanMenu.loanAppTabs.all.isDisabled}"><div ng-click="loanMenu.loanAppTabs.all.isDisabled || loanMenu.openLoanApplication('loanCenter.loan.loanApplication.assets')">Assets</div></li>
+                    <li ng-class="{'imp-inactive': loanMenu.loanAppTabs.all.isDisabled}"><div ng-click="loanMenu.loanAppTabs.all.isDisabled || loanMenu.openLoanApplication('loanCenter.loan.loanApplication.credit.details')">Credit</div></li>
+                    <li ng-class="{'imp-inactive': loanMenu.loanAppTabs.all.isDisabled}"><div ng-click="loanMenu.loanAppTabs.all.isDisabled || loanMenu.openLoanApplication('loanCenter.loan.loanApplication.declarations')">Declarations</div></li>
+                    <li ng-class="{'imp-inactive': loanMenu.loanAppTabs.all.isDisabled}"><div ng-click="loanMenu.loanAppTabs.all.isDisabled || loanMenu.openLoanApplication('loanCenter.loan.loanApplication.income')">Income</div></li>
+                    <li><div ng-click="loanMenu.openLink('LoanDetails')" ui-sref="loanCenter.loan.loanDetails.sections">Loan Details</div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="divider">
+        </div>
+        <div class="item">
+            <div class="title">
+                Loan Information
+            </div>
+            <div class="items" style="padding-bottom: 30px;">
+                <ul>
+                    <li ng-if="loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.antiSteeringOptions.isEnabled()}"
+                        ng-click="loanMenu.loanMenuItems.antiSteeringOptions.isEnabled() && loanMenu.openAntiSteeringModal()">
+                        <div>Anti-Steering Options</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.loanAssignments.isEnabled}"
+                        ng-click=" loanMenu.loanMenuItems.loanAssignments.isEnabled && loanMenu.openLink('Assignments')">
+                        <div>Loan Assignments</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser && loanMenu.loanMenuItems.preApproval.isVisible"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.preApproval.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.preApproval.isEnabled && loanMenu.openLink('PreApprovalLetters', 'loanCenter.loan.preapprovalletters')">
+                        <div>PreApproval Letters</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.documents.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.documents.isEnabled && loanMenu.openDocuments(loanMenu.documentTabNames.DocVault, 'loanCenter.loan.documents.docvault')">
+                        <div>Documents</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-click="loanMenu.loanMenuItems.borrowerNeedsList.isEnabled && loanMenu.openDocuments(loanMenu.documentTabNames.NeedsList, 'loanCenter.loan.documents.needslist')">
+                        <div>Borrower's Needs List</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.loanParticipants.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.loanParticipants.isEnabled && loanMenu.openLink('LoanParticipants')">
+                        <div>Loan Participants</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.viewInBorrowerSite.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.viewInBorrowerSite.isEnabled && openConciergeEmbeddedCommand('ViewInBorrower')">
+                        <div>View in Borrower Site</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.copyLoan.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.copyLoan.isEnabled && loanMenu.openLink('CopyLoan')">
+                        <div>Duplicate Loan</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.borrowerActivities.isEnabled}">
+                        <div>Borrower Activities</div>
+                    </li>
+                    <li ng-if="loanMenu.isWholesaleUser" 
+                        ng-click="loanMenu.createNewLoanApplication(false, false)">
+                        <div>Import FNM 3.2 File</div>
+                    </li>
+                    <li ng-click="loanMenu.loanMenuItems.adverseLoan.isEnabled() && loanMenu.openAdverseModal()"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.adverseLoan.isEnabled()}">
+                        <div>Adverse this Loan</div>
+                    </li>
+                    <li ng-click="loanMenu.openLink('SecureLinkEmail')">
+                        <div>Send a SecureLink</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="item" ><!--ng-if="loanMenu.mortgageType == loanMenu.enums.MortageType.FHA && !loanMenu.isWholesaleUser"-->
+            <div class="title">
+                Products & Pricing
+            </div>
+            <div class="items">
+                <ul>
+                    <li class="imp-inactive"><div>Shop for Rates</div></li>
+                    <li class="imp-inactive"><div>Update Pricing</div></li>
+                    <li><div ng-click="loanMenu.navigateToFHACalculator()">FHA Center</div></li>
+                    <li ng-class="{'imp-inactive': !loanMenu.wrappedLoan.ref.vaTabEnabled()}"
+                        ng-click="loanMenu.wrappedLoan.ref.vaTabEnabled() && loanMenu.navigateToVACalculator()">
+                        <div>VA Center</div>
+                    </li>
+                    <li ui-sref="loanCenter.loan.usdacenter"><div>USDA Center</div></li>
+                    <li ng-class="{'imp-inactive': !loanMenu.wrappedLoan.ref.ntbRequired || loanMenu.wrappedLoan.ref.loanPurposeType != 2 }"
+                        ng-click="loanMenu.wrappedLoan.ref.ntbRequired && loanMenu.navigateToNetTangibleBenefit()">
+                        <div> Net Tangible Benefit </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+            </div>
+    <div class="imp-nav-bar-col sec" ng-init="wholesaleColumnStyle = loanMenu.isWholesaleUser ? {'min-height': '290px'} : ''" ng-style="wholesaleColumnStyle">
+        <div class="item">
+            <div class="title">
+                Fulfillment
+            </div>
+            <div class="items" style="padding-bottom: 60px;">
+                <ul>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.aus.isEnabled()}"
+                        ng-click="loanMenu.loanMenuItems.aus.isEnabled() && loanMenu.openLink('Aus','loanCenter.loan.aus')">
+                        <div>AUS</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.stipsConditions.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.stipsConditions.isEnabled && loanMenu.openLink('Conditions', 'loanCenter.loan.stipsandconditions')">
+                        <div>Stips & Conditions</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.complianceCenter.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.complianceCenter.isEnabled && loanMenu.openLink('ComplianceCenter','loanCenter.loan.compliancecenter')">
+                        <div>Compliance Center</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.documentLibrary.isEnabled}">
+                        <div>Document Library</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.disclosures.isEnabled}">
+                        <div>Disclosures</div>
+                    </li>
+                    <li ng-if="loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.appraisal.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.appraisal.isEnabled && loanMenu.openLink('Appraisal','loanCenter.loan.appraisal')">
+                        <div>Appraisal</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.closingCosts.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.closingCosts.isEnabled && loanMenu.openLink('CostDetails','loanCenter.loan.cost.details')">
+                        <div>Closing Costs Details</div>
+                    </li>
+                    <li ng-if="!loanMenu.isWholesaleUser"
+                        ng-class="{'imp-inactive': !loanMenu.loanMenuItems.loanDelivery.isEnabled}">
+                        <div>Loan Delivery</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="divider" ng-if="!loanMenu.isWholesaleUser">
+        </div>
+        <div class="item" ng-if="!loanMenu.isWholesaleUser">
+            <div class="title">
+                Services
+            </div>
+            <div class="items">
+                <ul>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.titleAndEscrow.isEnabled}">
+                        <div>Title &amp; Escrow</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.veritax.isEnabled}">
+                        <div>Veritax</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.appraisal.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.appraisal.isEnabled && loanMenu.openLink('Appraisal','loanCenter.loan.appraisal')">
+                        <div>Order Appraisal</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.credit.isEnabled}">
+                        <div>Credit</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.complianceEase.isEnabled}"
+                        ng-click=" loanMenu.loanMenuItems.complianceEase.isEnabled && loanMenu.openLink('ComplianceEase','loanCenter.loan.complianceEase')">
+                        <div>ComplianceEase</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.dataVerify.isEnabled}">
+                        <div>DataVerify</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.uldd.isEnabled}">
+                        <div>ULDD</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.lqa.isEnabled}">
+                        <div>LQA</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.earlyCheck.isEnabled}">
+                        <div>Early Check</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="divider" ng-if="!loanMenu.isWholesaleUser">
+        </div>
+        <div class="item" ng-if="!loanMenu.isWholesaleUser">
+            <div class="title">
+                Secondary Information
+            </div>
+            <div class="items">
+                <ul>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.lockingAndAdjustments.isEnabled}"
+                        ng-click="loanMenu.loanMenuItems.lockingAndAdjustments.isEnabled && loanMenu.openLink('lockingandpricingadj','loanCenter.loan.lockingandpricingadj')">
+                        <div>Locking & Adjustments</div>
+                    </li>
+                    <li ng-class="{'imp-inactive': !loanMenu.loanMenuItems.pooling.isEnabled}">
+                        <div>Pooling</div>
+                    </li>
+                    <li ng-if="loanMenu.applicationData.currentUser.hasPrivilege(loanMenu.enums.privileges.IntegrationServices)"
+                        ng-click="loanMenu.openLink('Integrations','loanCenter.loan.integrations')">
+                        <div>Integration Services</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

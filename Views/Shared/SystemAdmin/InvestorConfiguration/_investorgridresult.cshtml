@@ -1,0 +1,181 @@
+﻿@using System.Web.Optimization
+@using MML.Contracts
+@using System.Linq;
+
+
+@model MML.Web.LoanCenter.ViewModels.InvestorConfiguration.InvestorConfigurationViewModel
+<script src="@Url.Content( "~/Scripts/CanvasDrawings.js" )" type="text/javascript"></script>
+<script src="@Url.Content( "~/Scripts/InvestorConfiguration.js" )" type="text/javascript"></script>
+  
+@{
+            
+    var statusListItems = new List<SelectListItem> {
+        new SelectListItem {Text = "All", Value = "-1", Selected = Model.Active == null}, 
+        new SelectListItem {Text = "Active", Value = "1", Selected = Model.Active == true}, 
+        new SelectListItem {Text = "Inactive", Value = "0", Selected = Model.Active == false}};
+        
+}
+<div class="imp-sa-grid-header">
+    <span class="imp-sa-title">Investor Configuration</span>
+    <br />
+    <br />
+    <div class="imp-sa-grid-filter">
+        <span class="imp-sa-title">Filter:</span> <span class="imp-sa-ddl">
+                                                      @Html.DropDownList( "statusList", statusListItems, new { @class = "imp-ddl-contacts", @onchange = "InvestorConfiguration.OnChangeInvestorActive", @id = "isInvestorActive", @style = "width:240px;" } )
+                                                  </span><a onclick="event.preventDefault();InvestorConfiguration.Search(this);" href="">
+                                                             <div class="imp-button-div-hxxs-wxs-prim">
+                                                                 Go
+                                                             </div>
+                                                         </a>          
+        <div class="imp-sa-grid-add" style="margin-top: 3px!important; margin-right: 22px;" onclick="InvestorConfiguration.OpenPopup('InvestorDetails', -1)">
+            <canvas id="icon" class="add active" width="26" height="26" style="float: left"></canvas>
+            <span class="imp-sa-grid-add-title">Add Investor</span>
+        </div>
+    </div>
+</div>
+<div class="imp-sa-grid-content">
+    <div class="imp-sa-grid-col-header">
+        <div class="imp-sa-grid-col-1">
+            <span class="imp-sa-grid-section-header"> Investor name </span>
+        </div>
+    </div>
+    @Html.HiddenFor( m => m.SelectedId )
+    @Html.HiddenFor( m => m.CurrentPage )
+
+    @foreach ( Investor investor in Model.Investors )
+    {
+        string activateDeactivate = investor.Active == null || ( bool )investor.Active ? "false" : "true";
+        string displyproducts = Model.SelectedId == investor.InvestorId ? "" : "display: none;";
+        string displyClass = Model.SelectedId == investor.InvestorId ? "down" : "right";
+        string inactive = investor.Active == null || ( bool )investor.Active ? "active" : "inactive";
+        string inactiveTitle = investor.Active == null ? "Disabled" : ( bool )investor.Active ? "Active" :  "Inactive";
+  
+        <div class="imp-sa-grid-row-container">
+            <div class="imp-sa-grid-row @inactive">
+                <div style="display: none">
+                    @investor.InvestorId
+                </div>
+                <div class="imp-sa-investor-col" title="@investor.Name">
+                    @if ( investor.InvestorProducts != null && investor.InvestorProducts.Any() )
+                    {
+                        <div id="imp-sa-grid-row-collaps-@investor.InvestorId" class="imp-sa-grid-row-collaps @displyClass" onclick="InvestorConfiguration.CollapseExpandInvestor(this, @investor.InvestorId) ">
+                        </div>
+
+                    }
+                    @if ( investor.Name != null && investor.Name.Length > 90 )
+                    {
+                        @(investor.Name.Substring( 0, 87 ) + "...")
+                    }
+                    else
+                    {
+                        @investor.Name
+                    }
+                </div>
+                <div class="imp-sa-grid-col-r1">
+                    @if ( investor.HasHistoryRecords )
+                    {
+                        <div class="imp-sa-grid-history" onclick="InvestorConfiguration.CurrentPage=0; InvestorConfiguration.OpenPopup('InvestorHistory', @investor.InvestorId);">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="imp-sa-grid-history-empty">
+                        </div>                        
+                    }
+                    @{
+
+                        string investorOnClickActive = string.Format("InvestorConfiguration.ShowWarningMessage({0}, '{1}', -1, {2})", investor.InvestorId, investor.Name, activateDeactivate);
+                        string investorOnClickEdit = activateDeactivate == "false" ? "InvestorConfiguration.OpenPopup('InvestorDetails'," + investor.InvestorId + ")" : "";
+                        string investorOnClickAdd = activateDeactivate == "false" ? "InvestorConfiguration.CurrentPage=" + investor.InvestorId + "; InvestorConfiguration.OpenPopup('InvestorProductDetails'," + investor.InvestorId + ", -1)" : "";
+                        string investorOnClickDelete = investor.InvestorProducts.Count > 0 ? "" : string.Format("InvestorConfiguration.ActivateDeactivate({0}, -1, {1}, {2})", investor.InvestorId, activateDeactivate, "true");
+                        string deleteClass = string.Concat("imp-sa-grid-delete", investor.InvestorProducts.Count > 0 ? " ddisabled" : "");
+                    }
+                    <div class="imp-sa-grid-active" onclick="@investorOnClickActive">
+                        <canvas id="active" class="canvas-active @inactive" width="21" height="23" title="@inactiveTitle"></canvas>
+                    </div>
+                    <div class="@deleteClass" onclick="@investorOnClickDelete">
+                        <canvas id="icon" title="Delete" class="del @(investor.InvestorProducts.Count > 0 ? "inactive" : "active")"
+                                width="26" height="26" style="margin-right: 2px;"></canvas>
+                    </div>
+                    <div class="imp-sa-grid-edit" onclick="@investorOnClickEdit">
+                        <div class="imp-button-pen  @inactive" style="width: 24px; float: left" title="Edit">
+                        </div>
+                    </div>
+                    <div class="imp-sa-grid-add">
+                        <canvas id="icon" class="add @inactive" width="26" height="26" style="float: left" onclick="@investorOnClickAdd"></canvas>
+                    </div>
+                </div>
+                <div id="imp-sa-grid-slide-@investor.InvestorId" style="@displyproducts">
+                    @if ( investor.InvestorProducts != null && investor.InvestorProducts.Count > 0 )
+                    {
+                        Html.RenderPartial( "SystemAdmin/InvestorConfiguration/_investorsubgridresult", investor );
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if ( Model.TotalItems > 0 )
+{
+    <div class="imp-sa-footer">
+        <div class="imp-sa-footer-container">
+
+            <div class="imp-sa-footer-nav imp-sa-footer-nav-left" onclick=" InvestorConfiguration.PageNavigation(this, @Model.PageCount, @Model.CurrentPage) ">
+                
+            </div>
+            
+            
+            <div style="float: left;" class="pages-container">
+                @if ( Model.StartPage > 1 )
+                {
+                    <div class="imp-sa-footer-nav-numbers" onclick=" InvestorConfiguration.GetPages('false', @Model.PageCount, @Model.CurrentPage, @Model.EndPage, this) ">
+                        ...
+                    </div>
+                }
+                @for ( int i = @Model.StartPage; i <= @Model.EndPage; i++ )
+                {
+                    if ( Model.CurrentPage == i )
+                    {
+                        <div class="imp-sa-footer-nav-numbers imp-sa-footer-nav-numbers-value page-selected" onclick=" InvestorConfiguration.SelectPage(this) ">
+                            @(i)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="imp-sa-footer-nav-numbers imp-sa-footer-nav-numbers-value page-not-selected" onclick=" InvestorConfiguration.SelectPage(this) ">
+                            @(i)
+                        </div>
+                    }
+
+                }
+                @if ( Model.EndPage < Model.PageCount )
+                {
+                    <div class="imp-sa-footer-nav-numbers" onclick=" InvestorConfiguration.GetPages('true', @Model.PageCount, @Model.CurrentPage, @Model.EndPage, this) ">
+                        ...
+                    </div>
+                }
+            </div>
+
+            <div class="imp-sa-footer-nav imp-sa-footer-nav-right" style="float: right;" onclick=" InvestorConfiguration.PageNavigation(this, @Model.PageCount, @Model.CurrentPage) ">
+                    
+            </div>
+            
+        </div>
+    </div>
+}
+else
+{
+    <div class="imp-sa-no-results-message">No results.</div>
+}
+
+<section id="modalPopupResult" class="addNew"></section>
+
+
+<script type="text/javascript">
+
+    InvestorConfiguration.GridBindings();
+     
+</script>
+
+ 

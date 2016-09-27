@@ -1,0 +1,104 @@
+﻿<div class="header">
+    <div class="title">
+        <div ng-class="realEstate.isCollapsed.realEstate ? 'imp-collapsed right':'imp-collapsed down'" ng-click="realEstate.isCollapsed.realEstate = !realEstate.isCollapsed.realEstate"></div>
+        <span class="lable-main">Real Estate</span>
+        <div class="imp-real-estate"></div>
+        <div class="actions add"
+             ng-hide="realEstate.disableFields"
+             ng-click="realEstate.addRealEstateItem()">
+            <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>Add Item
+        </div>
+    </div>
+
+</div>
+<div collapse="realEstate.isCollapsed.realEstate">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl">Lender Name</div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-l" style="width:18.5%">Property Address</div>
+            <div class="col-m">Estimated Value</div>
+            <div class="col-m">Balance</div>
+            <div class="col-m smaller">PITI</div>
+            <div class="col-s">Lien Position</div>
+            <div class="col-xs smaller">Payoff</div>
+            <div class="col-xs smaller">Exclude</div>
+            <div class="col-xs pull-right"></div>
+        </div>
+        <!--<div class="row big" ng-repeat="re in realEstate.wrappedLoan.ref.active.realEstate.pledgedAssets" ng-hide="re.isRemoved">-->
+        <div class="row big" ng-repeat="re in realEstate.getReos() track by re.liabilityInfoId | orderBy: 'lienPosition'" ng-hide="re.isRemoved" ng-class="{'imp-disclaimer': re.excludeDisplayValue}">
+            <div class="col-xl">{{re.companyData.companyName}}</div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs">
+                <!--we can use .wrappedLoan.ref.getSubjectProperty() to comapre addresses for this-->
+                <div ng-if="re.getProperty().isSubjectProperty">
+                    <div class="imp-icon-sp" title="Subject Property"></div>
+                </div>
+            </div>
+            <div class="col-l" style="width:18.5%">{{re.propertyAddressDisplayValue}}</div>
+            <div class="col-m"><div ng-if="re.estimatedValueDisplayValue != ''">{{re.estimatedValueDisplayValue | currency:'$':2}}</div></div>
+            <div class="col-m">{{re.unpaidBalance | currency:'$':2}}</div>
+            <div class="col-m smaller">{{re.totalPaymentDisplayValue | currency:'$':2}}</div>
+            <div class="col-s">{{re.lienPositionDisplayValue}}</div>
+            <div class="col-xs smaller">
+                <div class="imp-icon-ok center" ng-show="re.payoffDisplayValue"></div>
+            </div>
+            <div class="col-xs smaller">
+                <div class="imp-icon-ok center" ng-show="re.excludeDisplayValue"></div>
+            </div>
+            <div class="col-xxxs">
+                <div title="Edit" style="margin-top: -6px; margin-left: -5px" class="imp-edit-pen" ng-class="(realEstate.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !re.isValid()) ? 'red': 'blue'" ng-click="realEstate.editRealEstateItem(re)"></div>
+            </div>
+            <div class="col-xxxs credit-move-to-liabilities">
+                <div class="imp-move-to-container" ng-hide="realEstate.disableFields">
+                    <div class="btn-group" dropdown>
+                        <div class="dropdown-toggle" dropdown-toggle>
+                            <span class="imp-icon-arrow-down" style="display: block;margin-left:6px;"></span>
+                        </div>
+                        <div class="dropdown-arrow"></div>
+                        <ul class="dropdown-menu" style="margin-top: 14px;right:-10px" role="menu">
+                            <li>
+                                <a ng-click="realEstate.moveREOToLiability(re, false)">
+                                    <span>Move to Liabilities</span><span ng-if="realEstate.wrappedLoan.ref.active.isSpouseOnTheLoan">:&nbsp;{{::realEstate.wrappedLoan.ref.active.getBorrower().fullName}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-if="realEstate.wrappedLoan.ref.active.isSpouseOnTheLoan" ng-click="realEstate.moveREOToLiability(re, true)">
+                                    Move to Liabilities: {{::realEstate.wrappedLoan.ref.active.getCoBorrower().fullName}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxxs">
+                <imp-circle size="xsmall" style="position: relative; margin-left: 0px; top: -4px;"
+                            color="#F4BABC" hover-color="#e73302" is-plus="false" ng-click="realEstate.deleteRealEstateRow(re)"
+                            ng-show="re.isUserEntry==true && !realEstate.disableFields"></imp-circle>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="footer" style="padding-left:0px">
+        <div class="row-fluid">
+            <div class="col-xl"> </div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-l title" style="width:18.5%">
+                <div style="padding-left:133px">Totals</div>
+            </div>
+            <div class="col-m value">{{realEstate.summateTotalREOPropertyValues() | currency:'$':2}}</div>
+            <div class="col-m value">{{realEstate.summateTotalREOBalance() | currency:'$':2}}</div>
+            <div class="col-m value">{{realEstate.summateTotalREOPayment() | currency:'$':2}}</div>
+            <div class="col-s"></div>
+            <div class="col-xs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+        </div>
+    </div>
+</div>

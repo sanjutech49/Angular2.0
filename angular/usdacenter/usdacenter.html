@@ -1,0 +1,141 @@
+﻿<div class="products-center">
+    <div class="main-container">
+        <div class="section">
+            <div class="title" style="border: none; margin: 0px; padding-top:10px;">Household Members & Income</div>
+        </div>
+        <div class="section" style="text-align: right;"><imp-add-button button-text="'Add Household Member'" event-handler="usdaCenter.addNewHouseholdMember"></imp-add-button></div>
+    </div>
+    <div class="main-container" style="border-top: 1px solid #bdbebe;">
+        <div class="products-grid">
+            <div class="header">
+                <div class="col-l">Household Member Name</div>
+                <div class="col-s">Age</div>
+                <div class="col-m">Full Time Student</div>
+                <div class="col-m">Disabled</div>
+                <div class="col-m">Total Annnual Income</div>
+                <div class="col-l">Source(s) of Income</div>
+            </div>
+            <div class="products-row">
+                <div class="col-l">
+                    <imp-textbox ng-model="b"></imp-textbox>
+                </div>
+                <div class="col-s"><input type="text" /></div>
+                <div class="col-m">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl"
+                                ng-model="personal.wrappedLoan.ref.active.howDidYouHearAboutUs">
+                            <option value="">Select One</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-m">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl"
+                                ng-model="personal.wrappedLoan.ref.active.howDidYouHearAboutUs">
+                            <option value="">Select One</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-m"><input type="text" /></div>
+                <div class="col-l">
+                    <imp-textarea ng-model="a"></imp-textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-container" style="margin-top:50px;">
+        <div class="section">
+            <div class="title" style="margin-bottom:2px;">Annual Income Calculation</div>
+            <div style="color: #bdbebe;">calculate & record how the calculation of each income surce/type was determined within the fields</div>
+            <div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Borrower <span style="color:#bdbebe;">(Wages, Salary, Self-Employed, etc.)</span></div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section">{{0 | impRound: 2 | currency}}</div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Co-Borrower <span style="color:#bdbebe;">(Wages, Salary, Self-Employed, etc.)</span></div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section">{{0 | impRound: 2 | currency}}</div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Additional Income to Primary Income <span style="color:#bdbebe;">(Auto Allowance, Mort Differential, etc.)</span></div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section">{{0 | impRound: 2 | currency}}</div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Income for Additional Adult Househol Member(s) who are not Party to the Note</div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section">{{0 | impRound: 2 | currency}}</div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Income for Assets <span style="color:#bdbebe;">(Dividends / Interest)</span></div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section">{{0 | impRound: 2 | currency}}</div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="l-section" ><div class="sub-label">Total Annual Income</div></div>
+                    <div class="r-section"><span class="sub-total">{{0 | impRound: 2 | currency}}</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="title" style="margin-bottom:2px;">Household Deductions</div>
+            <div style="color: #bdbebe;">calculate & record how the calculation of each income surce/type was determined within the fields</div>
+            <div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Dependent Deduction <span style="color:#bdbebe;">(Dividends / Interest)</span></div>
+                    <div class="l-section no-input-row">$480 for each child under 18, full-time student, or disabled family member over 18</div>
+                    <div class="r-section" style="padding-top:2px;">{{0 | impRound: 2 | currency}}</div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Annual Child Care Expense <span style="color:#bdbebe;">(12 or under left with a babysitter or child care center)</span></div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section" style="padding:0px;"><input type="text" /></div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Elderly Household</div>
+                    <div class="l-section no-input-row">1 household deduction of $400 if 62 or older, or disabled and a party to the note</div>
+                    <div class="r-section" style="padding-top:2px;">{{0 | impRound: 2 | currency}}</div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Annual Disability Expenses <span style="color:#bdbebe;">(Unreimbursed expenses in excess of 3% of income)</span></div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section" style="padding:0px;"><input type="text" /></div>
+                </div>
+                <div class="usda-calculator-row">
+                    <div class="explanation">Annual Medical Expenses <span style="color:#bdbebe;">(Elderly households only - in excess of 3% of income)</span></div>
+                    <div class="l-section"><imp-textarea ng-model="a"></imp-textarea></div>
+                    <div class="r-section" style="padding:0px;"><input type="text" /></div>
+                </div>
+                <div class="usda-calculator-row" style="margin:0px;">
+                    <div class="l-section"><div class="sub-label">Total Households Deductions</div></div>
+                    <div class="r-section"><span class="sub-total">{{0 | impRound: 2 | currency}}</span></div>
+                </div>
+                <div class="usda-calculator-row" style="margin:0px;">
+                    <div class="l-section"><div class="sub-label imp-hyperlink" style="cursor:pointer;" ng-click="usdaCenter.openThirtPartyWebSite()">Moderate Income Limit</div></div>
+                    <div class="r-section" style="padding:0px;"><input type="text" /></div>
+                </div>
+                <div class="usda-calculator-row" style="margin:0px;">
+                    <div class="l-section"><div class="total-label">Ajusted Annual Income</div></div>
+                    <div class="r-section"><span class="main-total">{{0 | impRound: 2 | currency}}</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="imp-main-buttons-div imp-save-cancel-buttons-container">
+    <div class="imp-hyperlink left-side" ng-click="usdaCenter.runPropertyEligibility()">
+        Property Eligibility
+    </div>
+    <div class="right-side">
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" style=" font-size:12px;" ng-click="usdaCenter.cancelChanges()" />
+        <input type="button" class="imp-button-hm-wl-prim" value="Save" style=" font-size:12px;" ng-click="usdaCenter.saveChanges()" />
+    </div>
+</div>
+
+

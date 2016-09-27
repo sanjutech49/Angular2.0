@@ -1,0 +1,112 @@
+﻿<div class="personal-information">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center" ng-if="personalCntrl.isBorrower">My Personal Information</div>
+                <div class="row section-title center" ng-if="!personalCntrl.isBorrower">My Co-Borrower Information</div>
+                <div class="row section-content center-col-md">
+                    <div class="col-lg-3 col-lg-offset-1">
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="textinput">First Name</label>
+                            <div class="col-lg-1">
+                                <input type="text" class="form-control input-md" id="FirstName" placeholder="First Name" ng-model="personalCntrl.borrower.firstName" ng-blur="personalCntrl.populateAllData(personalCntrl.borrower.firstName)" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="textinput">Middle Name</label>
+                            <div class="col-lg-1">
+                                <input type="text" class="form-control input-md" id="MiddleName" placeholder="Middle Name (optional)" ng-model="personalCntrl.borrower.middleName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="LastName">Last Name</label>
+                            <div class="col-lg-1">
+                                <input type="text" class="form-control input-md" id="LastName" placeholder="Last Name" ng-model="personalCntrl.borrower.lastName" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="textinput">Suffix</label>
+                            <div class="col-lg-1">
+                                <input type="text" class="form-control input-md" id="Suffix" placeholder="Jr.,Sr.,I,II (optional)" ng-model="personalCntrl.borrower.suffix" />
+                            </div>
+                        </div>
+                        <div ng-if="personalCntrl.isBorrower" class="form-group">
+                            <label class="col-lg-8 control-label" for="hearTypeSelect">How did you Hear about us?</label>
+                            <div class="col-lg-1">
+                                <select class="form-control select-validation" id="hearTypeSelect"
+                                        ng-model="personalCntrl.loan.loanApp.howDidYouHearAboutUs"
+                                        ng-options="hearType.value as hearType.text for hearType in personalCntrl.howDidYouHearAboutUs">
+                                    <option value="" selected>(Optional)</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-1">
+                        <div class="form-group" ng-if="personalCntrl.isBorrower">
+                            <label class="col-lg-6 control-label" for="borroweremail">Email</label>
+                            <div class="col-lg-1">
+                                <input type="email" class="form-control input-md" id="borroweremail" placeholder="Enter your Email"
+                                       ng-model="personalCntrl.borrower.email"
+                                       ng-model-options="{'updateOn': 'blur'}"
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="PreferredPhone">Preferred Phone</label>
+                            <div class="col-lg-1">
+                                <div class="input-group dual-input-70-30">
+                                    <input type="tel" class="form-control" id="PreferredPhone"
+                                           ng-required="personalCntrl.isBorrower"
+                                           ng-model="personalCntrl.borrower.preferredPhone"
+                                           ui-mask="(999) 999-9999"
+                                           placeholder="(___) ___-____"
+                                           ng-model-options="{'updateOn': 'blur'}" />
+                                    <select class="form-control select-validation" ng-model="personalCntrl.borrower.phoneType" ng-required="personalCntrl.isBorrower" ng-options="phonetype.value as phonetype.text for phonetype in personalCntrl.applicationData.lookup.phoneNumberTypes">
+                                        <option value="" disabled>Select One</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="personalCntrl.isBorrower">
+                            <label class="col-lg-6 control-label" for="maritalstatus">Marital Status</label>
+                            <div class="col-lg-1">
+                                <select class="form-control select-validation" id="maritalstatus"
+                                        ng-model="personalCntrl.borrower.maritalStatus"
+                                        ng-options="maritalStatusType.value as maritalStatusType.text for maritalStatusType in personalCntrl.applicationData.lookup.maritalStatuses"
+                                        required>
+                                    <!--<option value="" disabled selected>Select</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="textinput">Dependents</label>
+                            <div class="col-lg-1">
+                                <div class="input-group dual-input-spaced">
+                                    <input type="text" class="form-control" id="Dependents" placeholder="# (optional)" ng-model="personalCntrl.borrower.numberOfDependents" />
+                                    <input type="text" class="form-control second-input" id="DependentsAges" placeholder="Ages (i.e. 3,8,2)" ng-model="personalCntrl.borrower.agesOfDependents">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row section-question center" ng-if="personalCntrl.isBorrower">
+                    <div class="col-xs-12">
+                        <div class="section-question-text">
+                            Add a Co-Borrower?
+                        </div>
+                        <div class="section-question-radio">
+                            <div class="form-group">
+                                <input type="radio" name="hasCoBorrower" id="hasCoBorrower" ng-value="true" ng-model="personalCntrl.loan.loanApp.hasCoBorrower" required />
+                                <label class="radio-inline" for="hasCoBorrower">Yes</label>
+
+                                <input type="radio" name="hasCoBorrower" id="hasNoCoBorrower" ng-value="false" ng-model="personalCntrl.loan.loanApp.hasCoBorrower" required />
+                                <label class="radio-inline" for="hasNoCoBorrower">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

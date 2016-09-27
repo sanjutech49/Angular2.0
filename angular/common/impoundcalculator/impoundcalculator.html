@@ -1,0 +1,178 @@
+﻿<div class="imp-popover imp-body impound-calculator impound-calculator-modal" ng-init="modalpopoverCtrl.ctrl.init(modalpopoverCtrl.model)">
+    <div class="container" ng-class="{ 'refinance': modalpopoverCtrl.model.isRefinance, 'extended': modalpopoverCtrl.model.isExtended }">
+        <div class="header">
+            <div class="imp-icon-impound-calculator"></div>
+            <span>New Taxes & Insurance / HOA Calculator </span><span ng-if="modalpopoverCtrl.model.isExtended">Extended</span>
+            <div ng-if="modalpopoverCtrl.model.isExtended">
+                <span>First Payment Date </span><span>{{modalpopoverCtrl.model.firstPaymentDate}}</span>
+        </div>
+        </div>
+        <div class="content">
+            <!--HEADER OF FIELDS-->
+            <div class="row header">
+                <div class="col-m first-column"> &nbsp;  </div>
+                <div class="col-m second-column align-left-maring" ng-if="!modalpopoverCtrl.model.isRefinance">
+                <span style="margin-left:16px; width: 44px;">Factor</span>  </div>
+                <div class="col-m amount-method-column align-left-maring"><span style="margin-left: 5px"> Amount Method </span></div>
+                <div class="col-m third-column align-left-maring"> <span style="word-spacing: 27px;">Amount Period</span> </div>
+                <div class="col-xs"> Monthly <br /> Amount  </div>
+                <div class="col-xs"> Months of <br /> Reserves  </div>
+                <div class="col-xs"> Total Est. <br /> Reserves  </div>
+                <div class="col-xs"> <br/> Impound </div>
+                <div class="col-xl" ng-if="modalpopoverCtrl.model.isExtended"> <br />Month Taxes & Insurance Due </div>
+            </div>
+            <!--FIELDS-->
+            <div ng-repeat="cost in modalpopoverCtrl.model.costs | orderBy: 'sortName'">
+                <div class="row">
+                    <div class="col-m first-column">
+                        <span>{{ cost.displayName }}</span>
+                    </div>
+                    <div class="col-m second-column" ng-if="!modalpopoverCtrl.model.isRefinance">
+                        <div ng-show="!modalpopoverCtrl.model.isRefinance && cost.hudLineNumber == 1004"
+                             class="imp-icon-question-mark"
+                             tooltip-html-unsafe="
+                        <div class='imp-tooltip imp-tooltip-autoclose' style='width:180px;'><div style='padding:15px 15px 15px;'><div>Factor of purchase price</div></div></div>"
+                        tooltip-placement="bottom" tooltip-trigger="click">
+                    </div>
+                        <div ng-show="!modalpopoverCtrl.model.isRefinance && cost.hudLineNumber == 1002"
+                             class="imp-icon-question-mark"
+                             tooltip-html-unsafe="
+                        <div class='imp-tooltip imp-tooltip-autoclose' style='width:180px;'><div style='padding:15px 15px 15px;'><div>Factor of loan amount</div></div></div>"
+                        tooltip-placement="bottom" tooltip-trigger="click">
+                    </div>
+                            <div style="float: right;" ng-show="!modalpopoverCtrl.model.isRefinance && (cost.hudLineNumber == 1004 || cost.hudLineNumber == 1002)">
+                                <input type="text" style=" width:43px;"
+                                   ng-disabled="modalpopoverCtrl.ctrl.isFactorDisabled(cost)"
+                                   ng-model="cost.percent" imp-percentage return-float="true" ng-blur="modalpopoverCtrl.ctrl.recalculateCost(cost)" />
+                        </div>
+                    </div>
+                    <div class="col-m amount-method-column" ng-style="!modalpopoverCtrl.ctrl.showAmountMethod(cost, modalpopoverCtrl.model.isRefinance, modalpopoverCtrl.model.applicationData) && {'visibility': 'hidden'}">
+                        <div class="imp-span-ddl-container medium" ng-class="modalpopoverCtrl.ctrl.isAmountMethodDisabled(modalpopoverCtrl.model.isExtended, cost, modalpopoverCtrl.model.mortageType) ? 'disabled': ''"
+                             style="width: 95%">
+                            <select class="imp-ddl" ng-model="cost.amountMethod" ng-disabled="modalpopoverCtrl.ctrl.isAmountMethodDisabled(modalpopoverCtrl.model.isExtended, cost, modalpopoverCtrl.model.mortageType)"
+                                    ng-change="modalpopoverCtrl.ctrl.onAmountMethodChange(cost)"
+                                    ng-options="selecteditem.value as selecteditem.text for selecteditem in modalpopoverCtrl.ctrl.getAmountMethods(cost, modalpopoverCtrl.model.isRefinance, modalpopoverCtrl.model.applicationData)"></select>
+                        </div>
+                    </div>
+                    <div class="col-m third-column">
+                        <div class="input-group" style="width: 157px;">
+                            <input type="text" class="form-control" imp-currency ng-model="cost.amountForYear" placeholder="$"
+                                   ng-blur="modalpopoverCtrl.ctrl.recalculateCost(cost, modalpopoverCtrl.model); modalpopoverCtrl.ctrl.initializePeriodPaymentMonths(cost);"
+                                   ng-disabled="modalpopoverCtrl.ctrl.isAmountDisabled(cost, modalpopoverCtrl.model.isRefinance)" />
+                            <span class="input-group-btn" style="width: 0;"></span>
+                            <div class="imp-span-ddl-container medium select-picker" ng-if="!modalpopoverCtrl.ctrl.isSingleMI(cost)"
+                                 ng-class="{'disabled' : (modalpopoverCtrl.ctrl.isPeriodDisabled(cost) || modalpopoverCtrl.ctrl.isAmountDisabled(cost, modalpopoverCtrl.model.isRefinance))}"
+                                 style="width: 89px;">
+                                <select class="imp-ddl"
+                                        ng-options="pp.value as pp.text for pp in modalpopoverCtrl.model.applicationData.lookup.propertyExpensesPayPeriods"
+                                        ng-disabled="modalpopoverCtrl.ctrl.isPeriodDisabled(cost) || modalpopoverCtrl.ctrl.isAmountDisabled(cost, modalpopoverCtrl.model.isRefinance)"
+                                        ng-model="cost.preferredPaymentPeriod"
+                                        ng-change=" modalpopoverCtrl.ctrl.preferredPaymentPeriodChanged(cost)"></select>
+                            </div>
+                            <div class="imp-span-ddl-container medium select-picker" ng-if="modalpopoverCtrl.ctrl.isSingleMI(cost)"
+                                 style="width: 89px;">
+                                <select class="imp-ddl"
+                                        ng-options="pp.value as pp.text for pp in modalpopoverCtrl.model.applicationData.lookup.upfrontPreferredPaymentPeriod"
+                                        ng-model="cost.upfrontPreferredPaymentPeriod"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="col-xs">
+                            <span ng-hide="modalpopoverCtrl.ctrl.isSingleMI(cost)">{{ cost.amountPerMonth | impRound: 2 }}</span>
+                    </div>
+                        <div class="col-xs" ng-switch on="modalpopoverCtrl.ctrl.isMonthOfReservesEditable(cost)">
+                            <div ng-switch-when="false" style="padding-left: 25px; margin-top: 5px;" ng-switch on="cost.impounded">
+                                <span ng-switch-when="true" class="center">{{ cost.monthsToBePaid }}</span>
+                                <span ng-switch-when="false" class="center">0</span>
+                            </div>
+                            <div ng-switch-when="true">
+                                <input class="month-of-reserves" ng-model="cost.monthsToBePaid" ng-blur="modalpopoverCtrl.ctrl.onMonthsOfReservesBlur(cost)" type="text" />
+                            </div>
+                    </div>
+                        <div class="col-xs">
+                            <span ng-if="cost.hudLineNumber != 1003">{{ cost.amount | impRound: 2 }}</span>
+                        </div>
+
+                    <div class="col-xs" ng-class="{'vertical-line': modalpopoverCtrl.model.isExtended}">
+                        <div style="padding-left:25px;">
+                            <input id="{{cost.costId}}"
+                                   type="checkbox"
+                                   class="imp-checkbox center"
+                                   ng-checked="cost.impounded"
+                                   ng-model="cost.impounded"
+                                   ng-disabled="cost.hudLineNumber == 1003 || modalpopoverCtrl.model.stateImpundLimit"
+                                   ng-change="modalpopoverCtrl.ctrl.initializePeriodPaymentMonths(cost); modalpopoverCtrl.ctrl.setTotalEstimatedReserves(cost)" />
+                        <label for="{{cost.costId}}" class="imp-lb-checkbox"></label>
+                    </div>
+                    </div>
+                    <div class="col-xs" ng-if="modalpopoverCtrl.model.isExtended"
+                         ng-repeat="periodPayment in cost.periodPaymentMonths | filter: {isRemoved: false} | orderBy: 'order'"
+                         ng-class="{'period-payment': $index == 0}">
+                        <div class="imp-span-ddl-container imp-span-ddl-container-short-4 period-payment-ddl"
+                             ng-class="{'disabled': modalpopoverCtrl.ctrl.isPeriodPaymentMonthsDisabled(cost)}">
+                            <select class="imp-ddl imp-ddl-short" ng-model="periodPayment.month"
+                                    ng-options="selecteditem.value as selecteditem.text for selecteditem in modalpopoverCtrl.model.applicationData.lookup.periodPaymentMonths"
+                                    ng-disabled="modalpopoverCtrl.ctrl.isPeriodPaymentMonthsDisabled(cost)">
+                                <option value='' selected disabled style="color:#999;display:none"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                              
+            <!-- HOA  -->
+            <div class="row">
+                <div class="col-m first-column">
+                    <span> HOA Dues</span>
+                </div>
+                <div class="col-m second-column" ng-if="!modalpopoverCtrl.model.isRefinance">
+                    &nbsp;
+                </div>
+                <div class="col-m amount-method-column">
+                    &nbsp;
+                </div>
+                <div class="col-m third-column">
+                    <div class="input-group" style="width: 157px;">
+                        <input type="text" class="form-control" imp-currency ng-model="modalpopoverCtrl.model.HOAExpens.amount" ng-change="modalpopoverCtrl.ctrl.setHoaMontlyAmount()" placeholder="$">
+                        <span class="input-group-btn" style="width: 0;"></span>
+                        <div class="imp-span-ddl-container medium select-picker" style="width: 89px;">
+                            <select class="imp-ddl" ng-change="modalpopoverCtrl.ctrl.setHoaMontlyAmount()"
+                                    ng-options="pp.value as pp.text for pp in modalpopoverCtrl.model.applicationData.lookup.propertyExpensesPayPeriods"
+                                    ng-model="modalpopoverCtrl.model.HOAExpens.preferredPayPeriod"></select>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-xs">
+                        <span>{{ modalpopoverCtrl.model.HOAExpens.amountPerMonth | impRound: 2 }}</span>
+                </div>
+                    <div class="col-xs">
+                        &nbsp;
+                </div>
+                    <div class="col-xs">
+                        &nbsp;
+                </div>
+                <div class="col-xs" ng-class="{'vertical-line': modalpopoverCtrl.model.isExtended}">
+                    &nbsp;
+                </div>
+
+            </div>
+
+            <!--SEPARATOR-->
+
+        <div class="footer">
+            <div class="disclaimer">Est. Reserves are based on State Tables and Estimated Closing Date</div>
+            <div class="totals-label">Totals <br /><span>Total Monthly Impounds</span></div>
+            <div class="totals-value">{{ modalpopoverCtrl.ctrl.getTotalMonthlyAmountIncludingHOA(modalpopoverCtrl.model.HOAExpens.amountPerMonth) | impRound: 2 | currency }}<br /><span>{{ modalpopoverCtrl.ctrl.getTotalMonthlyImpounds() | impRound: 2 | currency }}</span></div>
+            <div class="reserves-value">{{ modalpopoverCtrl.ctrl.getTotalEstReserves(modalpopoverCtrl.model.HOAExpens.amount) | impRound: 2 | currency }}</div>
+        </div>
+            <div class="separator"></div>
+        <div class="footer">
+            <div class="buttons">
+                <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+                <div class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Done</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿<h1>Consumer Site Dev Landing Page</h1>
+
+<style>
+    div div {
+        margin-left: 20px;
+    }
+</style>
+
+<div>
+    <h2>Pricing</h2>
+    <div>
+        <a ng-href="{{conSiteCntrl.goToState('consumerSite.pricing')}}">Pricing</a>
+    </div>
+
+    <h2>Loan Application</h2>
+    <div ng-repeat="page in conSiteCntrl.pageLoader">
+        <a ng-href="{{conSiteCntrl.goToState(page.stateName)}}">{{ page.stateName.split('.')[2]}}</a>
+    </div>
+
+
+    <h2>Secure</h2>
+    <div>
+        <a ng-href="{{conSiteCntrl.goToState('consumerSite.myNextStep.myNextStepMain')}}">MyNextStep Dashboard</a>
+    </div>
+    <div>
+        <a ng-href="{{conSiteCntrl.goToState('consumerSite.myNextStep.docusign.instructions')}}">Docusign</a>
+    </div>
+    <div>
+        <a ng-href="{{conSiteCntrl.goToState('consumerSite.myNextStep.appraisal')}}">Appraisal</a>
+    </div>
+    <div>
+        <a ng-href="{{conSiteCntrl.goToState('consumerSite.myNextStep.documentUpload')}}">Document Upload</a>
+    </div>
+</div>

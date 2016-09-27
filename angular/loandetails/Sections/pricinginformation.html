@@ -1,0 +1,155 @@
+﻿<div class="unit-control">
+
+    <div class="unit-header">
+
+        Pricing Information
+        <!--Hidden due to PBI 26768 -->
+       <!-- <div class="view-link">view pricing</div>-->
+
+    </div>
+
+    <div class="unit-body margin-top">
+
+        <div class="item">
+
+            <div class="left-side">Decision Score</div>
+            <div class="right-side"> 
+
+                {{ loanDetails.lowerDecisionScore() }}&nbsp;
+            </div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Purpose of Loan</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.getLoanPurposeTypeText()}}&nbsp;<a class="view-link" ng-show="loanDetails.canFlip" ng-click="loanDetails.flipPurpose()">change</a></div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Lien Position</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.getLoanLienPositions()}}&nbsp;</div>
+
+        </div>
+
+        <div class="item" ng-if=" loanDetails.wrappedLoan.ref.financialInfo.amortizationType == 1">
+
+            <div class="left-side">Qualifying Rate</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.qualifyingRate | impRound: 3 | impPercentage}}&nbsp;</div>           
+        </div>
+
+        <div class="item" ng-if=" loanDetails.wrappedLoan.ref.financialInfo.amortizationType == 2">
+            <div class="left-side">Note | Qual Rate</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.noteRate | impRound: 3 | impPercentage}} 
+                                        | {{loanDetails.wrappedLoan.ref.financialInfo.qualifyingRate | impRound: 3 | impPercentage}}  </div>
+            
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Price</div>
+            <div class="right-side">{{loanDetails.pricingInfo().pricingEngine | impRound: 3}} | {{loanDetails.pricingInfo().amount | impRound: 2 | impCurrency}}&nbsp;</div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Term</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.term}} due in {{loanDetails.wrappedLoan.ref.financialInfo.term}}</div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Mo’s of Liquid Reserves</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.liquidAssetReserves}}&nbsp;</div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Required Funds</div>
+            <div class="right-side">&nbsp;</div>
+
+        </div>
+                
+        <div class="item" ng-if=" loanDetails.wrappedLoan.ref.financialInfo.amortizationType == 2">
+            <div class="left-side">Index Type | Value</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.indexType}} | {{loanDetails.wrappedLoan.ref.financialInfo.indexValue}} </div>
+
+        </div>
+        <div class="item" ng-if=" loanDetails.wrappedLoan.ref.financialInfo.amortizationType == 2">
+            <div class="left-side">Margin</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.margin}} </div>
+
+        </div>
+        <div class="item" ng-if=" loanDetails.wrappedLoan.ref.financialInfo.amortizationType == 2">
+            <div class="left-side">Caps 1st | Sub | Life</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.rateAdjustmentFirstChangeCapRate}} / 
+                                        {{loanDetails.wrappedLoan.ref.financialInfo.rateAdjustmentSubsequentCapPercent}} /  
+                                             {{loanDetails.wrappedLoan.ref.financialInfo.rateAdjustmentLifetimeCapPercent}}  </div>
+
+        </div>
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.loanPurposeType == 2">
+
+            <div class="left-side">Cash Out</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.financialInfo.cashOutAmount| currency}}&nbsp;</div>
+
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.loanPurposeType == 2">
+
+            <div class="left-side">First Mortgage Holder</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.getFirstMortgageHolder()}}&nbsp;</div>
+
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.loanPurposeType == 2">
+
+            <div class="left-side">Original Purchase Amt</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.getSubjectProperty().purchasePrice | currency}}&nbsp;</div>
+
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.loanPurposeType == 2">
+
+            <div class="left-side">Purchase Date</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.getSubjectProperty().purchaseDate | date:'MM/dd/yyyy'}}&nbsp;</div>
+
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.loanPurposeType == 1">
+
+            <div class="left-side">Buying Stage</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.getHomeBuyingTypeText()}}&nbsp;</div>
+
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.loanPurposeType == 1">
+
+            <div class="left-side">Down Payment</div>
+            <div class="right-side">{{loanDetails.wrappedLoan.ref.downPaymentAmount() | currency}}&nbsp;</div>
+
+        </div>
+
+        <div class="item" ng-show="loanDetails.wrappedLoan.ref.loanPurposeType == 1">
+
+            <div class="left-side">Down Payment Source</div>
+            <div class="right-side">{{loanDetails.getDownPaymentSourceText()}}&nbsp;</div>
+
+        </div>
+        
+        <div class="item">
+            
+            <div class="left-side">Bank Statements <br /><div style="margin-top:-10px">for Income</div></div>
+            <div class="right-side">{{loanDetails.bankStatementForIncome}}&nbsp;</div>
+
+        </div>
+
+        <!--If last item needs to be visible, this <div/> is required to keep correct css-->
+        <div/>
+    </div>
+
+</div>

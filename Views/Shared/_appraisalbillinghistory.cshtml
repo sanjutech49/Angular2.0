@@ -1,0 +1,55 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.AppraisalBillingHistoryViewModel
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/Log.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#appraisalBillingHistoryPopup").draggable({ handle: "div.conversationlogsectionheadtitle" });
+
+    });
+</script>
+<div id="appraisalBillingHistoryPopup" class="appraisalBillingHistoryPopup LoanCenterPopup">
+    <div class="conversationlogsectionheadcontent">
+        <div class="historytitle">
+            <span class="namelink">Appraisal Billing Information History</span>
+        </div>
+        <a id="historyclose" onclick="Appraisal.CloseAppraisalBillingHistoryPopup()"
+            title="Minimize/Maximize Section">
+            <div id="minmaxconversationlog" class="close">
+            </div>
+        </a>
+        <div class="historyheadline">
+        </div>
+    </div>
+    <div id="conversationlogcontentsection">
+        <div id="conversationlogcontent" class="conversationlogcontent">
+            <div class="historycurrentdate">
+                <span>Current Date/Time: @Model.CurrentDate.ToString( "MM/dd/yyyy hh:mm tt" )</span></div>
+            <div class="allhistory">
+                <div class="historyroundedbox">
+                    <div class="historyheader">
+                        <div class="historycolumn" style="padding-left: 10px;">
+                            Modified Date
+                        </div>
+                        <div class="historycolumn">
+                            Modified By
+                        </div>
+                    </div>
+                    @for ( int i = 0; i < Model.OrderAppraisalBillingHistories.Count; i++ )
+                    {
+                        <div id="divRow" class="historyrow">
+                            <div id="divModifiedDate" class="historyvalue">
+                                @Model.OrderAppraisalBillingHistories[ i ].ModifiedDate.ToString( "MM/dd/yyyy hh:mm tt" )
+                            </div>
+                            <div id="divModifiedBy" class="historyvalue">
+                                @Model.OrderAppraisalBillingHistories[ i ].ModifiedBy
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

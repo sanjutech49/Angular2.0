@@ -1,0 +1,799 @@
+﻿<div class="imp-property-tab">
+
+    <fieldset class="imp-psection-container" ng-disabled="pr">
+        <!-- Subject Property -->
+        <div class="imp-psection-header" style="margin-top: 0px;">
+            <div class="fleft imp-psection-title imp-psection-title-element">Subject Property</div>
+            <div class="fleft imp-property-subjectproperty-img"></div>
+            <div ng-show="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase" class="fleft imp-psection-title-element" style="margin-left: 25px;">Buying Stage</div>
+            <div class="row fleft" ng-show="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase" style="width: 21%; margin: 4px 0;">
+                <div class="imp-span-ddl-container medium" ng-class="{'imp-is-disabled': property.isValidDate(property.wrappedLoan.ref.applicationDate)}">
+                    <select class=" imp-ddl imp" ng-model="property.wrappedLoan.ref.homeBuyingType"
+                            ng-disabled="property.isValidDate(property.wrappedLoan.ref.applicationDate)"
+                            ng-options="hbtype.value as hbtype.text for hbtype in property.applicationData.lookup.homeBuyingTypesList"
+                            ng-change="property.onHomeByingTypeChange(property.wrappedLoan.ref.homeBuyingType)"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="imp-psection-subtitle">
+            <div>Subject Property Address & Info</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <imp-address-control first-row-disabled="property.wrappedLoan.ref.homeBuyingType == '3' || !property.wrappedLoan.ref.conciergeId"
+                                         ng-disabled="!property.wrappedLoan.ref.conciergeId"
+                                         ng-model="property.wrappedLoan.ref.subjectProperty"
+                                         placeholder-street-name="Property Street"
+                                         placeholder-city-name="Property City"
+                                         is-county-visible="true"
+                                         is-licensed-states="true"
+                                         on-street-name-change-fn="property.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications()"
+                                         validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"
+                                         states="property.applicationData.lookup.currentLoanLicensedStatesForLO"
+                                         custom-callbacks="[property.getFHACountyLoanLimit]"
+                                         run-loan-calculator-on-zip-blur="true"></imp-address-control>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">{{::property.getLabelText('subjectPropertyValue', property.wrappedLoan.ref.loanPurposeType)}}</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase">
+                            <imp-input-currency ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.purchasePrice)}"
+                                       ng-model="property.subjectProperty.purchasePrice"
+                                       ng-change="property.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                       ng-blur="property.onPurchasePriceBlur()"></imp-input-currency>
+                        </div>
+                        <div ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Refinance">
+                            <imp-input-currency ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.currentEstimatedValue)}"
+                                                ng-model="property.subjectProperty.currentEstimatedValue"
+                                                ng-change="property.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                                ng-blur="property.onCurrentEstimatedValue()"></imp-input-currency>
+                        </div>
+                    </div>
+                </div>
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Loan Amount</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <imp-input-currency ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.loanAmount)}"
+                                            ng-model="property.wrappedLoan.ref.loanAmount"
+                                            ng-change="property.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                            ng-blur="property.onLoanAmountBlur()"></imp-input-currency>
+                    </div>
+                </div>
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">{{::property.getLabelText('subjectPropertyPayment', property.wrappedLoan.ref.loanPurposeType)}}</div>
+                    </div>
+                    <div class="col-lg-5" ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase">
+                        <imp-input-currency class="border-right-none" ng-model="property.downPaymentValue"
+                                            ng-class="{'imp-has-error': (property.isDownPaymentCompletionRuleSatisfy())}"
+                                            ng-blur="property.wrappedLoan.ref.downPaymentAmount(property.downPaymentValue); property.onDownPaymentBlur()"></imp-input-currency>
+                    </div>
+                    <div class="col-lg-7" ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Refinance">
+                        <imp-input-currency ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.purchasePrice)}"
+                                            ng-model="property.subjectProperty.purchasePrice"></imp-input-currency>
+                    </div>
+                    <div class="col-lg-2" ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase">
+                        <imp-input class="imp-psection-left-borderadius"
+                               ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (!property.wrappedLoan.ref.downPaymentPercentageToFixed && !(property.indicators.downPaymentPercentageToFixed == 0 || property.indicators.downPaymentPercentageToFixed)))}"
+                               imp-percentage return-float="true" round-three-decimals="false" ng-model="property.indicators.downPaymentPercentageToFixed" ng-blur="property.onDownPaymentPercentageBlur()"></imp-input>
+                    </div>
+                    <div style="display: none;">
+                        <imp-input class="imp-psection-left-borderadius" ng-model="property.subjectProperty.downPaymentPercentageReal"></imp-input>
+                    </div>
+                </div>
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">{{::property.getLabelText('subjectPropertySource', property.wrappedLoan.ref.loanPurposeType)}}</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="imp-span-ddl-container medium" ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase"
+                             ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.financialInfo.downPaymentTypeCode)}">
+                            <select class="imp-ddl" ng-model="property.wrappedLoan.ref.financialInfo.downPaymentTypeCode"
+                                    ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.financialInfo.downPaymentTypeCode)}"
+                                    ng-options="item.value as item.text for item in property.applicationData.lookup.downPaymentSourcesTypes">
+                                <option value="">Select One</option>
+                            </select>
+                        </div>
+                        <!--<input type="text" class="imp-psection-left-borderadius" placeholder="mm/dd/yyyy"
+                               ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.purchaseDate)}"
+                               ng-model="property.subjectProperty.purchaseDate" imp-date imp-select-on-click ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Refinance" />-->
+                        <div class="date">
+                            <imp-date-picker display-picker="false"
+                                             type="text"
+                                             ng-model="property.subjectProperty.purchaseDate"
+                                             has-error="property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.purchaseDate"
+                                             date-settings="{defaultValidationEnabled: false, validateIsDate: true, placeholder: 'mm/dd/yyyy'}"
+                                             ng-if="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Refinance"></imp-date-picker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Property type</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl" ng-model="property.subjectProperty.propertyType"
+                                    ng-options="ptype.value as ptype.text for ptype in property.applicationData.lookup.subjectPropertyTypes"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row imp-psection-row" ng-show="property.subjectProperty.propertyType == 1 || property.subjectProperty.propertyType == 11">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Number of units</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl" style="width: 100%;" ng-model="property.subjectProperty.numberOfUnits"
+                                    ng-change="property.getFHACountyLoanLimit()"
+                                    ng-options="nofunits.text as nofunits.text for nofunits in property.applicationData.lookup.numberOfUnits"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row imp-psection-row" ng-show="property.subjectProperty.propertyType == 2">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Number of stories</div>
+                    </div>
+                    <div class="col-lg-7" style="width: 56%;">
+                        <input type="text"
+                               ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.numberOfStories)}"
+                               ng-model="property.subjectProperty.numberOfStories" />
+                    </div>
+                </div>
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Monthly HOA Dues</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <imp-input-currency ng-class="{'imp-has-error': (property.loan.active.isSixPiecesAcquired() && !property.subjectProperty.monthlyHOAdues)}"
+                                            ng-model="property.subjectProperty.monthlyHOAdues" ng-blur="property.triggerLoanCalculator()"></imp-input-currency>
+                    </div>
+                </div>
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Occupancy type</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl"
+                                    ng-model="property.occupancyType"
+                                    ng-options="oType.value as oType.text for oType in property.applicationData.lookup.occupancyTypeList"
+                                    ng-change="property.onOccupancyTypeChanged(property.occupancyType)"></select>         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 16px;" class="imp-psection-subtitle" ng-show="property.subjectProperty.OccupancyType == property.enums.OccupancyType.InvestmentProperty && property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase">
+            <div class="fleft">Investment Property Info</div>
+            <div class="imp-icon-question-mark" style="display: block; margin-left: 180px;"
+                 tooltip-html-unsafe="
+                <div class='imp-tooltip imp-tooltip-autoclose' style='width:230px;'><div class='imp-div-close-x floatright' style='margin:9px;' onclick='HideImpTooltip();'></div><div style='padding:15px;font-weight:normal;'><div>Net Rental Income is automatically calculated at 75% of gross rents and added to the Other Income Table found on the Income Tab.</div></div></div>"
+                tooltip-placement="bottom" tooltip-trigger="click">
+            </div>
+        </div>
+        <div class="row" ng-show="property.subjectProperty.OccupancyType == property.enums.OccupancyType.InvestmentProperty && property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase">
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Monthly Rental Income</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <imp-input-currency ng-model="property.subjectProperty.grossRentalIncome" ng-blur="property.triggerLoanCalculator()"
+                                            ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !(property.subjectProperty.grossRentalIncome == 0 || property.subjectProperty.grossRentalIncome))}"></imp-input-currency>                        
+                        </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Ownership Percentage</div>
+                    </div>
+                    <div class="col-lg-7 imp-psection-placeholder">
+                        <div class="imp-property-visible-placeholder" style="right: 0px;"> Remaining: {{ property.wrappedLoan.ref.remainingOwnershipCalculation(false) }}%</div>
+                        <input type="text" imp-percentage no-decimals="true" ng-model="property.subjectProperty.OwnershipPercentage" ng-blur="property.triggerLoanCalculator()"
+                               ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.OwnershipPercentage)}"
+                               ng-change="property.onOwnershipPercentageChanged(property.subjectProperty.OwnershipPercentage)" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Vacancy Factor</div>
+                    </div>
+                    <div class="col-lg-7" style="width: 193px;">
+                        <input type="text" imp-percentage ng-model="property.subjectProperty.vacancyPercentage" ng-blur="property.triggerLoanCalculator()"
+                               ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.subjectProperty.vacancyPercentage)}" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Address -->
+        <div class="imp-psection-header">
+            <div class="fleft imp-psection-title imp-psection-title-element">Current Address</div>
+            <div class="fleft imp-property-currentaddress-img"></div>
+            <div class="fleft imp-psection-title-element" style="margin-left: 25px;">Same as Subject Property?</div>
+            <div class="fleft" style="margin-top: 5px;">
+                <input id="sameAsSubjectProperty" class="imp-checkbox" type="checkbox"
+                       ng-disabled="property.borrowerCurrentAddressIsSameAsPropertyAddressIsDisabled"
+                       ng-model="property.borrowerCurrentAddressIsSameAsPropertyAddress" />
+                <label for="sameAsSubjectProperty"
+                       ng-disabled="property.borrowerCurrentAddressIsSameAsPropertyAddressIsDisabled"
+                       class="imp-lb-checkbox"></label>
+            </div>
+        </div>
+
+        <!--Borrowers Details-->
+        <div class="row" style="margin-left: 0px;">
+            <div class="imp-psection-subtitle col-lg-8">
+                <div>Borrower Current Address & Info</div>
+            </div>
+            <div ng-show="property.borrowerMailingAddressIsDifferentFromCurrentAddress" class="imp-psection-subtitle col-lg-4" style="margin-left:-5px;">
+                <div>Borrower Mailing Address</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <imp-address-control ng-model="property.addressEffectiveBorrowerCurrent"
+                                         ng-disabled="property.borrowerCurrentAddressIsSameAsPropertyAddress"
+                                         is-county-visible="true"
+                                         placeholder-street-name="Borrower Current Street"
+                                         placeholder-city-name="Borrower Current City"
+                                         validation="{sixPicesCompleted: property.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications(), validate:true}"
+                                         states="property.applicationData.lookup.states"></imp-address-control>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Ownership</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="imp-span-ddl-container medium" ng-class="{'imp-is-disabled': (property.subjectProperty.OccupancyType == property.enums.OccupancyType.PrimaryResidence && property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Refinance),
+                             'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().ownership && property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().ownership != property.enums.OwnershipType.Own)}">
+                            <select class="imp-ddl" ng-model="property.ownershipCurrentResidence" ng-model-options="{ getterSetter: true }"
+                                    ng-options="ownership.value as ownership.text for ownership in property.applicationData.lookup.ownershipTypesList"
+                                    ng-disabled="property.subjectProperty.OccupancyType == property.enums.OccupancyType.PrimaryResidence && property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Refinance"
+                                    ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().ownership && property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().ownership != property.enums.OwnershipType.Own)}"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row imp-psection-row">
+                    <imp-duration-years-months label="Time at address" years="property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().timeAtAddressYears"
+                                               months="property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().timeAtAddressMonths"
+                                               validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"></imp-duration-years-months>
+                </div>
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label imp-psection-two-lines-labels">Mailing address<br /> different?</div>
+                    </div>
+                    <div class="col-lg-1">
+                        <input id="borrowerAddressDifferent" class="imp-checkbox" type="checkbox"
+                               ng-disabled="false"
+                               ng-model="property.borrowerMailingAddressIsDifferentFromCurrentAddress" />
+                        <label for="borrowerAddressDifferent"
+                               ng-disabled="false"
+                               class="imp-lb-checkbox"></label>
+                    </div>
+                </div>
+                <div class="row imp-psection-row" ng-show="property.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label imp-psection-two-lines-labels">Co-Borrower address different?</div>
+                    </div>
+                    <div class="col-lg-1">
+                        <input id="coBorrowerAddressDifferent" class="imp-checkbox" type="checkbox"
+                               ng-model="property.coBorrowerCurrentAddressIsDifferentFromBorrower" />
+                        <label for="coBorrowerAddressDifferent" class="imp-lb-checkbox"></label>
+                    </div>
+                </div>
+                <div class="row imp-psection-row" ng-show="property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().ownership == property.enums.OwnershipType.Rent">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Monthly Rent</div>
+                    </div>
+                    <div style="width: 56%;" class="col-lg-3">
+                        <imp-input-currency ng-model="property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().monthlyRent" ng-blur="property.triggerLoanCalculator()"
+                                            ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getBorrower().getCurrentAddress().monthlyRent)}"></imp-input-currency>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4" ng-show="property.borrowerMailingAddressIsDifferentFromCurrentAddress">
+                <div class="row imp-psection-row">
+                    <imp-address-control ng-model="property.addressEffectiveBorrowerMailing"
+                                         is-county-visible="true" placeholder-street-name="Borrower Mailing Street"
+                                         placeholder-city-name="Borrower Mailing City"
+                                         validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"
+                                         states="property.applicationData.lookup.states"></imp-address-control>
+                </div>
+            </div>
+        </div>
+
+        <!--CoBorrower Details-->
+        <div class="row" ng-show="property.wrappedLoan.ref.active.isSpouseOnTheLoan && property.coBorrowerCurrentAddressIsDifferentFromBorrower" style="margin-left: 0px;">
+            <div class="imp-psection-subtitle col-lg-8">
+                <div>Co-Borrower Current Address & Info</div>
+            </div>
+            <div ng-show="property.coBorrowerMailingAddressIsDifferentFromCurrentAddress" class="imp-psection-subtitle col-lg-4" style="margin-left:-5px;">
+                <div>Co-Borrower Mailing Address</div>
+            </div>
+        </div>
+        <div ng-show="property.wrappedLoan.ref.active.isSpouseOnTheLoan && property.coBorrowerCurrentAddressIsDifferentFromBorrower" class="row">
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <imp-address-control ng-model="property.addressEffectiveCoBorrowerCurrent"
+                                         is-county-visible="true" placeholder-street-name="Co-Borrower Current Street"
+                                         placeholder-city-name="Co-Borrower Current City"
+                                         validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"
+                                         states="property.applicationData.lookup.states"></imp-address-control>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Ownership</div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="imp-span-ddl-container medium"
+                             ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().ownership && property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().ownership != property.enums.OwnershipType.Own)}">
+                            <select class="imp-ddl" ng-model="property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().ownership"
+                                    ng-options="ownership.value as ownership.text for ownership in property.applicationData.lookup.ownershipTypesList"
+                                    ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().ownership && property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().ownership != property.enums.OwnershipType.Own)}"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row imp-psection-row">
+                    <imp-duration-years-months label="Time at address" years="property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().timeAtAddressYears"
+                                               months="property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().timeAtAddressMonths"
+                                               validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"></imp-duration-years-months>
+                </div>
+                <div class="row imp-psection-row">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label imp-psection-two-lines-labels">Mailing address <br />different?</div>
+                    </div>
+                    <div class="col-lg-1">
+                        <input id="coBorrowerMailingAddressDifferent" class="imp-checkbox" type="checkbox"
+                               ng-disabled="false"
+                               ng-model="property.coBorrowerMailingAddressIsDifferentFromCurrentAddress" />
+                        <label for="coBorrowerMailingAddressDifferent"
+                               ng-disabled="false"
+                               class="imp-lb-checkbox"></label>
+                    </div>
+                </div>
+                <div class="row imp-psection-row" ng-show="property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().ownership == property.enums.OwnershipType.Rent">
+                    <div class="col-lg-5">
+                        <div class="imp-psection-label">Monthly Rent</div>
+                    </div>
+                    <div style="width: 56%;" class="col-lg-3">
+                        <imp-input-currency ng-model="property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().monthlyRent" ng-blur="property.triggerLoanCalculator()"
+                                            ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getCoBorrower().getCurrentAddress().monthlyRent)}"></imp-input-currency>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4" ng-show="property.coBorrowerMailingAddressIsDifferentFromCurrentAddress">
+                <div class="row imp-psection-row">
+                    <imp-address-control ng-model="property.addressEffectiveCoBorrowerMailing"
+                                         is-county-visible="true"
+                                         placeholder-street-name="Co-Borrower Mailing Street" placeholder-city-name="Co-Borrower Mailing City"
+                                         validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"
+                                         states="property.applicationData.lookup.states"></imp-address-control>
+                </div>
+            </div>
+        </div>
+
+        <!--End Current Address-->
+
+        <!-- Previous Address -->
+        <div class="imp-previous-address-container" ng-show="property.showPreviousAddressPerBorrower()">
+            <div class="imp-psection-header">
+                <div class="fleft imp-psection-title imp-psection-title-element">Previous Address</div>
+                <div class="fleft imp-property-currentaddress-img"></div>
+
+            </div>
+            <!-- Borrower ; [@srv.BorrowerType.Borrower=0] -->
+            <div ng-show="property.showPreviousAddressPerBorrower(0)">
+                <div class="row" style="margin-left: 0px;">
+                    <div class="imp-psection-subtitle col-lg-8">
+                        <div>Borrower Previous Address & Info</div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row imp-psection-row">
+                            <imp-address-control ng-model="property.wrappedLoan.ref.active.getBorrower().previousAddrBind"
+                                                 is-county-visible="true"
+                                                 placeholder-street-name="Borrower Previous Street" placeholder-city-name="Borrower Previous City"
+                                                 validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"
+                                                 states="property.applicationData.lookup.states"></imp-address-control>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class=" row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Ownership</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium"
+                                     ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().ownership && property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().ownership != property.enums.OwnershipType.Own)}">
+                                    <select class="imp-ddl" ng-model="property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().ownership"
+                                            ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().ownership && property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().ownership != property.enums.OwnershipType.Own)}"
+                                            ng-options="ownership.value as ownership.text for ownership in property.applicationData.lookup.ownershipTypesList"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <imp-duration-years-months label="Time at address" years="property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().timeAtAddressYears"
+                                                       months=" property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().timeAtAddressMonths"
+                                                       validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"></imp-duration-years-months>
+                        </div>
+
+                        <div class="row imp-psection-row" ng-show="property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().ownership == property.enums.OwnershipType.Rent">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Monthly Rent</div>
+                            </div>
+                            <div style="width: 56%;" class="col-lg-3">
+                                <imp-input-currency ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().monthlyRent)}"
+                                                    ng-model="property.wrappedLoan.ref.active.getBorrower().getPreviousAddress().monthlyRent"></imp-input-currency>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- CoBorrower ; [@srv.BorrowerType.CoBorrower=1] -->
+            <div ng-show="property.showPreviousAddressPerBorrower(1)">
+                <div class="row" style="margin-left: 0px;">
+                    <div class="imp-psection-subtitle col-lg-8">
+                        <div>Co-Borrower Previous Address & Info</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row imp-psection-row">
+                            <imp-address-control ng-model="property.wrappedLoan.ref.active.getCoBorrower().previousAddrBind"
+                                                 is-county-visible="true"
+                                                 placeholder-street-name="Co-Borrower Previous Street" placeholder-city-name="Co-Borrower Previous City"
+                                                 validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"
+                                                 states="property.applicationData.lookup.states"></imp-address-control>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Ownership</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium"
+                                     ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().ownership && property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().ownership != property.enums.OwnershipType.Own)}">
+                                    <select class="imp-ddl" ng-model="property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().ownership"
+                                            ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().ownership && property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().ownership != property.enums.OwnershipType.Own)}"
+                                            ng-options="ownership.value as ownership.text for ownership in property.applicationData.lookup.ownershipTypesList"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <imp-duration-years-months label="Time at address" years="property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().timeAtAddressYears"
+                                                       months="property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().timeAtAddressMonths"
+                                                       validation="{sixPicesCompleted: property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications, validate:true}"></imp-duration-years-months>
+                        </div>
+
+                        <div class="row imp-psection-row" ng-show="property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().ownership == property.enums.OwnershipType.Rent">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Monthly Rent</div>
+                            </div>
+                            <div style="width: 56%;" class="col-lg-3">
+                                <imp-input-currency ng-class="{'imp-has-error': (property.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().monthlyRent)}"
+                                                    ng-model="property.wrappedLoan.ref.active.getCoBorrower().getPreviousAddress().monthlyRent"></imp-input-currency>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Previous Address-->
+
+        <!-- Agent Info -->
+        <div ng-show="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase">
+            <div style="margin-left: -20px;" class="imp-psection-header">
+                <div class="imp-sa-grid-row-collaps right marginTop" ng-class="{down: property.isAgentSectionVisible, 'right marginTop': !property.isAgentSectionVisible}"
+                     ng-click="property.collapseExpand()"></div>
+                <div class="fleft imp-psection-title imp-psection-title-element">Agent Info (Optional)</div>
+                <div class="fleft imp-property-agentinfo-img"></div>
+            </div>
+            <div ng-show="property.isAgentSectionVisible">
+                <div class="imp-psection-subtitle">
+                    <div ng-bind="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase && property.wrappedLoan.ref.homeBuyingType == 1 ? 'Buyers Agent' : 'Realtor Information'"></div>
+                </div>
+                <div class="row" ng-show="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase && property.wrappedLoan.ref.homeBuyingType == 1">
+                    <div class="col-lg-4">
+                        <div class="row imp-psection-row" ng-if="!(property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase)">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Search Global Contacts</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <input class="fleft" type="text" ng-model="BuyersSearch" typeahead="state.Text for state in States | filter:$viewValue | limitTo:8" />
+                                <button class="search button imp-psection-input-search" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">First Name</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-model="property.wrappedLoan.ref.buyersAgentContact.firstname"></imp-input>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Last Name</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-model="property.wrappedLoan.ref.buyersAgentContact.lastname"></imp-input>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Company</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-model="property.wrappedLoan.ref.buyersAgentContact.company"></imp-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4" ng-style="{'padding-top' : property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase ? '0' : '4%'}">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Preferred Phone</div>
+                            </div>
+                            <imp-phone phone-number="property.wrappedLoan.ref.buyersAgentContact.preferedPhone"
+                                       selected-phone-type="property.wrappedLoan.ref.buyersAgentContact.preferedPhoneType"
+                                       phone-types-options="property.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters=""
+                                       number-required="false">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Alternate Phone</div>
+                            </div>
+                            <imp-phone phone-number="property.wrappedLoan.ref.buyersAgentContact.alternatePhone"
+                                       selected-phone-type="property.wrappedLoan.ref.buyersAgentContact.alternatePhoneType"
+                                       phone-types-options="property.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters=""
+                                       number-required="false">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Email</div>
+                            </div>
+                            <div class="col-lg-7 email">
+                                <imp-email username="property.wrappedLoan.ref.buyersAgentContact.email"></imp-email>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" ng-style="{'padding-top' : property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase ? '0' : '4%'}">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">Send Pre-Approval Letter to Agent?</div>
+                            </div>
+                            <div style="margin-left: 10px;" class="col-lg-1">
+                                <input id="preApprovalLetterAgent" class="imp-checkbox" type="checkbox" ng-model="property.wrappedLoan.ref.buyersAgentContact.sendPreApprovalLetterToAgent" />
+                                <label for="preApprovalLetterAgent" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">Does your agent also represent the seller?</div>
+                            </div>
+                            <div style="margin-left: 10px;" class="col-lg-1">
+                                <input id="representTheSeller" class="imp-checkbox" type="checkbox" ng-model="property.indicators.doesYourAgentAlsoRepresentsSeller"
+                                       ng-change="property.onBuyerRepresentSellerChange()" />
+                                <label for="representTheSeller" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase && property.wrappedLoan.ref.homeBuyingType == 3">
+                    <div class="col-lg-4">
+                        <div class="row imp-psection-row" ng-if="!(property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase)">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Search Global Contacts</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <input class="fleft" type="text" ng-model="BuyersSearch" typeahead="state.Text for state in States | filter:$viewValue | limitTo:8" />
+                                <button class="search button imp-psection-input-search" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">First Name</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-model="property.wrappedLoan.ref.buyersAgentContact.firstname"></imp-input>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Last Name</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-model="property.wrappedLoan.ref.buyersAgentContact.lastname"></imp-input>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Company</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-model="property.wrappedLoan.ref.buyersAgentContact.company"></imp-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" ng-style="{'padding-top' : property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase ? '0' : '4%'}">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Preferred Phone</div>
+                            </div>
+                            <imp-phone phone-number="property.wrappedLoan.ref.buyersAgentContact.preferedPhone"
+                                       selected-phone-type="property.wrappedLoan.ref.buyersAgentContact.preferedPhoneType"
+                                       phone-types-options="property.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters=""
+                                       number-required="false">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Alternate Phone</div>
+                            </div>
+                            <imp-phone phone-number="property.wrappedLoan.ref.buyersAgentContact.alternatePhone"
+                                       selected-phone-type="property.wrappedLoan.ref.buyersAgentContact.alternatePhoneType"
+                                       phone-types-options="property.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters=""
+                                       number-required="false">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Email</div>
+                            </div>
+                            <div class="col-lg-7 email">
+                                <imp-email username="property.wrappedLoan.ref.buyersAgentContact.email"></imp-email>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" ng-style="{'padding-top' : property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase ? '0' : '4%'}">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">Send a copy of the PreApproval Letter to my realtor?</div>
+                            </div>
+                            <div style="margin-left: 10px;" class="col-lg-1">
+                                <input id="copyOfPreAprovalLetter" class="imp-checkbox" type="checkbox" ng-model="property.wrappedLoan.ref.buyersAgentContact.sendPreApprovalLetterToAgent" />
+                                <label for="copyOfPreAprovalLetter" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="imp-psection-subtitle" ng-show="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase && property.wrappedLoan.ref.homeBuyingType == 1">
+                    <div>Sellers Agent</div>
+                </div>
+                <div class="row" ng-show="property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase && property.wrappedLoan.ref.homeBuyingType == 1">
+                    <div class="col-lg-4">
+                        <div class="row imp-psection-row" ng-if="!(property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase)">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Search Global Contacts</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <input class="fleft" type="text" ng-disabled="property.indicators.doesYourAgentAlsoRepresentsSeller" ng-model="BuyersSearch" typeahead="state.Text for state in States | filter:$viewValue | limitTo:8" />
+                                <button class="search button imp-psection-input-search" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">First Name</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-disabled="property.indicators.doesYourAgentAlsoRepresentsSeller" ng-model="property.wrappedLoan.ref.sellersAgentContact.firstname"></imp-input>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Last Name</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-disabled="property.indicators.doesYourAgentAlsoRepresentsSeller" ng-model="property.wrappedLoan.ref.sellersAgentContact.lastname"></imp-input>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Company</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-input ng-disabled="property.indicators.doesYourAgentAlsoRepresentsSeller" ng-model="property.wrappedLoan.ref.sellersAgentContact.company"></imp-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" ng-style="{'padding-top' : property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase ? '0' : '4px'}">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Preferred Phone</div>
+                            </div>
+                            <imp-phone phone-number="property.wrappedLoan.ref.sellersAgentContact.preferedPhone"
+                                       selected-phone-type="property.wrappedLoan.ref.sellersAgentContact.preferedPhoneType"
+                                       phone-types-options="property.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters=""
+                                       number-required="false"
+                                       fields-disabled="property.indicators.doesYourAgentAlsoRepresentsSeller">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Alternate Phone</div>
+                            </div>
+                            <imp-phone phone-number="property.wrappedLoan.ref.sellersAgentContact.alternatePhone"
+                                       selected-phone-type="property.wrappedLoan.ref.sellersAgentContact.alternatePhoneType"
+                                       phone-types-options="property.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters=""
+                                       number-required="false"
+                                       fields-disabled="property.indicators.doesYourAgentAlsoRepresentsSeller">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Email</div>
+                            </div>
+                            <div class="col-lg-7 email">
+                                <imp-email fields-disabled="property.indicators.doesYourAgentAlsoRepresentsSeller"
+                                           username="property.wrappedLoan.ref.sellersAgentContact.email">
+                                </imp-email>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" ng-style="{'padding-top' : property.wrappedLoan.ref.loanPurposeType == property.enums.LoanPurposeType.Purchase ? '0' : '4%'}">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Seller Type</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl" ng-model="property.wrappedLoan.ref.sellersContact.sellerType" ng-options="sellertype.value as sellertype.text for sellertype in property.applicationData.lookup.sellerTypesList"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label" ng-bind="property.wrappedLoan.ref.sellersContact.sellerType == 0 ? 'Seller First Name' : 'Company Name'"></div>
+                            </div>
+                            <div class="col-lg-3">
+                                <imp-input ng-model="property.wrappedLoan.ref.sellersContact.firstname"></imp-input>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label" ng-bind="property.wrappedLoan.ref.sellersContact.sellerType == 0 ? 'Seller Last Name' : 'Company Contact Name'"></div>
+                            </div>
+                            <div class="col-lg-3">
+                                <imp-input ng-model="property.wrappedLoan.ref.sellersContact.lastname"></imp-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

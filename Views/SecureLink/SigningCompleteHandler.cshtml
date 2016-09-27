@@ -1,0 +1,24 @@
+﻿@model MML.Web.LoanCenter.Models.SecureLink.SigningCompleteHandlerViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SigningCompleteHandler</title>
+    <link href="~/Content/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body style="height: 100%; background-color: #FFFFFF;">
+
+    <script>
+        var docusignEvent = '@Model.DocusignEvent.ToString().ToLower()';
+        //make call to the parent page to take over
+        window.parent.SecureLinkDocusignComplete(docusignEvent);
+        //window.parent.SecureLinkDocusignComplete('decline');
+    </script>
+
+</body>
+</html>

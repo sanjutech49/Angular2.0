@@ -1,0 +1,324 @@
+﻿@using MML.Common
+@using MML.Common.Helpers
+@using MML.Contacts
+@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Utilities
+
+
+<div class="imp-div-lcCompanyContact-searchResultContainer" id="businessContactInfoSearchResultGrid">
+
+@*            <div class="imp-div-lcCompanyContact-searchResultContainer-header-prim-title">
+                <div style="width: 80%; float: left; margin-left: 9.9%;">Search Results</div>
+             
+            </div>*@
+  <div class="imp-div-lcCompanyContact-rowResult " >
+   @if ( Model.ContactCompaniesAndUsers.Count > 0 )
+    {
+        List<CCompaniesAndContacts> allItems = Model.ContactCompaniesAndUsers;
+        List<CCompaniesAndContacts> contactParents = allItems.Where( m => m.ContactId == -1 ).ToList();
+        foreach ( CCompaniesAndContacts company in contactParents )
+        {
+            List<CCompaniesAndContacts> children = allItems.Where( m => m.ContactId != -1 && m.CompanyId == company.CompanyId ).ToList();
+
+            <div class="imp-div-lcCompanyContact-searchResultContainer-row">
+                @if (children.Count > 0)
+                {
+                    <div class="imp-div-lcCompanyContact-collumn-0 imp-div-companyContacts-arrow-collapsed imp-div-lcCompanyContact-arrow"></div>
+                }
+                else
+                {
+                    <div class="imp-div-lcCompanyContact-collumn-0 "></div>
+                }
+                <div style="display:none" class="lcCompanyContactCompanyId">@company.CompanyId</div>
+                <div style="display:none" class="lcCompanyContactContactType">@company.ContactType</div>
+                <div class="imp-div-lcCompanyContact-collumn-1" title="@company.CompanyName">  @( company.CompanyName.Length > 23 ? String.Format( "{0}...", company.CompanyName.Substring( 0, 19 ) ) : company.CompanyName)</div>
+                <div class="imp-div-lcCompanyContact-collumn-2"></div>
+                <div class="imp-div-lcCompanyContact-collumn-3"> @company.CompanyPhone</div>
+                <div class="imp-div-lcCompanyContact-collumn-4" title="@String.Format( "{0}, {1}, {2}", company.StreetAddress, company.City, company.State )"> 
+                    @(String.Format( "{0}, {1}, {2}", company.StreetAddress, company.City, company.State ).Length > 24 ? String.Format( "{0}...", String.Format( "{0}, {1}, {2}", company.StreetAddress, company.City, company.State ).Substring( 0, 23 ) ) : String.Format( "{0}, {1}, {2}", company.StreetAddress, company.City, company.State ))
+                </div>
+                <div class="imp-div-lcCompanyContact-collumn-5"> @company.LicenceNumber</div>
+                <div class="imp-div-lcCompanyContact-collumn-6" title="@(((MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum) company.ContactType).GetStringValue())">  
+                    @(( ( MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum )company.ContactType ).GetStringValue().Length > 11 ? String.Format( "{0}...", ( ( MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum )company.ContactType ).GetStringValue().Substring( 0, 10 ) ) : ( ( MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum )company.ContactType ).GetStringValue())
+                </div>
+                <div class="imp-div-lcCompanyContact-collumn-7"></div>
+                <div class="imp-div-lcCompanyContact-collumn-8"></div>
+
+                <div class="imp-div-lcCompanyContact-contactsChildContainer" style="display: none">
+                    @if (children.Count > 0)
+                    {
+                        foreach ( CCompaniesAndContacts user in children )
+                        {
+                            <div class="imp-div-lcCompanyContact-searchResultContainer-row-child ">
+                                <div style="display:none" class="lcCompanyContactContactId">@user.ContactId</div>
+                                <div class="imp-div-lcCompanyContact-collumn-0"></div>
+                                <div class="imp-div-lcCompanyContact-collumn-1"></div>
+                                <div class="imp-div-lcCompanyContact-collumn-2" title="@String.Format( "{0} {1}", user.FirstName, user.LastName )"> 
+                                   @(String.Format( "{0} {1}", user.FirstName, user.LastName ).Length > 22 ? String.Format( "{0}...", String.Format( "{0} {1}", user.FirstName, user.LastName ).Substring( 0, 20 ) ) :
+                                    String.Format( "{0} {1}", user.FirstName, user.LastName ))
+                                </div>
+                                <div class="imp-div-lcCompanyContact-collumn-3"> @user.ContactPhoneNumber</div>
+                                <div class="imp-div-lcCompanyContact-collumn-4" title="@user.Email"> @(user.Email.Length > 19 ? String.Format("{0}...", user.Email.Substring(0, 18)) : user.Email)</div>
+                                <div class="imp-div-lcCompanyContact-collumn-5"></div>
+                                <div class="imp-div-lcCompanyContact-collumn-6"></div>
+                                 <div class="imp-div-lcCompanyContact-collumn-7" style = "padding-bottom:3px">
+                                 <div class="plusCCon-hb circle-text addGlobalContactToLoanContact" title="Add Contact"  style="margin-right: 2px;">
+                                      <div style ="margin-left:0.1px">+</div>
+                                        </div>                                 
+                                </div>
+                                <div class="imp-div-lcCompanyContact-collumn-8"></div>
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+
+
+        }
+    }
+       
+           @if ( @Model.EndPage > 1)
+           {
+       <div class="busniess-contacts-footer" style="width: 100%;">
+           <div class="busniess-contacts-footer-container">
+
+               <div class="business-contacts-footer-nav business-contacts-footer-nav-left" onclick=" Contacts.PageNavigation(this, @Model.PageCount, @Model.CurrentPage)">
+                   
+               </div>
+               <div style="float: left;" class="pages-container">
+                   @if (Model.StartPage > 1)
+                   {
+                       <div class="business-contacts-footer-numbers" onclick=" Contacts.GetTenPages('false', @Model.PageCount, @Model.CurrentPage, @Model.EndPage, this)">
+                           ...
+                       </div>
+                   }
+                   @for (int i = @Model.StartPage; i <= @Model.EndPage; i++)
+                   {
+                       if (Model.CurrentPage == i)
+                       {
+                           <div class="business-contacts-footer-numbers business-contacts-footer-numbers-value page-selected" onclick="Contacts.SelectPage(this)">
+                               @(i)
+                           </div>
+                       }
+                       else
+                       {
+                           <div class="business-contacts-footer-numbers business-contacts-footer-numbers-value" onclick="Contacts.SelectPage(this)">
+                               @(i)
+                           </div>
+                       }
+
+                   }
+                   @if (Model.EndPage < Model.PageCount)
+                   {
+                       <div class="business-contacts-footer-numbers" onclick=" Contacts.GetTenPages('true', @Model.PageCount, @Model.CurrentPage, @Model.EndPage, this)">
+                           ...
+                       </div>
+                   }
+               </div>
+               <div class="business-contacts-footer-nav business-contacts-footer-nav-right" style="float: right;" onclick=" Contacts.PageNavigation(this, @Model.PageCount, @Model.CurrentPage)">
+                   
+               </div>
+           
+           </div>
+       </div>
+           }
+           </div>
+ </div>
+
+ <div class="chooseBuyerSellerAgentPoPup imp-div-chooseBuyerSellerAgentPoPup-container" style="height: 165px;">
+    <div class="imp-div-chooseBuyerSellerAgentPoPup-title " style="float:left;">
+      Choose Realtor Sub-Type
+    </div>
+    <div class=" imp-div-close-x" style="float:right;margin-top:5px;margin-right: 5px;" onclick="Contacts.CloseChooseBuyerSellerAgentPoPup()"></div>
+    <div class="imp-div-globalToLoanContactsSeparator"></div>
+    <div style="display: inline-block; width: 100%; margin-top: 3px;">
+        <div class="realtorBusinessContactsSubTypes">
+        
+        @Html.RadioButton( "GlobalContactSubType", ( int )ContactSubTypeEnum.SellersAgent,
+                    true
+                                      ? new { @checked = "checked", @class = "impradiocontacts", @id ="loanContactsSellerRbl" } as object
+                                      : new { @class = "impradiocontacts", @id = "loanContactsSellerRbl" } as object ) 
+        <label for="loanContactsSellerRbl" class="implabelradiocontacts  "> Seller's Agent</label>
+        </div>
+        <div class="realtorBusinessContactsSubTypes">
+            @Html.RadioButton( "GlobalContactSubType", ( int )ContactSubTypeEnum.BuyersAgent,
+                        false
+                                 ? new { @checked = "checked", @class = "impradiocontacts", @id = "loanContactsBuyerRbl" } as object
+                                          : new { @class = "impradiocontacts", @id = "loanContactsBuyerRbl" } as object ) 
+            <label for="loanContactsBuyerRbl" class="implabelradiocontacts  "> Buyer's Agent</label>
+        </div>
+    </div>
+    <div class="imp-div-globalToLoanContactsSeparator"></div>
+    <div class="imp-div-chooseBuyerSellerAgentPoPup-button-container">
+        <div>
+              <div class="imp-button-contacts-hm-wm-sec" onclick="Contacts.CloseChooseBuyerSellerAgentPoPup()">Cancel</div>
+              <div class="imp-button-contacts-hm-wm-prim imp-div-businesscontacts-secondnbutton" id="saveRealtorSubTypeGlobalContact" onclick="AddGlobalContactToLoanContactRealtor(this)">Save</div>  
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>
+
+ <script>
+
+     $(document).ready(function() {
+         $('.imp-div-lcCompanyContact-arrow').click(function() {
+
+             var elem = $(this).parent().find(".imp-div-lcCompanyContact-contactsChildContainer");
+             $(this).parent().css("backgroun-color", "#ECECEC");
+
+             var isExpanded = $(this).hasClass('imp-div-companyContacts-arrow-expanded');
+
+             $(".imp-div-lcCompanyContact-contactsChildContainer").each(function() {
+                 if (elem != this) {
+                     $(this).hide();
+                     $(this).parent().find(".imp-div-lcCompanyContact-arrow").removeClass('imp-div-companyContacts-arrow-expanded').addClass('imp-div-companyContacts-arrow-collapsed');
+                     $(this).parent().css("backgroun-color", "white");
+                 }
+             });
+
+
+             if (!isExpanded) {
+                 elem.attr("style", "display:table");
+                 $(this).removeClass('imp-div-companyContacts-arrow-collapsed').addClass('imp-div-companyContacts-arrow-expanded');
+             }
+             else {
+                 elem.attr("style", "display:none");
+                 $(this).removeClass('imp-div-companyContacts-arrow-expanded').addClass('imp-div-companyContacts-arrow-collapsed');
+             }
+
+
+             //             $("#loandetailscontent").animate({
+             //                 height: $('.imp-div-lcCompanyContact-container').height() + 50 + "px"
+             //             },
+             //                500,
+             //                function () {
+             //                    $("#loandetailsminmax").removeClass('max');
+             //                    $("#loandetailsminmax").addClass('min');
+             //                }
+             //            );
+
+         });
+
+
+         $(".addGlobalContactToLoanContact").click(function() {
+             AddGlobalContactToLoanContact(this);
+         });
+
+         $(".imp-div-lcCompanyContact-arrow").click(function() {
+
+             ReziseContactsAnimation();
+         });
+     });
+     
+     function ReziseContactsAnimation() {
+     $("#loandetailscontent").animate
+			({
+			   height: $('.imp-div-lcCompanyContact-container').height() + 0 + "px"
+			 },
+			   500,
+			   function () 
+			   {
+				   $("#loandetailsminmax").removeClass('max');
+				   $("#loandetailsminmax").addClass('min');
+   }
+			);
+     }
+     function AddGlobalContactToLoanContact(element) {
+
+         var contactType = parseInt($(element).closest(".imp-div-lcCompanyContact-searchResultContainer-row").find(".lcCompanyContactContactType").html());
+         var companyId = parseInt($(element).closest(".imp-div-lcCompanyContact-searchResultContainer-row").find(".lcCompanyContactCompanyId").html());
+         var contactId = parseInt($(element).closest(".imp-div-lcCompanyContact-searchResultContainer-row-child").find(".lcCompanyContactContactId").html());
+         var subType = "";
+         PostGlobalContactToLoanContact(contactType, companyId, contactId, subType);
+     }
+
+     function PostGlobalContactToLoanContact(contactType, companyId, contactId, subType) {
+
+         var loanId = "";
+
+         if ($('.tablelistselected').length)
+             loanId = $('.tablelistselected:not(".childloan") .loanid').text().trim();
+        
+         var parameters = JSON.stringify({
+             contactType: contactType,
+             companyId: companyId,
+             contactId: contactId,
+             loanId: loanId,
+             subType: subType
+         });
+
+         $.ajax({
+             type: "POST",
+             url: "BusinessContact/AddGlobalContactToLoanContact",
+             data: { JSONParameters: parameters.toString() },
+             cache: false,
+             success: function (data) {
+
+                 if (data.openView == true) {
+                     //                     BussinesContactDetails.BussinesContactDetailsPopup(''
+                     //                                                                            , 'Refinance'
+                     //                                                                            , contactType
+                     //                                                                            , companyId
+                     //                                                                            , contactId
+                     //                                                                            , true);
+
+                     OpenChooseBuyerSellerAgentPoPup(contactType, companyId, contactId);
+                 }
+                 else if (data.isDuplicate == true) {
+                     Contacts.ShowDuplicateLoanContactPopUp();
+                 }
+
+                 else {
+
+                     //                     ResizeContactContainer();
+                     Contacts.ResizeContactContainerInitialAnimate();
+                     
+                     $('#txtSearchCompanyOrContactName').val('Search').css({ 'color': 'rgb(99, 99, 99)' });
+                     $('#ddlContactTypelist').val(-1);
+                     $('.loanDetailsCompanyContactSearchContainer .imp-div-lcCompanyContact-rowResult').html('');
+                     $('#clearSearchButtonCompanyContacts').hide();
+
+                     $("#clearOtherSearchButtonCompanyContacts").click();
+                 }
+
+             },
+             error: function (xhr, ajaxOptions, thrownError) {
+
+             }
+         });
+     }
+//     function ResizeContactContainer() 
+//     {
+//         $(".imp-div-contacts-searchGrids").fadeOut("slow", function () 
+//         {
+//             $(".loanDetailsCompanyContactOtherSearchContainer").fadeIn("slow", function () {
+//                 ReziseContactsAnimation();
+//             });
+//         });
+//     }
+
+     function AddGlobalContactToLoanContactRealtor(element) {
+         
+         var contactType = $("#saveRealtorSubTypeGlobalContact").attr("contactType");
+         var companyId = $("#saveRealtorSubTypeGlobalContact").attr("companyId");
+         var contactId = $("#saveRealtorSubTypeGlobalContact").attr("contactId");
+         var subType = $('input:radio[name=GlobalContactSubType]:checked').val();
+
+         PostGlobalContactToLoanContact(contactType, companyId, contactId, subType);
+         Contacts.CloseChooseBuyerSellerAgentPoPup();
+         
+     }
+     function OpenChooseBuyerSellerAgentPoPup(contactType, companyId, contactId) {
+         $("#GlobalContactSubType[value=0]").click();
+         $("#saveRealtorSubTypeGlobalContact").attr("contactType", contactType);
+         $("#saveRealtorSubTypeGlobalContact").attr("companyId", companyId);
+         $("#saveRealtorSubTypeGlobalContact").attr("contactId", contactId);
+         
+         $('.chooseBuyerSellerAgentPoPup').show();
+         $('.modalBackground').css('display', 'block');
+     }
+
+ </script>
+
+ 

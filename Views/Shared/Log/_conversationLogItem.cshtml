@@ -1,0 +1,56 @@
+﻿@using Telerik.Web.Mvc.UI
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.LogItemViewModel
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/Log.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function () {
+		$("#divconversationlogpopup").draggable({ handle: "div.conversationlogsectionheadtitle" });
+	});
+</script>
+<input type="hidden" id="isNotNotesPopup" value="@ViewBag.Source" />
+<div id="divconversationlogpopup" class="divconversationlogpopup LoanCenterPopup"  @if( ViewBag.Source ==true) {<text>  style = "margin-left:-215px;" </text>} >
+	<div class="conversationlogsectionheadcontent">
+		<div class="conversationlogsectionheadtitle">
+			<span class="namelink">@ViewBag.ConversationLogItemHeader</span>
+		</div>
+		<a id="closeconversationlog" onclick="Log.CloseConversationLogPopup()" title="Minimize/Maximize Section">
+				<div id="minmaxconversationlog" class="close"></div>
+		</a>
+		<div class="conversationlogheadline">
+		</div>
+	</div>
+	<div id="conversationlogcontentsection">
+		<div id="conversationlogcontent" class="conversationlogcontent">
+			<div id="conversationlogcontentsubject" class="conversationlogcontentsubject">
+				<p style="margin-bottom: 5px; margin-top: 5px;">Subject</p>
+				@Html.Telerik().DropDownListFor( m => m.LogItem.Subject ).Name( "logSubject" ).HtmlAttributes( new { style = "width:175px;" } ).BindTo( new SelectList( Model.ConversationSubjects, "Name", "Name" ) )
+			</div>
+			<div id="conversationlogcontentcategory" class="conversationlogcontentcategory">
+				<p style="margin-bottom: 5px; margin-top: 5px;">Category/Topic</p>
+				@Html.Telerik().DropDownListFor( m => m.LogItem.Category ).Name( "logCategory" ).HtmlAttributes( new { style = "width:175px;" } ).BindTo( new SelectList( Model.ConversationTopics, "Name", "Name" ) )
+			</div>
+			<div id="conversationlogcontentcomment" style="padding-top: 10px;">
+				<div style="float: left; padding-top: 10px;">
+					<div id="conversationlogcontentcommentheader" style="float: left;">Comment</div>
+					<div id="conversationlogcontentcommentnote" class="conversationlogcontentcommentnote">Max. 250 characters</div>
+				</div>
+				    @if ( Model.LogItem.Id.Equals( Guid.Empty ) )
+                    {
+				        @Html.TextAreaFor( m => m.LogItem.Comment, new { Class = "roundedBox", maxlength = 250, onkeyup = "Log.GetNumberOfCharactersLeftToEnter(this)" } )
+                    }
+                    else
+                    {
+                        @Html.TextAreaFor( m => m.LogItem.Comment, new { Class = "roundedBox", maxlength = 250, onkeyup = "Log.GetNumberOfCharactersLeftToEnter(this)", @readonly = true } )
+                    }
+			</div>
+		</div>
+		<div class="conversationlogheadline"></div>
+		<div id="conversationlogManageButtonsSection" class="conversationlogManageButtonsSection">
+			@if ( Model.LogItem.Id.Equals( Guid.Empty ) )
+            {
+				<div class="logAddNewNote imp-button-div-hs-wm-prim" style = "float: right; margin-left: 20px;"onclick = "Log.SaveConversationLog( '@(Model.LogItem.Id)', '@(Model.LoanId)')" >Add a Note</div>
+			}			
+		</div>
+	</div>
+</div>

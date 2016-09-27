@@ -1,0 +1,1217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/MsBuild/2003">
+
+  <!--<UsingTask TaskName="CompressorTask"
+AssemblyFile="bin\Yahoo.Yui.Compressor.dll" />-->
+  <!-- The .NET 2.0 version of the task .. and yes .. that's Model.Net20 folder listed twice .. i know i know...    -->
+  <UsingTask
+      TaskName="CompressorTask"
+       AssemblyFile="..\ExternalLibraries\YahooYuiCompressorMsBuildTask\YUICompressor.NET-MsBuild-Task.1.7.0.0\lib\net35\Yahoo.Yui.Compressor.MsBuildTask.dll"/>
+  <!--AssemblyFile="bin\Yahoo.Yui.Compressor.MsBuildTask.dll" />-->
+
+
+  <!-- Define the output locations. These can be set via the msbuild command line using
+         /p:SourceLocation="$(ProjectDir)"
+         /p:CssOutputFile=$(ProjectDir)../whatever...
+         /p:JavaScriptOutputFile=$(ProjectDir)../whatever...
+         
+         If they are not supplied or are empty, then we the value whatever is supplied, below.
+    -->
+
+  <PropertyGroup>
+    <CssOutputFile Condition=" '$(CssOutputFile)'=='' ">Content/LayoutCss-3.css</CssOutputFile>
+    <CssOutputFile1 Condition=" '$(CssOutputFile1)'=='' ">Content/iMPLayoutCss-1.css</CssOutputFile1>
+    <CssOutputFile2 Condition=" '$(CssOutputFile2)'=='' ">Content/iMPLayoutBootstrapCss-1.css</CssOutputFile2>
+    <CssOutputFile3 Condition=" '$(ConsumerCssOutputFile)'=='' ">Content/ConsumerCssFile-1.css</CssOutputFile3>
+    
+    <JavaScriptOutputFile Condition=" '$(JavaScriptOutputFile)'=='' ">Scripts/LayoutJavascript.js</JavaScriptOutputFile>
+    <JavaScriptOutputFile1 Condition=" '$(JavaScriptOutputFile1)'=='' ">Scripts/LayoutAngularJavascript.js</JavaScriptOutputFile1>
+    <JavaScriptOutputFile2 Condition=" '$(JavaScriptOutputFile2)'=='' ">Scripts/AngularJavascript.js</JavaScriptOutputFile2>
+  </PropertyGroup>
+
+  <Target Name="MyTaskTarget">
+
+    <!--<Exec Command="&quot;$(DevEnvDir)tf.exe&quot; checkout &quot;$(ProjectDir)Css\MasterCombined.css&quot;" ContinueOnError="true"/>-->
+    <!--<Exec Command="&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe&quot; checkout &quot;$(ProjectDir)Content\LayoutCss-3.css&quot;" ContinueOnError="true"/>
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe&quot; checkout &quot;$(ProjectDir)Content\iMPLayoutCss-1.css&quot;" ContinueOnError="true"/>
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe&quot; checkout &quot;$(ProjectDir)Content\iMPLayoutBootstrapCss-1.css&quot;" ContinueOnError="true"/>
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe&quot; checkout &quot;$(ProjectDir)Content\ConsumerCssFile-1.css&quot;" ContinueOnError="true"/>
+    
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe&quot; checkout &quot;$(ProjectDir)Scripts\LayoutJavascript.js&quot;" ContinueOnError="true"/>
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe&quot; checkout &quot;$(ProjectDir)Scripts\LayoutAngularJavascript.js&quot;" ContinueOnError="true"/>
+    <Exec Command="&quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\tf.exe&quot; checkout &quot;$(ProjectDir)Scripts\AngularJavascript.js&quot;" ContinueOnError="true"/>-->
+
+    <!--
+            ItemGroup\CssFiles or ItemGroup\JavaScriptFiles: add zero to many files you wish to include in this compression task.
+                                                             Don't forget, you can use the wildcard (eg. *.css, *.js) if you feel up to it.
+                                                             Finally, at least one item is required - either a css file or a js file.
+                                                             
+            CssFiles/JavaScriptFiles data format: Please do not touch this.
+            DeleteCssFiles: [Optional] True | Yes | Yeah | Yep | True | FoSho | Fo Sho. Default is False. Anything else is False. (eg. blah = false, xxxx111 = false, etc)
+            CssCompressionType: YuiStockCompression | MichaelAshsRegexEnhancements | HaveMyCakeAndEatIt or BestOfBothWorlds or Hybrid; Default is YuiStockCompression.
+            ObfuscateJavaScript: [Optional] refer to DeleteCssFiles, above.
+            PreserveAllSemicolons: [Optional] refer to DeleteCssFiles, above.
+            DisableOptimizations: [Optional] refer to DeleteCssFiles, above.
+            EncodingType: [Optional] ASCII, BigEndianUnicode, Unicode, UTF32, UTF7, UTF8, Default. Default is 'Default'.
+            DeleteJavaScriptFiles: [Optional] refer to DeleteCssFiles, above.
+            LineBreakPosition: [Optional] the position where a line feed is appened when the next semicolon is reached. Default is -1 (never add a line break).
+                               0 (zero) means add a line break after every semicolon. (This might help with debugging troublesome files).          
+            LoggingType: None | ALittleBit | HardcoreBringItOn;  Hardcore also lists javascript verbose warnings, if there are any (and there usually is :P ).
+            ThreadCulture: [Optional] the culture you want the thread to run under. Default is 'en-gb'.
+            IsEvalIgnored: [Optional] compress any functions that contain 'eval'. Default is False, which means a function that contains
+                           'eval' will NOT be compressed. It's deemed risky to compress a function containing 'eval'. That said,
+                           if the usages are deemed safe this check can be disabled by setting this value to True.
+            PreserveCssComments: [Optional] refer to DeleteCssFiles, above.
+        -->
+    <ItemGroup>
+      <!-- Single files, listed in order of dependency -->
+      <CssFiles3 Include="Content/CFeaturesStyle.css" />
+      
+      <CssFiles2 Include="Content/bootstrap/css/bootstrap.css" />
+      <CssFiles2 Include="Content/bootstrap/css/bootstrap-2.css" />
+      
+      <CssFiles1 Include="Content/CommonStyle.css" />
+      <CssFiles1 Include="Content/FeaturesStyle.css" />
+
+      <CssFiles Include="Content/telerik.common.min.css" />
+      <CssFiles Include="Content/telerik.vista.min.css" />
+      <CssFiles Include="Content/httpcode.jquery.comui1.9.2themesbasejquery-ui.css" />
+      <CssFiles Include="Content/themes/base/jquery.ui.theme.css" />
+      <CssFiles Include="Content/themesbasejquery-ui.css" />
+
+      <CssFiles Include="Content/Site.css" />
+      <CssFiles Include="Content/jqtransform.css" />
+      <CssFiles Include="Content/jquery.qtip.css" />
+      <CssFiles Include="Content/ManageFees.css" />
+      <CssFiles Include="Content/angular-grid/angularGrid.css" />
+      <CssFiles Include="Content/angular-block-ui.css" />
+
+      <!--<JavaScriptFiles Include="Javascript/jquery-1.3.2.js"/>-->
+      <JavaScriptFiles Include="Scripts/modernizr-1.7.min.js" />
+      <JavaScriptFiles Include="Scripts/jquery-1.6.4.min.js" />
+      <JavaScriptFiles Include="Scripts/jquery.unobtrusive-ajax.min.js" />
+      <JavaScriptFiles Include="Scripts/jquery.validate.min.js" />
+      <JavaScriptFiles Include="Scripts/jquery.validate.unobtrusive.min.js" />
+      <JavaScriptFiles Include="Scripts/jquery-ui-1.8.11.min.js" />
+      <JavaScriptFiles Include="Scripts/jquery.blockUI.js" />
+      <JavaScriptFiles Include="Scripts/jquery.qtip.js" />
+      <JavaScriptFiles Include="Scripts/jquery.contextMenu.js" />
+      <JavaScriptFiles Include="Scripts/moment.min.js" />
+      <JavaScriptFiles Include="Scripts/impInterval.js"/>
+      <JavaScriptFiles Include="Scripts/LoanCenterShared.js" />
+      <JavaScriptFiles Include="Scripts/2011.2.712/telerik.common.min.js" />
+      <JavaScriptFiles Include="Scripts/2011.2.712/telerik.combobox.min.js" />
+      <JavaScriptFiles Include="Scripts/2011.2.712/telerik.list.min.js" />
+      <JavaScriptFiles Include="Scripts/MicrosoftAjax.js" />
+      <JavaScriptFiles Include="Scripts/MicrosoftMvcAjax.js" />
+      <JavaScriptFiles Include="Scripts/jquery.ajax.antiCSRF.js" />
+      <JavaScriptFiles Include="Scripts/PipelineGrid.js" />
+      <JavaScriptFiles Include="Scripts/ProspectGrid.js" />
+      <JavaScriptFiles Include="Scripts/TaskGrid.js" />
+      <JavaScriptFiles Include="Scripts/NewLoanApplicationGrid.js" />
+      <JavaScriptFiles Include="Scripts/MailRoomGrid.js" />
+      <JavaScriptFiles Include="Scripts/OrderRequestedGrid.js" />
+      <JavaScriptFiles Include="Scripts/OrderProcessedGrid.js" />
+      <JavaScriptFiles Include="Scripts/OrderDeliveredForReviewGrid.js" />
+      <JavaScriptFiles Include="Scripts/OrderExceptionGrid.js" />
+      <JavaScriptFiles Include="Scripts/PendingApprovalGrid.js" />
+      <JavaScriptFiles Include="Scripts/UserFilter.js" />
+      <JavaScriptFiles Include="Scripts/jquery.ba-postmessage.min.js" />
+      <JavaScriptFiles Include="Scripts/GetStarted.js" />
+      <JavaScriptFiles Include="Scripts/AssignLoanInfo.js" />
+      <JavaScriptFiles Include="Scripts/ManageProspects.js" />
+      <JavaScriptFiles Include="Scripts/FormatHelper.js" />
+      <JavaScriptFiles Include="Scripts/ManageFees.js" />
+      <JavaScriptFiles Include="Scripts/LoanDetails.js" />
+      <JavaScriptFiles Include="Scripts/ConciergeCommandEmbedded.js" />
+      <JavaScriptFiles Include="Scripts/WorkQueueTypes.js" />
+      <JavaScriptFiles Include="Scripts/WorkQueueCommands.js" />
+      <JavaScriptFiles Include="Scripts/Search.js" />
+      <JavaScriptFiles Include="Scripts/AlertGrid.js" />
+      <JavaScriptFiles Include="Scripts/CancelGrid.js" />
+      <JavaScriptFiles Include="Scripts/AdditionalViews.js" />
+      <JavaScriptFiles Include="Scripts/CompletedLoansGrid.js" />
+      <JavaScriptFiles Include="Scripts/Refresh.js" />
+      <JavaScriptFiles Include="Scripts/PreApprovalGrid.js" />
+      <JavaScriptFiles Include="Scripts/Log.js" />
+      <JavaScriptFiles Include="Scripts/BussinesContactDetails.js" />
+      <JavaScriptFiles Include="Scripts/jquery.maskedinput-1.2.2.js"/>
+      <JavaScriptFiles Include="Scripts/jquery.jqtransform.js"/>
+      <JavaScriptFiles Include="Scripts/Appraisal.js"/>
+      <JavaScriptFiles Include="Scripts/LoanServices.js"/>
+      <JavaScriptFiles Include="Scripts/TestLoans.js"/>
+      <JavaScriptFiles Include="Scripts/jquery.mmlZipData.js" />
+      <JavaScriptFiles Include="Scripts/Aus.js" />
+      <JavaScriptFiles Include="Scripts/jquery.scrollTo-min.js" />
+      <JavaScriptFiles Include="Scripts/underscore-min.js" />
+      <JavaScriptFiles Include="Scripts/underscore-groupByMulti.js" />
+      <JavaScriptFiles Include="Scripts/CanvasDrawings.js" />
+      <JavaScriptFiles Include="Scripts/jquery.ui.core.js"/>
+      <JavaScriptFiles Include="Scripts/jquery.ui.mouse.js"/>
+      <JavaScriptFiles Include="Scripts/d3/d3.min.js"/>
+
+      <!-- <JavaScriptFiles Include="Scripts/jquery.ui.widget.js"/> -->
+
+      
+      
+      
+      <!-- Include Custom AngularJS files in LayoutAngularJavascript.js -->
+      <JavaScriptFiles1 Include="angular/common/common.objects.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/common.string.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+       <JavaScriptFiles1 Include="angular/common/common.date.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/httpstatusUI/ui.status.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/httpstatusUI/http.ui.status.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/genericTypes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/generated/viewModels.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/generated/viewModelBaseClasses.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/generated/viewModelClasses.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/transactionInfo.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/lookupItem.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/enums.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/extendedViewModels.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/loan.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/loanApplication.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/borrower.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/employmentInfo.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/asset.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/property.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/incomeInfo.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/liability.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/extendedViewModels/housingExpenses.extendedViewModel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+
+      <JavaScriptFiles1 Include="angular/ts/global/global.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/lib/httpUtil.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/lib/http.blockui.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/lib/referenceWrapper.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include=" angular/ts/lib/common.util.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include=" angular/ts/lib/enum.util.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/lib/genericUtil.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+	  <JavaScriptFiles1 Include="angular/ts/lib/flaggedEnum.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/generated/serviceProxies/MegaLoanService.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanevents/eventHandler.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+     <JavaScriptFiles1 Include="angular/loanevents/loanEvents.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanevents/loanEvents.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancalculator/loan.calculator.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/generated/serviceProxies/LoanCalculatorService.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/lib/IdentityGenerator.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/generated/serviceProxies/DocVaultService.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+
+      <JavaScriptFiles1 Include="angular/common/common.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/guid.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/common.factory.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/directives/common.ui.directives.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/common.collections.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/common.numeric.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/emailcontrol/email.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/common.durationyearsmonths.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/modalpopover/modalpopover.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/modalpopover/modalpopover.template.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/modalpopover/modalpopover.provider.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/modalpopover/modalpopover.factory.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/simplemodalwindow/simplemodalwindow.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/simplemodalwindow/simplemodalwindow.factory.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/simplemodalwindow/simplemodalwindow.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/anchor.smooth.scroll.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      
+      <JavaScriptFiles1 Include="angular/common/common.Filters.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/common.Directives.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loancenter.core.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loancenter.constants.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loancenter.serviceprovider.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loancenter.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loancenter.config.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loan.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loan.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/loancenter.broadcast.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/applicationData.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+     
+      <JavaScriptFiles1 Include="angular/loancenter/util.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/applicationData.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loancenter/applicationdata.service2.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+
+      <JavaScriptFiles1 Include="angular/loancenter/userAccountId.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/loanapplication.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/income/income.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/personal/personal.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/credit.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/stipsandconditions2.0/ConditionsAngularApp.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/navigation/navigation.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/navigation/navigation.services.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/navigation/navigation.constants.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/navigation/loanmenu.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/navigation/antisteering/antisteering.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      
+      <JavaScriptFiles1 Include="angular/navigation/adverse/adverse.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      
+      <JavaScriptFiles1 Include="angular/loanapplication/loanapplicationtab.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+
+      <JavaScriptFiles1 Include="angular/contextualbar/contextualbar.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/comparisonpdf/comparisonpdf.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/contextualbar.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/comparisonpdf/comparisonpdf.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/comparisonpdf/simplecontentmodal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/contextualbar.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/details/contextualbardetails.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/costdetails/contextualbarcostdetails.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+
+      <JavaScriptFiles1 Include="angular/contextualbar/contextualtitle/contextualtitle.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/costdetails/tolerance.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/costdetails/tolerance.select.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/costdetails/tolerance.modal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/costdetails/tolerance.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/appraisal/appraisalcontextualbar.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/transactionalsummary/owedDueTextFilter.filter.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/transactionalsummary/transactions.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/transactionalsummary/transaction.row.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/transactionalsummary/transaction.subsection.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/transactionalsummary/transaction.section.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/transactionalsummary/transactionalsummaryservice.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/contextualtabs/contextualbartabs.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/productandpricing/contextualbarproductandpricing.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/contextualbar/queue/contextualbarqueue.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/common/document/document.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/personal/personal.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/personal/personal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/personal/personal.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/assets/assets.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/assets/assets.utils.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/assets/assets.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/property/property.constant.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/property/property.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/property/property.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/income/helpers/income.helpers.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/income/income.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/income/income.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/income/income.directives.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/credit.state.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/credit.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/helpers/credit.helpers.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/credit.enumerations.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/credit.occupancymtx.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/credit.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/liabilities/liabilities.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/creditrunbutton/creditrunbtn.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/publicrecords/publicrecords.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/collections/collections.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/miscellaneousexpenses/miscexpenses.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/realestate/realestate.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/credit/realestate/realestateitem.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>      
+      <JavaScriptFiles1 Include="angular/loanapplication/declarations/declarations.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/declarations/declarations.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/declarations/declarations.utils.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/addresscontrol/addresscontrol.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/address/address.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/directives/includereplace.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+       <JavaScriptFiles1 Include="angular/common/directives/validateemail.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/templatecontrol/templatecontrol.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/zipcode/zipcode.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/itemizedpropertytaxcalculator/itemizedpropertytaxcalculator.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanapplication/manageaccount/manageaccount.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+       <JavaScriptFiles1 Include="angular/loanapplication/manageaccount/accountstatus.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/calculator/calculator.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/calculator/calculator.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/impoundcalculator/impoundcalculator.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/impoundcalculator/impoundcalculator.service.ts">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/impoundcalculator/impoundcalculator.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/impoundcalculator/impoundcalculator.helpers.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/loandetails.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/loandetails.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/loandetails.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/loandetails.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/loandetails.directives.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/calculator/calculator.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/calculator/calculator.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/propertydetails/propertydetails.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/propertydetails/propertydetails.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/appraisedvaluehistorypopup/appraisedvaluehistorypopup.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/appraisedvaluehistorypopup/appraisedvaluehistorypopup.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/sections/housingexpenses/housingexpenses.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/multiborrowerpopover/multiborrowerpopover.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/multiborrowerpopover/multiborrowerpopover.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/housingexpense/housingexpense.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/sections/sectionseven/sectionseven.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/sections/propertyinfo/propertyinfo.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/lockdiclosuresmodals/lockconfirmation.modal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/testmodeproductpopup/testmodeproductpopup.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/compliancecheckpopup/compliancecheckpassedpopup.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/compliancecheckpopup/compliancecheckfailedpopup.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/integrations/encompass/encompass.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/integrations/encompass/encompass.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/integrations/digitaldoc/digitaldoc.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/integrations/digitaldoc/digitaldoc.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/integrations/integrations.common.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/integrations/integrations.common.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/monthlyincome/monthlyincome.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loandetails/monthlyliabilities/monthlyliabilities.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/documents.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/documents.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/documents.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/documents.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/needslist/needslist.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/needslist/needslist.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/docvault/docvault.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/docvault/docvault.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/docvault/docvault.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/docvault/docvault.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/documents/docvault/docvaultclassify.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/mailroom/mailroom.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/mailroom/mailroom.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/mailroom/mailroom.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/mailroom/mailroom.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/signalR/signalR.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/signalR/signalR.factory.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/mailroom/mailroom.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/costdetails.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/costdetails.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/costdetails.services.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/helpers/costdetails.helpers.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/costdetails/costdetails.directives.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/integrations/closingcost/closingcost.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>      
+      <JavaScriptFiles1 Include="angular/costdetails/costdetails.filters.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>      
+      <JavaScriptFiles1 Include="angular/loanscenario/loanscenario.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanScenario/loanscenario.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanScenario/loanscenario.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanscenario/loanscenario.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+
+      <JavaScriptFiles1 Include="angular/aus/aus.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/aus/aus.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/aus/aus.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/aus/aus.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/aus/du/du.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/aus/du/du.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/aus/lp/lp.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/aus/lp/lp.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/complianceease/complianceease.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/complianceease/complianceease.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/complianceease/complianceease.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/complianceease/complianceease.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/messagecenter/messagecenter.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/messagecenter/messagecenter.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/messagecenter/messagecenter.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/lockingandpricingadj/lockingandpricingadj.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/lockingandpricingadj/lockingandpricingadj.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/lockingandpricingadj/lockingandpricing.services.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/lockingandpricingadj/lockingandpricing.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/preapprovalletters/preapprovalletters.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/preapprovalletters/preapprovalletters.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/preapprovalletters/preapprovalletters.services.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/preapprovalletters/preapprovalletters.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/preapprovalletters/preapprovalletters.preview.modal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/compliancecenter/compliancecenter.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/compliancecenter/compliancecenter.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/compliancecenter/compliancecenter.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/compliancecenter/auditlog/auditlog.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/compliancecenter/auditlog/auditlog.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/compliancecenter/auditlog/auditlog.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/pricingresults/pricingresults.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/pricingresults/pricingresults.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/pricingresults/pricingresults.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/pricingresults/pricingresults.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/uploadfiles/uploadfiles.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/uploadfiles/uploadfiles.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/uploadfiles/uploadfiles.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/uploadfiles/importfnmfiles.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/uploadfiles/importfnmfiles.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/queue/queue.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/queue/queue.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/queue/queue.resolver.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/queue/queue.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/queue/queue.column.defs.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/uploadfiles/uploadfiles.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanparticipants/loanparticipants.modal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanparticipants/participants.table.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanparticipants/loanparticipants.viewmodel.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/loanparticipants/participant.row.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>      
+      <JavaScriptFiles1 Include="angular/loanparticipants/loanparticipants.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/assignments/assignments.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/assignments/assignments.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ts/generated/enums.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/commonmodalwindow/commonmodalwindow.factory.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/commonmodalwindow/commonmodalwindow.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/columnoptions/columnoptions.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/columnoptions/columnoptions.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/pricingresults/other/sharecomparisonmodal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/errormodalwindow/errormodalwindow.factory.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/errormodalwindow/errormodalwindow.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/appraisal/appraisal.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <!--FHA Center-->
+      <JavaScriptFiles1 Include="angular/fhacenter/fhacenter.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/fhacenter/fhacenter.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/fhacenter/fhacenter.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/fhacenter/fhacenter.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/integrations/integrations.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/integrations/integrations.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/integrations/integrations.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/integrations/integrations.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+        <JavaScriptFiles1 Include="angular/fhacenter/rateandtermrefinance/rateandtermrefinance.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+        <JavaScriptFiles1 Include="angular/fhacenter/simplerefinance/simplerefinance.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+        <JavaScriptFiles1 Include="angular/fhacenter/streamlinerefinance/streamlinerefinance.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/fhacenter/cashoutrefinance/cashoutrefinance.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/fhacenter/purchase/purchase.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/fhacenter/purchasedown/purchasedown.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <!--VA Center-->
+      <JavaScriptFiles1 Include="angular/vacenter/vacenter.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/vacenter/vacenter.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/vacenter/vacenter.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/vacenter/vacenter.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/vacenter/generalinformation/generalinformation.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/vacenter/irrlmax/irrlmax.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/vacenter/irrlqmcertification/irrlqmcertification.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <!--USDA Center-->
+      <JavaScriptFiles1 Include="angular/usdacenter/usdacenter.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/usdacenter/usdacenter.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/usdacenter/usdacenter.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/usdacenter/usdacenter.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <!--Copy Loan-->
+      <JavaScriptFiles1 Include="angular/copyloan/copyloan.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/copyloan/copyloan.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/copyloan/copyloan.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <!--SecureLink Email-->
+      <JavaScriptFiles1 Include="angular/securelinkemail/securelinkemail.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/securelinkemail/securelinkemail.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/securelinkemail/securelinkemail.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <!--NTB Center-->
+      <JavaScriptFiles1 Include="angular/ntbcenter/ntbcenter.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ntbcenter/ntbcenter.routes.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/ntbcenter/ntbcenter.service.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+	   <JavaScriptFiles1 Include="angular/ntbcenter/ntbcenter.controller.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      
+      <!-- INPUT DIRECTIVE -->
+      <JavaScriptFiles1 Include="angular/common/directives/inputdirectives/inputdirectives.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+       <JavaScriptFiles1 Include="angular/common/directives/common/impdirectives.settings.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/directives/inputdirectives/imptextarea/imptextarea.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/directives/inputdirectives/imptextbox/imptextbox.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      
+      <!-- BUTTON DIRECTIVES -->
+      <JavaScriptFiles1 Include="angular/common/directives/buttondirectives/buttondirectives.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      <JavaScriptFiles1 Include="angular/common/directives/buttondirectives/impaddbutton/impaddbutton.directive.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+        
+      <!-- Include Old layout app module -->
+      <JavaScriptFiles1 Include="angular/loancenter/loancenter.oldlayout.module.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles1>
+      
+      <!-- Include Non-Custom AngularJS, Bootstrap, and Consumer files in AngularJavascript.js -->
+      <JavaScriptFiles2 Include="Scripts/angular/angular.min.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/ui-router/0.2.13/angular-ui-router.min.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/angular-block-ui.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/angular-grid/angularGrid.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/jquery.signalR-2.2.0.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/jquery.signalR-2.2.0.min.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/angular/angular-resource.min.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/angular/angular-animate.min.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/angular/angular-signalr-hub.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/angular/angular-signalr-hub.min.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      <JavaScriptFiles2 Include="Scripts/ui-utils/ui-utils.js">
+        <CompressionType>None</CompressionType>
+      </JavaScriptFiles2>
+      
+
+
+    </ItemGroup>
+    <CompressorTask
+        CssFiles="@(CssFiles)"
+        DeleteCssFiles="false"
+        CssOutputFile="$(CssOutputFile)"
+        CssCompressionType="YuiStockCompression"
+        JavaScriptFiles="@(JavaScriptFiles)"
+        ObfuscateJavaScript="True"
+        PreserveAllSemicolons="False"
+        DisableOptimizations="Nope"
+        EncodingType="Default"
+        DeleteJavaScriptFiles="false"
+        LineBreakPosition="-1"
+        JavaScriptOutputFile="$(JavaScriptOutputFile)"
+        LoggingType="ALittleBit"
+        ThreadCulture="en-au"
+        IsEvalIgnored="false"
+            />
+    <CompressorTask
+        CssFiles="@(CssFiles1)"
+        DeleteCssFiles="false"
+        CssOutputFile="$(CssOutputFile1)"
+        CssCompressionType="YuiStockCompression"
+        JavaScriptFiles="@(JavaScriptFiles1)"
+        ObfuscateJavaScript="False"
+        PreserveAllSemicolons="True"
+        DisableOptimizations="True"
+        EncodingType="Default"
+        DeleteJavaScriptFiles="false"
+        JavaScriptOutputFile="$(JavaScriptOutputFile1)"
+        LoggingType="ALittleBit"
+        ThreadCulture="en-au"
+        IsEvalIgnored="false"
+        />
+
+    <CompressorTask
+        CssFiles="@(CssFiles2)"
+        DeleteCssFiles="false"
+        CssOutputFile="$(CssOutputFile2)"
+        CssCompressionType="YuiStockCompression"
+        JavaScriptFiles="@(JavaScriptFiles2)"
+        ObfuscateJavaScript="False"
+        PreserveAllSemicolons="True"
+        DisableOptimizations="True"
+        EncodingType="Default"
+        DeleteJavaScriptFiles="false"
+        JavaScriptOutputFile="$(JavaScriptOutputFile2)"
+        LoggingType="ALittleBit"
+        ThreadCulture="en-au"
+        IsEvalIgnored="false"
+        />
+  
+    <CompressorTask
+        CssFiles="@(CssFiles3)"
+        DeleteCssFiles="false"
+        CssOutputFile="$(CssOutputFile3)"
+        PreserveAllSemicolons="True"
+        DisableOptimizations="True"
+        EncodingType="Default"
+        LoggingType="ALittleBit"
+        ThreadCulture="en-au"
+        IsEvalIgnored="false"
+        />
+  </Target>
+</Project>
+

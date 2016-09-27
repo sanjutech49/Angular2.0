@@ -1,0 +1,28 @@
+﻿<div class='imp-popover imp-body' >
+    <div class='container credit-run-popover-container'>
+
+        <div class="run-credit-popover-content">
+
+            <div class="rowitem">
+                <div>
+                    You have selected to <span class="imp-text-enhanced-color run-credit-semi-bold">{{modalpopoverCtrl.model.Action}}</span>
+                    the <span class="imp-text-enhanced-color run-credit-semi-bold">{{modalpopoverCtrl.model.What}}</span><br /> and
+                    <span class="imp-text-enhanced-color"><span class="run-credit-semi-bold">Data</span> from the <span class="run-credit-semi-bold">1003</span></span>
+                    for <span>{{modalpopoverCtrl.model.For}}</span>.
+                    <br />This action  cannot be undone, would you like to <br /> proceed?
+                </div>
+            </div>
+
+            <div class='footer'>
+                <div class="buttons run-credit-popover-buttons">
+                    <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+                    <div class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Proceed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

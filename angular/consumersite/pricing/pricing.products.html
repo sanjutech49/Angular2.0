@@ -1,0 +1,57 @@
+﻿<div class="col-xs-12 col-sm-7 col-md-9 product-grid-region" ng-show="pricingCntrl.showGrid">
+    <div class="product-grid">
+        <div ng-repeat="product in pricingCntrl.products | filter:pricingCntrl.productFilterFunction">
+            <ng-include src="'/angular/consumersite/pricing/directives/products/product.row.template.html'" />
+        </div>
+        <div class="row send-my-report-region">
+            <div class="col-xs-12 col-md-2 col-md-offset-0 col-lg-2">
+                <button class="btn btn-warning btn-send-my-report" ng-click="pricingCntrl.sendEmailReport()">Send My Report</button>
+            </div>
+            <div class="col-xs-12 col-md-9 col-md-offset-1 col-lg-10 col-lg-offset-0 send-my-report-explanation">
+                Select the&nbsp;<i class="fa fa-heart-o fa-2x"></i>'s and click Send My Report to recieve a Detailed Comparison Report
+            </div>
+            <div class="col-xs-12 col-md-11 col-md-offset-0 col-lg-12">
+                <div class="report-disclaimer-content-show"
+                     ng-show="!pricingCntrl.disclaimersHidden" ng-click="pricingCntrl.toggleDisclaimer(true);">
+                    View Disclaimers
+                    <img src="/Content/ConsumerSite/images/expand.jpg" />
+                </div>
+                <div class="report-disclaimer-content-hide"
+                     ng-show="pricingCntrl.disclaimersHidden" ng-click="pricingCntrl.toggleDisclaimer(false)">
+                    Hide Disclaimers
+                    <img src="/Content/ConsumerSite/images/collapse_blue.jpg" />
+                </div>
+                <div id="div_price_report_disclaimers" class="report-disclaimer-content" ng-show="pricingCntrl.disclaimersHidden">
+
+                    This is not a prequalification, preapproval, loan approval or commitment to lend. Rates, points, and APR are based on a
+                    lock period of 25 days and subject to change until you lock your interest rate. Monthly payments shown do not include taxes,
+                    insurance and homeowner’s dues, if any. Unless otherwise noted, we assume that: borrower pays closing costs out of pocket;
+                    borrower occupies single family home as primary residence; debt-to-income ratio will be no more than 42%; borrower’s credit score is over 740,
+                    and the loan includes an escrow account for payment of property taxes, homeowner’s insurance, and HOA fees (if applicable).
+                    If the Loan-To-Value is greater than 80%, Mortgage Insurance Premium (MIP) will be added to your monthly mortgage payment.<br /><br />
+
+                    Terms shown are based on the limited information that you entered in this NewLeaf Lending calculator. When you apply, we will determine
+                    the actual loan amount and credit terms available to you and may be required to offer you credit on different terms. In certain situations,
+                    we may not be able to extend credit. Lender offers a wide variety of loan options. You may still qualify for a loan even if your situation
+                    does not match our assumptions. To get more accurate, personalized results, please start your loan application or call (877) 222-4444 to talk to a concierge,
+                    and see how much you can save with NewLeaf Lending.
+                    <br /><br />
+                    *ARM Loans: After the fixed period shown, the rate on this adjustable rate mortgage may vary and the monthly payment may increase.
+                    <br /><br />
+                    +Interest Only Loans: To make monthly home loan payments more affordable, Lender offers loans that allow you to pay only interest
+                    during the first few years of the loan. Your payments may go up -- as much as double or triple -- after the interest-only period or
+                    when the payments adjust. Be realistic about whether you can handle future payment increases. If you’re not comfortable with these risks,
+                    ask about other Lender loan products.
+                    <br /><br />
+                    NO COST LOANS: To avoid paying upfront fees, you pay a higher interest rate for the loan and Lender covers the closing costs.
+                    <br /><br />
+                    Some products may not be available in all states. Some jumbo products may not be available to first time homebuyers. Lending services may not be available in all areas.
+
+                </div>
+
+            </div>
+            <div><input type="hidden" value="{{pricingCntrl.sortField}}"></div>
+            <div><input type="hidden" value="{{pricingCntrl.sortAsc}}"></div>
+        </div>
+    </div>
+</div>

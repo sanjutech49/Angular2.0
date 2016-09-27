@@ -1,0 +1,24 @@
+﻿@model Decimal?
+
+@*Custom template for Value attribute of InvestorExtension property of Investor model used in _investorextension view*@
+
+@{
+    object formattedValue;
+    string className;  
+    const string style = "width:60px; padding-left: 5px;";
+
+    if (Model.HasValue)
+    {
+        formattedValue = string.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:0.000}", ViewData.ModelMetadata.Model);
+        className = "decimal3";           
+    }
+    else
+    {
+        formattedValue = "";
+        className = "decimal3 placeholder";
+    }
+
+    @Html.TextBox("", formattedValue, new { @min = 0, @max = 1, @data_decimal = true, @class = @className, @style, @placeholder = "N/A" })
+}
+     
+

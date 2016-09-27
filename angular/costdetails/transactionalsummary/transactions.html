@@ -1,0 +1,104 @@
+﻿<div id="transactions" class="imp-cgrid transactions">
+    <transaction-section section-title="Borrower's Transaction"
+                         section-footer="Total Due from Borrower at Closing"
+                         section-total="transactionsCtrl.sectionKTotal"
+                         wrapped-loan="transactionsCtrl.wrappedLoan.ref"
+                         sub-section="transactionsCtrl.borrowerDataK"
+                         section-letter="k"
+                         add-empty-rows="transactionsCtrl.mCount - transactionsCtrl.kCount"
+                         cost-controller="transactionsCtrl.costController">
+    </transaction-section>
+    <transaction-section section-title="Seller's Transaction"
+                         section-footer="Total Due to Seller at Closing"
+                         section-total="transactionsCtrl.sectionMTotal"
+                         wrapped-loan="transactionsCtrl.wrappedLoan.ref"
+                         sub-section="transactionsCtrl.sellerDataM"
+                         section-letter="m"
+                         add-empty-rows="transactionsCtrl.kCount - transactionsCtrl.mCount"
+                         cost-controller="transactionsCtrl.costController">
+    </transaction-section>
+    <transaction-section section-footer="Total Paid Already by or on Behalf of Borrower at Closing"
+                         section-total="transactionsCtrl.sectionLTotal"
+                         wrapped-loan="transactionsCtrl.wrappedLoan.ref"
+                         sub-section="transactionsCtrl.borrowerDataL"
+                         section-letter="l"
+                         add-empty-rows="transactionsCtrl.nCount - transactionsCtrl.lCount"
+                         cost-controller="transactionsCtrl.costController">
+    </transaction-section>
+    <transaction-section section-footer="Total Due from Seller at Closing"
+                         section-total="transactionsCtrl.sectionNTotal"
+                         wrapped-loan="transactionsCtrl.wrappedLoan.ref"
+                         sub-section="transactionsCtrl.sellerDataN"
+                         section-letter="n"
+                         add-empty-rows="transactionsCtrl.lCount - transactionsCtrl.nCount"
+                         cost-controller="transactionsCtrl.costController">
+    </transaction-section>
+    <div id="borrower-total" class="borrower-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-a tlabel">TOTAL CALCULATION</div>
+                <div class="col-m"></div>
+            </div>
+            <div class="row">
+                <div class="col-a">
+                    <div class="sub-col-s"></div>
+                    <div class="sub-col-xs imp-disclaimer"></div>
+                    <div class="sub-col-l">Total Due from Borrower at Closing (K)</div>
+                </div>
+                <div class="col-m">
+                    <span class="cvalue">{{ transactionsCtrl.sectionKTotal | currency : "$" : 2 }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-a">
+                    <div class="sub-col-s"></div>
+                    <div class="sub-col-xs imp-disclaimer"></div>
+                    <div class="sub-col-l">Total Paid Already by or on Behalf of Borrower at Closing(L)</div>
+                </div>
+                <div class="col-m">
+                    <span class="cvalue">{{ transactionsCtrl.sectionLTotal | currency : "$" : 2 }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-row">Cash to Close</div>
+            <div class="footer-row tlabel">{{ 'From Borrower' | oweDueTextFilter : (transactionsCtrl.sectionLTotal - transactionsCtrl.sectionKTotal) }}</div>
+            <div class="footer-row tlabel">{{ transactionsCtrl.sectionLTotal - transactionsCtrl.sectionKTotal | currency : "$" : 2 }}</div>
+        </div>
+    </div>
+
+    <div id="seller-total" class="seller-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-a tlabel">TOTAL CALCULATION</div>
+                <div class="col-m"></div>
+            </div>
+            <div class="row">
+                <div class="col-a">
+                    <div class="sub-col-s"></div>
+                    <div class="sub-col-xs imp-disclaimer"></div>
+                    <div class="sub-col-l">Total Due to Seller at Closing (M)</div>
+                </div>
+                <div class="col-m">
+                    <span class="cvalue">{{ transactionsCtrl.sectionMTotal | currency : "$" : 2 }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-a">
+                    <div class="sub-col-s"></div>
+                    <div class="sub-col-xs imp-disclaimer"></div>
+                    <div class="sub-col-l">Total Paid Already by or on Behalf of Seller at Closing(N)</div>
+                </div>
+                <div class="col-m">
+                    <span class="cvalue">{{ transactionsCtrl.sectionNTotal | currency : "$" : 2 }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-row">Cash to Close</div>
+            <div class="footer-row tlabel">{{ 'To Seller' | oweDueTextFilter : (transactionsCtrl.sectionMTotal - transactionsCtrl.sectionNTotal) }}</div>
+            <div class="footer-row tlabel">{{ transactionsCtrl.sectionMTotal - transactionsCtrl.sectionNTotal | currency : "$" : 2 }}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+﻿@using MML.Common;
+@using MML.Common.Helpers;
+@using MML.Web.LoanCenter.Helpers.Utilities
+
+@{
+    bool viewSystemAdmin = (Session[SessionHelper.PrivilegeForViewSystemAdmin] != null && (Boolean)Session[SessionHelper.PrivilegeForViewSystemAdmin]);
+    bool viewConciergeCenter = (Session[SessionHelper.PrivilegeForViewConciergeCenter] != null && (Boolean)Session[SessionHelper.PrivilegeForViewConciergeCenter]);
+    var borrowerUrl = System.Configuration.ConfigurationManager.AppSettings["BorrowerUrl"] + "LogOut.aspx?logout=1";
+    var virtualApplicationPath = System.Configuration.ConfigurationManager.AppSettings["VirtualApplicationPath"] + "/Home/SignOutFromPartial";
+    var signOutPath = string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["VirtualApplicationPath"]) ? "/Home/SignOutFromPartial" : virtualApplicationPath;
+}
+
+<div class="navbar navbar-fixed-top imp-main-bar" ng-controller="NavCtrl as navCtrl">
+    <div class="container">
+        <span class="dropdown brand item" >
+            <a href="/" class="dropdown-toggle">
+                START
+                <img src="~/Content/images/logo.png" style="height:30px; padding-left:2px;" />
+            </a>
+
+        </span>
+
+        <div class="nav-collapse">
+
+            <ul class="nav navbar-nav " style="float:right">
+
+                <li class="dropdown navbar-right imp-cog">
+                    <a data-toggle="dropdown" class="dropdown-toggle clear" href="" on-toggle="settingsItemOpen = open">
+                        <span class="glyphicon glyphicon-cog ">
+                        </span>
+                    </a>
+                    <!-- dropdown -->
+
+                    <ul class="dropdown-menu animated fadeInRight w imp-nav-bar-settings">
+                        <li class="login-status">
+                            <a ng-click="navCtrl.redirect('@borrowerUrl', '@signOutPath')">
+                                <span>Sign out</span>
+                                <br />
+                                <span class="login-info">@MML.Web.LoanCenter.Helpers.Utilities.AccountHelper.GetUserFullName()</span>
+
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        @if (viewConciergeCenter)
+                        {
+                            <li>
+                                <a ng-click="navCtrl.redirect(@(System.Configuration.ConfigurationManager.AppSettings[ "ConciergeHome" ] + "?LOFirstVisit=False&isEmbeddedInLoanCenter=0"))">Concierge</a>
+                            </li>
+                        }
+                        @if (AccountHelper.HasPrivilege(PrivilegeName.ViewLoanCenter3))
+                        {
+                            <li>
+                                <a ng-click="navCtrl.redirect(@(System.Configuration.ConfigurationManager.AppSettings["LoanCenterStartPage"])?v=3)">
+                                    Loan Center 3.0
+                                </a>
+                            </li>
+                        }
+                        @if (AccountHelper.HasPrivilege(PrivilegeName.ViewLoanCenter))
+                        {
+                            <li>
+                                <a ng-click="navCtrl.redirect(@(System.Configuration.ConfigurationManager.AppSettings[ "LoanCenterStartPage" ]))">Loan Center 2.0</a>
+                            </li>
+                        }
+                        @if (viewSystemAdmin)
+                        {
+                            <li>
+                                <a ng-click="navCtrl.redirect(@(System.Configuration.ConfigurationManager.AppSettings[ "SystemAdmin" ] + "?LOFirstVisit=False&isEmbeddedInLoanCenter=0"))">System Admin</a>
+                            </li>
+                        }
+                    </ul>
+
+
+                    <!-- / dropdown -->
+                </li>
+
+            </ul>
+            <imp-nav-search model="value" submit="sysAdminSearch(value)" clear="sysAdminClear()"></imp-nav-search>
+        </div>
+    </div>
+
+</div>

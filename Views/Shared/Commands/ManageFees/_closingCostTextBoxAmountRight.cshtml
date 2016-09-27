@@ -1,0 +1,84 @@
+﻿@using MML.Common
+@model MML.Web.LoanCenter.ViewModels.ManageFeesViewModel
+@{
+    var costGroup = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == ViewBag.GroupNumber);
+    var hudlineNumber = (int)ViewBag.HUDLineNumber;
+    var subHudlineNumber = ViewBag.SubHUDLineNumber as string;
+    var costPrefix = String.Format("TitleAndEscrow.CostGroups[{0}].Costs[{1}]", Model.TitleAndEscrow.CostGroups.IndexOf(costGroup),
+        costGroup.Costs.FindIndex( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) ) );
+    var cost = costGroup.Costs.First( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) );
+
+    var htmlAttrFromBorrowerFunds = new Dictionary<string, object>()
+    {
+        { "id" , "txtFromBorrowerFunds" + hudlineNumber + subHudlineNumber ?? ""},
+        { "hudlineNumber" , + hudlineNumber + subHudlineNumber ?? ""}
+    };
+
+    var cssClass = "closingCostTextBoxAmountRight Amount";
+    if ( Model.TitleAndEscrow.IsAuthorizedToLockFee  &&  ViewBag.GroupNumber != 70 && (ViewBag.Disabled==null || (ViewBag.Disabled!=null && (bool)ViewBag.Disabled==false)) )
+    {
+        cssClass += " rightClick";
+    }
+
+    if ( ( ViewBag.Disabled != null && ( bool )ViewBag.Disabled ) || ( ViewBag.BorrowerDisabled != null && ( bool )ViewBag.BorrowerDisabled ) )
+    {
+        htmlAttrFromBorrowerFunds.Add("disabled", "disabled");
+        htmlAttrFromBorrowerFunds.Add( "previouslydisabled", "True" );
+    }
+    else
+    {
+        cssClass += " CalculateFromBorrowerFunds";
+    }
+
+    htmlAttrFromBorrowerFunds.Add( "class", cssClass );
+    
+    var htmlAttrFromSellersFunds = new Dictionary<string, object>()
+    {
+    { "class", "closingCostTextBoxAmountRight Amount CalculateFromSellersFunds borderMarginLeftSection"},
+    { "id" , "txtFromSellersFunds" + hudlineNumber + subHudlineNumber ?? ""}
+    };
+       
+    if (Model.TitleAndEscrow.IsRefinance || (ViewBag.Disabled != null && (bool)ViewBag.Disabled))
+    {
+        htmlAttrFromSellersFunds.Add("disabled", "disabled");
+        htmlAttrFromSellersFunds.Add( "previouslydisabled", "True" );
+    }
+
+    var htmlAttrPocAmount = new Dictionary<string, object>()
+    {
+    { "class", "closingCostTextBoxAmountRight Amount CalculateFromPocAmount ptcPopup"},
+    { "id" , "txtPocAmount" + hudlineNumber + subHudlineNumber ?? ""},
+    { "hudlineNumber" , + hudlineNumber + subHudlineNumber ?? ""}
+    };
+
+    if (ViewBag.Disabled != null && (bool)ViewBag.Disabled)
+    {
+        htmlAttrPocAmount.Add("disabled", "disabled");
+        htmlAttrPocAmount.Add( "previouslydisabled", "True" );
+    }
+    
+    if (cost.IsAprCost)
+    {
+        htmlAttrFromBorrowerFunds[ "class" ] += " blue";
+        htmlAttrFromSellersFunds[ "class" ] += " blue";
+        htmlAttrPocAmount[ "class" ] += " blue";
+    }
+    
+    if (cost.IsLocked && !htmlAttrFromBorrowerFunds.ContainsKey("disabled"))
+    {
+        htmlAttrFromBorrowerFunds[ "class" ] += " locked";
+    }
+
+
+    if ( Model.TitleAndEscrow.IsAuthorizedToLockFee && ViewBag.GroupNumber != 70 && 
+        ( ( ViewBag.Disabled is bool && (bool)ViewBag.Disabled ) || ( ViewBag.BorrowerDisabled != null && ( bool )ViewBag.BorrowerDisabled ) ) )
+    {
+        <div class="overlayDiv-amountDisabled rightClickTotal"> </div>
+    }
+}
+@Html.TextBox( String.Format( "{0}.FromBorrowerFunds", costPrefix ), DecimalExtensionMethods.ToCurrencyFormat( cost.FromBorrowerFunds ), htmlAttrFromBorrowerFunds )
+<span class="borderLeftClosingCostSectionAmount"></span>
+@Html.TextBox( String.Format( "{0}.FromSellersFunds", costPrefix ), DecimalExtensionMethods.ToCurrencyFormat( cost.FromSellersFunds ), htmlAttrFromSellersFunds )
+<span class="borderLeftClosingCostSectionAmount" style="margin-left:-4px;"></span>
+@Html.TextBox( String.Format( "{0}.PocAmount", costPrefix ), DecimalExtensionMethods.ToCurrencyFormat( cost.PocAmount ), htmlAttrPocAmount )
+

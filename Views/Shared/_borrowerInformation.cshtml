@@ -1,0 +1,389 @@
+﻿@model MML.Web.LoanCenter.ViewModels.BorrowerDetailsViewModel           
+@using MML.Common
+@using MML.Web.Facade
+@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Common.Helpers
+@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Utilities
+<script src="../../Scripts/BorrowerInformation.js" type="text/javascript"></script>
+<link href="@Url.Content( "~/Content/jquery.qtip.css" )" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(function () {
+        TrimCharacters(15);
+    });
+    function TrimCharacters(maximumLength) {
+
+        $('.trimText').each(function (index, value) {
+            var text = $(value).text().trim();
+            if (text != undefined && text.length > maximumLength) {
+                var str = text.substring(0, maximumLength) + '...';
+                $(value).text(str);
+                $(value).attr("title", text);
+            }
+        });
+    }
+</script>
+<div class="loandetailsdiv completesection">
+    <div class="borrowerdetailshead2" id="borrowerdetailshead">
+        <div class="left0">
+            <span class="namelink">Borrower Information</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="minimizeborrowerdetails" class="minimizesection" title="Minimize/Maximize Section">
+                    <div id="borrowerdetailsminmax" class="minmax max">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="borrowerdetailscontent" style="display: none" class="borrowerdetailscontent">
+        <div class="tableBorrowerInfo" style="width: 100%; height: auto;">
+            <div class="divHeader">
+                <div class="divCell " style="border: none; width: 90px; text-align:center;">
+                    <span>Application</span>
+                </div>
+                <div class="divCell td3" style="padding: 0px 0px 0px 15px; border: none;">
+                    <span>User Type</span>
+                </div>
+                <div class="divCell td3" style="padding: 0px; border: none;">
+                    <span>First Name</span>
+                </div>
+                <div class="divCell td2" style="padding: 0px; border: none;">
+                    <span>Middle Name</span>
+                </div>
+                <div class="divCell td3" style="padding: 0px; border: none; width:130px;">
+                    <span>Last Name</span>
+                </div>
+                <div class="divCell td4" style="padding: 0px; border: none;">
+                    <span>Preferred Phone</span>
+                </div>
+                <div class="divCell td4" style="padding: 0px; border: none;">
+                    <span>Alternate Phone</span>
+                </div>
+                <div class="divCell" style="border: none; width: 180px;">
+                    <span>Email</span>
+                </div>
+                <div class="divCell td2" style="padding: 0px; border: none; text-align: center">
+                    <span>Add/Remove</span>
+                </div>
+            </div>
+            <input type="hidden" id="hdnToBeRemoved" />
+            @{List<SelectListItem> itemList = new List<SelectListItem>();}
+            @if ( Model.Borrowers != null )
+            {
+                int applicationNumber = 0;
+                
+                for ( int i = 0; i < Model.Borrowers.Count; i++ )
+                {
+                    if ( !Model.Borrowers[ i ].IsRemoved )
+                    {
+                        SelectListItem item = new SelectListItem
+                        {
+                            Text = Model.Borrowers[ i ].BorrowerPersonalInfo.FirstName + " " + Model.Borrowers[ i ].BorrowerPersonalInfo.MiddleName + " " + Model.Borrowers[ i ].BorrowerPersonalInfo.LastName,
+                            Value = Model.Borrowers[ i ].BorrowerId.ToString(),
+                            Selected = Model.Borrowers[ i ].ParentLoanId == Guid.Empty && Model.Borrowers[ i ].IsCoBorrower.Equals( false )
+                        };
+                        itemList.Add( item );
+                    }
+                    // && !Model.Borrowers[ i ].IsRemoved added borrowers should always be displayed, even if they are removed!
+                    if ( !Model.Borrowers[ i ].IsCoBorrower ) 
+                    {
+                        applicationNumber++;
+                        IEnumerable<Borrower> coBorrowerExists = Model.Borrowers.Where( x => x.LoanId == Model.Borrowers[ i ].LoanId && x.IsCoBorrower == true );
+                        
+                        <div id="borrowersContainer_@{@i}" class="borrowerCoBorrowerParentContainer"> 
+                            <input type="hidden" id="hdn_@{@i}" value="@Model.Borrowers[ i ].LoanId" />
+
+                            <div id="contact@{@i}" class="bottomBorder tableBorrowerInfoRow borrowerCoBorrowerContainer" title="Double click on Row to open details">
+                                <input type="hidden" id="hdnBorrower_@{@i}" value="@Model.Borrowers[ i ].BorrowerId" />
+                                <div class="divCell appNumberStyle" > 
+                                    <span style="font: bold 14px Arial;">@applicationNumber</span> 
+                                </div> 
+                                
+                                <div class="divCell leftBorder td3 dblClick" style="padding:0px;  width:125px; ">
+                                    @if ( Model.Borrowers[ i ].IsOnline )
+                                    {
+                                        <div class="onlineUser userTypeStyle">Online User</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="onlineUser userTypeStyle">Offline User</div>
+                                    }
+                                    @if ( Model.Borrowers[ i ].eSignDisclosureNotSigned && Model.Borrowers[ i ].IsOnline )
+                                    {
+                                        <div class="eDisclosureNotSigned" style="float:left;margin-top:6px;"></div>
+                                    }
+                              </div> 
+                          
+                                <div class="divCell td3 dblClick" style="padding: 0px;">
+                                    @if ( !String.IsNullOrEmpty( Model.Borrowers[ i ].BorrowerPersonalInfo.FirstName.ToString() ) )
+                                    {
+                                        <span title="@Model.Borrowers[ i ].BorrowerPersonalInfo.FirstName"> @(Model.Borrowers[ i ].BorrowerPersonalInfo.FirstName.Length > 10 ? String.Format("(B) {0}...", @Model.Borrowers[ i ].BorrowerPersonalInfo.FirstName.Substring(0,8)) :  "(B) " + @Model.Borrowers[ i ].BorrowerPersonalInfo.FirstName)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                </div> 
+                         
+                                <div class="divCell td2 dblClick" style="padding: 0px;">
+                                    @if ( !String.IsNullOrEmpty( Model.Borrowers[ i ].BorrowerPersonalInfo.MiddleName.ToString() ) )
+                                    {
+                                        <span title="@Model.Borrowers[ i ].BorrowerPersonalInfo.MiddleName">@(Model.Borrowers[ i ].BorrowerPersonalInfo.MiddleName.Length > 15 ? String.Format( "{0}...", @Model.Borrowers[ i ].BorrowerPersonalInfo.MiddleName.Substring( 0, 15 ) ) :@Model.Borrowers[ i ].BorrowerPersonalInfo.MiddleName)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                </div> 
+                         
+                                <div class="divCell td3 dblClick" style="padding: 0px;  width:130px;">
+                                    @if ( !String.IsNullOrEmpty( Model.Borrowers[ i ].BorrowerPersonalInfo.LastName.ToString() ) )
+                                    {
+                                        <span title="@Model.Borrowers[ i ].BorrowerPersonalInfo.LastName"> @(Model.Borrowers[ i ].BorrowerPersonalInfo.LastName.Length > 15 ? String.Format( "{0}...", @Model.Borrowers[ i ].BorrowerPersonalInfo.LastName.Substring( 0, 15 ) ) : @Model.Borrowers[ i ].BorrowerPersonalInfo.LastName)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                </div> 
+                         
+                                <div class="divCell td4 dblClick" style="padding: 0px;">
+                                    @if ( Model.Borrowers[ i ].PhoneNumbers != null && Model.Borrowers[ i ].PhoneNumbers.FirstOrDefault( x => x.Preferred ) != null )
+                                    {
+                                        <span>@StringHelper.FormatPhoneNumber( Model.Borrowers[ i ].PhoneNumbers.FirstOrDefault( x => x.Preferred ).Number )</span>
+                                        <span>@(( ( PhoneNumberType )Model.Borrowers[ i ].PhoneNumbers.FirstOrDefault( x => x.Preferred ).PhoneNumberType ).GetStringValue())</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                </div> 
+                        
+                                <div class="divCell td4 dblClick" style="padding: 0px;">
+                                        @if ( Model.Borrowers[ i ].PhoneNumbers != null && Model.Borrowers[ i ].PhoneNumbers.FirstOrDefault( x => !x.Preferred ) != null )
+                                        {
+                                            <span>@StringHelper.FormatPhoneNumber( Model.Borrowers[ i ].PhoneNumbers.FirstOrDefault( x => !x.Preferred ).Number )</span>
+                                            <span>@(( ( PhoneNumberType )Model.Borrowers[ i ].PhoneNumbers.FirstOrDefault( x => !x.Preferred ).PhoneNumberType ).GetStringValue())</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                </div> 
+                       
+                                <div class="divCell dblClick" style="padding: 0px; width: 180px;">
+                                        @if ( !String.IsNullOrEmpty( Model.Borrowers[ i ].BorrowerPersonalInfo.EmailAddress.ToString() ) )
+                                        {
+                                            <span title="@Model.Borrowers[ i ].BorrowerPersonalInfo.EmailAddress.ToLower()"> @(Model.Borrowers[ i ].BorrowerPersonalInfo.EmailAddress.Length > 27 ? String.Format( "{0}...", @Model.Borrowers[ i ].BorrowerPersonalInfo.EmailAddress.Substring( 0, 27 ).ToLower() ) : @Model.Borrowers[ i ].BorrowerPersonalInfo.EmailAddress.ToLower())</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                </div> 
+                       
+                                <div class="divCell td2" style="padding: 0px; text-align:center;">
+                                        
+                                        @if ( Model.Borrowers[ i ].ParentLoanId == Guid.Empty )
+                                        {
+                                            <input type="hidden" id="hdnPrimaryBorrower" value="@Model.Borrowers[ i ].BorrowerId"/>
+                                            <span style="color:Red;">Primary Borrower</span>
+                                        }
+                                        else if ( Model.Borrowers[ i ].IsRemoved )
+                                        {
+                                            <input id="reAddBorrower_@{@i}" type="button" class="imp-button-hs-wm-sec" style="margin:0px;" value="Re-Add" />
+                                        }
+                                        else
+                                        {
+                                            <input id="removeBorrower_@{@i}" type="button" class="imp-button-hs-wm-sec" style="margin:0px;" value="Remove"/>
+                                        }
+                                </div> 
+                       
+                            </div>
+
+                            @if ( coBorrowerExists != null && coBorrowerExists.Count() > 0 )
+                            {
+                                foreach ( Borrower coBorrower in coBorrowerExists )
+                                {                                     
+                                <div id="contactCo@{@i}" class="bottomBorder tableBorrowerInfoRow borrowerCoBorrowerContainer" title="Double click on Row to open details">
+                                    <input type="hidden" id="hdnBorrower_@{@i}c" value="@coBorrower.BorrowerId" />
+                                    <div class="divCell appNumberStyle" style="line-height:normal;" > 
+                                        <span>&nbsp;</span>
+                                    </div> 
+
+                                    <div class="divCell leftBorder td3 dblClick" style="padding: 0px; border-bottom:none; width:125px;">
+                                        @if ( coBorrower.IsOnline )
+                                        {
+                                            <span class="onlineUser userTypeStyle">Online User</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="onlineUser userTypeStyle">Offline User</span>
+                                        }
+                                        @if ( coBorrower.eSignDisclosureNotSigned && coBorrower.IsOnline )
+                                        {
+                                            <div class="eDisclosureNotSigned" style="float:left; margin-top:6px;"></div>
+                                        }
+                                    </div> 
+                                
+                                    <div class="divCell td3 dblClick" style="padding: 0px; border-bottom: none;">
+                                        @if ( !String.IsNullOrEmpty( coBorrower.BorrowerPersonalInfo.FirstName.ToString() ) )
+                                        {
+                                            <span title="@coBorrower.BorrowerPersonalInfo.FirstName"> @(coBorrower.BorrowerPersonalInfo.FirstName.Length > 10 ? String.Format( "(C) {0}...", @coBorrower.BorrowerPersonalInfo.FirstName.Substring( 0, 10 ) ) : "(C) " + @coBorrower.BorrowerPersonalInfo.FirstName)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </div> 
+                                
+                                    <div class="divCell td2 dblClick" style="padding: 0px; border-bottom: none;">
+                                        @if ( !String.IsNullOrEmpty( coBorrower.BorrowerPersonalInfo.MiddleName.ToString() ) )
+                                        {
+                                            <span title="@coBorrower.BorrowerPersonalInfo.MiddleName"> @(coBorrower.BorrowerPersonalInfo.MiddleName.Length > 15 ? String.Format( "{0}...", @coBorrower.BorrowerPersonalInfo.MiddleName.Substring( 0, 15 ) ) : @coBorrower.BorrowerPersonalInfo.MiddleName)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </div> 
+                                
+                                    <div class="divCell td3 dblClick" style="padding: 0px; border-bottom: none;  width:130px;">
+                                        @if ( !String.IsNullOrEmpty( coBorrower.BorrowerPersonalInfo.LastName.ToString() ) )
+                                        {
+                                            <span title="@coBorrower.BorrowerPersonalInfo.LastName"> @(coBorrower.BorrowerPersonalInfo.LastName.Length > 15 ? String.Format( "{0}...", @coBorrower.BorrowerPersonalInfo.LastName.Substring( 0, 15 ) ) : @coBorrower.BorrowerPersonalInfo.LastName)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </div> 
+                                
+                                    <div class="divCell td4 dblClick" style="padding: 0px; border-bottom: none;">
+                                        @if ( coBorrower.PhoneNumbers != null && coBorrower.PhoneNumbers.FirstOrDefault( x => x.Preferred ) != null )
+                                        {
+                                            <span>@StringHelper.FormatPhoneNumber( coBorrower.PhoneNumbers.FirstOrDefault( x => x.Preferred ).Number )</span>
+                                            <span>@(( ( PhoneNumberType )coBorrower.PhoneNumbers.FirstOrDefault( x => x.Preferred ).PhoneNumberType ).GetStringValue())</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </div> 
+                                
+                                    <div class="divCell td4 dblClick" style="padding: 0px; border-bottom: none;">
+                                        @if ( coBorrower.PhoneNumbers != null && coBorrower.PhoneNumbers.FirstOrDefault( x => !x.Preferred ) != null )
+                                        {
+                                            <span>@StringHelper.FormatPhoneNumber( coBorrower.PhoneNumbers.FirstOrDefault( x => !x.Preferred ).Number )</span>
+                                            <span>@(( ( PhoneNumberType )coBorrower.PhoneNumbers.FirstOrDefault( x => !x.Preferred ).PhoneNumberType ).GetStringValue())</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </div> 
+                                
+                                    <div class="divCell dblClick" style="padding: 0px; width: 180px; border-bottom: none;">
+                                        @if ( !String.IsNullOrEmpty( coBorrower.BorrowerPersonalInfo.EmailAddress.ToString() ) )
+                                        {
+                                            <span title="@coBorrower.BorrowerPersonalInfo.EmailAddress.ToLower()"> @(coBorrower.BorrowerPersonalInfo.EmailAddress.Length > 27 ? String.Format( "{0}...", coBorrower.BorrowerPersonalInfo.EmailAddress.Substring( 0, 27 ).ToLower() ) : coBorrower.BorrowerPersonalInfo.EmailAddress.ToLower())</span>
+                                        }
+                                        else
+                                        {
+                                            <span>&nbsp;</span>
+                                        }
+                                    </div> 
+                                
+                                    <div class="divCell td2" style="padding: 0px; border-bottom: none; text-align:center;">
+
+                                    @if ( AccountHelper.HasPrivilege( MML.Common.PrivilegeName.AddNewBorrowerPair ) )
+                                    {
+                                        if ( coBorrower.IsRemoved )
+                                        {
+                                            <input id="reAddCoBorrower_@{@i}+a" type="button" class="imp-button-hs-wm-sec" style="margin:0px;" value="Re-Add" />
+                                        }
+                                        else
+                                        {
+                                            <input id="removeCoBorrower_@{@i}+a" type="button" class="imp-button-hs-wm-sec" style="margin:0px;" value="Remove" />
+                                        }
+                                    }
+                                    </div> 
+                                
+                                </div> 
+                                }
+                            }
+                            else
+                            {
+                                <div id="contact_@{@i}b" title="Double click on Row to open details" style="height:35px;">
+
+                                    <div class="divCell appNumberStyle" style="line-height:normal;" > 
+                                        <span>&nbsp;</span>
+                                    </div> 
+
+                                    <div class="divCell leftBorder" style="border-bottom: none;"> 
+                                        @if ( AccountHelper.HasPrivilege( MML.Common.PrivilegeName.AddNewBorrowerPair ) )
+                                        {
+                                            <input id="addCoBorrower" type="button" class="imp-button-hm-wxl-sec" style="margin: 0px 0px 0px 10px" value="Add a Co-Borrower" /> 
+                                        }
+                                        else
+                                        {
+                                            <input type="button" class="imp-button-hm-wxl-sec" style="margin: 0px 0px 0px 10px" value="Add a Co-Borrower" disabled="disabled" />
+                                        }
+                                    </div> 
+                            
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+            }
+           
+            <div class="bottomControlsContainer"> 
+
+                <div style="float: left;">
+                @if ( AccountHelper.HasPrivilege( MML.Common.PrivilegeName.AddNewBorrowerPair ) )
+                {
+                    bool disabledNewBorrower = GeneralSettingsServiceFacade.RetrieveStatusByGeneralSettingsName( "Multi Borrower – Enable Additional 1003 Applications", Guid.Empty, IdentityManager.GetUserAccountId() );
+
+                    if (disabledNewBorrower)
+                    {
+                        <input id="addBorrower" type="button" class="imp-button-hm-wxl-sec" value="Add a New Borrower" 
+                        onclick=" GetStarted.StartNewProspect('Command=CreateChildLoan,ParentLoanId=' +
+                        $('.tablelistselected:not(.childloan) .loanid').text().trim() + ',SectionTitle=Create Account', true); " />
+                    }
+                    else
+                    {
+                        <input id="addBorrower" type="button" class="imp-button-hm-wxl-sec" style ="color: rgb(128, 128, 128);" value="Add a New Borrower" 
+                        onclick=" GetStarted.StartNewProspect('Command=CreateChildLoan,ParentLoanId=' +
+                        $('.tablelistselected:not(.childloan) .loanid').text().trim() + ',SectionTitle=Create Account', true);" disabled="True" />
+  
+                    }
+
+
+
+                }
+                </div> 
+                
+                @*<div style="float:left; margin-left: 20px;"> 
+                    <span id="lblSelectPrimaryBorrower" class="boldText">Primary Borrower:</span> 
+                    @Html.Telerik().DropDownList().Name( "borrowerPriority" ).HtmlAttributes( new { @class = "phoneTypesComboBox contactTypeWidth240 boldText" } ).BindTo( itemList ).ClientEvents(events => events.OnChange("onChange"))
+                    
+                </div> *@
+                    
+                <div style="float: right; display:none;" id="divSaveCancel"> 
+                    <input id="saveChanges" type="button" class="imp-button-hm-wl-sec" value="Save Changes" style="float:right"
+                    onclick="BorrowerHandling.SaveChanges('Command=SaveBorrowerChanges,BorrowersToBeRemoved=' + $('#hdnToBeRemoved').val() + ',LoanId=' + $('.tablelistselected:not(.childloan) .loanid').text().trim());" /> 
+                    <input id="cancelChanges" type="button" class="imp-button-hm-wl-sec" value="Cancel Changes" style="float: right" /> 
+                </div> 
+                
+             </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿<div class="imp-tooltip" style="padding:10px;">
+    <data ng-init="publicRecords = publicRecords.wrappedLoan.ref.active.getCombinedPublicRecords()" />
+    <div class="imp-tooltip-row">
+        <div class="col-lg1">Attorney name: </div>
+        <div class="col-lg1" style="padding-left:5px;">{{:: publicRecords[$index].attorneyName}}</div>
+    </div>
+    <div class="imp-tooltip-row">
+        <div class="col-lg1">Plaintiff Name: </div>
+        <div class="col-lg1" style="padding-left:5px;">{{:: publicRecords[$index].plaintiffName}}</div>
+    </div>
+    <div class="imp-tooltip-row">
+        <div class="col-lg1">Court Name: </div>
+        <div class="col-lg1" style="padding-left:5px;">{{:: publicRecords[$index].courtName}}</div>
+    </div>
+    <div class="imp-tooltip-row">
+        <div class="col-lg1">Reported Date: </div>
+        <div class="col-lg1" style="padding-left:5px;">{{:: publicRecords[$index].reportedDate | date: 'MM/dd/yyyy hh:mma'}}</div>
+    </div>
+
+</div>

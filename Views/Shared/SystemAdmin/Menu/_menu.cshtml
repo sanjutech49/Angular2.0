@@ -1,0 +1,191 @@
+﻿<div style="font-size: 20px; font-weight: bold; border-bottom: 1px solid #e0e0e0;
+    color: #3d3d3d; width: 92%; margin-top: 17px; margin-bottom: -10px; padding-bottom: 4px;
+    margin-left: 4px;">
+    View
+</div>
+<div id="menu" style="width: 100%; min-height: 10px;">
+    @{
+        Html.RenderAction( "GetMenu", "SystemAdmin" );
+    }
+</div>
+
+<script type="text/javascript">
+    
+    SystemAdminNavigation = {
+        NavigateInsideLC: function (element, actionName, controller) {
+            SystemAdminNavigation.StartNavigation();
+            $('li').removeClass('selected');
+            $(element).addClass('selected');
+            $.ajax({
+                type: "GET",
+                url: "SystemAdmin/GetActionResultForActionAndController",
+                data: { pn: actionName, cntrl: controller },
+                cache: false,
+                dataType: "html",
+                success: function (result) {
+                    $("#systemAdminBody").html(result);
+                    SystemAdminNavigation.EndNavigation();
+                }
+            });
+        },
+        NavigateToConcierge: function (url) {
+            window.open(url, '_self');
+        },
+        CollapseExpandMenu: function (element) {
+            index = $(element).index();
+            if (!$(element).next('ul').eq(0).is(':visible')) {
+                $(element).next('ul').eq(0).slideDown();
+                $(element).find('div').removeClass('imp-aus-arrow-collapsed-div').addClass('imp-aus-arrow-exspanded-div').css({ 'margin-top': '5px' });
+            }
+            else {
+                $(element).next('ul').eq(0).slideUp();
+                $(element).find('div').removeClass('imp-aus-arrow-exspanded-div').addClass('imp-aus-arrow-collapsed-div').css({ 'margin-top': '2px' });
+            }
+        },
+        StartNavigation: function () {
+            $('.grayOutContent').show();
+            $('.loader').show();
+        },
+        EndNavigation: function () {
+            $('.grayOutContent').hide();
+            $('.loader').hide();
+        }
+    }
+
+    $(document).ready(function () {
+        $('.selected').parent().prev('li.parentNav').click();
+    });
+</script>
+<style type="text/css">
+    .parent-menu-container
+    {
+        display: table;
+        clear: both;
+        width: 190px;
+        padding: 5px 2px 5px 2px;
+        background-color: Fuchsia;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .parent-menu-arrow
+    {
+        float: left;
+        width: 13px;
+    }
+    .parent-menu-text
+    {
+        float: left;
+        width: 77px;
+    }
+    #menu ul
+    {
+        text-decoration: none;
+        display: inline-block;
+        list-style-type: none;
+        margin: 13px 0px 0px 0px;
+        padding: 0px;
+        width: 190px;
+    }
+    /**** NO BACKGROUND COLOR AND NO BORDERS *****/
+    #menu ul li
+    {
+        padding: 7px 3px 7px 3px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    #menu ul li:hover
+    {
+        color: #000;
+    }
+    #menu ul ul li
+    {
+        padding-left: 25px;
+        font-weight: normal;
+    }
+    #menu .selected
+    {
+        color: #000;
+        font-weight: bold;
+    }
+    
+    /**** NO BACKGROUND COLOR AND NO BORDERS AND ITALIC CHILDREN*****/
+    /* #menu ul li
+    {
+        padding: 7px 3px 7px 3px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    #menu ul li:hover
+    {
+        color: #000;
+    }
+    #menu ul ul li
+    {
+        padding-left: 10px;
+        font-weight:normal;
+        font-style:italic;
+    }
+     #menu .selected
+    {
+        color: #000;
+        font-weight:bold;
+    }*/
+    
+    
+    /*#menu ul li
+    {
+        padding: 7px 3px 7px 3px;
+        cursor: pointer;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #fff;
+        background-color: #207b38;
+    }
+    #menu ul li:hover
+    {
+        background-color: #93cca3;
+        color: #000;
+    }
+    #menu .selected
+    {
+        background-color: #93cca3;
+        color: #000;
+    }
+    #menu ul ul li
+    {
+        background-color: #3da459;
+        padding-left: 10px;
+    }*/
+    
+    #menu ul ul
+    {
+        text-decoration: none;
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px;
+        display: none;
+    }
+    
+    
+    #menu ul ul ul
+    {
+        display: none;
+    }
+    
+    #menu ul ul ul ul
+    {
+        display: none;
+    }  
+    .imp-loancenter-systemadmin-navigation-row
+    {
+            float:left;
+            margin-top:2px; 
+            margin-left:3px !important;
+            margin-right: 5px;
+     }
+</style>

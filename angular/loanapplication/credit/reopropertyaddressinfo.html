@@ -1,0 +1,127 @@
+﻿<div class="property-address-info">
+    <div class="title ">
+        Property Address & Info
+
+    </div>
+    <div class="line"></div>
+    <br>
+
+    <div class="section">
+
+        <div class="row">
+            <div id="divRealEstateItemAddressControl" class="col-lg-12" style="padding:0px;">
+                <imp-address-control ng-model="realEstateItemCtrl.pledgedAssetModel.property"
+                                     is-county-visible="false"
+                                     placeholder-street-name="Property Street"
+                                     placeholder-city-name="Property City"
+                                     ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled  || realEstateItemCtrl.pledgedAssetModel.getProperty().isSubjectProperty || realEstateItemCtrl.addressNotSelected()"
+                                     name-prefix="realEstateItem"
+                                     form-name="formRealEstateInformation"
+                                     states="realEstateItemCtrl.lookup.allStates"
+                                     validation="{sixPicesCompleted: realEstateItemCtrl.isReoValidationRequired, validate:realEstateItemCtrl.pledgedAssetModel.getProperty().propertyId}"></imp-address-control>
+            </div>
+        </div>
+        <div class="row" style="margin-top:-1px">
+            <div class="col-xxxl">
+                Property Type
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium"
+                     ng-class="(realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.pledgedAssetModel.getProperty().isSubjectProperty || realEstateItemCtrl.addressNotSelected()) ? 'disabled' :
+                    ((realEstateItemCtrl.submitted || formRealEstateInformation.subjectPropertyTypes.$touched) && formRealEstateInformation.subjectPropertyTypes.$invalid) ? 'ng-invalid ng-dirty' : ''">
+                    <select name="subjectPropertyTypes"
+                            ng-class="{'imp-ddl' : true, 'imp-submitted' : realEstateItemCtrl.submitted, 'imp-has-error': realEstateItemCtrl.isReoValidationRequired && !realEstateItemCtrl.pledgedAssetModel.getProperty().propertyType && realEstateItemCtrl.pledgedAssetModel.getProperty().propertyId}"
+                            ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().propertyType"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.getPropertyTypes()"
+                            ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.pledgedAssetModel.getProperty().isSubjectProperty || realEstateItemCtrl.addressNotSelected()">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xxxl">
+                Estimated Value
+            </div>
+            <div class="col-xxxxxl">
+                <input type="text" placeholder="$" name="currentEstimatedValue" ng-class="{'imp-submitted' : realEstateItemCtrl.submitted, 'imp-has-error': realEstateItemCtrl.isReoValidationRequired && !realEstateItemCtrl.pledgedAssetModel.getProperty().currentEstimatedValue && realEstateItemCtrl.pledgedAssetModel.getProperty().propertyId}"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().currentEstimatedValue"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"
+                       imp-currency="">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <div class="row">
+            <div class="col-xxxl">
+                Occupancy Type
+            </div>
+            <div class="col-xxxxxl">
+                <div class="imp-span-ddl-container medium" ng-if="!realEstateItemCtrl.isValidComments">
+                    <input type="text" disabled value="Invalid Comments" />
+                </div>
+                <div class="imp-span-ddl-container medium"
+                     ng-show="realEstateItemCtrl.isValidComments"
+                     ng-class="(realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.pledgedAssetModel.getProperty().isSubjectProperty || realEstateItemCtrl.disableOccupancyType || realEstateItemCtrl.addressNotSelected() || realEstateItemCtrl.isDisabledOccupancyType) ? 'disabled' :
+                        ((realEstateItemCtrl.submitted || formRealEstateInformation.occupancyTypeList.$touched) && formRealEstateInformation.occupancyTypeList.$invalid) ? 'ng-invalid ng-dirty' : ''">
+                    <select name="occupancyTypeList"
+                            ng-class="{'imp-ddl' : true, 'imp-submitted' : realEstateItemCtrl.submitted, 'imp-has-error': realEstateItemCtrl.isOccupencyValid() }"
+                            ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().OccupancyType"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.listOccupancyType"
+                            ng-disabled="realEstateItemCtrl.isDisabledOccupancyType"
+                            options-disabled="p.disabled for p in realEstateItemCtrl.listOccupancyType">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xxxl" ng-show="realEstateItemCtrl.isPropertyInvestment()">
+                Mo. Rental Income
+            </div>
+            <div class="col-xxxxxl" ng-show="realEstateItemCtrl.isInvestmentProperty">
+                <input type="text" placeholder="$" name="grossRentalIncome"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isReoValidationRequired && realEstateItemCtrl.isInvestmentProperty && !realEstateItemCtrl.pledgedAssetModel.getProperty().grossRentalIncome}"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().grossRentalIncome"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"
+                       imp-currency="">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xxxl" ng-show="realEstateItemCtrl.isInvestmentProperty">
+                Ownership
+            </div>
+            <div class="col-xxxxxl imp-psection-placeholder" ng-show="realEstateItemCtrl.isInvestmentProperty">
+                <div ng-if="realEstateItemCtrl.pledgedAssetModel.getProperty().isSubjectProperty" class="imp-property-visible-placeholder" style="margin-top: -23px;"> Remaining: {{realEstateItemCtrl.pledgedAssetModel.getProperty().getTransactionInfo().getLoan().remainingOwnershipCalculation(false)}}%</div>
+                <input type="text" placeholder="%" name="ownershipPercentage"
+                       ng-class="{'imp-has-error': realEstateItemCtrl.isReoValidationRequired && realEstateItemCtrl.isInvestmentProperty && !realEstateItemCtrl.pledgedAssetModel.getProperty().OwnershipPercentage}"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().OwnershipPercentage"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()"
+                       ng-blur="realEstateItemCtrl.triggerOwnership()"
+                       imp-percentage no-decimals="true">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xxxl" ng-show="realEstateItemCtrl.isInvestmentProperty">
+                Vacancy
+                <div class="imp-icon-info-on" style="float: right; display: inline-block; margin-right: 5px;
+                margin-top: -2px;" tooltip-html-unsafe="
+                    <div class='imp-tooltip imp-tooltip-autoclose' style='width:230px;'><div class='imp-div-close-x floatright' style='margin:9px;' onclick='HideImpTooltip();'></div><div style='padding:30px 15px 15px;'><div>iMP calculates the net rental income and automatically adds to the “My Income” page. We use an industry standard 75% of gross rents to accommodate for vacancy rates but field may be changed.</div></div></div>"
+                    tooltip-placement="bottom" tooltip-trigger="click">
+                </div>
+            </div>
+            <div class="col-xxxxxl" ng-show="realEstateItemCtrl.isInvestmentProperty">
+                <input type="text" placeholder="%" imp-percentage name="vacancyPercentage"
+                       data-ng-model="realEstateItemCtrl.pledgedAssetModel.getProperty().vacancyPercentage"
+                       ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled || realEstateItemCtrl.addressNotSelected()">
+            </div>
+        </div>
+
+    </div>

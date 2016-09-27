@@ -1,0 +1,274 @@
+﻿@model MML.Web.LoanCenter.ViewModels.ReDisclosureModel
+<script src="@Url.Content( "~/Scripts/jquery.validate.unobtrusive.js" )" type="text/javascript"></script>
+@using ( Html.BeginForm( "SubmitForm", "ReDisclosure", FormMethod.Post, new { @id = "frmReDisclosure" } ) )
+{
+    @Html.HiddenFor( m => m.LoanId, new { @id = "hdnReDisclosureLoanId" } )
+    @Html.HiddenFor( m => m.IsOnlineBorrower )
+    @Html.HiddenFor( m => m.LoanChangeIndicators.ChangeOfCircumstancesIndicator )
+    @Html.HiddenFor( m => m.LoanChangeIndicators.MdiaIndicator )
+    @Html.HiddenFor( m => m.DisplayCounterOfferApproval )
+    @Html.HiddenFor( m => m.LoanChangeIndicators.CafIndicator )
+<div style="width: 1100px; display: table-cell;" id="divRedisclosure" class="jqTransform">
+    <div class="cocHeader">
+        <div id="divTitleCoc" class="divTitleCoc">
+            Re-Dislosure required
+        </div>
+        @if ( Model.IsOnlineBorrower )
+        {
+            <div id="divAdditionalTitleCoc" class="divAdditionalTitleCoc">(online borrowers will automatically be notified)</div>
+        }
+    </div>
+    <div id="divSubtitleCoc" class="divSubtitleCoc">
+        <div style="margin-left: 10px; font-size: 15px; font-weight: bold;">
+            Change Of Circumstance
+        </div>
+    </div>
+    <div id="divAdditionalInformation" class="divAdditionalInformation">
+        <div style="float: left; width: 100%; padding-top: 2px; padding-left: 8px;">
+            System may have auto-selected items based on changes.</div>
+        <div style="float: left; width: 100%; padding-top: 2px; padding-left: 8px;">
+            Please add any/all applicable reasons for change.</div>
+        <div style="float: left; width: 100%; padding-top: 2px; padding-left: 8px;">
+            You may be required to enter additional details for the description of <b>GFE Reissue
+                                                                                       Borrower Acknowledgement</b>, those items are highlightened for you.</div>
+    </div>
+  
+    <div class="cocmainDiv" id="cocmainDiv">
+        @if ( Model.LoanChangeIndicators != null && Model.LoanChangeIndicators.ChangeOfCircumstanceList != null && Model.LoanChangeIndicators.ChangeOfCircumstanceList.Count > 0 )
+        {
+            for ( var i = 0; i < Model.LoanChangeIndicators.ChangeOfCircumstanceList.Count; i++ )
+            {
+            <div class="cocRepeatermainDiv">
+                <div class="cocCheckBox">
+                    @Html.CheckBoxFor( m => m.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].Checked, new { onclick = "cocChecked(" + i + ")" } )
+                </div>
+                <div class="cocFieldName">
+                    @Html.LabelFor( m => m.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].FieldName, Model.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].FieldName )
+                    @Html.HiddenFor( m => m.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].FieldName )
+                    @Html.HiddenFor( m => m.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].Key )
+                </div>
+                <div style="height: 30px; width: 820px; padding: 15px 5px; float: left">
+                    @(Model.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].Checked ? Html.TextBoxFor( m => m.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].Description, new { @class = "cocFieldDescription" } ) : Html.TextBoxFor( m => m.LoanChangeIndicators.ChangeOfCircumstanceList[ i ].Description, new { @class = "cocFieldDescription", disabled = "disabled" } ))
+                </div>
+            </div>
+            }
+        }
+    </div>
+    @if ( Model.DisplayCounterOfferApproval )
+    {
+        @Html.Partial( "ReDisclosure/_counterofferapproval", Model )
+     }
+    <br />
+    <br />  
+    <div class="divSaveCostsManageFees">
+        <input type="button" id="btnRedisclose" class="btnSaveCosts imp-button-hm-wl-prim" value='Re-Disclose' onclick="ReDisclose()" style="margin-left:5px;"/>
+        <input type="button" id="btncancel" class="btnSaveCosts imp-button-hm-wm-prim" value='Cancel' onclick="CancelReDisclose()" />
+    </div>
+</div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#divRedisclosure").jqTransform();
+
+        $("a.jqTransformRadio, a.jqTransformCheckbox").bind("keydown", function (event) {
+            if (event.keyCode == 32) {
+                $(this).trigger("click");
+                $(this).focus();
+                event.preventDefault();
+                return false;
+            }
+            else if (event.keyCode == 9) {
+                if (event.shiftKey) {
+                    var previousInputField = $(this).closest('.cocRepeatermainDiv').prev().find(".cocFieldDescription");
+                    if (previousInputField.length > 0 && !previousInputField.is(":disabled")) {
+                        previousInputField.click();
+
+                        var firstOpenBracket = previousInputField.val().indexOf("[");
+                        var firstCloseBracket = previousInputField.val().indexOf("]");
+                        if (firstOpenBracket == -1 && firstCloseBracket == -1)
+                            SelectAllInTextBox(previousInputField[0], previousInputField.val().length);
+
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+                else {
+                    var nextInputField = $(this).closest('.cocRepeatermainDiv').find(".cocFieldDescription");
+                    if (nextInputField.length > 0 && !nextInputField.is(":disabled")) {
+                        nextInputField.click();
+
+                        var firstOpenBracket = nextInputField.val().indexOf("[");
+                        var firstCloseBracket = nextInputField.val().indexOf("]");
+                        if (firstOpenBracket == -1 && firstCloseBracket == -1)
+                            SelectAllInTextBox(nextInputField[0], nextInputField.val().length);
+
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+            }
+        });
+
+        $("a.jqTransformRadio, a.jqTransformCheckbox").bind("keyup", function (event) {
+            if (!event.shiftKey) {
+                return false;
+            }
+        });
+
+        var _allowFocus = false;
+        $(".cocFieldDescription").bind("click", function (event) {
+            //     debugger;
+            var navigateFromField = SelectCustomTextInTextBox($(this), true);
+            if (!navigateFromField) {
+                event.preventDefault();
+                _allowFocus = false;
+                return false;
+            }
+            else {
+                _allowFocus = true;
+                $(this)[0].focus();
+            }
+        });
+
+        $(".cocFieldDescription").bind("keydown", function (event) {
+            if (event.keyCode == 9) {
+                var navigateFromField = SelectCustomTextInTextBox($(this), true);
+                if (!navigateFromField) {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+        });
+
+        $(".cocFieldDescription").focus(function (event) {
+            if (_allowFocus) {
+                _allowFocus = false;
+            } else {
+                event.preventDefault();
+                return false;
+            }
+        });
+
+        $('.cocFieldDescription').mouseup(function (e) {
+            //e.preventDefault();
+            // return false;
+        });
+    });
+
+    function SelectCustomTextInTextBox(inputField, tabClicked) {
+
+        var navigateFromField = true;
+
+        var startPos = 0;
+        var endPos = inputField.val().length;
+
+        var firstOpenBracket = inputField.val().indexOf("[");
+        var firstCloseBracket = inputField.val().indexOf("]");
+
+        if (firstOpenBracket != -1) {
+            startPos = firstOpenBracket;
+            navigateFromField = false;
+        }
+
+        if (firstCloseBracket != -1) {
+            endPos = firstCloseBracket + 1;
+            navigateFromField = false;
+        }
+
+        // If already preselected and tab entered again, allow user to navigate away from field
+        if (tabClicked && inputField[0].selectionStart == startPos && inputField[0].selectionEnd == endPos)
+            navigateFromField = true;
+
+        if (tabClicked && navigateFromField)
+            return navigateFromField;
+        
+        setInputSelection(inputField[0], startPos, endPos);
+
+        return navigateFromField;
+    }
+
+    function SelectAllInTextBox(inputField, endPos) {
+        setInputSelection(inputField, 0, endPos);
+    }
+
+    function setInputSelection(input, startPos, endPos) {
+        input.focus();
+        if (typeof input.selectionStart != "undefined") {
+            input.selectionStart = startPos;
+            input.selectionEnd = endPos;
+        } else if (document.selection && document.selection.createRange) {
+            // IE branch
+            input.select();
+            var range = document.selection.createRange();
+            range.collapse(true);
+            range.moveEnd("character", endPos);
+            range.moveStart("character", startPos);
+            range.select();
+        }
+    }
+
+    function cocChecked(i) {
+        var isChecked = $("#LoanChangeIndicators_ChangeOfCircumstanceList_" + i + "__Checked").closest('.cocCheckBox').find('.jqTransformCheckbox').hasClass('jqTransformChecked') != true;
+        var description = $("#LoanChangeIndicators_ChangeOfCircumstanceList_" + i + "__Description");
+        if (isChecked) {
+            description.removeAttr("disabled");
+        }
+        else {
+            description.attr("disabled", "disabled");
+        }
+    };
+
+    function ReDisclose() {
+        ShowProcessingInfo();
+
+        var form = $("#frmReDisclosure");
+        var urlAction = form.attr("action");
+        var data = form.serialize();
+
+        // Add disabled inputs to serialized form data
+        $(".cocRepeatermainDiv").find('input[disabled]').each(function () {
+            data = data + '&' + $(this).attr('name') + '=' + $(this).val();
+        });
+
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data: data,
+            success: function () {
+                $.postMessage('saveLoanAfterReprice', '*', parent.document.getElementById('conciergeEmbeddedFrame').contentWindow);
+
+                $("#RedisclosureMenuLi").hide();
+                $("#loanDetailsTab").tabs("select", 1);
+                $("#detailsRedisclosure").hide();
+                $("#detailsSubSection").show();
+                $("#detailsAusSection").hide();
+            },
+            error: function () {
+                HideProcessingInfo();
+            },
+            complete: function () {
+                HideProcessingInfo();
+            }
+        });
+    }
+
+    function CancelReDisclose() {
+        ShowProcessingInfo();
+
+        $.ajax({
+            type: "POST",
+            url: '/ReDisclosure/DeleteDiscardedLoanChangeIndicators',
+            data: 'loanId=' + $("#hdnReDisclosureLoanId").val(),
+            success: function () {
+                LoanDetails.HideRedislosureTab();
+            },
+            error: function () {
+                HideProcessingInfo();
+            },
+            complete: function () {
+                HideProcessingInfo();
+            }
+        });
+    }
+</script>

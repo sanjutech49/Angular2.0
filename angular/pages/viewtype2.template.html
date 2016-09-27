@@ -1,0 +1,7 @@
+﻿ <div class="imp-ui-tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+ </div>
+ <div ng-class="{'imp-main-area-section' :  navigation == 'CostDetails' || navigation == 'Documents' || navigation == 'PricingResults', 'imp-main-area-section-left' : navigation == 'LoanDetails' || navigation == 'LoanScenario'}">
+    <div ng-class="{'cost-details' : navigation == 'CostDetails', 'loan-details-container': navigation == 'LoanDetails', 'pricing-results' : navigation == 'PricingResults'}">
+        <ng-include src="template"></ng-include>
+    </div>
+</div>

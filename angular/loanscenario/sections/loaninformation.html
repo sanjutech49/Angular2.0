@@ -1,0 +1,88 @@
+﻿<div class="imp-psection-header" ng-hide="loanScenario.repricing">
+    <div class="imp-sa-grid-row-collaps right" style="margin-left: -20px; margin-top: 10px;"
+         ng-class="{down: loanScenario.isLoanInformationSectionShown, 'right marginTop': !loanScenario.isLoanInformationSectionShown}"
+         ng-click="loanScenario.collapseExpand('LoanInformationSection')"></div>
+    <div class="fleft imp-psection-title imp-psection-title-element">Loan Information</div>
+    <div ng-show="loanScenario.isLoanInformationSectionShown">
+        <div class="imp-tab-text" ng-class="{'imp-tab-selected' : loanScenario.wrappedLoan.ref.loanPurposeType == 2}"
+             ng-model="loanScenario.wrappedLoan.ref.loanPurposeType" ng-click="loanScenario.loanTypeSwitch('Refinance')" style="margin-top:7px">
+            Refinance
+            <div ng-class="{'imp-tab-selected-icon' : loanScenario.wrappedLoan.ref.loanPurposeType == 2}">
+            </div>
+        </div>
+        <div class="imp-tab-text" ng-class="{'imp-tab-selected' : loanScenario.wrappedLoan.ref.loanPurposeType == 1}"
+             ng-model="loanScenario.wrappedLoan.ref.loanPurposeType" ng-click="loanScenario.loanTypeSwitch('Purchase')" style="margin-top:7px">
+            Purchase
+            <div ng-class="{'imp-tab-selected-icon' : loanScenario.wrappedLoan.ref.loanPurposeType == 1}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-switch on="loanScenario.wrappedLoan.ref.loanPurposeType" ng-show="loanScenario.isLoanInformationSectionShown">
+    <div ng-switch-when="2">
+        <div class="imp-lcgrid section-1 ">
+            <div ng-include="'angular/loanscenario/sections/currentloan.html'">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/subjectproperty.html'">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/newloan.html'" style="width:350px; float:left;">
+            </div>
+
+            <div ng-include="'angular/loanscenario/sections/qualifyinginformation.html'" style="float:left;width:724px;margin-left: 23px;">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/fhainformation.html'">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/vainformation.html'">
+            </div>
+        </div>  
+        
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/usdainformation.html'">
+            </div>
+        </div>       
+    </div>
+
+    <div ng-switch-when="1">
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/subjectproperty.html'">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+    <div ng-include="'angular/loanscenario/sections/newloan.html'" style="float:left;">
+    </div>
+    
+             <div ng-include="'angular/loanscenario/sections/qualifyinginformation.html'" style="float:left;width:724px;margin-left: 23px;">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/fhainformation.html'">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/vainformation.html'">
+            </div>
+        </div>
+
+        <div class="section-1 ">
+            <div ng-include="'angular/loanscenario/sections/usdainformation.html'">
+            </div>
+        </div>  
+       
+    </div>
+</div>

@@ -1,0 +1,120 @@
+﻿    <div class="container">
+        <span ng-class="$root.startItemOpen || $root.startItemHover ? 'dropdown brand item nav menu-item-selected' : 'dropdown brand item nav'"
+              on-toggle="$root.startItemOpen = open" ng-mouseenter="$root.startItemHover = true" ng-mouseleave="$root.startItemHover = false">
+            <a href="" class="dropdown-toggle">
+                START
+                <img src="/Content/images/logo.png" class="bar-nav-logo" />
+            </a>
+            <div ng-include src="'angular/navigation/startmenu.html'" ng-class="$root.startItemOpen || $root.startItemHover ? 'dropdown-menu dropdown-menu-start-item display-block' : 'dropdown-menu dropdown-menu-start-item'">
+            </div>
+        </span>
+        <div class="nav-collapse">
+            <ul class="nav nav-bar" id="navigation-tabs">
+                <li class="divider-vertical"></li>
+                <li ng-class="$root.myListsOpen || $root.myListsHover ? 'item menu-item-selected' : 'item'">
+                    <span class="dropdown" on-toggle="$root.myListsOpen = open" ng-mouseenter="$root.myListsHover = true"
+                          ng-mouseleave="$root.myListsHover = false">
+                        <a class="dropdown-toggle" href="">LISTS</a>
+                        <div ng-include src="'angular/navigation/mylistsmenu.html'"
+                             class="dropdown-menu dropdown-menu-mylists-item"
+                             ng-class="{'display-block': $root.myListsOpen,
+		                                'display-block': $root.myListsHover,
+		                                small: navCtrl.numberOfListUserSees == 'small',
+		                                medium: navCtrl.numberOfListUserSees == 'medium',
+		                                wide: navCtrl.numberOfListUserSees == 'wide'}"
+                             ng-init="showStandardsList = navCtrl.applicationData.currentUser.hasPrivilege(navCtrl.enums.privileges.ViewStandardList);
+                                      showDisclosuresList = navCtrl.applicationData.currentUser.hasPrivilege(navCtrl.enums.privileges.ViewDisclosuresList);
+                                      showAppraisalList = navCtrl.applicationData.currentUser.hasPrivilege(navCtrl.enums.privileges.ViewAppraisalLists);">
+                        </div>
+                    </span>
+                </li>
+                <li ng-class="$root.loanItemOpen || $root.loanItemHover ? 'item menu-item-selected' : 'item'">
+                    <span class="dropdown" on-toggle="$root.loanItemOpen = open" ng-mouseenter="$root.loanItemHover = true"
+                          ng-mouseleave="$root.loanItemHover = false">
+                        <a class="dropdown-toggle" href="">LOAN</a>
+                        <!--<div ng-include src="'angular/navigation/loanmenu.html'"
+                 ng-class="{'dropdown-menu dropdown-menu-loan-item display-block': (navCtrl.loanLoaded && ($root.loanItemOpen || $root.loanItemHover)), 'dropdown-menu dropdown-menu-loan-item': ! (navCtrl.loanLoaded && ($root.loanItemOpen || $root.loanItemHover)), 'dropdown-menu-loan-item-short' : navCtrl.loanLoaded && navCtrl.mortgageType !=  navCtrl.enums.MortageType.FHA && navCtrl.mortgageType !=  navCtrl.enums.MortageType.VA}"
+                 ng-init="wholesaleStyle = navCtrl.isWholesaleUser ? { 'min-width': '485px'} : ''"
+                 ng-style="wholesaleStyle">
+            </div>-->
+                        <div ui-view="loanMenu"></div>
+                    </span>
+                </li>
+                <li ng-class="navCtrl.workbenchItemOpen || navCtrl.workbenchItemHover ? 'item menu-item-selected' : 'item'" ng-if="!navCtrl.isWholesaleUser">
+                    <span class="dropdown" on-toggle="navCtrl.workbenchItemOpen = open" ng-mouseenter="navCtrl.workbenchItemHover = true"
+                          ng-mouseleave="navCtrl.workbenchItemHover = false">
+                        <a class="dropdown-toggle" href="">WORKBENCH</a>
+                        <div ng-if="!navCtrl.isWholesaleUser" ng-include src="'angular/navigation/workbenchmenu.html'" ng-class="navCtrl.workbenchItemOpen || navCtrl.workbenchItemHover ? 'dropdown-menu dropdown-menu-workbench-item display-block' : 'dropdown-menu dropdown-menu-workbench-item'">
+                        </div>
+                    </span>
+                </li>
+                <li ng-class="contactsItemOpen || contactsItemHover ? 'item menu-item-selected' : 'item'">
+                    <span class="dropdown" on-toggle="contactsItemOpen = open" ng-mouseenter="contactsItemHover = true"
+                          ng-mouseleave="contactsItemHover = false">
+                        <a class="dropdown-toggle" href="">CONTACTS</a>
+                        <div ng-if="!navCtrl.isWholesaleUser" ng-include src="'angular/navigation/contactsmenu.html'" ng-class="contactsItemOpen || contactsItemHover ? 'dropdown-menu dropdown-menu-contacts-item display-block' : 'dropdown-menu dropdown-menu-contacts-item'">
+                        </div>
+                    </span>
+                </li>
+                <li ng-class="toolsItemOpen || toolsItemHover ? 'item menu-item-selected' : 'item'" ng-if="!navCtrl.isWholesaleUser">
+                    <span class="dropdown" on-toggle="toolsItemOpen = open" ng-mouseenter="toolsItemHover = true"
+                          ng-mouseleave="toolsItemHover = false">
+                        <a class="dropdown-toggle" href="">TOOLS</a>
+                        <div ng-include src="'angular/navigation/toolsmenu.html'" ng-class="toolsItemOpen || toolsItemHover ? 'dropdown-menu dropdown-menu-tools-item display-block' : 'dropdown-menu dropdown-menu-tools-item'">
+                        </div>
+                    </span>
+                </li>
+                <li class="item" ng-if="!navCtrl.isWholesaleUser">
+                    <span class="dropdown" on-toggle="reportsItemOpen=open">
+                        <a class="dropdown-toggle" href="/">REPORTS</a>
+                    </span>
+                </li>
+                <li class="divider-vertical"></li>
+            </ul>
+            <ul class="nav navbar-nav " style="float: right">
+                <li class="dropdown navbar-right  imp-cog">
+                    <a data-toggle="dropdown" class="dropdown-toggle clear "
+                       href="" on-toggle="settingsItemOpen = open">
+                        <span class="glyphicon glyphicon-cog">
+                        </span>
+                    </a>
+                    <!-- dropdown -->
+                    <ul class="dropdown-menu  animated fadeInRight w imp-nav-bar-settings">
+                        <li class="login-status">
+                            <a ng-click="navCtrl.redirect(navCtrl.applicationData.configuration.borrowerSiteUrl, navCtrl.applicationData.configuration.signOutPath)">
+                                <span>Sign Out</span>
+                                <br />
+                                <span class="login-info">{{::navCtrl.applicationData.currentUser.fullName}}</span>
+                                <input type="hidden" class="hdnLoggedUserAccountId" id="hdnLoggedUserAccountId" value={{navCtrl.applicationData.currentUser.userAccountId}} />
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-if="navCtrl.applicationData.currentUser.hasPrivilege('ViewConciergeHome')">
+                            <a ng-click="navCtrl.redirect(navCtrl.conciergeUrl)">
+                                Concierge
+                            </a>
+                        </li>
+                        <li ng-if="navCtrl.applicationData.currentUser.hasPrivilege('View Loan Center 3.0')">
+                            <a ng-click="navCtrl.redirect(navCtrl.loanCenter3Url)">
+                                Loan Center 3.0
+                            </a>
+                        </li>
+                        <li ng-if="navCtrl.applicationData.currentUser.hasPrivilege('Loan Center')">
+                            <a ng-click="navCtrl.redirect(navCtrl.loanCenter2Url)">
+                                Loan Center 2.0
+                            </a>
+                        </li>
+                        <li ng-if="navCtrl.applicationData.currentUser.hasPrivilege('ViewSystemAdmin')">
+                            <a ng-click="navCtrl.redirect(navCtrl.sysAdminUrl)">
+                                System Admin
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- / dropdown -->
+                </li>
+            </ul>
+            <imp-nav-search model="value" submit="mainSearch(value)" clear="mainClear()"></imp-nav-search>
+            <!--read only-->
+            <div id="divLoanCheckOutTooltip" class="imp-checkout imp-icon-checkout" ng-show="navCtrl.showReadOnlyMode()" ng-click="navCtrl.checkoutPopupContent($event)"></div>
+        </div>
+    </div>

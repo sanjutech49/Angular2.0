@@ -1,0 +1,172 @@
+﻿<div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">A. Appraisal Value of Subject Property</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-disabled="rateAndTermRefi.isAppraisedValueDisabled()" ng-model="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.appraisalValue" ng-blur="rateAndTermRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">B. Property owned less than 1 year prior to case #?</div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl" ng-model="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.propertyOwnedLessThanOneYear" ng-change="rateAndTermRefi.calculateFHAFields()">
+                    <option value="null" selected>Select One</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="calculator-row" ng-show="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.propertyOwnedLessThanOneYear == 'true' || rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.propertyOwnedLessThanOneYear == true">
+        <!--If property owned less than a year || direct comparing is needed since value in the model is string, so "true" as well as "false" is true-->
+        <div class="left-section">
+            <div class="imp-psection-label">B2. Purchase Price + Documented Improvements</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.purchasePriceWithDocumentedImprovements" ng-blur="rateAndTermRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">C. How long has the property been owner occupied?</div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl" ng-model="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.propertyOccupiedFor" ng-change="rateAndTermRefi.calculateFHAFields()">
+                    <option value="0">Select One</option>
+                    <option value="1">Less than 1 Year</option>
+                    <option value="2">More than 1 year or since acquisition</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>1st Calc:</strong> LTV / CLTV Limit {{rateAndTermRefi.getLabelText()}}</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.ltvLimit | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">D. Unpaid Principle Balance</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency
+                   ng-model="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.unpaidPrincipleBalance"
+                   ng-blur="rateAndTermRefi.calculateFHAFields()" tooltip-placement="bottom" tooltip-trigger="focus"
+                   tooltip-html-unsafe="<div class='imp-tooltip' style='width:425px;'>
+                        <div class='tooltip-content'>
+                            The Unpaid Principle Balance includes:
+                            <ul>
+                                <li>the unpaid principal balance of the first Mortgage as of the month prior to mortgage Disbursement</li>
+                                <li>ex-spouse or co-Borrower equity, as described in “Refinancing to Buy out Title Holder Equity” below</li>
+                                <li>interest due on the existing Mortgage(s)</li>
+                                <li>Mortgage Insurance Premium (MIP) due on existing Mortgage</li>
+                                <li>any prepayment penalties assessed</li>
+                                <li>late charges</li>
+                                <li>escrow shortages</li>
+                            </ul>
+                        </div>
+                    </div>"/>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">E. Subordinate Liens Over 12 Months Old</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.subordinateLiensOver12Months"
+                   ng-blur="rateAndTermRefi.calculateFHAFields()" tooltip-placement="bottom" tooltip-trigger="focus"
+                   tooltip-html-unsafe="<div class='imp-tooltip' style='width:425px;'>
+                <div class='tooltip-content'>
+                    Acceptable Subordinate Financing that can be paid off includes:
+                    <ul>
+                        <li>the unpaid principal balance of any purchase money junior Mortgage as of the month prior to mortgage Disbursement</li>
+                        <li> the unpaid principal balance of any junior liens over 12 months old as of the date of mortgage Disbursement. If the 
+                        balance or any portion of an equity line of credit in excess of $1,000 was advanced within the past 12 months and was 
+                        for purposes other than repairs and rehabilitation of the Property, that portion above and beyond $1,000 of the line 
+                        of credit is not eligible for inclusion in the new Mortgage</li>
+                    </ul>
+                </div>
+            </div>"/>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">F. Allowable Borrower Paid Items</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{rateAndTermRefi.fhaCenterService.calculateAllowableBorrowerPaidClosingCost() | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">G. Prepaid Expenses</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{rateAndTermRefi.fhaCenterService.getPrepaidCostsTotal() | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">H. Lender Credit for Closing Costs and Prepaids</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{rateAndTermRefi.fhaCenterService.getLenderCreditCostsTotal() | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">I. Unearned UFMIP Refund (From FHA Connection)</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.unearnedUFMIPRefund" ng-blur="rateAndTermRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">J. New Estimated UFMIP</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newEstimatedUFMIP | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>2nd Calc:</strong> Existing Debt (D + E + F + G - H - Lesser of I or J)</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.existingDebt | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>3rd Calc:</strong> {{rateAndTermRefi.wrappedLoan.ref.getSubjectProperty().countyName}} County Limit</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{rateAndTermRefi.wrappedLoan.ref.fhaCountyLoanLimit | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Maximum Base Mortgage (Lesser of 1st, 2nd or 3rd Calculation)</div>
+        </div>
+        <div class="right-section field-value">
+            =<span class="bold">{{rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.maxBaseMortgage | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">New UFMIP (Max Base Mortgage x 1.75%)</div>
+        </div>
+        <div class="right-section field-value">
+            <span class="success">+</span><span>{{rateAndTermRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newUFMIP | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿<div class="econsent-modal">
+    <div class="modal-header">
+        <h4 class="modal-title">eConsent</h4>
+    </div>
+    <div class="modal-body">
+        <div class="scrollbox">
+            <div ng-include src="'/angular/consumerSite/myNextStep/eConsent/eConsentTerms.html'"></div>
+        </div>
+        <form class="form-horizontal econsent-form" novalidate>
+            <div class="control-group" ng-if="!modalEConsentCntrl.isMultiBorrower && !modalEConsentCntrl.isPrimaryBorrower">
+                <div class="controls">
+                    <label class="control-label" for="selectbasic">eConsent for</label>
+                    <span>{{ modalEConsentCntrl.fullName || 'New Single Borrower'}}</span>
+                </div>
+            </div>
+            <ng-form name="borrowerSelectForm" novalidate>
+                <div class="control-group" ng-if="modalEConsentCntrl.isMultiBorrower || modalEConsentCntrl.isPrimaryBorrower">
+                    <div class="controls">
+                        <label class="control-label" for="selectbasic">eConsent for&nbsp;</label>
+                        <select name="selectbasic" class="form-control econsent-select"
+                                ng-model="modalEConsentCntrl.activeBorrower"
+                                ng-options="b.borrower.fullName for b in modalEConsentCntrl.borrowers"
+                                required>
+                            <option value="" disabled selected>Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </ng-form>
+            <ng-form name="agreeSelectForm" novalidate>
+                <div class="control-group">
+                    <div class="controls checkboxes" ng-class="{disabled: borrowerSelectForm.$invalid}" ng-disabled="borrowerSelectForm.$invalid">
+                        <label class="checkbox" for="agreeCheckbox">
+                            <input type="checkbox" id="agreeCheckbox"
+                                   ng-model="modelEConsentCntrl.eConsentStatus"
+                                   ng-disabled="borrowerselectform.$invalid"
+                                   ng-true-value="{{ modalEConsentCntrl.consentStatusAccept }}"
+                                   ng-change="modalEConsentCntrl.setEConsentStatus(modalEConsentCntrl.consentStatusAccept)">
+                            <div class="checkbox-text">I agree to the terms above and to continue my home loan application online</div>
+                        </label>
+                        <label class="checkbox" for="disagreeCheckbox">
+                            <input type="checkbox" id="disagreeCheckbox"
+                                   ng-model="modelEConsentCntrl.eConsentStatus"
+                                   ng-disabled="borrowerSelectForm.$invalid"
+                                   ng-true-value="{{ modalEConsentCntrl.consentStatusDecline }}"
+                                   ng-change="modalEConsentCntrl.setEConsentStatus(modalEConsentCntrl.consentStatusDecline)">
+                            <div class="checkbox-text"><b>We</b> decline the terms above and would like to complete out home loan application offline (a concierge will contact you)</div>
+                        </label>
+                    </div>
+                </div>
+            </ng-form>
+            <div class="modal-footer">
+                <button class="btn imp-button-sec-general" ng-click="modalEConsentCntrl.dismiss()">Cancel</button>
+                <button class="btn imp-button-general btn-continue"
+                        ng-click="modalEConsentCntrl.close()"
+                        ng-disabled="borrowerSelectForm.$invalid ||
+                        (modelEConsentCntrl.eConsentStatus != modalEConsentCntrl.consentStatusAccept &&
+                         modelEConsentCntrl.eConsentStatus != modalEConsentCntrl.consentStatusDecline)">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,170 @@
+﻿<div class="imp-psection-subtitle">
+    <div>Subject Property</div>
+</div>
+<div class="row loan-scenario-subject-property">
+    <div class="col-lg-4" style="width: 30%;">
+        <div class="row imp-psection-row" ng-hide="loanScenario.wrappedLoan.ref.loanPurposeType == 1 || (loanScenario.repricing && loanScenario.wrappedLoan.ref.getSubjectProperty().appraisedValue && loanScenario.wrappedLoan.ref.getSubjectProperty().appraisedValue > 0)">
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Estimated Value<span class="imp-asterisks"> *</span></div>
+            </div>
+            <div class="col-lg-7 imp-psection-col-shorten">
+                <!--<input type="text" imp-currency ng-model="" ng-blur="propertyEvents.onLoanAmountBlur()" style="width:185px" />-->
+                <input type="text"
+                       ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().currentEstimatedValue"
+                       placeholder="$"
+                       ng-blur="loanScenario.onEstimatedValueChange()"
+                       ng-class="{'imp-has-error' : loanScenario.wrappedLoan.ref.loanPurposeType == 2
+                       && (!loanScenario.wrappedLoan.ref.getSubjectProperty().currentEstimatedValue || loanScenario.wrappedLoan.ref.getSubjectProperty().currentEstimatedValue == '0')
+                       &&  (loanScenario.validateForm ||loanScenario.currentEstimatedValueBlur) }"
+                       imp-currency />
+            </div>
+        </div>
+        <div class="row imp-psection-row"
+             ng-hide="loanScenario.wrappedLoan.ref.loanPurposeType != 1 || (loanScenario.repricing && loanScenario.wrappedLoan.ref.getSubjectProperty().appraisedValue && loanScenario.wrappedLoan.ref.getSubjectProperty().appraisedValue > 0)">
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Purchase Price<span class="imp-asterisks"> *</span></div>
+            </div>
+            <div class="col-lg-7 imp-psection-col-shorten">
+                <!--<input type="text" imp-currency ng-model="" ng-blur="propertyEvents.onLoanAmountBlur()" style="width:185px" />-->
+                <input type="text" imp-currency
+                       ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().purchasePrice" placeholder="$"
+                       ng-blur="loanScenario.onPurchasePriceChange()"
+                       ng-class="{'imp-has-error' : loanScenario.wrappedLoan.ref.loanPurposeType == 1
+                       && (!loanScenario.wrappedLoan.ref.getSubjectProperty().purchasePrice || loanScenario.wrappedLoan.ref.getSubjectProperty().purchasePrice == '0')
+                       &&  (loanScenario.validateForm || loanScenario.purchasePriceBlur )}"
+                       class="imp-psection-purchasePrice" />
+            </div>
+        </div>
+        <div class="row imp-psection-row"
+             ng-show="loanScenario.repricing && loanScenario.wrappedLoan.ref.getSubjectProperty().appraisedValue && loanScenario.wrappedLoan.ref.getSubjectProperty().appraisedValue > 0">
+            <div class=" col-lg-5">
+                <div class="imp-psection-label">Appraised Value<span class="imp-asterisks"> *</span></div>
+            </div>
+            <div class="col-lg-7 imp-psection-col-shorten">
+                <!--<input type="text" imp-currency ng-model="" ng-blur="propertyEvents.onLoanAmountBlur()" style="width:185px" />-->
+                <input type="text" imp-currency
+                       ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().appraisedValue" placeholder="$"
+                       ng-disabled="loanScenario.repricing"
+                       class="imp-psection-purchasePrice" />
+            </div>
+        </div>
+        <div class="row imp-psection-row">
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Property type<span class="imp-asterisks"> *</span></div>
+            </div>
+            <div class="col-lg-7">
+                <div class="imp-span-ddl-container medium">
+                    <select class="imp-ddl"
+                            ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().propertyType"
+                            ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.subjectPropertyTypes"></select>
+                </div>
+            </div>
+        </div>
+        <div class="row imp-psection-row"
+             ng-hide="loanScenario.wrappedLoan.ref.getSubjectProperty().propertyType > 1 && loanScenario.wrappedLoan.ref.getSubjectProperty().propertyType < 11  ">
+            <!--<div class="row imp-psection-row" ng-show="property.getSubjectProperty().PropertyType == 1 || property.getSubjectProperty().PropertyType == 11">-->
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Units</div>
+            </div>
+            <div class="col-lg-7">
+                <div class="imp-span-ddl-container medium">
+                    <select class="imp-ddl" style="width: 100%;" ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().numberOfUnits" ng-change="loanScenario.runCashoutRules()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row imp-psection-row" ng-show="loanScenario.wrappedLoan.ref.getSubjectProperty().propertyType == 2">
+            <!--<div class="row imp-psection-row" ng-show="property.getSubjectProperty().PropertyType == 1 || property.getSubjectProperty().PropertyType == 11">-->
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Stories</div>
+            </div>
+            <div class="col-lg-7">
+                <input type="text" imp-numeric ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().numberOfStories" style="width: 189px;" />
+            </div>
+        </div>
+        <div class="row imp-psection-row">
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Occupancy type<span class="imp-asterisks"> *</span></div>
+            </div>
+            <div class="col-lg-7">
+                <div class="imp-span-ddl-container medium">
+                    <select class="imp-ddl"
+                            ng-model="loanScenario.wrappedLoan.ref.active.occupancyType"
+                            ng-options="oct.value as oct.text for oct in loanScenario.applicationData.lookup.occupancyTypeList"
+                            ng-change="loanScenario.onOccupancyTypeChanged()">
+                    </select>
+                </div>
+            </div>       
+        </div>
+        
+    </div>
+
+    <div class="col-lg-4" style="margin-right: -16px; width: 30%">       
+        <div class="row imp-psection-row" ng-show="loanScenario.wrappedLoan.ref.loanPurposeType == 1" style="width: 93.4%;">
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Buying Stage</div>
+            </div>
+            <div class="col-lg-7">              
+                <div class="imp-span-ddl-container medium" style="width:208px;">
+                    <select class="imp-ddl" style="padding-right:0px;"
+                            ng-model="loanScenario.wrappedLoan.ref.homeBuyingType"
+                            ng-options="bso.value as bso.text for bso in loanScenario.applicationData.lookup.homeBuyingTypesList"
+                            ng-change="loanScenario.onHomeBuyingTypeChange(loanScenario.wrappedLoan.ref.homeBuyingType)"
+                            ng-disabled="loanScenario.repricing"></select>
+                </div>
+            </div>
+        </div>       
+        <div class="row imp-psection-row">            
+            <!--<imp-address-control first-row-disabled="loanScenario.wrappedLoan.ref.homeBuyingType == '3' && loanScenario.wrappedLoan.ref.loanPurposeType == 1"
+                                 is-county-visible="true" ng-model="loanScenario.wrappedLoan.ref.bindSubjectProperty" ng-model-options="{ getterSetter: true }"
+                                 zip-required="loanScenario.validateForm"
+                                 zip-asterisks-required="true"
+                                 is-licensed-states="true"
+                                 zip-blur-validation="true"
+                                 states="loanScenario.licencedStates"></imp-address-control>-->
+            <imp-address-control first-row-disabled="loanScenario.wrappedLoan.ref.homeBuyingType == '3' && loanScenario.wrappedLoan.ref.loanPurposeType == 1"
+                                 is-county-visible="true" ng-model="loanScenario.wrappedLoan.ref.subjectProperty"
+                                 zip-required="loanScenario.validateForm"
+                                 zip-asterisks-required="true"
+                                 is-licensed-states="true"
+                                 zip-blur-validation="true"
+                                 states="loanScenario.licencedStates"
+                                 run-loan-calculator-on-zip-blur="true"></imp-address-control>
+        </div>
+    </div>
+    <div class="col-lg-4" style="width: 30%;" ng-hide="loanScenario.wrappedLoan.ref.loanPurposeType == 1">
+        <div class="row imp-psection-row">
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Original Purchase Date</div>
+            </div>
+            <div class="col-lg-7 imp-psection-col-shorten">
+                <!--<input type="text" class="imp-psection-left-borderadius" placeholder="mm/yyyy"
+                       ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().purchaseDate"
+                       ng-blur="loanScenario.runCashoutRules()"
+                       imp-date min="01/1900" date-format-patterns="MM/yyyy"
+                       maxlength="7" />-->
+
+                <imp-date-picker display-picker="false"
+                                 type="text"
+                                 ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().purchaseDate"
+                                 date-settings="{defaultValidationEnabled: false, validateIsDate: true, placeholder: 'mm/yyyy', dateFormat: 'MM/yyyy'}"></imp-date-picker>
+            </div>
+        </div>
+        <div class="row imp-psection-row">
+            <div class="col-lg-5">
+                <div class="imp-psection-label">Original Purchase Price</div>
+            </div>
+            <div class="col-lg-7 imp-psection-col-shorten">
+                <input type="text" imp-currency ng-model="loanScenario.wrappedLoan.ref.getSubjectProperty().purchasePrice" placeholder="$"
+                       ng-blur="loanScenario.onPurchasePriceChange()" />
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

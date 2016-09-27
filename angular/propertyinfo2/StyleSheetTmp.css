@@ -1,0 +1,873 @@
+﻿/* Logo */
+
+.masterheader_logo
+{
+    margin-top: 10px;
+    margin-left: 12px;
+}
+
+/* Main Navigation */
+
+body
+{
+    color: #555555 !important;
+}
+
+#mastercontent
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 1021px;
+}
+
+div#startProspectNaviHome
+{
+    cursor: pointer;
+    width: 221px;
+    float: left;
+}
+
+div#startProspectNaviHome div.startProspectNaviHome-Icon
+{
+    width: 61px;
+    height: 47px;
+    background-image: url(/Images/StartProspect/Home.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div#startProspectNaviHome:hover div.startProspectNaviHome-Icon
+{
+    background-image: url(/Images/StartProspect/HomeHover.png);
+    background-repeat: no-repeat;
+}
+
+div#startProspectNaviHome div.startProspectNaviHome-Text
+{
+    width: 160px;
+    height: 47px;
+    background-image: url(/Images/StartProspect/NaviBg.jpg);
+    background-repeat: repeat-x;
+    float: left;
+    font-size: 18px;
+    line-height: 47px;
+    text-align: left;
+    color: #777777;
+}
+
+div#startProspectNaviHome:hover div.startProspectNaviHome-Text
+{
+    background-color: #FFFFFF;
+    background-image: none;
+    border-top: 1px solid #C2C2C2;
+}
+
+div#startProspectNavi
+{
+    width: 439px;
+    height: 47px;
+    background-image: url(/Images/StartProspect/NaviBg.jpg);
+    background-repeat: repeat-x;
+    float: left;
+}
+
+div.naviButton
+{
+    float: right;
+    margin-top: 14px;
+    margin-right: 20px;
+}
+
+div.btnCalculator 
+{
+    width: 115px;
+    height: 27px;
+    background-image: url(/Images/StartProspect/CalculatorsButton.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+div.btnTodaysRatesButton 
+{
+    margin-top: 17px;
+    width: 115px;
+    height: 24px;
+    background-image: url(/Images/StartProspect/TodaysRatesButton.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+div.naviLink
+{
+    float: right;
+    margin-top: 22px;
+    margin-right: 20px;
+    position: relative;
+}
+
+div.naviLink a
+{
+    float: left;
+    font-size: 12px;
+    color: #267BB1;
+    font-weight: bold;
+}
+
+div.naviLink img
+{
+    float: left;
+    margin-left: 5px;
+    margin-top: 1px;
+    cursor: pointer;
+}
+
+.mmlgreentitle
+{
+    color: #589303;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.larryTextBox 
+{
+    
+      -webkit-border-radius: 4px !important;
+         -moz-border-radius: 4px !important;
+              border-radius: 4px !important;
+      -webkit-border-top: 4px !important;
+         -moz-border-top: 4px !important;
+              border-top: 4px !important;
+      -webkit-border-bottom: 4px !important;
+         -moz-border-bottom: 4px !important;
+              border-bottom: 4px !important;
+
+}
+
+
+    /*media="all"
+div.RoundedBox-Header {
+border-top: 0px;
+border-bottom: 0px;
+border-radius: 0px;
+margin-bottom: -1px;
+}*/
+
+/* RoundedBox */
+div.RoundedBox-Header
+{
+    height: 30px;
+
+    
+    
+
+}
+
+div.RoundedBox-Header .left
+{
+    width: 7px;
+    height: 30px;
+    background-image: url(/Images/StartProspect/HeaderLeft.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.RoundedBox-Header .middle
+{
+    height: 30px;
+    background-image: url(/Images/StartProspect/HeaderCenter.png);
+    background-repeat: repeat-x;
+    float: left;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+div.RoundedBox-Header .right
+{
+    width: 7px;
+    height: 30px;
+    background-image: url(/Images/StartProspect/HeaderRight.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.RoundedBox-Content
+{
+    border-left: 1px solid #C5C5C5;
+    border-right: 1px solid #C5C5C5;
+    background-color: #F6F5F5;
+    background-image: url(/Images/StartProspect/RoundedBoxBgSmall.png);
+    background-repeat: repeat-x;
+    padding-top: 10px;
+}
+
+div.RefinanceLoanContent
+{
+    border-top: 4px solid #5B9507;
+    background-color: #F6F5F5;
+    background-image: url(/Images/StartProspect/RoundedBoxBg.png);
+    background-repeat: repeat-x;
+}
+
+div.BorrowerInformationContent
+{
+    border-top: 4px solid #5B9507;
+    position: relative;
+}
+
+div.PrePurchaseLoanContent
+{
+    background-color: #F6F5F5;
+    background-image: url(/Images/StartProspect/RoundedBoxBg.png);
+    background-repeat: repeat-x;
+}
+
+div.NotesContent
+{
+    background-image: none;
+}
+
+div.RoundedBox-Footer
+{
+    height: 10px;
+}
+
+div.RoundedBox-Footer .left
+{
+    width: 7px;
+    height: 10px;
+    background-image: url(/Images/StartProspect/FooterLeft.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.RoundedBox-Footer .middle
+{
+    height: 10px;
+    background-image: url(/Images/StartProspect/FooterCenter.png);
+    background-repeat: repeat-x;
+    float: left;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+div.RoundedBox-Footer .right
+{
+    width: 7px;
+    height: 10px;
+    background-image: url(/Images/StartProspect/FooterRight.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.RoundedBoxNote-Footer
+{
+    height: 10px;
+}
+
+div.RoundedBoxNote-Footer .left
+{
+    width: 7px;
+    height: 10px;
+    background-image: url(/Images/StartProspect/FooterNoteLeft.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.RoundedBoxNote-Footer .middle
+{
+    height: 10px;
+    background-image: url(/Images/StartProspect/FooterNoteCenter.png);
+    background-repeat: repeat-x;
+    float: left;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+div.RoundedBoxNote-Footer .right
+{
+    width: 7px;
+    height: 10px;
+    background-image: url(/Images/StartProspect/FooterNoteRight.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.mandatory
+{
+    background-color: #E9FCD3;
+    width: 140px;
+    height: 45px;
+}
+
+div.mandatoryPhone
+{
+    background-color: #E9FCD3;
+    width: 125px;
+    height: 45px;
+}
+
+div.inputField
+{
+    float: left;
+    margin-left: 12px;
+    margin-top: 4px;
+    padding-bottom: 4px;
+}
+
+div.inputField div.inputControl
+{
+    margin-left: 5px;
+}
+
+div.inputField .label
+{
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+div.inputFieldFloat
+{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+div.inputFieldFloat div.inputControl
+{
+    float: left;
+    margin-left: 20px;
+}
+
+div.inputFieldFloat .label
+{
+    float: left;
+    width: 130px;
+    margin-top: 2px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+div.inputFieldFloatBig
+{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+div.inputFieldFloatBig div.inputControl
+{
+    float: left;
+    margin-left: 13px;
+}
+
+div.inputFieldFloatBig .label
+{
+    float: left;
+    width: 300px;
+    margin-top: 2px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+fieldset.LoanFieldset
+{
+    padding: 0px 10px 10px 10px;
+    border-color: #8AB44F;
+    margin: 10px;
+}
+
+fieldset.LoanFieldsetGrey
+{
+    padding: 0px 10px 10px 10px;
+    border-color: #FFFFFF;
+    margin: 10px;
+}
+
+/* Tab */
+
+div.RoundedBox-Tab
+{
+    float: left;
+    height: 30px;
+    margin-right: 1px;
+    cursor: pointer;
+}
+
+div.RoundedBox-Tab .left
+{
+    width: 7px;
+    height: 30px;
+    background-image: url(/Images/StartProspect/TabHeaderLeft.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.RoundedBox-Tab .middle
+{
+    width: 100px;
+    height: 30px;
+    background-image: url(/Images/StartProspect/TabHeaderCenter.png);
+    background-repeat: repeat-x;
+    float: left;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+div.RoundedBox-Tab .right
+{
+    width: 7px;
+    height: 30px;
+    background-image: url(/Images/StartProspect/TabHeaderRight.png);
+    background-repeat: no-repeat;
+    float: left;
+}
+
+div.selectedTab
+{
+    cursor: auto;
+}
+
+div.selectedTab .left
+{
+    background-image: url(/Images/StartProspect/HeaderLeft.png);
+}
+
+div.selectedTab .middle
+{
+    background-image: url(/Images/StartProspect/HeaderCenter.png);
+}
+
+div.selectedTab .right
+{
+    background-image: url(/Images/StartProspect/HeaderRight.png);
+}
+
+div.Tab-CoBorrower 
+{
+    display: none;
+}
+/* Add a Notes and Add a Loan */
+div.addButton
+{
+    float: right;
+    margin-right: 8px;
+    margin-top: 3px;
+}
+
+div.addButton span
+{
+    float: left;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+div.addButton div
+{
+    float: left;
+    margin-left: 2px;
+}
+
+/* Question Button */
+div.questionbutton
+{
+    cursor: pointer;
+    width: 25px;
+    height: 22px;
+    background-image: url('/Images/buttons/questionbuttonsprite.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    float: left;
+}
+
+div.questionbutton:hover
+{
+    background-position: bottom;
+}
+
+/* Telerik TextBox  */
+.riTextBox
+{
+    border-radius: 3px;
+}
+
+/* City TextBox  */
+input.MMLhovertextbox
+{
+    border-radius: 3px;
+}
+
+/* jqTransform */
+span.jqTransformCheckboxWrapperWithPadding span.jqTransformCheckboxWrapper
+{
+    padding-top: 4px;
+}
+
+
+/* Property Rounded Box */
+div.greyRoundedBox
+{
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 700px;
+    padding-top: 5px;
+    background-color: #F0EEEF;
+    border-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+/* Purchase Rounded Box */
+div.purchaseRoundedBox
+{
+    width: 730px;
+    height: inherit;
+    border: 1px solid #D7DBDD;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+div.purchaseHeader
+{
+    height: 59px;
+    width: 100%;
+    background-image: url(/Images/StartProspect/AssetsHeader.png);
+    background-repeat: repeat-x;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+div.purchaseHeader span.title
+{
+    float: left;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 12px;
+}
+
+div.purchaseHeader span.description
+{
+    float: left;
+    margin-left: 12px;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Purchase Assets */
+div.griditem
+{
+    float: left;
+    width: 715px;
+    margin: 4px 10px 4px 10px;
+    border-bottom: dotted 1px #B7B7B7;
+    padding: 4px 0;
+}
+
+.dark13bold
+{
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+}
+
+div.gridheader
+{
+    height: 26px;
+    width: 100%;
+    background-color: #D7DBDD;
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div.headeritem
+{
+    float: left;
+    margin-top: 4px;
+}
+
+div.first
+{
+    margin-left: 15px;
+}
+
+/* Purchase Loan Summary */
+div.loanSummaryContent
+{
+    width: 738px;
+    background-color: #FFFFFF;
+    border-left: 1px solid #D7D7D7;
+    border-right: 1px solid #D7D7D7;
+    padding-bottom: 10px;
+}
+
+.fieldsetSmallLeft
+{
+    width: 305px;
+    margin-top: 10px;
+    margin-left: 21px;
+    border: 1px solid #D7D7D7;
+    float: left;
+}
+
+.fieldsetSmallRight
+{
+    width: 305px;
+    margin-top: 10px;
+    margin-right: 21px;
+    padding-top: 5px;
+    border: 1px solid #D7D7D7;
+    float: right;
+}
+
+.fieldsetLeftColumn
+{
+    float: left;
+    width: 150px;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+.fieldsetRightColumn
+{
+    float: left;
+    color: #267BB1;
+    font-weight: bold;
+    padding-bottom: 4px;
+    width: 70px;
+    text-align: right;
+}
+
+.fieldset2LeftColumn
+{
+    float: left;
+    width: 60%;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+table.WhatYouToldUs tbody tr
+{
+    height: 31px;
+    line-height: 31px;
+    vertical-align: middle;
+    border-top: 1px solid #D7D7D7;
+}
+
+table.WhatYouToldUs tbody tr span
+{
+    color: #267BB1;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+.legend
+{
+    font-size: 16px;
+    font-weight: bold;
+    color: #6B973A;
+    height: 20px;
+    margin-left: 10px;
+    padding: 7px 10px 3px 10px;
+}
+
+.fieldsetRow
+{
+    clear: both;
+    padding: 5px;
+    border-top: 1px solid #D7D7D7;
+    height: 18px;
+}
+
+div.step
+{
+    float: left;
+    width: 130px;
+    border-bottom: 4px solid #CCE5AB;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+    cursor: pointer;
+}
+
+div.selectedStep
+{
+    border-bottom: 4px solid #5A9307;
+    color: #CCE5AB;
+}
+
+div.PreliminaryInfo
+{
+    width: 172px;
+    border: 2px solid #8AB44F;
+    border-radius: 7px;
+}
+
+div.PreliminaryInfo div.title
+{
+    width: 100%;
+    height: 22px;
+    line-height: 22px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6B973A;
+    text-align: left;
+    margin-top: 7px;
+    margin-left: 15px;
+}
+
+div.PreliminaryInfoRow
+{
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+div.PreliminaryInfoRow div.leftColumn
+{
+    float: left;
+    width: 42px;
+    padding-top: 2px;
+}
+
+div.PreliminaryInfoRow div.rightColumn
+{
+    float: left;
+    width: 70px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+div.PreliminaryInfoRow2
+{
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+div.PreliminaryInfoRow2 div.firstRow
+{
+    font-size: 14px;
+}
+
+div.PreliminaryInfoRow2 div.secondRow
+{
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+div.start-prospect-header-buttons 
+{
+    float: right;
+    margin-right: 23px;
+}
+
+span.start-prospect-date 
+{
+    float: left; 
+    padding: 22px 10px 0 0;
+    font-size: 12px;
+    color: #636363;
+}
+
+div.start-prospect-resource-links 
+{
+    position: absolute;
+    width: 148px;
+    height: 190px;
+    background-color: #FFFFFF;
+    border: 1px solid #868686;
+    border-radius: 3px;
+    display: none;
+    z-index: 5000;
+}
+
+div.resourceLink
+{
+    float: left;
+    width: 134px;
+    height: 14px;
+    padding: 5px;
+    border: 1px solid #FFFFFF;
+    margin-top: 1px;
+    margin-left: 1px;
+    color: #333333;
+    cursor: pointer;
+}
+
+div.resourceLink:hover
+{
+    background-color: #E6FCD0;
+    border-color: #85C045;
+    color: #333333;
+}
+
+div#borrowerSpousePartner 
+{
+    display: none;
+}
+
+div#borrowerPartnerOnTitle 
+{
+    display: none;
+    margin-top: 0px;
+}
+
+div.run-credit 
+{
+    float: right;
+    width: 110px;
+    height: 46px;
+    color: #333333;
+    position: absolute;
+    top: 260px;
+    left: 345px;
+}
+
+div.run-credit div 
+{
+    float: left;
+    margin-top: 15px;
+}
+
+div.run-credit img 
+{
+    float: right;
+}
+
+div#divLoanType 
+{
+    margin-top: -3px;
+    margin-bottom: 5px;
+}
+
+.modalBackground
+{
+    background-color: Gray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+    -moz-opacity: 0.2;
+    z-index: 3001;
+}
+

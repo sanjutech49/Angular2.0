@@ -1,0 +1,125 @@
+﻿<div class="imp-lcgrid other-income" >
+    <div class="header main">
+        <div class="title">
+            <span class="imp-text-hm-wl-prim imp-text-enhanced-color">Other Income</span>
+        </div>
+        <div class="actions add" ng-hide="income.controllerData.disableFields" ng-click="income.addOtherIncome()">
+            <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="margin-right: -3px;"></imp-circle>
+            <span style="padding-left: 4px;">Add Item</span>
+        </div>
+    </div>
+    <div collapse="">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxxl">Borrower</div>
+                <div class="col-xxxxl">Income Type</div>
+                <div class="col-xxl">Amount</div>
+                <div class="col-xxm">Calculated Monthly</div>
+                <div class="col-xxxs"></div>
+                <div class="col-xxxs pull-right"></div>
+            </div>
+            <div class="row" ng-repeat="otherIncomeInfo in income.combinedOtherIncome()" ng-hide="otherIncomeInfo.isRemoved">
+                <div class="col-xxxl" style="padding-right:0;">
+                    <div class="imp-span-ddl-container medium" ng-class="{'disabled' : otherIncomeInfo.isNetRental || income.controllerData.disableFields}">
+                        <select name="borrowerList"
+                                class="imp-ddl"
+                                ng-model="otherIncomeInfo.borrowerId"
+                                ng-options="selectedItem.value as selectedItem.text for selectedItem in income.borrowers"
+                                ng-disabled="otherIncomeInfo.isNetRental || income.controllerData.disableFields"></select>
+                    </div>
+                </div>
+                <div class="col-xxxxl">
+                    <span ng-show="otherIncomeInfo.isNetRental">{{otherIncomeInfo.getNetRentalDisplayName(income.wrappedLoan.ref.loanPurposeType, otherIncomeInfo.manualChange, income.wrappedLoan.ref.getPropertyMap().getValues(), otherIncomeInfo.propertyId)}}</span>
+                    <span class="disclaimer" ng-show="otherIncomeInfo.isNetRental" title="{{otherIncomeInfo.fullAddressString}}">{{otherIncomeInfo.fullAddressString | impExcerpt}}</span>
+                    <div class="imp-span-ddl-container medium " ng-show="!otherIncomeInfo.isNetRental" ng-class="{'disabled' : income.controllerData.disableFields}">
+                        <select name="incomeList"
+                                class="imp-ddl"
+                                ng-model="otherIncomeInfo.incomeTypeId"
+                                ng-change="income.onOtherIncomeTypeChanged(otherIncomeInfo)"
+                                ng-options="selectedItem.value as selectedItem.text for selectedItem in income.wrappedLoan.ref.active.getBorrower().incomeTypes"
+                                ng-disabled="income.controllerData.disableFields"
+                                options-disabled="p.disabled for p in income.wrappedLoan.ref.active.getBorrower().incomeTypes"></select>
+                    </div>
+                </div>
+                <div class="col-xxl">
+                    <div class="input-group" >
+                        <input type="text" class="form-control"
+                               ng-model="otherIncomeInfo.manualAmount"
+                               imp-currency="" negative-values="true"
+                               ng-blur="income.onOtherIncomeAmountBlur(otherIncomeInfo)"
+                               ng-disabled="income.controllerData.disableFields"
+                               imp-is-minus="income.isminus && $index == income.index" />
+                        <span class="input-group-btn" style="width: 0;"></span>
+                        <div class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short" ng-class="{'disabled' :  income.controllerData.disableFields}">
+                            <select class="imp-ddl"
+                                    ng-model="otherIncomeInfo.PreferredPaymentPeriodId"
+                                    ng-change="income.onOtherIncomePaymentPeriodChanged(otherIncomeInfo)"
+                                    ng-options="selectedItem.value as selectedItem.text for selectedItem in income.applicationData.lookup.paymentPeriodOptions"
+                                    ng-disabled="income.controllerData.disableFields"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxm">
+                    <span>{{otherIncomeInfo.calculatedMonthlyAmount | impCurrency }}</span>
+                </div>
+                <div class="col-xxxs">
+                    <div class="imp-sa-grid-history"
+                         ng-show="otherIncomeInfo.isNetRental"
+                         imp-popover="angular/loanapplication/income/historypopup.html"
+                         tooltip-placement="top"
+                         tooltip-trigger="click"
+                         watch="otherIncomeInfo.incomeHistory"
+                         style="margin-top: -3px; margin-right: 7px;">
+                    </div>
+                </div>
+                <div class="col-xxxs">
+                    <imp-circle size="xsmall" style="position: relative; margin-left: -10px; margin-top: -5px;"
+                                color="#F4BABC" hover-color="#e73302" is-plus="false" ng-click="income.deleteOtherIncome(otherIncomeInfo)"
+                                ng-show="!income.controllerData.disableFields && !otherIncomeInfo.isNetRental"></imp-circle>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer" style="">
+            <div class="row-fluid" style="margin-top: 6px;">
+                <div class="col-xl"> </div>
+                <div class="col-xxxs"></div>
+                <div class="col-xxxs"></div>                
+                    <div class="col-xl title" style="width: 24.5%;margin-top:-2px">
+                        Non-Subject Property Net Rental Income
+                    </div>                
+                <div class="col-s value">
+                    {{income.wrappedLoan.ref.getCombinedNonSubjectPropertyIncomeTotal() | impCurrency}}
+                </div>                
+                <div class="col-m title" style="width: 24.5%;margin-top:-2px">
+                    <div style="padding-left: 170px;">Total Monthly</div>
+                </div>
+                <div class="col-s value">{{income.wrappedLoan.ref.getCombinedOtherIncomeTotal() | impCurrency}}</div>
+                <div class="col-xs"></div>
+                <div class="col-xxxs"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="imp-total-footer" style="border-bottom:none;">
+        <div class="total-footer-outer">
+            <div class="total-footer-inner">
+                <div class="fleft">
+                    <span class="text-label" style="padding-left:30px;">{{::income.wrappedLoan.ref.active.getBorrower().fullName}}:</span>
+                    <span class="value-label" style="padding-left: 10px;">{{income.wrappedLoan.ref.incomeTotalForBorrower(income.wrappedLoan.ref.active.getBorrower()) | impCurrency}}</span>
+                </div>
+                <div class="fleft">
+                    <span ng-show="income.coBorrowerExists" class="text-label">{{::income.wrappedLoan.ref.active.getCoBorrower().fullName}}: </span>
+                    <span ng-show="income.coBorrowerExists" style="padding-left: 10px;" class="value-label">{{income.wrappedLoan.ref.incomeTotalForBorrower(income.wrappedLoan.ref.active.getCoBorrower()) | impCurrency}}</span>
+                </div>
+                <div class="fleft">
+                    <span ng-show="income.coBorrowerExists" class="text-label">Combined Income: </span>
+                    <span ng-show="income.coBorrowerExists" class="value-label" style="padding-left: 10px;">{{(income.wrappedLoan.ref.incomeTotalForBorrower(income.wrappedLoan.ref.active.getBorrower()) + income.wrappedLoan.ref.incomeTotalForBorrower(income.wrappedLoan.ref.active.getCoBorrower()))| impCurrency}}</span>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

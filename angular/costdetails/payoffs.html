@@ -1,0 +1,137 @@
+﻿<div class="imp-cgrid payoffs" ng-class="{'purchase': !costDetailsCtrl.isRefinance}">
+    <div ng-mouseover="costDetailsCtrl.isAddItemToPayoffsEnabled && costDetailsCtrl.hoverInSection(costDetailsCtrl.closingCostViewModel.payOffSection)"
+         ng-mouseleave="costDetailsCtrl.isAddItemToPayoffsEnabled && costDetailsCtrl.hoverOutSection(costDetailsCtrl.closingCostViewModel.payOffSection)"
+         class="section-add"
+         ng-click=" costDetailsCtrl.isAddItemToPayoffsEnabled && costDetailsCtrl.addPayoffItem()">
+        <imp-circle size="xsmall" color="#208DDC" is-plus="true" ng-show=" costDetailsCtrl.isAddItemToPayoffsEnabled() && costDetailsCtrl.closingCostViewModel.payOffSection.hoverEdit" style="margin-top: 4px"></imp-circle>
+    </div>
+    <div class="header main"
+         ng-class="{'edit-mode': costDetailsCtrl.isAddItemToPayoffsEnabled && costDetailsCtrl.closingCostsRW}"
+         ng-mouseover="costDetailsCtrl.isAddItemToPayoffsEnabled && costDetailsCtrl.hoverInSection(costDetailsCtrl.closingCostViewModel.payOffSection)"
+         ng-mouseleave="costDetailsCtrl.isAddItemToPayoffsEnabled && costDetailsCtrl.hoverOutSection(costDetailsCtrl.closingCostViewModel.payOffSection)"
+         ng-click="costDetailsCtrl.isAddItemToPayoffsEnabled && costDetailsCtrl.addPayoffItem()">
+        <span id="payoffs"> Payoffs </span>
+    </div>
+    <div class="container">
+        <div class="row"></div>
+
+        <!--REO Items; Liabilities & Collections; Public Records-->
+        <div class="row" ng-repeat="payoffItem in costDetailsCtrl.costDetailsData.payOffSectionItems | filter: costDetailsCtrl.payOffFilter"
+             ng-click="costDetailsCtrl.payOffItemRowClick(payoffItem)"
+             ng-class="{'edit-mode': payoffItem.canEdit && costDetailsCtrl.closingCostsRW}"
+             ng-mouseover="costDetailsCtrl.hoverIn(payoffItem, costDetailsCtrl.costDetailsData.payOffSectionItems)"
+             ng-mouseleave="costDetailsCtrl.hoverOut(payoffItem, costDetailsCtrl.costDetailsData.payOffSectionItems)">
+            <div ng-show="payoffItem.hoverEdit && !payoffItem.editMode && costDetailsCtrl.closingCostsRW " class="imp-icon-pen"></div>
+            <div class="col-a">
+                <div class="sub-col-s"> </div>
+                <div class="sub-col-xs">
+                    <span class="imp-disclaimer">
+                        {{$index + 1 | numberFixedLength:2}}
+                    </span>
+                </div>
+                <div class="sub-col-m">
+                    <span ng-show="!payoffItem.editMode">{{payoffItem.creditor}}</span>
+                    <input type="text"
+                           ng-model="payoffItem.creditor"
+                           ng-show="payoffItem.editMode"
+                           ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                           class="paid" />
+                </div>
+                <div class="sub-col-m">
+                    <span class="cvalue" ng-show="!payoffItem.editMode || payoffItem.isPayoffItem">{{costDetailsCtrl.getPayOffCommentText(payoffItem)}}</span>
+                    <div class="imp-span-ddl-container medium"
+                         ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields}"
+                         ng-show="payoffItem.editMode && !payoffItem.isPayoffItem">
+                        <select ng-change="costDetailsCtrl.payoffCommentChanged(payoffItem)"
+                                ng-model="payoffItem.payoffCommentId"
+                                ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                                ng-options="selectedItem.value as selectedItem.text for selectedItem in costDetailsCtrl.getPayOffComments(payoffItem)"
+                                class="imp-ddl"
+                                name="payoffComment"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-s">
+                <span class="cvalue" ng-show="!payoffItem.editMode">{{payoffItem.balance | impCurrency:"" }}</span>
+                <input ng-show="payoffItem.editMode" type="text"
+                       ng-model="payoffItem.balance"
+                       placeholder="$"
+                       imp-currency
+                       ng-change="costDetailsCtrl.calculatePayOffTotals()"
+                       ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                       display-currency-sign="false">
+            </div>
+            <div class="col-s" style="border-left:none;">
+            </div>
+        </div>
+
+        <!--Non-Credit Payoff Items-->
+        <div class="row" ng-repeat="payoffItem in costDetailsCtrl.closingCostViewModel.payOffSection.payOffItems | filter: costDetailsCtrl.payOffFilter"
+             ng-click="costDetailsCtrl.payOffItemRowClick(payoffItem)"
+             ng-class="{'edit-mode': payoffItem.canEdit && costDetailsCtrl.closingCostsRW}"
+             ng-mouseover="costDetailsCtrl.hoverIn(payoffItem, costDetailsCtrl.closingCostViewModel.payOffSection)"
+             ng-mouseleave="costDetailsCtrl.hoverOut(payoffItem, costDetailsCtrl.closingCostViewModel.payOffSection)">
+            <div ng-show="payoffItem.hoverEdit && !payoffItem.editMode && costDetailsCtrl.closingCostsRW" class="imp-icon-pen"></div>
+            <div class="col-a">
+                <div class="sub-col-s"> </div>
+                <div class="sub-col-xs">
+                    <span class="imp-disclaimer">
+                        {{costDetailsCtrl.creditPayoffItemsCount + $index + 1 | numberFixedLength:2}}
+                    </span>
+                </div>
+                <div class="sub-col-m">
+                    <span ng-show="!payoffItem.editMode">{{payoffItem.creditor}}</span>
+                    <input type="text"
+                           ng-model="payoffItem.creditor"
+                           ng-show="payoffItem.editMode"
+                           ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                           class="paid" />
+                </div>
+                <div class="sub-col-m">
+
+                    <span class="cvalue" ng-show="!payoffItem.editMode || payoffItem.isPayoffItem">{{payoffItem.comment.text}}</span>
+                    <div class="imp-span-ddl-container medium"
+                         ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields}"
+                         ng-show="payoffItem.editMode && !payoffItem.isPayoffItem">
+                        <select ng-change="costDetailsCtrl.payoffCommentChanged(payoffItem)"
+                                ng-model="payoffItem.comment"
+                                ng-selected="selectedItem.value==payoffItem.comment.value"
+                                ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                                ng-options="selectedItem.text for selectedItem in costDetailsCtrl.getPayOffComments(payoffItem) track by selectedItem.value "
+                                class="imp-ddl"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-s">
+                <span class="cvalue" ng-show="!payoffItem.editMode">{{payoffItem.balance | impCurrency:"" }}</span>
+                <input ng-show="payoffItem.editMode" type="text"
+                       ng-model="payoffItem.balance"
+                       placeholder="$"
+                       imp-currency
+                       ng-change="costDetailsCtrl.calculatePayOffTotals()"
+                       ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                       display-currency-sign="false">
+            </div>
+            <div class="col-s" style="border-left:none;">
+            </div>
+            <div ng-show="payoffItem.hoverEdit && payoffItem.isPayoffItem && costDetailsCtrl.closingCostsRW">
+                <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style=" margin-right: -30px; margin-top: 4px; position: absolute;"
+                            ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                            ng-click="costDetailsCtrl.deletePayoffItem(payoffItem)"></imp-circle>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-a"></div>
+            <div class="col-xm">
+                <div class="sub-col-l"><span class="tlabel" style="float:right;">K. Total Payoffs</span></div>
+            </div>
+            <div class="col-s main-total"><span class="cvalue tvalue">{{costDetailsCtrl.closingCostViewModel.totals.payOffSectionTotal | impCurrency:"$" }}</span></div>
+            <div class="col-s" style="border-left:none;">
+            </div>
+        </div>
+    </div>
+ </div>

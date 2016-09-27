@@ -1,0 +1,65 @@
+﻿<div class="imp-cgrid lender-credits" ng-class="{'purchase': !costDetailsCtrl.isRefinance}">
+    <div ng-mouseover="costDetailsCtrl.hoverInSection(costDetailsCtrl.costDetailsData.lenderCreditsCosts)"
+         ng-mouseleave="costDetailsCtrl.hoverOutSection(costDetailsCtrl.costDetailsData.lenderCreditsCosts)"
+         class="section-add" ng-click="costDetailsCtrl.addLenderCreditItem(costDetailsCtrl.costDetailsData.lenderCreditsCosts)">
+        <imp-circle size="xsmall" color="#208DDC" is-plus="true" ng-show="costDetailsCtrl.costDetailsData.lenderCreditsCosts.hoverEdit && costDetailsCtrl.closingCostsRW" style="margin-top: 4px"></imp-circle>
+    </div>
+    <div class="header main"
+         ng-class="{'edit-mode': costDetailsCtrl.closingCostsRW}"
+         ng-mouseover="costDetailsCtrl.hoverInSection(costDetailsCtrl.costDetailsData.lenderCreditsCosts)"
+         ng-mouseleave="costDetailsCtrl.hoverOutSection(costDetailsCtrl.costDetailsData.lenderCreditsCosts)"
+         ng-click="costDetailsCtrl.addLenderCreditItem(costDetailsCtrl.costDetailsData.lenderCreditsCosts)">
+        <span class="tlabel"> Lender Credits</span>
+        <div>
+            <span class="imp-disclaimer">Total Rebate</span>
+            <span>{{costDetailsCtrl.closingCostViewModel.totals.totalLenderRebate*-1 | impRoundPrecision: 2 |  impCurrency}}</span>
+        </div>
+        <div class="rebate" ng-class="{'exceeding': costDetailsCtrl.closingCostViewModel.totals.remainigRebate < 0 }">
+            <span class="imp-disclaimer">Lender Paid Fees</span>
+            <span>{{costDetailsCtrl.closingCostViewModel.totals.totalLenderPaidFees | impRoundPrecision: 2 | impCurrency}}</span>
+        </div>
+        <div class="rebate" ng-class="{'exceeding': costDetailsCtrl.closingCostViewModel.totals.remainigRebate < 0 }">
+            <span class="imp-disclaimer">
+                {{ costDetailsCtrl.closingCostViewModel.totals.remainigRebate >= 0 ? 'Remaining Rebate' : 'Lender Paid Fees Exceeding Rebate' }}
+            </span>
+            <span ng-class="{'exceeding-rebate': costDetailsCtrl.closingCostViewModel.totals.remainigRebate < 0 }">
+                {{costDetailsCtrl.closingCostViewModel.totals.remainigRebate | impAbs | impRoundPrecision: 2  | impCurrency}}
+            </span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+        </div>
+        <div ng-repeat="lenderCredit in costDetailsCtrl.costDetailsData.lenderCreditsCosts  | filter: costDetailsCtrl.removedLenderItemsFilter | filter: costDetailsCtrl.zeroItemsFilter" class="lender-row">
+            <div class="row"
+                 ng-click="costDetailsCtrl.lenderCreditRowClick(lenderCredit)"
+                 ng-class="{'edit-mode': lenderCredit.canEdit && costDetailsCtrl.closingCostsRW}"
+                 ng-mouseover="costDetailsCtrl.hoverIn(lenderCredit, costDetailsCtrl.costDetailsData.lenderCreditsCosts)"
+                 ng-mouseleave="costDetailsCtrl.hoverOut(lenderCredit, costDetailsCtrl.costDetailsData.lenderCreditsCosts)"
+                 ng-show="!lenderCredit.editMode && costDetailsCtrl.hideRemainigRebate(lenderCredit)">
+                <div ng-show="lenderCredit.hoverEdit && !lenderCredit.editMode && costDetailsCtrl.closingCostsRW" class="imp-icon-pen"></div>
+                <div class="col-a">
+                    <div class="sub-col-s"></div>
+                    <div class="sub-col-xs"><span class="imp-disclaimer">{{$index + 1 | numberFixedLength:2}}</span></div>
+                    <div class="sub-col-l">
+                        <span>{{lenderCredit.hudLineNumber == '802' ? 'Lender Credit - Additional Rebate' : lenderCredit.name}}</span>
+                        <span>{{lenderCredit.description}}</span>
+                    </div>
+                    <div class="imp-icon-lock" ng-if="lenderCredit.isLocked" style="margin-right: 5px;"></div>
+                </div>
+                <div class="col-s">
+                    <span class="cvalue">
+                        {{lenderCredit.hudLineNumber == '802' ? (costDetailsCtrl.closingCostViewModel.totals.remainigRebate | impRoundPrecision: 2) : lenderCredit.otherPaid.atClosing * -1 | impCurrency:"" }}
+                        {{lenderCredit.otherPaid.paidByDisplayValue}}
+                    </span>
+                </div>
+                <div class="col-s">
+                    <span class="cvalue"></span>
+                </div>
+            </div>
+            <div ng-include src="'angular/costdetails/lendercreditsedit.html'" ng-show="lenderCredit.editMode">
+            </div>
+        </div>
+    </div>
+</div> 

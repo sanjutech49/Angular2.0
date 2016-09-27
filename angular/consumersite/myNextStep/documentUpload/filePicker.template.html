@@ -1,0 +1,50 @@
+﻿<div class="file-picker-flyout">  
+    <div class="container-fluid">
+        
+        <div class="modal-header">
+            <div class="row">
+                <div class="col-xs-7">
+                    <h3>Upload Documents</h3>
+                </div>
+                <div class="col-xs-5">
+                    <label class="btn btn-default btn-sm header-button" ng-class="{ 'btn-primary' : !filePickerCtrl.hasSelectedFiles }">
+                        Choose Files<input type="file" data-file-change="filePickerCtrl.uploadMulti()" ng-model="filePickerCtrl.fileList"
+                                           multiple style="display:none;" accept=".pdf, .docx, .doc, .jpg, .jpeg, .png, .gif, .tif">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    Please make sure that the total size of your files is under 48 MB. We support the following file types:
+                    pdf, docx, doc, jpg, jpeg, png, gif, and tif.
+                </div>
+            </div>
+
+            <br/>
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-condensed">
+                            <tr ng-repeat="file in filePickerCtrl.fileArray | orderBy: 'name'">
+                                <td class="col-xs-11">{{file.name}}</td>
+                                <td class="col-xs-1"><a href="" ng-click="filePickerCtrl.removeFile(file.name)"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="col-xs-12">
+                <button class="btn btn-warning btn-sm footer-button" id="btnFilePickerDismiss" ng-click="filePickerCtrl.dismiss()"> Close </button>
+                <button class="btn btn-default btn-sm footer-button" id="btnFilePickerUploadFiles" ng-class="{ 'btn-primary' : filePickerCtrl.hasSelectedFiles }" 
+                        ng-disabled="!filePickerCtrl.hasSelectedFiles" ng-click="filePickerCtrl.uploadFiles()">
+                    <span class="glyphicon glyphicon-upload"></span> Upload Files
+                </button>
+            </div>
+        </div>
+   
+    </div>
+</div>

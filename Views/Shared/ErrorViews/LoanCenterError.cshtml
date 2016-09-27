@@ -1,0 +1,35 @@
+﻿@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.ErrorMessage
+<link href="@CDNHelper.CssStaticContentUrl/Content/themesbasejquery-ui.css" rel="stylesheet" type="text/css" />
+
+<div id="dialog-modal" title="@Model.Title">
+    <strong><span class="message">@Model.Message</span></strong>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".message").css("display", "block");
+
+        $("#dialog-modal").dialog({
+            height: 140,
+            width: 350,
+            modal: true,
+            resizable: false,
+            closeOnEscape: true,
+            close: function (event, ui) {
+                $('.modalBackground').fadeOut();
+
+            },
+            buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                    $('.modalBackground').fadeOut();
+                }
+            }
+        });
+
+        $("#body").parent().unblock();      
+
+    });
+</script>

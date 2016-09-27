@@ -1,0 +1,86 @@
+﻿<div class="imp-tooltip view-cost-details">
+    <div style="display: flex;width:100%;justify-content:flex-end">
+        <div class="imp-div-close-x floatright" style="margin: 11px 10px 5px;" onclick="$(this).parents('.tooltip').prev().trigger('click');"></div>
+    </div>
+
+    <div class="view-cost-details-content">
+        <div class="cost-details-header" style="">Detailed Cost Summary</div>
+
+    </div>
+    <div class="body-container">
+        <div class="cost-details-body" style="display:flex;">
+            <div class="body-block-first">
+                <div class="item-row" ng-show="modalpopoverCtrl.model.mortgageType == 1 || modalpopoverCtrl.model.mortgageType == 4 ||modalpopoverCtrl.model.mortgageType == 5">
+                    <div class="row-label disclaimer">Base Loan Amount</div><div class="row-value">{{modalpopoverCtrl.model.costDetails.baseLoanAmount | currency : "" : 2}}</div>
+                </div>
+                <div class="item-row" ng-show="modalpopoverCtrl.model.mortgageType == 1">
+                    <div class="row-label disclaimer">UFMIP added to Loan</div><div class="row-value">{{modalpopoverCtrl.model.costDetails.ufmipAddedToLoan | currency : "" : 2}}</div>
+                </div>
+                <div class="item-row" ng-show="modalpopoverCtrl.model.mortgageType == 5">
+                    <div class="row-label disclaimer">Guarantee Fee added to Loan</div><div class="row-value">{{modalpopoverCtrl.model.costDetails.usdaGFeeAddedToLoan | currency : "" : 2}}</div>
+                </div>
+                <div class="item-row" ng-show="modalpopoverCtrl.model.mortgageType == 4">
+                    <div class="row-label disclaimer">VA Funding Fee added to Loan</div><div class="row-value">{{modalpopoverCtrl.model.costDetails.vaffAddedToLoan | currency : "" : 2}}</div>
+                </div>
+                <div class="item-row" style="padding-bottom: 26px;" ng-show="modalpopoverCtrl.model.mortgageType == 1 || modalpopoverCtrl.model.mortgageType == 4 || modalpopoverCtrl.model.mortgageType == 5">
+                    <div class="row-label disclaimer">Total Loan Amount</div><div class="row-value">${{modalpopoverCtrl.model.costDetails.totalLoanAmount | currency : "" : 2}}</div>
+                </div>
+                <div class="item-row" ng-repeat="cost in modalpopoverCtrl.model.costDetails.lenderCost | orderBy: 'orderNo'">
+                    <div class="row-label disclaimer">{{cost.name}}</div><div class="row-value">{{cost.amount | number : 2}}</div>
+                </div>
+                <div class="item-row" style="padding-bottom: 10px;">
+                    <div class="row-label">Total Lender Costs</div><div class="row-value sum-value-style">${{modalpopoverCtrl.model.costDetails.totalLenderCosts | currency : "" : 2}}</div>
+                </div>
+            </div>
+            <div class="body-block">
+                <div class="item-row" ng-repeat="cost in modalpopoverCtrl.model.costDetails.thirdPartyCosts | orderBy: 'orderNo'">
+                    <div class="row-label disclaimer">{{cost.name}}</div><div class="row-value">{{cost.amount | currency : "" : 2}}</div>
+                </div>
+
+                <div class="item-row" style="padding-bottom: 10px;">
+                    <div class="row-label">Total Third Party Costs</div><div class="row-value sum-value-style">${{modalpopoverCtrl.model.costDetails.totalThirdPartyCosts | currency : "" : 2}}</div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="body-block-last">
+                <div class=" item-row" ng-repeat="cost in modalpopoverCtrl.model.costDetails.prepaidCosts | orderBy: 'orderNo'">
+                    <div class="row-label disclaimer">{{cost.name}}</div><div class="row-value">{{cost.amount | currency : "" : 2}}</div>
+                </div>
+                <div style=" padding-bottom :26px;">
+                    <div class="item-row">
+                        <div class="row-label" style="display: flex;"><span>Total Prepaids</span>  <div class="imp-icon-question-mark" style="margin-left: 3px; margin-top: -1px; " ng-click="modalpopoverCtrl.model.showPrepaidDescriptions = !modalpopoverCtrl.model.showPrepaidDescriptions;" ng-show="modalpopoverCtrl.model.costDetails.prepaidDescriptions.length > 0"></div></div><div class="row-value sum-value-style">${{modalpopoverCtrl.model.costDetails.totalPrepaids | currency : "" : 2}}</div>
+                    </div>
+                    <div ng-show="modalpopoverCtrl.model.showPrepaidDescriptions">
+                        <div ng-repeat="costDesc in modalpopoverCtrl.model.costDetails.prepaidDescriptions track by $index">
+                            <div style="text-align: left;padding-left: 18px;font-size: 10px;padding-top: 5px;" class="disclaimer">{{costDesc}}</div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+
+                <div class="item-row" ng-repeat="cost in modalpopoverCtrl.model.costDetails.reservesCosts | orderBy: 'orderNo'">
+                    <div class="row-label disclaimer">{{cost.name}} (Est. {{cost.monthsToBePaid}} Mo)</div><div class="row-value">{{cost.amount | currency : "" : 2}}</div>
+                </div>
+                <div style=" padding-bottom :10px;">
+                    <div class="item-row">
+                        <div class="row-label" style="display: flex;"><span>Total Escrows</span></div><div class="row-value sum-value-style">${{modalpopoverCtrl.model.costDetails.totalReserves | currency : "" : 2}}</div>
+                    </div>
+                   
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="body-container-footer" style="display: flex;">
+        <div style="display: flex;padding-right:27px;font-size:16px;width: 603px;justify-content: flex-end;padding-top: 18px;">
+            <div>Total Estimated Closing Costs</div>
+            <div class="sum-value-style" style="padding-left:3px">${{modalpopoverCtrl.model.costDetails.totalEstimatedClosingCosts | currency : "" : 2}}</div>
+        </div>
+        <div style="display: flex;font-size:16px;justify-content: flex-end;padding-top: 18px;width: 291px;">
+            <div>Total Prepaids & Escrows</div>
+            <div class="sum-value-style" style="text-align: right;width: 98px;">${{modalpopoverCtrl.model.costDetails.reservesAndPrepaids | currency : "" : 2}}</div>
+        </div>
+    </div>
+
+</div>

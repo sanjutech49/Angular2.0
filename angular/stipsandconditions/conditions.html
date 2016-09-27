@@ -1,0 +1,54 @@
+﻿<div class="stips-conditions-top-bar">
+    <div class="open-items fleft">
+        <div class="fleft">
+            <div class="open-items-label value-description-font">PTA: </div>
+            <div class="open-items-value value-font">{{conditionsCtrl.openItems.pta}}</div>
+        </div>
+        <div class="fleft">
+            <div class="open-items-label value-description-font">PTD: </div>
+            <div class="open-items-value value-font">{{conditionsCtrl.openItems.ptd}}</div>
+        </div>
+        <div class="fleft">
+            <div class="open-items-label value-description-font">PTF: </div>
+            <div class="open-items-value value-font">{{conditionsCtrl.openItems.ptf}}</div>
+        </div>
+        <div class="fleft">
+            <div class="open-items-label value-description-font">PC: </div>
+            <div class="open-items-value value-font">{{conditionsCtrl.openItems.pc}}</div>
+        </div>
+        <div class="fleft">
+            <div class="open-items-label value-description-font">Total: </div>
+            <div class="open-items-value value-font">{{conditionsCtrl.openItems.total}}</div>
+        </div>
+        <div class="bottom-label label-font imp-disclaimer">Open Items</div>
+    </div>
+</div>
+<div class="stips-conditions-table">
+    <div class="table-container" ng-repeat="(title, group) in conditionsCtrl.groupedConditions" ng-init="groupIndex = $index">
+        <div class="header main-header">
+            <div class="main-title">
+                <div ng-include src="'angular/stipsandconditions/loanheaders.html'"></div>
+            </div>
+            <div class="action imp-hyperlink">
+                <span ng-click="conditionsCtrl.toggleGrid(title, false)">Expand All</span>
+                <span> | </span>
+                <span ng-click="conditionsCtrl.toggleGrid(title, true)">Collapse All</span>
+            </div>
+        </div>
+       <div>
+           <div class="stip-header" ng-repeat="(category, values) in group">
+               <div class="row row-header">
+                   <div ng-class="conditionsCtrl.collapsedKeys[title][category] ? 'imp-collapsed right' : 'imp-collapsed down'"
+                        ng-click="conditionsCtrl.collapsedKeys[title][category] = !conditionsCtrl.collapsedKeys[title][category]">
+                   </div>
+                   <div class="row-label">{{ category.slice(1) }}</div>
+               </div>
+               <div class="row"
+                    ng-hide="conditionsCtrl.collapsedKeys[title][category]"
+                    ng-repeat="condition in values">
+                   <div ng-include src="'angular/stipsandconditions/conditiondetails.html'"></div>
+               </div>
+           </div>
+        </div>
+    </div>
+</div>

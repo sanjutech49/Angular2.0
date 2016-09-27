@@ -1,0 +1,206 @@
+﻿@using System.Web.Mvc;
+<style>
+    .export-credit-header {
+        width: 660px;
+        line-height: 1.4em;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #6B973A;
+        margin-left: 2px;
+    }
+
+    .export-credit-Left
+{
+    float: left;
+    height: 26px;
+    line-height: 26px;
+    margin-right: 10px;
+    text-align: right;   
+    width: 48%;
+    font-size: 15px;
+    color:black;
+}
+.export-credit-Right
+{
+     float:left;
+     width:40%;
+}
+
+    .export-credit-controlsContainer {
+        margin-top: 30px;
+    }
+
+    .export-credit-hl-wl-prim {
+        cursor: pointer;
+        height: 22px;
+        width: 45px;
+        padding: 8px 25px;
+        border-radius: 3px;
+        border: 0px none;
+        font-family: Arial;
+        font-size: 14px;
+        color: #FFF;
+        text-align: center;
+        text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3);
+        background-color: #0271DA;
+        background-image: linear-gradient(to bottom,#0396E4,#0271DA);
+        display: inline-block;
+        line-height: 22px;
+    }
+    .row-export-credit-Container {
+    float: left;
+    margin-top: 10px;
+    min-width: 305px;
+    clear: both;
+    }
+    .export-credit-button-container {
+    min-width: 362px;
+    padding-top: 20px;
+    }
+    .export-credit-btnExport {
+    float:right;
+    }
+
+    .export-credit-TxtInput 
+{
+    color: #3d3d3d;
+    font-family: Arial;
+    font-size: 12px !important;
+}
+    .export-credit-spanMessage 
+    {
+        padding-top:20px;
+        height:50px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+ 
+</style>
+
+<script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.extend.js")" type="text/javascript"></script>
+<div id="exportCreditReportContainer" style="width: 500px;">
+    <div class="export-credit-header">Export Credit Report</div>
+    <div class="export-credit-main">
+    <div style="min-height: 200px" class="ui-widget-content ui-corner-all">
+        <div class="export-credit-controlsContainer">
+            <div class="row-export-credit-Container">
+                <div class="export-credit-Left export-credit-TxtInput ">
+                    Loan Id:
+                </div>
+                <div class="export-credit-Right  export-credit">
+                    <input type="text" id="loanId" class="export-credit-TxtInput" placeholder="Enter Loan Id" />
+                </div>
+            </div>
+            <div class="row-export-credit-Container">
+                <div class="export-credit-Left export-credit-TxtInput">
+                    Loan Number:
+                </div>
+                <div class="export-credit-Right export-credit">
+                    <input type="text" id="loanNumber" class="export-credit-TxtInput" placeholder="Enter Loan Number" />
+                </div>
+            </div>
+
+            <div class="row-export-credit-Container">
+                <div class="export-credit-Left">
+                </div>
+                <div class="export-credit-Right1 export-credit-button-container">
+                    <div id="ExportBtnDiv" class="export-credit-btnExport export-credit-hl-wl-prim">Export</div>
+                    
+                </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+
+    </div>
+    
+    <div class="customMessage imp-div-chooseBuyerSellerAgentPoPup-container">
+        <div class="imp-div-chooseBuyerSellerAgentPoPup-title " style="float:left;">
+            <span id="exportCreditTitleMessage" ></span>
+        </div>
+        <div class="imp-div-close-x-lp-du" onclick="ClosePopup()"></div>
+        <div class="imp-div-globalToLoanContactsSeparator"></div>
+        <div class="export-credit-spanMessage">
+            <span id="exportCreditSpanMessage"></span>
+
+        </div>
+        <div class="imp-div-globalToLoanContactsSeparator"></div>
+        <div class="imp-div-chooseBuyerSellerAgentPoPup-button-container">
+        
+            <a id="ExportBtn" href="" style="width:100%; color: black;" download><div id="exportCreditMessageYesBtn" class="imp-button-contacts-hm-wm-sec" onclick="ClosePopup()">Yes</div></a>
+            <div id="exportCreditMessageNoBtn" class="imp-button-contacts-hm-wm-sec" onclick="ClosePopup()">No</div>
+            <div id="exportCreditMessageOkBtn" class="imp-button-contacts-hm-wm-sec" onclick="ClosePopup()">Ok</div>
+
+    </div>
+    <div style="clear: both"></div>
+    </div>
+<script>
+    
+        $("#ExportBtnDiv").click(function () {
+            $.ajax({
+                url: "/SystemAdmin/CheckForExportCreditReport",
+                type: "POST",
+                data: { loanIdString: $("#loanId").val(), loanNumber: $("#loanNumber").val() },
+                dataType: 'json',
+                success: function (mydata) {
+                    $("#exportCreditTitleMessage").text("Download files");
+                    $("#exportCreditSpanMessage").text(mydata.message);
+                    $("#ExportBtn").attr("href", "/SystemAdmin/ExportCreditReport?loanId=" + mydata.loanId);
+                    
+                    if (mydata.itemCount <= 0) {
+                        $('#exportCreditMessageYesBtn').hide();
+                        $('#exportCreditMessageNoBtn').hide();
+                        $('#exportCreditMessageOkBtn').show();
+                    }
+                    else {
+                        $('#exportCreditMessageYesBtn').show();
+                        $('#exportCreditMessageNoBtn').show();
+                        $('#exportCreditMessageOkBtn').hide();
+                    }
+
+                    $('.modalBackground').show();
+                    $('.customMessage').show();
+                },
+                error: function (mydata) {
+                
+
+                }
+
+            });
+        });
+ 
+        $("#loanId").change(function () {
+            if ($(this).val() != "") {
+                $("#loanNumber").prop('disabled', true).val("");
+            }
+            else {
+                $("#loanNumber").prop('disabled', false).val("");
+            }
+        });
+
+        $("#loanNumber").change(function () {
+            if ($(this).val() != "") {
+                $("#loanId").prop('disabled', true).val("");
+            }
+            else {
+                $("#loanId").prop('disabled', false).val("");
+            }
+        });
+
+            function ClosePopup()
+            {
+                $('.modalBackground').hide();
+                $('.customMessage').hide();
+            }
+
+</script>
+</div>
+
+
+

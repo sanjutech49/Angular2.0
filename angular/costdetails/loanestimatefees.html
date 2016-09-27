@@ -1,0 +1,63 @@
+﻿<div class="estimate-fee imp-popover imp-body">
+    <div class='container'>
+        <div class='header'>{{modalpopoverCtrl.ctrl.itemModalTitle}}</div>
+        <div class='imp-split'></div>
+        <div class="content">
+            <div class="rowitem">
+                <div class="left-column">Use Loan Estimate Fee?</div>
+                <div class="right-column">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl" ng-model="modalpopoverCtrl.model.useLoanEstimateFee">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rowitem">
+                <div class="left-column">Loan Estimate Fee</div>
+                <div class="right-column">
+                    <input type='text' class="input-fee" imp-currency 
+                           ng-model="modalpopoverCtrl.model.loanEstimateFeeAmount" 
+                           maxlength="10"
+                           ng-blur="modalpopoverCtrl.ctrl.loanEstimateFeeAmountChanged(modalpopoverCtrl.model)" />
+                </div>
+            </div>
+
+            <div class="rowitem">
+                <div class="left-column">Affilliate</div>
+                <div class="right-column">
+                    <div class="imp-span-ddl-container medium">
+                        <select class="imp-ddl"
+                                ng-model="modalpopoverCtrl.model.serviceProvider"
+                                ng-change="modalpopoverCtrl.ctrl.serviceProviderChanged(modalpopoverCtrl.model)"
+                                ng-options="selectedItem.value as selectedItem.text for selectedItem in modalpopoverCtrl.ctrl.serviceProviderTypes"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rowitem">
+                <div class="left-column">Tolerance Type</div>
+                <div class="right-column">
+                    <div class="imp-span-ddl-container medium" ng-class="{'disabled' : modalpopoverCtrl.ctrl.disableTolerance(modalpopoverCtrl.model)}">
+                        <select class="imp-ddl"
+                                ng-disabled="modalpopoverCtrl.ctrl.disableTolerance(modalpopoverCtrl.model)"
+                                ng-model="modalpopoverCtrl.model.toleranceLevel">
+                            <option value="0">0</option>
+                            <option value="10">10</option>
+                            <option value="100">Unlimited</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='imp-split'></div>
+        <div class='footer' style="margin-top:5px;">
+            <div class="buttons">
+                <div class='imp-button-div-hs-ws-sec' style="padding: 3px 10px;" ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+                <div class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Done</div>
+            </div>
+        </div>
+    </div>
+</div>

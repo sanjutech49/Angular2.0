@@ -1,0 +1,81 @@
+﻿<div class="locking-pricing">
+    <div ng-include src="'angular/lockingandpricingadj/header.html'">
+    </div>
+    <div class="content">
+        <div class="sub-content">
+            <div class="section-1" ng-include src="'angular/lockingandpricingadj/pricinginfo.html'">
+            </div>
+            <div class="section-2" ng-show="lockingpricingCtrl.displayEnterpriseSection" ng-include="lockingpricingCtrl.getInclude()">
+            </div>
+        </div>
+        <div class="sub-content">
+            <div class="section-1" ng-include src="'angular/lockingandpricingadj/lockinginfo.html'">
+            </div>
+            <div class="section-2" ng-show="lockingpricingCtrl.displayLOSection" ng-include src="'angular/lockingandpricingadj/loprice.html'">
+            </div>
+        </div>
+        <div class="sub-content" ng-show="false">
+            <div class="section-1" ng-show="lockingpricingCtrl.displaySellSide" ng-include src="'angular/lockingandpricingadj/sellsideinfo.html'">
+            </div>
+            <div class="section-2" ng-show="lockingpricingCtrl.displayInvestorPurchasePrice" ng-include src="'angular/lockingandpricingadj/investorbasepurchase.html'">
+            </div>
+        </div>
+        <div class="sub-content">
+            <div class="imp-footer">
+            </div>
+
+            <div class="imp-main-buttons-div">
+
+                <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" ng-click="lockingpricingCtrl.cancelChanges();"
+                       ng-disabled="!lockingpricingCtrl.wrappedLoan.canSave() || lockingpricingCtrl.isDisabled()" />
+
+                <div class="btn-group" dropdown>
+                    <button type="button" class="imp-button-general group-button-prim" ng-disabled="false" style=" width:186px;" ng-click="lockingpricingCtrl.callSaveLockAction()">
+                        {{ lockingpricingCtrl.lockingAction.name }}
+                        <span class="divider"></span>
+                    </button>
+
+                    <button type="button" class="imp-button-general dropdown-toggle group-button-sec" dropdown-toggle ng-disabled="false">
+                        <span class="arrow"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" ng-class="lockingpricingCtrl.contextualMenuClass" role="menu">
+                        <li ng-repeat="item in lockingpricingCtrl.lockingActions | filter: lockingpricingCtrl.filterOptionsByRoles ">
+                            <a ng-click="lockingpricingCtrl.showSaveLockAction(item, $event)">
+                                {{ item.name }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--<input type="button" class="imp-button-hm-wl-prim" value="Lock" ng-click="lockingpricingCtrl.saveAll();"
+                       ng-disabled="lockingpricingCtrl.isDisabled()" />-->
+            </div>
+
+            <!-- TO BE REMOVED! This is only temporary button needs to be removed after drop down menu is completed TO BE REMOVED! -->
+            <input style="float: right; margin: 10px 25px 0px 0px;" type="button" class="imp-button-hm-wl-prim" value="Lock" ng-click="lockingpricingCtrl.saveAll();"
+                   ng-disabled="lockingpricingCtrl.isDisabled()" />
+            <!-- TO BE REMOVED! This is only temporary button needs to be removed after drop down menu is completed TO BE REMOVED! -->
+
+            <div class="optimal-blue" style="cursor:pointer" ng-if="lockingpricingCtrl.displayOptimalBlueXML">
+                <div class="link dropdown-toggle"><!--ng-click="lockingpricingCtrl.openIntegrationXmlMenu($event, lockingpricingCtrl.wrappedLoan.ref.pricingResults.productListViewModel.pricingIntegrationLogItems, 'pricing')">-->Optimal Blue</div>
+                <div class="imp-xml-icon xml-icon-position"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

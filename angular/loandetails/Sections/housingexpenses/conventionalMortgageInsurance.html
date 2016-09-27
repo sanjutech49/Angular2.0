@@ -1,0 +1,60 @@
+﻿<div class="imp-popover imp-body edit-mortgage-insurance">
+    <div class="header">Conventional Mortgage Insurance</div>
+    <div class="body">
+        <div class="item">Loan Amount Calculation</div>
+        <div class="item" style="margin-top:30px">
+            <div class="text">
+                Factor #1 | Months
+            </div>
+            <div class="imp-icon-lock" style="float:left;"></div>
+            <div class="field">
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           imp-percentage>
+                    <span class="input-group-btn"></span>
+                    <div style="width: 95%; padding-left: 5px;" class="col-lg-3 imp-psection-placeholder">
+                        <div style="margin-right: 5px; margin-top: -23px;" class="imp-property-visible-placeholder">months</div>
+                        <input class="imp-psection-left-borderadius" type="text" maxlength="3" imp-numeric />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="text">
+                Factor #2 | Months
+            </div>
+            <div class="imp-icon-lock" style="float:left;"></div>
+            <div class="field">
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                           imp-percentage>
+                    <span class="input-group-btn"></span>
+                    <div style="width: 95%; padding-left: 5px;" class="col-lg-3 imp-psection-placeholder">
+                        <div style="margin-right: 5px; margin-top: -23px;" class="imp-property-visible-placeholder">months</div>
+                        <input class="imp-psection-left-borderadius" type="text" maxlength="3" imp-numeric />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="text" style="margin-right: 22px;">
+                Mtg. Insurance Termination
+            </div>
+            <div class="field">
+                <div class="medium select-picker" style="width:168px;">
+                    <select class="imp-ddl"
+                            ng-options=""
+                            ng-change=""
+                            ng-disabled=""></select>
+                </div>
+            </div>
+        </div>
+        <div class="mortgageInsuranceCalculationBased">
+            * Calculation Based On<br />Total Loan Amount
+        </div>
+    </div>
+    <div class="buttons">
+        <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+        <input type="button" value="Done" style="width: 82px; height: 27px;" class="imp-button-div-hs-ws-prim" ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)" />
+    </div>
+</div>

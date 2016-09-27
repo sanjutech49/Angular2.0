@@ -1,0 +1,159 @@
+﻿<div id="divLpContent">
+    <div class="loan-application-error-container" ng-show="lpCtrl.showErrorContainer">
+        An error occurred while loading data
+    </div>
+    <div class="imp-loader-container" ng-show="lpCtrl.showLoader">
+        <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+    <div ng-hide="lpCtrl.showLoader || lpCtrl.showErrorContainer" class="lp">
+        <div class="col-lg-6" style="margin-bottom: 20px;">
+            <div style="float: left; margin-top: 4px; width: 130px;">
+                <span class="imp-text-hs-wl-prim" style="font-weight: normal;">LP Offering Identifier:</span>
+            </div>
+            <div class="col-lg-7">
+                <div class="imp-span-ddl-container medium">
+                    <select class="imp-ddl" ng-model="lpCtrl.lp.selectedOfferingIdentifier"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in lpCtrl.applicationData.lookup.offeringIdentifiers"></select>
+                </div>
+            </div>
+        </div>
+        <div class="imp-refresh-div imp-hyperlink" style="margin-right:10px;">
+            <span ng-click="lpCtrl.refresh()">
+            Refresh</span>
+            <div class="imp-icon-refresh" ng-click="lpCtrl.refresh()">
+            </div>
+        </div>
+        <div class="imp-lcgrid" style="width: 100%;">
+            <div class="header main">
+                <div class="imp-aus-header-title-div">
+                    <span class="imp-text-hm-wl-prim" style="font-size:12px;">Automated Underwriting Services - AUS</span>
+                </div>
+                <div>
+                    <div class="imp-aus-header-title-div imp-aus-header-caseidselector-div">
+                        <span class="imp-text-hs-wl-prim" style="font-weight: normal;">Key ID:</span>
+                    </div>
+                    <div class="imp-aus-header-caseidentry-div">
+                        <div ng-if="lpCtrl.caseIdManualEntry || lpCtrl.lp.caseIds.length == 0" >
+                            <input type="text" ng-model="lpCtrl.lp.selectedCaseId" style="width: 168px; padding-left: 0; padding-right: 0"/>
+                            <span ng-if="lpCtrl.lp.caseIds.length" class="actions imp-hyperlink" style="margin-top: 0px;font-weight:normal; margin-left: 5px;" ng-click="lpCtrl.cancel()">Cancel</span>
+                        </div>
+                        <div ng-if="!lpCtrl.caseIdManualEntry && lpCtrl.lp.caseIds.length > 0" class="imp-span-ddl-container medium" style="width: 170px">
+                            <select class="imp-ddl" ng-model="lpCtrl.lp.selectedCaseId"
+                                    ng-options="caseId for caseId in lpCtrl.lp.caseIds" ng-change="lpCtrl.caseIdChange()">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="imp-aus-header-title-div" ng-if="lpCtrl.vendorLoanId != ''">
+                        <span class="imp-text-hs-wl-prim" style="font-weight: normal;">Loan ID: {{lpCtrl.vendorLoanId}}</span>
+                    </div>
+                </div>
+                <div class="imp-aus-header-buttons-div" style="margin-right:10px; margin-top:2px;">
+                    <input type="button" class="imp-button-hm-wl-prim" value="Validate" disabled="disabled" ng-click="lpCtrl.Validate()" />
+                    <input type="button" class="imp-button-hm-wl-prim" value="Submit LP" ng-disabled="lpCtrl.processing || !lpCtrl.lp.enabled" ng-click="lpCtrl.submit();" />
+                </div>
+            </div>
+            <fieldset>
+                <div>
+                    <div>
+                        <div class="container">
+                            <div class="row" style="color: #9d9d9d;background-color: #e4e8e8;">
+                                <div style="width:2.3%">
+                                </div>
+                                <div class="col-xxs" style="padding-left: 5px;">
+                                    File
+                                </div>
+                                <div class="col-l">
+                                    Item
+                                </div>
+                                <div class="col-l">
+                                    Key ID
+                                </div>
+                                <div class="col-l">
+                                    Transaction ID
+                                </div>
+                                <div class="col-l">
+                                    Status
+                                </div>
+                                <div class="col-m">
+                                    Date
+                                </div>
+                                <div class="col-m">
+                                    Start Time
+                                </div>
+                                <div class="col-m">
+                                    End Time
+                                </div>
+                                <div class="col-xl">
+                                    Submitted By
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-repeat="caseId in lpCtrl.lp.caseIds">
+                            <div class="container">
+                                <div class="row" ng-repeat="result in lpCtrl.lp.results[caseId] as case" ng-show="$index == 0 || case.isExpanded" ng-class="$index == 0 && case.isExpanded ? 'dashedunderline' : ''" ng-init="case.isExpanded = $parent.$index == 0">
+                                    <div style="width: 2.3%">
+                                        <div style="margin-top: 2px; margin-left:4px;" ng-show="$index==0 && case.length > 1" ng-class="case.isExpanded ? 'imp-collapsed down':'imp-collapsed right'" ng-click="case.isExpanded = !case.isExpanded"></div>
+                                    </div>
+                                    <div class="col-xxs" style="padding-left: 5px;">
+                                        <div ng-if="result.isError" class="exceptionIconAus last" style="margin:0px;"
+                                             tooltip-placement="bottom" tooltip-trigger="click"
+                                             tooltip-html-unsafe="
+                                            <div class='imp-tooltip imp-tooltip-autoclose' style='width:400px;'>
+                                                <div class='imp-div-close-x floatright' style='margin:9px;' onclick='HideImpTooltip();'>
+                                                </div>
+                                                <div style='padding: 30px 15px 15px;'>
+                                                    {{result.errorMessage}}
+                                                </div>
+                                            </div>">
+                                        </div>
+                                        <div ng-if="!result.isError && result.filestoreId != null && result.filestoreId != lpCtrl.guidEmpty && result.status != 'Pending'" style="margin-top: 4px;"
+                                             class=" imp-aus-row-pdfimage-div" ng-click="lpCtrl.DownloadDocument(result.filestoreId)">
+                                        </div>
+                                    </div>
+                                    <div class="col-l">
+                                        {{result.item}}
+                                    </div>
+                                    <div class="col-l">
+                                        {{result.caseId}}
+                                    </div>
+                                    <div class="col-l">
+                                        {{result.transactionId}}
+                                    </div>
+                                    <div class="col-l" ng-style="{'color':lpCtrl.statusColor(result.status)}">
+                                        {{result.status}}
+                                    </div>
+                                    <div class="col-m">
+                                        <div ng-show="result.date != null">
+                                            {{result.date | date:'MM/dd/yyyy'}}
+                                        </div>
+                                    </div>
+                                    <div class="col-m">
+                                        <div ng-show="result.startTime != null">
+                                            {{result.startTime | date:'hh:mm a'}}
+                                        </div>
+                                    </div>
+                                    <div class="col-m">
+                                        <div ng-show="result.endTime != null">
+                                            {{result.endTime | date:'hh:mm a'}}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl">
+                                        {{result.submittedBy}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer main">
+                            </div>
+                        </div>
+                        <div class="header">
+                            <span class="imp-text-hm-wl-sec" style="font-weight: normal;color:#9d9d9d;">All Critical Validation Codes must be cured before the loan can be submitted to Freddie Mac's Loan Prospector</span>
+                        </div>
+                        <div class="footer main">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

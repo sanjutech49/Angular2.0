@@ -1,0 +1,60 @@
+﻿@using MML.Common;
+@using MML.Common.Helpers;
+@using MML.Web.LoanCenter.Helpers.Utilities;
+
+@{
+    bool viewSystemAdmin = (Session[SessionHelper.PrivilegeForViewSystemAdmin] != null && (Boolean)Session[SessionHelper.PrivilegeForViewSystemAdmin]);
+    bool viewConciergeCenter = (Session[SessionHelper.PrivilegeForViewConciergeCenter] != null && (Boolean)Session[SessionHelper.PrivilegeForViewConciergeCenter]);    
+}
+<header>
+    <div id="logindisplay">
+        <div id="headerlinks" style="float: left">
+            @if (AccountHelper.HasPrivilege(PrivilegeName.ViewLoanCenter3))
+            {
+                <a class="conciergecenterHyperLink" id="hlConciergeDashboard" href="@(System.Configuration.ConfigurationManager.AppSettings[ "LoanCenterStartPage" ])?v=3">
+                    LOAN CENTER 3.0
+                </a>
+
+               <span style="padding-left: 7px; padding-right: 7px;" id="span2">|</span>
+            }
+            @if (AccountHelper.HasPrivilege(PrivilegeName.ViewLoanCenter))
+            {
+                <a class="conciergecenterHyperLink" id="hlConciergeDashboard" href="@(System.Configuration.ConfigurationManager.AppSettings[ "LoanCenterStartPage" ])">
+                    LOAN CENTER @if (AccountHelper.HasPrivilege(PrivilegeName.ViewLoanCenter3)){ <span>2.0</span>}
+                </a>
+            }
+            @if (viewConciergeCenter)
+            {
+                <span style="padding-left: 7px; padding-right: 7px;" id="span2">|</span>
+                <a class="conciergecenterHyperLink" id="hlConciergeCenter" href="@(System.Configuration.ConfigurationManager.AppSettings[ "ConciergeHome" ] + "?LOFirstVisit=False&isEmbeddedInLoanCenter=0")">
+                    CONCIERGE CENTER
+                </a>
+            }
+            @if (viewSystemAdmin)
+            {
+                <span style="padding-left: 7px; padding-right: 7px;" id="span3">|</span>
+                <a class="conciergecenterHyperLink" id="hlSystemAdmin" href="@(System.Configuration.ConfigurationManager.AppSettings[ "SystemAdmin" ] + "?LOFirstVisit=False&isEmbeddedInLoanCenter=0")">
+                    SYSTEM ADMIN
+                </a>
+            }
+        </div>
+        @{
+            var borrowerUrl = System.Configuration.ConfigurationManager.AppSettings["BorrowerUrl"] + "LogOut.aspx?logout=1";
+            var virtualApplicationPath = System.Configuration.ConfigurationManager.AppSettings["VirtualApplicationPath"] + "/Home/SignOutFromPartial";
+        }
+        @if (string.IsNullOrEmpty(System.Configuration.ConfigurationManager.AppSettings["VirtualApplicationPath"]))
+        {
+            <div>
+                <span class="welcome">Welcome, </span><span class="welcome">@MML.Web.LoanCenter.Helpers.Utilities.AccountHelper.GetUserFullName()</span>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="signout" onclick="SignOutFromPartial('Home/SignOutFromPartial', '@borrowerUrl')"></button>
+            </div>
+        }
+        else
+        {
+            <div>
+                <span class="welcome">Welcome, </span><span class="welcome">@MML.Web.LoanCenter.Helpers.Utilities.AccountHelper.GetUserFullName()</span>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="signout" onclick="SignOutFromPartial('@virtualApplicationPath', '@borrowerUrl')"></button>
+            </div>
+        }
+    </div>
+</header>

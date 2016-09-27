@@ -1,0 +1,37 @@
+﻿<div class="imp-popover imp-body imp-adjustments" ng-class="" ng-init="">
+
+    <div class="header">
+        <div class="title">Adjustments</div>
+    </div>
+
+    <!--SEPARATOR-->
+    <div class="separator"></div>
+
+    <div class="body">
+
+        <!--HEADER OF FIELDS-->
+        <div class="row">
+            <div class="first adj-label column">Paid By</div>
+            <div class="second adj-label column">Adjustment Type</div>
+            <div class="third adj-label column">Points</div>
+        </div>
+
+        <!--FIELDS-->
+        <div class="row" ng-repeat="adjustment in modalpopoverCtrl.ctrl.adjustments">
+            <div class="first column">{{ adjustment.adjustmentPaidBy }}</div> <!-- modalpopoverCtrl.ctrl.adjustments[0].typeDescription -->
+            <div class="second column">{{ adjustment.adjustmentTypeDescription }}</div>
+            <div class="third column">{{ adjustment.value }}</div>
+        </div>
+
+        <!--SEPARATOR-->
+        <div class="separator"></div>
+
+        <!--TOTAL ADJUSTMENTS-->
+        <div class="row">
+            <div class="first total column">Total Adjustments</div> <!-- modalpopoverCtrl.ctrl.adjustments[0].typeDescription -->
+            <div class="second total column">{{ modalpopoverCtrl.ctrl.totalAdjustmentsValue }}</div>
+        </div>
+
+    </div>
+
+</div>

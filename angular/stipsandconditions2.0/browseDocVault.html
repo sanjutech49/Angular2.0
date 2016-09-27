@@ -1,0 +1,47 @@
+﻿<div id="browseDocVaultPopup" class="conditions-add-new-popup-container condition-popup-container-main">
+    <div class="conditions-add-new-popup-header">
+        Browse DocVault
+        <div class=" imp-div-close-x floatright" ng-click="cancel()">
+        </div>
+    </div>
+    <div class="imp-sa-split" style="margin-left: 2%; min-width: 95%">
+
+    </div>
+    <div class="modal-body">
+        <div id="divConditionDescription">
+            <label class="boldFont12 condition-history-title">
+                Browse documents in DocVault
+            </label>
+        </div>
+        <div id="divitems" class="imp-sa-history-body floatleft" style="margin-left: 0px; width: 100%">
+            <div class="imp-sa-history-table-container" style="width: 100%">
+                <div class="imp-sa-history-table-header">
+                    <div style="margin-left: 15px; width: 350px">
+                        Documents
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="floatleft" style="padding-right: 15px; margin-top: 3px">
+                    <span class="boldFont12">Choose document to assign: </span>
+                </div>
+                <div class="imp-span-ddl-container">
+                    <select class="imp-ddl" ng-model="model.selectedDocument" ng-options="doc.Name for doc in documents"></select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="imp-sa-split" style="margin-left: 2%; min-width: 95%">
+
+    </div>
+    <div class="imp-div-popup-footer" style="padding-top: 15px;">
+
+        <button class="imp-button-hm-wm-sec" data-dismiss="modal" ng-click="cancel()">
+            Cancel
+        </button>
+        <button class="imp-button-hm-wm-prim" ng-click="save()">
+            Save
+        </button>
+    </div>
+</div>

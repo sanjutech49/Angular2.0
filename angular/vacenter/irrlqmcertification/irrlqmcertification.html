@@ -1,0 +1,114 @@
+﻿<div class="section">
+    <div class="calculator">
+        <div class="calculator-row">
+            <div class="left-section" style="width: 320px;">
+                <div class="imp-psection-label">
+                    A. Monthly PI of previous loan
+                </div>
+            </div>
+            <div class="right-section field-value">
+                <div class="normal-label">{{irrlQMCertification.wrappedLoan.ref.housingExpenses.firstMtgPi | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section" style="width: 320px;">
+                <div class="imp-psection-label">
+                    B. Monthly PI of proposed loan
+                </div>
+            </div>
+            <div class="right-section field-value">
+                <div class="normal-label">{{irrlQMCertification.wrappedLoan.ref.housingExpenses.newFirstMtgPi | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section" style="width: 320px;">
+                <div class="imp-psection-label">
+                    C. Monthly decrease (A - B)
+                </div>
+            </div>
+            <div class="right-section field-value">
+                <div class="normal-label">{{irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.monthlyDecrease | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section" style="width: 320px; justify-content: flex-start">
+                <div style="display:flex">
+                    <div class="imp-psection-label">
+                        D. Total Closing Costs
+                    </div>
+                    <div style="margin-left:5px" class="imp-icon" tooltip-placement="bottom" tooltip-trigger="mouseenter"
+                         tooltip-html-unsafe="
+                        <div class='imp-tooltip' style='width:350px;'>
+                            <div class='tooltip-content'>
+                                Closing Cost include all cost except items in section (F) and (G) on Cost Details other than Pre-paid interest
+                            </div>
+                        </div>">
+                        <imp-icon-info>
+                        </imp-icon-info>
+                    </div>
+                </div>
+               
+            </div>
+           
+            <div class="right-section field-value">
+                <div class="normal-label">{{irrlQMCertification.vaCenterService.getTotalClosingCosts() | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section" style="width: 320px;">
+                <div class="imp-psection-label">
+                    E. Recoupment Period
+                </div>
+            </div>
+            <div class="right-section field-value">
+                <div class="normal-label">{{irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.recoupmentPeriodMonths ? irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.recoupmentPeriodMonths + ' Months': 'N/A'}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section" style="width: 320px;">
+                <div class="imp-psection-label">
+                    <span style="font-weight:bold;color:black">Recoupment Period less than 36 months</span>
+                </div>
+            </div>
+            <div class="right-section field-value">
+                <div class="normal-label" ng-style="{color: irrlQMCertification.colorTheText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.recoupmentPeriodLessThan36Months)}">{{irrlQMCertification.getText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.recoupmentPeriodLessThan36Months, false)}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="content-row">
+        <div class="left-section-long">
+            <span class="left-section-title">Seasoning Requirements</span>
+            <br />
+            <div style="float:left" class="imp-psection-label">The Loan being refinanced was originated at least 6 months (<span style="font-weight:bold">{{irrlQMCertification.wrappedLoan.ref.CurrentLoanOriginationDate | date: 'MM/dd/yy'}}</span> &nbsp; </div>
+            <div style="float:left" class="imp-sa-date-picker" ng-click="irrlQMCertification.wrappedLoan.ref.CurrentLoanOriginationDate && irrlQMCertification.showCurrentLoanOriginationDate($event)"></div>
+            <div style="margin-top: 1px;" class="imp-psection-label">&nbsp;) before the closing date of the new loan.</div>
+        </div>
+        <div class="right-section-short">
+            <br />
+            <div class="normal-label" ng-style="{color: irrlQMCertification.colorTheText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.seasoningRequirementConfirmed)}">{{irrlQMCertification.getText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.seasoningRequirementConfirmed, false)}}</div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section-long">
+            <span class="left-section-title">Mortgage Payment History</span>
+            <br />
+            <span class="imp-psection-label">Veteran has 0x30 mortgage payment history during the 6 months preceding the closing date of the new loan.</span>
+        </div>
+        <div class="right-section-short">
+            <br />
+            <div class="normal-label" ng-style="{color: irrlQMCertification.colorTheText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.mortPaymentHistory6MonthsClear)}">{{irrlQMCertification.getText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.mortPaymentHistory6MonthsClear, false)}}</div>
+        </div>
+    </div>
+    <div class="content-row">
+    </div>
+    <div class="content-row">
+        <div class="left-section-result" ng-if="irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.safeHarborReqsFulfilled">
+            <div class="imp-icon-green-checkmark"></div>
+        </div>
+        <div class="right-section-result" style="padding:0px;">
+            <label ng-style="{color: irrlQMCertification.colorTheText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.safeHarborReqsFulfilled), 'font-size': '14px', 'font-weight': 'bold'}">{{irrlQMCertification.getText(irrlQMCertification.wrappedLoan.ref.vaInformation.qmCertification.safeHarborReqsFulfilled, true)}}</label>
+        </div>
+    </div>
+</div>

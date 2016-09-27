@@ -1,0 +1,77 @@
+﻿<div class="summary-section">
+    <!--<div class="wrapper">
+        <label style="font-size:13px; font-weight:bolder;"> Interest Rate Less Than {{ summaryCntrl.item.cost + " %"}}</label>
+        <slider custom-floor="summaryCntrl.item.minAge" floor="1" custom-ceiling="summaryCntrl.item.maxAge" ceiling="10" step=".01" precision="2" ng-model="summaryCntrl.item.cost"></slider>
+    </div>-->
+   <!-- <div class="row col-xs-12">
+        <button class="btn btn-primary save-and-continue-button" style="margin-left:280px;">Save & Continue</button>
+    </div>
+    <div class="col-xs-12">
+        <button class="btn btn-primary save-and-continue-button">Save & Continue</button>
+    </div>-->
+    <div class="section-title section-underline">Personal Information</div>
+    <div class="summary-subsection">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">Borrower</span><span class="edit-link"><a ng-href="{{summaryCntrl.getBorrowerLink()}}">edit</a></span></div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label control-label left">Name</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.borrower.fullName}}</div>
+        </div>
+
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Marital Status</label>
+            <div ng-repeat="maritalStatusType in summaryCntrl.applicationData.lookup.maritalStatuses">
+                <div class="col-xs-6 col-lg-8" ng-if="maritalStatusType.value==summaryCntrl.loan.loanApp.borrower.maritalStatus">
+                    {{maritalStatusType.text}}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Dependents</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.borrower.numberOfDependents}} / {{summaryCntrl.loan.loanApp.borrower.agesOfDependents}}</div>
+        </div>
+
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Email</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.borrower.email}}</div>
+        </div>
+
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Preferred Phone</label>
+            <div ng-repeat="preferredPhoneType in summaryCntrl.applicationData.lookup.phoneNumberTypes">
+                <div class="col-xs-6 col-lg-8" ng-if="preferredPhoneType.value==summaryCntrl.loan.loanApp.borrower.preferredPhoneType">
+                    {{preferredPhoneType.text}} / {{summaryCntrl.loan.loanApp.borrower.preferredPhone}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="summary-subsection" ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">Co-Borrower</span><span class="edit-link"><a ng-href="{{summaryCntrl.getCoBorrowerLink()}}"> edit</a> </span></div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Name</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.coBorrower.fullName}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Marital Status</label>
+            <div ng-repeat="maritalStatusType in summaryCntrl.applicationData.lookup.maritalStatuses">
+                <div class="col-xs-6 col-lg-8" ng-if="maritalStatusType.value==summaryCntrl.loan.loanApp.coBorrower.maritalStatus">
+                    {{maritalStatusType.text}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Dependents</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.coBorrower.numberOfDependents}} / {{summaryCntrl.loan.loanApp.coBorrower.agesOfDependents}}</div>
+        </div>
+
+
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Preferred Phone</label>
+            <div ng-repeat="preferredPhoneType in summaryCntrl.applicationData.lookup.phoneNumberTypes">
+                <div class="col-xs-6 col-lg-8" ng-if="preferredPhoneType.value==summaryCntrl.loan.loanApp.coBorrower.preferredPhoneType">
+                    {{preferredPhoneType.text}} / {{summaryCntrl.loan.loanApp.coBorrower.preferredPhone}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

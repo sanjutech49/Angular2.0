@@ -1,0 +1,37 @@
+﻿<div class="row" ng-class="{'edit-mode': true}" ng-init="costDetailsCtrl.calculateAggregateAdjustmentIndex(costDetailsCtrl.groupedOtherCosts[costSection])">
+    <div class="col-a">
+        <div class="sub-col-s">
+        </div>
+        <div class="sub-col-xs"><span class="imp-disclaimer">{{costDetailsCtrl.aggregateAdjustmentIndex | numberFixedLength:2}}</span></div>
+        <div class="sub-col-m">
+            <span>Aggregate Adjustment</span>
+        </div>
+        <div ng-include="loanCost.templateUrl" style="display: flex; flex-grow:6"></div>
+    </div>
+    <!--Borrower Paid-->
+    <div class="col-s">
+        <span class="cvalue"> {{costDetailsCtrl.wrappedLoan.ref.totalAggregateAdjustment | impCurrency:""}}</span>
+    </div>
+    <div class="col-s">
+    </div>
+    <!--END Borrower Paid-->
+    <!--Seller Paid-->
+    <div class="col-s" ng-if="!costDetailsCtrl.isRefinance">
+    </div>
+    <div class="col-s" ng-if="!costDetailsCtrl.isRefinance">
+    </div>
+    <!--END Seller Paid-->
+    <!--Other Paid-->
+    <div class="col-s">
+    </div>
+    <div class="col-s">
+    </div>
+    <!--END Other Paid-->
+
+    <div ng-show="loanCost.hoverEdit">
+        <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style=" margin-right: -30px; margin-top: 4px; position: absolute;"
+                    ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                    ng-click="costDetailsCtrl.deleteCost(loanCost)"></imp-circle>
+    </div>
+
+</div>

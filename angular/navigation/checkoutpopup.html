@@ -1,0 +1,6 @@
+﻿<div class="imp-tooltip imp-checkout-tooltip imp-tooltip-autoclose">
+    <div class="imp-checkout-tooltip-content">
+        <div>Read Only Mode<span class="checked-out-by"> {{ modalpopoverCtrl.model.message }} </span></div>
+        <div ng-if="modalpopoverCtrl.model.hasPrivilege" ng-click="modalpopoverCtrl.done()" class="imp-hyperlink">Release this Loan from Read Only Mode</div>
+    </div>
+</div>

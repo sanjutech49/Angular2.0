@@ -1,0 +1,74 @@
+﻿<div class="assets">
+    <!--<div class="container-fluid">-->
+       
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center top">My Assets</div>
+                <div class="row section-subtitle center">Please provide us the accounts containing your primary liquid assets.</div>
+                <div class="row center">
+                    <div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                        <master-list collection="assetsCntrl.loan.loanApp.assets" 
+                                     template-url="'/angular/consumersite/directives/masterlist/assets.template.html'" 
+                                     active-item="assetsCntrl.assetActive">
+                        </master-list>
+                    </div>
+                </div>
+                <div ng-show="assetsCntrl.loan.loanApp.assets.length > 1">
+                    <div class="row section-title center section-content">Asset Information</div>
+                </div>
+                <ng-form name="assetForm">
+                    <div class="row section-content center-col">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-12 control-label" for="belongsToSelect">Belongs To</label>
+                                <div class="col-xs-12">
+                                    <select id="belongsToSelect" class="form-control select-validation"
+                                            ng-model="assetsCntrl.assetActive.ownerType"
+                                            ng-options="ownerType.value as ownerType.text for ownerType in assetsCntrl.getOwnerTypeLookups()"
+                                            required>
+                                        <option value="" disabled selected>Select One</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-12 control-label" for="accountTypeSelect">Account Type</label>
+                                <div class="col-xs-12">
+                                    <select id="accountTypeSelect" class="form-control select-validation"
+                                            ng-model="assetsCntrl.assetActive.assetType"
+                                            ng-change="assetsCntrl.assetActive.setAssetTypeName(assetsCntrl.applicationData.lookup.accountTypes, assetsCntrl.assetActive.assetType)"
+                                            ng-options="assetType.value as assetType.text for assetType in assetsCntrl.applicationData.lookup.accountTypes" required>
+                                        <option value="" disabled selected>Select One</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-12 control-label" for="textinput">Financial Institution</label>
+                                <div class="col-xs-12">
+                                    <input type="text" placeholder="i.e. Bank of America" class="form-control" ng-model="assetsCntrl.assetActive.financialInstitutionName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-12 control-label" for="textinput">Account #</label>
+                                <div class="col-xs-12">
+                                    <input type="text" placeholder="optional" class="form-control" ng-model="assetsCntrl.assetActive.accountNumber">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-12 control-label" for="textinput">Amount</label>
+                                <div class="col-xs-12">
+                                    <input type="text" placeholder="" class="form-control" 
+                                           ng-model="assetsCntrl.assetActive.assetValue" 
+                                           format-currency 
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-form>
+                <div class="row section-content center">
+                    <button class="btn btn-secondary btn-add-item" ng-disabled="assetForm.$invalid" ng-click="assetsCntrl.addAsset(); assetForm.$setPristine(); assetForm.$setUntouched()"><i class="fa fa-plus-circle"></i> Add another Asset</button>
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
+</div>

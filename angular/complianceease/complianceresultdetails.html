@@ -1,0 +1,19 @@
+﻿<div class="imp-tooltip compliance-result-details-container">
+    <div class="compliance-result-details-header">
+        <div class="imp-div-close-x" onclick="$(this).parents('.tooltip').prev().trigger('click');"></div>
+    </div>
+    <div class="compliance-result-details-content">
+        <div class="compliance-result-details-content-scroll">
+            <div class="compliance-result-details-content-title">
+                <span class="item">Code</span>
+                <span class="item-1">Message</span>
+            </div>
+            <div ng-repeat="complianceResult in modalpopoverCtrl.model">
+                <div class="compliance-result-details-content-row">
+                    <span class="item">{{complianceResult.code}}</span>
+                    <span class="item-1">{{complianceResult.description}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

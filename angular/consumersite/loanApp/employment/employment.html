@@ -1,0 +1,184 @@
+﻿<div class="employment-info">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center top">{{employmentCntrl.borrower.fullName}} Employer Information</div>
+                <div class="row center">
+                    <div class="col-xs-8 col-xs-offset-2 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+                        <master-list collection="employmentCntrl.borrower.employments"
+                                     template-url="'/angular/consumersite/directives/masterlist/employment.template.html'"
+                                     active-item="employmentCntrl.employmentActive">
+                        </master-list>
+                    </div>
+                </div>
+
+                <div ng-if="employmentCntrl.isCurrentEmployer">
+                    <div class="row section-title center section-content">Current Employer Information</div>
+                </div>
+                <div ng-if="!employmentCntrl.isCurrentEmployer">
+                    <div class="row section-title center section-content">Previous Employer Information</div>
+                    <div class="row section-subtitle-lg center">To complete your Loan we need at least 2 years of Employment History</div>
+                </div>
+
+                <div class="row section-content center-col-md" ng-show="employmentCntrl.isSalaryOrSelfEmployed()">
+                    <div class="col-lg-3 col-lg-offset-1">
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="employmentTypeSelect">Employment Type</label>
+                            <div class="col-lg-1">
+                                <select id="employmentTypeSelect" class="form-control select-validation"
+                                        ng-model="employmentCntrl.employmentActive.employmentType"
+                                        ng-options="employmentType.value as employmentType.text for employmentType in employmentCntrl.applicationData.lookup.employmentTypes"
+                                        required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!employmentCntrl.isOtherOrUnemployed() && !employmentCntrl.isRetired()">
+                            <label class="col-lg-8 control-label" for="positionInput" ng-show="!employmentCntrl.isActiveMilitaryDuty()">Position</label>
+                            <label class="col-lg-8 control-label" for="positionInput" ng-show="employmentCntrl.isActiveMilitaryDuty()">Rank</label>
+                            <div class="col-lg-1">
+                                <input type="text" id="positionInput" placeholder="" class="form-control" ng-model="employmentCntrl.employmentActive.positionDescription" required>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!employmentCntrl.isOtherOrUnemployed() &&  !employmentCntrl.isRetired() && !employmentCntrl.isActiveMilitaryDuty()">
+                            <label class="col-lg-8 control-label" for="textinput">Type of business</label>
+                            <div class="col-lg-1">
+                                <input type="text" placeholder="optional" class="form-control" ng-model="employmentCntrl.employmentActive.typeOfBusiness">
+                            </div>
+                        </div>
+                        
+                       
+
+                        <div class="form-group" ng-if="employmentCntrl.isCurrentEmployer && !employmentCntrl.isOtherOrUnemployed() && !employmentCntrl.isRetired()">
+                            <!--<div class="form-group" ng-if="employmentCntrl.isCurrentEmployer || (employmentCntrl.employmentActive.employmentType !='4')">-->
+                            <label class="col-lg-8 control-label" for="textinput">Time Period</label>
+                            <div class="col-lg-1">
+                                <div class="input-group dual-input-joined time-period">
+                                    <input type="month" placeholder="Start" class="form-control first"
+                                           ng-model="employmentCntrl.currentStartingDate"
+                                           required>
+                                    <input type="text" placeholder="Current" disabled class="form-control second">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-if="(!employmentCntrl.isCurrentEmployer) && !employmentCntrl.isOtherOrUnemployed() &&  !employmentCntrl.isRetired()">
+                            <label class="col-lg-8 control-label" for="textinput">Time Period</label>
+                            <div class="col-lg-1">
+                                <div class="input-group dual-input-joined time-period">
+                                    <input type="month" placeholder="Start" class="form-control first" ng-model="employmentCntrl.employmentActive.startingDate" required>
+                                    <input type="month" placeholder="End" class="form-control second" ng-model="employmentCntrl.employmentActive.endingDate" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!employmentCntrl.isOtherOrUnemployed() &&  !employmentCntrl.isRetired()">
+                            <label class="col-lg-8 control-label" for="textinput">Years in same field</label>
+                            <div class="col-lg-1">
+                                <input type="text" ng-model="employmentCntrl.employmentActive.yearsInTheSameField" placeholder="optional" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="!employmentCntrl.isOtherOrUnemployed() &&  !employmentCntrl.isRetired()">
+                            <label class="col-lg-8 control-label" for="textinput">Total Income</label>
+                            <div class="col-lg-1">
+                                <div class="input-group dual-input-60-40">
+                                    <input type="text" placeholder="$ Pretax" class="form-control first"
+                                           ng-model="employmentCntrl.employmentActive.baseSalary"
+                                           format-currency />
+                                    <select class="form-control second select-validation" id="incomePeriod"
+                                            ng-model="employmentCntrl.employmentActive.preferredPaymentPeriodId"
+                                            ng-options="incomePeriodType.value as incomePeriodType.text for incomePeriodType in employmentCntrl.applicationData.lookup.paymentPeriodOptions"
+                                            required>
+                                        <!--<option value="" disabled selected>Select One</option>-->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+
+
+
+                    <div class="col-lg-5 col-lg-offset-1">
+                        <div class="form-group" ng-if="employmentCntrl.isRetired()">
+
+                            <label class="col-lg-8 control-label" for="textinput">Retirement Date</label>
+                            <div class="col-lg-1">
+
+                                <input type="month" placeholder="End" class="form-control"
+                                       ng-model="employmentCntrl.employmentActive.endingDate"
+                                       required>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-5 col-lg-offset-1" ng-if="!employmentCntrl.isOtherOrUnemployed() &&  !employmentCntrl.isRetired()">
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="textinput" ng-show="!employmentCntrl.isActiveMilitaryDuty()">Company Name</label>
+                            <label class="col-lg-6 control-label" for="textinput" ng-show="employmentCntrl.isActiveMilitaryDuty()">Branch</label>
+                            <div class="col-lg-1">
+                                <input type="text" placeholder="" class="form-control" ng-model="employmentCntrl.employmentActive.companyName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="textinput">Business Phone</label>
+                            <div class="col-lg-1">
+                                <input type="text" class="form-control"
+                                       ng-model="employmentCntrl.employmentActive.businessPhone"
+                                       ui-mask="(999) 999-9999"
+                                       placeholder="(___) ___-____" />
+                            </div>
+                        </div>
+                        <address-widget content-url="'/angular/consumersite/loanApp/templates/addressWidget.template-right.html'"
+                                        street-name='employmentCntrl.employmentActive.companyStreet'
+                                        city-name='employmentCntrl.employmentActive.companyCity'
+                                        state-name='employmentCntrl.employmentActive.companyState'
+                                        zip-code='employmentCntrl.employmentActive.companyZip'
+                                        is-county-visible="false"
+                                        is-unit-visible="false"
+                                        placeholder-street-name="Company Street"
+                                        placeholder-city-name="Company City"
+                                        placeholder-state-name="State"
+                                        placeholder-zip-code-name=" Company Zip"
+                                        ng-required="true">
+                        </address-widget>
+                    </div>
+                    </div>
+                <div class="row center section-content">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 section-question-text">
+                                Do you receive any other additional income?
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 section-question-radio">
+                                <div class="form-group">
+                                    <input type="radio" name="radios2" id="radios2-1" value="1">
+                                    <label class="radios-inline" for="radios2-1">
+                                        Yes
+                                    </label>
+                                    <input type="radio" name="radios2" id="radios2-2" value="2" checked="checked">
+                                    <label class="radios-inline" for="radios2-2">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row section-content center">
+                    <div class="col-xs-12">
+                        <button class="btn btn-secondary btn-add-item" ng-disabled="employmentForm.$invalid" ng-click="employmentCntrl.addEmployment(); employmentForm.$setPristine(); employmentForm.$setUntouched()"><i class="fa fa-plus-circle"></i> Add another Employer </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,182 @@
+﻿<div class="property-info">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div ng-if="propertyCntrl.isPurchaseTypeLoan()">
+                    <div class="row section-title center">Where are you in the buying process?</div>
+                    <div class="row section-content center">
+                        <div class="col-md-3 col-md-offset-3">
+                            <button class="btn btn-option btn-option-selected" ng-class="{'btn-option-selected': propertyCntrl.loan.property.NeedPreApproval}" ng-click="propertyCntrl.needPreApproval_Click(true)">I need to get pre-approved</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-option" ng-class="{'btn-option-selected': !propertyCntrl.loan.property.NeedPreApproval}" ng-click="propertyCntrl.needPreApproval_Click(false)">My offer has been accepted</button>
+                        </div>
+                    </div>
+                    <div class="row section-content section-title center">Information on the Property I'm Purchasing</div>
+                </div>
+                <!--
+                    <div ng-if="propertyCntrl.isRefinanceTypeLoan()">
+                        <div class="row section-content section-title center">My Property Information</div>
+                    </div>
+                -->
+                <div class="row section-content">
+                    <div class="col-lg-3 col-lg-offset-1">
+                        <address-widget content-url="'/angular/consumersite/loanApp/templates/addressWidget.template-left.html'"
+                                        street-name='propertyCntrl.loan.property.streetName'
+                                        city-name='propertyCntrl.loan.property.cityName'
+                                        state-name='propertyCntrl.loan.property.stateName'
+                                        zip-code='propertyCntrl.loan.property.zipCode'
+                                        county-name='propertyCntrl.loan.property.countyName'
+                                        is-county-visible="false"
+                                        is-unit-visible="false"
+                                        placeholder-street-name="Street"
+                                        placeholder-city-name="City"
+                                        placeholder-state-name="State"
+                                        placeholder-zip-code-name="Zip"
+                                        ng-required="true">
+                        </address-widget>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="occupancyTypeSelect">Occupancy Type</label>
+                            <div class="col-lg-1">
+                                <select id="occupancyTypeSelect" class="form-control select-validation"
+                                        ng-model="propertyCntrl.loan.property.occupancyType"
+                                        ng-options="occupancyType.value as occupancyType.text for occupancyType in propertyCntrl.applicationData.lookup.occupancyTypeList"
+                                        required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="propertyTypeSelect">Property Type</label>
+                            <div class="col-lg-1">
+                                <select id="propertyTypeSelect" class="form-control select-validation"
+                                        ng-model="propertyCntrl.loan.property.propertyType"
+                                        ng-options="propertyType.value as propertyType.text for propertyType in propertyCntrl.applicationData.lookup.subjectPropertyTypes"
+                                        required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-8 control-label" for="selectbasic">Number of Units</label>
+                            <div class="col-lg-1">
+                                <div class="radio-group">
+                                    <input type="radio" id="oneUnit" ng-value="0" name="noofunits" ng-model="propertyCntrl.loan.property.numberOfUnits" ng-required="!propertyCntrl.loan.property.numberOfUnits" checked="checked" />
+                                    <label for="oneUnit">1</label>
+
+                                    <input type="radio" id="twoUnit" ng-value="1" name="noofunits" ng-model="propertyCntrl.loan.property.numberOfUnits" ng-required="!propertyCntrl.loan.property.numberOfUnits" />
+                                    <label for="twoUnit">2</label>
+
+                                    <input type="radio" id="threeUnit" ng-value="2" name="noofunits" ng-model="propertyCntrl.loan.property.numberOfUnits" ng-required="!propertyCntrl.loan.property.numberOfUnits" />
+                                    <label for="threeUnit">3</label>
+
+                                    <input type="radio" id="fourUnit" ng-value="3" name="noofunits" ng-model="propertyCntrl.loan.property.numberOfUnits" ng-required="!propertyCntrl.loan.property.numberOfUnits" />
+                                    <label for="fourUnit">4</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-1">
+                        <div class="form-group"> <!--</div> ng-if="propertyCntrl.isPurchaseTypeLoan()">-->
+                            <label class="col-lg-6 control-label" for="purchasePriceInput">Purchase Price</label>
+                            <div class="col-lg-1">
+                                <input type="text" id="purchasePriceInput" min="0" max="99999999" step="1" class=" form-control" placeholder="0"
+                                       ng-model="propertyCntrl.loan.property.purchasePrice"
+                                       format-currency
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-lg-6 control-label" for="origPurchaseDateInput"> Purchase Date</label>
+                            <div class="col-lg-1">
+                                <input type="month" class="form-control" id="timePeriod"
+                                       ng-model="propertyCntrl.loan.property.purchaseDate"
+                                       required />
+                            </div>
+                        </div>
+
+                        <div class="form-group"> <!--ng-if="propertyCntrl.isRefinanceTypeLoan()">-->
+                            <label class="col-lg-6 control-label" for="estimatedValueInput">Estimated Value</label>
+                            <div class="col-lg-1">
+                                <input type="text" id="estimatedValueInput" min="0" max="99999999" step="1" class="form-control" placeholder="0"
+                                       ng-model="propertyCntrl.loan.property.currentEstimatedValue"
+                                       format-currency
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="loanAmountInput">Loan Amount</label>
+                            <div class="col-lg-1">
+                                <input type="text" min="0" max="99999999" step="1" class="form-control" id="loanAmountInput" placeholder="0"
+                                       ng-model="propertyCntrl.loan.loanAmount"
+                                       format-currency
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="propertyCntrl.isPurchaseTypeLoan()">
+                            <label class="col-lg-6 control-label" for="textinput">Down Payment</label>
+                            <div class="col-lg-1">
+                                <input type="text" min="0" max="99999999" step="1" class="form-control" name="downPayment" placeholder="0"
+                                       ng-model="propertyCntrl.loan.property.downPayment"
+                                       format-currency
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="propertyCntrl.isRefinanceTypeLoan()">
+                            <label class="col-lg-6 control-label" for="origPurchasePriceInput">Orig Purchase Price</label>
+                            <div class="col-lg-1">
+                                <input type="text" min="0" max="99999999" step="1" class="form-control" name="origPurchasePrice" placeholder="0"
+                                       ng-model="propertyCntrl.loan.property.purchasePrice"
+                                       format-currency
+                                       required />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="propertyCntrl.isPurchaseTypeLoan()">
+                            <label class="col-lg-6 control-label" for="selectbasic">Down Payment Source</label>
+                            <div class="col-lg-1">
+                                <select class="form-control select-validation" id="downPaymentSourceSelect" 
+                                        ng-model="propertyCntrl.loan.property.downPaymentSource" 
+                                        ng-options="downPaymentSource.value as downPaymentSource.text for downPaymentSource in propertyCntrl.applicationData.lookup.downPaymentSourcesTypes" 
+                                        required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="propertyCntrl.isRefinanceTypeLoan()">
+                            <label class="col-lg-6 control-label" for="origPurchaseDateInput">Orig Purchase Date</label>
+                            <div class="col-lg-1">
+                                <input type="month" class="form-control" placeholder="" id="timePeriod"
+                                       ng-model="propertyCntrl.loan.property.purchaseDate"
+                                       format-currency required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-6 control-label" for="monthlyHOADuesInput">Monthly HOA Dues</label>
+                            <div class="col-lg-1">
+                                <input type="text" min="0" max="99999999" step="1" class="form-control" name="monthHOADues" placeholder="0"
+                                       ng-model="propertyCntrl.loan.property.monthlyHOADues"
+                                       format-currency />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row center" ng-if="propertyCntrl.loan.property.occupancyType!='1'">-->
+                <div class="row center" >
+                    <div class="col-xs-12">
+                        <div class="section-question-text">
+                            Is your current address the same?
+                        </div>
+                        <div class="section-question-radio">
+                            <div class="form-group">
+                                <input type="radio" name="sameaddress" id="hasSameAddress" ng-value="true" ng-model="propertyCntrl.isSameAsPropertyAddress" />
+                                <label class="radios-inline" for="hasSameAddress">Yes</label>
+                                <input type="radio" name="sameaddress" id="hasDiffAddress" ng-value="false" ng-model="propertyCntrl.isSameAsPropertyAddress" />
+                                <label class="radios-inline" for="hasDiffAddress">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

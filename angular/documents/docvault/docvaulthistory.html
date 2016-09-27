@@ -1,0 +1,19 @@
+﻿<div class="imp-tooltip docvault-history-popup-container">
+    <div class="imp-div-close-x floatright" style="margin: 11px 10px 5px;" onclick="$(this).parents('.tooltip').prev().trigger('click');"></div>
+    <div class="docvault-history-popup-content">
+        <div class="header">Document History </div>
+
+        <div class="first-row">
+            <span class="item">User</span>
+            <span class="item-1">Status</span>
+            <span class="item-2">Date of Change</span>
+        </div>
+        <div ng-repeat="docHistory in modalpopoverCtrl.ctrl.documentHistory">
+            <div class="row">
+                <span class="item">{{docHistory.modifiedBy}}</span>
+                <span class="item-1">{{docHistory.statusChange}}</span>
+                <span class="item-2">{{docHistory.modifiedDate}}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿@using System
+@model MML.Web.LoanCenter.ViewModels.InvestorConfiguration.InvestorHistoryViewModel
+<div id="investorHistoryRoot" class="imp-sa-popup-content centerPopup" style="width: 900px; margin-left: -450px;">
+    <div id="investorHistoryHead" class="imp-sa-modal-header">
+        <div style="width: 735px; padding-left: 25px; font-weight: bold;">
+            <div class="imp-sa-history-title" style="width: 90%; float: left; margin-top: 10px;">
+                <span class="namelink">Investor History</span>
+            </div>
+            <div onclick="InvestorConfiguration.ClosePopup()" style="float: right; margin-top: 4px;
+                margin-right: -14%;" class="imp-div-close-x">
+            </div>
+        </div>
+    </div>
+    <div class="imp-sa-split" style="margin-left: 3%; min-width: 93%">
+    </div>
+    <div class="imp-sa-history-body">
+        <div class="imp-sa-history-table-container">
+            <div class="imp-sa-history-table-header">
+                <div style="margin-left: 10px; width: 110px">
+                    Investor
+                </div>
+                <div style="width: 220px">
+                    Product
+                </div>
+                <div style="width: 130px; padding-left: 5px;">
+                    Modified Date
+                </div>
+                <div style="padding-left: 15px; width: 100px">
+                    Status
+                </div>
+                <div style="width: 190px">
+                    Modified By
+                </div>
+            </div>
+            <div class="imp-sa-history-table-body">
+                @foreach ( var historyItem in Model.InvestorHistory )
+                {
+                    <div id="divRow" runat="server" class="imp-sa-history-table-row">
+                        <div id="divInvestorName" class="imp-sa-history-table-column" style="padding-left: 10px;
+                        width: 110px" title ="@historyItem.InvestorName">
+                            @if ( historyItem.InvestorName != null && historyItem.InvestorName.Length > 15 )
+                            {
+                                @(historyItem.InvestorName.Substring( 0, 10 ) + "...")
+                        }
+                            else
+                            {
+                                @historyItem.InvestorName
+                        }
+                        </div>
+                        <div id="divProductName" class="imp-sa-history-table-column" style="width: 220px" title="@historyItem.ProductName">
+                            @if ( historyItem.ProductName != null && historyItem.ProductName.Length > 40 )
+                            {
+                                @(historyItem.ProductName.Substring( 0, 37 ) + "...")
+                        }
+                            else
+                            {
+                                @historyItem.ProductName
+                        }
+                        </div>
+                        <div id="divDateModified" class="imp-sa-history-table-column" style="padding-left: 5px;
+                            width: 130px">
+                            @String.Format( "{0:MM/dd/yyyy hh:mm tt}", historyItem.DateModified.ToLocalTime(  ) )
+                        </div>
+                        <div id="divChangedBy" class="imp-sa-history-table-column" style="padding-left: 15px;
+                            width: 100px">
+                            @historyItem.StatusModeChanged
+                        </div>
+                        <div id="divModifiedBy" class="imp-sa-history-table-column" style="width: 190px">
+                            @historyItem.ModifiedByFullName
+                        </div>
+                    </div>
+            }
+            </div>
+        </div>
+    </div>
+    <div class="imp-sa-split" style="margin-left: 3%; min-width: 93%">
+    </div>
+    <br />
+    <br />
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        InvestorConfiguration.CenterThePopup();
+    });
+</script>

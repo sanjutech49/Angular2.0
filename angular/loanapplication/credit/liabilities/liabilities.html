@@ -1,0 +1,198 @@
+﻿<div class="header">
+    <div class="title">
+        <div ng-class="liabilities.isCollapsed.liabilities ? 'imp-collapsed right':'imp-collapsed down'" ng-click="liabilities.isCollapsed.liabilities = !liabilities.isCollapsed.liabilities"></div>
+        <span class="lable-main">Liabilities</span>
+        <div class="imp-liabilities"></div>
+    </div>
+</div>
+<div collapse="liabilities.isCollapsed.liabilities">
+    <div ng-repeat="borrower in liabilities.getBorrowerLiabilities()">
+        <div class="subtitle" ng-init="debtAccountOwnershipTypes = borrower.isBorrower ? liabilities.borrowerDebtAccountOwnershipTypes : liabilities.coBorrowerDebtAccountOwnershipTypes">
+            <span><b>{{borrower.borrowerFullName}}</b>&nbsp;&nbsp; |&nbsp;&nbsp; {{borrower.isBorrower ? 'Borrower': 'Co-Borrower'}} </span>
+            <div class="btn-group credit-liabilities-add-container imp-move-to-container" dropdown>
+                <div class="dropdown-toggle" dropdown-toggle>
+                    <div class="actions add" ng-hide="liabilities.flags.isDisableFields">
+                        <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="margin-right: -3px;"></imp-circle>  Add Item
+                    </div>
+                </div>
+                <div class="dropdown-arrow"></div>
+                <ul class="dropdown-menu" role="menu" style="margin-top:7px; right:17px;">
+                    <!--<li ng-repeat="item in debtAccountOwnershipTypes">-->
+                    <li ng-repeat="item in debtAccountOwnershipTypes">
+                        <a ng-click="liabilities.addLiabilitiesRow(borrower.isBorrower, item.value)"> {{ item.text }} </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl">
+                    Creditor
+                </div>
+                <div class="col-xxxs">
+                </div>
+                <div class="col-xxxs">
+                </div>
+                <div class="col-m">
+                    Type
+                </div>
+                <div class="col-xm">
+                    Account #
+                </div>
+                <div class="col-xs">
+                    Months
+                </div>
+                <div class="col-m">
+                    <div class="amount-title">
+                        Balance
+                    </div>
+                </div>
+                <div class="col-m">
+                    <div class="amount-title">
+                        Payment
+                    </div>
+                </div>
+                <div class="col-xxxxm">
+                    Comment
+                </div>
+                <div class="col-xxxs" style="margin-top:10px;margin-left:0px;">
+                    Exclude
+                </div>
+            </div>
+            <div class="row" ng-repeat="liability in borrower.liabilities" ng-show="liability.typeId == 2 && !liability.isPledged && !liability.isRemoved">
+                <div class="col-xl">
+                    <span ng-show="!liability.isUserEntry">
+                        {{liability.companyData.companyName}}
+                    </span>
+                    <input type="text" ng-model="liability.companyData.companyName" style="width: 98%"
+                           ng-show="liability.isUserEntry" ng-disabled="liability.liabilityDisabled"
+                           ng-change="liabilities.wrappedLoan.ref.active.handleJointWithCoBorrowerLiability(liability)" />
+                </div>
+                <div class="col-xxxs">
+                    <div ng-class="liabilities.getAccountOwnershipTypeIndicator(liability)" title="{{liability.accountOwnershipTypeToolTipText}}">
+                    </div>
+                </div>
+                <div class="col-xxxs">
+                    <imp-icon-info ng-click="liabilities.showCompanyInfo(liability, $event)" has-value="liability.companyData.hasChanges"></imp-icon-info>
+                </div>
+                <div class="col-m">
+                    <div class="imp-span-ddl-container medium" ng-class="{'disabled' : liability.liabilityDisabled}">
+                        <select name="debtType" ng-model="liability.debtType"
+                                ng-options="selectedItem.value as selectedItem.text for selectedItem in liabilities.applicationData.lookup.liabilityTypes"
+                                class="imp-ddl" required
+                                ng-disabled="liability.liabilityDisabled"
+                                ng-change="liabilities.onLiabilityTypeChanged(liability); liabilities.wrappedLoan.ref.active.handleJointWithCoBorrowerLiability(liability)"></select>
+                    </div>
+                </div>
+                <div class="col-xm">
+                    <input type="text" ng-model="liability.accountNumber" ng-disabled="liability.liabilityDisabled"
+                           ng-change="liabilities.wrappedLoan.ref.active.handleJointWithCoBorrowerLiability(liability)" />
+                </div>
+                <div class="col-xs">
+                    <input type="text" imp-numeric="" ng-model="liability.monthsLeft" ng-disabled="liability.liabilityDisabled"
+                           ng-blur="liabilities.onLiabilityMonthsLeftChanged(liability)"
+                           ng-change="liabilities.wrappedLoan.ref.active.handleJointWithCoBorrowerLiability(liability)" />
+                </div>
+                <div class="col-m">
+                    <input type="text"
+                           imp-currency ng-model="liability.unpaidBalance" ng-disabled="liability.liabilityDisabled"
+                           liability-info-id="{{liability.liabilityInfoId}}"
+                           ng-blur="liabilities.onLiabilityUnpaidBalanceChanged(liability)"
+                           ng-change=" liabilities.wrappedloan.ref.active.handlejointwithcoborrowerliability(liability)" />
+                </div>
+                <div class="col-m">
+                    <input type="text" ng-if="liability.systemCalculatedMinPayment"
+                           tooltip-html-unsafe="><div class='imp-tooltip' style='width:230px;background-color: rgba(255, 255, 255, 0.9);'><div class='imp-div-close-x floatright' style='margin:9px;'></div><div style='padding: 30px 15px 15px;'><div>No payment was indicated from the Credit Report.  This payment was calculated using 5% of the unpaid balance or $10 whichever is greater.</div></div></div>"
+                    tooltip-placement="bottom" tooltip-trigger="focus"
+                    imp-currency ng-model="liability.minPayment"
+                    ng-disabled="liability.liabilityDisabled" class="credit-input-system-calc-minpayment"
+                    ng-blur="liabilities.onLiabilityMinPaymentChanged(liability); liabilities.processJointLiabilityRecords(liability.liabilityInfoId)" />
+                    <input type="text" ng-if="!liability.systemCalculatedMinPayment"
+                           imp-currency ng-model="liability.minPayment" ng-disabled="liability.liabilityDisabled"
+                           ng-blur="liabilities.onLiabilityMinPaymentChanged(liability)"
+                           ng-change="liabilities.wrappedloan.ref.active.handlejointwithcoborrowerliability(liability)" />
+                </div>
+                <div class="col-xxxxm">
+                    <div class="imp-span-ddl-container medium" ng-class="{'disabled' :  liability.isSecondaryPartyRecord}">
+                        <!--@todo-cc: Review selectedItem.value*1 for ng-model agianst number property-->
+                        <select ng-change="liabilities.onLiabilityCommentIDChanged(liability)" name="debtComment"
+                                ng-model="liability.debtCommentId"
+                                ng-options="selectedItem.value as selectedItem.text for selectedItem in liabilities.applicationData.lookup.liabilityComments"
+                                class="imp-ddl" required
+                                ng-disabled="liability.isSecondaryPartyRecord"
+                                options-disabled="!liability.isUserEntry &&  liabilityComment.value === '9' for liabilityComment in liabilities.applicationData.lookup.liabilityComments"></select>
+                    </div>
+                </div>
+                <div class="col-xxxs">
+                    <div class="imp-icon-ok" ng-show="!liability.includeInDTI || liability.isSecondaryPartyRecord">
+                    </div>
+                </div>
+                <div class="col-xxxs credit-move-to-re">
+                    <div class="imp-move-to-container" ng-hide="liability.isSecondaryPartyRecord || liabilities.flags.isDisableFields">
+                        <div class="btn-group" dropdown>
+                            <div class="dropdown-toggle" dropdown-toggle>
+                                <span class="imp-icon-arrow-up" style="display: block;"></span>
+                            </div>
+                            <div class="dropdown-arrow"></div>
+                            <ul class="dropdown-menu" role="menu" style="margin-top: 10px;right:-10px">
+                                <li>
+                                    <a ng-click="liabilities.moveLiabilityToREO(liability, false)">
+                                        <span>Move to Real Estate</span><span ng-if="liabilities.wrappedLoan.ref.active.isSpouseOnTheLoan">:&nbsp;{{liabilities.wrappedLoan.ref.active.getBorrower().fullName}}</span>
+                                    </a>
+                                    <a ng-if="liabilities.wrappedLoan.ref.active.isSpouseOnTheLoan" ng-click="liabilities.moveLiabilityToREO(liability, true)">
+                                        <span>Move to Real Estate: {{liabilities.wrappedLoan.ref.active.getCoBorrower().fullName}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xxxs">
+                    <imp-circle size="xsmall" style="position: relative; margin-left: -2px; top: -4px;"
+                                ng-click="liabilities.deleteLiabilitiesRow(liability, !borrower.isBorrower)"
+                                ng-show="!liability.isSecondaryPartyRecord && liability.isUserEntry && !liabilities.flags.isDisableFields"
+                                color="#F4BABC" hover-color="#e73302" is-plus="false"></imp-circle>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="row-fluid">
+                <div class="col-xl"> </div>
+                <div class="col-xxxs"> </div>
+                <div class="col-xxxs"> </div>
+                <div class="col-m"></div>
+                <div class="col-xm ">{{borrower.isBorrower ? 'Borrower': 'Co-Borrower'}} Totals</div>
+                <div class="col-xs"></div>
+                <div class="col-m value" style="font-weight:normal">
+                    <span ng-if="borrower.isBorrower"> {{liabilities.summateLiabiltyUnpaidBalance(0) | currency:'$':2}}</span>
+                    <span ng-if="!borrower.isBorrower"> {{liabilities.summateLiabiltyUnpaidBalance(1) | currency:'$':2}}</span>
+                </div>
+                <div class="col-m value" style="font-weight:normal">
+                    <span ng-if="borrower.isBorrower">{{liabilities.summateLiabiltyPayment(0) | currency:'$':2}}</span>
+                    <span ng-if="!borrower.isBorrower">{{liabilities.summateLiabiltyPayment(1) | currency:'$':2}}</span>
+                </div>
+                <div class="col-xxxxm"></div>
+                <div class="col-xxxs"></div>
+                <div class="col-xxxs"></div>
+                <div class="col-xxxs"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer" style="border-top:0px">
+        <div class="row-fluid">
+            <div class="col-xl"> </div>
+            <div class="col-xxxs"> </div>
+            <div class="col-xxxs"> </div>
+            <div class="col-m"></div>
+            <div class="col-xm title">Totals</div>
+            <div class="col-xs"></div>
+            <div class="col-m value">{{liabilities.summateLiabiltyUnpaidBalance(2) | currency:'$':2}}</div>
+            <div class="col-m value">{{liabilities.summateLiabiltyPayment(2)  | currency:'$':2}}</div>
+            <div class="col-xxxxm"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+        </div>
+    </div>
+</div>

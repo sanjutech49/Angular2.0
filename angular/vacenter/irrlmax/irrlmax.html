@@ -1,0 +1,108 @@
+﻿<div class="section">
+    <div class="calculator">
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">A. Existing VA Loan Balance</div>
+            </div>
+            <div class="right-section">
+                <input type="text" class="input-text" imp-currency ng-model="irrlMax.wrappedLoan.ref.getSubjectProperty().firstMortgageAmount" ng-blur="irrlMax.calculateVAFields()" />
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">B. Cost of Energy Efficient Home Improvements</div>
+            </div>
+            <div class="right-section">
+                <input type="text" class="input-text" imp-currency ng-model="irrlMax.wrappedLoan.ref.vaInformation.costOfImprovements" ng-blur="irrlMax.calculateVAFields()" />
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">C. Cash Payment from Veteran</div>
+            </div>
+            <div class="right-section">
+                <input type="text" class="input-text" imp-currency ng-model="irrlMax.wrappedLoan.ref.vaInformation.cashPaymentFromVeteran" ng-blur="irrlMax.calculateVAFields()" />
+            </div>
+        </div>
+        <div class="calculator-row  grey-row">
+            <div class="left-section">
+                <div class="imp-psection-label">Section I - Initial Computation (A + B - C)</div>
+            </div>
+            <div class="right-section field-value">
+                <span>{{irrlMax.vaCenterService.calculatorResponse.initialComputation | impRound: 2 | currency}}</span>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">D. {{irrlMax.showDicountPoints()}}% Discount Points based on Section I</div>
+            </div>
+            <div class="right-section">
+                <div class="normal-label">{{irrlMax.vaCenterService.calculatorResponse.discountSectionI | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">E. Original Fee based on Section I</div>
+            </div>
+            <div class="right-section">
+                <div class="normal-label">{{0 | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">F. Funding Fee based on Section I</div>
+            </div>
+            <div class="right-section">
+                <div class="normal-label">{{irrlMax.vaCenterService.getVAFundingFee() | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">G. Allowable Closing Costs & Prepaids</div>
+            </div>
+            <div class="right-section">
+                <div class="normal-label">{{irrlMax.vaCenterService.calculatorResponse.allowableBorrowerPaidClosingCosts | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+        <div class="calculator-row  grey-row">
+            <div class="left-section">
+                <div class="imp-psection-label">Section II - Preliminary Loan Amount (Section I + D + E + F + G)</div>
+            </div>
+            <div class="right-section field-value">
+                <span>{{irrlMax.vaCenterService.calculatorResponse.preliminaryLoanAmount | impRound: 2 | currency}}</span>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="imp-psection-label">H. {{irrlMax.showDicountPoints()}}% Discount Points based on Section II</div>
+            </div>
+            <div class="right-section">
+                <div class="normal-label">{{irrlMax.vaCenterService.calculatorResponse.discountSectionII | impRound: 2 | currency}}</div>                 
+            </div>
+        </div>
+        <div class="calculator-row  grey-row">
+            <div class="left-section">
+                <div class="imp-psection-label">Subtotal (Section II + H - D - F)</div>
+            </div>
+            <div class="right-section field-value">
+                =<span>{{irrlMax.vaCenterService.calculatorResponse.subtotal | impRound: 2 | currency}}</span>
+            </div>
+        </div>
+        <div class="calculator-row  grey-row">
+            <div class="left-section">
+                <div class="imp-psection-label">Funding Fee based on Subtotal</div>
+            </div>
+            <div class="right-section field-value">
+                <span class="success">+</span><span>{{irrlMax.vaCenterService.calculatorResponse.fundingFeeSubtotal | impRound: 2 | currency}}</span>
+            </div>
+        </div>
+        <div class="calculator-row">
+            <div class="left-section">
+                <div class="main-label">Total Maximum Loan Amount</div>
+            </div>
+            <div class="right-section">
+                <div class="total">{{irrlMax.vaCenterService.calculatorResponse.totalMaxLoanAmount | impRound: 2 | currency}}</div>
+            </div>
+        </div>
+    </div>
+</div>

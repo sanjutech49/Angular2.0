@@ -1,0 +1,42 @@
+﻿<div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">A. Purchase Price of Subject Property</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="purchaseDown.wrappedLoan.ref.fhaScenarioViewModel.purchasePrice" ng-blur="purchaseDown.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">B. Appraisal Value of Subject Property</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-disabled="purchaseDown.isAppraisedValueDisabled()" ng-model="purchaseDown.wrappedLoan.ref.fhaScenarioViewModel.appraisalValue" ng-blur="purchaseDown.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">C. Minimum Down Payment as Approved by HUD</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="purchaseDown.wrappedLoan.ref.fhaScenarioViewModel.minDownPaymentApprovedByHud" ng-blur="purchaseDown.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Maximum Base Mortgage (Lesser of A or B - C)</div>
+        </div>
+        <div class="right-section field-value">
+            <span class="bold">{{purchaseDown.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.maxBaseMortgage | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">UFMIP (Max Base Mortgage x 1.75%)</div>
+        </div>
+        <div class="right-section field-value">
+            <span class="success">+</span><span>{{purchaseDown.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newUFMIP | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿<div class="unload-modal modal-body">
+    <div class="notice">
+        <div class="imp-alert-icon"><em></em></div>
+        <span class="notice-label" ng-show="!commonModalCtrl.message">Do you want to save your changes to the loan?</span>
+        <span class="notice-label" ng-show="!!commonModalCtrl.message">Do you want to save your changes to the loan for <br>{{commonModalCtrl.message}}?</span>
+    </div>
+    <div class="unload-body">
+        <p>If you click "Don't Save", your changes will be lost.</p>
+    </div>
+    <div class="unload-button-container">
+        <button class="imp-button-hm-wl-sec ok" ng-click="commonModalCtrl.ctrl.doNotSaveTheLoan()" style="float: left;">
+            Don't Save
+        </button>
+        <button class="imp-button-div-hs-ws-prim ok" ng-click="commonModalCtrl.ctrl.saveTheLoan()">Save</button>
+        <button class="imp-button-hm-wl-sec ok" ng-click="commonModalCtrl.ctrl.closeTheModal()" style="margin-right: 5px;">
+            Cancel
+        </button>
+        <div></div>
+    </div>
+</div>

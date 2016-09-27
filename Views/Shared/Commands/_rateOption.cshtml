@@ -1,0 +1,270 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Common
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.RateOptionViewModel
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/RateOptions.js" type="text/javascript"></script>
+
+
+
+<div class="rateoptionsdiv completesection"
+
+ @if ( !Model.BuiltInMode && Model.RateOptionList == null)
+        { 
+            @:style="display: none;"
+        }
+
+>
+    <div 
+         @if ( Model.BuiltInMode )
+        {
+            @:class="rateOptionsGrayHeader completesection" 
+        }else{
+            @:class="rateoptionshead2Wide completesection" 
+        }
+        
+       
+        id="rateoptionshead">
+        <div class="left0">
+        @if ( Model.BuiltInMode )
+        {
+            <span class="namelink">Rate Options</span>
+        }
+        else
+        {
+            <span class="namelink">Rate Options / What If</span>
+        }
+            
+        </div>
+        <div class="smallarrow">
+        </div>
+    </div>
+    
+    <div id="rateoptionsdetailcontent"
+        @if ( Model.CollapseDetails )
+        { 
+            @:style="height: 0px;" class="borrowerdetailscontent2"
+        }
+        else if ( Model.BuiltInMode )
+        {
+            @:class="rateoptionsdetailcontent widthAImportant"
+        }
+        else
+        {
+             @:class="rateoptionsdetailcontentWide widthAImportant"
+        }
+        >
+      <div id="rateoptionsliderforDiv" >  
+            <table class="tableRateOptions">
+                <tr class="tableRateOptionInfoHeaderGray">
+                    <td style="width:74px">
+                        Date
+                    </td>
+                    <td style="width:59px;">
+                        Time
+                    </td>
+                    <td style="width:137px;">
+                        Product
+                    </td>
+                    <td style="width:98px;">
+                        Loan Amt.
+                    </td>
+                    <td style="width:70px;">
+                        Rate
+                    </td>
+                     <td style="width:56px;">
+                        DTI
+                    </td>
+                    <td style="width:127px;">
+                        LTV/CLTV
+                    </td>
+                    <td style="width:78px;">
+                        Points$
+                    </td>
+                    <td style="width:60px;">
+                        Points%
+                    </td>
+                    <td style="padding-left: 10px; width:62px;">
+                        Notes
+                    </td>
+                    <td style="width:32px;">
+                    
+                    </td>
+                    <td style="width:32px;">
+                    
+                    </td>
+                    <td 
+                        @if ( Model.BuiltInMode )
+                        {
+                            @:style="width:152px;" 
+                        }
+                        else
+                        {
+                            @:style="width:246px;"
+                        }
+
+                    >
+                        <div style="margin-left: 20px;">Distribution List</div>
+                    </td>
+                </tr>
+                </table>
+                  <div id="rateoptionsliderforDiv" class="rateoptionsliderforDivTable">
+                 <table class="tableRateOptions">
+         
+                @if ( Model.RateOptionList != null )
+                {
+                    for ( int i = 0; i < Model.RateOptionList.Count; i++ )
+                    {
+                    <tr id="contact @i" class="tableRateOptionInfoRowGray">
+                    
+                        <td style="width:70px"><div  style="width:68px">
+                           @Model.RateOptionList[ i ].DateCreated.ToString( "MM/dd/yyyy" )
+                           </div>
+                        </td>
+                        <td style="width:57px">
+                          <div  style="width:55px">@Model.RateOptionList[ i ].DateCreated.ToString( "h:mm tt" )</div>
+                        </td>
+                        <td style="width:130px;">
+                            <div style="width:129px;">
+                               @if ( Model.RateOptionList[ i ].Product != null )
+                               {
+                                    <span title="@Model.RateOptionList[ i ].Product">@(Model.RateOptionList[ i ].Product.Length > 25 ? String.Format( "{0}...", Model.RateOptionList[ i ].Product.Substring( 0, 23 ) ) : Model.RateOptionList[ i ].Product)</span>
+                               }
+                               else
+                               {
+                                   @Html.Raw( "Multiple" )
+                               }
+                           </div>
+                        </td>
+                        <td style="width:95px;">
+                           <div style="width:93px;">
+                               @if ( Model.RateOptionList[ i ].LoanAmount != null )
+                               {
+                                    @Model.RateOptionList[ i ].LoanAmount.ToString().ToMoney()
+                               }
+                               else
+                               {
+                                    @Html.Raw( "Multiple" )
+                               }
+                           </div>
+                        </td>
+                        <td style="width:67px">
+                          @if ( Model.RateOptionList[ i ].Product != null )
+                          {
+                                <div style="width:65px;">@Model.RateOptionList[ i ].Rate.ToString( "n3" ) %</div>
+                          }
+                          else
+                          {
+                                <div style="width:65px;">Multiple</div> 
+                          }
+                        </td>
+                        <td style="width:51px">
+                           @if ( Model.RateOptionList[ i ].DebtToIncomeRatio != null )
+                            {
+                                 <div style="width:53px;">@Model.RateOptionList[ i ].DebtToIncomeRatio.ToString( "n3" )% </div>
+                            }else{
+                               
+                               <div style="width:53px;"> </div>
+                            }
+                          
+                        </td>
+                        <td style="width:123px">
+                          @if ( Model.RateOptionList[ i ].LTV != null && Model.RateOptionList[ i ].CLTV != null )
+                          {
+                                <div style="width:121px" >@Model.RateOptionList[ i ].LTV.ToString( "n3" )% / @Model.RateOptionList[ i ].CLTV.ToString( "n3" )%</div>
+                          }
+                          else
+                          {
+                                <div style="width:121px">Multiple</div> 
+                          }
+                        </td>
+                        <td style="width:75px">
+                           @if ( Model.RateOptionList[ i ].Product != null )
+                           {
+                                <div style="width:73px" >@Model.RateOptionList[ i ].Points.ToString().ToMoney()</div>
+                           }
+                           else
+                           {
+                                <div style="width:73px">Multiple</div> 
+                           }
+                        </td>
+                        <td style="width:55px">
+                          @if ( Model.RateOptionList[ i ].Product != null )
+                          {
+                             <div style="width:53px" >@Model.RateOptionList[ i ].PointsPercents.ToString( "n3" ) %</div>
+                          }
+                          else
+                          {
+                                <div style="width:53px">Multiple</div> 
+                          }
+                        </td>
+                        <td style="width:60px">
+                           <div  style="width:58px" class="logAddNewNote imp-button-div-hs-wxs-prim" onclick="RateOptions.RateOptionsNotePopup('@Model.RateOptionList[ i ].SentEmailId')">
+                                Notes</div>
+                        </td>
+                        <td style="width:30px">
+                           <div style="width:28px" class="mailRowRateOptions">
+                                @if ( !( Model.RateOptionList[ i ].IsWhatIfRateOption != null && Model.RateOptionList[ i ].IsWhatIfRateOption.Value ) )
+                                {
+                                   <span class="mailIcon" mailId="@Model.RateOptionList[ i ].SentEmailId" onclick="ManageProspects.ClickAndShowEmailDetails(this)"></span>
+                                }
+                                else
+                                {
+                                    <span class="mailLetterIcon" mailId="@Model.RateOptionList[ i ].SentEmailId" onclick="ManageProspects.ClickAndShowEmailDetails(this)"></span>
+                                }
+                            </div>
+                        </td>
+                        <td style="width:30px">
+                            <div style="width:28px" class="mailRowRateOptions">
+                               @if ( Model.RateOptionList[ i ].ReportRepositoryItemId != null && Model.RateOptionList[ i ].ReportRepositoryItemId != Guid.Empty )
+                               {
+                                   string downloanLink = string.Format( "Downloader.axd?documentType=repositoryItem&repositoryItemId={0}", @Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.RateOptionList[ i ].ReportRepositoryItemId.ToString(), EncriptionKeys.Default ) ) );
+                                   <a href=@downloanLink>
+                                       <div style="margin-top: 3px; margin-left: 5px" class="divPdfIcon"></div>
+                                   </a>
+                               }
+                            </div>
+                        </td>
+                        <td 
+                    
+                         @if ( Model.BuiltInMode )
+                         {
+                            @:style="width:172px; border:none;" 
+                         }
+                         else
+                         {
+                            @:style="width:260px; border:none;"
+                         }
+
+                        >
+                            @if ( Model.RateOptionList[ i ].DistributionList != null && !( Model.RateOptionList[ i ].IsWhatIfRateOption != null && Model.RateOptionList[ i ].IsWhatIfRateOption.Value ) )
+                            {
+
+                                if ( Model.BuiltInMode )
+                                {
+                                    <div style="width:0px !important;"><span title="@Model.RateOptionList[ i ].DistributionList">@(Model.RateOptionList[ i ].DistributionList.Length > 24 ? String.Format( "{0}...", Model.RateOptionList[ i ].DistributionList.Substring( 0, 20 ) ) : Model.RateOptionList[ i ].DistributionList)</span></div>
+                                }
+                                else
+                                {
+                                    <div style="width:0px !important;"><span title="@Model.RateOptionList[ i ].DistributionList">@(Model.RateOptionList[ i ].DistributionList.Length > 35 ? String.Format( "{0}...", Model.RateOptionList[ i ].DistributionList.Substring( 0, 31 ) ) : Model.RateOptionList[ i ].DistributionList)</span></div>
+                                }
+
+                            }
+                        </td>
+                    </tr>
+
+                    }
+                }
+             
+            </table>
+
+           </div>
+        </div>
+                    @if ( Model.BuiltInMode )
+                    {
+                <div style="float: right; padding-top:10px; padding-bottom:10px; padding-right:10px">
+                    <div class="bluebutton imp-button-div-hs-wxl-prim" onclick="ManageProspects.GetLoansAndRatesFromManageProspects();">Get Loans And Rates</div>
+                </div>
+            }
+    </div>
+</div>

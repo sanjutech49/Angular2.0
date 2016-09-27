@@ -1,0 +1,24 @@
+﻿<div id="agents-parties-participant-container" class="clearfix">
+    <div class="header clearfix">
+        <div class="header-text">Participant Information</div>
+        <div class="add-row">
+            <div class="actions add" ng-click="showAdd = true">
+                <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>
+                <span class="imp-hyperlink">Add a Participant</span>
+            </div>
+        </div>
+        <div class='border-bottom'></div>
+    </div>
+    <div class="row firstRow">
+        <div class="col-m   imp-disclaimer">Type</div>
+        <div class="col-xl  imp-disclaimer">Company / Lic #</div>
+        <div class="col-xl  imp-disclaimer">Address</div>
+        <div class="col-xl  imp-disclaimer">Contact Name / Lic #</div>
+        <div class="col-l   imp-disclaimer">Phone</div>
+        <div class="col-xl  imp-disclaimer">Email / Fax</div>
+    </div>
+    <div ng-repeat="item in viewModel.loanParticipants | filter : {isDeleted: false} track by $index">
+        <participant-row mode="view" item="item" company-types="viewModel.dropdownDictionary"></participant-row>
+    </div>
+    <participant-row mode="add" ng-show="showAdd" show-add="showAdd" view-model="viewModel.loanParticipants" company-types="viewModel.dropdownDictionary"></participant-row>
+</div>

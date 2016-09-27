@@ -1,0 +1,20 @@
+﻿<div>
+    <div ng-show="!displayPicker">
+        <input type="text" placeholder="{{defaultDateSettings.placeholder}}" ng-model="model" ng-class="{'imp-has-error': hasError}" imp-select-on-click ng-keyup="maskDate($event)" ng-style="{width: defaultDateSettings.width}" /><br />
+    </div>
+    <div ng-show="displayPicker">
+        <div class="input-group">
+            <input ng-disabled="defaultDateSettings.disabled" type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="model" is-open="isOpened" min-date="defaultDateSettings.minDate" max-date="defaultDateSettings.maxDate"
+                   close-text="Close" starting-day="1" placeholder="{{defaultDateSettings.placeholder}}" ng-keyup="maskDate($event)" ng-class="{'imp-has-error': hasError}" datepicker-append-to-body="isToBody()" />
+            <span class="input-group-btn">
+                <button ng-disabled="defaultDateSettings.disabled" ng-style="defaultDateSettings.disabled && {'background-color': '#EFEFEF'} " type="button" class="btn btn-default imp-button-dummy" ng-click="open($event)" style="padding:2px 10px; margin-left:8px;height: 24px; margin-top: 0px; " ng-blur="SetDateOnBlur()" ng-class="{'imp-has-error': hasError}">
+                    <span class="glyphicon glyphicon-th"></span>
+                </button>
+            </span>
+        </div>
+
+    </div>
+    <div style="margin-top:1px; line-height:1;">
+        <span class="imp-error-label" style="color:#ef1126;"></span>
+    </div>
+</div>

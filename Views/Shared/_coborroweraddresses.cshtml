@@ -1,0 +1,253 @@
+﻿@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using Telerik.Web.Mvc.UI
+@model BorrowerModel
+<div id="divCoBorrowerAddress" style="@if (Model.BorrowerAndCoBorrowerAddressAreSame)
+                                      {
+                                                           @Html.Raw("display: none")
+                                          ;
+                                      }">
+    <div class="row title height20 marginT15">
+        Co-Borrower Addresses</div>
+    <div class="rowheigher height100">
+        <div class="rowheigherleft">
+            <div class="rowup">
+                Present Address</div>
+        </div>
+        @Html.HiddenFor(m=>m.CoBorrowerModelInfo.PresentAddress.AddressId)
+        @Html.HiddenFor(m=>m.CoBorrowerModelInfo.MailingAddress.AddressId)
+        @Html.HiddenFor(m=>m.CoBorrowerModelInfo.FormerAddress.AddressId)
+        <div class="rowheigherright" style="margin-top: 30px;">
+            <div style="clear: both; height: 30px;">
+                <div class="floatleft">
+                 @Html.RadioButtonFor( m => m.CoBorrowerModelInfo.PresentAddress.OwnershipType,
+                 OwnershipType.Own, Model.CoBorrowerModelInfo.PresentAddress.OwnershipType.Equals( OwnershipType.Own )
+                 ? new { @checked = "checked", @id = "rbCAddress" }
+                 : new object() ) 
+                <span class="floatleft">Own</span>
+                </div>
+                <div class="floatleft marginL20">
+                  @Html.RadioButtonFor( m => m.CoBorrowerModelInfo.PresentAddress.OwnershipType,
+                  OwnershipType.Rent, Model.CoBorrowerModelInfo.PresentAddress.OwnershipType.Equals( OwnershipType.Rent )
+                  ? new { @checked = "checked", @id = "rbCAddress" }
+                  :  new object() )               
+                    <span class="floatleft">Rent</span>
+                </div>
+                <div class="floatleft marginL20">
+                  @Html.RadioButtonFor( m => m.CoBorrowerModelInfo.PresentAddress.OwnershipType,
+                  OwnershipType.RentFree, Model.CoBorrowerModelInfo.PresentAddress.OwnershipType.Equals( OwnershipType.RentFree )
+                  ? new { @checked = "checked", @id = "rbCAddress" }
+                  :  new object() )                
+                    <span class="floatleft">Rent Free</span>
+                </div>
+                <div class="floatleft divNoYears">
+                    <div class="rowup">
+                        No. Years*</div>
+                    @Html.TextBoxFor(m => m.CoBorrowerModelInfo.PresentAddress.NumberOfYears, new { Class = "txtCity txtNoYears imp-textbox-hm-wm-prim", Id = "txtCBNoYears", style = "width: 50px;" })
+                    @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.PresentAddress.NumberOfYears)
+                </div>
+                <div class="floatleft divNoYears">
+                    <div class="rowup">
+                        Months</div>
+                    @Html.TextBoxFor(m => m.CoBorrowerModelInfo.PresentAddress.NumberOfMonths, new { Class = "txtCity txtNoYears imp-textbox-hm-wm-prim", Id = "txtCBNoMonths", style = "width: 50px;" })
+                    @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.PresentAddress.NumberOfMonths)
+                </div>
+                 <div id="coborrowerMonthlyRentDiv" class="floatleft divNoYears @if(Model.CoBorrowerModelInfo.PresentAddress.OwnershipType.Equals( OwnershipType.Own )){ <text>notdisplayed</text>}"  >
+                    <div class="rowup">
+                        Monthly Rent*</div>
+                    @Html.TextBoxFor( m => m.CoBorrowerModelInfo.PresentAddress.MonthlyRent, ElementConditionalDisableHelper.ConditionalDisable( Model.CoBorrowerModelInfo.PresentAddress.OwnershipType.Equals( OwnershipType.RentFree ),new { Class = "txtNoYears Amount", Id = "txtCoMonthlyRent", style = "width: 54px !important", monthlyRent = Model.CoBorrowerModelInfo.PresentAddress.MonthlyRent }) )
+                    @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.PresentAddress.MonthlyRent )
+                 </div>
+            </div>
+            <div style="clear: both;">
+                <div class="rowcolumn">
+                    <div class="rowup">
+                        Street*</div>
+                    <div class="rowdown">
+                        @Html.TextBoxFor(m => m.CoBorrowerModelInfo.PresentAddress.StreetName, new { Class = "txtCBPresentStreet", Id = "txtCBPresentStreet", style = "width: 140px;" })
+                        @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.PresentAddress.StreetName)
+                    </div>
+                </div>
+                <div class="rowcolumn marginL10">
+                    <div class="rowup">
+                        Zip Code*</div>
+                    <div class="rowdown">
+                        @Html.TextBoxFor(m => m.CoBorrowerModelInfo.PresentAddress.ZipCode, new { Class = "txtCBPresentZip txtZip", Id = "txtCBPresentZip", maxlength = "5" })
+                        @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.PresentAddress.ZipCode)
+                    </div>
+                </div>
+                <div class="rowcolumn marginL10">
+                    <div class="rowup">
+                        City*</div>
+                    <div class="rowdown">
+                        @Html.TextBoxFor(m => m.CoBorrowerModelInfo.PresentAddress.CityName, new { Class = "txtCBPresentCity", Id = "txtCBPresentCity", style = "width: 100px;" })
+                        @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.PresentAddress.CityName)
+                    </div>
+                </div>
+                <div class="rowcolumn marginL10">
+                    <div class="rowup">
+                        State*</div>
+                    <div class="rowdown">
+                        @Html.Telerik().DropDownListFor(m => m.CoBorrowerModelInfo.PresentAddress.StateId).BindTo(new SelectList(Model.States, "Value", "Name", Model.CoBorrowerModelInfo.PresentAddress.StateId)).Name("ddlCBPresentState").HtmlAttributes(new { @class = "ddlCBPresentState" })
+                        @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.PresentAddress.StateId)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bi-div-row marginT5" style="height: 20px;">
+        <div class="rowcolumn">
+            Mailing Address</div>
+        <div class="rowcolumn marginL110">
+            
+           
+              @if (Model.CoBorrowerModelInfo.MailingAddress.IsSameAsPropertyAddress == null)
+              {
+                  Model.CoBorrowerModelInfo.MailingAddress.IsSameAsPropertyAddress = false;
+
+              }
+            @if (Model.CoBorrowerModelInfo.MailingAddress.IsSameAsPropertyAddress.Value)
+                        {
+                <input type="checkbox" id="cbCOSame" name="cbCOSame" checked="checked" />
+                        }
+                        else
+                         {
+                <input type="checkbox" id="cbCOSame" name="cbCOSame" />
+                         }
+            <div class="floatleft">
+                Same As Present Address</div>
+        </div>
+    </div>
+    <div class="bi-div-row marginT5" id="divCoMailingAddress" style="margin-left: 200px;@if (Model.CoBorrowerModelInfo.MailingAddress.IsSameAsPropertyAddress.HasValue && Model.CoBorrowerModelInfo.MailingAddress.IsSameAsPropertyAddress.Value)
+                                                                                 {
+                                                                                                      @Html.Raw("display: none")
+                                                                                     ;
+                                                                                 }">
+        <div class="rowcolumn">
+            <div class="rowup">
+                Street*</div>
+            <div class="rowdown">
+                @Html.TextBoxFor(m => m.CoBorrowerModelInfo.MailingAddress.StreetName, new { Class = "txtCBMailingStreet", Id = "txtCBMailingStreet", style = "width: 140px;" })
+                @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.MailingAddress.StreetName)
+            </div>
+        </div>
+        <div class="rowcolumn marginL10">
+            <div class="rowup">
+                Zip Code*</div>
+            <div class="rowdown">
+                @Html.TextBoxFor(m => m.CoBorrowerModelInfo.MailingAddress.ZipCode, new { Class = "txtZip txtCBMailingZip", Id = "txtCBMailingZip", maxlength = "5" })
+                @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.MailingAddress.ZipCode)
+            </div>
+        </div>
+        <div class="rowcolumn marginL10">
+            <div class="rowup">
+                City*</div>
+            <div class="rowdown">
+                @Html.TextBoxFor(m => m.CoBorrowerModelInfo.MailingAddress.CityName, new { Class = "txtCBMailingCity txtCity", Id = "txtCBMailingCity", style = "width: 100px;" })
+                @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.MailingAddress.CityName)
+            </div>
+        </div>
+        <div class="rowcolumn marginL10">
+            <div class="rowup">
+                State*</div>
+            <div class="rowdown">
+                @Html.Telerik().DropDownListFor(m => m.CoBorrowerModelInfo.MailingAddress.StateId).BindTo(new SelectList(Model.States, "Value", "Name", Model.CoBorrowerModelInfo.MailingAddress.StateId)).Name("ddlCBMailingState").HtmlAttributes(new { @class = "ddlCBMailingState" })
+                @Html.ValidationMessageFor(m => m.CoBorrowerModelInfo.MailingAddress.StateId)
+            </div>
+        </div>
+    </div>
+
+    <div class="rowheigher height100" id="formerAddressCoBorrower" style="margin-bottom:55px;@if ( Model.CoBorrowerModelInfo.PresentAddress.NumberOfYears > 1 )
+                                                 {
+                                                          @Html.Raw( "display: none;" )
+
+                                                 }">
+          <div style="height: 25px; margin-top: 5px;">          
+                If residing at present address for less than two years, complete the following:
+         </div>
+        <div class="rowheigherleft">
+            <div class="rowup">
+                Former Address</div>
+        </div>
+        <div class="rowheigherright" style="margin-top: 30px;">
+            <div style="clear: both; height: 30px;">
+                <div class="floatleft">
+                    @Html.RadioButtonFor( m => m.CoBorrowerModelInfo.FormerAddress.OwnershipType,
+                    OwnershipType.Own, Model.CoBorrowerModelInfo.FormerAddress.OwnershipType.Equals( OwnershipType.Own )
+                    ? new { @checked = "checked", @id = "rbCFAddress" }
+                    : new object() ) 
+                    
+                    <span class="floatleft">Own</span>
+                </div>
+                <div class="floatleft marginL20">
+                    @Html.RadioButtonFor( m => m.CoBorrowerModelInfo.FormerAddress.OwnershipType,
+                    OwnershipType.Rent, Model.CoBorrowerModelInfo.FormerAddress.OwnershipType.Equals( OwnershipType.Rent )
+                    ? new { @checked = "checked", @id = "rbCFAddress" }
+                    : new object() ) 
+                   
+                    <span class="floatleft">Rent</span>
+                </div>
+                <div class="floatleft marginL20">
+                    @Html.RadioButtonFor( m => m.CoBorrowerModelInfo.FormerAddress.OwnershipType,
+                    OwnershipType.RentFree, Model.CoBorrowerModelInfo.FormerAddress.OwnershipType.Equals( OwnershipType.RentFree )
+                     ? new { @checked = "checked", @id = "rbCFAddress" }
+                     : new object() ) 
+                   
+                    <span class="floatleft">Rent Free</span>
+                </div>
+                <div class="floatleft divNoYears">
+                    <div class="rowup">
+                        No. Years*</div>
+                    @Html.TextBoxFor( m => m.CoBorrowerModelInfo.FormerAddress.NumberOfYears, new { Class = "txtCity txtNoYears imp-textbox-hm-wm-prim", Id = "txtNoYearsCBFormer", style = "width: 50px;" } )
+                    @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.FormerAddress.NumberOfYears )
+                </div>
+               <div class="floatleft divNoYears">
+                    <div class="rowup">
+                        Months</div>
+                    @Html.TextBoxFor( m => m.CoBorrowerModelInfo.FormerAddress.NumberOfMonths, new { Class = "txtCity txtNoYears imp-textbox-hm-wm-prim", Id = "txtNoMonthsCBFormer", style = "width: 50px;" } )
+                    @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.FormerAddress.NumberOfMonths )
+                </div>
+                 <div id="coborrowerMonthlyRentFormerDiv" class="floatleft divNoYears @if(Model.CoBorrowerModelInfo.FormerAddress.OwnershipType.Equals( OwnershipType.Own )){ <text>notdisplayed</text>}"  >
+                    <div class="rowup">
+                        Monthly Rent*</div>
+                    @Html.TextBoxFor( m => m.CoBorrowerModelInfo.FormerAddress.MonthlyRent, ElementConditionalDisableHelper.ConditionalDisable( Model.CoBorrowerModelInfo.FormerAddress.OwnershipType.Equals( OwnershipType.RentFree ), new { Class = "txtNoYears Amount", Id = "txtCoMonthlyRentFormer", style = "width: 54px !important", monthlyRent = Model.CoBorrowerModelInfo.FormerAddress.MonthlyRent } ) )
+                    @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.FormerAddress.MonthlyRent )
+                 </div>
+            </div>
+            <div style="clear: both;">
+                <div class="rowcolumn">
+                    <div class="rowup">
+                        Street*</div>
+                    <div class="rowdown">
+                        @Html.TextBoxFor( m => m.CoBorrowerModelInfo.FormerAddress.StreetName, new { Class = "txtCBPresentStreet", Id = "txtCBFormerStreet", style = "width: 140px;" } )
+                        @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.FormerAddress.StreetName )
+                    </div>
+                </div>
+                <div class="rowcolumn marginL10">
+                    <div class="rowup">
+                        Zip Code*</div>
+                    <div class="rowdown">
+                        @Html.TextBoxFor( m => m.CoBorrowerModelInfo.FormerAddress.ZipCode, new { Class = "txtCBPresentZip txtZip", Id = "txtCBFormerZip", maxlength = "5" } )
+                        @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.FormerAddress.ZipCode )
+                    </div>
+                </div>
+                <div class="rowcolumn marginL10">
+                    <div class="rowup">
+                        City*</div>
+                    <div class="rowdown">
+                        @Html.TextBoxFor( m => m.CoBorrowerModelInfo.FormerAddress.CityName, new { Class = "txtCBPresentCity", Id = "txtCBFormerCity", style = "width: 100px;" } )
+                        @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.FormerAddress.CityName )
+                    </div>
+                </div>
+                <div class="rowcolumn marginL10">
+                    <div class="rowup">
+                        State*</div>
+                    <div class="rowdown">
+                        @Html.Telerik().DropDownListFor( m => m.CoBorrowerModelInfo.FormerAddress.StateId ).BindTo( new SelectList( Model.States, "Value", "Name", Model.CoBorrowerModelInfo.FormerAddress.StateId ) ).Name( "ddlCBFormerState" ).HtmlAttributes( new { @class = "ddlCBPresentState" } )
+                        @Html.ValidationMessageFor( m => m.CoBorrowerModelInfo.FormerAddress.StateId )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

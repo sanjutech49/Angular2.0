@@ -1,0 +1,321 @@
+.t-widget, .t-input {
+    background-color: #FFFFFF;
+    border-color: #b4b4b4;
+    cursor: pointer;
+}
+.t-widget, .t-widget button, .t-widget input, .t-widget select, .t-button, .t-formatted-value {
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 12px;
+}
+
+.t-header, .t-grid-header {
+    background: url("Vista/sprite.png") repeat-x scroll 0 -750px;
+    border-color: #A7BAC5;
+}
+
+.t-grid-header2  {
+    background: transparent;
+}
+.t-grid-header2.t-header:hover {
+    background: transparent;
+}
+
+.t-grid-header2.t-header:focus {
+    background: transparent;
+}
+.t-grid-header2 > .t-dropdown-wrap.t-state-default
+{
+    border: 0px;
+}
+
+.t-grid-header2 .t-input
+{
+    font-weight: normal;
+}
+#Calendar .t-header, #Calendar .t-header:hover, #Calendar .t-header:focus
+{
+    font-size: 13px;
+    background: transparent;
+    color: #555555;
+}
+
+
+.t-header:hover, .t-grid-header, .t-header:focus, .t-grid-header {
+    border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+}
+
+.t-header:hover .t-arrow-down {
+    background-position: -31px -176px;
+}
+
+.t-icon 
+{    
+    background-image: url("Vista/sprite.png");
+}
+.t-editor .t-tool-icon {
+    background-image: url("Vista/editor.png");
+}
+.t-loading, .t-widget .t-loading {
+    background: url("Vista/loading.gif") no-repeat scroll 0 0 transparent;
+}
+.t-widget, .t-link:link, .t-link:active, .t-link:visited, .t-popup 
+{
+    font-weight: normal;
+    color: #000000;
+}
+#Calendar .t-widget,#Calendar  .t-link:link,#Calendar  .t-link:active,#Calendar  .t-link:visited,#Calendar  .t-popup {
+    color: #555555;
+}
+.t-group, .t-content, .t-editable-area {
+    background-color: #FFFFFF;
+    border-color: #A7BAC5;
+}
+.t-colorpicker .t-arrow-down {
+    border-color: #A7BAC5;
+}
+.t-separator {
+    background-color: #A7BAC5;
+    border-color: #EAF6FD;
+}
+.t-alt {
+    background-color: #F7F7F7;
+}
+.t-state-default {
+    border-color: #a0a0a0;
+    border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+}
+
+
+.t-item
+{
+    margin:1px;
+    border:1px solid transparent;
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 12px;
+}
+
+.t-grid-header2.t-dropdown 
+{
+    width: 160px;
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 12px;
+    color: #555555;
+}
+.filterItem .t-dropdown, .filterItemNoFloat .t-dropdown
+{
+    width: 175px;
+}
+.t-dropdown 
+{
+    width: 200px;
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 12px;
+}
+.t-active-filter {
+    background-color: #CEEEFD;
+}
+.t-state-hover, .t-state-hover:hover {
+    background-color: #eef1f2;
+    border: 1px solid #D3E8DF;
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+}
+.t-state-active {
+    background-color: #FFFFFF;
+    border-color: #A7BAC5;
+}
+.t-state-selected {
+    background-color: #9BC6AB;
+    border: 1px solid #9BC6AB;
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 12px;
+}
+#Calendar .t-state-selected {
+    background-color: #9BC6AB;
+    border: 1px solid #9BC6AB;
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 12px;
+}
+
+#Calendar .t-state-selected .t-link{
+    color: White;
+}
+.t-state-focused {
+    background-color: #90C5E1;
+}
+.t-state-error {
+    background-color: #FFC0CB;
+    border-color: #FF0000;
+}
+.t-button {
+    border-color: #A7BAC5;
+    color: #333333;
+}
+.t-button, button.t-button.t-state-disabled:hover, a.t-button.t-state-disabled:hover, .t-state-disabled .t-button:hover {
+    background: url("Vista/sprite.png") repeat-x scroll 0 -560px #D1D1D1;
+}
+.t-button:hover {
+    background-color: #A7DAF4;
+    background-position: 0 -624px;
+}
+.t-state-disabled, .t-state-disabled .t-link, .t-state-disabled .t-button {
+    border-color: #BBBBBB;
+    color: #999999;
+}
+.t-toolbar, .t-grouping-header, .t-grid-pager, .t-widget .t-status {
+    background-color: #EFF7FC;
+    border-color: #BBBBBB;
+}
+.t-grid td {
+    border-color: #DDDDDD;
+}
+.t-grouping-row td {
+    background: url("Vista/sprite.png") repeat-x scroll 0 -48px #FFFFFF;
+}
+.t-footer-template td {
+    background-color: #E0E5F5;
+    border-color: #AEC5D1 #E0E5F5 #FFFFFF;
+}
+.t-group-footer td {
+    background-color: #E0E5F5;
+    border-color: #AEC5D1;
+}
+.t-grid-footer, .t-grid-footer-wrap table {
+    background-color: #E0E5F5;
+    border-color: #AEC5D1;
+}
+.t-grouping-header .t-group-indicator {
+    border-color: #CCCCCC;
+    color: #333333;
+}
+.t-grouping-dropclue {
+    background: url("Vista/sprite.png") no-repeat scroll -48px -288px transparent;
+}
+.t-grouping-row .t-group-cell, .t-grouping-row p {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.t-grouping-row p {
+    margin-left: -0.6em;
+    padding-left: 0.6em;
+}
+.t-treeview .t-drop-clue {
+    background-image: url("Vista/sprite.png");
+    background-position: 0 -358px;
+}
+.t-treeview .t-state-selected {
+    border-color: #9BC6AB;
+}
+.t-panelbar .t-link, .t-panelbar .t-group, .t-panelbar .t-content {
+    border-color: #AAAAAA;
+}
+
+#Calendar .t-other-month .t-link {
+    color: #b7b7b7;
+}
+.t-editor-button .t-state-hover {
+    background-color: #C9E8FA;
+    border-color: #EBF6FD #88A1AF #88A1AF #EBF6FD;
+}
+.t-editor-button .t-state-active {
+    background-color: #95CFEC;
+    border-color: #809EAE #BAE1F5 #BAE1F5 #809EAE;
+}
+.t-slider .t-draghandle {
+    background-image: url("Vista/sprite.png");
+    color: #333333;
+}
+.t-slider-track {
+    border-color: #D3DCE2;
+}
+.t-slider-horizontal .t-slider-track, .t-slider-horizontal .t-slider-selection {
+    background-image: url("Vista/sprite.png");
+}
+.t-slider-vertical .t-slider-track, .t-slider-vertical .t-slider-selection {
+    background-image: url("Vista/sprite-vertical.png");
+}
+.t-slider-horizontal .t-tick {
+    background-image: url("Vista/slider-h.gif");
+}
+.t-slider-vertical .t-tick {
+    background-image: url("Vista/slider-v.gif");
+}
+.t-tooltip {
+    background: url("Vista/sprite.png") repeat-x scroll 0 -96px #E4E5F0;
+    border-color: #767676;
+}
+.t-callout {
+    background-image: url("Vista/sprite.png");
+}
+.t-splitbar-vertical, .t-ghost-splitbar-vertical {
+    background-image: url("Vista/sprite.png");
+}
+.t-splitbar-horizontal, .t-ghost-splitbar-horizontal {
+    background-image: url("Vista/sprite-vertical.png");
+}
+.t-dropzone-active, .t-upload-files {
+    border-color: #D2DFE6;
+}
+.t-dropzone-hovered, .t-upload-files {
+    background-color: #EFF7FC;
+}
+.t-dropzone em {
+    color: #A7BAC5;
+}
+.t-progress, .t-progress-status {
+    background-image: url("Vista/sprite.png");
+}
+.t-progress {
+    background-position: 0 -467px;
+    border-color: #BFD0DA #C4D4DD;
+}
+.t-progress-status {
+    background-position: 0 -471px;
+    border-color: #1DB2EE transparent #0067C2;
+}
+.t-imagebrowser .t-content {
+    background: none repeat scroll 0 0 #F1F1F1;
+}
+.t-breadcrumbs .t-link {
+    color: #666666;
+}
+.t-breadcrumbs .t-link:hover {
+    color: #0066CC;
+}
+.t-breadcrumbs .t-first, .t-breadcrumbs .t-first:hover, .t-search-wrap label {
+    color: #777D81;
+}
+.t-tiles {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #A7BAC5;
+}
+.t-tile {
+    background: url("Vista/imagebrowser.png") repeat-x scroll 0 100px transparent;
+    border-color: #FFFFFF;
+}
+.t-tiles li.t-state-hover {
+    background-position: 0 0;
+    border-color: #9BC6AB;
+}
+.t-tiles li.t-state-selected {
+    background-position: 0 -100px;
+    border-color: #9BD3F0;
+}
+.t-tile .t-folder {
+    background-image: url("Vista/imagebrowser.png");
+}
+.t-tile em, .t-tile .t-filesize {
+    color: #767D80;
+}
+.t-tile-empty strong {
+    color: #A7BAC5;
+}
+
+.satus_dropdown_widht
+{
+    width: 150px;    
+}

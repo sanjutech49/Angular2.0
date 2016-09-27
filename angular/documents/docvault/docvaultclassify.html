@@ -1,0 +1,101 @@
+﻿<div>
+    <div class="imp-tooltip docvault-classifydocument-popup-container">
+        <div class="imp-div-close-x floatright" style="margin: -10px -10px" ng-click="controller.cancel();"></div>
+        <div class="docvault-classifydocument-popup-content">
+            <div class="header" style="padding-bottom:10px; height: 22px;">
+                <div class="imp-icon-doc-classify" style="float:left">
+                </div>
+                <span style="float:left; padding-top: 5px; padding-left: 10px;">Document Classification</span>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <span class="item">Document Type</span>
+                <div class="item-1">
+                    <div class="imp-span-ddl-container medium" style="width:97%;">
+                        <select class="imp-ddl" ng-model="controller.selectedDocumentType" ng-change="controller.documentTypeChange()"
+                                ng-options=" doctype.fullDescription group by doctype.class for doctype in controller.documentTypes | orderBy:['class', 'fullDescription']"></select>
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="metadata in controller.selectedDocumentType.metadata track by $index">
+                <div ng-if="controller.metadata[$index].visible" class="row" >
+                    <span class="item">{{metadata.name}}:</span>
+                    <span class="item-1">
+                        <input ng-if="metadata.type == 'Text'"
+                               ng-model="controller.metadata[$index].value"
+                               type="text"
+                               style="width:94%;"
+                               ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }" />
+                        <div class="imp-span-ddl-container medium" style="width:97%;" ng-if="metadata.type == 'BorrowerList'" ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }">
+                            <select ng-model="controller.metadata[$index].value"
+                                    class="imp-ddl"
+                                    ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }"
+                                    ng-options="borrower.value as borrower.text for borrower in controller.borrowerList"></select>
+                        </div>
+                        <div class="imp-span-ddl-container medium" style="width:97%;" ng-if="metadata.type == 'BorrowerJointList'" ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }">
+                            <select ng-model="controller.metadata[$index].value"
+                                    class="imp-ddl"
+                                    ng-change="controller.onBorrowerJointListChange()"
+                                    ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }"
+                                    ng-options="borrower.value as borrower.text for borrower in controller.borrowerJointList"></select>
+                        </div>
+                        <div class="imp-span-ddl-container medium" style="width:97%;" ng-if="metadata.type == 'REOAddressList'" ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }">
+                            <select ng-model="controller.metadata[$index].value"
+                                    class="imp-ddl"
+                                    ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }"
+                                    ng-options="address.value as address.text for address in controller.reoAddressList"></select>
+                        </div>
+                        <imp-date-picker ng-if="metadata.type == 'Date'"
+                                         display-picker="false"
+                                         type="text"
+                                         ng-model="controller.metadata[$index].value"
+                                         has-error="controller.validateForm && !controller.validateInput(controller.metadata[$index].value)"
+                                         date-settings="{defaultValidationEnabled: false, validateIsDate: true, placeholder: 'mm/dd/yyyy', width:'94%'}"></imp-date-picker>
+
+                        <input ng-if="metadata.type == 'DateTime'"
+                               type="datetime-local"
+                               placeholder="mm/dd/yyyy hh:mm"
+                               min="1900-01-01T00:00:00"
+                               ng-model="controller.metadata[$index].value"
+                               ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) || $error.required || $error.datetimelocal }"
+                               style="width: 94%; padding: 2px 2px 2px 5px;"
+                               required />
+                        <input ng-if="metadata.type == 'Number'"
+                               type="text"
+                               imp-numeric
+                               ng-model="controller.metadata[$index].value"
+                               ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }"
+                               style="width: 94%" />
+                        <input ng-if="metadata.type == 'Float'"
+                               type="text"
+                               ng-model="controller.metadata[$index].value"
+                               imp-currency=""
+                               display-currency-sign="false"
+                               negative-values="true"
+                               ng-class=" {'imp-has-error': controller.validateForm && !controller.validateInput(controller.metadata[$index].value) }"
+                               style="width: 94%" />
+                    </span>
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <span class="item">
+                    <input id="cbReject" class="imp-checkbox" type="checkbox"
+                           ng-model="controller.document.rejected"
+                           ng-true-value="true"
+                           ng-false-value="false" />
+                    <label for="cbReject" class="imp-lb-checkbox" style="font-size:12px;">Reject Document</label>
+                </span>
+                <span class="item-1"></span>
+                <textarea ng-model="controller.document.rejectReason"
+                          ng-if="controller.document.rejected"
+                          class="reject-reason"></textarea>
+               </div>
+            <div class="header">&nbsp;</div>
+            <div style="margin-top:20px;text-align:right;padding-right:12px;">
+                <input type="button" class="imp-button-hm-wm-sec" value="Cancel" ng-click="controller.cancel();" />
+                <input type="button" class="imp-button-hm-wl-prim" value="Update" ng-click="controller.update();" />
+            </div>
+        </div>
+    </div>
+</div>

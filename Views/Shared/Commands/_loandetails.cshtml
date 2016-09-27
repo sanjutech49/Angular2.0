@@ -1,0 +1,63 @@
+﻿@model MML.Web.LoanCenter.Models.LoanDetailsModel
+@using MML.Web.LoanCenter.Helpers.Utilities
+@Html.HiddenFor( m => m.LoanId, new { id = "hdnLoanDetailsLoanId" } )
+@Html.Partial( "_commandHeader", Model )
+@{
+    bool allowAus = false;
+    if ( System.Configuration.ConfigurationManager.AppSettings[ "AllowAus" ] != null )
+    {
+        bool.TryParse( System.Configuration.ConfigurationManager.AppSettings[ "AllowAus" ], out allowAus );
+    }
+
+    bool viewAUStab = AccountHelper.HasPrivilege( MML.Common.PrivilegeName.ViewAUStab );
+    bool viewConditionsTab = AccountHelper.HasPrivilege( MML.Common.PrivilegeName.ConditionsViewTab );
+}
+<div class="imp-tabs">
+    <div id="loanDetailsTab" class="imp-ui-tabs">
+        <ul id="loanDetailsList">
+            <li id="PreapprovalLi" class="imp-corner-left" style="margin-left: 15px"><a id="PreapprovalMenu" href="#detailsSubSection">Preapproval</a></li>
+            <li id="ManageLoanMenuLi" class="imp-corner-left imp-ui-tabs-li"><a id="ManageLoanMenu" href="#detailsSubSection">Loan Details</a></li>
+            <li id="RedisclosureMenuLi" class="imp-corner-right ui-tabs-selected ui-state-active imp-ui-tabs-li"  style="display:none"><a id="RedisclosureMenu" href="#detailsRedisclosure">Re-Disclosure</a></li>
+            <li id="AUSMenuLi" class="imp-ui-tabs-li" style="display:@( allowAus && viewAUStab ? "block" : "none");"><a id="AUSMenu" href="#detailsAusSection">AUS</a></li>
+            @if ( viewConditionsTab )
+            { <li id="ConditionsMenuLi" class="imp-corner-right imp-ui-tabs-li"><a id="ConditionsMenu" href="#conditionsSubSection">Conditions</a></li> }
+        </ul>
+
+        <div id="loanDetailsSubTabProgressBar" class="div-loanDetails-sub-tab-loading">
+            <img src="@CDNHelper.ImagesStaticContentUrl/Content/ajax-loader.gif" alt="Loading..." />
+        </div>
+
+        <div id="detailsSubSection" class="imp-inner-section">
+        </div>
+         
+        <div id="detailsAusSection">
+            @if ( allowAus && viewAUStab )
+            {
+                var addData = new System.Web.Mvc.ViewDataDictionary();
+                
+                addData.Add("viewAusTab", viewAUStab);
+                
+                @Html.Partial("Aus/_aus", Model, addData);
+            }
+        </div>
+         
+        <div id="detailsRedisclosure">
+        </div>
+
+        <div id="conditionsSubSection">
+        </div>
+
+    </div>
+</div>
+ <div id="changeSectionLoanDetailsPopup" style="display: none;">
+        <div class="modalBackground">
+        </div>
+        <div class="imp-change-popup-inner" style="height:83px;">
+            <div id="changeSectionLoanDetailsPopupText" class="imp-popup-text">
+            </div>
+            <div style="padding-top: 10px">
+               <input type="button" id="imp-loan-details-first-button" class="imp-button-hm-wxl-prim" value="Continue, Don’t Save"/>
+               <input type="button" id="imp-loan-details-second-button" class="imp-button-hm-wl-prim" value="Cancel"/>
+            </div>
+        </div>
+   </div>

@@ -1,0 +1,64 @@
+﻿<div id="divDocVaultSubTab" class="div-conditions-subtab" ng-controller="DocVaultController">
+    <div class="div-conditions-conditionsgrid">
+        <div class="imp-sa-table-title-row">
+            <div class="imp-sa-table-title">
+                <div class="imp-doc-vault"></div>
+                <span class="imp-sa-title">Doc Vault</span>
+            </div>
+        </div>
+        <div class="imp-sa-grid-content" style="width: 100%;">
+            <div id="divConditionsDocVaultHeader" class="imp-sa-grid-col-header div-conditions-docvault-grid-col-header">
+                <div class="div-docvault-display-header" style="min-width: 4%; padding-left: 37px;">
+                    File</div>
+                <div class="div-docvault-display-header" style="min-width: 48%;">
+                    Document</div>       
+                <div class="div-docvault-display-header" style="min-width: 17.3%;">
+                    Uploaded By</div>
+                <div class="div-docvault-display-header" style="min-width: 13.25%;">
+                    Date</div>
+                <div class="div-docvault-display-header" style="min-width: 5%;">
+                    Last Updated</div>
+            </div>
+            <div ng-class="$index == 0 ? 'imp-sa-grid-row-first' : 'imp-sa-grid-row'" ng-repeat="(categoryName, category) in groupedDocuments"
+                ng-init="categoryIndex = $index" style="padding: 0px;">
+                <div class="imp-sa-grid-section-header" style="padding: 0px 22px;">
+                    <div ng-click="category.visibleDocVault=!category.visibleDocVault" ng-class="(category.visibleDocVault) ? 'imp-sa-grid-row-collaps down' : 'imp-sa-grid-row-collaps right'">
+                    </div>
+                    {{ categoryName.replace("01", "").replace("02", "").replace("03", "") }}
+                </div>
+                <div class="div-conditionCategories-rowChild condition-category-group-details" style="padding: 0;"
+                   ng-init="category.visibleDocVault = docVaultCategoryVisible(categoryName) ? true : category.visibleDocVault"  ng-repeat="document in category" ng-show="category.visibleDocVault">
+                    <div class="div-conditionCategories-childcolumns floatleft" style="width: 100%;" 
+                    ng-init="repositoryIdEmpty = document.RepositoryId == null || document.RepositoryId == ''">
+                        <div class="div-docvault-display-row" style="min-width: 4%; max-width: 4%; padding-left: 37px;"
+                        ng-init="fileDownloadUrl = documentDownloadLink(document.RepositoryId)">
+                            <div ng-if="docVaultIsUnclassifiedCategory(categoryName)">
+                                <div imp-context-menu="documentclassificationMenu" ng-dblclick="downloadDocument(fileDownloadUrl)"
+                                    class="imp-aus-row-pdfimage-div" ng-style="repositoryIdEmpty ?  {cursor: 'default'} : ''">
+                                </div>
+                            </div>
+                            <div ng-if="!docVaultIsUnclassifiedCategory(categoryName)">
+                                <div ng-dblclick="downloadDocument(fileDownloadUrl)" class="imp-aus-row-pdfimage-div"
+                                    ng-style="repositoryIdEmpty ?  {cursor: 'default'} : ''">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div-docvault-display-row" style="min-width: 48.5%; max-width: 48.5%;">
+                             {{document.Name}}                                      
+                             <div class="smallloader" ng-show="document.Processing" style="margin-right: 10px;"></div>
+                        </div>           
+                        <div class="div-docvault-display-row" style="min-width: 16.2%;">
+                            {{document.UploadedBy}}</div>
+                        <div class="div-docvault-display-row" style="min-width: 12.8%; padding-left: 8px;">
+                            {{document.UploadedDate}}</div>
+                        <div class="div-docvault-display-row" style="min-width: 5%; padding-left: 5px;">
+                            {{document.LastUpdated}}</div>
+                    </div>
+                    <div class="div-conditionCategories-childcolumns floatright imp-div-txt-input"
+                        style="padding-bottom: 5px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

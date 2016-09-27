@@ -1,0 +1,119 @@
+﻿<div class="imp-mailroom">
+    <div class="container imp-mailroom-workbench-margin">
+        <div class="section">
+            <div class="row-1">
+                <div class="section-row">
+                    <div class="cbar-value bold col-1">{{mailroomCtrl.wrappedLoan.ref.active.getBorrower().fullName}}</div>
+                    <div class="cbar-value bold col-1" ng-if="mailroomCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">{{mailroomCtrl.wrappedLoan.ref.active.getCoBorrower().fullName}}</div>
+                    <div class="cbar-value col-2">{{mailroomCtrl.wrappedLoan.ref.active.getBorrower().getMailingAddress().fullAddressString}}</div>
+                    <div class="cbar-value col-3">{{mailroomCtrl.wrappedLoan.ref.active.disclosureStatusDetails.disclosureStatusText}}</div>
+                    <div class="cbar-value col-4">{{mailroomCtrl.dueDate | date:"MM/dd/yy" }}</div>
+                    <div class="cbar-value col-1">{{mailroomCtrl.wrappedLoan.ref.conciergeFullName}}</div>
+                </div>
+                <div class="section-row">
+                    <div class="cbar-label col-1">Borrower Name</div>
+                    <div class="cbar-label col-1" ng-if="mailroomCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">Co-Borrower Name</div>
+                    <div class="cbar-label col-2">Mailing Address</div>
+                    <div class="cbar-label col-3">Disclosure Status</div>
+                    <div class="cbar-label col-4">Due Date</div>
+                    <div class="cbar-label col-1">Loan Officer</div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-row">
+                <div class="content">
+                    <div class="header">
+                        <div class="header-text">Disclosures</div>
+                    </div>
+                    <div class="row nohover">
+                        <div class="col imp-disclaimer" style="width: 35px;">
+                            File
+                        </div>
+                        <div class="col imp-disclaimer" style="width: 35px;">
+                            Print
+                        </div>
+                        <div class="col imp-disclaimer" style="width: 35px;">
+                            Menu
+                        </div>
+                        <div class="col imp-disclaimer" style="width: 400px;">
+                            Document Name
+                        </div>
+                        <div class="col imp-disclaimer" style="width: 150px;">
+                            Status
+                        </div>
+                        <div class="col imp-mailroom-workbench-col imp-disclaimer" style="width: 110px;">
+                            Updated By
+                        </div>
+                        <div class="col imp-disclaimer" style="width: 130px;">
+                            Last Updated
+                        </div>
+                    </div>
+                    <div ng-repeat="document in mailroomCtrl.wrappedLoan.ref.documents.docVaultDocuments | filter:mailroomCtrl.checkDocumentId">
+                        <div class="row">
+                            <div class="col" style="width: 35px;" ng-dblclick="mailroomCtrl.downloadDocument(document.repositoryId)">
+                                <div class="imp-icon-pdf-small" style="margin-left: 3px;">
+                                </div>
+                            </div>
+                            <div class="col" style="width: 25px; margin-right: 15px;">
+                                <imp-print-pdf fileitemid="{{document.repositoryId}}" useraccountid="{{mailroomCtrl.applicationData.currentUserId}}">
+                                </imp-print-pdf>
+                            </div>
+
+                            <div class="col" style="width: 35px;">
+                                <div class="imp-icon-menu" style="margin-left: 6px;" ng-click="mailroomCtrl.openDocVaultMenu($event,document)">
+                                </div>
+                            </div>
+                            <div class="col" style="width: 400px;">
+                                {{document.name}}
+                            </div>
+                            <div class="col" style="width: 150px;">
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl"
+                                            ng-model="document.status"
+                                            ng-options="status.value as status.text for status in mailroomCtrl.applicationData.lookup.documentStatus | filter: mailroomCtrl.filterStatuses"
+                                            ng-change="mailroomCtrl.documentStatusChanged(document)"></select>
+                                </div>
+                            </div>
+                            <div class="col imp-mailroom-workbench-col" style="width: 110px;">
+                                {{document.updatedBy}}
+                            </div>
+                            <div class="col" style="width: 130px;" ng-style="preapprovallettersCtrl.isLetterExpired(preApprovalLetterHistory.expirationDate) && {'color': '#ef1126'} ">
+                                {{document.lastUpdated}}
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="imp-workbench-border-bottom "></div>                 
+                    <div class="col imp-workbench-div-margin">
+                        <div class="imp-workbench-position-float">
+                            <div class="imp-workbench-position-float imp-workbench-sent-by-margin"> Sent By &nbsp;</div>
+                            <div class="col imp-workbench-position-float imp-workbench-ddl-width">
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl"
+                                            ng-model="mailroomCtrl.wrappedLoan.ref.getActiveDisclosureDetailsViewModel().sentBy"
+                                            ng-options="selectedItem.value as selectedItem.text for selectedItem in mailroomCtrl.getSendingMethods()">
+                                        <option value="">Select One</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div>
+                        <span class="imp-workbench-tracking-margin">Tracking Number &nbsp;</span>
+                        <input type="text" ng-model="mailroomCtrl.wrappedLoan.ref.getActiveDisclosureDetailsViewModel().trackingNumber" style="width: 144px;">
+                    </div>
+                            
+                </div>
+            </div>
+            <div class="imp-workbench-button-section-padding imp-workbench-button-section-line">
+                <div class="imp-hyperlink imp-workbench-button-section">
+                    <span class="imp-workbench-link" ng-click="mailroomCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: mailroomCtrl.enums.myListQueue.mailRoom, queueTitle: 'Mail Room' })" href="#/queue">Mailroom List</span>
+                            <div class="imp-main-buttons-div imp-workbench-button-section-padding">
+                                <input type="button" class="imp-button-hm-wm-sec" value="Snooze" ng-disabled="!mailroomCtrl.enableSnooze" ng-click="mailroomCtrl.snoozeLoan()" />                      
+                        <input type="button" class="imp-button-hm-wl-prim" value="Save & Next" ng-disabled="!mailroomCtrl.enableSaveAndNext" ng-click="mailroomCtrl.saveAndNext();" />
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</div>

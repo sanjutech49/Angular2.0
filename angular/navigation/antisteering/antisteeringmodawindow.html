@@ -1,0 +1,49 @@
+﻿<div class="imp-steering-modal">
+    <div class="modal-container">
+        <div class="header">Anti-Steering Loan Options for Disclosures</div>
+        <div class="imp-split"></div>
+        <div class="content">
+            <div class="row-item">
+                <div class="first-column">{{antiSteeringCtrl.amortizationTypeText}}</div>
+                <div class="second-column">Interest Rate</div>
+                <div class="third-column">Total Origination Points/ Fees & Discount Points</div>
+            </div>
+            <div class="row-item">
+                <div class="first-column" style="margin-top: 7px;"><strong>Option 1</strong>: Loan with the lowest interest rate</div>
+                <div class="second-column" style="margin-top: 5px;">
+                    <input type='text' class="input-interest-rate" imp-percentage ng-model="antiSteeringCtrl.model.firstInterestRate" />
+                </div>
+                <div class="third-column" style="margin-top: 5px;">
+                    <input type='text' class="input-points" imp-currency ng-model="antiSteeringCtrl.model.firstTotalPoints" />
+                </div>
+            </div>
+            <div class="row-item">
+                <div class="first-column"><strong>Option 2</strong>: Loan with the lowest Interest Rate without negative amorti- zation, a prepayment penalty, interest-only payments, a balloon pay- ment in the 
+                                                           first 7 years of the life of the loan, a demand feature, shared equity, or shared appreciation.</div>
+                <div class="second-column">
+                    <input type='text' class="input-interest-rate" imp-percentage ng-model="antiSteeringCtrl.model.secondInterestRate" />
+                </div>
+                <div class="third-column">
+                    <input type='text' class="input-points" imp-currency ng-model="antiSteeringCtrl.model.secondTotalPoints" />
+                </div>
+            </div>
+            <div class="row-item">
+                <div class="first-column"><strong>Option 3</strong>: Loan with the lowest total dollar amount for origination points or fees and discount points.</div>
+                <div class="second-column">
+                    <input type='text' class="input-interest-rate" imp-percentage ng-model="antiSteeringCtrl.model.thirdInterestRate" />
+                </div>
+                <div class="third-column">
+                    <input type='text' class="input-points" imp-currency ng-model="antiSteeringCtrl.model.thirdTotalPoints" />
+                </div>
+            </div>
+        </div>
+        <div class="imp-split"></div>
+        <div class="footer">
+            <div class="buttons">
+                <input type="button" class='imp-button-hm-wm-sec' ng-click="antiSteeringCtrl.cancel()" value="Cancel" />
+                <input type="button" class='imp-button-hm-wl-prim' ng-click="antiSteeringCtrl.done()" ng-disabled="antiSteeringCtrl.isDoneDisabled()" value="Done">
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,6 @@
+﻿<div>
+    <!--Person of Income Name, Type of Income, Amount of Monthly Income.-->
+    <div class="col-md-4">{{ item.borrowerFullName || 'Borrower' }}</div>
+    <div class="col-md-4">{{ item.incomeTypeName || 'Income Type'}}</div>
+    <div class="col-md-3">{{ (item.incomeValue  | currency) || '$0' }}</div>
+</div>

@@ -1,0 +1,901 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using MML.Common
+@using Telerik.Web.Mvc.UI
+@using MML.Web.LoanCenter.Helpers.Enums
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using MML.Common.Helpers;
+@using ( Html.BeginForm() )
+{    
+    @Html.AntiForgeryToken()
+        
+    if ( Session[ SessionHelper.DisplaySystemAdmin ] == null || !( bool )Session[ SessionHelper.DisplaySystemAdmin ] )
+    {
+    <section id="filtersection" >
+        @{Html.RenderAction( "Execute", "Command", new { Command = "UserFilterDataLoad" } );}
+    </section>
+    
+    <section id="mainsection" style="text-align: center;">
+
+		@if ( Session[ "CurrentTab" ] == null || ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Prospect )
+  {
+      Html.RenderAction( "Execute", "Command", new { Command = "ProspectGridDataLoad" } );
+  }
+  else
+  {
+      switch ( ( LoanCenterTab )Session[ "CurrentTab" ] )
+      {
+          case LoanCenterTab.Pipeline:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenPipelineTab" } );
+              break;
+          case LoanCenterTab.Alerts:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenAlertTab" } );
+              break;
+          case LoanCenterTab.NewLoanApplication:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenNewLoanApplicationTab" } );
+              break;
+          case LoanCenterTab.PendingApproval:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenPendingApprovalTab" } );
+              break;
+          case LoanCenterTab.PreApproval:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenPreApprovalTab" } );
+              break;
+          case LoanCenterTab.Cancelled:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenCancelTab" } );
+              break;
+          case LoanCenterTab.CompletedLoans:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenCompletedLoansTab" } );
+              break;
+          case LoanCenterTab.OrderRequested:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenOrderRequestedTab" } );
+              break;
+          case LoanCenterTab.OrderProcessed:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenOrderProcessedTab" } );
+              break;
+          case LoanCenterTab.OrderDeliveredForReview:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenOrderDeliveredForReviewTab" } );
+              break;
+          case LoanCenterTab.OrderException:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenOrderExceptionTab" } );
+              break;
+          case LoanCenterTab.MailRoom:
+              Html.RenderAction( "Execute", "Command", new { Command = "OpenMailRoomTab" } );
+              break;
+          default:
+              Html.RenderAction( "Execute", "Command", new { Command = "ProspectGridDataLoad" } );
+              break;
+      }
+  }
+	</section>
+    
+@*  <section id="appointmentsection">
+        @{Html.RenderAction( "Execute", "Command", new { Command = "CalendarDataLoad" } );}
+    </section>
+
+    <section id="mailboxsection">
+        @{Html.RenderAction( "Execute", "Command", new { Command = "EmailDataLoad" } );}
+    </section>*@
+    
+
+    
+    <section id="loanDetailsSection" class="loanDetailsSection" ng-controller="LoanCenterConditionsController">
+    </section>
+    
+    <section id="borrowerDetailsSection" class="borrowerDetailsSection">
+    </section>
+    
+    <section id="rateOptionsDetailsSection" class="rateOptionsDetailsSection" style="display: none;">
+    </section>
+    
+    <section id="detailsSection" class="detailsSection" style="display: none;">
+    </section>
+    
+    <section id="addNew" class="addNew">
+    </section>
+    }
+ 
+}
+<input type="hidden" id="hdnConciergeUrl" value="@System.Configuration.ConfigurationManager.AppSettings[ "ConciergeUrl" ]"/>
+<input type="hidden" id="hdnLoginTimeout" value="@CommonHelper.SessionTimeout()" />
+<input type="hidden" id="hdnEncryptSSN" value="@System.Configuration.ConfigurationManager.AppSettings["EncryptSSN"]"/>
+
+<div id="PopupContainer" class="notdisplayed">
+</div>
+<div id="PopupContainerForClick" class="LoanCenterPopup" style="display: none">
+</div>
+<div id="PopupContainerDueDateForClick" class="LoanCenterDueDatePopup arrow_box" style="display: none;">
+    <div class="dueDateContentDiv">
+        <div class="dueDateContentDivMessage" style="float:left;">
+
+        </div>
+        <div class="closeDuoDatePopUp" id="closeDuoDatePopupContainer" style="float:right;"></div>
+    </div>
+</div>
+
+<div id="confirmation_dialog" title="Confirmation Required" class="notdisplayed">
+  Want to duplicate selected loan?
+</div>
+
+<div id="dialog-modal-responsive" title="Alert" class="notdisplayed">
+      <br />  
+     <span id="dialog-modal-text" class="alertmessage" style="display: none">.</span>
+</div>
+
+<div id="importloan_dialog" title="Import Loan from XML File" class="notdisplayed">
+  Please browse to select XML file.
+  <br /><br />
+  <input type="file" id="ImportLoan" name="ImportLoan" accept="/xml" class="notdisplayed"/>
+  <br /><br />
+  <input type="button" id="UploadXMLfile" value=" Upload " name="ImportLoan" class="notdisplayed"  />
+</div>
+<div id="importloan_dialog_from_pending_approval" title="Create a Test Loan from XML File" class="notdisplayed">
+  Please browse to select XML file.
+  <br /><br />
+  <input type="file" id="ImportLoan_from_pending_approval" name="ImportLoan_from_pending_approval" accept="/xml" class="notdisplayed"/>
+  <br /><br />
+  <input type="button" id="UploadXMLfile_from_pending_approval" value=" Upload " name="UploadXMLfile_from_pending_approval" class="notdisplayed"  />
+</div>
+
+<ul id="myMenu" class="contextMenu">
+    <li></li>
+    <li class="select"><a href="#">View/Edit Details</a></li>
+    <li><a href="#">View/Edit Loan Status</a></li>
+    <li><a href="#">Shop For a Loan</a></li>
+    <li></li>
+</ul>
+<ul id="myMenuProspectsGetStarted" class="contextMenu">
+    <li></li>
+    <li><a href="#GetStarted">Start New Prospect/Loan</a></li>
+    <li></li>
+</ul>
+     @if (AccountHelper.HasPrivilege(PrivilegeName.ImportLoan))
+        {
+            // this menu item does not requiere the left arrow-style render with other menu items. Please see function "SetTrianglePosition()" located at "scriptes\LoancenterShared.js"
+<ul id="myMenuPendingApprovalGetStarted" class="contextMenu">
+    <li></li>
+    <li><a href="#ImportLoanFromFile" onclick="ClickAndImportLoanFromPendingApproval()">Create a Test Loan</a></li>
+</ul>
+    }    
+<ul id="myMenuProspects" class="contextMenu">
+    <li></li>
+    <li><a href="#GetStarted">Start New Prospect/Loan</a></li>
+    <li><a href="#ManageProspects">Manage Prospects</a></li>
+    <li><a href="#AssignLoanInfo" id="AssignLoanInfoMenuProspects">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication" id="ManageLoanApplicationMenuPropspects">Loan Application</a></li>
+    <li><a href="#LoanDetails" id="ManageLoanMenu">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li id="prospectExportLoan"><a href="#ExportThisLoan" onclick="ClickAndExportLoan()">Export This Loan</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit" id="ManageCreditMenuPropspects">Credit</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Documents</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities" id="ManageActivitiesMenu">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts" id="ManageAlertsMenuPropspects">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement" id="FileManagementMenuPropespects">File Management</a></li>
+    @if ( Context != null && Context.Session != null && Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] != null && ( Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] as MML.Contracts.UserAccount ) != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges.FirstOrDefault( x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction ) != null )
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+<ul id="myMenuProspectsChildLoan" class="contextMenu">
+    <li></li>
+    <li><a href="#GetStarted">Start New Prospect/Loan</a></li>
+    <li><a href="#ManageProspects">Manage Prospects</a></li>
+    <li><a href="#AssignLoanInfo" id="AssignLoanInfoMenuProspects">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication" id="ManageLoanApplicationMenu">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit" id="ManageCreditMenu">Credit</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Documents</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities" id="ManageActivitiesMenu">Activities</a></li>
+    <li><a href="#ManageAlerts" id="ManageAlertsMenu">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement" id="FileManagementMenu">File Management</a></li>
+     @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+
+<ul id="myMenuPipeline" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    @if (System.Configuration.ConfigurationManager.AppSettings["AllowAus"] != null && Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["AllowAus"]))
+    {
+       @* <li><a href="#AusExportDU">AUS DU Export (Test Only)</a></li>
+        <li><a href="#AusExportLP">AUS LP Export (Test Only)</a></li>*@
+    }
+    @if ( AccountHelper.HasPrivilege( PrivilegeName.InitiateEvent ) )
+    {
+        @*<li><a href="#TESTCreateServiceEvent">Initiate Test Event</a></li>*@
+    }
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#CopyThisLoan" onclick="ClickAndCopyLoan()" class="disabled">Duplicate This Loan</a></li>
+    <li><a href="#ExportThisLoan" onclick="ClickAndExportLoan()" >Export This Loan</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( Context != null && Context.Session != null && Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] != null && ( Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] as MML.Contracts.UserAccount ) != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges.FirstOrDefault( x => x.Name == MML.Common.PrivilegeName.EnableManageAppraisal ) != null )
+    {
+        <li><a href="#ManageAppraisal">Appraisal</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    }
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if (AccountHelper.HasPrivilege(PrivilegeName.AccessToActivities))
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+<ul id="myMenuPipelineChildLoan" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li  class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities">Activities</a></li>
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuAlerts" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.EnableManageAppraisal) != null)
+    {
+        <li><a href="#ManageAppraisal">Appraisal</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    }
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if (AccountHelper.HasPrivilege(PrivilegeName.AccessToActivities)) 
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuAlertsChildLoan" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li  class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities">Activities</a></li>
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+
+<ul id="myMenuNewLoanApplication" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if ( Context != null && Context.Session != null && Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] != null && ( Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] as MML.Contracts.UserAccount ) != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges.FirstOrDefault( x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction ) != null )
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+<ul id="myMenuNewLoanApplicationChildLoan" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li  class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities">Activities</a></li>
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+
+<ul id="myMenuPendingApproval" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.EnableManageAppraisal) != null)
+    {
+        <li><a href="#ManageAppraisal">Appraisal</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    }
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if ( Context != null && Context.Session != null && Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] != null && ( Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] as MML.Contracts.UserAccount ) != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges.FirstOrDefault( x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction ) != null )
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+<ul id="myMenuPendingApprovalChildLoan" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li  class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities">Activities</a></li>
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuCompleted" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.EnableManageAppraisal) != null)
+    {
+        <li><a href="#ManageAppraisal">Appraisal</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    }
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuCompletedChildLoan" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li  class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities">Activities</a></li>
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuCancel" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.EnableManageAppraisal) != null)
+    {
+        <li><a href="#ManageAppraisal">Appraisal</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    }
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuCancelChildLoan" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li  class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities">Activities</a></li>
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuPreApproval" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuPreApprovalChildLoan" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li><a href="#ManageCredit">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    <li><a href="#ManageActivities">Activities</a></li>
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()" >Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<ul id="myMenuAppraisal" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.EnableManageAppraisal) != null)
+    {
+        <li class="select"><a href="#ManageAppraisal">Appraisal</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    }
+    <li><a href="#ManageFees">Closing Costs</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if ( Context != null && Context.Session != null && Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] != null && ( Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] as MML.Contracts.UserAccount ) != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges != null && ( ( MML.Contracts.UserAccount )Context.Session[ MML.Common.Helpers.SessionHelper.UserData ] ).Privileges.FirstOrDefault( x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction ) != null )
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+<ul id="myMenuMailRoom" class="contextMenu">
+    <li></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Start New Prospect/Loan</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Manage Prospects</a></li>
+    <li class="select"><a href="#AssignLoanInfo">Assign Loan Information</a></li>
+    <li><a href="#ManageLoanApplication">Loan Application</a></li>
+    <li><a href="#LoanDetails">Loan Details</a></li>
+    <li><a href="#ViewInBorrower">View In Borrower Site</a></li>
+    <li>
+        <hr />
+    </li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Appraisal</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Closing Costs</a></li>
+    <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Credit</a></li>
+    <li><a href="#ManageDocuments">Documents</a></li>
+    <li><a href="#ManageDisclosures">Disclosures</a></li>
+    <li>
+        <hr />
+    </li>
+    @if ( AccountHelper.HasPrivilegeForAccessToActivities() )
+    {
+        <li><a href="#ManageActivities">Activities</a></li>
+    }
+    else
+    { 
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Activities</a></li>
+    }
+    <li><a href="#ManageAlerts">Alerts</a></li>
+    <li><a href="#ConversationLog" onclick="Log.ClickAndShowLog()">Conversation Log</a></li>
+    <li><a href="#FileManagement">File Management</a></li>
+    @if (Context != null && Context.Session != null && Context.Session[MML.Common.Helpers.SessionHelper.UserData] != null && (Context.Session[MML.Common.Helpers.SessionHelper.UserData] as MML.Contracts.UserAccount) != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges != null && ((MML.Contracts.UserAccount)Context.Session[MML.Common.Helpers.SessionHelper.UserData]).Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.LoanServicesTabView || x.Name == MML.Common.PrivilegeName.LoanServicesTabRetryAction) != null)
+    {
+        <li><a href="#LoanServices">Services</a></li>
+    }
+    else
+    {
+        <li class="tempdisabled disabled"><a href="#disabled" class="disabled">Services</a></li>
+    }
+    <li></li>
+</ul>
+
+<div id="triangleForMenu" style="display:none"></div>

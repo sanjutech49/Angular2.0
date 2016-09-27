@@ -1,0 +1,94 @@
+﻿<div class="header">
+    <div class="title">
+        <div ng-class="collections.isCollapsed.collections ? 'imp-collapsed right':'imp-collapsed down'" ng-click="collections.isCollapsed.collections = !collections.isCollapsed.collections"></div>
+        <span class="lable-main">Collections</span>
+        <div class="imp-collections"></div>
+        <div class="actions add" ng-hide="collections.disableFields" ng-click="collections.addCollectionsRow()"><imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>Add Item</div>
+    </div>
+
+</div>
+<div collapse="collections.isCollapsed.collections">
+    <div class="content container">
+        <div class="row">
+            <div class="col-xl">Borrower</div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-m">Collector Name</div>
+            <div class="col-xm">Account #</div>
+            <div class="col-xs">Months</div>
+
+            <div class="col-m"><div class="amount-title">Balance</div></div>
+            <div class="col-m"><div class="amount-title">Payment</div></div>
+            <div class="col-xxxxm">Comment</div>
+            <div class="col-xxxs"></div>
+        </div>
+        
+        <div class="row" ng-repeat="collection in collections.getCollections()" ng-hide="collection.isRemoved">
+            <div class="col-xl borrower">
+                <div ng-class="collection.isUserEntry ? 'imp-span-ddl-container medium' : 'imp-select-to-span-container'">
+                    <select ng-model="collection.borrowerId" ng-disabled="!collection.isUserEntry" ng-class="{'imp-select-to-span': !collection.isUserEntry}"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in collections.borrowers"
+                            ng-change="collections.moveCollectionBetweenBorrowerAndCoBorrower(collection)"
+                            class="imp-ddl" required>
+                        <option value="">Select One</option>co
+                    </select>
+                </div>
+            </div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs">
+                <imp-icon-info ng-click="collections.showCompanyInfo(collection, $event)" has-value="collection.companyData.hasChanges"></imp-icon-info>
+            </div>
+            <div class="col-m" ng-show="!collection.isUserEntry">
+                {{collection.companyData.companyName}}
+            </div>
+            <div class="col-m" ng-show="collection.isUserEntry">
+                <input type="text" data-ng-model="collection.companyData.companyName" ng-disabled="collection.liabilityDisabled || collection.collectionColumnsDisabled" />
+            </div>
+            <div class="col-xm">
+                <input type="text" data-ng-model="collection.accountNumber" ng-disabled="collection.liabilityDisabled || collection.collectionColumnsDisabled" />
+            </div>
+            <div class="col-xs">
+                <input type="text" data-ng-model="collection.monthsLeft" disabled="disabled" />
+            </div>
+            <div class="col-m">
+                <input type="text" imp-currency data-ng-model="collection.unpaidBalance" ng-disabled="collection.liabilityDisabled || collection.collectionColumnsDisabled" />
+            </div>
+            <div class="col-m">
+                <input type="text" imp-currency data-ng-model="collection.minPayment" disabled="disabled" />
+            </div>
+            <div class="col-xxxxm">
+                <div class="imp-span-ddl-container medium">
+                    <select ng-change="collections.collectionsCommentChanged(collection)" name="comment" ng-model="collection.debtCommentId" ng-options="selectedItem.value as selectedItem.text for selectedItem in collections.applicationData.lookup.collectionComments"
+                            class="imp-ddl" required></select>
+                </div>
+            </div>
+            <div class="col-xxxs">
+            </div>
+            <div class="col-xxxs"></div>
+
+            <div class="col-xxxs">
+                <imp-circle size="xsmall" style="position: relative; top: -5px; margin-left: -2px"
+                            color="#F4BABC" hover-color="#e73302" is-plus="false" ng-click="collections.deleteCollectionsRow($index)"
+                            ng-show="collection.isUserEntry"></imp-circle>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <div class="row-fluid">
+            <div class="col-xl"> </div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-m"></div>
+            <div class="col-xm title">Totals</div>
+            <div class="col-xs"></div>
+            <div class="col-m value">{{collections.summateTotalCollectionsUnpaidBalance() | currency:'$':2}}</div>
+            <div class="col-m value">{{collections.summateTotalCollectionsPayments() | currency:'$':2}}</div>
+            <div class="col-xxxxm"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+        </div>
+    </div>
+</div>

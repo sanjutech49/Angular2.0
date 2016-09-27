@@ -1,0 +1,5 @@
+﻿<div>
+    <div class="col-md-4">{{ (item.companyName) || 'Company Name'}}</div>
+    <div class="col-md-2 col-md-offset-1">{{ (item.baseSalary | currency) || '$0'}}</div>
+    <div class="col-md-3" style="padding-left: 0px; padding-right: 0px;">{{item.isMonthlySalary() ? '/ mo' : '/ yr'}}</div>
+</div>

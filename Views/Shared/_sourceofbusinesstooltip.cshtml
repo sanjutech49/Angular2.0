@@ -1,0 +1,96 @@
+﻿@model MML.Contracts.ContactView
+@using MML.Common.Helpers
+<div class="sourceofbusiness">
+    <div class="triangle">
+    </div>
+    <div class="sourceofbusinesstooltip">
+            <div class="sourceofbusinesstooltipg">
+        <table>
+            <tr>
+                <td colspan="2" class="line1">
+                    Source of Business
+                </td>
+            </tr>
+            <tr>
+                <td class="first">
+                    Lead Source Type
+                </td>
+                <td class="regularfont">
+                   @Model.LeadSourceType
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Contact Name
+                </td>
+                <td class="regularfont">
+                @if (Model.ReferralContact != null)
+                { 
+                @StringHelper.FormatStringForDisplay(Model.ReferralContact)
+                }
+                else
+                { 
+                <span>No information provided.</span>
+                }
+                </td>
+            </tr>
+            @if (Model.ReferralContact != null)
+            { 
+            <tr>
+                <td>
+                    Company
+                </td>
+                <td class="regularfont">
+                @Model.CompanyName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Preferred Phone
+                </td>
+                <td class="regularfont">
+                @if (Model.ReferralContactPrefferedPhone!="")
+                {
+                @StringHelper.FormatPhoneNumber(Model.ReferralContactPrefferedPhone) <span>(</span>@Model.ReferralContactPrefferedPhoneType<span>)</span>
+                 }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Alternate Phone
+                </td>
+                <td class="regularfont">
+                @if(Model.ReferralContactAlternatePhone != string.Empty)
+                {
+                @StringHelper.FormatPhoneNumber(Model.ReferralContactAlternatePhone) <span>(</span>@Model.ReferralContactAlternatePhoneType<span>)</span>
+                 }
+                </td>
+            </tr>
+               
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td class="regularfont">
+                <a href="mailto: @Model.ReferralContactEmail" class="contactemail">@Model.ReferralContactEmail</a>
+                </td>
+            </tr>
+            <tr>
+            
+                <td colspan="2" class="line2">
+                    <input type="button" class="viewedit" value="" />
+                </td>
+            </tr>
+            }
+            else
+            { 
+            <tr>
+                <td colspan="2" class="line2">
+                   
+                </td>
+            </tr>
+            
+            }
+        </table>
+    </div></div>
+</div>

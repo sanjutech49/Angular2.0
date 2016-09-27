@@ -1,0 +1,48 @@
+﻿@model MML.Web.LoanCenter.Models.LoanDetailsModel
+<script type="text/javascript">
+    $(document).ready(function () {
+        DefaultAUS.GetAllowedAus('@Model.LoanId', '@ViewBag.viewAusTab');
+
+        //Aus.OpenAusTab('FannieMae', '@Model.LoanId');
+    });
+</script>
+<div id="ausTabs" class="imp-sub-tabs">
+    <ul >
+        <li class="imp-corner-left">
+            <a href="#fannieMaeDu" id="fannieMaeDuLink" onclick="Aus.OpenAusTab('FannieMae', '@Model.LoanId' )">
+                Fannie Mae - DU
+            </a>
+            <canvas id="fannieMaeDuCanvas" style="display: block;" class="canvas" height="15" width="15"></canvas>
+        </li>
+        <li style="margin-left: -3px;">
+            <a href="#freddieMacLp" id="freddieMacLink" onclick="Aus.OpenAusTab('FreddieMac', '@Model.LoanId' )">
+                Freddie Mac - LP
+            </a>
+            <canvas id="freddieMacLpCanvas" class="canvas" height="15" width="15"></canvas>
+        </li>
+        <li style="margin-left: -3px;">
+            <a href="#usdaGus">USDA-GUS</a>
+            <canvas id="usdaGusCanvas" class="canvas" height="15" width="15"></canvas>
+        </li>
+        <li class="imp-corner-right" style="margin-left: -3px;">
+            <a href="#manualUnderwriting">
+                Manual Underwriting
+            </a>
+            <canvas id="manualUnderwritingCanvas" class="canvas" height="15" width="15"></canvas>
+        </li>
+    </ul>
+    <div class="imp-text-hs-wl-prim imp-aus-type" >
+        <span>AUS Type:</span>
+            <div class="imp-span-ddl-container">
+                <select id="aus-type" class="imp-ddl" onchange="DefaultAUS.UpdateDefaultAus('@Model.LoanId');"></select>
+            </div>
+        </div>
+    <div id="fannieMaeDu" class="imp-tabs">
+    </div>
+    <div id="freddieMacLp" class="imp-tabs">
+    </div>
+    <div id="usdaGus" class="imp-tabs">
+    </div>
+    <div id="manualUnderwriting" class="imp-tabs">
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿<div class="imp-adverse-modal-content">
+    <div class="header">
+        <div class="imp-icon-adverse"></div>
+        <div class="header-text">Adverse Reason</div>
+        <div class="border-bottom"></div>
+    </div>
+    <div class="adverse-content">
+        <div class="adverse-title">Please select a reason for Adversing this loan. </div>
+        <!--problem with resizeing textarea (inline css)-->
+        <div class="adverse-reason-text">
+            <div class=" adverse-reason-ddl">
+                <div class="imp-span-ddl-container medium">
+                    <select name="adverseReason"
+                            class="imp-ddl adverse-reason-font"
+                            ng-model="adverseCtrl.adverseReason.reasonType"
+                            ng-options="selectedItem.value  as selectedItem.text for selectedItem in adverseCtrl.getAdverseReasons()">
+                        <option value="">Select One</option>
+                    </select>
+                </div>
+            </div>
+            <textarea ng-if="adverseCtrl.showComment()" class="adverse-reason-text" ng-model="adverseCtrl.adverseReason.reason" placeholder="Please provide a detailed description"></textarea>
+        </div>
+
+    </div>
+    <div class="adverse-buttons">
+        <input type="button" value="Cancel" class="imp-button-hm-wm-sec" ng-click="adverseCtrl.cancel()">
+        <input type="button" value="Adverse" class="imp-button-hm-wm-prim"
+               ng-click="adverseCtrl.done()" ng-disabled="adverseCtrl.adverseDisabled()">
+    </div>
+</div>

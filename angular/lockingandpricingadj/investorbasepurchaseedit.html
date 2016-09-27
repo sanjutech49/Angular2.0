@@ -1,0 +1,61 @@
+﻿<div class="row">
+    <div class="col-s">
+        <div class="imp-span-ddl-container medium">
+            <select name="adjustmentsTypes"
+                    class="imp-ddl"
+                    ng-model="adjustment.adjustmentTypeId"
+                    ng-options="selectedItem.value as selectedItem.text for selectedItem in lockingpricingCtrl.lookups.investorPurchaseAdjustmentTypes"
+                    ng-disabled="lockingpricingCtrl.isDisabled()"
+                    ng-change="lockingpricingCtrl.changeSelection(adjustment)">
+                <option value='' selected disabled style=" color:#999;display:none">
+                    Adjustments Types
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xl">
+        <div class="imp-span-ddl-container width99-height24">
+            <select name="adjustmentsubtypes"
+                    class="imp-ddl"
+                    ng-model="adjustment.description"
+                    ng-options="selectedSubType.text as selectedSubType.text for selectedSubType in lockingpricingCtrl.adjustmentsSubTypeFilter(adjustment)"
+                    ng-disabled="lockingpricingCtrl.isDisabled() || (adjustment.hasSubType == false)"
+                    ng-change="lockingpricingCtrl.changeSelection(adjustment)"
+                    value="{{selectedSubType.text}}">
+                <option value='' selected disabled style=" color:#999;display:none">
+                    Sub-Adjustments Types
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs">
+        <input type="text"
+               ng-model="adjustment.value"
+               ng-disabled="lockingpricingCtrl.isDisabled()">
+    </div>
+    <div class="col-xs">
+        <input type="text"
+               ng-model="adjustment.rate"
+               display-currency-sign="false" decimal-places="3" negative-values="true"
+               ng-disabled="lockingpricingCtrl.isDisabled()">
+    </div>
+</div>
+<div class="row note">
+    <div class="col-s">
+        &nbsp;
+    </div>
+    <div class="col-xl">
+        <input type="text"
+               ng-model="adjustment.note"
+               ng-disabled="lockingpricingCtrl.isDisabled()">
+    </div>
+    <div class="col-xs">
+        &nbsp;
+    </div>
+    <div class="col-xs">
+        &nbsp;
+    </div>
+</div>
+<imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style=" margin-left: 718px; margin-top: -58px; position: absolute;"
+            ng-click="lockingpricingCtrl.removeRow(adjustment, lockingpricingCtrl.pricingLockingModel.Adjustments)" ng-hide="lockingpricingCtrl.isDisabled()">
+</imp-circle>

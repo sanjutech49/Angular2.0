@@ -1,0 +1,23 @@
+﻿<div class="imp-documents-tabs-container">
+    <div class="imp-documents-tabs">
+        <div class="container">
+            <div class="main-container">
+                <div class="imp-tab-text imp-documents-tab" ui-sref="loanCenter.loan.documents.needslist" ng-class="{'imp-tab-selected' : documentsCtrl.documentsTabs.NeedsList.isSelected }"
+                     ng-click="documentsCtrl.switchTab('loanCenter.loan.documents.needslist')">
+                    <span>
+                        Borrower Needs List
+                    </span>
+                    <div ng-class="{'indicator active' : documentsCtrl.documentsTabs.NeedsList.isSelected }"></div>
+                </div>
+                <div class="imp-tab-text imp-documents-tab" ui-sref="loanCenter.loan.documents.docvault" ng-class="{'imp-tab-selected' : documentsCtrl.documentsTabs.DocVault.isSelected }"
+                     ng-click="documentsCtrl.switchTab('loanCenter.loan.documents.docvault')">
+                    <span>
+                        DocVault
+                    </span>
+                    <div ng-class="{'indicator active' : documentsCtrl.documentsTabs.DocVault.isSelected }"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="documentsContent" style="margin-top:30px;"></div>

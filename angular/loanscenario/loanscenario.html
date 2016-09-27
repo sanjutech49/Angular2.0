@@ -1,0 +1,32 @@
+﻿<div >
+    <div ng-hide="loanScenario.repricing">
+        <div ui-view="personal"></div>
+    </div>
+
+    <div class="section-1 " style="clear:both;">
+        <!--clear:both; overflow:hidden-->
+        <div ng-include="'angular/loanscenario/sections/loaninformation.html'">
+        </div>
+    </div>
+
+    <div class="section-1 " style="clear:both;">
+        <!--clear:both; overflow:hidden;-->
+        <div ng-include="'angular/loanscenario/sections/searchcriteria.html'">
+        </div>
+    </div>
+
+    <div class="get-started-buttons">
+
+        <!--ui-sref="loanCenter.pricing"-->
+
+        <div class='imp-button-div-hs-ws-prim get-rates' ng-click="loanScenario.shopForRates()">Shop for Rates</div>
+
+        <div class='imp-button-div-hs-ws-prim save' ng-click="loanScenario.saveLoan($event)"
+             ng-class="{'save-disabled': !loanScenario.enableSave() }"
+             ng-hide="loanScenario.repricing">Save</div>
+
+        <div class='imp-button-div-hs-ws-sec cancel' ng-click="loanScenario.cancel()">{{ loanScenario.repricing ? 'Cancel' : 'Cancel Changes' }}</div>
+
+    </div>
+
+</div>

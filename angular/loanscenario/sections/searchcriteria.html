@@ -1,0 +1,255 @@
+﻿<div class="search-criteria">
+
+    <div class="imp-psection-header" style="margin-top:25px;">
+        <div class="imp-sa-grid-row-collaps right" style="margin-left: -20px; margin-top: 10px;"
+             ng-class="{down: loanScenario.isSearchCriteriaSectionShown, 'right marginTop': !loanScenario.isSearchCriteriaSectionShown}"
+             ng-click="loanScenario.collapseExpand('SearchCriteriaSection')"></div>
+        <div class="fleft imp-psection-title imp-psection-title-element">Search Criteria for Get Rates</div>
+        <div class="fleft elements" ng-show="loanScenario.isSearchCriteriaSectionShown">
+            <div class="item" ng-click="loanScenario.searchCriteriaSelectDeselectAll(true)"> Select All </div>  
+            <div style="width:15px; float:left;"> | </div> 
+            <div class="item" ng-click="loanScenario.searchCriteriaSelectDeselectAll(false)"> Deselect All </div> 
+        </div>
+    </div>
+
+    <div class="row" ng-show="loanScenario.isSearchCriteriaSectionShown">
+
+        <div class="col-lg-4" style="width: 30%;">
+
+            <div class="row imp-psection-row">
+                <div class="col-lg-5">
+                    <div class="imp-psection-label">
+                        AUS
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select class="imp-ddl"
+                                ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.ausTypes"
+                                ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.aus"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row imp-psection-row">
+                <div class="col-lg-5">
+                    <div class="imp-psection-label">
+                        Interest Only
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select class="imp-ddl"
+                                ng-disabled="true"
+                                ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.interestOnlyTypes"
+                                ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.interestOnly"></select>
+                    </div>
+                </div>
+            </div>            
+                 
+            <div class="row imp-psection-row">
+                <div class="col-lg-5">
+                    <div class="imp-psection-label">
+                        Mortgage Insurance
+                    </div>
+                </div>               
+                <div class="col-lg-7">                   
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select class="imp-ddl"
+                                ng-disabled="loanScenario.wrappedLoan.ref.getSubjectProperty().ltv < 80"
+                                ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.mortgageInsuranceTypes"
+                                ng-model="loanScenario.wrappedLoan.ref.financialInfo.mortgageInsuranceType">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row imp-psection-row">
+                <div class="col-lg-5">
+                    <div class="imp-psection-label">
+                        Bank Statements for Income
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select class="imp-ddl"
+                                ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.bankStatementsIncomeTypes"
+                                ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.bankStatementsIncome"></select>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="row imp-psection-row" ng-show="loanScenario.isTPO">
+                <div class="col-lg-5">
+                    <div class="imp-psection-label">
+                        Admin Fee
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select class="imp-ddl"
+                                ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.tpoAdminFeeTypes"
+                                ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.selectedBuyoutOption"></select>
+                    </div>
+                </div>
+                </div>
+            
+            <div class="row imp-psection-row" ng-show="loanScenario.isTPO">
+                <div class="col-lg-5">
+                    <div class="imp-psection-label">
+                        Compensation
+                    </div>
+            </div>            
+                <div class="col-lg-7">
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select class="imp-ddl"
+                                ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.tpoCompensationTypes"
+                                ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.selectedCompensationOption"
+                                ng-change="loanScenario.onCompensationOptionChange()">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row imp-psection-row" ng-show="loanScenario.isTPO">
+
+                <div class="col-lg-5">
+                    <div class="imp-psection-label">
+                        Broker Compensation
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="input-group" style="width:96%">
+                        <input type="text" class="form-control" style="border-right: none;text-align: left;" imp-percentage return-float="true"
+                               ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.brokerCompPercent"
+                               ng-class=" {'imp-has-error': loanScenario.brokerCompensationError()  && loanScenario.showBrokerCompensationError && loanScenario.wrappedLoan.ref.otherInterviewData.selectedCompensationOption == 0 }"
+                               ng-disabled="loanScenario.wrappedLoan.ref.otherInterviewData.selectedCompensationOption != 0"
+                               ng-blur="loanScenario.validateBrokerCompensation()" />
+                        <span class="date-mid-group" style="height: 22px"
+                              ng-class=" {'imp-has-error': loanScenario.brokerCompensationError() && loanScenario.showBrokerCompensationError, 'disabled' : loanScenario.wrappedLoan.ref.otherInterviewData.selectedCompensationOption != 0 }">+</span>
+                        <input type="text" class="form-control current" style="border-left: none" imp-currency
+                               ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.brokerCompAmount"
+                               ng-class=" {'imp-has-error': loanScenario.brokerCompensationError() && loanScenario.showBrokerCompensationError && loanScenario.wrappedLoan.ref.otherInterviewData.selectedCompensationOption == 0  }"
+                               ng-disabled="loanScenario.wrappedLoan.ref.otherInterviewData.selectedCompensationOption != 0"
+                               ng-blur="loanScenario.validateBrokerCompensation()" />
+                    </div>
+                </div>
+                <div style="font-size: 11px; color: #ef1126;" ng-show="loanScenario.brokerCompensationError() && loanScenario.showBrokerCompensationError">
+                    <span>
+                        Your current compensation of {{ loanScenario.brokerCompensationTotalAmount() | impCurrency}}
+                        {{ loanScenario.brokerCompensationTotalAmount() > loanScenario.brokerCompensationMaxAmount ? 'exceeds the maximum' : 'is below the minimum' }}
+                        compensation of {{ (loanScenario.brokerCompensationTotalAmount() > loanScenario.brokerCompensationMaxAmount ? loanScenario.brokerCompensationMaxAmount : loanScenario.brokerCompensationMinAmount) | impCurrency }}
+                    </span>
+                </div>
+            </div>                      
+        </div>
+
+        <div class="col-lg-4" style="width: 64%; margin-top: 15px; padding-right: 0px;">
+
+            <div class="sub-section">
+                <div class="item-l bold">Loan Types</div>
+
+                <div class="item-l" ng-class="{'margin' :  $first }" ng-repeat="loanType in loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.loanTypeList"
+                     ng-if="loanType.name != 'FHA' && loanType.name != 'USDA'">
+                    <input id="cbLoanTypes{{$index.toString()}}"
+                           type="checkbox"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           ng-click="loanScenario.checkForSelectedSearchCriteria($event, loanType, loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.loanTypeList)"
+                           ng-model="loanType.value"
+                           class="imp-checkbox" />
+
+                    <label for="cbLoanTypes{{$index.toString()}}"
+                           class="imp-lb-checkbox"
+                           style="font-size: 12px;">
+
+                        <span ng-hide=" loanType.name == 'HARP - Fannie Mae' || loanType.name == 'HARP - Freddie Mac' " class="" style="font-size: 12px;">{{loanType.name}}</span>
+                        <span ng-if=" loanType.name == 'HARP - Fannie Mae' " style="font-size: 12px;">HARP - <a style="color: #208DDC" href="https://www.knowyouroptions.com/loanlookup" target="_blank">Fannie Mae</a></span>
+                        <span ng-if=" loanType.name == 'HARP - Freddie Mac' " style="font-size: 12px;">HARP - <a style="color: #208DDC" href="https://ww3.freddiemac.com/loanlookup" target="_blank">Freddie Mac</a></span>
+                    </label>
+                </div> 
+
+            </div>
+
+            <div class="sub-section">
+                <div class="item-l bold">Amortization Type</div>
+
+                <div class="item-l" ng-class="{'margin' :  $first }" ng-repeat="amortizationType in loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.amortizationTypeList">
+                    <input id="cbAmortizationType{{$index.toString()}}"
+                           type="checkbox"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           ng-click="loanScenario.checkForSelectedSearchCriteria($event, amortizationType, loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.amortizationTypeList)"
+                           ng-model="amortizationType.value"
+                           class="imp-checkbox" />
+                    <label for="cbAmortizationType{{$index.toString()}}" class="imp-lb-checkbox" style="font-size: 12px;">{{amortizationType.name}}</label>
+                </div>
+                
+                
+            </div>
+
+            <div class="sub-section">
+                <div class="item-l bold">Loan Terms</div>
+
+                <div class="margin fleft" style="width:100%">
+                    <div class="item-s" ng-repeat="loanTerms in loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.loanTermsList">
+                        <input id="cbLoanTerms{{$index.toString()}}"
+                               type="checkbox"
+                               ng-true-value="true"
+                               ng-false-value="false"
+                               ng-click="loanScenario.checkForSelectedSearchCriteria($event, loanTerms, loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.loanTermsList)"
+                               ng-model="loanTerms.value"
+                               class="imp-checkbox" />
+                        <label for="cbLoanTerms{{$index.toString()}}" class="imp-lb-checkbox" style="font-size: 12px;">{{loanTerms.name}}</label>
+                    </div>
+                </div>
+              
+            </div>
+
+            <div class="sub-section" style="margin-left: 27px;">
+                <div class="item-l bold">ARM Fixed Terms</div>
+                <div class="margin fleft" style="width:100%">
+                    <div class="item-s " ng-repeat="armTerms in loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.armTermsList">
+                        <input id="cbARMTerms{{$index.toString()}}"
+                               type="checkbox"
+                               ng-true-value="true"
+                               ng-false-value="false"
+                               ng-click="loanScenario.checkForSelectedSearchCriteria($event, armTerms, loanScenario.wrappedLoan.ref.otherInterviewData.searchCriteria.armTermsList, true)"
+                               ng-model="armTerms.value"
+                               class="imp-checkbox" />
+                        <label for="cbARMTerms{{$index.toString()}}" class="imp-lb-checkbox" style="font-size: 12px;">{{armTerms.name}}</label>
+                    </div>
+                </div>
+             </div>
+
+        </div>
+
+        
+    </div>
+
+    <div class="bottom-row" ng-show="loanScenario.isTPO" >
+        <div style="float: left;width: 21%;">&nbsp;</div>
+        <div>
+            <span class="bottom-label">Estimated Third Party Costs</span>
+            <div class="input-group" style="width: 40%;">
+                <input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-touched" imp-percentage="" style="width: 77%;border-right: none;margin-left: 7px;" ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.percentETPCValue" return-float="true" ng-blur="loanScenario.calculateETPCosts()">
+
+                <span class="date-mid-group" style="height: 22px;width: 1.3%;">|</span>
+
+                <input type="text" class="form-control ng-pristine ng-valid ng-touched" style="border-left: none;width: 96%;color:#9d9d9d" ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.disclaimerETPCValue" imp-currency="">
+
+                <span class="input-group-btn" style="width: 0;"></span>
+                <div class="imp-span-ddl-container medium select-picker" style="width: 131%;margin-left:1px;">
+                    <select class="imp-ddl ng-valid ng-dirty ng-valid-parse ng-touched" ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.tpoEstimatedThirdPartyCosts" ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.selectedETPCOption" ng-click="loanScenario.calculateETPCosts()"></select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+</div>

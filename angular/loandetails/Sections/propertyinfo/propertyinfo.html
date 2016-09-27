@@ -1,0 +1,122 @@
+﻿<div class="unit-control property-info-contrl">
+    <div class="huge-unit-header">
+        <div class="address">
+            <div class="address-item">
+                &nbsp;{{propertyInfo.wrappedLoan.ref.getSubjectProperty().streetName}}&nbsp;{{propertyInfo.wrappedLoan.ref.getSubjectProperty().unitNumber}},&nbsp;
+            </div>
+            <div class="address-item">
+               {{propertyInfo.wrappedLoan.ref.getSubjectProperty().cityName}},&nbsp;{{propertyInfo.wrappedLoan.ref.getSubjectProperty().stateName}}&nbsp;{{propertyInfo.wrappedLoan.ref.getSubjectProperty().zipCode}}&nbsp;
+            </div>
+            <div class="address-item">
+                <div>
+                   |&nbsp;<span class="address-county-font-style">{{propertyInfo.wrappedLoan.ref.getSubjectProperty().countyName}} &nbsp;County</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-link" ng-click="propertyInfo.editPropertyDetails()">view property details</div>
+
+    </div>
+    <div class="huge-unit-body">
+        <div class="value-style">
+            <div class="left-part">
+                <div class="row">
+                    <div class="estimated-purchase-value-style" ng-switch on="propertyInfo.wrappedLoan.ref.loanPurposeType">
+                        <div ng-switch-when=2>
+                            <div class="row-height">
+                                {{propertyInfo.wrappedLoan.ref.getSubjectProperty().currentEstimatedValue | currency:"$":0}}&nbsp;
+                            </div>
+                            <div class="label-style">
+                                Estimated Value
+                            </div>
+                        </div>
+                        <div ng-switch-when=1>
+                            <div class="row-height">
+                                {{propertyInfo.wrappedLoan.ref.getSubjectProperty().purchasePrice | currency:"$":0}}&nbsp;
+                            </div>
+                            <div class="label-style">
+                                Purchase Price
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="appraised-style" ng-class="{'appraised-style-purchase': propertyInfo.wrappedLoan.ref.loanPurposeType == propertyInfo.loanTypeEnum.Purchase }">
+                        <div class="row-height">
+                            <div class="appraised-value-style">
+                                {{(propertyInfo.wrappedLoan.ref.getSubjectProperty().appraisedValue != 0 ? propertyInfo.wrappedLoan.ref.getSubjectProperty().appraisedValue :' ')  | impCurrency}}&nbsp;
+                            </div>
+                            <div>
+                                <div id="appraised-history"
+                                     ng-class="propertyInfo.wrappedLoan.ref.getSubjectProperty().hasAppraisedValueHistory==true ? 'imp-historyIcon' : 'imp-historyIcon-empty'"
+                                     style="float:left" ng-click="propertyInfo.showAppraisedValuePopup($event)">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="label-style">
+                                Appraised Value
+                            </div>
+                        </div>
+                    </div>
+                    <div class="occupancy-type" ng-if="propertyInfo.wrappedLoan.ref.loanPurposeType == propertyInfo.loanTypeEnum.Refinance">
+                        <div class="row-height">
+                            <div class="imp-select-to-span-container medium">
+                                <select class="imp-ddl imp-select-to-span property-info-select" ng-disabled="true" ng-model="propertyInfo.wrappedLoan.ref.primary.occupancyType"
+                                        ng-options="oType.value as oType.text for oType in propertyInfo.applicationData.lookup.occupancyTypeListShort"></select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="label-style">
+                                Occupancy Type
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="propertyInfo.wrappedLoan.ref.loanPurposeType == propertyInfo.loanTypeEnum.Purchase" ng-include src="'angular/loandetails/sections/propertyinfo/contingencydates.html'"></div>
+            </div>
+            <div class="unit-body unit-space right-part">
+                <div class="property-type">
+                    <div class="row-height">
+                        <div class="imp-select-to-span-container medium">
+                            <select class="imp-ddl imp-select-to-span property-info-select" ng-disabled="true" ng-model="propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType"
+                                    ng-options="ptype.value as ptype.text for ptype in propertyInfo.applicationData.lookup.subjectPropertyTypes"></select>
+                    </div>
+                    </div>
+                    <div class="label-style">
+                        Property Type
+                    </div>
+                </div>
+                <div class="number-of-units" ng-show="propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '2'||
+                     propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '1'||
+                     propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '11'">
+                    <div class="row-height" ng-if="propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '1'||
+                                                        propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '11'">
+                        {{propertyInfo.wrappedLoan.ref.getSubjectProperty().numberOfUnits > 1 ? propertyInfo.wrappedLoan.ref.getSubjectProperty().numberOfUnits + ' Units' : propertyInfo.wrappedLoan.ref.getSubjectProperty().numberOfUnits + ' Unit' }}&nbsp;
+                    </div>
+                    <div class="label-style" ng-show="propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '1'||
+                                                        propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '11'">
+                        Number of Units
+                    </div>
+                    <div class="row-height" ng-if="propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType == '2'">
+                        {{propertyInfo.wrappedLoan.ref.getSubjectProperty().numberOfStories > 1 ? propertyInfo.wrappedLoan.ref.getSubjectProperty().numberOfStories + ' Stories' : propertyInfo.wrappedLoan.ref.getSubjectProperty().numberOfStories + ' Story' }}&nbsp;
+                    </div>
+                    <div class="label-style" ng-show="propertyInfo.wrappedLoan.ref.getSubjectProperty().propertyType =='2'">
+                        Number of Stories
+                    </div>
+                </div>
+                <div class="occupancy-type" ng-if="propertyInfo.wrappedLoan.ref.loanPurposeType == propertyInfo.loanTypeEnum.Purchase">
+                    <div class="row-height">
+                        <div class="imp-select-to-span-container medium">
+                            <select class="imp-ddl imp-select-to-span imp-select-to-span property-info-select" ng-disabled="true" ng-model="propertyInfo.wrappedLoan.ref.primary.occupancyType"
+                                    ng-options="oType.value as oType.text for oType in propertyInfo.applicationData.lookup.occupancyTypeListShort"></select>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="label-style">
+                            Occupancy Type
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

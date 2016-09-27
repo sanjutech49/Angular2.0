@@ -1,0 +1,17 @@
+﻿<div class="row cash-footer">
+    <div class="col-l">
+        <span class="tlabel">Cash to Close</span>
+    </div>
+    <div class="col-m">
+        <span>{{costDetailsCtrl.getCashToCloseTotalsText(costDetailsCtrl.closingCostViewModel.totals.calculatedCashToClose.loanEstimateTotal)}} bor.</span>
+        <span class="tvalue">{{ costDetailsCtrl.closingCostViewModel.totals.calculatedCashToClose.loanEstimateTotal | impCurrency}}</span>
+    </div>
+    <div class="col-m">
+        <span>{{costDetailsCtrl.getCashToCloseTotalsText(costDetailsCtrl.closingCostViewModel.totals.calculatedCashToClose.finalTotal)}} bor.</span>
+        <span class="tvalue">{{  costDetailsCtrl.closingCostViewModel.totals.calculatedCashToClose.finalTotal | impCurrency }}</span>
+    </div>
+    <div class="col-a">
+        <span class="imp-disclaimer">Financed Closing Costs</span>
+        <span style=" margin-left: 10px;">{{ costDetailsCtrl.closingCostViewModel.totals.calculatedCashToClose.financedClosingCosts  | impCurrency}}</span>
+    </div>
+</div>

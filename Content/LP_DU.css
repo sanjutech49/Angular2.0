@@ -1,0 +1,186 @@
+﻿/*****************************
+LP - DU
+*******************************/
+.ui-widget-header
+{
+ background : #f2f2f2 !important;   
+ height:30px;
+ border:none;
+}
+
+.ui-state-active
+{border:1px solid #aaa;
+ background: #1CA051 !important;
+ 
+}
+.ui-state-default
+{   
+    min-width: 160px;
+    height: 30px;
+    text-align: center;   
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: bold;   
+    font-color: #000000;   
+    border: 1px solid #bdbfbf !important;
+    background-color: #bdbfbf;
+    background-image: -moz-linear-gradient(center top , #ebe8e8, #f7f9f9);
+    border-bottom: 0px !important;
+     border-top-left-radius-:2px;
+     border-top-right-radius:2px;
+    border-top:0px !important; 
+}
+.ui-tabs-selected 
+{       
+    background-color: #1fb25a;
+    background-image: -moz-linear-gradient(center bottom, #28C065, #1DA955);
+    color: White !important;
+    border: 1px solid #1fb25a;     
+}
+
+.ui-state-active .arrow-down {
+	width: 0; 
+	height: 0; 
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;	
+	border-top: 10px solid #1CA051;
+	background-image: -moz-linear-gradient(center bottom, #28C065, #1DA955) !important;
+	margin-top: 30px;
+    margin-left: 75px;    
+}
+
+.ui-corner-all
+{
+    padding:0px 0px 2px 0px !important;
+    
+}
+
+.ui-tabs-hide { 
+    display: none !important; 
+ }
+ 
+.lp-du-Left
+{
+    float: left;
+    height: 26px;
+    line-height: 26px;
+    margin-right: 10px;
+    text-align: right;   
+    width: 48%;
+    font-size: 15px;
+    color:black;
+}
+.lp-du-Right
+{
+     float:left;
+     width:40%;
+}
+
+.lp-du-hl-wl-prim
+{
+    cursor: pointer;
+    height: 22px;
+    width: 45px ;
+    padding: 8px 25px;
+    border-radius: 3px;
+    border: 0px;	
+    font-family: Arial;
+    font-size: 14px;
+    color: #FFF;
+    text-align: center;
+    text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3);	
+    background-image: -moz-linear-gradient(center top , #0396e4, #0271da);
+    background-image: -webkit-linear-gradient(top, #0396e4, #0271da);
+    background-image: -moz-linear-gradient(top, #0396e4, #0271da);
+    background-image: -ms-linear-gradient(top, #0396e4, #0271da);
+    background-image: -o-linear-gradient(top, #0396e4, #0271da);
+    background-image: -linear-gradient(to bottom, #0396e4, #0271da);
+    display:inline-block;
+    line-height: 22px;
+    
+}
+
+.lp-du input[type="text"]
+{
+  font-size: 12px;
+  font-color: #3d3d3d;
+  height: 21px;
+  border: 1px solid #bdbebe;
+  border-radius: 3px;
+  padding-left: 2px ;  
+}
+
+.lp-du-TxtInput 
+{
+    color: #3d3d3d;
+    font-family: Arial;
+    font-size: 12px
+}
+
+.row-lp-du-Container
+{
+    float: left;
+    margin-bottom: 10px;
+    min-width: 500px;
+}
+
+
+
+.lp-du-header
+{
+    width: 660px;   
+    margin-bottom: 30px;
+    margin-left:-35px;  
+    line-height: 1.4em;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #6b973a;        
+    margin-left: 2px;
+}
+.ui-corner-bottom
+{
+ margin-top:10px;   
+}
+
+.ui-state-active .lp 
+{
+ color:White !important;
+ text-align: center;
+ width: 80%;
+ font-family: Arial;
+ font-size: 12px;
+ font-weight: bold;    
+}
+
+.ui-state-default .lp
+{
+ 
+ text-align: center;
+ width: 80%;
+ font-family: Arial;
+ font-size: 12px;
+ font-weight: bold;   
+}
+
+.firstTab
+{
+ border-left:0px !important;   
+}
+
+.imp-div-close-x-lp-du 
+{
+    background: url('images/btn-x-close.png') no-repeat; 
+    min-height: 16px;
+    min-width: 16px;
+    cursor: pointer;
+    float:right;
+    margin-top:5px;
+    margin-right: 5px;
+}
+.lp-du-spanMessage
+{
+    padding: 10px; 
+    text-align: center;
+    min-height: 45px;
+}

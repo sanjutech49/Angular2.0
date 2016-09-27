@@ -1,0 +1,422 @@
+﻿<div class="declarations">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center top">Declarations</div>
+                <div class="row section-content">
+                    <div class="col-md-8 col-md-offset-4">
+                        <div class="" id="outstandingJudgements_a">
+                            <div class="declaration-question-text">a. Are there any outstanding judgments against you?</div>
+                            <div class="form-group radio-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="opta" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.outstandingJudgmentsIndicator" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="opta" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.outstandingJudgmentsIndicator" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="opta2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.outstandingJudgmentsIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="opta2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.outstandingJudgmentsIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="bankruptcy_b">
+                            <div class="declaration-question-text">b. Have you been declared bankrupt within the past 7 years?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optb" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.bankrupcyIndicator" required> Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optb" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.bankrupcyIndicator" required> No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optb2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.bankrupcyIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower"> Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optb2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.bankrupcyIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower"> No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="propertyForclosed_c">
+                            <div class="declaration-question-text">c. Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optc" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.propertyForeclosedIndicator" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optc" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.propertyForeclosedIndicator" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.propertyForeclosedIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower" />Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.propertyForeclosedIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="partyLawsuit_d">
+                            <div class="declaration-question-text">d. Are you a party to a lawsuit?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optd" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.partyToLawsuitIndicator" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optd" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.partyToLawsuitIndicator" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optd2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.partyToLawsuitIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optd2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.partyToLawsuitIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="obligatedLoan_e">
+                            <div class="declaration-question-text">e. Have you directly or indirectly been obligated on any loan which resulted in foreclosure, transfer in title in lieu of foreclosure, or judgment?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="opte" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.obligatedLoanIndicator" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="opte" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.obligatedLoanIndicator" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="opte2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.obligatedLoanIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="opte2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.obligatedLoanIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="presentlyDelinquent_f">
+                            <div class="declaration-question-text">f. Are you presently delinquent or in default on any Federal debt or any other loan, mortgage, financial obligation, bond, or loan guarantee?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optf" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.presentlyDelinquentIndicator" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optf" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.presentlyDelinquentIndicator" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optf2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.presentlyDelinquentIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optf2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.presentlyDelinquentIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="alimonyObligation_g">
+                            <div class="declaration-question-text">g. Are you obligated to pay alimony, child support, or separate maintenance?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optg" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.alimonyChildSupportObligation" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optg" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.alimonyChildSupportObligation" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optg2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.alimonyChildSupportObligation" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optg2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.alimonyChildSupportObligation" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="downPayment_h">
+                            <div class="declaration-question-text">h. Is any part of the down payment borrowed?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="opth" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.downPaymentIndicator" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="opth" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.downPaymentIndicator" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="opth2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.downPaymentIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="opth2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.downPaymentIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="noteEndorser_i">
+                            <div class="declaration-question-text">i. Are you a co-maker or endorser on a note?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="opti" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.noteEndorserIndicator" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="opti" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.noteEndorserIndicator" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="opti2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.noteEndorserIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="opti2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.noteEndorserIndicator" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="usCitizen_j">
+                            <div class="declaration-question-text">j. Are you a U.S. Citizen?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optj" ng-model="declarationsCntrl.loan.loanApp.borrower.isUsCitizen" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optj" ng-model="declarationsCntrl.loan.loanApp.borrower.isUsCitizen" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optj2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.isUsCitizen" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optj2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.isUsCitizen" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="permanentAlien_k">
+                            <div class="declaration-question-text">k. Are you a permanent Resident Alien?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optk" ng-model="declarationsCntrl.loan.loanApp.borrower.isPermanentAlien" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optk" ng-model="declarationsCntrl.loan.loanApp.borrower.isPermanentAlien" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optk2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.isPermanentAlien" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optk2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.isPermanentAlien" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="primaryResidence_l">
+                            <div class="declaration-question-text">l. Do you intend to occupy the property as your Primary Residence?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optl" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.propertyAsPrimaryResidence" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optl" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.propertyAsPrimaryResidence" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optl2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.propertyAsPrimaryResidence" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optl2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.propertyAsPrimaryResidence" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="ownershipInterest_m">
+                            <div class="declaration-question-text">m. Have you had an ownership interest in a property in the last three years?</div>
+                            <div class="form-group">
+                                <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                <div class="col-md-7">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="0" name="optm" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.ownershipInterestLastThreeYears" required>Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-value="1" name="optm" ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.ownershipInterestLastThreeYears" required>No
+                                    </label>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-md-7">
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="0" name="optm2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.ownershipInterestLastThreeYears" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" ng-value="1" name="optm2" ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.ownershipInterestLastThreeYears" ng-required="declarationsCntrl.loan.loanApp.hasCoBorrower">No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="propertyType_n" ng-show="declarationsCntrl.loan.loanApp.borrower.declarations.hasOwnershipInterestLastThreeYears || declarationsCntrl.loan.loanApp.coBorrower.declarations.hasOwnershipInterestLastThreeYears">
+                            <div class="declaration-question-text">n. What type of property did you own?</div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.borrower.declarations.hasOwnershipInterestLastThreeYears">
+                                <div class="form-group form-group-short">
+                                    <label class="col-xs-5 col-md-4 control-label" for="borrowerPropertyTypeSelect">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                    <div class="col-sm-6 col-md-3">
+                                        <select class="form-control select-validation" id="propertyType"
+                                                ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.typeOfProperty"
+                                                ng-options="propertyType.value as propertyType.text for propertyType in declarationsCntrl.applicationData.lookup.typeOfProperty"
+                                                ng-required="declarationsCntrl.loan.loanApp.borrower.declarations.hasOwnershipInterestLastThreeYears">
+                                            <option value="" disabled selected>Select One</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower && declarationsCntrl.loan.loanApp.coBorrower.declarations.hasOwnershipInterestLastThreeYears">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-sm-6 col-md-3">
+                                        <select class="form-control select-validation" id="propertyType2"
+                                                ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.typeOfProperty"
+                                                ng-options="propertyType.value as propertyType.text for propertyType in declarationsCntrl.applicationData.lookup.typeOfProperty"
+                                                ng-required="declarationsCntrl.loan.loanApp.coBorrower.declarations.hasOwnershipInterestLastThreeYears">
+                                            <option value="" disabled selected>Select One</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-content" id="titleHold_o" ng-show="declarationsCntrl.loan.loanApp.borrower.declarations.hasOwnershipInterestLastThreeYears || declarationsCntrl.loan.loanApp.coBorrower.declarations.hasOwnershipInterestLastThreeYears">
+                            <div class="declaration-question-text">o. How did you hold title to the home?</div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.borrower.declarations.hasOwnershipInterestLastThreeYears">
+                                <div class="form-group form-group-short">
+                                    <label class="col-xs-5 col-md-4 control-label" for="priorPropType">{{declarationsCntrl.loan.loanApp.borrower.fullName}}</label>
+                                    <div class="col-sm-6 col-md-3">
+                                        <select class="form-control select-validation" id="priorPropType"
+                                                ng-model="declarationsCntrl.loan.loanApp.borrower.declarations.priorPropertyTitleType"
+                                                ng-options="priorPropertyType.value as priorPropertyType.text for priorPropertyType in declarationsCntrl.applicationData.lookup.priorPropertyTitle"
+                                                ng-required="declarationsCntrl.loan.loanApp.borrower.declarations.hasOwnershipInterestLastThreeYears">
+                                            <option value="" disabled selected>Select One</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-show="declarationsCntrl.loan.loanApp.hasCoBorrower && declarationsCntrl.loan.loanApp.coBorrower.declarations.hasOwnershipInterestLastThreeYears">
+                                <div class="form-group">
+                                    <label class="col-xs-5 col-md-4 control-label" for="priorPropType2">{{declarationsCntrl.loan.loanApp.coBorrower.fullName}}</label>
+                                    <div class="col-sm-6 col-md-3">
+                                        <select class="form-control select-validation" id="priorPropType2"
+                                                ng-model="declarationsCntrl.loan.loanApp.coBorrower.declarations.priorPropertyTitleType"
+                                                ng-options="priorPropertyType.value as priorPropertyType.text for priorPropertyType in declarationsCntrl.applicationData.lookup.priorPropertyTitle"
+                                                ng-required="declarationsCntrl.loan.loanApp.coBorrower.declarations.hasOwnershipInterestLastThreeYears">
+                                            <option value="" disabled selected>Select One</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

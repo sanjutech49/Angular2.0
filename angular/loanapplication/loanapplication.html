@@ -1,0 +1,62 @@
+﻿<div class="bar">
+    <div class="imp-ui-tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <div ng-class="imp-main-area-section">
+            <div class=" 1003-main-container">
+                <div class="1003-loan-application-header">
+                    <imp-tabset tabset-template-url="/angular/common/tabset.html">
+                        <imp-tab id="PersonalTab" title="Personal" ui-sref="loanCenter.loan.loanApplication.personal"
+                                 specific-class="imp-corner-left" tab-template-url="/angular/common/tab.html" is-check-available="tabCtrl.wrappedLoan.ref.active.isCheckAvailable(tabCtrl.wrappedLoan.ref.active.isPersonalCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications) ? true: false"
+                                 is-selected="tabCtrl.isTabSelected('loanCenter.loan.loanApplication.personal')" manage-selected-state="false"
+                                 check-color="tabCtrl.wrappedLoan.ref.active.getCheckColor(tabCtrl.wrappedLoan.ref.active.isPersonalCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications)"></imp-tab>
+
+                        <imp-tab id="PropertyTab" title="Property" ng-click="tabCtrl.navigateTabs('loanCenter.loan.loanApplication.property')"
+                                 specific-class="imp-angular-subtabs" tab-template-url="/angular/common/tab.html" is-check-available="tabCtrl.wrappedLoan.ref.active.isCheckAvailable(tabCtrl.wrappedLoan.ref.active.isPropertyCompleted(tabCtrl.wrappedLoan.ref.getSubjectProperty(), tabCtrl.wrappedLoan.ref.loanPurposeType, tabCtrl.wrappedLoan.ref.loanAmount, tabCtrl.wrappedLoan.ref.active.isCoBorrowerAddressDifferent, tabCtrl.wrappedLoan.ref.financialInfo.downPaymentTypeCode), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications) ? true: false" manage-selected-state="false"
+                                 is-selected="tabCtrl.isTabSelected('loanCenter.loan.loanApplication.property')" is-disabled="tabCtrl.wrappedLoan.ref.active.areTabsDisabled()"
+                                 check-color="tabCtrl.wrappedLoan.ref.active.getCheckColor(tabCtrl.wrappedLoan.ref.active.isPropertyCompleted(tabCtrl.wrappedLoan.ref.getSubjectProperty(), tabCtrl.wrappedLoan.ref.loanPurposeType, tabCtrl.wrappedLoan.ref.loanAmount, tabCtrl.wrappedLoan.ref.active.isCoBorrowerAddressDifferent, tabCtrl.wrappedLoan.ref.financialInfo.downPaymentTypeCode), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications)"></imp-tab>
+
+                        <imp-tab id="AssetsTab" title="Assets" ng-click="tabCtrl.navigateTabs('loanCenter.loan.loanApplication.assets')"
+                                 specific-class="imp-angular-subtabs" tab-template-url="/angular/common/tab.html" is-check-available="tabCtrl.wrappedLoan.ref.active.isCheckAvailable(tabCtrl.wrappedLoan.ref.active.isAssetsCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications) ? true: false" manage-selected-state="false"
+                                 is-selected="tabCtrl.isTabSelected('loanCenter.loan.loanApplication.assets')" is-disabled="tabCtrl.wrappedLoan.ref.active.areTabsDisabled()"
+                                 check-color="tabCtrl.wrappedLoan.ref.active.getCheckColor(tabCtrl.wrappedLoan.ref.active.isAssetsCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications)" ></imp-tab>
+
+
+                        <imp-tab id="CreditTab" title="Credit" ng-click="tabCtrl.navigateTabs('loanCenter.loan.loanApplication.credit.details')"
+                                 specific-class="imp-angular-subtabs" tab-template-url="/angular/common/tab.html" is-check-available="tabCtrl.wrappedLoan.ref.active.isCheckAvailable(tabCtrl.wrappedLoan.ref.active.isCreditTabCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications) ? true: false" manage-selected-state="false"
+                                 is-selected="tabCtrl.isTabSelected('loanCenter.loan.loanApplication.credit.details')" is-disabled="tabCtrl.wrappedLoan.ref.active.areTabsDisabled()"
+                                 check-color="tabCtrl.wrappedLoan.ref.active.getCheckColor(tabCtrl.wrappedLoan.ref.active.isCreditTabCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications)">
+                        </imp-tab>
+
+                        <imp-tab id="DeclarationsTab" title="Declarations" ng-click="tabCtrl.navigateTabs('loanCenter.loan.loanApplication.declarations')"
+                                 specific-class="imp-angular-subtabs" tab-template-url="/angular/common/tab.html" is-check-available="tabCtrl.wrappedLoan.ref.active.isCheckAvailable(tabCtrl.wrappedLoan.ref.active.isDeclarationsCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications) ? true: false" manage-selected-state="false"
+                                 is-selected="tabCtrl.isTabSelected('loanCenter.loan.loanApplication.declarations')" is-disabled="tabCtrl.wrappedLoan.ref.active.areTabsDisabled()"
+                                 check-color="tabCtrl.wrappedLoan.ref.active.getCheckColor(tabCtrl.wrappedLoan.ref.active.isDeclarationsCompleted(),  tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications)"></imp-tab>
+
+                        <imp-tab id="IncomeTab" title="Income" ng-click="tabCtrl.navigateTabs('loanCenter.loan.loanApplication.income')"
+                                 specific-class="imp-angular-subtabs imp-corner-right" tab-template-url="/angular/common/tab.html" is-check-available="tabCtrl.wrappedLoan.ref.active.isCheckAvailable(tabCtrl.wrappedLoan.ref.active.isIncomeCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications) ? true: false" manage-selected-state="false"
+                                 is-selected="tabCtrl.isTabSelected('loanCenter.loan.loanApplication.income')" is-disabled="tabCtrl.wrappedLoan.ref.active.areTabsDisabled()"
+                                 check-color="tabCtrl.wrappedLoan.ref.active.getCheckColor(tabCtrl.wrappedLoan.ref.active.isIncomeCompleted(), tabCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications)"></imp-tab>
+                    </imp-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view="loanApplication"></div>
+
+<div class="imp-main-buttons-div" style="border-top: 3px solid #1fb25a; width: 100%; margin-top: 40px; padding-right:0px;">
+    <div style="  position: absolute; width: 204px; margin: auto; left: 0px; right: 0px;">
+        <button type="button" class="btn btn-default imp-button-hm-wm-sec" scroll-on-click style="width:80px; padding: 3px 0px; font-size:12px;" ng-disabled="tabCtrl.isPreviousDisabled()" ng-click="tabCtrl.nextPreviousNavigation(0)">
+            <div class="arrows leftArrow"></div> Previous
+        </button>
+        <button type="button" class="btn btn-default imp-button-hm-wm-sec" scroll-on-click style="width:80px; padding: 3px 0px; font-size:12px;" ng-click="tabCtrl.nextPreviousNavigation(1)" ng-disabled="tabCtrl.wrappedLoan.ref.active.areTabsDisabled()">
+            Next <div class="arrows rightArrow"></div>
+        </button>
+    </div>
+    <div style="width:357px; float:right;">
+        <input type="button" class="imp-button-hm-wm-sec" value="Change Purpose" ng-show="tabCtrl.canFlip" ng-disabled="!tabCtrl.wrappedLoan.canSave()" style=" font-size:12px;" ng-click="tabCtrl.flipPurpose()" />
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" style=" font-size:12px;" ng-disabled="assets.disableFields" ng-click="tabCtrl.cancelChanges()" />
+        <input type="button" class="imp-button-hm-wl-prim" value="Save" ng-disabled="!tabCtrl.wrappedLoan.canSave()" style=" font-size:12px;" ng-click="tabCtrl.saveAll()" />
+        
+    </div>
+</div>
+

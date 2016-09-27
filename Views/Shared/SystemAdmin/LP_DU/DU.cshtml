@@ -1,0 +1,136 @@
+﻿@using MML.Web.LoanCenter.ViewModels;
+@model MML.Web.LoanCenter.ViewModels.LP_DUViewModel
+
+
+<script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.extend.js")" type="text/javascript"></script>
+
+
+
+
+<div id="du">
+    @using (Ajax.BeginForm("SaveDU", "SystemAdmin", null, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "du" }, new { @id = "frmDU" }))
+    {
+        @Html.Hidden("error", ViewData["Error"])
+        <div style="min-height: 350px">
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    Service endpoint:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_ServiceEndpoint)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    Login:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_Login)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    Password:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_Password)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    Credit agency name:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_CreditAgencyName)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    Credit agency account:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_CreditAgencyAccount)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    Credit agency password:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_CreditAgencyPassword)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    Findings document category:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_FindingsDocumentCategory)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left lp-du-TxtInput ">
+                    PDF Conversion service URI:
+                </div>
+                <div class="lp-du-Right lp-du">
+                    @Html.TextBoxFor(model => model.DU_PdfConversionServiceUri)
+                </div>
+            </div>
+            <div class="row-lp-du-Container">
+                <div class="lp-du-Left">
+                </div>
+                <div class="lp-du-Right1">
+                    <div id="saveDU" class="lp-du-hl-wl-prim">Save </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#DU_ServiceEndpoint").focus();
+    });
+
+
+    $("#saveDU").click(function () {
+        $.ajax({
+            url: "/SystemAdmin/SaveDU",
+            type: "POST",
+            data: $("#frmDU").serialize(),
+            success: function (mydata) {
+                $("#tabs-2").html(mydata);
+                if ($("#error").val() == "") {
+
+                    setTimeout(function () {
+                        $('.modalBackground').show();
+                        document.getElementById("spanMessage").innerHTML = "</br> Data is successfully saved.";
+                        $('.customMessage').show();
+                    }, 1000);
+                }
+                else {
+                    $('.modalBackground').show();
+                    document.getElementById("spanMessage").innerHTML = "</br>Error occured while saving data.";
+                    $('.customMessage').show();
+
+                }
+            },
+            error: function (mydata) {
+                $('.modalBackground').show();
+                document.getElementById("spanMessage").innerHTML = "</br> Error occured while saving data.";
+                $('.customMessage').show();
+
+            }
+        });
+    });
+
+</script>
+
+
+
+

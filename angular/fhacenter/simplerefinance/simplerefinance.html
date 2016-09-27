@@ -1,0 +1,148 @@
+﻿<div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Endorsement Date of Existing FHA Loan</div>
+        </div>
+        <div class="right-section">
+            <imp-date-picker display-picker="true" type="text" ng-model="simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.endorsmentDate"
+                             date-settings="{defaultValidationEnabled: false, appendToBody: true}"
+                             custom-filters="[{ruleFunction:simpleRefi.ruleFunctionEndorsementDate, callBackFunction:simpleRefi.calculateFHAFields, executeOn:'blur'}]"></imp-date-picker>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">A. Appraisal Value of Subject Property</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-disabled="simpleRefi.isAppraisedValueDisabled()" ng-model="simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.appraisalValue" ng-blur="simpleRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">B. Has the property been purchased in the last 12 mo?</div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl" ng-model="simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.propertyPurchasedInLast12Months" ng-change="simpleRefi.calculateFHAFields()">
+                    <option value="null" selected>Select One</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="calculator-row" ng-show="simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.propertyPurchasedInLast12Months == 'true' || simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.propertyPurchasedInLast12Months == true">
+        <!--If property owned less than a year || direct comparing is needed since value in the model is string, so "true" as well as "false" is true-->
+        <div class="left-section">
+            <div class="imp-psection-label">B2. Purchase Price + Documented Improvements</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.purchasePriceWithDocumentedImprovements" ng-blur="simpleRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>1st Calc:</strong> LTV / CLTV Limit {{simpleRefi.getLabelText()}}</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.ltvLimit | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">C. Unpaid Principle Balance</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.unpaidPrincipleBalance" ng-blur="simpleRefi.calculateFHAFields()" tooltip-placement="bottom" tooltip-trigger="focus" 
+                   tooltip-html-unsafe="<div class='imp-tooltip' style='width:425px;'>
+            <div class='tooltip-content'>
+                The Unpaid Principle Balance includes:
+                <ul>
+                    <li>unpaid principal balance of the FHA-insured first Mortgage as of the month prior to mortgage Disbursement</li>
+                    <li>interest due on the existing Mortgage</li>
+                    <li>MIP due on existing Mortgage</li>
+                    <li>Mortgage Insurance Premium (MIP) due on existing Mortgage</li>
+                    <li>late charges</li>
+                    <li>escrow shortages</li>
+                </ul>
+            <div></div></div></div>"/>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">D. Allowable Borrower-Paid Closing Costs</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{simpleRefi.fhaCenterService.calculateAllowableBorrowerPaidClosingCost() | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">E. Prepaid Expenses</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{simpleRefi.fhaCenterService.getPrepaidCostsTotal() | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">F. Lender Credit for Closing Costs and PrePaids</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{simpleRefi.fhaCenterService.getLenderCreditCostsTotal() | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">G. Unearned UFMIP Refund (From FHA Connection)</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.unearnedUFMIPRefund" ng-blur="simpleRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">H. New Estimated UFMIP</div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newEstimatedUFMIP | impRound: 2 | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>2nd Calc:</strong> Existing Debt (C + D + E - F - Lesser of G or H)</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.existingDebt | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label"><strong>3rd Calc:</strong> {{simpleRefi.wrappedLoan.ref.getSubjectProperty().countyName}} County Limit</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{simpleRefi.wrappedLoan.ref.fhaCountyLoanLimit | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Maximum Base Mortgage (Lesser of 1st, 2nd or 3rd Calculation)</div>
+        </div>
+        <div class="right-section field-value">
+            =<span class="bold">{{simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.maxBaseMortgage | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section" style="justify-content: flex-start;">
+            <div class="imp-psection-label">New UFMIP (Max base x UFMIP factor)</div>
+            <div class="imp-icon-question-mark" style="margin-left:66px;"
+                 tooltip-placement="bottom" tooltip-trigger="mouseenter"
+                 tooltip-html-unsafe="
+                <div class='imp-tooltip' style='width:425px;'><div class='tooltip-content'>FHA Loans endorsed <strong>on or before</strong> 5/31/2009 have a UFMIP factor of 0.01% and <strong>after</strong> have a factor of 1.75%.<div></div></div></div>">
+            </div>
+        </div>
+        <div class="right-section field-value">
+            <span class="success">+</span><span>{{simpleRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newUFMIP | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+</div>

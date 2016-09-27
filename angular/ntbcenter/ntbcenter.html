@@ -1,0 +1,277 @@
+﻿<fieldset ng-disabled="!ntbCenter.wrappedLoan.ref.FirstLienReoItem">
+    <div class="products-center">
+        <div class="main-container">
+            <div class="section">
+                <div class="title">
+                    <div style="width:170px;">Loan Information</div>
+                    <div style="width:170px; color:gray;">Current</div>
+                    <div style="width:170px; color:gray;">New</div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Loan Origination Date</div>
+                    </div>
+                    <div class="multi-column">
+                        <imp-date-picker display-picker="true" type="text" ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.loanOriginationDate"
+                                         date-settings="{defaultValidationEnabled: false, appendToBody: true}"
+                                         custom-filters="[{ruleFunction: ntbCenter.callNtbCalculator, callBackFunction:ntbCenter.callNtbCalculator, executeOn:'blur'}]"></imp-date-picker>
+                    </div>
+                    <div class="multi-column"></div>
+                </div>
+                <div class="content-row" style="padding-top:5px;">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Closing Date</div>
+                    </div>
+                    <div class="multi-column"></div>
+                    <div class="multi-column">
+                        <div class="move-from-top">{{ntbCenter.formatDate(ntbCenter.wrappedLoan.ref.closingDate.dateValue)}}</div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Loan Amount</div>
+                    </div>
+                    <div class="multi-column"><div class="multi-column"><input type="text" class="input-component" imp-currency ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.unpaidBalance" ng-blur="ntbCenter.callNtbCalculator()" /></div></div>
+                    <div class="multi-column">
+                        <div class="move-from-top">{{ntbCenter.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount | impRound: 2 | impCurrency}}</div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Loan Term</div>
+                    </div>
+                    <div class="multi-column"><div class="multi-column"><input type="text" class="input-component" ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.loanTerm" ng-blur="ntbCenter.callNtbCalculator()" /></div></div>
+                    <div class="multi-column">
+                        <div ng-if="ntbCenter.wrappedLoan.ref.financialInfo.term" class="move-from-top">{{ntbCenter.wrappedLoan.ref.financialInfo.term}} Year</div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Amortization Type</div>
+                    </div>
+                    <div class="multi-column">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl"
+                                    ng-options="item.value as item.text for item in ntbCenter.applicationData.lookup.amortizationTypes"
+                                    ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.amortizationType"
+                                    ng-change="ntbCenter.callNtbCalculator()">
+                                <option value="">Select One</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="multi-column">
+                        <div class="move-from-top">{{ntbCenter.applicationData.lookup.getStringValue(ntbCenter.applicationData.lookup.amortizationTypes,ntbCenter.wrappedLoan.ref.financialInfo.amortizationType)}}</div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Interest Rate</div>
+                    </div>
+                    <div class="multi-column"><div class="multi-column"><input type="text" class="input-component" round-three-decimals="true" return-float="true" imp-percentage ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.interestRate" ng-blur="ntbCenter.callNtbCalculator()" /></div></div>
+                    <div class="multi-column">
+                        <div class="move-from-top">{{ntbCenter.wrappedLoan.ref.financialInfo.baseInterestRate | impRound: 3 | impPercentage}}</div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Fully Indexed Rate</div>
+                    </div>
+                    <div class="multi-column"><div class="multi-column"><input type="text" class="input-component" round-three-decimals="true" return-float="true" imp-percentage ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.FullyIndexedRate" ng-disabled="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.amortizationType != 2" ng-blur="ntbCenter.callNtbCalculator()" /></div></div>
+                    <div class="multi-column">
+                        <div class="move-from-top" ng-show="ntbCenter.wrappedLoan.ref.financialInfo.amortizationType == 2">{{ntbCenter.wrappedLoan.ref.fullyIndexedRate | impRound: 3 | impPercentage}}</div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Negative Amortization</div>
+                    </div>
+                    <div class="multi-column">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl"
+                                    ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.NegativeAmortizationFeature"
+                                    ng-change="ntbCenter.callNtbCalculator()">
+                                <option value="">Select One</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="multi-column">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl"
+                                    ng-model="ntbCenter.wrappedLoan.ref.NegativeAmortization"
+                                    ng-change="ntbCenter.callNtbCalculator()">
+                                <option value="">Select One</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Pre-Payment Penalty</div>
+                    </div>
+                    <div class="multi-column">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl"
+                                    ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.PrePaymentPenalty"
+                                    ng-change="ntbCenter.callNtbCalculator()">
+                                <option value="">Select One</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="multi-column">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl"
+                                    ng-model="ntbCenter.wrappedLoan.ref.PrePaymentPenalty"
+                                    ng-change="ntbCenter.callNtbCalculator()">
+                                <option value="">Select One</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Pre-Payment Percentage</div>
+                    </div>
+                    <div class="multi-column"><input type="text" class="input-component" round-three-decimals="true" return-float="true" imp-percentage ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.prePaymentPercentage" ng-blur="ntbCenter.callNtbCalculator()" /></div>
+                    <div class="multi-column"></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Pre-Payment Amount</div>
+                    </div>
+                    <div class="multi-column"><input type="text" class="input-component" imp-currency ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.prePaymentAmount" ng-blur="ntbCenter.callNtbCalculator()" /></div>
+                    <div class="multi-column"><input type="text" class="input-component" imp-currency ng-model="ntbCenter.wrappedLoan.ref.prePaymentAmount" ng-blur="ntbCenter.callNtbCalculator()" /></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Cash Out Amount</div>
+                    </div>
+                    <div class="multi-column"></div>
+                    <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.CashFromToBorrower | impCurrency}}</div></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Junior Lien Amount</div>
+                    </div>
+                    <div class="multi-column"><input type="text" ng-disabled="!ntbCenter.wrappedLoan.ref.JuniorLienReoItem" class="input-component" imp-currency ng-model="ntbCenter.wrappedLoan.ref.JuniorLienReoItem.unpaidBalance" ng-blur="ntbCenter.callNtbCalculator()" /></div>
+                    <div class="multi-column"></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Junior Lien Note Rate</div>
+                    </div>
+                    <div class="multi-column"><input type="text" class="input-component" ng-disabled="!ntbCenter.wrappedLoan.ref.JuniorLienReoItem" round-three-decimals="true" return-float="true" imp-percentage ng-model="ntbCenter.wrappedLoan.ref.JuniorLienReoItem.reoInfo.interestRate" ng-blur="ntbCenter.callNtbCalculator()" /></div>
+                    <div class="multi-column"></div>
+                </div>
+
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">DTI</div>
+                    </div>
+                    <div class="multi-column"><imp-input round-three-decimals="true" return-float="true" imp-percentage ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.dti"> </div>
+                    <div class="multi-column"><div class="move-from-top">{{wrappedLoan.ref.financialInfo.dti | impRound : 3 | impPercentage}}</div></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">LTV</div>
+                    </div>
+                    <div class="multi-column"><imp-input round-three-decimals="true" return-float="true" imp-percentage ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.ltv"> </div>
+                    <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.getSubjectProperty().ltv | impPercentage : 2}}</div></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Loan Purpose</div>
+                    </div>
+                    <div class="multi-column">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl"
+                                    ng-options="item.value as item.text for item in ntbCenter.applicationData.lookup.loanPurposes"
+                                    ng-model="ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.loanPurpose"
+                                    ng-change="ntbCenter.callNtbCalculator()">
+                                <option value="">Select One</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.getLoanPurposeTypeText()}}</div></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Payment Amount</div>
+                    </div>
+                    <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.housingExpenses.firstMtgPi | impRound: 2 | impCurrency}}</div></div>
+                    <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.housingExpenses.newFirstMtgPi | impRound: 2 | impCurrency}}</div></div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="imp-psection-label move-from-top">Payment with MI</div>
+                    </div>
+                    <div class="multi-column"><div class="move-from-top">{{ntbCenter.calculatePaymentAndMI(ntbCenter.wrappedLoan.ref.housingExpenses.firstMtgPi, false) | impRound: 2 | impCurrency}}</div></div>
+                    <div class="multi-column"><div class="move-from-top">{{ntbCenter.calculatePaymentAndMI(ntbCenter.wrappedLoan.ref.housingExpenses.newFirstMtgPi, true) | impRound: 2 | impCurrency}}</div> </div>
+                </div>
+                <div class="content-row">
+                    <div class="multi-column">
+                        <div class="move-from-top">Total Monthly Obligation</div>
+                    </div>
+                    <div class="multi-column"><div class="move-from-top total">{{ntbCenter.calculateCurrentMonthlyObligations() | impRound: 2 | impCurrency}}</div></div>
+                    <div class="multi-column"><div class="move-from-top total">{{ntbCenter.wrappedLoan.ref.loanLock.newMonthlyPayment | impRound: 2 | impCurrency}}</div></div>
+                </div>
+                <!--RCOUPMENT PERIOD-->
+                <div class="section" style="margin-top: 50px;">
+                    <div class="title"><div>Recoupment Period</div></div>
+                    <div class="content-row">
+                        <div class="multi-column">
+                            <div class="imp-psection-label move-from-top">A. Fee and Closing Costs Paid</div>
+                        </div>
+                        <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.recoupmentPeriodCalculated.costOfNewLoan | impRound: 2 | currency}}</div></div>
+                        <div class="multi-column"></div>
+                        </div>
+                    <div class="content-row">
+                        <div class="multi-column">
+                            <div class="imp-psection-label move-from-top">B. Prepayment Penalty</div>
+                        </div>
+                        <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.FirstLienReoItem.reoInfo.prePaymentAmount | impRound: 2 | currency}}</div></div>
+                        <div class="multi-column"></div>
+                    </div>
+                    <div class="content-row">
+                        <div class="multi-column">
+                            <div class="imp-psection-label move-from-top">Total Cost of New Loan (A + B)</div>
+                        </div>
+                        <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.recoupmentPeriodCalculated.totalCostOfNewLoan | impRound: 2 | currency}}</div></div>
+                        <div class="multi-column"></div>
+                    </div>
+                    <div class="content-row">
+                        <div class="multi-column">
+                            <div class="imp-psection-label move-from-top" style="width: 180px;">Monthly Savings from New Loan</div>
+                        </div>
+                        <div class="multi-column"><div class="move-from-top">{{ntbCenter.wrappedLoan.ref.recoupmentPeriodCalculated.monthlySavingsFromNewLoan | impRound: 2 | currency}}</div></div>
+                        <div class="multi-column"></div>
+                    </div>
+                    <div class="content-row">
+                        <div class="multi-column">
+                            <div class="move-from-top">Recoupment Time</div>
+                        </div>
+                        <div class="multi-column"><div class="move-from-top total" ng-class="{'invalid-text' : !ntbCenter.isRecoupmentPeriodValid()}">{{ntbCenter.getRecoupmentPeriod()}}</div></div>
+                        <div class="multi-column"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="title"><div>Refinancing will yield the following benefits</div></div>
+                <div ui-view="resultsSection"></div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<div class="imp-main-buttons-div" style="border-top: 3px solid #1fb25a; width: 100%; margin-top: 40px; padding-right:0px;">
+    <div style="width:217px; float:right;">
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" style=" font-size:12px;" ng-click="ntbCenter.cancelChanges()" />
+        <input type="button" class="imp-button-hm-wl-prim" value="Save" style=" font-size:12px;" ng-click="ntbCenter.saveChanges()" />
+    </div>
+</div>

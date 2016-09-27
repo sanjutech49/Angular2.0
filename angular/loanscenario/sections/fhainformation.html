@@ -1,0 +1,91 @@
+﻿<div class="fha-information">
+    <div class="section-header">
+        <div class="section-body">
+            <div class="main" ng-class="{'imp-psection-subtitle-noborder margin-bottom': !loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isfhaLoan, 'imp-psection-subtitle' : loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isfhaLoan}">                
+                <div class="mainCb">
+                    <input id="cbFHAinformation"
+                           type="checkbox"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           class="imp-checkbox"
+                           ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isfhaLoan"
+                           ng-change="loanScenario.onFHAinformationChange(loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isfhaLoan)" />
+                    <label for="cbFHAinformation" class="imp-lb-checkbox"></label>
+                </div>
+
+                <div style="width:120px; float:left">FHA Information</div>
+
+            </div>
+            <div class="row loan-scenario-va-information ng-scope" ng-show="loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isfhaLoan">
+                <div class="col-lg-4" style="width: 30%;" ng-hide="loanScenario.wrappedLoan.ref.loanPurposeType == 1">
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-11 fhaLbRight">
+                            <div class="imp-psection-label">
+                                Current loan on Subject Property an FHA Loan?
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 fhaCbLeft">
+                            <input id="cbCurrentlyHaveFHAonSubjectProperty"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isCurrentLoanFHA" />
+                            <label for="cbCurrentlyHaveFHAonSubjectProperty" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4" style="width: 30%;" ng-show="loanScenario.wrappedLoan.ref.loanPurposeType == 1">
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-11 fhaLbRight">
+                            <div class="imp-psection-label">
+                                Are you purchasing a HUD owned property?
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 fhaCbLeft">
+                            <input id="cbHUDOwned"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isHudOwned" />
+                            <label for="cbHUDOwned" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4" style="width: 30%;">
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-11 fhaLbRight">
+                            <div class="imp-psection-label">
+                                Add UFMIP to Loan Amount?
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 fhaCbLeft">
+                            <input id="cbFinanceUFMIP"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.fhaInformation.isFinanceUfmip" />
+                            <label for="cbFinanceUFMIP" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

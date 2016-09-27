@@ -1,0 +1,29 @@
+﻿<div class="sub-col-l">
+    <div ng-show="!loanCost.editMode" style="float:left">
+        <div class="amount-label">{{loanCost.amountPerMonth | impCurrency}}</div>
+        <span class="imp-disclaimer">per month for</span>
+        <span>{{loanCost.monthsToBePaid}} mo.</span>
+    </div>
+    <div ng-if="costDetailsCtrl.isItemizeCalculatorVisible(loanCost)" ng-class="{'itemized-calculator-icon-position': loanCost.editMode }" ng-click="costDetailsCtrl.openItemizedPropertyTaxCalculator($event,loanCost); $event.stopPropagation();" class="imp-calculator-icon" style=" float:right"></div>
+    <div ng-show="loanCost.editMode" style="float:left">
+        <input type="text"
+               ng-model="loanCost.amountPerMonth"
+               ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.isTaxOrInsuranceCost(loanCost)"
+               ng-change="costDetailsCtrl.amountPerMonthChanged(loanCost)"
+               ng-blur="costDetailsCtrl.recalculateAggregateAdjustment(loanCost)"
+               class="amount"
+               placeholder="$"
+               imp-currency="">
+        <span class="imp-disclaimer">per month for</span>
+        <input type="text" imp-numeric style="width: 37px;"
+               class="mon-paid"
+               ng-model="loanCost.monthsToBePaid"
+               ng-change="costDetailsCtrl.amountPerMonthChanged(loanCost)"
+               ng-blur="costDetailsCtrl.recalculateAggregateAdjustment(loanCost)"
+               ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.isTaxOrInsuranceCost(loanCost)"
+               placeholder="Months">
+        mo.&nbsp;
+    </div>
+    <div class="imp-icon-lock" ng-if="loanCost.canBeLocked && (loanCost.isLocked && !loanCost.editMode || loanCost.editMode)" ng-class="{'un': !loanCost.isLocked}"
+         ng-click="loanCost.isLocked = !loanCost.isLocked"></div>
+</div> 

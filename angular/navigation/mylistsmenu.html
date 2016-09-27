@@ -1,0 +1,53 @@
+﻿<div class="imp-nav-bar-col">
+    <div class="item"
+         ng-if="showStandardsList">
+        <div class="title" ng-hide="navCtrl.isWholesaleUser">
+            Standard Lists
+        </div>
+        <div class="items">
+            <ul>
+                <li ng-if="!navCtrl.isWholesaleUser"><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.prospects, queueTitle: 'Prospects' })">Prospect</div></li>
+                <li ng-if="navCtrl.isWholesaleUser" class="imp-inactive"><div>Unsubmitted</div></li>
+                <li ng-if="navCtrl.isWholesaleUser" class="imp-inactive"><div>Registered</div></li>
+                <li ng-if="navCtrl.isWholesaleUser" class="imp-inactive"><div>Submitted</div></li>
+                <li ng-if="navCtrl.isWholesaleUser" class="imp-inactive"><div>Opening</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.preApproval, queueTitle: navCtrl.getMenuLabelText('PREAPPROVAL') })">{{::navCtrl.getMenuLabelText('PREAPPROVAL')}}</div></li>
+                <li ng-if="navCtrl.isWholesaleUser" class="imp-inactive"><div>Approved</div></li>
+                <li ng-if="navCtrl.isWholesaleUser" class="imp-inactive"><div>Docs Out</div></li>
+                <li ng-if="navCtrl.isWholesaleUser" class="imp-inactive"><div>Funding</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.incomplete, queueTitle: 'Incomplete' })">{{::navCtrl.getMenuLabelText('INCOMPLETE')}}</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.openLoans, queueTitle: navCtrl.getMenuLabelText('QUEUE') })">{{::navCtrl.getMenuLabelText('QUEUE')}}</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.processing, queueTitle: 'Processing' })">Processing</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.adverse, queueTitle: 'Adverse' })">Adverse</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.closedLoans, queueTitle: navCtrl.getMenuLabelText('CLOSED_LOANS') })">{{::navCtrl.getMenuLabelText('CLOSED_LOANS')}}</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.cancelledLoans, queueTitle: navCtrl.getMenuLabelText('CANCELLED_LOANS') })">{{::navCtrl.getMenuLabelText('CANCELLED_LOANS')}}</div></li>
+            </ul>
+        </div>
+    </div>
+    <div class="item" ng-if="showDisclosuresList">
+        <div class="title">
+            Disclosures
+        </div>
+        <div class="items">
+            <ul>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.pendingDisclosures, queueTitle: 'Pending Disclosures'  })">Pending Disclosures</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.pendingEConsent, queueTitle: 'Pending eConsent' })">Pending eConsent</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.mailRoom, queueTitle: 'Mail Room' })">Mail Room</div></li>
+            </ul>
+        </div>
+    </div>
+    <div class="item" ng-if="showAppraisalList && !navCtrl.isWholesaleUser">
+        <div class="title">
+            Appraisal
+        </div>
+        <div class="items">
+            <ul>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.orderRequested, queueTitle: 'Order Requested'  })">Order Requested</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.orderProcessed, queueTitle: 'Order Processed'  })">Order Processed</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.delivered, queueTitle: 'Delivered'  })">Delivered</div></li>
+                <li><div ng-click="navCtrl.openLink('Queue')" ui-sref="loanCenter.queue({ queue: navCtrl.enums.myListQueue.exceptions, queueTitle: 'Exceptions'  })">Exceptions</div></li>
+            </ul>
+        </div>
+    </div>
+
+</div>

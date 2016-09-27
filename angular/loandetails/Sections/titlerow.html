@@ -1,0 +1,36 @@
+﻿<div class="loan-details-title">
+    <!-- TODO: show only one div in depend of product name length  -->
+    <div style="float:left; width:717.5px" loan-details-title>
+        <div class="one-line" style="height:20px; overflow:hidden;">
+            <!--<product-info product-info-height="loanDetails.controllerData.productInfoHeight"></product-info>-->
+            <div style="float:left" class="address-item-data">
+                <div style="float:left; min-width:5px;" class="first-part-title">
+                    {{loanDetails.wrappedLoan.ref.product.name}}
+                </div>
+                <div style="float:left; min-width:5px;" class="second-part-title">
+                    &nbsp;|&nbsp;<span style="font-size: 12px;font-weight: normal;">{{loanDetails.wrappedLoan.ref.product.investorName}} - {{loanDetails.wrappedLoan.ref.product.ruCode}} - {{loanDetails.wrappedLoan.ref.product.programName}}<span ng-show="loanDetails.wrappedLoan.ref.product.conforming"> - Conforming</span></span>
+                </div>
+            </div>
+                </div>
+        <div class="two-lines" style="float:left; min-width:5px;">
+            <span style="font-size: 12px;font-weight: normal;">{{loanDetails.wrappedLoan.ref.product.investorName}} - {{loanDetails.wrappedLoan.ref.product.ruCode}} - {{loanDetails.wrappedLoan.ref.product.name}}<span ng-show="loanDetails.wrappedLoan.ref.product.conforming"> - Conforming</span></span>
+        </div>
+    </div>
+
+
+    <div class="lock-expiration" ng-show="loanDetails.wrappedLoan.ref.lockingInformation.isLocked" style="float: left;padding-left: 47px;padding-top:4px" ng-class="{expirationmargin: loanDetails.controllerData.productInfoHeight }">
+        Lock Expiration:
+        <imp-lock-popup loanid="{{ loanDetails.wrappedLoan.ref.loanId }}" useraccountid="{{loanDetails.userAccountId}}">
+            <span ng-class="{ expired: loanDetails.wrappedLoan.ref.lockingInformation.isLockExpired }">
+                {{ loanDetails.wrappedLoan.ref.lockingInformation.lockExpirationDate | date:"MM/dd/yyyy" }}
+                <imp-lock number="{{ loanDetails.wrappedLoan.ref.lockingInformation.lockExpirationNumber}}" color="{{loanDetails.wrappedLoan.ref.getLockColor()}}"></imp-lock>
+            </span>
+            <span class="lock-expiration-message" ng-class="{expired: loanDetails.wrappedLoan.ref.lockingInformation.isLockExpired}" style="padding-left: 35px;">
+                ({{ loanDetails.wrappedLoan.ref.getLockExpirationText() }})
+            </span>
+        </imp-lock-popup>
+</div>
+
+
+
+</div>

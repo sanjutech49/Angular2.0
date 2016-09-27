@@ -1,0 +1,71 @@
+﻿<link href="../../../Content/LP_DU.css" rel="stylesheet" type="text/css" />
+
+
+
+<div class="lp-du-header">Loan Prospector & Desktop Underwriter</div>
+
+<div style="width:900px">
+    <div id="tabs">
+        <ul>
+            <li>
+                <a href="#tabs-1" class="lp firstTab" onclick="getContentTab(1);">Loan Prospector</a>
+                <div class="arrow-down"></div>
+            </li>
+
+            <li>
+                <a href="#tabs-2" class="lp" onclick="getContentTab(2);">Desktop Underwriter</a>
+                <div class="arrow-down"></div>
+            </li>
+        </ul>
+        <div id="tabs-1">
+        </div>
+
+        <div id="tabs-2">
+        </div>
+
+    </div>
+    <div class="customMessage imp-div-chooseBuyerSellerAgentPoPup-container">
+        <div class="imp-div-chooseBuyerSellerAgentPoPup-title " style="float:left;">
+
+        </div>
+        <div class="imp-div-close-x-lp-du" onclick="ClosePopup()"></div>
+        <div class="imp-div-globalToLoanContactsSeparator"></div>
+        <div class="lp-du-spanMessage">
+            <span id="spanMessage"></span>
+
+        </div>
+        <div class="imp-div-globalToLoanContactsSeparator"></div>
+        <div class="imp-div-chooseBuyerSellerAgentPoPup-button-container">
+            <div class="imp-button-contacts-hm-wm-sec" onclick="ClosePopup()">Ok</div>
+
+        </div>
+        <div style="clear: both"></div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#tabs").tabs();
+            getContentTab (1);
+        });
+
+        function getContentTab(index) {
+            var url = '/SystemAdmin/GetLP_DU_AjaxTab/' + index;
+            var targetDiv = "#tabs-"+index;
+            $.get(url, null, function (result) {
+                $(targetDiv).html(result);
+                if ($("#error").val() != "") {
+                    $('.modalBackground').show();
+                    document.getElementById("spanMessage").innerHTML = "</br>Error occured while loading data.";
+                    $('.customMessage').show();
+
+                }
+            });
+        }
+        function ClosePopup() {
+            $('.modalBackground').hide();
+            $('.customMessage').hide();
+
+        }
+    </script>

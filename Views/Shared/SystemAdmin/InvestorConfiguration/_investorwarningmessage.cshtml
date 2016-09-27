@@ -1,0 +1,35 @@
+﻿<div class="imp-sa-popup-content" id="warning-investor-product" style="width: 625px; height: 170px; margin-left: -312.5px; margin-top: -85px;">
+    <div class="imp-sa-modal-header">
+        <span>Warning </span>
+        <div onclick="InvestorConfiguration.ClosePopup()" style="float: right;" class="imp-div-close-x">
+        </div>
+    </div>
+    <div class="imp-sa-split">
+    </div>
+    <br /><br />
+    <div class="imp-sa-modal-row">
+        @{
+            string isActivate = ViewBag.Activate == null ? "" : ViewBag.Activate ? "true" : "false";
+            string textActivateDeactivate = ViewBag.Activate == null ? "" : ViewBag.Activate  ? "activate" : "deactivate";
+            string name = !string.IsNullOrWhiteSpace( ViewBag.Name ) && ViewBag.Name.Length > 40 ? ViewBag.Name.Substring( 0, 37 ) + "..." : ViewBag.Name;           
+        } 
+
+        You are attempting to @textActivateDeactivate  <span title="@ViewBag.Name"><b>@name</b></span>. Do you wish to continue?
+    </div>
+    <div class="imp-sa-split">
+    </div>
+    <br /><br />
+    <div style="float: right; padding-right: 20px;">
+        <div class="imp-button-div-hm-wm-sec" id="btn-cancel-ivestor-product" onclick="InvestorConfiguration.ClosePopup()">
+            Cancel
+        </div>
+          
+        <div class="imp-button-div-hm-wm-prim" id="btn-active-investor-prduct" onclick="InvestorConfiguration.ActivateDeactivate( @ViewBag.InvestorId, @ViewBag.InvestorProductId, @isActivate )">
+            Continue</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {  
+    });
+</script>

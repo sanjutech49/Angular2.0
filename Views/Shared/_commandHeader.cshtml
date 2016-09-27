@@ -1,0 +1,23 @@
+﻿@model MML.Web.LoanCenter.Models.LoanDetailsModel
+<div class="conciergecommandembeddedhead" id="conciergecommandembeddedhead" style="margin-top: 30px;
+    margin-left: 4px;">
+    <div class="left0">
+        <span class="namelink" id="nameofview">@Model.Title</span>
+    </div>
+    <div class="smallarrow">
+    </div>
+    <div class="titleInformation">@Model.TitleInformation <span class="spnLeadSourceInfo">@Model.HearAboutUs</span></div>
+    <div class="additionalInformation">@Model.AdditionalInformation</div>
+    <div class="right1">
+        <div class="left1">
+        </div>
+        <div class="right0">
+            <a id="closeManageProspects" class="xclose" title="Close Section" onclick="CloseCommandSection()">
+            </a><a id="minimizemanageprospects" class="minimizesection" title="Minimize/Maximize Section"
+                onclick="ManageProspects.BindManageProspectsMinimize()">
+                <div id="manageprospectsminmax" class="minmax min">
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

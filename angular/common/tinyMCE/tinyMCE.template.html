@@ -1,0 +1,7 @@
+﻿
+<form method="post">
+    <textarea ui-tinymce="{trusted: true}"
+              ng-model="tinyMCECntrl.tinymce"
+              ng-change="tinyMCECntrl.updateHtml()"></textarea>
+</form>
+<div ng-bind-html="tinyMCECntrl.tinyMCEHtml"></div>

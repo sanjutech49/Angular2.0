@@ -1,0 +1,72 @@
+﻿<div class="header">
+    <div class="title"> 
+        <div ng-class="publicRecords.isCollapsed.publicRecords ? 'imp-collapsed right':'imp-collapsed down'" ng-click="publicRecords.isCollapsed.publicRecords = !publicRecords.isCollapsed.publicRecords"></div>
+        <span class="lable-main">Public Records & Judgments</span>
+        <div class="imp-public-records"></div>      
+    </div>
+ 
+</div>
+<div collapse="publicRecords.isCollapsed.publicRecords">
+    <div class="content container">
+        <div class="row">
+            <div class="col-xl">Borrower</div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-m">Type</div>
+            <div class="col-xm">Docket / Case #</div>
+            <div class="col-xs">Date Filed</div>
+            <div class="col-m">Date Released</div>
+            <div class="col-m"><div class="amount-title">Amount</div></div>
+            <div class="col-xxxxm">Comment</div>
+            <div class="col-xxxs"></div>
+        </div>
+        <div class="row" ng-repeat="publicRecord in publicRecords.getPublicRecords()">
+            <div class="col-xl">{{publicRecord.getBorrowerFullName()}}</div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs">
+                <imp-icon-info ng-click="publicRecords.showCompanyInfo(publicRecord, $event)" has-value="publicRecord.companyData.hasChanges"></imp-icon-info>
+            </div>
+            <div class="col-m">
+                <div style="cursor:pointer" tooltip-append-to-body="true" imp-popover="angular/loanapplication/credit/publicrecords/publicrecordtypetooltip.html" tooltip-placement="bottom" tooltip-trigger="mouseenter" watch="publicRecords.wrappedLoan.ref.active.publicRecords">
+                    {{publicRecord.type}}
+                </div>
+            </div>
+            <div class="col-xm">
+                <span title="{{publicRecord.docketCase}}">
+                    {{publicRecord.docketCase | impExcerpt: 15}}
+                </span>
+            </div>
+            <div class="col-xs">{{publicRecord.dateFiled | date: 'MM/dd/yyyy'}}</div>
+            <div class="col-m"><input type="datetime" min="01/01/1900" imp-date placeholder="__/__/____" ng-model="publicRecord.releasedDate" /></div>
+            <div class="col-m"><input type="text" imp-currency data-ng-model=" publicRecord.amount" ng-disabled="publicRecord.publicRecordComment == 4" /></div> <!--4 - PayOff at close comment-->
+            <div class="col-xxxxm">
+                <div class="imp-span-ddl-container medium">
+                    <select name="type" ng-model="publicRecord.publicRecordComment" ng-options="selectedItem.value as selectedItem.text for selectedItem in publicRecords.applicationData.lookup.publicRecordComments"
+                            class="imp-ddl" required ng-change="publicRecords.publicRecordsCommentChanged(publicRecord)"></select>
+                </div>
+            </div>
+            <div class="col-xxxs">
+            </div>
+            <div class="col-xxxs"></div>
+
+            <div class="col-xxxs">
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="row-fluid">
+            <div class="col-xl"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-m"></div>
+            <div class="col-xm title">Totals</div>
+            <div class="col-xs"></div>
+            <div class="col-m value"></div>
+            <div class="col-m value">{{publicRecords.summateTotalPublicRecordsAmount() | currency:'$':2}}</div>
+            <div class="col-xxxm"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+            <div class="col-xxxs"></div>
+        </div>
+    </div>
+</div>

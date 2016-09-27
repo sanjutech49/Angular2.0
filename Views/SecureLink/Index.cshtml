@@ -1,0 +1,109 @@
+﻿@model MML.Web.LoanCenter.Models.SecureLink.AuthenticationViewModel
+@{
+    ViewBag.Title = "Secure Link";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/CommonStyle.css" rel="stylesheet" />
+    <link href="~/Content/CFeaturesStyle.css" rel="stylesheet" />
+    <link href="~/Content/iMPLayoutCss-1.css?v=1" rel="stylesheet" />
+    <link href="~/Content/angular-block-ui.min.css" rel="stylesheet" />
+</head>
+<body ng-app="docusign">
+    <div>
+        <div ui-view="navigationBar"></div>
+        <div ui-view></div>
+        @*<div style="text-align: center">@("© " + DateTime.Now.Year + " Skyline Financial Corp.")</div>*@
+        @*@Html.Partial("_footer")*@
+    </div>
+
+    @*Initialization Code rendered from server*@
+    <script>
+    var docusign;
+    (function (docusign) {
+        var settings = (function () {
+            settings = {};
+            //to use reference consumer.settings.restApiRoot
+            settings.apiRoot = '@(System.Configuration.ConfigurationManager.AppSettings["RestApiRoot"])';
+            settings.isSecureLinkTestMode = @Model.isSecureLinkTestMode.ToString().ToLower();
+            settings.isTokenValid = @Model.isTokenValid.ToString().ToLower();
+            settings.authenticationViewModel = @Html.Raw(@Model.authenticationViewModel.ToString(Newtonsoft.Json.Formatting.None));
+            return settings;
+        })();
+        docusign.settings = settings;
+    })(docusign || (docusign = {}));
+</script>
+
+    @*Base libraries*@
+    <script src="~/Scripts/underscore-min.js"></script>
+    <script src="~/Scripts/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/bootstrap-3.3.5/js/bootstrap.js"></script>
+    @*<script src="~/Scripts/storejs/store.min.js"></script>*@
+
+    @*Angular code*@
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/angular/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/ui-router/0.2.13/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/angular-block-ui.js"></script>
+    <script src="~/Scripts/angular-grid/angularGrid.js"></script>
+    <script src="~/Scripts/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="~/Scripts/angular/angular-resource.min.js"></script>
+    <script src="~/Scripts/angular/angular-animate.min.js"></script>
+    <script src="~/Scripts/ui-utils/ui-utils.js"></script>
+    <script src="~/Scripts/angular-ui/ui-mask.min.js"></script>
+
+    <script src="~/angular/ts/generated/enums.js"></script>
+    <script src="~/angular/ts/generated/viewModels.js"></script>
+    <script src="~/angular/ts/generated/viewModelBaseClasses.js"></script>
+    <script src="~/angular/ts/generated/viewModelClasses.js"></script>
+    <script src="~/angular/ts/extendedViewModels/enums.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/loan.extendedViewModel.js"></script>
+
+    <script src="~/angular/ts/lib/referenceWrapper.js"></script>
+
+    <script src="~/angular/consumer/consumer.module.js"></script>
+    <script src="~/angular/consumer/consumer.config.js"></script>
+    <script src="~/angular/consumer/consumer.service.js"></script>
+    @*<script src="~/angular/consumer/consumer.resolver.js"></script>*@
+    @*<script src="~/angular/consumer/http.status.service.js"></script>*@
+    @*<script src="~/angular/consumer/consumer.directives.js"></script>*@
+    <script src="~/angular/consumer/consumer.testdata.js"></script>
+    <script src="~/angular/consumer/authentication/authentication.controller.js"></script>
+    <script src="~/angular/consumer/docusign/navigation/consumernavbar.controller.js"></script>
+    <script src="~/angular/consumer/docusign/esigning/instructions/esigningInstructions.controller.js"></script>
+    <script src="~/angular/consumer/docusign/esigning/esigningroom/eSigningRoom.controller.js"></script>
+    @*<script src="~/angular/consumer/docusign/econsent/econsent.controller.js"></script>*@
+    <script src="~/angular/consumer/docusign/esigning/confirmation/success.controller.js"></script>
+    <script src="~/angular/consumer/docusign/appraisal/appraisal.controller.js"></script>
+    <script src="~/angular/consumer/docusign/docupload/docupload.controller.js"></script>
+    <script src="~/angular/consumer/docusign/econsentsettings/econsentsettings.controller.js"></script>
+
+    @*Angular Reusabled Common Code*@
+    <script src="~/angular/common/common.module.js"></script>
+    <script src="~/angular/common/common.factory.js"></script>
+    <script src="~/angular/common/guid.service.js"></script>
+    <script src="~/angular/common/common.directives.js"></script>
+    <script src="~/angular/common/common.filters.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.module.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.template.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.provider.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.factory.js"></script>
+    <script src="~/angular/common/simplemodalwindow/simplemodalwindow.module.js"></script>
+    <script src="~/angular/common/simplemodalwindow/simplemodalwindow.factory.js"></script>
+    <script src="~/angular/common/simplemodalwindow/simplemodalwindow.controller.js"></script>
+    <script src="~/angular/common/addresscontrol/addresscontrol.directive.js"></script>
+
+    <script src="~/angular/common/directives/includereplace.directive.js"></script>
+    <script src="~/angular/common/directives/validateemail.directive.js"></script>
+    <script src="~/angular/common/zipcode/zipcode.service.js"></script>
+
+
+</body>
+</html>
+
+

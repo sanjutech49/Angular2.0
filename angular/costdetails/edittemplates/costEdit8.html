@@ -1,0 +1,19 @@
+﻿<div class="sub-col-l">
+    <div ng-show="!loanCost.editMode" style="float: left">
+        <span>{{loanCost.titleCostIncludedTypeDescription}}</span>
+    </div>
+    <div ng-show="loanCost.editMode" style="float: left; width: 208px">
+        <div class="imp-span-ddl-container medium" ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields}">
+            <select class="imp-ddl"
+                    ng-options="type.value as type.text for type in costDetailsCtrl.wrappedLoan.ref.lookup.titleCostIncludedTypeList"
+                    ng-model="loanCost.titleCostIncludedType"
+                    ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields">
+                <option value="" ng-selected="{{loanCost.titleCostIncludedType==null}}" disabled style="color:#999;display:none"></option>
+            </select>
+        </div>
+    </div>
+    <div class="imp-icon-lock" ng-if="loanCost.CanBeLocked && (loanCost.IsLocked && !loanCost.editMode || loanCost.editMode)"
+         ng-class="{'un': !loanCost.IsLocked}" ng-click="loanCost.IsLocked = !loanCost.IsLocked"
+         ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields">
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿<div ng-repeat="loanapp in conBarTabsCtrl.wrappedLoan.ref.getLoanApplications()" class="imp-contextual-bar-tabs" style="margin-left: 0px;">
+    <div class="imp-tab-text"
+         ng-class="{'imp-tab-selected' : loanapp == conBarTabsCtrl.wrappedLoan.ref.active}"
+         ng-click="conBarTabsCtrl.switchLoanApp(loanapp)"
+         style="margin-top:7px; width: inherit;position:relative">
+        <span ng-show="conBarTabsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+              class="glyphicon glyphicon-ok imp-contextual-bar-tabs-is-completed"
+              ng-class="{'green' : loanapp.isLoanApplicationCompleted(conBarTabsCtrl.wrappedLoan.ref.getSubjectProperty(), conBarTabsCtrl.wrappedLoan.ref.loanPurposeType, conBarTabsCtrl.wrappedLoan.ref.loanAmount, loanapp.isCoBorrowerAddressDifferent, conBarTabsCtrl.wrappedLoan.ref.financialInfo.downPaymentTypeCode, conBarTabsCtrl.wrappedLoan.ref.areSixPiecesAcquiredForCurrentLoanApplication()), 'red' : !loanapp.isLoanApplicationCompleted(conBarTabsCtrl.wrappedLoan.ref.getSubjectProperty(), conBarTabsCtrl.wrappedLoan.ref.loanPurposeType, conBarTabsCtrl.wrappedLoan.ref.loanAmount, loanapp.isCoBorrowerAddressDifferent, conBarTabsCtrl.wrappedLoan.ref.financialInfo.downPaymentTypeCode, conBarTabsCtrl.wrappedLoan.ref.areSixPiecesAcquiredForCurrentLoanApplication())}"></span>
+        <span style="padding-left: 29px; padding-right: 25px;">
+            {{loanapp.getBorrower().fullName}}
+        </span>
+        <!--<span ng-show="conBarTabsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+              class="imp-contextual-bar-tabs-sixpiece"></span>-->
+        <div ng-class="{'all-products-indicator active' : loanapp == conBarTabsCtrl.wrappedLoan.ref.active}"
+             style="margin-top: 10px;">
+        </div>
+    </div>
+</div>
+<div class="actions add" style="display: block;line-height: 47px;width: 120px;float: left;  padding-left: 10px; cursor: pointer;"
+     ng-click="conBarTabsCtrl.addLoanApplications()"
+     ng-hide="conBarTabsCtrl.wrappedLoan.ref.getLoanApplications().length === conBarTabsCtrl.wrappedLoan.ref.maxNumberOfLoanApplications">
+    <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle><span style="position: absolute; margin-top: -8px;color:#208ddc;">Add 1003</span>
+</div>
+<div ng-if="conBarTabsCtrl.applicationData.currentUser.isWholesale" class="imp-upload-div imp-hyperlink " style="margin-top: 8px; float: right;" ng-click="conBarTabsCtrl.createNewLoanApplication()">
+    <div class="imp-icon-upload" style="float:left">
+    </div>
+    <span style="float:left">Add FNM 3.2 files</span>
+</div>

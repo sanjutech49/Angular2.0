@@ -1,0 +1,23 @@
+﻿<div class="row wizard-content">
+    <div class="col-xs-12">
+        <div class="row section-title center">Enter Activation Codes</div>
+        <div class="row section-subtitle center">You will not receive text alerts until you confirm the activation codes.</div>
+        <div class="row section-content center-col">
+            <div class="col-xs-12">
+                <div ng-repeat="activationCode in activationCodedCntrl.codes">
+                    <div class="form-group">
+                        <label class="col-xs-12 control-label black-text font-lg" for="{{ 'mobile' + $index }}">{{activationCode.key}}</label>
+                        <div class="col-xs-12">
+                            <input type="text" id="{{ 'mobile' + $index }}" class="form-control" placeholder="" ng-model="activationCode.value" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row section-content center">
+            <div class="col-xs-12">
+                <button class="btn btn-primary btn-wide">Confirm Entered Codes</button>
+            </div>
+        </div>
+    </div>
+</div>

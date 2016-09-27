@@ -1,0 +1,296 @@
+﻿<div class="section">
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                The Veteran Information is for
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl"
+                        ng-model="generalInformation.wrappedLoan.ref.vaInformation.veteranInformationForId"
+                        ng-options="item.borrowerId as item.fullName for item in generalInformation.listOfBorrowers">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                What is the VA Family Size
+            </div>
+        </div>
+        <div class="right-section">
+            <input type="text" ng-model="generalInformation.wrappedLoan.ref.vaInformation.familySize" style="width: 96%;"/>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                How will the title be vested
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl"
+                        ng-model="generalInformation.wrappedLoan.ref.vaInformation.titleVestedAs"
+                        ng-options="item.value as item.text for item in generalInformation.applicationData.lookup.titleVestedAs">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                What type of Military Service
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl"
+                        ng-options="item.value as item.text for item in generalInformation.applicationData.lookup.militaryService"
+                        ng-model="generalInformation.wrappedLoan.ref.vaInformation.militaryService">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                What type of Military Branch
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl"
+                        ng-options="item.value as item.text for item in generalInformation.applicationData.lookup.militaryBranch"
+                        ng-model="generalInformation.wrappedLoan.ref.vaInformation.militaryBranch">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                What is the Military Status
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl"
+                        ng-options="item.value as item.text for item in generalInformation.applicationData.lookup.militaryServiceStatus"
+                        ng-model="generalInformation.wrappedLoan.ref.vaInformation.serviceStatus">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                What VA Region were they based out of
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl"
+                        ng-model="generalInformation.wrappedLoan.ref.vaInformation.vaRegion"
+                        ng-options="item.value as item.text for item in generalInformation.applicationData.lookup.vaRegions">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="content-row" ng-if="!generalInformation.wrappedLoan.ref.vaInformation.isCurrentLoanVA">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                Have they used their VA eligibility in the past
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="declarations-row-right">
+                <input id="vaEligibility"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.isVaUsedInPast"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       ng-change="generalInformation.onIsVaUsedInPastChange()"
+                       class="imp-checkbox" />
+                <label for="vaEligibility" class="imp-lb-checkbox" style="font-size: 12px;width:170px;"></label>
+            </div>
+        </div>
+    </div>
+    <div class="content-row" ng-if="generalInformation.wrappedLoan.ref.vaInformation.isVaUsedInPast && !generalInformation.wrappedLoan.ref.vaInformation.isCurrentLoanVA">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                Is the previous VA Loan already paid off
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="declarations-row-right">
+                <input id="vaPaidOff"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.vaLoanPaidOff"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="vaPaidOff" class="imp-lb-checkbox" style="font-size: 12px;width:170px;"></label>
+            </div>
+        </div>
+    </div>
+    <div class="content-row" ng-if="!generalInformation.isPurchase">
+        <div class="left-section">
+        <div class="imp-psection-label">
+            Is the Current Loan on the Subject Property a VA Loan
+        </div>
+    </div>
+        <div class="right-section">
+            <div class="declarations-row-right">
+                <input id="vaCurrentlyOnSubject"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.isCurrentLoanVA"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       ng-change="generalInformation.onCurrentLoanOnSubjectPropertyChange()"
+                       class="imp-checkbox" />
+                <label for="vaCurrentlyOnSubject" class="imp-lb-checkbox" style="font-size: 12px;width:170px;"></label>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                Add the VA Funding Fee to the Loan Amount
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="declarations-row-right">
+                <input id="vaFundingFee"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.includeVAFee"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="vaFundingFee" class="imp-lb-checkbox" style="font-size: 12px;width:170px;"></label>
+            </div>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section">
+            <div class="imp-psection-label">
+                Purpose of the Loan
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="imp-span-ddl-container medium">
+                <select class="imp-ddl"
+                        ng-model="generalInformation.wrappedLoan.ref.vaInformation.vaLoanPurpose"
+                        ng-options="item.value as item.text for item in generalInformation.applicationData.lookup.vaLoanPurposes">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="content-row">
+        <div class="left-section-checkbox">
+            <div class="declarations-row-right">
+                <input id="iNowOccupy"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.iNowOccupy"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="iNowOccupy" class="imp-lb-checkbox"></label>
+            </div>
+        </div>
+        <div class="right-section-checkbox">
+            <label style="font-size: 12px;"> I now actually occupy the above-described property as my home or intend to move into and occupy said property as my home within a reasonable period of time or intend to reoccupy it after the completion of major alterations, repairs or improvements.</label>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section-checkbox">
+            <div class="declarations-row-right">
+                <input id="spouseOnDutyIOccupy"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.spouseOnDutyIOccupy"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="spouseOnDutyIOccupy" class="imp-lb-checkbox"></label>
+            </div>
+        </div>
+        <div class="right-section-checkbox">
+            <label style="font-size: 12px;"> My Spouse is on active military duty and in his or her absence, I occupy or intend to occupy the property security this loan as my home.</label>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section-checkbox">
+            <div class="declarations-row-right">
+                <input id="spouseOnDutyDependentChildOccupies"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.spouseOnDutyDependentChildOccupies"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="spouseOnDutyDependentChildOccupies" class="imp-lb-checkbox"> </label>
+            </div>
+        </div>
+        <div class="right-section-checkbox">
+            <label style="font-size: 12px;"> The veteran is on active duty and in his or her absence, I certify that a dependent child or veteran occupies or will occupy the property securing this loan as their home.</label>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section-checkbox">
+            <div class="declarations-row-right">
+                <input id="iOccupied"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.iOccupied"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="iOccupied" class="imp-lb-checkbox"></label>
+            </div>
+        </div>
+        <div class="right-section-checkbox">
+            <label style="font-size: 12px;">  I previously occupied the property securing this loan as my home (For interest rate reduction loans).</label>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section-checkbox">
+            <div class="declarations-row-right">
+                <input id="spouseWasOnDutyIOccupied"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.spouseWasOnDutyIOccupied"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="spouseWasOnDutyIOccupied" class="imp-lb-checkbox"></label>
+            </div>
+        </div>
+        <div class="right-section-checkbox">
+            <label style="font-size: 12px;">While my spouse was on active military duty and unable to occupy the property securing this loan,  I previously occupied the property that is securing this loan as my home (For interest rate reduction loans).</label>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="left-section-checkbox">
+            <div class="declarations-row-right">
+                <input id="spouseWasOnDutyDependentChildOccupied"
+                       type="checkbox"
+                       ng-model="generalInformation.wrappedLoan.ref.vaInformation.spouseWasOnDutyDependentChildOccupied"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="spouseWasOnDutyDependentChildOccupied" class="imp-lb-checkbox"></label>
+            </div>
+        </div>
+        <div class="right-section-checkbox">
+            <label style="font-size: 12px;">While my spouse was on active military duty and unable to occupy the property securing this loan, the property was occupied by the veterans dependent child as his or her home (For interest rate reduction loans).</label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿<div class="row cost-item edit edit-mode" ng-init="hover = false;" ng-mouseover="hover = true" ng-mouseleave="hover = false">
+    <div class="col-a">
+        <div class="sub-col-s"></div>
+        <div class="sub-col-xs imp-disclaimer">{{ item.displayLineNumber }}</div>
+        <div class="sub-col-l">
+            <div class="imp-span-ddl-container small" ng-if="item.costName != 18 &&  item.costName != 24">
+                <select name="transactionRow-3-{{transactionRowCtrl.number}}"
+                        class="imp-ddl"
+                        ng-model="item.costName"
+                        ng-options="v.ledgerEntryName as v.ledgerEntryNameString for (k, v) in dictionary"
+                        ng-change="change()">
+                    <option value='' selected='' disabled='' style="color:#999;display:none">Select an option</option>
+                </select>
+            </div>
+            <input ng-model="item.costNameString" type="text" class="imp-currency" ng-if="item.costName == 18 || item.costName == 24" />
+        </div>
+    </div>
+    <div class="col-m">
+        <span class="cvalue"><input ng-model="item.amount" type="text" class="imp-currency" imp-currency="" display-currency-sign="false" style="width:60px;" ng-blur="save(mode)" /></span>
+    </div>
+    <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style="margin-right: -30px; margin-top: 4px; position: absolute;" ng-show="hover" ng-click="remove();"></imp-circle>
+</div>

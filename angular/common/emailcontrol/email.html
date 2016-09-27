@@ -1,0 +1,5 @@
+﻿<input type="text"
+       ng-model="vm.username"
+       ng-disabled="vm.fieldsDisabled"
+       ng-blur="vm.blur()" ng-class="{'imp-has-error': vm.hasErrors, 'input-validation-error': vm.isValid }"
+       imp-autofocus="{{vm.isAutofocus}}" />

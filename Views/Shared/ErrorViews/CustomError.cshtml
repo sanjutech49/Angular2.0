@@ -1,0 +1,13 @@
+﻿@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.ErrorMessage
+@*<script src="~/Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.8.11.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.comui1.9.2jquery-ui.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
+<script src="~/Scripts/ErrorMessagePopUp.js" type="text/javascript"></script>*@
+<link href="@CDNHelper.CssStaticContentUrl/Content/themesbasejquery-ui.css" rel="stylesheet" type="text/css" />
+<body class="errorPopUp">
+    <div id="dialog-modal"  title="@Model.Title">
+        <strong>@Model.Message</strong>
+    </div>
+</body>

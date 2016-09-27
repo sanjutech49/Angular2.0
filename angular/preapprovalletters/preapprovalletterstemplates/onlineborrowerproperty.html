@@ -1,0 +1,103 @@
+﻿<div style="width: auto; height: 730px; padding: 20px; font-size: 10px; font-family: Arial, Helvetica;">
+    <div style="height: 60px; overflow: hidden;">
+        <img ng-src="{{'/angular/preapprovalletters/preapprovalletterstemplates/Branding/' + palCtrl.applicationData.companyProfile.companyTheme + '/Images/' +
+             palCtrl.applicationData.companyProfile.companyTheme + 'Logo.png'}}"
+             alt="{{}}" style="height: 60px;" />
+    </div>
+    <br />
+    <div>          {{palCtrl.getDateTime() | date:'yyyy-MM-dd'}}</div>   <br />
+    <div>
+        <div>{{palCtrl.applicationData.companyProfile.companyCopyrightName}}</div>
+        <div>          {{palCtrl.applicationData.companyProfile.companyStreetAddress}}</div>      <div>          {{palCtrl.cityStateZip}}</div>
+        <br />
+        <div>          {{palCtrl.borrowerCoBorrowerName}}</div>
+        <div>          {{palCtrl.wrappedLoan.ref.active.getBorrower().getMailingAddress().streetName}}</div>
+        <div>          {{palCtrl.cityStateZip}}</div>
+    </div>
+    <div style="width: 100%; text-align: center; font-weight: bold; clear:both; padding-top: 10px">          LOAN PRE-APPROVAL LETTER</div>
+    <br />
+    <div>
+        Thank you for choosing {{palCtrl.applicationData.companyProfile.companyName}} for your new home loan. Our goal is to provide
+        you with an unforgettable home buying experience.
+    </div>
+    <br />      <div>
+        <span style="font-weight: bold">Congratulations!</span> After reviewing your credit
+        and personally verifying your income & assets based on the documents provided, we
+        are pleased to inform you that {{palCtrl.applicationData.companyProfile.companyName}} has pre-approved you for the home
+        loan below:
+    </div>      <br />
+    <div style="height: 65px;">
+        <span style="font-weight: bold; text-decoration: underline;">Loan Description:</span>
+        <table style="width: 555px;">
+            <tr>
+                <td style="width: 100px; vertical-align: top;">
+                    Occupancy type:
+                </td>
+                <td style="width: 176px; vertical-align: top;">                      {{palCtrl.occupancyType.text}}                  </td>
+                <td style="width: 100px; vertical-align: top;">                      Loan type:                  </td>
+                <td style="width: 176px; vertical-align: top;">                      {{palCtrl.wrappedLoan.ref.product.programName}}                  </td>
+            </tr>
+            <tr>
+                <td style="width: 100px; vertical-align: top;">                      Property type:                  </td>
+                <td style="width: 176px; vertical-align: top;">                      {{palCtrl.propertyType.text}}                  </td>
+                <td style="width: 100px; vertical-align: top;">                      County:                  </td>
+                <td style="width: 176px; vertical-align: top;">                      {{palCtrl.wrappedLoan.ref.getSubjectProperty().countyName}}                  </td>
+            </tr>
+        </table>
+    </div>      <span style="font-weight: bold; text-decoration: underline;">Pre-Approved Loan Terms*:</span>
+    <table style="width: 481px;">
+        <tr>
+            <td style="width: 100px;">                  Loan Amount:              </td>
+            <td style="width: 381px;">
+                Up to <span id="rvLoanAmount">{{palCtrl.preapprovalLoanTerms[0] | currency : "$" : 0}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100px;">                  Sales Price:              </td>
+            <td style="width: 381px;">
+                <span id="rvSalesPrice">{{palCtrl.preapprovalLoanTerms[1] | currency : "$" : 0}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100px;">                  Down Payment:              </td>
+            <td style="width: 381px;">
+                <span id="rvDownPaymentAmount">{{palCtrl.preapprovalLoanTerms[1] - palCtrl.preapprovalLoanTerms[0] | currency : "$" : 0}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100px;">
+                Expiration Date:
+            </td>
+            <td style="width: 381px;">
+                <span id="rvCreditPullDate">{{palCtrl.preapprovalLoanTerms[2]}}</span>
+            </td>
+        </tr>
+    </table> <br />
+    <div>
+        <span>Your Pre-Approval is subject to the following:</span>
+        <ol>
+            <li>Delivering a fully executed purchase contract dated within 65 days of this letter</li>
+            <li>An acceptable Appraisal & Title report on your property</li>
+            <li>No material change in your current credit and financial position</li>
+            <li>Satisfying any required {{palCtrl.applicationData.companyProfile.companyName}} pre-closing and pre-funding conditions for                  the loan type above</li>
+            <li>Any increase in interest rates may lower your pre-approved loan amount.</li>
+        </ol>
+    </div>
+    <div>          If you have any questions, please do not hesitate to give us a call or simply log          into your personal account at {{palCtrl.applicationData.companyProfile.companyURL}} where you can follow the real-time status          of your loan, send me a secure email, upload documents directly to your loan file,          and more!      </div>      <br />      <div>
+        Thank you again for choosing {{palCtrl.applicationData.companyProfile.companyName}} as your lender. We appreciate your business!<br />          Sincerely,<br />
+        <img ng-src="{{'/Downloader.axd?documentType=repositoryItem&repositoryItemId=' + palCtrl.concierge.signatureId}}" alt="{{}}" style="height: 40px" />
+    </div>      <br />
+    <div>
+        {{palCtrl.concierge.firstName + ' ' + palCtrl.concierge.lastName}}
+        <br />
+        {{palCtrl.concierge.loTitle}} NMLS #{{palCtrl.concierge.nmlsNumber}}
+        <br />
+        {{palCtrl.conciergePhone}}
+        <br />
+        {{palCtrl.concierge.emailAddress}}
+    </div><br />      <br />
+    <div>
+        *Pre-approval is not a rate lock, loan approval, or commitment to lend. You must
+        submit additional information for review and final loan approval.
+    </div>
+</div>

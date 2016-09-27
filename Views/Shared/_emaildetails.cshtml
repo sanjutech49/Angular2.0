@@ -1,0 +1,30 @@
+﻿@using MML.Web.LoanCenter.Helpers.Utilities
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/ManageProspects.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#divemaildetailspopupcontent").draggable({ handle: "div.emaildetailsectionheadcontent" });
+    });
+</script>
+<div id="divemaildetailspopupcontent" class="divemaildetailspopup LoanCenterPopup">
+	<div class="emaildetailsectionheadcontent">
+		<div class="emaildetailssectionheadtitle">
+            @if ( ViewBag.IsWhatIfRateOption == "WhatIfRateOption")
+            {
+                <span class="namelink">What If @ViewBag.EmailHeader</span>
+            }
+            else
+            {
+                <span class="namelink">Email Sent on @ViewBag.EmailHeader</span>
+            }
+		</div>
+		<a id="closeemaildetails" onclick="ManageProspects.CloseEmailDetails()" title="Minimize/Maximize Section">
+				<div id="minmaxemaildetails" class="close"></div>
+		</a>
+		<div class="emaildetailsheadline">
+		</div>
+	</div>
+    <div class="divemaildetailscontent">
+        @Html.Raw( ViewBag.EmailContent )
+    </div>
+</div>

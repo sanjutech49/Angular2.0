@@ -1,0 +1,211 @@
+﻿@using Telerik.Web.Mvc.UI
+@using MML.Common
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using System
+@using System.Collections.Generic
+@using System.Linq
+@using System.Web
+@model MML.Web.LoanCenter.ViewModels.LoanServicesViewModel
+
+<div class="manageloanservicesdiv completesection">
+    <div class="manageloanserviceshead" id="manageloanserviceshead">
+        <div class="left0">
+            <span class="namelink">Manage Loan Services</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="titleInformation">@Model.TitleInformation <span class="spnLeadSourceInfo">@Model.LeadSourceInformation</span></div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="closeManageFees" class="xclose" title="Close Section" onclick="ManageFees.OnCloseManageFeesSection()">
+                </a><a id="minimizemanagefees" class="minimizesection" title="Minimize/Maximize Section"
+                    onclick="LoanServices.BindManageLoanServicesMinimize()">
+                    <div id="manageloanservicesminmax" class="minmax min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="manageloanservicescontent" class="manageloanservicescontent maincontent">
+        <div class="loanservicesdiv">
+            <div class="loanservicesdivtitle">
+                Loan Services
+                <div class="refreshMain">
+                    <span id="txtRefresh" class="txtRefresh" onclick="LoanServices.RefreshLoanService()">Refresh</span>
+                    <div class="refreshPageButton" onclick="LoanServices.RefreshLoanService()" id="refreshPage">
+                    </div>
+                </div>
+            </div>
+            <div style="display: none">
+                <div class="filterItemView" style="padding-left: 6px; margin-top: 10px;">
+                    <p>Filters</p>
+                </div>
+                <div class="filterItem" style="margin-top: 10px; margin-bottom: 20px;">
+                    <p>Product</p>
+                    <div>@Html.Telerik().DropDownList().BindTo( new SelectList( Model.AvailableFilters.Products, "[None]" ) ).Name( "ddlProductFilter" )</div>
+                </div>
+                <div class="filterItem" style="margin-top: 10px;">
+                    <p>Product</p>
+                    <div>@Html.Telerik().DropDownList().BindTo( new SelectList( Model.AvailableFilters.Vendors, "[None]" ) ).Name( "ddlVendorFilter" )</div>
+                </div>
+                <div class="filterItem" style="margin-top: 10px;">
+                    <p>Product</p>
+                    <div>@Html.Telerik().DropDownList().BindTo( new SelectList( Model.AvailableFilters.Statuses, "[None]" ) ).Name( "ddlStatusFilter" )</div>
+                </div>
+                <div class="filterItem" style="margin-top: 5px;">
+                    <p>&nbsp;</p>
+                    <div class="gobutton imp-button-general" style="height: auto;">Go</div>
+                </div>
+            </div>
+            @if ( Model.LoanServiceList != null )
+            {
+                foreach ( var item in Model.LoanServiceList.Select( x => x.ServiceType ).Distinct() )
+                {
+                <div class="loanservicesdivsubtitle" style="clear: both;">
+                    @item</div>
+                <div class="loanservicesdivrow subjects">
+                    <div class="rowdiv product">
+                        Product</div>
+                    <div class="rowdiv borrower">
+                        Borrower</div>
+                    <div class="rowdiv vendor">
+                        Vendor</div>
+                    <div class="rowdiv datetime">
+                        Last Updated</div>
+                    <div class="rowdiv orderstatus">
+                        Order Status</div>
+                    <div class="downloadpdf">
+                          Documents</div>
+                </div>
+                    foreach ( var loanServiceRow in Model.LoanServiceList.Where( x => x.ServiceType == item ) )
+                    {
+                    <div class="loanservicesdivrow">
+                        <div class="loanservicesdivrowfirst selection">
+                            <div class="rowdiv expandable arrow" style="margin-top: 5px;">
+                                <div class="arrowright">
+                                </div>
+                            </div>
+                            <div class="rowdiv expandable product" style="margin-top: 5px;">
+                                @loanServiceRow.Product</div>
+                            <div class="rowdiv expandable borrower" style="margin-top: 5px;">
+                                @loanServiceRow.Party</div>
+                            <div class="rowdiv expandable vendor" style="margin-top: 5px;">
+                                @loanServiceRow.Vendor</div>
+                            <div class="rowdiv expandable datetime" style="margin-top: 5px;">
+                                @loanServiceRow.Date.ToString( "MM/dd/yyyy hh:mm tt" )</div>
+                            <div class="rowdiv expandable orderstatus" style="margin-top: 5px;">
+                                <span>@loanServiceRow.Status</span>
+                                <div class="completed" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="rowdiv downloadpdf">
+                                @if ( loanServiceRow.LoanServiceEventsList.Any( u => ( u.Documents != null && u.Documents.Count > 0 ) ) )
+                                {
+                                    <img src="/Content/images/content-types/defaultdoc.gif" onclick="LoanServices.DocumentDownloadPopup('@loanServiceRow.LoanServiceId','')" style="cursor: pointer; padding-left:27px"/>
+                                              
+                                            
+                                }
+
+                                         
+                            </div>
+                            <div class="clear-both">
+                            </div>
+                        </div>
+                        @if ( loanServiceRow.LoanServiceEventsList.Any() )
+                        {
+                            <div class="loanservicesdivadditional">
+                                <div class="loanservicesdivadditionalrow subjects">
+                                    <div class="integrationevent">
+                                        Integration Event</div>
+                                    <div class="eventstatus">
+                                        Event Type</div>
+                                    <div class="date">
+                                        Date</div>
+                                    <div class="time">
+                                        Time</div>
+                                    <div class="eventstatus">
+                                        Event Status</div>
+                                    <div class="downloadxml">
+                                        XML</div>
+                                    <div class="downloadpdf">
+                                        Documents</div>
+                                </div>
+                                @foreach ( var loanEvent in loanServiceRow.LoanServiceEventsList )
+                                {
+                                    <div class="loanservicesdivadditionalrow">
+                                        <div class="integrationevent">@loanEvent.EventName</div>
+                                        <div class="eventstatus">@loanEvent.EventType</div>
+                                        <div class="date">@loanEvent.LastStatusUpdate.ToString( "MM/dd/yyyy" )</div>
+                                        <div class="time">@loanEvent.LastStatusUpdate.ToString( "hh:mm:ss tt" )</div>
+                                        <div class="eventstatus">@loanEvent.Status.ToString()</div>
+                                        <div class="downloadxml">
+                                        @if ( !string.IsNullOrWhiteSpace( loanEvent.ContentXml ) )
+                                        {
+                                            <a href="Downloader.axd?documentType=LoanServiceContentXml&eventType=@loanEvent.EventType&eventId=@Server.UrlEncode( EncryptionHelper.EncryptRijndael( loanEvent.EventId.ToString(), EncriptionKeys.Default ) )">
+                                                <img src="/Content/images/content-types/xml.gif" title="Download Parameters" />
+                                            </a>
+                                        }
+                                        @if ( loanEvent.RequestRepositoryId != Guid.Empty )
+                                        {
+                                            <a href="Downloader.axd?documentType=repositoryItem&repositoryItemId=@Server.UrlEncode( EncryptionHelper.EncryptRijndael( loanEvent.RequestRepositoryId.ToString(), EncriptionKeys.Default ) )">
+                                                <img src="/Content/images/content-types/xml.gif" title="Download Request" />
+                                            </a>
+                                        }
+                                        @if ( loanEvent.ResponseRepositoryId != Guid.Empty )
+                                        {
+                                            <a href="Downloader.axd?documentType=repositoryItem&repositoryItemId=@Server.UrlEncode( EncryptionHelper.EncryptRijndael( loanEvent.ResponseRepositoryId.ToString(), EncriptionKeys.Default ) )">
+                                                <img src="/Content/images/content-types/xml.gif" title="Download Response" />
+                                            </a>
+                                        }
+                                        </div>
+
+                                        <div class="downloadpdf">
+                                         @if ( loanEvent.Documents != null && loanEvent.Documents.Count > 0 )
+                                         {
+                                              <img src="/Content/images/content-types/defaultdoc.gif" onclick="LoanServices.DocumentDownloadPopup('@loanServiceRow.LoanServiceId','@loanEvent.EventType','@Server.UrlEncode( EncryptionHelper.EncryptRijndael( loanEvent.EventId.ToString(), EncriptionKeys.Default ) )')" style="cursor: pointer;"/>
+                                              
+                                            
+                                         }                                         
+                                         </div>
+
+
+                                         <div class="actionbutton">
+                                         @if ( !string.IsNullOrWhiteSpace( loanEvent.FailureMessage ) )
+                                         {
+                                            <a href="Downloader.axd?documentType=LoanServiceFailureMessage&eventType=@loanEvent.EventType&eventId=@Server.UrlEncode( EncryptionHelper.EncryptRijndael( loanEvent.EventId.ToString(), EncriptionKeys.Default ) )">
+                                                <div class="exceptionIcon exceptionIcon1" title="@loanEvent.FailureMessage"></div>
+                                            </a>
+                                         }
+                                         @if ( loanEvent.Status == MML.Contracts.LoanServiceEventStatus.Failed ||
+                                             loanEvent.Status == MML.Contracts.LoanServiceEventStatus.Unsuccessful ||
+                                             loanEvent.Status == MML.Contracts.LoanServiceEventStatus.PendingRetry )
+                                         {
+                                             <button type="button" onclick="LoanServices.RetryLoanServiceEvent('@loanEvent.EventType','@Server.UrlEncode( EncryptionHelper.EncryptRijndael( loanEvent.EventId.ToString(), EncriptionKeys.Default ) )')" class="imp-button-general" style="padding: 2px 8px; height:22px;">Retry</button>
+                                         }
+                                         </div>
+                                    </div> 
+                                }
+                            </div>
+                        }
+                    </div>
+                    }
+                }
+            }
+            
+                
+          
+            
+        </div>
+    </div>
+</div>
+@*                    <div class="rowdiv product"></div>
+                    <div class="rowdiv borrower"></div>
+                    <div class="rowdiv vendor"></div>
+                    <div class="rowdiv datetime"></div>
+                    <div class="rowdiv status"></div>
+                    <div class="rowdiv vendorid">@loanServiceRow.VendorTransactionId</div>
+                    <div class="rowdiv errorcode">@loanServiceRow.ErrorCode</div>
+                    <div class="rowdiv downloadpdf">@loanServiceRow.VendorTransactionId .pdf</div>
+                    <div class="rowdiv downloadxml">@loanServiceRow.VendorTransactionId .xml</div>*@

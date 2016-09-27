@@ -1,0 +1,65 @@
+﻿<div class="imp-modal flyout">
+    <div class="header">
+        <span class="imp-text-enhanced-color">Real Estate Information </span> <div class="imp-icon-flayout" style="position: relative;top: 3px;"></div>
+    </div>
+    <div class="imp-split"></div>
+    <br />
+    <form novalidate name="formRealEstateInformation">
+        <fieldset ng-disabled="false">
+            <div class="container">
+                <div class="section">
+                    <div class="row" style="margin-top:-3px">
+                        <div class="col-xxxl">
+                            Existing Address
+                        </div>
+                        <div class="col-xxxxxl">
+                            <div ng-class="{'imp-span-ddl-container medium': true, 'disabled' : realEstateItemCtrl.pledgedAssetModel.liabilityDisabled,
+                                            'imp-has-error': realEstateItemCtrl.isAddressInvalid() ,
+                                            'ng-invalid ng-dirty' : (realEstateItemCtrl.submitted || formRealEstateInformation.propertyAddressList.$touched) && formRealEstateInformation.propertyAddressList.$invalid}">
+                                <select name="propertyAddressList"
+                                        ng-class="{'imp-ddl' : true, 'imp-submitted' : realEstateItemCtrl.submitted, 'imp-has-error': realEstateItemCtrl.isAddressInvalid() }"
+                                        ng-model="realEstateItemCtrl.propertyId"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.realEstateViewModel.addressForDropDown"
+                                        ng-disabled="realEstateItemCtrl.pledgedAssetModel.liabilityDisabled"
+                                        options-disabled="p.disabled for p in realEstateItemCtrl.realEstateViewModel.addressForDropDown"
+                                        ng-change="realEstateItemCtrl.onREOAddressChange()">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="row">
+                        <div class="col-xxxl">
+                            Comment
+                        </div>
+                        <div class="col-xxxxxl">
+                            <div class="imp-span-ddl-container medium " ng-class="{'disabled' : realEstateItemCtrl.disableFields || realEstateItemCtrl.disableComment}">
+                                <select name="comments"
+                                        ng-class="{'imp-ddl' : true, 'imp-submitted' : realEstateItemCtrl.submitted}"
+                                        ng-model="realEstateItemCtrl.borrowerDebtCommentId"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in realEstateItemCtrl.pledgetAssetCommentsFiltered()"
+                                        ng-disabled="realEstateItemCtrl.disableComment">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-include src="'angular/loanapplication/credit/reopropertyaddressinfo.html'" ng-if="realEstateItemCtrl.hasProperty">
+                </div>
+                <div ng-include src="'angular/loanapplication/credit/reolenderinfo.html'" ng-if="realEstateItemCtrl.pledgedAssetModel.isLenderSectionVisible">
+                </div>
+                <div ng-include src="'angular/loanapplication/credit/reopropertyexpenses.html'" ng-if="realEstateItemCtrl.hasProperty">
+                </div>
+            </div>
+        </fieldset>
+        <div class="imp-split"></div>
+        <div class="footer">
+            <button type="button" class="imp-button-hm-wm-sec" ng-click="realEstateItemCtrl.cancel()">Cancel </button>
+            <button type="button" class="imp-button-hm-wm-prim" ng-click="realEstateItemCtrl.done(formRealEstateInformation)" ng-disabled="realEstateItemCtrl.disableFields">Done</button>
+        </div>
+    </form>
+</div>

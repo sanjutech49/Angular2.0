@@ -1,0 +1,1225 @@
+// This file (enums.ts - ver 1.0) has been has been automatically generated, do not modify!
+// To extend an interface, create a file that exports the same interface name within the same module name with ONLY the ADDITIONAL properties.
+// TypeScript will automatically merge both interfaces together.
+var srv;
+(function (srv) {
+    (function (AccountNameEnum) {
+        AccountNameEnum[AccountNameEnum["Default"] = 0] = "Default";
+        AccountNameEnum[AccountNameEnum["Buyer"] = 1] = "Buyer";
+        AccountNameEnum[AccountNameEnum["Seller"] = 2] = "Seller";
+        AccountNameEnum[AccountNameEnum["Ghost"] = 3] = "Ghost";
+    })(srv.AccountNameEnum || (srv.AccountNameEnum = {}));
+    var AccountNameEnum = srv.AccountNameEnum;
+    (function (AccountOwnershipTypeEnum) {
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["AuthorizedUser"] = 0] = "AuthorizedUser";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["Comaker"] = 1] = "Comaker";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["Individual"] = 2] = "Individual";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["JointContractualLiability"] = 3] = "JointContractualLiability";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["JointParticipating"] = 4] = "JointParticipating";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["Maker"] = 5] = "Maker";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["OnBehalfOf"] = 6] = "OnBehalfOf";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["Terminated"] = 7] = "Terminated";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["Undesignated"] = 8] = "Undesignated";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["Deceased"] = 9] = "Deceased";
+        AccountOwnershipTypeEnum[AccountOwnershipTypeEnum["None"] = -1] = "None";
+    })(srv.AccountOwnershipTypeEnum || (srv.AccountOwnershipTypeEnum = {}));
+    var AccountOwnershipTypeEnum = srv.AccountOwnershipTypeEnum;
+    (function (AccountTypeEnum) {
+        AccountTypeEnum[AccountTypeEnum["Default"] = 0] = "Default";
+        AccountTypeEnum[AccountTypeEnum["Asset"] = 1] = "Asset";
+        AccountTypeEnum[AccountTypeEnum["Liability"] = 2] = "Liability";
+        AccountTypeEnum[AccountTypeEnum["Income"] = 3] = "Income";
+        AccountTypeEnum[AccountTypeEnum["Expense"] = 4] = "Expense";
+        AccountTypeEnum[AccountTypeEnum["Capital"] = 5] = "Capital";
+    })(srv.AccountTypeEnum || (srv.AccountTypeEnum = {}));
+    var AccountTypeEnum = srv.AccountTypeEnum;
+    (function (AddressTypeEnum) {
+        AddressTypeEnum[AddressTypeEnum["Default"] = 0] = "Default";
+        AddressTypeEnum[AddressTypeEnum["Present"] = 1] = "Present";
+        AddressTypeEnum[AddressTypeEnum["Former"] = 2] = "Former";
+        AddressTypeEnum[AddressTypeEnum["Mailing"] = 3] = "Mailing";
+        AddressTypeEnum[AddressTypeEnum["Billing"] = 4] = "Billing";
+        AddressTypeEnum[AddressTypeEnum["GovernmentMonitoring"] = 5] = "GovernmentMonitoring";
+        AddressTypeEnum[AddressTypeEnum["RealEstate"] = 6] = "RealEstate";
+    })(srv.AddressTypeEnum || (srv.AddressTypeEnum = {}));
+    var AddressTypeEnum = srv.AddressTypeEnum;
+    (function (AmortizationTypeEnum) {
+        AmortizationTypeEnum[AmortizationTypeEnum["None"] = 0] = "None";
+        AmortizationTypeEnum[AmortizationTypeEnum["Fixed"] = 1] = "Fixed";
+        AmortizationTypeEnum[AmortizationTypeEnum["ARM"] = 2] = "ARM";
+        AmortizationTypeEnum[AmortizationTypeEnum["GPM"] = 3] = "GPM";
+        AmortizationTypeEnum[AmortizationTypeEnum["Other"] = 4] = "Other";
+    })(srv.AmortizationTypeEnum || (srv.AmortizationTypeEnum = {}));
+    var AmortizationTypeEnum = srv.AmortizationTypeEnum;
+    (function (AmountMethodEnum) {
+        AmountMethodEnum[AmountMethodEnum["Manual"] = 0] = "Manual";
+        AmountMethodEnum[AmountMethodEnum["Itemized"] = 1] = "Itemized";
+        AmountMethodEnum[AmountMethodEnum["Calculated"] = 2] = "Calculated";
+        AmountMethodEnum[AmountMethodEnum["MonthlyMI"] = 3] = "MonthlyMI";
+        AmountMethodEnum[AmountMethodEnum["SinglePremiumNonRefundable"] = 4] = "SinglePremiumNonRefundable";
+        AmountMethodEnum[AmountMethodEnum["SinglePremiumRefundable"] = 5] = "SinglePremiumRefundable";
+    })(srv.AmountMethodEnum || (srv.AmountMethodEnum = {}));
+    var AmountMethodEnum = srv.AmountMethodEnum;
+    (function (AssetTypeEnum) {
+        AssetTypeEnum[AssetTypeEnum["Checking"] = 0] = "Checking";
+        AssetTypeEnum[AssetTypeEnum["Savings"] = 1] = "Savings";
+        AssetTypeEnum[AssetTypeEnum["CD"] = 2] = "CD";
+        AssetTypeEnum[AssetTypeEnum["MutualFunds"] = 3] = "MutualFunds";
+        AssetTypeEnum[AssetTypeEnum["Bonds"] = 4] = "Bonds";
+        AssetTypeEnum[AssetTypeEnum["Stocks"] = 5] = "Stocks";
+        AssetTypeEnum[AssetTypeEnum["MoneyMarket"] = 6] = "MoneyMarket";
+        AssetTypeEnum[AssetTypeEnum["RetirementFund"] = 7] = "RetirementFund";
+        AssetTypeEnum[AssetTypeEnum["IRA"] = 8] = "IRA";
+        AssetTypeEnum[AssetTypeEnum["GiftFunds"] = 9] = "GiftFunds";
+        AssetTypeEnum[AssetTypeEnum["EscrowDeposit"] = 10] = "EscrowDeposit";
+        AssetTypeEnum[AssetTypeEnum["ProceedsfromaPropertySale"] = 11] = "ProceedsfromaPropertySale";
+        AssetTypeEnum[AssetTypeEnum["TrustFunds"] = 12] = "TrustFunds";
+        AssetTypeEnum[AssetTypeEnum["LifeInsuranceCashValue"] = 13] = "LifeInsuranceCashValue";
+        AssetTypeEnum[AssetTypeEnum["Other"] = 14] = "Other";
+        AssetTypeEnum[AssetTypeEnum["Automobile"] = 15] = "Automobile";
+        AssetTypeEnum[AssetTypeEnum["SecuredBorrowerFundsNotDeposited"] = 16] = "SecuredBorrowerFundsNotDeposited";
+        AssetTypeEnum[AssetTypeEnum["NotRequired"] = 99] = "NotRequired";
+        AssetTypeEnum[AssetTypeEnum["None"] = -1] = "None";
+    })(srv.AssetTypeEnum || (srv.AssetTypeEnum = {}));
+    var AssetTypeEnum = srv.AssetTypeEnum;
+    (function (AuditLogCategoryEnum) {
+        AuditLogCategoryEnum[AuditLogCategoryEnum["UserAccount"] = 0] = "UserAccount";
+        AuditLogCategoryEnum[AuditLogCategoryEnum["LoanRelated"] = 1] = "LoanRelated";
+        AuditLogCategoryEnum[AuditLogCategoryEnum["AppraisalRelated"] = 2] = "AppraisalRelated";
+    })(srv.AuditLogCategoryEnum || (srv.AuditLogCategoryEnum = {}));
+    var AuditLogCategoryEnum = srv.AuditLogCategoryEnum;
+    (function (AuditLogTypeEnum) {
+        AuditLogTypeEnum[AuditLogTypeEnum["AgreedToTerms"] = 0] = "AgreedToTerms";
+        AuditLogTypeEnum[AuditLogTypeEnum["ActivatedAccount"] = 1] = "ActivatedAccount";
+        AuditLogTypeEnum[AuditLogTypeEnum["AcceptedESign"] = 2] = "AcceptedESign";
+        AuditLogTypeEnum[AuditLogTypeEnum["AcceptedCreditAuthorization"] = 3] = "AcceptedCreditAuthorization";
+        AuditLogTypeEnum[AuditLogTypeEnum["CreditReportRetrieved"] = 4] = "CreditReportRetrieved";
+        AuditLogTypeEnum[AuditLogTypeEnum["UploadedDocuments"] = 5] = "UploadedDocuments";
+        AuditLogTypeEnum[AuditLogTypeEnum["LockedRate"] = 6] = "LockedRate";
+        AuditLogTypeEnum[AuditLogTypeEnum["DisclosuresDelivered"] = 7] = "DisclosuresDelivered";
+        AuditLogTypeEnum[AuditLogTypeEnum["AuthorizationFormsDelivered"] = 8] = "AuthorizationFormsDelivered";
+        AuditLogTypeEnum[AuditLogTypeEnum["ReviewedDisclosures"] = 9] = "ReviewedDisclosures";
+        AuditLogTypeEnum[AuditLogTypeEnum["FaxedAuthorizations"] = 10] = "FaxedAuthorizations";
+        AuditLogTypeEnum[AuditLogTypeEnum["CreatedLoan"] = 11] = "CreatedLoan";
+        AuditLogTypeEnum[AuditLogTypeEnum["CompletedActivity"] = 12] = "CompletedActivity";
+        AuditLogTypeEnum[AuditLogTypeEnum["ChangedProfile"] = 13] = "ChangedProfile";
+        AuditLogTypeEnum[AuditLogTypeEnum["LockRateRequested"] = 14] = "LockRateRequested";
+        AuditLogTypeEnum[AuditLogTypeEnum["FNMImported"] = 15] = "FNMImported";
+        AuditLogTypeEnum[AuditLogTypeEnum["eSignConsent"] = 16] = "eSignConsent";
+        AuditLogTypeEnum[AuditLogTypeEnum["LoanStatusChanged"] = 17] = "LoanStatusChanged";
+        AuditLogTypeEnum[AuditLogTypeEnum["AppraisalOrderRequested"] = 18] = "AppraisalOrderRequested";
+        AuditLogTypeEnum[AuditLogTypeEnum["AppraisalOrderOrdered"] = 19] = "AppraisalOrderOrdered";
+        AuditLogTypeEnum[AuditLogTypeEnum["AppraisalOrderDelivered"] = 20] = "AppraisalOrderDelivered";
+        AuditLogTypeEnum[AuditLogTypeEnum["AppraisalOrderAcknowledged"] = 21] = "AppraisalOrderAcknowledged";
+        AuditLogTypeEnum[AuditLogTypeEnum["ApplicationDateSet"] = 22] = "ApplicationDateSet";
+        AuditLogTypeEnum[AuditLogTypeEnum["LoanApplicationCompleted"] = 23] = "LoanApplicationCompleted";
+        AuditLogTypeEnum[AuditLogTypeEnum["InitialDisclosuresSent"] = 24] = "InitialDisclosuresSent";
+    })(srv.AuditLogTypeEnum || (srv.AuditLogTypeEnum = {}));
+    var AuditLogTypeEnum = srv.AuditLogTypeEnum;
+    (function (BorrowerContextTypeEnum) {
+        BorrowerContextTypeEnum[BorrowerContextTypeEnum["Borrower"] = 0] = "Borrower";
+        BorrowerContextTypeEnum[BorrowerContextTypeEnum["CoBorrower"] = 1] = "CoBorrower";
+        BorrowerContextTypeEnum[BorrowerContextTypeEnum["Both"] = 2] = "Both";
+    })(srv.BorrowerContextTypeEnum || (srv.BorrowerContextTypeEnum = {}));
+    var BorrowerContextTypeEnum = srv.BorrowerContextTypeEnum;
+    (function (BorrowerTypeEnum) {
+        BorrowerTypeEnum[BorrowerTypeEnum["Borrower"] = 1] = "Borrower";
+        BorrowerTypeEnum[BorrowerTypeEnum["CoBorrower"] = 2] = "CoBorrower";
+    })(srv.BorrowerTypeEnum || (srv.BorrowerTypeEnum = {}));
+    var BorrowerTypeEnum = srv.BorrowerTypeEnum;
+    (function (BusinessContactCategoryTypeEnum) {
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["None"] = 0] = "None";
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["Title"] = 2] = "Title";
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["Escrow"] = 3] = "Escrow";
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["SellerAgent"] = 4] = "SellerAgent";
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["BuyerAgent"] = 5] = "BuyerAgent";
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["PropertyManager"] = 6] = "PropertyManager";
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["Others"] = 7] = "Others";
+        BusinessContactCategoryTypeEnum[BusinessContactCategoryTypeEnum["Seller"] = 10] = "Seller";
+    })(srv.BusinessContactCategoryTypeEnum || (srv.BusinessContactCategoryTypeEnum = {}));
+    var BusinessContactCategoryTypeEnum = srv.BusinessContactCategoryTypeEnum;
+    (function (BusinessContactCategoryTypeMask) {
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["None"] = 0] = "None";
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["Title"] = 32] = "Title";
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["Escrow"] = 64] = "Escrow";
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["SellerAgent"] = 128] = "SellerAgent";
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["BuyerAgent"] = 256] = "BuyerAgent";
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["PropertyManager"] = 512] = "PropertyManager";
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["Others"] = 1024] = "Others";
+        BusinessContactCategoryTypeMask[BusinessContactCategoryTypeMask["Seller"] = 8192] = "Seller";
+    })(srv.BusinessContactCategoryTypeMask || (srv.BusinessContactCategoryTypeMask = {}));
+    var BusinessContactCategoryTypeMask = srv.BusinessContactCategoryTypeMask;
+    (function (BusinessContactPhoneTypeEnum) {
+        BusinessContactPhoneTypeEnum[BusinessContactPhoneTypeEnum["Home"] = 0] = "Home";
+        BusinessContactPhoneTypeEnum[BusinessContactPhoneTypeEnum["Cell"] = 1] = "Cell";
+        BusinessContactPhoneTypeEnum[BusinessContactPhoneTypeEnum["Work"] = 2] = "Work";
+        BusinessContactPhoneTypeEnum[BusinessContactPhoneTypeEnum["Other"] = 3] = "Other";
+        BusinessContactPhoneTypeEnum[BusinessContactPhoneTypeEnum["None"] = -1] = "None";
+    })(srv.BusinessContactPhoneTypeEnum || (srv.BusinessContactPhoneTypeEnum = {}));
+    var BusinessContactPhoneTypeEnum = srv.BusinessContactPhoneTypeEnum;
+    (function (CalculatedValueTypeEnum) {
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["Unknown"] = 0] = "Unknown";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["LTV"] = 1] = "LTV";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["DTIAndHousingRatio"] = 2] = "DTIAndHousingRatio";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["CLTV"] = 3] = "CLTV";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["HCLTV"] = 4] = "HCLTV";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["Apr"] = 6] = "Apr";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["NetRentalIncome"] = 7] = "NetRentalIncome";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["MonthlyPayment"] = 8] = "MonthlyPayment";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["Hud801And802"] = 9] = "Hud801And802";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["HousingExpenses"] = 10] = "HousingExpenses";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["InterestAmountPerDiem"] = 11] = "InterestAmountPerDiem";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["DetailsOfTransaction"] = 12] = "DetailsOfTransaction";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["RecalculatedCosts"] = 13] = "RecalculatedCosts";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["SubordinateFee"] = 14] = "SubordinateFee";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["FirstPaymentDate"] = 15] = "FirstPaymentDate";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["AgregateAdjustment"] = 16] = "AgregateAdjustment";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["VaFeeLimitsExceeded"] = 17] = "VaFeeLimitsExceeded";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["NewMonthlyPayment"] = 18] = "NewMonthlyPayment";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["NetTangibleBenefit"] = 19] = "NetTangibleBenefit";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["QMCertification"] = 20] = "QMCertification";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["LoanDecisionScore"] = 21] = "LoanDecisionScore";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["FullyIndexedRate"] = 22] = "FullyIndexedRate";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["IsImpoundMandatory"] = 23] = "IsImpoundMandatory";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["RecoupmentPeriod"] = 24] = "RecoupmentPeriod";
+        CalculatedValueTypeEnum[CalculatedValueTypeEnum["FHACalculator"] = 25] = "FHACalculator";
+    })(srv.CalculatedValueTypeEnum || (srv.CalculatedValueTypeEnum = {}));
+    var CalculatedValueTypeEnum = srv.CalculatedValueTypeEnum;
+    (function (CalculationTypeEnum) {
+        CalculationTypeEnum[CalculationTypeEnum["None"] = 0] = "None";
+        CalculationTypeEnum[CalculationTypeEnum["Tax"] = 1] = "Tax";
+        CalculationTypeEnum[CalculationTypeEnum["HOI"] = 2] = "HOI";
+    })(srv.CalculationTypeEnum || (srv.CalculationTypeEnum = {}));
+    var CalculationTypeEnum = srv.CalculationTypeEnum;
+    (function (CertificationIdEnum) {
+        CertificationIdEnum[CertificationIdEnum["SelectOne"] = 0] = "SelectOne";
+        CertificationIdEnum[CertificationIdEnum["ValidStateDriverLicense"] = 1] = "ValidStateDriverLicense";
+        CertificationIdEnum[CertificationIdEnum["ValidStateIdentificationCard"] = 2] = "ValidStateIdentificationCard";
+        CertificationIdEnum[CertificationIdEnum["MilitaryIdentificationCard"] = 3] = "MilitaryIdentificationCard";
+        CertificationIdEnum[CertificationIdEnum["MilitaryDependentsPhotoID"] = 4] = "MilitaryDependentsPhotoID";
+        CertificationIdEnum[CertificationIdEnum["USPassport"] = 5] = "USPassport";
+        CertificationIdEnum[CertificationIdEnum["NonUSPassport"] = 6] = "NonUSPassport";
+        CertificationIdEnum[CertificationIdEnum["ResidentAlienCard"] = 7] = "ResidentAlienCard";
+        CertificationIdEnum[CertificationIdEnum["DepartmentOfPublicWelfarePhotoID"] = 8] = "DepartmentOfPublicWelfarePhotoID";
+        CertificationIdEnum[CertificationIdEnum["StudentPhotoID"] = 9] = "StudentPhotoID";
+        CertificationIdEnum[CertificationIdEnum["WorkIDWithPhoto"] = 10] = "WorkIDWithPhoto";
+        CertificationIdEnum[CertificationIdEnum["MedicareCard"] = 11] = "MedicareCard";
+        CertificationIdEnum[CertificationIdEnum["CustomerIDValidationCheck"] = 12] = "CustomerIDValidationCheck";
+        CertificationIdEnum[CertificationIdEnum["ClosingCertification"] = 13] = "ClosingCertification";
+        CertificationIdEnum[CertificationIdEnum["Other"] = 14] = "Other";
+    })(srv.CertificationIdEnum || (srv.CertificationIdEnum = {}));
+    var CertificationIdEnum = srv.CertificationIdEnum;
+    (function (ComplianceCheckStatusEnum) {
+        ComplianceCheckStatusEnum[ComplianceCheckStatusEnum["NotRun"] = 0] = "NotRun";
+        ComplianceCheckStatusEnum[ComplianceCheckStatusEnum["Passed"] = 1] = "Passed";
+        ComplianceCheckStatusEnum[ComplianceCheckStatusEnum["Failed"] = 2] = "Failed";
+        ComplianceCheckStatusEnum[ComplianceCheckStatusEnum["InProgress"] = 3] = "InProgress";
+    })(srv.ComplianceCheckStatusEnum || (srv.ComplianceCheckStatusEnum = {}));
+    var ComplianceCheckStatusEnum = srv.ComplianceCheckStatusEnum;
+    (function (ComplianceResultDetailTypeEnum) {
+        ComplianceResultDetailTypeEnum[ComplianceResultDetailTypeEnum["ReportedDataError"] = 1] = "ReportedDataError";
+        ComplianceResultDetailTypeEnum[ComplianceResultDetailTypeEnum["ReportedSystemError"] = 2] = "ReportedSystemError";
+    })(srv.ComplianceResultDetailTypeEnum || (srv.ComplianceResultDetailTypeEnum = {}));
+    var ComplianceResultDetailTypeEnum = srv.ComplianceResultDetailTypeEnum;
+    (function (Concurrent2ndMortgageEnum) {
+        Concurrent2ndMortgageEnum[Concurrent2ndMortgageEnum["No"] = 0] = "No";
+        Concurrent2ndMortgageEnum[Concurrent2ndMortgageEnum["Fixed"] = 1] = "Fixed";
+        Concurrent2ndMortgageEnum[Concurrent2ndMortgageEnum["HELOC"] = 2] = "HELOC";
+    })(srv.Concurrent2ndMortgageEnum || (srv.Concurrent2ndMortgageEnum = {}));
+    var Concurrent2ndMortgageEnum = srv.Concurrent2ndMortgageEnum;
+    (function (ConsentStatusEnum) {
+        ConsentStatusEnum[ConsentStatusEnum["None"] = 0] = "None";
+        ConsentStatusEnum[ConsentStatusEnum["Accept"] = 1] = "Accept";
+        ConsentStatusEnum[ConsentStatusEnum["Decline"] = 2] = "Decline";
+    })(srv.ConsentStatusEnum || (srv.ConsentStatusEnum = {}));
+    var ConsentStatusEnum = srv.ConsentStatusEnum;
+    (function (CostContainer) {
+        CostContainer[CostContainer["LoanCosts"] = 1] = "LoanCosts";
+        CostContainer[CostContainer["OtherCosts"] = 2] = "OtherCosts";
+        CostContainer[CostContainer["LenderCredits"] = 3] = "LenderCredits";
+        CostContainer[CostContainer["CreditCosts"] = 4] = "CreditCosts";
+    })(srv.CostContainer || (srv.CostContainer = {}));
+    var CostContainer = srv.CostContainer;
+    (function (CostPaidByTypeEnum) {
+        CostPaidByTypeEnum[CostPaidByTypeEnum["Borrower"] = 0] = "Borrower";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["Broker"] = 1] = "Broker";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["Lender"] = 2] = "Lender";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["Other"] = 3] = "Other";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["EscrowCompany"] = 4] = "EscrowCompany";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["LenderRebate"] = 5] = "LenderRebate";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["LenderBranch"] = 6] = "LenderBranch";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["LenderCorporate"] = 7] = "LenderCorporate";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["LenderDivision"] = 8] = "LenderDivision";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["LenderLoanOfficer"] = 9] = "LenderLoanOfficer";
+        CostPaidByTypeEnum[CostPaidByTypeEnum["Seller"] = 10] = "Seller";
+    })(srv.CostPaidByTypeEnum || (srv.CostPaidByTypeEnum = {}));
+    var CostPaidByTypeEnum = srv.CostPaidByTypeEnum;
+    (function (CostPaidToTypeEnum) {
+        CostPaidToTypeEnum[CostPaidToTypeEnum["Borrower"] = 1] = "Borrower";
+        CostPaidToTypeEnum[CostPaidToTypeEnum["Seller"] = 2] = "Seller";
+        CostPaidToTypeEnum[CostPaidToTypeEnum["Lender"] = 3] = "Lender";
+        CostPaidToTypeEnum[CostPaidToTypeEnum["Other"] = 10] = "Other";
+    })(srv.CostPaidToTypeEnum || (srv.CostPaidToTypeEnum = {}));
+    var CostPaidToTypeEnum = srv.CostPaidToTypeEnum;
+    (function (CostSectionTypeEnum) {
+        CostSectionTypeEnum[CostSectionTypeEnum["OriginationCharges"] = 1] = "OriginationCharges";
+        CostSectionTypeEnum[CostSectionTypeEnum["ServicesBorrowerDidNotShopFor"] = 2] = "ServicesBorrowerDidNotShopFor";
+        CostSectionTypeEnum[CostSectionTypeEnum["ServicesBorrowerDidShopFor"] = 3] = "ServicesBorrowerDidShopFor";
+        CostSectionTypeEnum[CostSectionTypeEnum["TaxesAndOtherGovermentFees"] = 4] = "TaxesAndOtherGovermentFees";
+        CostSectionTypeEnum[CostSectionTypeEnum["Prepaids"] = 5] = "Prepaids";
+        CostSectionTypeEnum[CostSectionTypeEnum["InitialEscowPaymentAtClosing"] = 6] = "InitialEscowPaymentAtClosing";
+        CostSectionTypeEnum[CostSectionTypeEnum["Other"] = 7] = "Other";
+        CostSectionTypeEnum[CostSectionTypeEnum["LenderCredits"] = 8] = "LenderCredits";
+    })(srv.CostSectionTypeEnum || (srv.CostSectionTypeEnum = {}));
+    var CostSectionTypeEnum = srv.CostSectionTypeEnum;
+    (function (CostTypeEnum) {
+        CostTypeEnum[CostTypeEnum["EstimatedLenderCosts"] = 0] = "EstimatedLenderCosts";
+        CostTypeEnum[CostTypeEnum["EstimatedThirdPartyCosts"] = 1] = "EstimatedThirdPartyCosts";
+        CostTypeEnum[CostTypeEnum["Prepaids"] = 2] = "Prepaids";
+        CostTypeEnum[CostTypeEnum["EstimatedReservesDepositedwithLender"] = 3] = "EstimatedReservesDepositedwithLender";
+    })(srv.CostTypeEnum || (srv.CostTypeEnum = {}));
+    var CostTypeEnum = srv.CostTypeEnum;
+    (function (DebtCommentTypeEnum) {
+        DebtCommentTypeEnum[DebtCommentTypeEnum["Agree"] = 0] = "Agree";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["Disagree"] = 1] = "Disagree";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["PaidOff"] = 3] = "PaidOff";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["PayoffAtClose"] = 4] = "PayoffAtClose";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["AccountNotMine"] = 5] = "AccountNotMine";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["Duplicate"] = 6] = "Duplicate";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["NotMyLoan"] = 7] = "NotMyLoan";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["SomeoneElsePays"] = 8] = "SomeoneElsePays";
+        DebtCommentTypeEnum[DebtCommentTypeEnum["NonBorrowingSpouse"] = 9] = "NonBorrowingSpouse";
+    })(srv.DebtCommentTypeEnum || (srv.DebtCommentTypeEnum = {}));
+    var DebtCommentTypeEnum = srv.DebtCommentTypeEnum;
+    (function (DebtsAccountOwnershipTypeEnum) {
+        DebtsAccountOwnershipTypeEnum[DebtsAccountOwnershipTypeEnum["Borrower"] = 0] = "Borrower";
+        DebtsAccountOwnershipTypeEnum[DebtsAccountOwnershipTypeEnum["CoBorrower"] = 1] = "CoBorrower";
+        DebtsAccountOwnershipTypeEnum[DebtsAccountOwnershipTypeEnum["Joint"] = 2] = "Joint";
+        DebtsAccountOwnershipTypeEnum[DebtsAccountOwnershipTypeEnum["BorrowerWithOther"] = 3] = "BorrowerWithOther";
+        DebtsAccountOwnershipTypeEnum[DebtsAccountOwnershipTypeEnum["CoBorrowerWithOther"] = 4] = "CoBorrowerWithOther";
+    })(srv.DebtsAccountOwnershipTypeEnum || (srv.DebtsAccountOwnershipTypeEnum = {}));
+    var DebtsAccountOwnershipTypeEnum = srv.DebtsAccountOwnershipTypeEnum;
+    (function (DisclosureStatusEnum) {
+        DisclosureStatusEnum[DisclosureStatusEnum["NotNeeded"] = 1] = "NotNeeded";
+        DisclosureStatusEnum[DisclosureStatusEnum["InitialDisclosureRequired"] = 2] = "InitialDisclosureRequired";
+        DisclosureStatusEnum[DisclosureStatusEnum["ReDisclosureRequired"] = 3] = "ReDisclosureRequired";
+        DisclosureStatusEnum[DisclosureStatusEnum["RequestInProgress"] = 4] = "RequestInProgress";
+        DisclosureStatusEnum[DisclosureStatusEnum["DisclosuresCreated"] = 5] = "DisclosuresCreated";
+    })(srv.DisclosureStatusEnum || (srv.DisclosureStatusEnum = {}));
+    var DisclosureStatusEnum = srv.DisclosureStatusEnum;
+    (function (DocDeliveryTypeEnum) {
+        DocDeliveryTypeEnum[DocDeliveryTypeEnum["Mail"] = 0] = "Mail";
+        DocDeliveryTypeEnum[DocDeliveryTypeEnum["Electronic"] = 1] = "Electronic";
+    })(srv.DocDeliveryTypeEnum || (srv.DocDeliveryTypeEnum = {}));
+    var DocDeliveryTypeEnum = srv.DocDeliveryTypeEnum;
+    (function (DocumentClassEnum) {
+        DocumentClassEnum[DocumentClassEnum["None"] = 0] = "None";
+        DocumentClassEnum[DocumentClassEnum["IncomeVerification"] = 1] = "IncomeVerification";
+        DocumentClassEnum[DocumentClassEnum["LoanDisclosuresPackage"] = 2] = "LoanDisclosuresPackage";
+        DocumentClassEnum[DocumentClassEnum["AppraisalReport"] = 3] = "AppraisalReport";
+        DocumentClassEnum[DocumentClassEnum["CreditReport"] = 4] = "CreditReport";
+        DocumentClassEnum[DocumentClassEnum["Authorization"] = 5] = "Authorization";
+        DocumentClassEnum[DocumentClassEnum["AuthorizationsPackage"] = 6] = "AuthorizationsPackage";
+        DocumentClassEnum[DocumentClassEnum["OtherDocuments"] = 7] = "OtherDocuments";
+        DocumentClassEnum[DocumentClassEnum["LoanReDisclosuresPackage"] = 8] = "LoanReDisclosuresPackage";
+        DocumentClassEnum[DocumentClassEnum["MiscellaneousDocuments"] = 9] = "MiscellaneousDocuments";
+        DocumentClassEnum[DocumentClassEnum["SmartGFEComplianceCertificate"] = 10] = "SmartGFEComplianceCertificate";
+        DocumentClassEnum[DocumentClassEnum["PreApprovalLetter"] = 11] = "PreApprovalLetter";
+        DocumentClassEnum[DocumentClassEnum["Collateral"] = 12] = "Collateral";
+        DocumentClassEnum[DocumentClassEnum["VariousDocuments"] = 13] = "VariousDocuments";
+        DocumentClassEnum[DocumentClassEnum["AppraisalDocuments"] = 14] = "AppraisalDocuments";
+        DocumentClassEnum[DocumentClassEnum["CounterOfferApprovalLetter"] = 15] = "CounterOfferApprovalLetter";
+        DocumentClassEnum[DocumentClassEnum["CounterOfferApprovalLetterInitialDisclousure"] = 16] = "CounterOfferApprovalLetterInitialDisclousure";
+        DocumentClassEnum[DocumentClassEnum["InitialDisclosuresMailingCoverLetter"] = 17] = "InitialDisclosuresMailingCoverLetter";
+        DocumentClassEnum[DocumentClassEnum["ReDisclosuresMailingCoverLetter"] = 18] = "ReDisclosuresMailingCoverLetter";
+        DocumentClassEnum[DocumentClassEnum["HudBooklet"] = 19] = "HudBooklet";
+        DocumentClassEnum[DocumentClassEnum["LoanDisclosuresDocuments"] = 20] = "LoanDisclosuresDocuments";
+        DocumentClassEnum[DocumentClassEnum["BorrowersNeedsListToBeCompleted"] = 21] = "BorrowersNeedsListToBeCompleted";
+        DocumentClassEnum[DocumentClassEnum["Other"] = 99] = "Other";
+    })(srv.DocumentClassEnum || (srv.DocumentClassEnum = {}));
+    var DocumentClassEnum = srv.DocumentClassEnum;
+    (function (ElectronicAddressTypeEnum) {
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["HomePhone"] = 0] = "HomePhone";
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["CellPhone"] = 1] = "CellPhone";
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["WorkPhone"] = 2] = "WorkPhone";
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["OtherPhone"] = 3] = "OtherPhone";
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["Email"] = 4] = "Email";
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["WorkEmail"] = 5] = "WorkEmail";
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["Fax"] = 6] = "Fax";
+        ElectronicAddressTypeEnum[ElectronicAddressTypeEnum["Unspecified"] = -1] = "Unspecified";
+    })(srv.ElectronicAddressTypeEnum || (srv.ElectronicAddressTypeEnum = {}));
+    var ElectronicAddressTypeEnum = srv.ElectronicAddressTypeEnum;
+    (function (EmploymentStatusEnum) {
+        EmploymentStatusEnum[EmploymentStatusEnum["Current"] = 1] = "Current";
+        EmploymentStatusEnum[EmploymentStatusEnum["Previous"] = 2] = "Previous";
+    })(srv.EmploymentStatusEnum || (srv.EmploymentStatusEnum = {}));
+    var EmploymentStatusEnum = srv.EmploymentStatusEnum;
+    (function (EmploymentTypeEnum) {
+        EmploymentTypeEnum[EmploymentTypeEnum["ActiveMilitaryDuty"] = 0] = "ActiveMilitaryDuty";
+        EmploymentTypeEnum[EmploymentTypeEnum["SalariedEmployee"] = 1] = "SalariedEmployee";
+        EmploymentTypeEnum[EmploymentTypeEnum["SelfEmployed"] = 2] = "SelfEmployed";
+        EmploymentTypeEnum[EmploymentTypeEnum["Retired"] = 3] = "Retired";
+        EmploymentTypeEnum[EmploymentTypeEnum["OtherOrUnemployed"] = 4] = "OtherOrUnemployed";
+        EmploymentTypeEnum[EmploymentTypeEnum["None"] = -1] = "None";
+    })(srv.EmploymentTypeEnum || (srv.EmploymentTypeEnum = {}));
+    var EmploymentTypeEnum = srv.EmploymentTypeEnum;
+    (function (EncompassRecordFieldNameEnum) {
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["Status"] = 1] = "Status";
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["StatusDate"] = 2] = "StatusDate";
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["IPAddress"] = 3] = "IPAddress";
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["Source"] = 4] = "Source";
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["CoBorrowerStatus"] = 5] = "CoBorrowerStatus";
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["CoBorrowerStatusDate"] = 6] = "CoBorrowerStatusDate";
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["CoBorrowerIPAddress"] = 7] = "CoBorrowerIPAddress";
+        EncompassRecordFieldNameEnum[EncompassRecordFieldNameEnum["CoBorrowerSource"] = 8] = "CoBorrowerSource";
+    })(srv.EncompassRecordFieldNameEnum || (srv.EncompassRecordFieldNameEnum = {}));
+    var EncompassRecordFieldNameEnum = srv.EncompassRecordFieldNameEnum;
+    (function (EncompassRecordNameEnum) {
+        EncompassRecordNameEnum[EncompassRecordNameEnum["eConsentRecord"] = 1] = "eConsentRecord";
+        EncompassRecordNameEnum[EncompassRecordNameEnum["IntentToProceed"] = 2] = "IntentToProceed";
+    })(srv.EncompassRecordNameEnum || (srv.EncompassRecordNameEnum = {}));
+    var EncompassRecordNameEnum = srv.EncompassRecordNameEnum;
+    (function (ExistingSecondMortgageTypeEnum) {
+        ExistingSecondMortgageTypeEnum[ExistingSecondMortgageTypeEnum["NoExistingMortgage"] = 0] = "NoExistingMortgage";
+        ExistingSecondMortgageTypeEnum[ExistingSecondMortgageTypeEnum["Fixed"] = 1] = "Fixed";
+        ExistingSecondMortgageTypeEnum[ExistingSecondMortgageTypeEnum["HELOC"] = 2] = "HELOC";
+    })(srv.ExistingSecondMortgageTypeEnum || (srv.ExistingSecondMortgageTypeEnum = {}));
+    var ExistingSecondMortgageTypeEnum = srv.ExistingSecondMortgageTypeEnum;
+    (function (FeeCategoryEnum) {
+        FeeCategoryEnum[FeeCategoryEnum["None"] = 0] = "None";
+        FeeCategoryEnum[FeeCategoryEnum["Escrow"] = 1] = "Escrow";
+        FeeCategoryEnum[FeeCategoryEnum["Title"] = 2] = "Title";
+        FeeCategoryEnum[FeeCategoryEnum["PestInspection"] = 3] = "PestInspection";
+    })(srv.FeeCategoryEnum || (srv.FeeCategoryEnum = {}));
+    var FeeCategoryEnum = srv.FeeCategoryEnum;
+    (function (FHAProductsEnum) {
+        FHAProductsEnum[FHAProductsEnum["None"] = 0] = "None";
+        FHAProductsEnum[FHAProductsEnum["StreamlineRefinance"] = 1] = "StreamlineRefinance";
+        FHAProductsEnum[FHAProductsEnum["RateAndTermRefinance"] = 2] = "RateAndTermRefinance";
+        FHAProductsEnum[FHAProductsEnum["SimpleRefinance"] = 3] = "SimpleRefinance";
+        FHAProductsEnum[FHAProductsEnum["CashOutRefinance"] = 4] = "CashOutRefinance";
+        FHAProductsEnum[FHAProductsEnum["Purchase"] = 5] = "Purchase";
+        FHAProductsEnum[FHAProductsEnum["PurchaseDown"] = 6] = "PurchaseDown";
+    })(srv.FHAProductsEnum || (srv.FHAProductsEnum = {}));
+    var FHAProductsEnum = srv.FHAProductsEnum;
+    (function (FHAPropertyOccupiedForEnum) {
+        FHAPropertyOccupiedForEnum[FHAPropertyOccupiedForEnum["LessThanOneYear"] = 1] = "LessThanOneYear";
+        FHAPropertyOccupiedForEnum[FHAPropertyOccupiedForEnum["MoreThanOneYear"] = 2] = "MoreThanOneYear";
+    })(srv.FHAPropertyOccupiedForEnum || (srv.FHAPropertyOccupiedForEnum = {}));
+    var FHAPropertyOccupiedForEnum = srv.FHAPropertyOccupiedForEnum;
+    (function (FormNameEnum) {
+        FormNameEnum[FormNameEnum["Default"] = 0] = "Default";
+        FormNameEnum[FormNameEnum["TransactionSummaryViewModel"] = 1] = "TransactionSummaryViewModel";
+    })(srv.FormNameEnum || (srv.FormNameEnum = {}));
+    var FormNameEnum = srv.FormNameEnum;
+    (function (GFETypeEnum) {
+        GFETypeEnum[GFETypeEnum["WhatIf"] = 0] = "WhatIf";
+        GFETypeEnum[GFETypeEnum["SmartGFE"] = 1] = "SmartGFE";
+    })(srv.GFETypeEnum || (srv.GFETypeEnum = {}));
+    var GFETypeEnum = srv.GFETypeEnum;
+    (function (GovermentEligibilityEnum) {
+        GovermentEligibilityEnum[GovermentEligibilityEnum["None"] = 0] = "None";
+        GovermentEligibilityEnum[GovermentEligibilityEnum["FHAEligible"] = 1] = "FHAEligible";
+        GovermentEligibilityEnum[GovermentEligibilityEnum["FHANotEligible"] = 2] = "FHANotEligible";
+        GovermentEligibilityEnum[GovermentEligibilityEnum["VAEligible"] = 3] = "VAEligible";
+        GovermentEligibilityEnum[GovermentEligibilityEnum["VANotEligible"] = 4] = "VANotEligible";
+        GovermentEligibilityEnum[GovermentEligibilityEnum["USDAEligible"] = 5] = "USDAEligible";
+        GovermentEligibilityEnum[GovermentEligibilityEnum["USDANotEligible"] = 6] = "USDANotEligible";
+    })(srv.GovermentEligibilityEnum || (srv.GovermentEligibilityEnum = {}));
+    var GovermentEligibilityEnum = srv.GovermentEligibilityEnum;
+    (function (HomeBuyingTypeEnum) {
+        HomeBuyingTypeEnum[HomeBuyingTypeEnum["None"] = 0] = "None";
+        HomeBuyingTypeEnum[HomeBuyingTypeEnum["OfferAccepted"] = 1] = "OfferAccepted";
+        HomeBuyingTypeEnum[HomeBuyingTypeEnum["OfferPendingFoundAHouse"] = 2] = "OfferPendingFoundAHouse";
+        HomeBuyingTypeEnum[HomeBuyingTypeEnum["GetPreApproved"] = 3] = "GetPreApproved";
+        HomeBuyingTypeEnum[HomeBuyingTypeEnum["WhatCanIAfford"] = 4] = "WhatCanIAfford";
+    })(srv.HomeBuyingTypeEnum || (srv.HomeBuyingTypeEnum = {}));
+    var HomeBuyingTypeEnum = srv.HomeBuyingTypeEnum;
+    (function (IncomeTypeEnum) {
+        IncomeTypeEnum[IncomeTypeEnum["BaseEmployment"] = 0] = "BaseEmployment";
+        IncomeTypeEnum[IncomeTypeEnum["Overtime"] = 1] = "Overtime";
+        IncomeTypeEnum[IncomeTypeEnum["Bonuses"] = 2] = "Bonuses";
+        IncomeTypeEnum[IncomeTypeEnum["Commissions"] = 3] = "Commissions";
+        IncomeTypeEnum[IncomeTypeEnum["DividendsInterest"] = 4] = "DividendsInterest";
+        IncomeTypeEnum[IncomeTypeEnum["NetRental"] = 5] = "NetRental";
+        IncomeTypeEnum[IncomeTypeEnum["Other"] = 6] = "Other";
+        IncomeTypeEnum[IncomeTypeEnum["TrustIncome"] = 7] = "TrustIncome";
+        IncomeTypeEnum[IncomeTypeEnum["AlimonyChildSupport"] = 8] = "AlimonyChildSupport";
+        IncomeTypeEnum[IncomeTypeEnum["AutomobileExpenseAccount"] = 9] = "AutomobileExpenseAccount";
+        IncomeTypeEnum[IncomeTypeEnum["FosterCare"] = 10] = "FosterCare";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryBasePay"] = 11] = "MilitaryBasePay";
+        IncomeTypeEnum[IncomeTypeEnum["NotesReceivableInstallment"] = 12] = "NotesReceivableInstallment";
+        IncomeTypeEnum[IncomeTypeEnum["PartTime"] = 13] = "PartTime";
+        IncomeTypeEnum[IncomeTypeEnum["SocialSecurity"] = 14] = "SocialSecurity";
+        IncomeTypeEnum[IncomeTypeEnum["DisabilityIncome"] = 15] = "DisabilityIncome";
+        IncomeTypeEnum[IncomeTypeEnum["SelfEmployedIncome"] = 16] = "SelfEmployedIncome";
+        IncomeTypeEnum[IncomeTypeEnum["RetirementPensionIncome"] = 17] = "RetirementPensionIncome";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryClothesAllows"] = 18] = "MilitaryClothesAllows";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryCombatPay"] = 19] = "MilitaryCombatPay";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryFlightPay"] = 20] = "MilitaryFlightPay";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryHazardPay"] = 21] = "MilitaryHazardPay";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryOverseasPay"] = 22] = "MilitaryOverseasPay";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryPropPay"] = 23] = "MilitaryPropPay";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryQuartersAllowance"] = 24] = "MilitaryQuartersAllowance";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryRationsAllowance"] = 25] = "MilitaryRationsAllowance";
+        IncomeTypeEnum[IncomeTypeEnum["MilitaryVariableHousingAllowance"] = 26] = "MilitaryVariableHousingAllowance";
+        IncomeTypeEnum[IncomeTypeEnum["Unemployment"] = 27] = "Unemployment";
+        IncomeTypeEnum[IncomeTypeEnum["VABenefitsNonEducational"] = 28] = "VABenefitsNonEducational";
+    })(srv.IncomeTypeEnum || (srv.IncomeTypeEnum = {}));
+    var IncomeTypeEnum = srv.IncomeTypeEnum;
+    (function (IncomeTypeNetRentalEnum) {
+        IncomeTypeNetRentalEnum[IncomeTypeNetRentalEnum["AdjustedNetRentalIncome"] = 1] = "AdjustedNetRentalIncome";
+        IncomeTypeNetRentalEnum[IncomeTypeNetRentalEnum["NetRentalIncome"] = 2] = "NetRentalIncome";
+        IncomeTypeNetRentalEnum[IncomeTypeNetRentalEnum["AnticipatedNetRentalIncome"] = 3] = "AnticipatedNetRentalIncome";
+        IncomeTypeNetRentalEnum[IncomeTypeNetRentalEnum["AdjustedAnticipatedNetRentalIncome"] = 4] = "AdjustedAnticipatedNetRentalIncome";
+    })(srv.IncomeTypeNetRentalEnum || (srv.IncomeTypeNetRentalEnum = {}));
+    var IncomeTypeNetRentalEnum = srv.IncomeTypeNetRentalEnum;
+    (function (IntegrationLookupSystemEnum) {
+        IntegrationLookupSystemEnum[IntegrationLookupSystemEnum["Encompass"] = 1] = "Encompass";
+    })(srv.IntegrationLookupSystemEnum || (srv.IntegrationLookupSystemEnum = {}));
+    var IntegrationLookupSystemEnum = srv.IntegrationLookupSystemEnum;
+    (function (IntegrationStatusDetailTypeEnum) {
+        IntegrationStatusDetailTypeEnum[IntegrationStatusDetailTypeEnum["IntegrationRequest"] = 1] = "IntegrationRequest";
+        IntegrationStatusDetailTypeEnum[IntegrationStatusDetailTypeEnum["iMPSourceData"] = 2] = "iMPSourceData";
+        IntegrationStatusDetailTypeEnum[IntegrationStatusDetailTypeEnum["VendorRequest"] = 3] = "VendorRequest";
+        IntegrationStatusDetailTypeEnum[IntegrationStatusDetailTypeEnum["VendorResponse"] = 4] = "VendorResponse";
+        IntegrationStatusDetailTypeEnum[IntegrationStatusDetailTypeEnum["SystemError"] = 5] = "SystemError";
+    })(srv.IntegrationStatusDetailTypeEnum || (srv.IntegrationStatusDetailTypeEnum = {}));
+    var IntegrationStatusDetailTypeEnum = srv.IntegrationStatusDetailTypeEnum;
+    (function (IntegrationStatusTypeEnum) {
+        IntegrationStatusTypeEnum[IntegrationStatusTypeEnum["New"] = 1] = "New";
+        IntegrationStatusTypeEnum[IntegrationStatusTypeEnum["Processing"] = 2] = "Processing";
+        IntegrationStatusTypeEnum[IntegrationStatusTypeEnum["Completed"] = 3] = "Completed";
+        IntegrationStatusTypeEnum[IntegrationStatusTypeEnum["Errored"] = 4] = "Errored";
+    })(srv.IntegrationStatusTypeEnum || (srv.IntegrationStatusTypeEnum = {}));
+    var IntegrationStatusTypeEnum = srv.IntegrationStatusTypeEnum;
+    (function (ItemizationDescriptionTypesEnum) {
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["Installment1"] = 1] = "Installment1";
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["Installment2"] = 2] = "Installment2";
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["Installment3"] = 3] = "Installment3";
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["Installment4"] = 4] = "Installment4";
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["MelloRoos"] = 5] = "MelloRoos";
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["Supplemental1"] = 6] = "Supplemental1";
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["Supplemental2"] = 7] = "Supplemental2";
+        ItemizationDescriptionTypesEnum[ItemizationDescriptionTypesEnum["Supplemental3"] = 8] = "Supplemental3";
+    })(srv.ItemizationDescriptionTypesEnum || (srv.ItemizationDescriptionTypesEnum = {}));
+    var ItemizationDescriptionTypesEnum = srv.ItemizationDescriptionTypesEnum;
+    (function (ItemSourceTypeEnum) {
+        ItemSourceTypeEnum[ItemSourceTypeEnum["User"] = 0] = "User";
+        ItemSourceTypeEnum[ItemSourceTypeEnum["Credit"] = 1] = "Credit";
+    })(srv.ItemSourceTypeEnum || (srv.ItemSourceTypeEnum = {}));
+    var ItemSourceTypeEnum = srv.ItemSourceTypeEnum;
+    (function (LedgerEntryNameEnum) {
+        LedgerEntryNameEnum[LedgerEntryNameEnum["Empty"] = 0] = "Empty";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["BorrowerClosingCosts"] = 1] = "BorrowerClosingCosts";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["BorrowerDeposit"] = 2] = "BorrowerDeposit";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["ExistingLoansTaken"] = 3] = "ExistingLoansTaken";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["LoanAmount"] = 4] = "LoanAmount";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["SalePriceOfPersonalProperty"] = 5] = "SalePriceOfPersonalProperty";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["SalePriceOfProperty"] = 6] = "SalePriceOfProperty";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["SellerClosingCosts"] = 7] = "SellerClosingCosts";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["SellerCredit"] = 8] = "SellerCredit";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["SellerExcessDeposit"] = 9] = "SellerExcessDeposit";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["CityTownTaxes"] = 10] = "CityTownTaxes";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["CountyTaxes"] = 11] = "CountyTaxes";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["Assessments"] = 12] = "Assessments";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["HOADues"] = 13] = "HOADues";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["PayoffFirstMortgage"] = 14] = "PayoffFirstMortgage";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["PayoffSecondMortgage"] = 15] = "PayoffSecondMortgage";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["PayoffThirdMortgage"] = 16] = "PayoffThirdMortgage";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["PayoffOtherMortgage"] = 17] = "PayoffOtherMortgage";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["Other"] = 18] = "Other";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["BorrowerPaidFees"] = 19] = "BorrowerPaidFees";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["EmployerAsstHousing"] = 20] = "EmployerAsstHousing";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["LeasePurchaseFund"] = 21] = "LeasePurchaseFund";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["LenderCredit"] = 22] = "LenderCredit";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["RelocationFund"] = 23] = "RelocationFund";
+        LedgerEntryNameEnum[LedgerEntryNameEnum["OtherDoubleEntry"] = 24] = "OtherDoubleEntry";
+    })(srv.LedgerEntryNameEnum || (srv.LedgerEntryNameEnum = {}));
+    var LedgerEntryNameEnum = srv.LedgerEntryNameEnum;
+    (function (LedgerEntryTypeEnum) {
+        LedgerEntryTypeEnum[LedgerEntryTypeEnum["NotSpecified"] = 0] = "NotSpecified";
+        LedgerEntryTypeEnum[LedgerEntryTypeEnum["Credit"] = 1] = "Credit";
+        LedgerEntryTypeEnum[LedgerEntryTypeEnum["Debit"] = 2] = "Debit";
+    })(srv.LedgerEntryTypeEnum || (srv.LedgerEntryTypeEnum = {}));
+    var LedgerEntryTypeEnum = srv.LedgerEntryTypeEnum;
+    (function (LegalEntityTypeEnum) {
+        LegalEntityTypeEnum[LegalEntityTypeEnum["NotSpecified"] = 0] = "NotSpecified";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["CPA"] = 1] = "CPA";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["DocSigning"] = 2] = "DocSigning";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["Escrow"] = 3] = "Escrow";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["FloodInsurance"] = 4] = "FloodInsurance";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["HazardInsurance"] = 5] = "HazardInsurance";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["PropertyManagement"] = 6] = "PropertyManagement";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["HomeWarranty"] = 7] = "HomeWarranty";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["Survey"] = 8] = "Survey";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["PestInspection"] = 9] = "PestInspection";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["MortgageInsurance"] = 10] = "MortgageInsurance";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["Realtor"] = 11] = "Realtor";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["TitleInsurance"] = 12] = "TitleInsurance";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["Appraiser"] = 13] = "Appraiser";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["ReservedForFutureUse_3"] = 22] = "ReservedForFutureUse_3";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["ReservedForFutureUse_2"] = 23] = "ReservedForFutureUse_2";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["ReservedForFutureUse_1"] = 24] = "ReservedForFutureUse_1";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["PreferredSettlementServiceProvider"] = 25] = "PreferredSettlementServiceProvider";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["Affiliate"] = 26] = "Affiliate";
+        LegalEntityTypeEnum[LegalEntityTypeEnum["FutureUse"] = 31] = "FutureUse";
+    })(srv.LegalEntityTypeEnum || (srv.LegalEntityTypeEnum = {}));
+    var LegalEntityTypeEnum = srv.LegalEntityTypeEnum;
+    (function (LegalEntityTypeMask) {
+        LegalEntityTypeMask[LegalEntityTypeMask["NotSpecified"] = 0] = "NotSpecified";
+        LegalEntityTypeMask[LegalEntityTypeMask["CPA"] = 16] = "CPA";
+        LegalEntityTypeMask[LegalEntityTypeMask["DocSigning"] = 32] = "DocSigning";
+        LegalEntityTypeMask[LegalEntityTypeMask["Escrow"] = 64] = "Escrow";
+        LegalEntityTypeMask[LegalEntityTypeMask["FloodInsurance"] = 128] = "FloodInsurance";
+        LegalEntityTypeMask[LegalEntityTypeMask["HazardInsurance"] = 256] = "HazardInsurance";
+        LegalEntityTypeMask[LegalEntityTypeMask["PropertyManagement"] = 512] = "PropertyManagement";
+        LegalEntityTypeMask[LegalEntityTypeMask["HomeWarranty"] = 1024] = "HomeWarranty";
+        LegalEntityTypeMask[LegalEntityTypeMask["Survey"] = 2048] = "Survey";
+        LegalEntityTypeMask[LegalEntityTypeMask["PestInspection"] = 4096] = "PestInspection";
+        LegalEntityTypeMask[LegalEntityTypeMask["MortgageInsurance"] = 8192] = "MortgageInsurance";
+        LegalEntityTypeMask[LegalEntityTypeMask["Realtor"] = 16384] = "Realtor";
+        LegalEntityTypeMask[LegalEntityTypeMask["TitleInsurance"] = 32768] = "TitleInsurance";
+        LegalEntityTypeMask[LegalEntityTypeMask["Appraiser"] = 65536] = "Appraiser";
+        LegalEntityTypeMask[LegalEntityTypeMask["PreferredSettlementServiceProvider"] = 268435456] = "PreferredSettlementServiceProvider";
+        LegalEntityTypeMask[LegalEntityTypeMask["Affiliate"] = 536870912] = "Affiliate";
+        LegalEntityTypeMask[LegalEntityTypeMask["AllLegalEntities"] = 1073741824] = "AllLegalEntities";
+    })(srv.LegalEntityTypeMask || (srv.LegalEntityTypeMask = {}));
+    var LegalEntityTypeMask = srv.LegalEntityTypeMask;
+    (function (LiabilityTypeEnum) {
+        LiabilityTypeEnum[LiabilityTypeEnum["Other"] = 0] = "Other";
+        LiabilityTypeEnum[LiabilityTypeEnum["Revolving"] = 1] = "Revolving";
+        LiabilityTypeEnum[LiabilityTypeEnum["Installment"] = 2] = "Installment";
+        LiabilityTypeEnum[LiabilityTypeEnum["Public"] = 3] = "Public";
+        LiabilityTypeEnum[LiabilityTypeEnum["MovedFromReo"] = 4] = "MovedFromReo";
+        LiabilityTypeEnum[LiabilityTypeEnum["Alimony"] = 5] = "Alimony";
+        LiabilityTypeEnum[LiabilityTypeEnum["ChildCare"] = 6] = "ChildCare";
+        LiabilityTypeEnum[LiabilityTypeEnum["ChildSupport"] = 7] = "ChildSupport";
+        LiabilityTypeEnum[LiabilityTypeEnum["CollectionsJudgmentAndLiens"] = 8] = "CollectionsJudgmentAndLiens";
+        LiabilityTypeEnum[LiabilityTypeEnum["JobRelatedExpenses"] = 9] = "JobRelatedExpenses";
+        LiabilityTypeEnum[LiabilityTypeEnum["LeasePayments"] = 10] = "LeasePayments";
+        LiabilityTypeEnum[LiabilityTypeEnum["Open30DayChargeAccount"] = 11] = "Open30DayChargeAccount";
+        LiabilityTypeEnum[LiabilityTypeEnum["OtherLiability"] = 12] = "OtherLiability";
+        LiabilityTypeEnum[LiabilityTypeEnum["SeparateMaintenanceExpense"] = 13] = "SeparateMaintenanceExpense";
+    })(srv.LiabilityTypeEnum || (srv.LiabilityTypeEnum = {}));
+    var LiabilityTypeEnum = srv.LiabilityTypeEnum;
+    (function (LoanApplicationTypeEnum) {
+        LoanApplicationTypeEnum[LoanApplicationTypeEnum["MainApplication"] = 1] = "MainApplication";
+        LoanApplicationTypeEnum[LoanApplicationTypeEnum["AdditionalApplication"] = 2] = "AdditionalApplication";
+    })(srv.LoanApplicationTypeEnum || (srv.LoanApplicationTypeEnum = {}));
+    var LoanApplicationTypeEnum = srv.LoanApplicationTypeEnum;
+    (function (LoanDateTypeEnum) {
+        LoanDateTypeEnum[LoanDateTypeEnum["AppraisalContingencyDate"] = 1] = "AppraisalContingencyDate";
+        LoanDateTypeEnum[LoanDateTypeEnum["ApprovalContingencyDate"] = 2] = "ApprovalContingencyDate";
+        LoanDateTypeEnum[LoanDateTypeEnum["ClosingDate"] = 3] = "ClosingDate";
+    })(srv.LoanDateTypeEnum || (srv.LoanDateTypeEnum = {}));
+    var LoanDateTypeEnum = srv.LoanDateTypeEnum;
+    (function (LoanInfoRequestEnum) {
+        LoanInfoRequestEnum[LoanInfoRequestEnum["NullRequest"] = 0] = "NullRequest";
+        LoanInfoRequestEnum[LoanInfoRequestEnum["LoanAmount"] = 1] = "LoanAmount";
+        LoanInfoRequestEnum[LoanInfoRequestEnum["SalePriceOfProperty"] = 2] = "SalePriceOfProperty";
+        LoanInfoRequestEnum[LoanInfoRequestEnum["BorrowerDeposit"] = 3] = "BorrowerDeposit";
+        LoanInfoRequestEnum[LoanInfoRequestEnum["BorrowerClosingCostsFromSectionJ"] = 4] = "BorrowerClosingCostsFromSectionJ";
+        LoanInfoRequestEnum[LoanInfoRequestEnum["SellerClosingCostsFromSectionJ"] = 5] = "SellerClosingCostsFromSectionJ";
+    })(srv.LoanInfoRequestEnum || (srv.LoanInfoRequestEnum = {}));
+    var LoanInfoRequestEnum = srv.LoanInfoRequestEnum;
+    (function (LoanLockControlStatusType) {
+        LoanLockControlStatusType[LoanLockControlStatusType["Acquired"] = 1] = "Acquired";
+        LoanLockControlStatusType[LoanLockControlStatusType["Released"] = 2] = "Released";
+        LoanLockControlStatusType[LoanLockControlStatusType["TimedOut"] = 3] = "TimedOut";
+    })(srv.LoanLockControlStatusType || (srv.LoanLockControlStatusType = {}));
+    var LoanLockControlStatusType = srv.LoanLockControlStatusType;
+    (function (LoanOriginationInterviewTypeEnum) {
+        LoanOriginationInterviewTypeEnum[LoanOriginationInterviewTypeEnum["FaceToFace"] = 0] = "FaceToFace";
+        LoanOriginationInterviewTypeEnum[LoanOriginationInterviewTypeEnum["Telephone"] = 1] = "Telephone";
+        LoanOriginationInterviewTypeEnum[LoanOriginationInterviewTypeEnum["FaxOrMail"] = 2] = "FaxOrMail";
+        LoanOriginationInterviewTypeEnum[LoanOriginationInterviewTypeEnum["EmailOrInternet"] = 3] = "EmailOrInternet";
+    })(srv.LoanOriginationInterviewTypeEnum || (srv.LoanOriginationInterviewTypeEnum = {}));
+    var LoanOriginationInterviewTypeEnum = srv.LoanOriginationInterviewTypeEnum;
+    (function (LoanPricingAdjustmentDropDownTypeEnum) {
+        LoanPricingAdjustmentDropDownTypeEnum[LoanPricingAdjustmentDropDownTypeEnum["Adjustment"] = 0] = "Adjustment";
+        LoanPricingAdjustmentDropDownTypeEnum[LoanPricingAdjustmentDropDownTypeEnum["SubType"] = 1] = "SubType";
+        LoanPricingAdjustmentDropDownTypeEnum[LoanPricingAdjustmentDropDownTypeEnum["PaidBy"] = 2] = "PaidBy";
+    })(srv.LoanPricingAdjustmentDropDownTypeEnum || (srv.LoanPricingAdjustmentDropDownTypeEnum = {}));
+    var LoanPricingAdjustmentDropDownTypeEnum = srv.LoanPricingAdjustmentDropDownTypeEnum;
+    (function (LoanPricingAdjustmentPaidByTypeEnum) {
+        LoanPricingAdjustmentPaidByTypeEnum[LoanPricingAdjustmentPaidByTypeEnum["Unkonwn"] = 0] = "Unkonwn";
+        LoanPricingAdjustmentPaidByTypeEnum[LoanPricingAdjustmentPaidByTypeEnum["LoanOfficer"] = 1] = "LoanOfficer";
+        LoanPricingAdjustmentPaidByTypeEnum[LoanPricingAdjustmentPaidByTypeEnum["Division"] = 2] = "Division";
+        LoanPricingAdjustmentPaidByTypeEnum[LoanPricingAdjustmentPaidByTypeEnum["Company"] = 3] = "Company";
+        LoanPricingAdjustmentPaidByTypeEnum[LoanPricingAdjustmentPaidByTypeEnum["Borrower"] = 4] = "Borrower";
+    })(srv.LoanPricingAdjustmentPaidByTypeEnum || (srv.LoanPricingAdjustmentPaidByTypeEnum = {}));
+    var LoanPricingAdjustmentPaidByTypeEnum = srv.LoanPricingAdjustmentPaidByTypeEnum;
+    (function (LoanPricingAdjustmentTypeEnum) {
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2Llpa"] = 1] = "Sec2Llpa";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2Concession"] = 2] = "Sec2Concession";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2ExcessPricing"] = 3] = "Sec2ExcessPricing";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2Extension"] = 4] = "Sec2Extension";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2Renegotation"] = 5] = "Sec2Renegotation";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2WorstCasePricing"] = 6] = "Sec2WorstCasePricing";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1CorporateMargin"] = 7] = "Sec1CorporateMargin";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1DivisionMargin"] = 8] = "Sec1DivisionMargin";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1LoanOfficerCompensation"] = 9] = "Sec1LoanOfficerCompensation";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1ExcessPricing"] = 10] = "Sec1ExcessPricing";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1Extension"] = 11] = "Sec1Extension";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec3ExcessPricing"] = 12] = "Sec3ExcessPricing";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec3Extension"] = 13] = "Sec3Extension";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec3Renegotation"] = 14] = "Sec3Renegotation";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec3WorstCasePricing"] = 15] = "Sec3WorstCasePricing";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1CompanyMargin"] = 16] = "Sec1CompanyMargin";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1Compensation"] = 17] = "Sec1Compensation";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1Ipa"] = 18] = "Sec1Ipa";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec1Ira"] = 19] = "Sec1Ira";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2Llra"] = 20] = "Sec2Llra";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec2Ipa"] = 21] = "Sec2Ipa";
+        LoanPricingAdjustmentTypeEnum[LoanPricingAdjustmentTypeEnum["Sec3Ipa"] = 22] = "Sec3Ipa";
+    })(srv.LoanPricingAdjustmentTypeEnum || (srv.LoanPricingAdjustmentTypeEnum = {}));
+    var LoanPricingAdjustmentTypeEnum = srv.LoanPricingAdjustmentTypeEnum;
+    (function (LoanPurposeTypeEnum) {
+        LoanPurposeTypeEnum[LoanPurposeTypeEnum["None"] = 0] = "None";
+        LoanPurposeTypeEnum[LoanPurposeTypeEnum["Purchase"] = 1] = "Purchase";
+        LoanPurposeTypeEnum[LoanPurposeTypeEnum["Refinance"] = 2] = "Refinance";
+    })(srv.LoanPurposeTypeEnum || (srv.LoanPurposeTypeEnum = {}));
+    var LoanPurposeTypeEnum = srv.LoanPurposeTypeEnum;
+    (function (LoanStatus) {
+        LoanStatus[LoanStatus["Closed"] = 1] = "Closed";
+        LoanStatus[LoanStatus["InProgress"] = 2] = "InProgress";
+        LoanStatus[LoanStatus["Cancelled"] = 3] = "Cancelled";
+        LoanStatus[LoanStatus["Reopened"] = 4] = "Reopened";
+    })(srv.LoanStatus || (srv.LoanStatus = {}));
+    var LoanStatus = srv.LoanStatus;
+    (function (LockingConfigurationEnum) {
+        LockingConfigurationEnum[LockingConfigurationEnum["None"] = 0] = "None";
+        LockingConfigurationEnum[LockingConfigurationEnum["AllowedMinutesFromSearchToRequestMandatory"] = 1] = "AllowedMinutesFromSearchToRequestMandatory";
+        LockingConfigurationEnum[LockingConfigurationEnum["AllowedMinutesFromSearchToRequestEforts"] = 2] = "AllowedMinutesFromSearchToRequestEforts";
+        LockingConfigurationEnum[LockingConfigurationEnum["AutoLockSettingsBestEfforts"] = 3] = "AutoLockSettingsBestEfforts";
+        LockingConfigurationEnum[LockingConfigurationEnum["AutoLockSettingsMandatoryEfforts"] = 4] = "AutoLockSettingsMandatoryEfforts";
+        LockingConfigurationEnum[LockingConfigurationEnum["MaxNumberOfConcessions"] = 5] = "MaxNumberOfConcessions";
+        LockingConfigurationEnum[LockingConfigurationEnum["MaxConcessionAmountTotal"] = 6] = "MaxConcessionAmountTotal";
+        LockingConfigurationEnum[LockingConfigurationEnum["MaxConcessionAmountLevel1"] = 7] = "MaxConcessionAmountLevel1";
+        LockingConfigurationEnum[LockingConfigurationEnum["MaxConcessionAmountLevel2"] = 8] = "MaxConcessionAmountLevel2";
+        LockingConfigurationEnum[LockingConfigurationEnum["MaxConcessionAmountLevel3"] = 9] = "MaxConcessionAmountLevel3";
+        LockingConfigurationEnum[LockingConfigurationEnum["MaxConcessionAmountLevel4"] = 10] = "MaxConcessionAmountLevel4";
+        LockingConfigurationEnum[LockingConfigurationEnum["MaxConcessionAmountLevel5"] = 11] = "MaxConcessionAmountLevel5";
+    })(srv.LockingConfigurationEnum || (srv.LockingConfigurationEnum = {}));
+    var LockingConfigurationEnum = srv.LockingConfigurationEnum;
+    (function (LockingConfigurationTypeEnum) {
+        LockingConfigurationTypeEnum[LockingConfigurationTypeEnum["None"] = 0] = "None";
+        LockingConfigurationTypeEnum[LockingConfigurationTypeEnum["RulesForLock"] = 1] = "RulesForLock";
+        LockingConfigurationTypeEnum[LockingConfigurationTypeEnum["RulesForConcession"] = 2] = "RulesForConcession";
+    })(srv.LockingConfigurationTypeEnum || (srv.LockingConfigurationTypeEnum = {}));
+    var LockingConfigurationTypeEnum = srv.LockingConfigurationTypeEnum;
+    (function (MannerOfPaymentRatingEnum) {
+        MannerOfPaymentRatingEnum[MannerOfPaymentRatingEnum["Unknown"] = 0] = "Unknown";
+        MannerOfPaymentRatingEnum[MannerOfPaymentRatingEnum["Late30Days"] = 1] = "Late30Days";
+        MannerOfPaymentRatingEnum[MannerOfPaymentRatingEnum["Late60Days"] = 2] = "Late60Days";
+        MannerOfPaymentRatingEnum[MannerOfPaymentRatingEnum["Late90Days"] = 3] = "Late90Days";
+        MannerOfPaymentRatingEnum[MannerOfPaymentRatingEnum["LateOver120Days"] = 4] = "LateOver120Days";
+    })(srv.MannerOfPaymentRatingEnum || (srv.MannerOfPaymentRatingEnum = {}));
+    var MannerOfPaymentRatingEnum = srv.MannerOfPaymentRatingEnum;
+    (function (MaritalStatusTypeEnum) {
+        MaritalStatusTypeEnum[MaritalStatusTypeEnum["Married"] = 0] = "Married";
+        MaritalStatusTypeEnum[MaritalStatusTypeEnum["Separated"] = 1] = "Separated";
+        MaritalStatusTypeEnum[MaritalStatusTypeEnum["Unmarried"] = 2] = "Unmarried";
+        MaritalStatusTypeEnum[MaritalStatusTypeEnum["SelectOne"] = -1] = "SelectOne";
+    })(srv.MaritalStatusTypeEnum || (srv.MaritalStatusTypeEnum = {}));
+    var MaritalStatusTypeEnum = srv.MaritalStatusTypeEnum;
+    (function (MilestoneStatusTypeEnum) {
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Prospect"] = 1] = "Prospect";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Incomplete"] = 2] = "Incomplete";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Processing"] = 3] = "Processing";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["PreApproved"] = 4] = "PreApproved";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Approved"] = 5] = "Approved";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["DocsOut"] = 6] = "DocsOut";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Funding"] = 7] = "Funding";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Closed"] = 8] = "Closed";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Canceled"] = 9] = "Canceled";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Unsubmitted"] = 10] = "Unsubmitted";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Registered"] = 11] = "Registered";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Submitted"] = 12] = "Submitted";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Rejected"] = 13] = "Rejected";
+        MilestoneStatusTypeEnum[MilestoneStatusTypeEnum["Adverse"] = 14] = "Adverse";
+    })(srv.MilestoneStatusTypeEnum || (srv.MilestoneStatusTypeEnum = {}));
+    var MilestoneStatusTypeEnum = srv.MilestoneStatusTypeEnum;
+    (function (MilitaryBranchOrServiceTypeEnum) {
+        MilitaryBranchOrServiceTypeEnum[MilitaryBranchOrServiceTypeEnum["AirForce"] = 0] = "AirForce";
+        MilitaryBranchOrServiceTypeEnum[MilitaryBranchOrServiceTypeEnum["Army"] = 1] = "Army";
+        MilitaryBranchOrServiceTypeEnum[MilitaryBranchOrServiceTypeEnum["Marines"] = 2] = "Marines";
+        MilitaryBranchOrServiceTypeEnum[MilitaryBranchOrServiceTypeEnum["Navy"] = 3] = "Navy";
+        MilitaryBranchOrServiceTypeEnum[MilitaryBranchOrServiceTypeEnum["Other"] = 4] = "Other";
+    })(srv.MilitaryBranchOrServiceTypeEnum || (srv.MilitaryBranchOrServiceTypeEnum = {}));
+    var MilitaryBranchOrServiceTypeEnum = srv.MilitaryBranchOrServiceTypeEnum;
+    (function (MortgageInsuranceTerminationEnum) {
+        MortgageInsuranceTerminationEnum[MortgageInsuranceTerminationEnum["LTV78orMidpointTermination"] = 0] = "LTV78orMidpointTermination";
+        MortgageInsuranceTerminationEnum[MortgageInsuranceTerminationEnum["MidpointTermination"] = 1] = "MidpointTermination";
+        MortgageInsuranceTerminationEnum[MortgageInsuranceTerminationEnum["NoAutoTermination"] = 2] = "NoAutoTermination";
+    })(srv.MortgageInsuranceTerminationEnum || (srv.MortgageInsuranceTerminationEnum = {}));
+    var MortgageInsuranceTerminationEnum = srv.MortgageInsuranceTerminationEnum;
+    (function (MortgageTypeEnum) {
+        MortgageTypeEnum[MortgageTypeEnum["Conventional"] = 0] = "Conventional";
+        MortgageTypeEnum[MortgageTypeEnum["FHA"] = 1] = "FHA";
+        MortgageTypeEnum[MortgageTypeEnum["ConventionalJumbo"] = 2] = "ConventionalJumbo";
+        MortgageTypeEnum[MortgageTypeEnum["ConventionalSuperJumbo"] = 3] = "ConventionalSuperJumbo";
+        MortgageTypeEnum[MortgageTypeEnum["VA"] = 4] = "VA";
+        MortgageTypeEnum[MortgageTypeEnum["USDA"] = 5] = "USDA";
+    })(srv.MortgageTypeEnum || (srv.MortgageTypeEnum = {}));
+    var MortgageTypeEnum = srv.MortgageTypeEnum;
+    (function (NtbBenefitEnum) {
+        NtbBenefitEnum[NtbBenefitEnum["AvoidForeclosure"] = 1] = "AvoidForeclosure";
+        NtbBenefitEnum[NtbBenefitEnum["LowerInterestRate"] = 2] = "LowerInterestRate";
+        NtbBenefitEnum[NtbBenefitEnum["LowerMonthlyPayment"] = 3] = "LowerMonthlyPayment";
+        NtbBenefitEnum[NtbBenefitEnum["LowerInterestRateOrLowerTermAndCostsRecouped"] = 4] = "LowerInterestRateOrLowerTermAndCostsRecouped";
+        NtbBenefitEnum[NtbBenefitEnum["LowerDuration"] = 5] = "LowerDuration";
+        NtbBenefitEnum[NtbBenefitEnum["LowerAmortizationSchedule"] = 6] = "LowerAmortizationSchedule";
+        NtbBenefitEnum[NtbBenefitEnum["EliminateFeatureNegativeAmortization"] = 7] = "EliminateFeatureNegativeAmortization";
+        NtbBenefitEnum[NtbBenefitEnum["EliminateFeatureBalloonPayment"] = 8] = "EliminateFeatureBalloonPayment";
+        NtbBenefitEnum[NtbBenefitEnum["EliminatePrivateMortgageInsurance"] = 9] = "EliminatePrivateMortgageInsurance";
+        NtbBenefitEnum[NtbBenefitEnum["ChangeAdjustableRateToFixedRate"] = 10] = "ChangeAdjustableRateToFixedRate";
+        NtbBenefitEnum[NtbBenefitEnum["CashoutReasonable"] = 11] = "CashoutReasonable";
+        NtbBenefitEnum[NtbBenefitEnum["CashoutReasonableBonaFiedPersonalNeed"] = 12] = "CashoutReasonableBonaFiedPersonalNeed";
+        NtbBenefitEnum[NtbBenefitEnum["CashoutSignificantPurpose"] = 13] = "CashoutSignificantPurpose";
+        NtbBenefitEnum[NtbBenefitEnum["ConsolidateLoans"] = 14] = "ConsolidateLoans";
+        NtbBenefitEnum[NtbBenefitEnum["ConsolidateDebts"] = 15] = "ConsolidateDebts";
+        NtbBenefitEnum[NtbBenefitEnum["NewLoanGuaranteed"] = 16] = "NewLoanGuaranteed";
+        NtbBenefitEnum[NtbBenefitEnum["NewLoanQualifiedMortgage"] = 17] = "NewLoanQualifiedMortgage";
+        NtbBenefitEnum[NtbBenefitEnum["DTIBelowThreshold"] = 18] = "DTIBelowThreshold";
+    })(srv.NtbBenefitEnum || (srv.NtbBenefitEnum = {}));
+    var NtbBenefitEnum = srv.NtbBenefitEnum;
+    (function (OtherCreditType) {
+        OtherCreditType[OtherCreditType["CashDepositOnSales"] = 0] = "CashDepositOnSales";
+        OtherCreditType[OtherCreditType["SellerCredit"] = 1] = "SellerCredit";
+        OtherCreditType[OtherCreditType["LenderCredit"] = 2] = "LenderCredit";
+        OtherCreditType[OtherCreditType["RelocationFunds"] = 3] = "RelocationFunds";
+        OtherCreditType[OtherCreditType["EmployerAssistedHousing"] = 4] = "EmployerAssistedHousing";
+        OtherCreditType[OtherCreditType["LeasePurchaseFund"] = 5] = "LeasePurchaseFund";
+        OtherCreditType[OtherCreditType["Other"] = 6] = "Other";
+        OtherCreditType[OtherCreditType["BorrowerPaidfees"] = 7] = "BorrowerPaidfees";
+        OtherCreditType[OtherCreditType["LenderPointCredit"] = 8] = "LenderPointCredit";
+    })(srv.OtherCreditType || (srv.OtherCreditType = {}));
+    var OtherCreditType = srv.OtherCreditType;
+    (function (OwnershipStatusTypeEnum) {
+        OwnershipStatusTypeEnum[OwnershipStatusTypeEnum["Own"] = 0] = "Own";
+        OwnershipStatusTypeEnum[OwnershipStatusTypeEnum["Rent"] = 1] = "Rent";
+        OwnershipStatusTypeEnum[OwnershipStatusTypeEnum["RentFree"] = 2] = "RentFree";
+        OwnershipStatusTypeEnum[OwnershipStatusTypeEnum["None"] = -1] = "None";
+    })(srv.OwnershipStatusTypeEnum || (srv.OwnershipStatusTypeEnum = {}));
+    var OwnershipStatusTypeEnum = srv.OwnershipStatusTypeEnum;
+    (function (PartyTypeEnum) {
+        PartyTypeEnum[PartyTypeEnum["Borrower"] = 1] = "Borrower";
+        PartyTypeEnum[PartyTypeEnum["CoBorrower"] = 2] = "CoBorrower";
+        PartyTypeEnum[PartyTypeEnum["LoanConcierge"] = 3] = "LoanConcierge";
+        PartyTypeEnum[PartyTypeEnum["LoanProcessor"] = 4] = "LoanProcessor";
+        PartyTypeEnum[PartyTypeEnum["ImpersonatedConciergeId"] = 5] = "ImpersonatedConciergeId";
+        PartyTypeEnum[PartyTypeEnum["CallCenter"] = 6] = "CallCenter";
+        PartyTypeEnum[PartyTypeEnum["LeadSource"] = 7] = "LeadSource";
+        PartyTypeEnum[PartyTypeEnum["PartnerLeadSource"] = 8] = "PartnerLeadSource";
+        PartyTypeEnum[PartyTypeEnum["BuyersAgent"] = 9] = "BuyersAgent";
+        PartyTypeEnum[PartyTypeEnum["SellersAgent"] = 10] = "SellersAgent";
+        PartyTypeEnum[PartyTypeEnum["LoanOfficer"] = 11] = "LoanOfficer";
+        PartyTypeEnum[PartyTypeEnum["Investor"] = 12] = "Investor";
+    })(srv.PartyTypeEnum || (srv.PartyTypeEnum = {}));
+    var PartyTypeEnum = srv.PartyTypeEnum;
+    (function (PaymentMonthEnum) {
+        PaymentMonthEnum[PaymentMonthEnum["Unspecified"] = 0] = "Unspecified";
+        PaymentMonthEnum[PaymentMonthEnum["January"] = 1] = "January";
+        PaymentMonthEnum[PaymentMonthEnum["February"] = 2] = "February";
+        PaymentMonthEnum[PaymentMonthEnum["March"] = 3] = "March";
+        PaymentMonthEnum[PaymentMonthEnum["April"] = 4] = "April";
+        PaymentMonthEnum[PaymentMonthEnum["May"] = 5] = "May";
+        PaymentMonthEnum[PaymentMonthEnum["June"] = 6] = "June";
+        PaymentMonthEnum[PaymentMonthEnum["July"] = 7] = "July";
+        PaymentMonthEnum[PaymentMonthEnum["August"] = 8] = "August";
+        PaymentMonthEnum[PaymentMonthEnum["September"] = 9] = "September";
+        PaymentMonthEnum[PaymentMonthEnum["October"] = 10] = "October";
+        PaymentMonthEnum[PaymentMonthEnum["November"] = 11] = "November";
+        PaymentMonthEnum[PaymentMonthEnum["December"] = 12] = "December";
+    })(srv.PaymentMonthEnum || (srv.PaymentMonthEnum = {}));
+    var PaymentMonthEnum = srv.PaymentMonthEnum;
+    (function (PeriodTypeEnum) {
+        PeriodTypeEnum[PeriodTypeEnum["None"] = 0] = "None";
+        PeriodTypeEnum[PeriodTypeEnum["Monthly"] = 1] = "Monthly";
+        PeriodTypeEnum[PeriodTypeEnum["Annually"] = 2] = "Annually";
+        PeriodTypeEnum[PeriodTypeEnum["Weekly"] = 3] = "Weekly";
+        PeriodTypeEnum[PeriodTypeEnum["BiWeekly"] = 4] = "BiWeekly";
+        PeriodTypeEnum[PeriodTypeEnum["Quarterly"] = 5] = "Quarterly";
+        PeriodTypeEnum[PeriodTypeEnum["SemiAnnually"] = 6] = "SemiAnnually";
+    })(srv.PeriodTypeEnum || (srv.PeriodTypeEnum = {}));
+    var PeriodTypeEnum = srv.PeriodTypeEnum;
+    (function (PledgedAssetCommentTypeEnum) {
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["DoNotPayoff"] = 0] = "DoNotPayoff";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["PaidOffFreeAndClear"] = 1] = "PaidOffFreeAndClear";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["PayoffAtClose"] = 2] = "PayoffAtClose";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["PayoffAtClosingAndDontCloseAccount"] = 3] = "PayoffAtClosingAndDontCloseAccount";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["PayoffAtClosingAndCloseAccount"] = 4] = "PayoffAtClosingAndCloseAccount";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["Sold"] = 5] = "Sold";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["NotMyLoan"] = 6] = "NotMyLoan";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["PendingSale"] = 7] = "PendingSale";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["NotAMortgage"] = 8] = "NotAMortgage";
+        PledgedAssetCommentTypeEnum[PledgedAssetCommentTypeEnum["Duplicate"] = 9] = "Duplicate";
+    })(srv.PledgedAssetCommentTypeEnum || (srv.PledgedAssetCommentTypeEnum = {}));
+    var PledgedAssetCommentTypeEnum = srv.PledgedAssetCommentTypeEnum;
+    (function (PricingAdjustmentSectionTypeEnum) {
+        PricingAdjustmentSectionTypeEnum[PricingAdjustmentSectionTypeEnum["Enterprise"] = 1] = "Enterprise";
+        PricingAdjustmentSectionTypeEnum[PricingAdjustmentSectionTypeEnum["LOPrice"] = 2] = "LOPrice";
+        PricingAdjustmentSectionTypeEnum[PricingAdjustmentSectionTypeEnum["FinalPrice"] = 3] = "FinalPrice";
+    })(srv.PricingAdjustmentSectionTypeEnum || (srv.PricingAdjustmentSectionTypeEnum = {}));
+    var PricingAdjustmentSectionTypeEnum = srv.PricingAdjustmentSectionTypeEnum;
+    (function (PrivilegeType) {
+        PrivilegeType[PrivilegeType["System"] = 0] = "System";
+        PrivilegeType[PrivilegeType["User"] = 1] = "User";
+    })(srv.PrivilegeType || (srv.PrivilegeType = {}));
+    var PrivilegeType = srv.PrivilegeType;
+    (function (ProductTypeEnum) {
+        ProductTypeEnum[ProductTypeEnum["CreditReport"] = 4] = "CreditReport";
+        ProductTypeEnum[ProductTypeEnum["AuditReport"] = 5] = "AuditReport";
+    })(srv.ProductTypeEnum || (srv.ProductTypeEnum = {}));
+    var ProductTypeEnum = srv.ProductTypeEnum;
+    (function (PropertyExpenseTypeEnum) {
+        PropertyExpenseTypeEnum[PropertyExpenseTypeEnum["None"] = 0] = "None";
+        PropertyExpenseTypeEnum[PropertyExpenseTypeEnum["PropertyTax"] = 1] = "PropertyTax";
+        PropertyExpenseTypeEnum[PropertyExpenseTypeEnum["HomeOwnerInurance"] = 2] = "HomeOwnerInurance";
+        PropertyExpenseTypeEnum[PropertyExpenseTypeEnum["MortgageInsurance"] = 3] = "MortgageInsurance";
+        PropertyExpenseTypeEnum[PropertyExpenseTypeEnum["HomeOwnerAssociationDues"] = 4] = "HomeOwnerAssociationDues";
+        PropertyExpenseTypeEnum[PropertyExpenseTypeEnum["FloodInsurance"] = 5] = "FloodInsurance";
+    })(srv.PropertyExpenseTypeEnum || (srv.PropertyExpenseTypeEnum = {}));
+    var PropertyExpenseTypeEnum = srv.PropertyExpenseTypeEnum;
+    (function (PropertyHeldTypeEnum) {
+        PropertyHeldTypeEnum[PropertyHeldTypeEnum["Individual"] = 0] = "Individual";
+        PropertyHeldTypeEnum[PropertyHeldTypeEnum["Trust"] = 1] = "Trust";
+        PropertyHeldTypeEnum[PropertyHeldTypeEnum["Corporation"] = 2] = "Corporation";
+    })(srv.PropertyHeldTypeEnum || (srv.PropertyHeldTypeEnum = {}));
+    var PropertyHeldTypeEnum = srv.PropertyHeldTypeEnum;
+    (function (PropertyTypeEnum) {
+        PropertyTypeEnum[PropertyTypeEnum["None"] = 0] = "None";
+        PropertyTypeEnum[PropertyTypeEnum["SingleFamily"] = 1] = "SingleFamily";
+        PropertyTypeEnum[PropertyTypeEnum["Condominium"] = 2] = "Condominium";
+        PropertyTypeEnum[PropertyTypeEnum["PUD"] = 3] = "PUD";
+        PropertyTypeEnum[PropertyTypeEnum["ManufacturedHousingDoubleWide"] = 4] = "ManufacturedHousingDoubleWide";
+        PropertyTypeEnum[PropertyTypeEnum["ManufacturedHousingSingleWide"] = 5] = "ManufacturedHousingSingleWide";
+        PropertyTypeEnum[PropertyTypeEnum["Cooperative"] = 6] = "Cooperative";
+        PropertyTypeEnum[PropertyTypeEnum["Condotel"] = 7] = "Condotel";
+        PropertyTypeEnum[PropertyTypeEnum["Modular"] = 8] = "Modular";
+        PropertyTypeEnum[PropertyTypeEnum["Timeshare"] = 9] = "Timeshare";
+        PropertyTypeEnum[PropertyTypeEnum["NonWarrantableCondo"] = 10] = "NonWarrantableCondo";
+        PropertyTypeEnum[PropertyTypeEnum["TownHouse"] = 11] = "TownHouse";
+        PropertyTypeEnum[PropertyTypeEnum["Commercial"] = 12] = "Commercial";
+        PropertyTypeEnum[PropertyTypeEnum["MixedUse"] = 13] = "MixedUse";
+        PropertyTypeEnum[PropertyTypeEnum["MultiFamilyTwoToFourUnits"] = 14] = "MultiFamilyTwoToFourUnits";
+        PropertyTypeEnum[PropertyTypeEnum["MobileHome"] = 15] = "MobileHome";
+        PropertyTypeEnum[PropertyTypeEnum["MultiFamilyMoreThanFourUnits"] = 16] = "MultiFamilyMoreThanFourUnits";
+        PropertyTypeEnum[PropertyTypeEnum["HomeAndBusinessCombined"] = 17] = "HomeAndBusinessCombined";
+        PropertyTypeEnum[PropertyTypeEnum["Farm"] = 18] = "Farm";
+        PropertyTypeEnum[PropertyTypeEnum["Land"] = 19] = "Land";
+    })(srv.PropertyTypeEnum || (srv.PropertyTypeEnum = {}));
+    var PropertyTypeEnum = srv.PropertyTypeEnum;
+    (function (PropertyUsageTypeEnum) {
+        PropertyUsageTypeEnum[PropertyUsageTypeEnum["None"] = 0] = "None";
+        PropertyUsageTypeEnum[PropertyUsageTypeEnum["PrimaryResidence"] = 1] = "PrimaryResidence";
+        PropertyUsageTypeEnum[PropertyUsageTypeEnum["InvestmentProperty"] = 2] = "InvestmentProperty";
+        PropertyUsageTypeEnum[PropertyUsageTypeEnum["SecondVacationHome"] = 3] = "SecondVacationHome";
+    })(srv.PropertyUsageTypeEnum || (srv.PropertyUsageTypeEnum = {}));
+    var PropertyUsageTypeEnum = srv.PropertyUsageTypeEnum;
+    (function (ProspectStatusTypeEnum) {
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["NewProspect"] = 0] = "NewProspect";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["Badcredit"] = 1] = "Badcredit";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["Cancelled"] = 2] = "Cancelled";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["DoNotCall"] = 3] = "DoNotCall";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["FollowUp"] = 4] = "FollowUp";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["WarmLead"] = 5] = "WarmLead";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["ApplicationStarted"] = 6] = "ApplicationStarted";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["LostToCompetition"] = 8] = "LostToCompetition";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["NoBenefitRateAlert"] = 11] = "NoBenefitRateAlert";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["NoEquity"] = 12] = "NoEquity";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["NoIncome"] = 13] = "NoIncome";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["NotLicensedInTheState"] = 14] = "NotLicensedInTheState";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["PreApprovalRequest"] = 16] = "PreApprovalRequest";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["LoanApplicationPending"] = 17] = "LoanApplicationPending";
+        ProspectStatusTypeEnum[ProspectStatusTypeEnum["ApplicationCompleted"] = 19] = "ApplicationCompleted";
+    })(srv.ProspectStatusTypeEnum || (srv.ProspectStatusTypeEnum = {}));
+    var ProspectStatusTypeEnum = srv.ProspectStatusTypeEnum;
+    (function (RefinanceCommentTypeEnum) {
+        RefinanceCommentTypeEnum[RefinanceCommentTypeEnum["None"] = 0] = "None";
+        RefinanceCommentTypeEnum[RefinanceCommentTypeEnum["DoNotPayoff"] = 1] = "DoNotPayoff";
+        RefinanceCommentTypeEnum[RefinanceCommentTypeEnum["PayoffAtClosing"] = 2] = "PayoffAtClosing";
+        RefinanceCommentTypeEnum[RefinanceCommentTypeEnum["PayoffDontCloseAccount"] = 3] = "PayoffDontCloseAccount";
+        RefinanceCommentTypeEnum[RefinanceCommentTypeEnum["PayoffCloseAccount"] = 4] = "PayoffCloseAccount";
+    })(srv.RefinanceCommentTypeEnum || (srv.RefinanceCommentTypeEnum = {}));
+    var RefinanceCommentTypeEnum = srv.RefinanceCommentTypeEnum;
+    (function (RefinancePurposeTypeEnum) {
+        RefinancePurposeTypeEnum[RefinancePurposeTypeEnum["None"] = 0] = "None";
+        RefinancePurposeTypeEnum[RefinancePurposeTypeEnum["CashOut"] = 1] = "CashOut";
+        RefinancePurposeTypeEnum[RefinancePurposeTypeEnum["RateAndTerm"] = 2] = "RateAndTerm";
+    })(srv.RefinancePurposeTypeEnum || (srv.RefinancePurposeTypeEnum = {}));
+    var RefinancePurposeTypeEnum = srv.RefinancePurposeTypeEnum;
+    (function (RightsTypeEnum) {
+        RightsTypeEnum[RightsTypeEnum["FeeSimple"] = 0] = "FeeSimple";
+        RightsTypeEnum[RightsTypeEnum["Leasehold"] = 1] = "Leasehold";
+        RightsTypeEnum[RightsTypeEnum["Other"] = 2] = "Other";
+    })(srv.RightsTypeEnum || (srv.RightsTypeEnum = {}));
+    var RightsTypeEnum = srv.RightsTypeEnum;
+    (function (RoleDefaultPage) {
+        RoleDefaultPage[RoleDefaultPage["None"] = 0] = "None";
+        RoleDefaultPage[RoleDefaultPage["ConciergeCenterProspectQueue"] = 1] = "ConciergeCenterProspectQueue";
+        RoleDefaultPage[RoleDefaultPage["LoanCenter"] = 2] = "LoanCenter";
+        RoleDefaultPage[RoleDefaultPage["ConciergeCenterNewLoanAppOrPipelineQueue"] = 3] = "ConciergeCenterNewLoanAppOrPipelineQueue";
+        RoleDefaultPage[RoleDefaultPage["SystemAdmin"] = 4] = "SystemAdmin";
+    })(srv.RoleDefaultPage || (srv.RoleDefaultPage = {}));
+    var RoleDefaultPage = srv.RoleDefaultPage;
+    (function (RoleEnum) {
+        RoleEnum[RoleEnum["None"] = 0] = "None";
+        RoleEnum[RoleEnum["Administrator"] = 1] = "Administrator";
+        RoleEnum[RoleEnum["Borrower"] = 2] = "Borrower";
+        RoleEnum[RoleEnum["BranchManager"] = 3] = "BranchManager";
+        RoleEnum[RoleEnum["Business"] = 4] = "Business";
+        RoleEnum[RoleEnum["ChannelManager"] = 5] = "ChannelManager";
+        RoleEnum[RoleEnum["Concierge"] = 6] = "Concierge";
+        RoleEnum[RoleEnum["DivisionManager"] = 7] = "DivisionManager";
+        RoleEnum[RoleEnum["HVM"] = 8] = "HVM";
+        RoleEnum[RoleEnum["LoanAdmin"] = 9] = "LoanAdmin";
+        RoleEnum[RoleEnum["LoanOfficer"] = 10] = "LoanOfficer";
+        RoleEnum[RoleEnum["LoanOfficerAssistant"] = 11] = "LoanOfficerAssistant";
+        RoleEnum[RoleEnum["LoanProcessor"] = 12] = "LoanProcessor";
+        RoleEnum[RoleEnum["LockDesk"] = 13] = "LockDesk";
+        RoleEnum[RoleEnum["Manager"] = 14] = "Manager";
+        RoleEnum[RoleEnum["Public"] = 15] = "Public";
+        RoleEnum[RoleEnum["SalesManager"] = 16] = "SalesManager";
+        RoleEnum[RoleEnum["SalesMarketing"] = 17] = "SalesMarketing";
+        RoleEnum[RoleEnum["SalesMarketingExternal"] = 18] = "SalesMarketingExternal";
+        RoleEnum[RoleEnum["Secondary"] = 19] = "Secondary";
+        RoleEnum[RoleEnum["TeamLeader"] = 20] = "TeamLeader";
+    })(srv.RoleEnum || (srv.RoleEnum = {}));
+    var RoleEnum = srv.RoleEnum;
+    (function (RoleTypeEnum) {
+        RoleTypeEnum[RoleTypeEnum["None"] = 0] = "None";
+        RoleTypeEnum[RoleTypeEnum["LoanAssignments"] = 1] = "LoanAssignments";
+    })(srv.RoleTypeEnum || (srv.RoleTypeEnum = {}));
+    var RoleTypeEnum = srv.RoleTypeEnum;
+    (function (SearchCriteriaAmortizationTypeEnum) {
+        SearchCriteriaAmortizationTypeEnum[SearchCriteriaAmortizationTypeEnum["Fixed"] = 1] = "Fixed";
+        SearchCriteriaAmortizationTypeEnum[SearchCriteriaAmortizationTypeEnum["ARM"] = 2] = "ARM";
+    })(srv.SearchCriteriaAmortizationTypeEnum || (srv.SearchCriteriaAmortizationTypeEnum = {}));
+    var SearchCriteriaAmortizationTypeEnum = srv.SearchCriteriaAmortizationTypeEnum;
+    (function (SearchCriteriaARMFixedTermEnum) {
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM10yr"] = 1] = "ARM10yr";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM7yr"] = 2] = "ARM7yr";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM5yr"] = 4] = "ARM5yr";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM3yr"] = 8] = "ARM3yr";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM2yr"] = 16] = "ARM2yr";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM1yr"] = 32] = "ARM1yr";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM6mo"] = 64] = "ARM6mo";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM3mo"] = 128] = "ARM3mo";
+        SearchCriteriaARMFixedTermEnum[SearchCriteriaARMFixedTermEnum["ARM1mo"] = 256] = "ARM1mo";
+    })(srv.SearchCriteriaARMFixedTermEnum || (srv.SearchCriteriaARMFixedTermEnum = {}));
+    var SearchCriteriaARMFixedTermEnum = srv.SearchCriteriaARMFixedTermEnum;
+    (function (SearchCriteriaLoanTermEnum) {
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan40yr"] = 1] = "Loan40yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan30yr"] = 2] = "Loan30yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan25yr"] = 4] = "Loan25yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan20yr"] = 8] = "Loan20yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan15yr"] = 16] = "Loan15yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan10yr"] = 32] = "Loan10yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan7yr"] = 64] = "Loan7yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan5yr"] = 128] = "Loan5yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan4yr"] = 256] = "Loan4yr";
+        SearchCriteriaLoanTermEnum[SearchCriteriaLoanTermEnum["Loan2yr"] = 512] = "Loan2yr";
+    })(srv.SearchCriteriaLoanTermEnum || (srv.SearchCriteriaLoanTermEnum = {}));
+    var SearchCriteriaLoanTermEnum = srv.SearchCriteriaLoanTermEnum;
+    (function (SearchCriteriaLoanTypeEnum) {
+        SearchCriteriaLoanTypeEnum[SearchCriteriaLoanTypeEnum["Conforming"] = 1] = "Conforming";
+        SearchCriteriaLoanTypeEnum[SearchCriteriaLoanTypeEnum["NonConforming"] = 2] = "NonConforming";
+        SearchCriteriaLoanTypeEnum[SearchCriteriaLoanTypeEnum["FHA"] = 4] = "FHA";
+        SearchCriteriaLoanTypeEnum[SearchCriteriaLoanTypeEnum["USDA"] = 8] = "USDA";
+        SearchCriteriaLoanTypeEnum[SearchCriteriaLoanTypeEnum["HARP_FannieMae"] = 16] = "HARP_FannieMae";
+        SearchCriteriaLoanTypeEnum[SearchCriteriaLoanTypeEnum["HARP_FreddieMac"] = 32] = "HARP_FreddieMac";
+    })(srv.SearchCriteriaLoanTypeEnum || (srv.SearchCriteriaLoanTypeEnum = {}));
+    var SearchCriteriaLoanTypeEnum = srv.SearchCriteriaLoanTypeEnum;
+    (function (SecondMortgageInfoTypeEnum) {
+        SecondMortgageInfoTypeEnum[SecondMortgageInfoTypeEnum["OpenedAtTimeOfPurchase"] = 0] = "OpenedAtTimeOfPurchase";
+        SecondMortgageInfoTypeEnum[SecondMortgageInfoTypeEnum["OpenedInLast12Months"] = 1] = "OpenedInLast12Months";
+        SecondMortgageInfoTypeEnum[SecondMortgageInfoTypeEnum["OpenedOver12MonthsAgo"] = 2] = "OpenedOver12MonthsAgo";
+        SecondMortgageInfoTypeEnum[SecondMortgageInfoTypeEnum["None"] = -1] = "None";
+    })(srv.SecondMortgageInfoTypeEnum || (srv.SecondMortgageInfoTypeEnum = {}));
+    var SecondMortgageInfoTypeEnum = srv.SecondMortgageInfoTypeEnum;
+    (function (SectionTypeEnum) {
+        SectionTypeEnum[SectionTypeEnum["Empty"] = 0] = "Empty";
+        SectionTypeEnum[SectionTypeEnum["BorrowerDebits"] = 1] = "BorrowerDebits";
+        SectionTypeEnum[SectionTypeEnum["BorrowerCredits"] = 2] = "BorrowerCredits";
+        SectionTypeEnum[SectionTypeEnum["SellerCredits"] = 3] = "SellerCredits";
+        SectionTypeEnum[SectionTypeEnum["SellerDebits"] = 4] = "SellerDebits";
+    })(srv.SectionTypeEnum || (srv.SectionTypeEnum = {}));
+    var SectionTypeEnum = srv.SectionTypeEnum;
+    (function (ServiceProviderEnum) {
+        ServiceProviderEnum[ServiceProviderEnum["BorrowerSelected"] = 0] = "BorrowerSelected";
+        ServiceProviderEnum[ServiceProviderEnum["Affiliate"] = 1] = "Affiliate";
+        ServiceProviderEnum[ServiceProviderEnum["SSP"] = 2] = "SSP";
+    })(srv.ServiceProviderEnum || (srv.ServiceProviderEnum = {}));
+    var ServiceProviderEnum = srv.ServiceProviderEnum;
+    (function (SigningStatusEnum) {
+        SigningStatusEnum[SigningStatusEnum["None"] = 0] = "None";
+        SigningStatusEnum[SigningStatusEnum["Decline"] = 1] = "Decline";
+        SigningStatusEnum[SigningStatusEnum["Signed"] = 2] = "Signed";
+    })(srv.SigningStatusEnum || (srv.SigningStatusEnum = {}));
+    var SigningStatusEnum = srv.SigningStatusEnum;
+    (function (SubSectionTypeEnum) {
+        SubSectionTypeEnum[SubSectionTypeEnum["Empty"] = 0] = "Empty";
+        SubSectionTypeEnum[SubSectionTypeEnum["Main"] = 1] = "Main";
+        SubSectionTypeEnum[SubSectionTypeEnum["PaidAdjustments"] = 2] = "PaidAdjustments";
+        SubSectionTypeEnum[SubSectionTypeEnum["UnpaidAdjustments"] = 3] = "UnpaidAdjustments";
+        SubSectionTypeEnum[SubSectionTypeEnum["OtherCredits"] = 4] = "OtherCredits";
+        SubSectionTypeEnum[SubSectionTypeEnum["Adjustments"] = 5] = "Adjustments";
+        SubSectionTypeEnum[SubSectionTypeEnum["AdditionalAdjustments"] = 6] = "AdditionalAdjustments";
+        SubSectionTypeEnum[SubSectionTypeEnum["Payoffs"] = 7] = "Payoffs";
+        SubSectionTypeEnum[SubSectionTypeEnum["SellerCredit"] = 8] = "SellerCredit";
+    })(srv.SubSectionTypeEnum || (srv.SubSectionTypeEnum = {}));
+    var SubSectionTypeEnum = srv.SubSectionTypeEnum;
+    (function (TitleCostIncludedTypeEnum) {
+        TitleCostIncludedTypeEnum[TitleCostIncludedTypeEnum["None"] = 0] = "None";
+        TitleCostIncludedTypeEnum[TitleCostIncludedTypeEnum["IncludeInLendersPolicy"] = 1] = "IncludeInLendersPolicy";
+        TitleCostIncludedTypeEnum[TitleCostIncludedTypeEnum["IncludeInOwnersPolicy"] = 2] = "IncludeInOwnersPolicy";
+        TitleCostIncludedTypeEnum[TitleCostIncludedTypeEnum["ShowAsALineItem"] = 3] = "ShowAsALineItem";
+    })(srv.TitleCostIncludedTypeEnum || (srv.TitleCostIncludedTypeEnum = {}));
+    var TitleCostIncludedTypeEnum = srv.TitleCostIncludedTypeEnum;
+    (function (TitleVestedAsEnum) {
+        TitleVestedAsEnum[TitleVestedAsEnum["None"] = 0] = "None";
+        TitleVestedAsEnum[TitleVestedAsEnum["Veteran"] = 1] = "Veteran";
+        TitleVestedAsEnum[TitleVestedAsEnum["VeteranAndSpouse"] = 2] = "VeteranAndSpouse";
+        TitleVestedAsEnum[TitleVestedAsEnum["Other"] = 3] = "Other";
+    })(srv.TitleVestedAsEnum || (srv.TitleVestedAsEnum = {}));
+    var TitleVestedAsEnum = srv.TitleVestedAsEnum;
+    (function (ToleranceDisclosureTypeEnum) {
+        ToleranceDisclosureTypeEnum[ToleranceDisclosureTypeEnum["Disclosure"] = 0] = "Disclosure";
+        ToleranceDisclosureTypeEnum[ToleranceDisclosureTypeEnum["ReDisclosure"] = 1] = "ReDisclosure";
+        ToleranceDisclosureTypeEnum[ToleranceDisclosureTypeEnum["Lock"] = 2] = "Lock";
+    })(srv.ToleranceDisclosureTypeEnum || (srv.ToleranceDisclosureTypeEnum = {}));
+    var ToleranceDisclosureTypeEnum = srv.ToleranceDisclosureTypeEnum;
+    (function (TotalPaidByEnum) {
+        TotalPaidByEnum[TotalPaidByEnum["Unknown"] = 0] = "Unknown";
+        TotalPaidByEnum[TotalPaidByEnum["LoanOfficer"] = 1] = "LoanOfficer";
+        TotalPaidByEnum[TotalPaidByEnum["Division"] = 2] = "Division";
+        TotalPaidByEnum[TotalPaidByEnum["Company"] = 3] = "Company";
+        TotalPaidByEnum[TotalPaidByEnum["Borrower"] = 4] = "Borrower";
+    })(srv.TotalPaidByEnum || (srv.TotalPaidByEnum = {}));
+    var TotalPaidByEnum = srv.TotalPaidByEnum;
+    (function (UpfrontPreferredPaymentPeriodEnum) {
+        UpfrontPreferredPaymentPeriodEnum[UpfrontPreferredPaymentPeriodEnum["None"] = 0] = "None";
+        UpfrontPreferredPaymentPeriodEnum[UpfrontPreferredPaymentPeriodEnum["Financed"] = 1] = "Financed";
+        UpfrontPreferredPaymentPeriodEnum[UpfrontPreferredPaymentPeriodEnum["InCash"] = 2] = "InCash";
+    })(srv.UpfrontPreferredPaymentPeriodEnum || (srv.UpfrontPreferredPaymentPeriodEnum = {}));
+    var UpfrontPreferredPaymentPeriodEnum = srv.UpfrontPreferredPaymentPeriodEnum;
+    (function (US_StateEnum) {
+        US_StateEnum[US_StateEnum["Alabama"] = 0] = "Alabama";
+        US_StateEnum[US_StateEnum["Alaska"] = 1] = "Alaska";
+        US_StateEnum[US_StateEnum["Arizona"] = 2] = "Arizona";
+        US_StateEnum[US_StateEnum["Arkansas"] = 3] = "Arkansas";
+        US_StateEnum[US_StateEnum["California"] = 4] = "California";
+        US_StateEnum[US_StateEnum["Colorado"] = 5] = "Colorado";
+        US_StateEnum[US_StateEnum["Connecticut"] = 6] = "Connecticut";
+        US_StateEnum[US_StateEnum["Delaware"] = 7] = "Delaware";
+        US_StateEnum[US_StateEnum["Florida"] = 8] = "Florida";
+        US_StateEnum[US_StateEnum["Georgia"] = 9] = "Georgia";
+        US_StateEnum[US_StateEnum["Hawaii"] = 10] = "Hawaii";
+        US_StateEnum[US_StateEnum["Idaho"] = 11] = "Idaho";
+        US_StateEnum[US_StateEnum["Illinois"] = 12] = "Illinois";
+        US_StateEnum[US_StateEnum["Indiana"] = 13] = "Indiana";
+        US_StateEnum[US_StateEnum["Iowa"] = 14] = "Iowa";
+        US_StateEnum[US_StateEnum["Kansas"] = 15] = "Kansas";
+        US_StateEnum[US_StateEnum["Kentucky"] = 16] = "Kentucky";
+        US_StateEnum[US_StateEnum["Louisiana"] = 17] = "Louisiana";
+        US_StateEnum[US_StateEnum["Maine"] = 18] = "Maine";
+        US_StateEnum[US_StateEnum["Maryland"] = 19] = "Maryland";
+        US_StateEnum[US_StateEnum["Massachussets"] = 20] = "Massachussets";
+        US_StateEnum[US_StateEnum["Michigan"] = 21] = "Michigan";
+        US_StateEnum[US_StateEnum["Minnesota"] = 22] = "Minnesota";
+        US_StateEnum[US_StateEnum["Mississippi"] = 23] = "Mississippi";
+        US_StateEnum[US_StateEnum["Missouri"] = 24] = "Missouri";
+        US_StateEnum[US_StateEnum["Montana"] = 25] = "Montana";
+        US_StateEnum[US_StateEnum["Nebraska"] = 26] = "Nebraska";
+        US_StateEnum[US_StateEnum["Nevada"] = 27] = "Nevada";
+        US_StateEnum[US_StateEnum["NewHamshire"] = 28] = "NewHamshire";
+        US_StateEnum[US_StateEnum["NewJersey"] = 29] = "NewJersey";
+        US_StateEnum[US_StateEnum["NewMexico"] = 30] = "NewMexico";
+        US_StateEnum[US_StateEnum["NewYork"] = 31] = "NewYork";
+        US_StateEnum[US_StateEnum["NorthCarolina"] = 32] = "NorthCarolina";
+        US_StateEnum[US_StateEnum["NorthDakota"] = 33] = "NorthDakota";
+        US_StateEnum[US_StateEnum["Ohio"] = 34] = "Ohio";
+        US_StateEnum[US_StateEnum["Oklahoma"] = 35] = "Oklahoma";
+        US_StateEnum[US_StateEnum["Oregon"] = 36] = "Oregon";
+        US_StateEnum[US_StateEnum["Pennsylvania"] = 37] = "Pennsylvania";
+        US_StateEnum[US_StateEnum["RhodeIsland"] = 38] = "RhodeIsland";
+        US_StateEnum[US_StateEnum["SouthCarolina"] = 39] = "SouthCarolina";
+        US_StateEnum[US_StateEnum["SouthDakota"] = 40] = "SouthDakota";
+        US_StateEnum[US_StateEnum["Tennessee"] = 41] = "Tennessee";
+        US_StateEnum[US_StateEnum["Texas"] = 42] = "Texas";
+        US_StateEnum[US_StateEnum["Utah"] = 43] = "Utah";
+        US_StateEnum[US_StateEnum["Vermont"] = 44] = "Vermont";
+        US_StateEnum[US_StateEnum["Virginia"] = 45] = "Virginia";
+        US_StateEnum[US_StateEnum["Washington"] = 46] = "Washington";
+        US_StateEnum[US_StateEnum["WestVirginia"] = 47] = "WestVirginia";
+        US_StateEnum[US_StateEnum["Wisconsin"] = 48] = "Wisconsin";
+        US_StateEnum[US_StateEnum["Wyoming"] = 49] = "Wyoming";
+        US_StateEnum[US_StateEnum["DistrictOfColumbia"] = 50] = "DistrictOfColumbia";
+        US_StateEnum[US_StateEnum["Undefined"] = -1] = "Undefined";
+    })(srv.US_StateEnum || (srv.US_StateEnum = {}));
+    var US_StateEnum = srv.US_StateEnum;
+    (function (VaAllowableTypeEnum) {
+        VaAllowableTypeEnum[VaAllowableTypeEnum["None"] = 0] = "None";
+        VaAllowableTypeEnum[VaAllowableTypeEnum["NonAllowable"] = 1] = "NonAllowable";
+        VaAllowableTypeEnum[VaAllowableTypeEnum["Allowable"] = 2] = "Allowable";
+        VaAllowableTypeEnum[VaAllowableTypeEnum["NonAllowableToOnePercent"] = 3] = "NonAllowableToOnePercent";
+    })(srv.VaAllowableTypeEnum || (srv.VaAllowableTypeEnum = {}));
+    var VaAllowableTypeEnum = srv.VaAllowableTypeEnum;
+    (function (VACalculatorsEnum) {
+        VACalculatorsEnum[VACalculatorsEnum["VAGeneralInformation"] = 1] = "VAGeneralInformation";
+        VACalculatorsEnum[VACalculatorsEnum["IRRLMax"] = 2] = "IRRLMax";
+        VACalculatorsEnum[VACalculatorsEnum["IRRLQMCertification"] = 3] = "IRRLQMCertification";
+    })(srv.VACalculatorsEnum || (srv.VACalculatorsEnum = {}));
+    var VACalculatorsEnum = srv.VACalculatorsEnum;
+    (function (VAFeeLimitExceededReasonEnum) {
+        VAFeeLimitExceededReasonEnum[VAFeeLimitExceededReasonEnum["None"] = 0] = "None";
+        VAFeeLimitExceededReasonEnum[VAFeeLimitExceededReasonEnum["UnAllowableFeeCharged"] = 1] = "UnAllowableFeeCharged";
+        VAFeeLimitExceededReasonEnum[VAFeeLimitExceededReasonEnum["FeesExceedsOnePercentLimit"] = 2] = "FeesExceedsOnePercentLimit";
+    })(srv.VAFeeLimitExceededReasonEnum || (srv.VAFeeLimitExceededReasonEnum = {}));
+    var VAFeeLimitExceededReasonEnum = srv.VAFeeLimitExceededReasonEnum;
+    (function (VALoanPurposeEnum) {
+        VALoanPurposeEnum[VALoanPurposeEnum["None"] = 0] = "None";
+        VALoanPurposeEnum[VALoanPurposeEnum["PurchaseHomePreviouslyOccupied"] = 1] = "PurchaseHomePreviouslyOccupied";
+        VALoanPurposeEnum[VALoanPurposeEnum["FinanceImprovement"] = 2] = "FinanceImprovement";
+        VALoanPurposeEnum[VALoanPurposeEnum["Refinance"] = 3] = "Refinance";
+        VALoanPurposeEnum[VALoanPurposeEnum["PurchaseNewCondoUnit"] = 4] = "PurchaseNewCondoUnit";
+        VALoanPurposeEnum[VALoanPurposeEnum["PurchaseExistingCondoUnit"] = 5] = "PurchaseExistingCondoUnit";
+        VALoanPurposeEnum[VALoanPurposeEnum["PurchaseHomeNotPreviouslyOccupied"] = 6] = "PurchaseHomeNotPreviouslyOccupied";
+        VALoanPurposeEnum[VALoanPurposeEnum["ConstructHome"] = 7] = "ConstructHome";
+        VALoanPurposeEnum[VALoanPurposeEnum["FinanceCoopPurchase"] = 8] = "FinanceCoopPurchase";
+        VALoanPurposeEnum[VALoanPurposeEnum["PurchaseManufacturedHome"] = 9] = "PurchaseManufacturedHome";
+        VALoanPurposeEnum[VALoanPurposeEnum["PurchaseManufacturedHomeAndLot"] = 10] = "PurchaseManufacturedHomeAndLot";
+        VALoanPurposeEnum[VALoanPurposeEnum["RefiManufacturedHomeToBuyLot"] = 11] = "RefiManufacturedHomeToBuyLot";
+        VALoanPurposeEnum[VALoanPurposeEnum["RefiManufacturedHomeOrLotLoan"] = 12] = "RefiManufacturedHomeOrLotLoan";
+    })(srv.VALoanPurposeEnum || (srv.VALoanPurposeEnum = {}));
+    var VALoanPurposeEnum = srv.VALoanPurposeEnum;
+    (function (VARegionsEnum) {
+        VARegionsEnum[VARegionsEnum["None"] = 0] = "None";
+        VARegionsEnum[VARegionsEnum["Northeast"] = 1] = "Northeast";
+        VARegionsEnum[VARegionsEnum["Midwest"] = 2] = "Midwest";
+        VARegionsEnum[VARegionsEnum["South"] = 3] = "South";
+        VARegionsEnum[VARegionsEnum["West"] = 4] = "West";
+    })(srv.VARegionsEnum || (srv.VARegionsEnum = {}));
+    var VARegionsEnum = srv.VARegionsEnum;
+    (function (ViewModelFunctionStatusEnum) {
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["Success"] = 0] = "Success";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["SectionKeyDoesNotExist"] = 1] = "SectionKeyDoesNotExist";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["NotDoubleEntry"] = 2] = "NotDoubleEntry";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["SubSectionIsFull"] = 3] = "SubSectionIsFull";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["GeneralFailure"] = 4] = "GeneralFailure";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["LineNumberDoesNotExist"] = 5] = "LineNumberDoesNotExist";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["LinkedDoubleEntryCannotBeUnlinked"] = 6] = "LinkedDoubleEntryCannotBeUnlinked";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["LineNumberIsInUse"] = 7] = "LineNumberIsInUse";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["SubSectionKeyDoesNotExist"] = 8] = "SubSectionKeyDoesNotExist";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["SubSectionKeyCounterpartDoesNotExist"] = 9] = "SubSectionKeyCounterpartDoesNotExist";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["MainSubSectionCannotBeAltered"] = 10] = "MainSubSectionCannotBeAltered";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["ValueIsReadOnly"] = 11] = "ValueIsReadOnly";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["NameIsReadOnly"] = 12] = "NameIsReadOnly";
+        ViewModelFunctionStatusEnum[ViewModelFunctionStatusEnum["OtherCostNameStringIsNull"] = 13] = "OtherCostNameStringIsNull";
+    })(srv.ViewModelFunctionStatusEnum || (srv.ViewModelFunctionStatusEnum = {}));
+    var ViewModelFunctionStatusEnum = srv.ViewModelFunctionStatusEnum;
+})(srv || (srv = {}));
+//# sourceMappingURL=enums.js.map

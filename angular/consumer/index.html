@@ -1,0 +1,66 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <!-- Bootstrap CSS Imports -->
+    <link href="../../Content/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet"></link>
+    
+    <link href="../../Content/CommonStyle.css" rel="stylesheet"></link>
+    <link href="../../Content/CFeaturesStyle.css" rel="stylesheet"></link>
+
+    
+</head>
+<body ng-app="docusign">
+
+    <div ui-view="navigationBar"></div>
+    <div ui-view></div>
+
+
+    <!--underscore-->
+    <script src="../../Scripts/underscore-min.js"></script>
+
+    <!-- Angular UI Router Directive for template insertion -->
+    <script src="../../Scripts/angular/angular.min.js"></script>
+    <script src="../../Scripts/ui-router/0.2.13/angular-ui-router.min.js"></script>
+    <script src="../../Scripts/angular-block-ui.js"></script>
+    <script src="../../Scripts/angular-grid/angularGrid.js"></script>
+    <script src="../../Scripts/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="../../Scripts/angular/angular-resource.min.js"></script>
+    <script src="../../Scripts/angular/angular-animate.min.js"></script>
+    <script src="../../Scripts/ui-utils/ui-utils.js"></script>
+    <script src="../../Scripts/angular-ui/ui-mask.min.js"></script>
+
+    <script src="../../Scripts/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="../../Content/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="consumer.module.js"></script>
+    <script src="consumer.config.js"></script>
+    <script src="consumer.service.js"></script>
+
+    <script src="authentication/authentication.helpermethods.js"></script>
+    <script src="authentication/authentication.controller.js"></script>
+
+    <script src="docusign/appraisal/appraisal.controller.js"></script>
+    <script src="docusign/docupload/docupload.controller.js"></script>
+    <script src="docusign/navigation/consumernavbar.controller.js"></script>
+    <script src="docusign/econsent/econsent.controller.js"></script>
+    <script src="docusign/econsentsettings/econsentsettings.controller.js"></script>
+    
+    <script src="docusign/esigning/esigning.controller.js"></script>
+    <script src="docusign/esigning/confirmation/success.controller.js"></script>
+    
+
+    <script>
+        $(document).ready(function () {
+
+
+            $("#btnsavecontinue").hide();
+
+           
+        });
+    </script>
+
+
+</body>
+</html>

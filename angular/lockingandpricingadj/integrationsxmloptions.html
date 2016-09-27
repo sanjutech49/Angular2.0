@@ -1,0 +1,8 @@
+﻿<div class="imp-buttonmenu imp-body" style="list-style-type: none;">
+    <div class="imp-buttonmenu-item button-menu-row-int-log" ng-repeat="logItem in modalpopoverCtrl.model.logListItem" >
+        <div ng-click="modalpopoverCtrl.ctrl.getIntegrationItem(logItem.logItemId, modalpopoverCtrl.model.logType)" style="width:100%">
+            <span>{{logItem.eventName}}</span>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿<div id="conditions" class="stips-conditions">
+    <div class="loan-application-error-container" ng-show="false">
+        An error occurred while loading data
+    </div>
+    <div class="imp-loader-container" ng-show="false">
+        <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+    <div ng-hide="false">
+        <div ng-include src="'angular/stipsandconditions/conditions.html'">
+        </div>
+        <div class="imp-footer">
+            <span class="imp-text-hm-wl-prim""><b>Investor Website:</b></span>
+            <a ng-href="" target="_blank"></a>
+        </div>
+        <div class="imp-main-buttons-div">
+            <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes"  
+                   />
+            <input type="button" class="imp-button-hm-wl-prim" value="Save" 
+                    />
+        </div>
+    </div>
+</div>

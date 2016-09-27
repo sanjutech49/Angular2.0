@@ -1,0 +1,24 @@
+﻿<div class="integrations-xml-footer">
+    <div class="split-line"></div>
+    <div class="content">
+        
+        <div class="optimal-blue" style="cursor:pointer" > <!--dropdown modal need to be enhanced, tbd on wednesday-->
+            <div class="link dropdown-toggle" ng-click="pricingResults.openIntegrationXmlMenu($event, pricingResults.wrappedLoan.ref.pricingResults.productListViewModel.pricingIntegrationLogItems, 'pricing')">Optimal Blue</div>
+            <div class="imp-xml-icon xml-icon-position"></div> 
+        </div>
+        
+        <div class="closing-corp" style="cursor:pointer">
+            <div class="link" ng-click="pricingResults.openIntegrationXmlMenu($event, pricingResults.wrappedLoan.ref.pricingResults.productListViewModel.closingCorpIntegrationLogItems, 'closingcorp')">Closing Corp</div>
+            <div class="imp-xml-icon xml-icon-position"/>
+        </div>
+
+        <div class="rate-table" style="cursor:pointer">
+            <div class="rt-label">Rate Table </div>
+            <div class="rt-value">{{pricingResults.wrappedLoan.ref.pricingResults.productListViewModel.rateTable}}</div>
+
+        </div>
+
+    </div>
+
+
+</div>

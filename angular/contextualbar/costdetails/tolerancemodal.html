@@ -1,0 +1,36 @@
+﻿<div class='imp-popover imp-body tolerance-modal'>
+    <div class="container">
+        <div class="upper-tolerance-container">
+            <div class='row imp-psection-row total-to-cure'>
+                <div class="col-xl boldText header">
+                    Total Amount to Cure <span style="padding-left:9%" class="col-m boldText header bold" ng-class="toleranceModalCtrl.getColorCode(toleranceModalCtrl.selectedToleranceItems.unlimitedTolerance.amountToCure);">{{toleranceModalCtrl.selectedToleranceItems.unlimitedTolerance.amountToCure | currency:"$"}}</span>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <imp-tolerance header-title="0&#37; Tolerance"
+                           model="toleranceModalCtrl.selectedToleranceItems.zeroTolerance"
+                           last-section="false"
+                           thresh-hold="0">
+            </imp-tolerance>
+            <imp-tolerance header-title="10&#37; Tolerance"
+                           model="toleranceModalCtrl.selectedToleranceItems.tenPercentTolerance"
+                           last-section="false"
+                           thresh-hold="10">
+            </imp-tolerance>
+            <imp-tolerance header-title="Unlimited Tolerance"
+                           model="toleranceModalCtrl.selectedToleranceItems.unlimitedTolerance"
+                           last-section="true"
+                           thresh-hold="100">
+            </imp-tolerance>
+        </div>
+        <div class="lower-tolerance-container">
+            <imp-tolerance-select tolerance-group="toleranceModalCtrl.toleranceGroups"
+                                  selected-tolerance-id="toleranceModalCtrl.selectedToleranceId"
+                                  active-tolerance-id="toleranceModalCtrl.activeToleranceId"
+                                  selected-tolerance-items="toleranceModalCtrl.selectedToleranceItems">
+            </imp-tolerance-select>
+        </div>
+        <div class="imp-footer"></div>
+        <input type="button" value="Close" class="imp-button-hm-wm-sec" ng-click="toleranceModalCtrl.cancel();" />
+    </div>
+</div>

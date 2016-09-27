@@ -1,0 +1,38 @@
+﻿<div class="products-center">
+    <div class="title">
+        <div>{{vaCenter.wrappedLoan.ref.product.programName}} |</div>
+        <div class="sub-title">{{vaCenter.wrappedLoan.ref.product.investorName}} - {{vaCenter.wrappedLoan.ref.product.ruCode}} - {{vaCenter.wrappedLoan.ref.product.name}}<span ng-show="vaCenter.wrappedLoan.ref.product.conforming"> - Conforming</span></div>
+    </div>
+    <div class="main-container">
+        <div class="section">
+            <div class="title" style="margin: 0px; border:none;">
+                <div class="btn-group ddl" dropdown="">
+                    <div class="ng-binding" style="min-width: 196px;">
+                        {{vaCenter.getSelectedVACalculatorName()}}
+                    </div>
+                    <div class="ddl-image"
+                         dropdown-toggle=""
+                         aria-haspopup="true"
+                         aria-expanded="false">
+                        <span class="arrow"></span>
+                    </div>
+
+                    <ul class="dropdown-menu item-list" role="menu">
+                        <li ng-repeat="item in vaCenter.applicationData.lookup.vaCalculators | orderBy: 'value'">
+                            <a ng-class="{'selected': item.selected}" ng-model="item" ng-click="vaCenter.selectVACalculator(item.value)">{{::item.text}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-container" ui-view="mainContainer" style="border-top: 1px solid #bdbebe;">
+    </div>
+</div>
+
+<div class="imp-main-buttons-div" style="border-top: 3px solid #1fb25a; width: 100%; margin-top: 40px; padding-right:0px;">
+    <div style="width:217px; float:right;">
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" style=" font-size:12px;" ng-click="vaCenter.cancelChanges()" />
+        <input type="button" class="imp-button-hm-wl-prim" value="Save" style=" font-size:12px;" ng-click="vaCenter.saveChanges()" />
+    </div>
+</div>

@@ -1,0 +1,163 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using MML.Common
+@using System
+@using System.Collections.Generic
+@using System.Linq
+@using System.Web
+@using MML.Contracts
+@model MML.Web.LoanCenter.ViewModels.LoanServiceDocumentDownload
+
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/BussinesContactDetails.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function ClosePopup() {
+        $('.modalBackground').css('display', 'none');
+        LoanServices.CloseDocumentDownloadPopup();
+    };
+
+    $('.expandable').click(function (e) {
+
+        var loanservicesdivrow = $(this).closest('.loanservicesdivrow');
+        var loanserviceadditional = loanservicesdivrow.find('.loanservicesdivadditional');
+        var arrow = loanservicesdivrow.find(".arrow div");
+
+        if (loanserviceadditional.length > 0 && $(e.target).closest('.t-dropdown').length == 0 && !$(e.target).hasClass("btnSubmitGrey")) {
+            if ($(this).closest('.loanservicesdivrow').height() == 30) {
+                $(this).closest('.loanservicesdivrow').animate({ height: loanserviceadditional.height() + 50 + "px" });
+                arrow.removeClass("arrowright");
+                arrow.addClass("arrowdown");
+            } else {
+                $(this).closest('.loanservicesdivrow').animate({ height: "30px" });
+                arrow.removeClass("arrowdown");
+                arrow.addClass("arrowright");
+            }
+        }
+    });
+</script>
+<style type="text/css">
+    .documentDownloaddivadditional {
+        border: 1px solid #D8DBDC;
+        padding-bottom: 5px;
+        margin-left: 20px;
+        margin-top: 10px;
+        padding-bottom: 5px;
+        width: 660px;
+        color: black;
+    }
+    .documentDownloaddivadditionalrow.subjects {
+        height: 20px;
+        padding-top: 3px;
+        background: #D8DBDC;
+        border-bottom: 2px solid #609417;
+        font-weight: bold;
+        color: black;
+    }
+    .documentDownloaddivadditionalrow div.rowdiv {
+        height: 25px;
+        float: left;
+        font-size: 12px;
+        display: block;
+    }
+    
+    .contentDivStyle 
+    {
+        padding: 5px;
+        font-family: Helvetica,Arial, sans-serif;
+        margin-left: 15px;
+        height: 25px;
+        font-size: 12px;
+        height: 16px;
+    }
+    
+    .documentDownloadheadline
+    {
+        width: 690px;
+        height: 2px;
+        background-color: #198342;
+        margin-left: 5px;
+    }
+    .documentDownloadsectionheadtitle
+    {
+        color: #198342;
+        font-family: Trebuchet MS;
+        font-size: 21px;
+        padding-left: 20px;
+        padding-top: 15px;
+    }
+    
+</style>
+<div id="loanServiceDocumentDownloadPopup" class="loanServiceDocumentDownloadPopup">
+    <div style="visibility: hidden;" id="uxUserAccountId"></div>
+    <div class="conversationlogsectionheadcontent">
+        <div class="documentDownloadsectionheadtitle">
+            <span class="namelink">Document download</span>
+        </div>
+        <a id="closedocdownlooad" onclick="LoanServices.CloseDocumentDownloadPopup()"
+            title="Minimize/Maximize Section">
+            <div id="minmaxconversationlog" class="close">
+            </div>
+        </a>
+        <div class="documentDownloadheadline"/>
+        <div class="loanServiceDocumentDownloadPopupContent">
+           
+               
+                    
+            @if ( Model.LoanServiceEventsList != null && Model.LoanServiceEventsList.Count > 0 )
+            {
+                <div class ="documentDownloaddivadditional">
+                    <div class ="documentDownloaddivadditionalrow subjects">
+                        <div class="rowdiv" style="float:left; width:200px; margin-left: 20px;">
+                                    Document name
+                         </div>
+                         <div class="rowdiv" style="float:left; width:340px; margin-left: 5px;">
+                                    Event name
+                         </div>
+                         <div class="rowdiv downloadpdf">
+                                    Download
+                         </div>
+                    </div>
+                     <div style="overflow-y: scroll; height:144px; width:100%">
+                     @foreach ( LoanServiceEventsContract eventItem in Model.LoanServiceEventsList )
+                     {
+                         if ( eventItem.Documents != null && eventItem.Documents.Count > 0 )
+                         {
+                             foreach ( KeyValuePair<string, string> pair in eventItem.Documents )
+                             { 
+                                <div class="downloadDocumentdivrow">
+                                    <div class="contentDivStyle" style="float:left; width:200px">
+                                        <span title="@pair.Value.ToString()">@(pair.Value.ToString().Length > 34 ? String.Format( "{0}...", pair.Value.ToString().Substring( 0, 30 ) ) : pair.Value.ToString())</span>
+                                     
+                                    </div>
+                                    <div class="contentDivStyle" style="float:left; width:340px; margin-left: 0px; padding-left: 0px;">
+                                        <span title="@eventItem.EventName">@(eventItem.EventName.Length > 64 ? String.Format( "{0}...", eventItem.EventName.Substring( 0, 60 ) ) : eventItem.EventName)</span>
+                                        
+                                    </div>
+                                    <div class="contentDivStyle downloadpdf" style="padding-left: 5px;">
+                                        <a href="Downloader.axd?documentType=repositoryItem&repositoryItemId=@Server.UrlEncode( EncryptionHelper.EncryptRijndael( pair.Key.ToString(), EncriptionKeys.Default ) )">
+                                            <img src="/Content/images/content-types/defaultdoc.gif" title="@pair.Value.ToString()" style="padding-left:18px"/>
+                                        </a>
+                                    </div>
+                                </div>
+                             }
+
+                         }
+
+                     }
+                            
+                    
+                     </div>
+               
+                </div>
+            }   
+               
+
+        </div>
+        <div class="buttonsSectionDocumentDownload">
+                <div class="btnCancelBusinessContactPopup imp-button-div-hs-ws-sec" onclick="LoanServices.CloseDocumentDownloadPopup()">Close</div>
+        </div>
+
+    </div>
+</div>

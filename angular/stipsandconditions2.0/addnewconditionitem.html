@@ -1,0 +1,79 @@
+﻿<div id="conditionAddNewItemPopup" class="conditions-add-new-popup-container condition-popup-container-main">
+     <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+    <form name="fmNewItemCondition" novalidate ng-submit="conditions_addnewconditionitem_save()">
+        <div class=" conditions-add-new-popup-header">
+        Add Item
+        <div class=" imp-div-close-x floatright" ng-click="conditions_addnewconditionitem_cancel()"></div>
+        <div class="imp-sa-split" style="min-width: 100%"></div>
+</div>
+        <div class="modal-body">
+            <div id="divCode">
+                <div id="codeName" class="condition-add-new-popup-code-name">
+                    {{ NewConditionViewModel.ConfigurationCode.Code }}
+                </div>
+                <div id="codeDescription" class="condition-codes-description-label">
+                    {{ NewConditionViewModel.ConfigurationCode.Title }}</div>
+            </div>
+            <div id="divitems">
+                <table >
+                    <tr class="condition-new-item-grid-header">
+                        <td class="condition-new-item-td-headers">Item</td>
+                        <td class="condition-new-item-td-headers">Description</td>
+                        <td class="condition-new-item-td-headers">For</td>
+                        <td class="condition-new-item-td-headers">
+                            <div class="floatleft" style="padding-top: 8px;">Document</div>
+                            <div id="divAddCondition" class="floatright" >
+                                <div class="plusCCon-hb circle-text" ng-click="conditions_addnewconditionitem_addNewItem()">
+                                    <div>+</div>
+                                </div>
+                                <div class="condition-new-item-add-item-icon-text"> Add Item</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="item in NewConditionViewModel.CurativeItems "  style="width: 790px !important;" ng-show="!item.PreviouslyAdded && !item.IsRemoved">
+                        <td class="condition-new-item-td">
+                            <div class="imp-span-ddl-container" ng-class="{  'ng-invalid ng-dirty' :(fmNewItemCondition.code.$dirty && fmNewItemCondition.code.$invalid)}">
+                                <select name="code"
+                                        ng-model="item.Item" ng-options="selectedItem.Code for selectedItem in ItemsList | filter: docTypeFilter "
+                                        class="condition-add-new-popup-select imp-ddl" required ng-change="search.DocumentTypeId=item.Item.EnumerationValueId">
+                                    <option value="">Select One</option>
+                                </select>
+                                <div class="error" imp-val-required="Please select value" ng-show="fmNewItemCondition.code.$dirty && fmNewItemCondition.code.$invalid ">
+                                </div>
+                            </div>
+                        </td>
+                        <td class="condition-new-item-td">
+                            <div class="imp-div-txt-input">
+                                <input type="text" ng-model="item.Description" placeholder="Enter text here..." style="font-size: 12px;" />
+                            </div>
+                        </td>
+                        <td class="condition-new-item-td">
+                            <div class="imp-span-ddl-container" ng-class="{  'ng-invalid ng-dirty' :(fmNewItemCondition.forList.$dirty && fmNewItemCondition.forList.$invalid)}">
+                                <select name="forList"
+                                        ng-model="item.For" ng-options="for.Value group by for.Section for for in ForList | filter: filterForMenu | orderBy: 'Value' "
+                                        class="condition-add-new-popup-select imp-ddl" required>
+                                    <option value="">Select One</option>
+                                </select>
+                                <div class="error" imp-val-required="Please select value" ng-show="fmNewItemCondition.forList.$dirty && fmNewItemCondition.forList.$invalid">
+                                </div>
+                            </div>
+                        </td>
+                        <td class="condition-new-item-td">
+                            <div class="imp-span-ddl-container">
+                                <select ng-model="item.Document" ng-options="document.Name for document in DocumentList | filter:search:true" ng-disabled="item.Item.Code == undefined"
+                                        class="condition-add-new-popup-select imp-ddl">
+                                    <option value="">Select One</option>
+                                </select></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="conditions-popup-footer">
+            <div class="imp-sa-split" style="min-width: 100%"></div>
+            <div class="conditions-popup-footer-separator"></div>
+            <button class="imp-button-hm-wm-sec" ng-click="conditions_addnewconditionitem_cancel()">  Cancel</button>
+            <button class="imp-button-hm-wm-prim" type="submit" ng-disabled="fmNewItemCondition.$invalid" style="margin-left:5px;"> Save</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,125 @@
+﻿@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using MML.Contacts
+@using MML.Web.LoanCenter.Helpers.Enums
+
+
+<div class="imp-div-lcCompanyContact-searchResultContainer" id="businessContactInfoOtherSearchResultGrid">
+<input type="hidden" id="txtOtherSearchCompanyOrContactName" value="Search"/>
+<input type="hidden" id="ddlOtherContactTypelist" value="-1"/>
+<input type="hidden" id="clearOtherSearchButtonCompanyContacts" onclick="Contacts.RestartSearch(this)"/>
+<input type="hidden" id="selectedContactId" value="-1"/>
+
+@*            <div class="imp-div-lcCompanyContact-searchResultContainer-header-prim-title">
+               Other Contacts
+            </div>*@
+               @if ( Model.LoanCompaniesAndContacts.Count > 0 )
+               {
+                   List<LoanCompaniesAndContacts> allItems = Model.LoanCompaniesAndContacts;
+                   List<LoanCompaniesAndContacts> contacts = allItems.Where( m => m.ContactId > 0 ).ToList();
+
+                   foreach ( LoanCompaniesAndContacts contact in contacts )
+                   {
+                       var company = allItems.Where( m => m.CompanyId == contact.CompanyId && m.ContactId < 1 ).FirstOrDefault();
+                       <div class="imp-div-lcCompanyContact-searchResultContainer-row ">
+                           <div class="imp-div-lcCompanyContact-collumn-0 "></div>
+                           <div class="imp-div-lcCompanyContact-collumn-1">@( company != null ? company.CompanyName.Length > 23 ? String.Format( "{0}...", company.CompanyName.Substring( 0, 19 ) ) : company.CompanyName : String.Empty)</div>
+                           <div class="imp-div-lcCompanyContact-collumn-2" title="@String.Format( "{0} {1}", contact.FirstName, contact.LastName )"> 
+                              @(String.Format( "{0} {1}", contact.FirstName, contact.LastName ).Length > 22 ? String.Format( "{0}...", String.Format( "{0} {1}", contact.FirstName, contact.LastName ).Substring( 0, 20 ) ) :
+                                String.Format( "{0} {1}", contact.FirstName, contact.LastName ))
+                           </div>
+                           <div class="imp-div-lcCompanyContact-collumn-3"> @contact.ContactPhoneNumber</div>
+                           <div class="imp-div-lcCompanyContact-collumn-4" title="contact.Email">@(contact.Email.Length > 19 ? String.Format( "{0}...", contact.Email.Substring( 0, 22 ) ) : contact.Email)</div>
+                           <div class="imp-div-lcCompanyContact-collumn-5">@contact.ContactReferenceNumber</div>
+                           <div class="imp-div-lcCompanyContact-collumn-6" title="@if ( company != null )
+                                                                                  {@(( ( MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum )company.ContactType ).GetStringValue())}">
+                               @if ( company != null )
+                               {
+                                    @(( ( MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum )company.ContactType ).GetStringValue().Length > 11 ? String.Format( "{0}...", ( ( MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum )company.ContactType ).GetStringValue().Substring( 0, 10 ) ) : ( ( MML.Web.LoanCenter.Helpers.Enums.SystemAdminContactTypesEnum )company.ContactType ).GetStringValue())
+                               }
+                           </div>                   
+                           <div class="imp-div-lcCompanyContact-collumn-7" style="margin-bottom:3px">                       
+
+                         <div class="imp-button-pen " style ="margin-top:-3px;" title="Edit Company" onclick="BussinesContactDetails.BussinesContactDetailsPopup('', 'Refinance',@company.ContactType,@contact.CompanyId,@contact.ContactId,false) "> </div>
+
+                           </div>
+                           @if ( contact.IsLoanApplicationCompleted != null && !contact.IsLoanApplicationCompleted && !contact.IsContactFromCoBrandedSite )
+                           {                         
+                               
+                             <div class="minCCon-hb circle-text" title="Delete Contact" onclick="Contacts.OpenDeleteLoanContactPopup(@contact.ContactId)"
+                            style="margin-right: 2px; margin-top:2px;">
+                                    <div style ="margin-left: 6.2px"><hr></div>
+                         </div>
+                           }
+                      </div>
+                   }
+
+               }
+               
+
+          @if ( @Model.EndPage > 1 )
+          {
+       <div class="busniess-contacts-footer" style="width: 100%;">
+           <div class="busniess-contacts-footer-container">
+
+               <div class="business-contacts-footer-nav business-contacts-footer-nav-left" onclick=" Contacts.PageNavigation(this, @Model.PageCount, @Model.CurrentPage)">
+                  
+               </div>
+               <div style="float: left;" class="pages-container">
+                   @if ( Model.StartPage > 1 )
+                   {
+                       <div class="business-contacts-footer-numbers" onclick=" Contacts.GetTenPages('false', @Model.PageCount, @Model.CurrentPage, @Model.EndPage, this)">
+                           ...
+                       </div>
+                   }
+                   @for ( int i = @Model.StartPage; i <= @Model.EndPage; i++ )
+                   {
+                       if ( Model.CurrentPage == i )
+                       {
+                           <div class="business-contacts-footer-numbers business-contacts-footer-numbers-value page-selected" onclick="Contacts.SelectPage(this)">
+                               @(i)
+                           </div>
+                       }
+                       else
+                       {
+                           <div class="business-contacts-footer-numbers business-contacts-footer-numbers-value" onclick="Contacts.SelectPage(this)">
+                               @(i)
+                           </div>
+                       }
+
+                   }
+                   @if ( Model.EndPage < Model.PageCount )
+                   {
+                       <div class="business-contacts-footer-numbers" onclick=" Contacts.GetTenPages('true', @Model.PageCount, @Model.CurrentPage, @Model.EndPage, this)">
+                           ...
+                       </div>
+                   }
+               </div>
+               <div class="business-contacts-footer-nav business-contacts-footer-nav-right" style="float: right;" onclick=" Contacts.PageNavigation(this, @Model.PageCount, @Model.CurrentPage)">
+                   
+               </div>
+           
+           </div>
+       </div>
+              
+
+           }
+</div>
+<div class="deleteLoanContact imp-div-chooseBuyerSellerAgentPoPup-container" style="height: 160px;">
+    <div class="imp-div-chooseBuyerSellerAgentPoPup-title " style="float:left;">
+        Warning
+    </div>
+    <div class=" imp-div-close-x" style="float:right;margin-top:5px;margin-right: 5px;" onclick="Contacts.CloseDeleteLoanContactPopup()"></div>
+    <div class="imp-div-globalToLoanContactsSeparator">
+    </div>
+    <div class="realtorBusinessContactsDeleteMessage">
+        You are attempting to delete an entire contact. Do you wish to continue?
+    </div>
+    <div class="imp-div-globalToLoanContactsSeparator"></div>
+    <div class="imp-div-chooseBuyerSellerAgentPoPup-button-container">
+              <div class="imp-button-contacts-hm-wm-sec" onclick="Contacts.CloseDeleteLoanContactPopup()">Cancel</div>
+              <div class="imp-button-contacts-hm-wm-prim imp-div-businesscontacts-secondnbutton"   onclick="Contacts.DeleteLoanContact()">Continue</div>  
+    </div>
+     <div style="clear: both"></div>
+</div>
+

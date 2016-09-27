@@ -1,0 +1,144 @@
+﻿<div>
+    <div class="new-loan-container section-1">
+        <div class="imp-psection-subtitle">
+            New Loan
+        </div>
+        <div class="section" style="margin-top:7px">
+            <div class="row">
+                <div class="col-s">
+                    1st Loan Amount<span class="imp-asterisks"> *</span>
+                </div>
+                <div class="col-m">
+                    <input type="text" ng-model="loanScenario.wrappedLoan.ref.loanAmount"
+                           ng-blur="loanScenario.onLoanAmountChange()"
+                           placeholder="$" imp-currency
+                           ng-class="{'imp-has-error': (!loanScenario.wrappedLoan.ref.loanAmount || loanScenario.wrappedLoan.ref.loanAmount == '0')
+                           &&  (loanScenario.validateForm  || loanScenario.loanAmountBlur)}" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-s" style="width:auto; padding-right:4px;">
+                    Concurrent 2nd Mortgage
+                </div>
+                <div class="col-m">
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               ng-model="loanScenario.wrappedLoan.ref.subordinateFinancingDetails.loanAmount"
+                               placeholder="$"
+                               ng-blur="loanScenario.onLoanAmountChange()"
+                               imp-currency
+                               ng-disabled="!loanScenario.concurrent2ndMortgageEnable">
+                        <span class="input-group-btn" style="width: 0;"></span>
+                        <div class="imp-span-ddl-container medium select-picker" style="width:70px;">
+                            <select class="imp-ddl"
+                                    ng-model="loanScenario.wrappedLoan.ref.subordinateFinancingDetails.secondMortgageType"
+                                    ng-options="mt.value as mt.text for mt in loanScenario.applicationData.lookup.concurentSecondMortgage"
+                                    ng-change="loanScenario.onConcurrent2ndMortgageChange(loanScenario.wrappedLoan.ref.subordinateFinancingDetails.secondMortgageType)"
+                                    ng-disabled="(loanScenario.wrappedLoan.ref.otherInterviewData.existingSecondMortgage == 1 &&
+                                                loanScenario.wrappedLoan.ref.otherInterviewData.secondMortgageRefinanceComment == 1) ||
+                                                (loanScenario.wrappedLoan.ref.otherInterviewData.existingSecondMortgage == 2 &&
+                                                loanScenario.wrappedLoan.ref.otherInterviewData.secondMortgageRefinanceComment != 4)"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                
+            <div class="row">
+                <div class="col-s">
+                    Credit Line Cap<span class="imp-asterisks" ng-show="loanScenario.creditLineCapEnable"> *</span>
+            </div>
+                <div class="col-m">
+                    <div class="">
+                        <input type="text" class="form-control" style="width:96%;"
+                               ng-model="loanScenario.wrappedLoan.ref.subordinateFinancingDetails.creditLineCap"
+                               placeholder="$"
+                               ng-blur="loanScenario.onLoanAmountChange()"
+                               imp-currency
+                               ng-disabled="!loanScenario.creditLineCapEnable"
+                               ng-class="{'imp-has-error': loanScenario.creditLineCapEnable
+                               && (!loanScenario.wrappedLoan.ref.subordinateFinancingDetails.creditLineCap
+                               || loanScenario.wrappedLoan.ref.subordinateFinancingDetails.creditLineCap == '0') && loanScenario.validateForm}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                                
+                <div ng-if="loanScenario.wrappedLoan.ref.loanPurposeType == 2" class="col-s">
+                    Cash Out<span class="imp-asterisks" ng-show="loanScenario.wrappedLoan.ref.financialInfo.cashOut == 1"> *</span>
+                </div>
+                <div ng-if="loanScenario.wrappedLoan.ref.loanPurposeType == 1" class="col-s">
+                    Down Payment<span class="imp-asterisks"> *</span>
+                </div>
+                <div class="col-m">
+                    <div class="input-group" style="width:99%" ng-if="loanScenario.wrappedLoan.ref.loanPurposeType == 2">
+                        <input type="text" class="form-control" value=""
+                               ng-model="loanScenario.wrappedLoan.ref.financialInfo.cashOutAmount"
+                               ng-blur="loanScenario.onCashOutChange()" placeholder="$"
+                               imp-currency style="width:96%"
+                               ng-class="{'imp-has-error':  loanScenario.wrappedLoan.ref.loanPurposeType == 2 && loanScenario.wrappedLoan.ref.financialInfo.cashOut == 1 && (loanScenario.validateForm || loanScenario.cashOutBlur)
+                               && (!loanScenario.wrappedLoan.ref.financialInfo.cashOutAmount || loanScenario.wrappedLoan.ref.financialInfo.cashOutAmount == '0')}">
+                        <span class="input-group-btn" style="width: 0;"></span>
+                        <div class="imp-span-ddl-container medium select-picker" style="width:71px;margin-left:1px;">
+                            <select class="imp-ddl"
+                                    ng-model="loanScenario.wrappedLoan.ref.financialInfo.cashOut" ng-change="loanScenario.onCashoutOptionChange()"
+                                    ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.cashoutDropdownOptions"></select>
+                        </div>
+                    </div>
+
+                    <div ng-if="loanScenario.wrappedLoan.ref.loanPurposeType == 1">
+                        <input type="text" imp-currency ng-model="loanScenario.wrappedLoan.ref.downPayment"
+                               ng-blur="loanScenario.onDownPaymentChange()" style="width: 60%" placeholder="$"
+                               ng-disabled="loanScenario.repricing" />
+                        <input class="imp-psection-left-borderadius" type="text" imp-percentage return-float="true"
+                               ng-model="loanScenario.downPaymentPercent"
+                               ng-blur="loanScenario.onDownPaymentPercentageChange()"
+                               style="width:3.6%; margin-left:-2px; position:absolute" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-s">
+                    Impounds
+                </div>
+                <div class="col-m" ng-style="{ 'padding-bottom': (loanScenario.wrappedLoan.ref.stateLtvLimit) ? '20px' : 'none' }">
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select name=""
+                                ng-disabled="loanScenario.wrappedLoan.ref.stateLtvLimit"
+                                class="imp-ddl"
+                                ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.selectedImpoundsOption"
+                                ng-options="impound.value as impound.text for impound in
+                                                loanScenario.applicationData.lookup.impoundList"></select>
+                    </div>
+                    <div class="imp-valid-message" ng-if="loanScenario.wrappedLoan.ref.stateLtvLimit">
+                        *You must impound with Loan to Value over {{loanScenario.wrappedLoan.ref.stateLtvLimit}}%
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-s">
+                    Mo's Liquid Assets
+                </div>
+                <div class="col-m">
+                    <input type="text" ng-model="loanScenario.wrappedLoan.ref.financialInfo.liquidAssetReserves" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-s">
+                    Time to close
+                </div>
+                <div class="col-m">
+                    <div class="imp-span-ddl-container medium" ng-class="">
+                        <select name=""
+                                class="imp-ddl"
+                                ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.lockDays"
+                                ng-options="dpt.value as dpt.text for dpt in loanScenario.applicationData.lookup.timeToCloseOptions"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,13 @@
+﻿<form id="imp-nav-search" class="imp-nav-search-frm" ng-submit="submit()">
+    <div class="imp-nav-search">
+        <div>
+            <input class="input" ng-class="{focused: focused}" type="search" placeholder="Search"
+                   ng-init="focused=false" ng-focus="focused=true" ng-blur="focused=false" ng-model="model" />
+        </div>
+        <div class="button-container">
+            <button class="clear button" type="button" ng-show="model" ng-click="model=undefined; clear();"><div class="imp-icon-x"></div></button>
+            <button class="search button" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+            <button class="dropdown button" type="button"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        </div>
+    </div>
+</form>

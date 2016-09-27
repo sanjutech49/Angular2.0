@@ -1,0 +1,67 @@
+﻿<div class="modal-content"
+     ng-style="{'height': ShareComparisonCtrl.shareComparisonModalHeight(ShareComparisonCtrl.comparisonNumberOfAdditionalRecipients)}">
+
+    <div class="modal-body">
+        <div class="share-comparison-report-header">
+            <div class="imp-large-black-bar-graph-icon"></div>
+            <div style="margin-left:5px;">Share Comparison Report</div>
+        </div>
+        <div class="pb-row">
+            <div>
+                First Name
+            </div>
+            <div>
+                <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="ShareComparisonCtrl.userSelectedProductCategoriesVM.firstName">
+            </div>
+        </div>
+        <div class="pb-row">
+            <div>
+                Last Name
+            </div>
+            <div>
+                <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="ShareComparisonCtrl.userSelectedProductCategoriesVM.lastName">
+            </div>
+        </div>
+        <div class="pb-row">
+            <div>
+                Email
+            </div>
+            <imp-email username="ShareComparisonCtrl.userSelectedProductCategoriesVM.email"
+                       fields-disabled="ShareComparisonCtrl.wrappedLoan.ref.active.getBorrower().userAccount.isOnlineUser"
+                       perform-validation="false">
+            </imp-email>
+        </div>
+        <!--<div class="pb-row" ng-repeat="item in ShareComparisonCtrl.additionalRecipients | limitTo: ShareComparisonCtrl.comparisonNumberOfAdditionalRecipients track by $index">
+            <div>
+                Additional Recipient
+            </div>
+            <div>
+                <input type="text" class="ng-pristine ng-valid ng-touched" ng-model="item.email" imp-validate-email
+                       ng-blur="item.isEmailValid = ShareComparisonCtrl.onEmailBlur(item.email)"
+                       ng-class="{'imp-has-error': !item.isEmailValid || (item.email.$dirty && item.isEmailValid)}" />
+            </div>
+        </div>
+        <div class="pb-row" ng-if="ShareComparisonCtrl.comparisonNumberOfAdditionalRecipients < 5">
+            <div></div>
+            <div style="padding-right:50px;" ng-click="ShareComparisonCtrl.addRecipient()">
+                <span style="vertical-align:middle !important;">
+                    <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>
+                </span>
+                <span class="add-additional-recipients">Add Additional Recipient</span>
+            </div>
+        </div>-->
+        
+        <div class="share-comparison-report-footer">
+            <button type="button" class="imp-button-hm-wm-sec footer-button" ng-click="ShareComparisonCtrl.closeModal()">
+                Cancel
+            </button>
+            <button type="button" class="imp-button-div-hs-ws-prim send-button" ng-click="ShareComparisonCtrl.saveLoanAndSendUserSelectedProductCategories()">
+                Save
+            </button>
+            <!--<button type="button" class="imp-button-div-hs-ws-prim send-button" ng-click="ShareComparisonCtrl.saveLoanAndSendUserSelectedProductCategories(true)">
+                Send
+            </button>-->
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+﻿@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.LogViewModel
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(function () {
+        var IsNotPopup = "@ViewBag.Source";
+        if (IsNotPopup == "False") {
+            $("#logsection").draggable({ handle: "div.logsectionhead" });
+        }
+
+    });
+</script>
+
+<div id="logsection" class="logsection">
+	<div id="logsectionhead" class="logsectionhead">
+		<div class="logsectionheadleftcorner"></div>
+		<div class="logsectionheadcontent">
+			<div class="left0 w180">
+				<div class="fleft" style="padding-top: 4px;">
+					<span class="namelink">@ViewBag.LogHeader</span>
+				</div>
+			</div>
+            <div class="right0" style="padding-left: 75px">
+                @if ( ViewBag.Source != true )
+                {
+                <a id="minimizelog" title="Minimize/Maximize Section" onclick="Log.CloseLog()">
+                    <div id="minmaxlog" class="close">
+                    </div>
+                </a>
+                }
+            </div>
+		</div>
+		<div class="logsectionheadrightcorner"></div>
+	</div>
+	<div id="loglistandpage">
+		<div id="logcontent" class="logcontent">
+			<div id="logtablediv" class="logtablediv">
+				<table class="logtable">
+					<tr class="logTableHeader">
+						<td class="logTableHeader logTableHeaderSubject">Subject</td>
+						<td class="logTableHeader logTableHeaderDescription">Comment</td>
+						<td class="logTableHeader logTableHeaderDate">Date</td>
+						<td class="logTableHeader logTableHeaderUser">Submitted By</td>
+						<td class="logTableHeader"></td>
+					</tr>
+					
+                    @if ( Model.Log != null ){
+					foreach ( var logItem in Model.Log )
+                    { 
+						<tr class="logItem">
+							<td id="logTableItemId" style="display: none">@logItem.Id</td>
+							<td class="logTableItem">@logItem.Subject</td>
+							<td class="logTableItem">@logItem.Comment</td>
+							<td class="logTableItem">@logItem.Date.ToString( "MM/dd/yyyy HH:mm" )</td>
+							<td class="logTableItem">@logItem.User</td>
+							<td class="logTableItem  " ><div  onclick="Log.ClickAndShowConversationLogDetails(this, '@Model.LoanId', '@ViewBag.Source')" class='logTableIcon @(logItem.Type.Equals( LogItemType.ConversationLog ) ? "logIconConversationLog" : "")'></div></td>
+						</tr>
+                    }}
+				</table>
+			</div>
+			<div class="logManageButtonsSection">
+				<a id="showeconversationlog" onclick="Log.ClickAndShowConversationLogDetails(null, '@Model.LoanId','@ViewBag.Source')" >
+					<div class="logAddNewNote imp-button-div-hs-wm-prim">Add a Note</div >
+				</a>
+			</div>
+		</div>
+		<div id="logfooter" class="logfooter">
+			
+		</div>
+	</div>
+</div>

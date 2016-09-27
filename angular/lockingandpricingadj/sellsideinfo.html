@@ -1,0 +1,237 @@
+﻿<div>
+    <div class="sell-side">
+        <div class="product-name" style="width:160px">
+            Investor Purchase Information
+        </div>
+        <div class="edit-item" ng-click="lockingpricingCtrl.enableSellSide()" ng-hide="lockingpricingCtrl.isDisabled()">
+            <div class="imp-icon-pen"></div>
+            <span>Edit</span>
+        </div>
+    </div>
+    <div class="pgrid">
+        <div class="header">
+            <div class="divider">
+            </div>
+        </div>
+
+        <fieldset ng-disabled="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide || lockingpricingCtrl.isDisabled()">
+            <div class="container">
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Pool #</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.poolNumber}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-maxlength=100 ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.poolNumber" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Investor Name</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.lookups.investors[lockingpricingCtrl.pricingLockingModel.sellSideInformation.investorId - 1].text}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <div class="imp-span-ddl-container medium">
+                            <select name="investorName"
+                                    class="imp-ddl"
+                                    ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.investorId"
+                                    ng-options="selectedItem.value as selectedItem.text for selectedItem in lockingpricingCtrl.lookups.investors">
+                                <option value="" selected disabled style="color:#999;display:none">Investor Name</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Investor #</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.investorLoanNumber}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-maxlength=100 ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.investorLoanNumber" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Commitment #</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.commitmentNumber}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-maxlength=100 ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.commitmentNumber" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Lock Type</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.applicationData.lookup.lockType[lockingpricingCtrl.pricingLockingModel.sellSideInformation.lockType].text}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <div class="imp-span-ddl-container medium">
+                            <select name="lockType"
+                                    class="imp-ddl"
+                                    ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.lockType"
+                                    ng-options="selectedItem.value as selectedItem.text for selectedItem in lockingpricingCtrl.applicationData.lookup.lockType">
+                                <option value="" selected disabled style="color:#999;display:none">Lock Type</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Hedge Loan</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.applicationData.lookup.hedgeLoanType[lockingpricingCtrl.pricingLockingModel.sellSideInformation.hedgeLoan].text}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <div class="imp-span-ddl-container medium">
+                            <select name="hedgeLoanType"
+                                    class="imp-ddl"
+                                    ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.hedgeLoan"
+                                    ng-options="selectedItem.value as selectedItem.text for selectedItem in lockingpricingCtrl.applicationData.lookup.hedgeLoanType">
+                                <option value="" selected disabled style="color:#999;display:none">Hedge Loan Type</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Registered with Investor</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.registeredWithInvestorDate | date:"EEE, MM/dd/yyyy h:mma"}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <imp-date-picker display-picker="true" type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.registeredWithInvestorDate" date-settings="{defaultValidationEnabled:false, dateFormat: 'MM/dd/yyyy'}"></imp-date-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Date Locked w/Investor</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockFullfilled | date:"EEE, MM/dd/yyyy h:mma"}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <imp-date-picker display-picker="true" type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockFullfilled" date-settings="{defaultValidationEnabled:false, dateFormat: 'MM/dd/yyyy'}"></imp-date-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Dellivery/Settlement</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.deliverySettlementDate | date:"EEE, MM/dd/yyyy h:mma"}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <imp-date-picker display-picker="true" type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.deliverySettlementDate" date-settings="{defaultValidationEnabled:false, dateFormat: 'MM/dd/yyyy'}"></imp-date-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Target Delivery Date</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.targetDeliveryDate | date:"EEE, MM/dd/yyyy h:mma"}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <imp-date-picker display-picker="true" type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.targetDeliveryDate" date-settings="{defaultValidationEnabled:false, dateFormat: 'MM/dd/yyyy'}"></imp-date-picker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Servicing Type</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.applicationData.lookup.servicingTransferStatusType[lockingpricingCtrl.pricingLockingModel.sellSideInformation.servicingTransferStatusId].text}}</span>
+                    </div>
+                    <div class="col-xxl" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <div class="imp-span-ddl-container medium">
+                            <select name="servicingType"
+                                    class="imp-ddl"
+                                    ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.servicingTransferStatusId"
+                                    ng-options=" selecteditem.value as selecteditem.text for selecteditem in lockingpricingCtrl.applicationData.lookup.servicingTransferStatusType">
+                                <option value='' selected disabled style="color:#999;display:none">Servicing Type</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Minimum Gfee</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.minimumGFee | impCurrency:"":3}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.minimumGFee" decimal-places="3" display-currency-sign="false" imp-currency />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Security Coupon</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.securityCouponValue | impCurrency:"":3}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.securityCouponValue" decimal-places="3" display-currency-sign="false" imp-currency />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Servicing Fee</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.servicingFee | impCurrency:"":3}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.servicingFee" decimal-places="3" display-currency-sign="false" imp-currency />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">SRP/MSR</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.srpMsr | impCurrency:"":3}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.srpMsr" decimal-places="3" display-currency-sign="false" imp-currency />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">G Fee Buy Up</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.gFeeBuyUp | impCurrency:"":3}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.gFeeBuyUp" decimal-places="3" display-currency-sign="false" imp-currency />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-l">
+                        <span class="imp-disclaimer">Map Credit</span>
+                    </div>
+                    <div class="col-xxl" ng-if="lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <span>{{lockingpricingCtrl.pricingLockingModel.sellSideInformation.mapCredit | impCurrency:"":3}}</span>
+                    </div>
+                    <div class="col-xl width-54" ng-if="!lockingpricingCtrl.pricingLockingModel.sellSideInformation.isDisabledSellSide">
+                        <input type="text" ng-model="lockingpricingCtrl.pricingLockingModel.sellSideInformation.mapCredit" decimal-places="3" display-currency-sign="false" imp-currency />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

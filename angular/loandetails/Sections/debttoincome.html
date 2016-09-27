@@ -1,0 +1,57 @@
+﻿<div class="unit-control dti-grid-contrl">
+    <div class="unit-header">
+
+        Debt to Income
+        <!--Hidden due to PBI 26768 -->
+        <!--<div class="view-link">view income</div>-->
+
+    </div>
+
+    <div class="unit-body">
+
+        <div class="titl-item">
+
+            <div class="first-column">DTI</div>
+            <div class="second-column">Qual DTI</div>
+            <div class="third-column">Housing</div>
+
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Fannie</div>
+            <div class="first-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.dtiDu | impRound: 3 | impPercentage}}</div>
+            <div class="second-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.qualifyingDtiDu | impRound: 3 | impPercentage}}</div>
+            <div class="third-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.housingRatioDu | impRound: 3 | impPercentage}}</div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">Freddie</div>
+            <div class="first-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.dtiLp | impRound: 3 | impPercentage}}</div>
+            <div class="second-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.qualifyingDtiLp | impRound: 3 | impPercentage}}</div>
+            <div class="third-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.housingRatioLp | impRound: 3 | impPercentage}}</div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">FHA</div>
+            <div class="first-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.dtiFha | impRound: 3 | impPercentage}}</div>
+            <div class="second-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.qualifyingDtiFha | impRound: 3 | impPercentage}}</div>
+            <div class="third-column">&nbsp;{{loanDetails.wrappedLoan.ref.financialInfo.housingRatioFha | impRound: 3 | impPercentage}}</div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="left-side">VA</div>
+            <div class="first-column">&nbsp;</div>
+            <div class="second-column">&nbsp;</div>
+            <div class="third-column">&nbsp;</div>
+
+        </div>
+    </div>
+</div>

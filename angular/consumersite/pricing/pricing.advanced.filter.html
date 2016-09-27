@@ -1,0 +1,109 @@
+﻿<div class="panel-group col-md-push-5 col-md-6 col-md-push-1" ng-show="pricingCntrl.showAllOptions">
+    <div class="panel-heading ">
+        <h2 class="panel-title">Filter Options</h2>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <button class="btn-link" ng-click="pricingCntrl.showAll=true;">Select All</button>
+                <button class="btn-link" ng-click="pricingCntrl.showAll=false;">Deselect All</button>
+            </div>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show30Fixed" />30 Yr Fixed
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show10ARM" />10 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show25Fixed" />25 Yr Fixed
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show7ARM" />7 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show20Fixed" />20 Yr Fixed
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show5ARM" />5 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show15Fixed" />15 Yr Fixed
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show3ARM" />3 Yr ARM
+                </label>
+            </div>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="checkbox" ng-model="pricingCntrl.show10Fixed" />10 Yr Fixed
+                </label>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <div class="col-md-6 panel-heading ">
+            <div class="col-md-6">
+                <h2 class="panel-title">Sort By</h2>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2 class="panel-title">Sort Order</h2>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortBy"  value="Term" ng-model="pricingCntrl.sortField" />Loan Term
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortAsc" value="ASC" ng-model="pricingCntrl.sortDirection" />Low to High
+                </label>
+            </div>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortBy" value="Payment" ng-model="pricingCntrl.sortField" />Payment
+                </label>
+            </div>
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortAsc" value="DESC"  ng-model="pricingCntrl.sortDirection" />High to Low
+                </label>
+            </div>
+        </div>
+        <div class="row  col-md-12  text-info">
+            <div class="col-md-6">
+                <label class="chekbox-inline">
+                    <input type="radio" name="sortBy" value="Rate" ng-model="pricingCntrl.sortField" />Interest Rate
+                </label>
+            </div>
+
+        </div>
+    </div>
+</div>

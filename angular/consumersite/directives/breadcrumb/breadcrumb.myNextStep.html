@@ -1,0 +1,26 @@
+﻿<ul class="nav navbar-nav breadcrumb-nav">
+    <li ng-class="{'complete': breadCrumbMNSCntrl.hasReachedDisclosures(), 'active': breadCrumbMNSCntrl.isAtDisclosures()}">
+        <a ng-href="{{breadCrumbMNSCntrl.getDisclosuresLink()}}">Sign Disclosures</a>
+    </li>
+    <li>
+        <img class="breadcrumb-arrow" src="../../../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+    </li>
+    <li ng-class="{'complete': breadCrumbMNSCntrl.hasReachedAppraisal(), 'active': breadCrumbMNSCntrl.isAtAppraisal()}">
+        <a ng-href="{{breadCrumbMNSCntrl.getAppraisalLink()}}">Order Appraisal</a>
+    </li>
+    <li>
+        <img class="breadcrumb-arrow" src="../../../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+    </li>
+    <li ng-class="{'complete': breadCrumbMNSCntrl.hasReachedUpload(), 'active': breadCrumbMNSCntrl.isAtUpload()}">
+        <a ng-href="{{breadCrumbMNSCntrl.getUploadLink()}}">Upload Documents</a>
+    </li>
+    <li>
+        <img class="breadcrumb-arrow" src="../../../Content/images/ConsumerSite/breadcrumb-arrow.png" />
+    </li>
+    <li>
+        <a ng-href="{{breadCrumbMNSCntrl.getSuccessLink()}}">
+            <i class="icon-finish-flag"></i>
+            <!--<img class="icon-finish-flag" ng-src="{{breadCrumbMNSCntrl.finishFlagImageUrl()}}" src="../../../Content/images/ConsumerSite/icon-finish-flag.png" />-->
+        </a>
+    </li>
+</ul>

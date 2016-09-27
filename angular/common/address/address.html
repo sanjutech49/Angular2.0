@@ -1,0 +1,60 @@
+﻿<div class="imp-address-control">
+    <div class=" input-group">
+        <input type="text" name="{{namePrefix}}StreetName" 
+               placeholder="{{ placeholderStreetName }}"
+               ng-class="{'street form-control ': isUnitVisible == true, 'street-w ': isUnitVisible != true}"
+               ng-model="$parent.streetName"
+               ng-change="onStreetNameChange()"
+               ng-disabled="isDisabled || firstRowDisabled"
+               ng-required="{{ $parent.required }}" />
+        <span class="input-group-btn" style="width: 0;" ng-if="isUnitVisible==true"></span>
+        <input type="text" class="form-control unit"
+               placeholder="Unit #"
+               ng-model="unitNumber"
+               ng-disabled="isDisabled || firstRowDisabled"
+               ng-if="isUnitVisible==true" />
+    </div>
+    <div class="row-split">
+        <input type="text" class="city" name="{{namePrefix}}CityName"
+               placeholder="{{ placeholderCityName }}"
+               ng-model="$parent.cityName"
+               ng-disabled="isDisabled"
+               ng-required="{{ $parent.required }}"
+               style="width:{{ $parent.cityWidth }}" />
+        <div class="imp-span-ddl-container medium state" ng-class="{'ng-dirty ng-invalid': !stateName}" style="width:{{ $parent.stateWidth }}">
+            <select class="imp-ddl" name="{{namePrefix}}StateName"
+                    ng-model="$parent.stateName"
+                    ng-options="selectedItem.text as selectedItem.text for selectedItem in states"
+                    ng-disabled="isDisabled"
+                    ng-required="{{ $parent.required }}"
+                    style="width:{{ $parent.stateWidth }}">
+                <option value='' selected disabled style="color:#999;display:none">{{placeholderStateName}}</option>
+            </select>
+        </div>
+        <input type="text" name="{{namePrefix}}ZipCode" imp-numeric imp-select-on-click 
+               placeholder="Zip" 
+               maxlength="5" 
+               ng-model="$parent.zipCode" 
+               ng-change="fetchZipData()"
+               class="form-control zip" 
+               ng-disabled="isDisabled && !zipEnabled"
+               ng-blur="validateZipOnBlur()"
+               ng-class="{'imp-asterisks-in-placeholder': zipAsterisksRequired}"
+               style="width:{{$parent.zipWidth}}" />
+    </div>
+
+    <div class="input-group row-split">
+        <div class="imp-span-ddl-container medium county"
+             ng-class="{'disabled' : isDisabled, 'imp-has-error': !countyName}"
+             ng-show="isCountyVisible==='true'">
+            <select class="imp-ddl" id="nbCounty"
+                    ng-model="$parent.countyName"
+                    ng-options="selectedItem.value as selectedItem.text for selectedItem in counties"
+                    ng-disabled="isDisabled"
+                    >
+                <option value='' selected disabled style=" display:none">County</option>
+            </select>
+        </div>
+    </div>
+
+</div>

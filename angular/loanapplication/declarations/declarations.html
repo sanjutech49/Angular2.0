@@ -1,0 +1,875 @@
+﻿<div class="declarations-content">    
+    <div ng-show="declarationsCtrl.showErrorMessage" style="text-align: center;">
+        An error occurred while loading data
+    </div> 
+    <fieldset ng-show="declarationsCtrl.showDeclarationsTab" ng-disabled="declarationsCtrl.disableFields">
+        <div class="section">
+            <div class="main-title">Government Monitoring Information</div>
+        </div>
+        <div class="section">
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    <span>
+                        Application taken
+                    </span>
+                    <div style="width: 320px; display: inline-block;">
+                        <div class="imp-span-ddl-container medium"
+                             ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.declarations.loanOriginatorSource==null || declarationsCtrl.wrappedLoan.ref.active.declarations.loanOriginatorSource.toString() == ''))}">
+                            <select ng-model="declarationsCtrl.wrappedLoan.ref.active.declarations.loanOriginatorSource"
+                                    class="imp-ddl"
+                                    ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.declarations.loanOriginatorSource==null || declarationsCtrl.wrappedLoan.ref.active.declarations.loanOriginatorSource.toString() == ''))}">
+                                <option value="">Select One</option>
+                                <option value="0">In a face-to-face interview</option>
+                                <option value="1">In a telephone interview</option>
+                                <option value="2">By the applicant and submitted by fax or email</option>
+                                <option value="3">By the applicant and submitted via email or the Internet</option>
+                            </select>
+                        </div>
+                    </div>                    
+                </div>
+                <div ng-show="declarationsCtrl.isInterviewFaceToFace()" style="display:inline-block;">
+                    <div class="declarations-row-right">
+                        <div class="declarations-row-subtitle" style="text-align:center">Borrower</div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        <div class="declarations-row-subtitle" style="text-align:center">Co-Borrower</div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="section" ng-show="declarationsCtrl.isInterviewFaceToFace()">
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    The Borrower(s) identity was verified with the following identification:
+                </div>
+                <div class="declarations-row-right">
+                    <div class="imp-span-ddl-container medium" ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.certificationId==null}">
+                            <select class="imp-ddl"
+                         style="width: 170px;"
+                         ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.certificationId"
+                         ng-options="item.value as item.text for item in declarationsCtrl.applicationData.lookup.certificationIds"
+                         ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.certificationId==null}">
+                        <option value="">Select One</option>
+                        </select>
+                    </div>
+                    </div>
+                <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="imp-span-ddl-container medium" ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.certificationId==null}">
+                        <select class="imp-ddl"
+                                style="width: 170px;"
+                                ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.certificationId"
+                                ng-options="item.value as item.text for item in declarationsCtrl.applicationData.lookup.certificationIds"
+                                ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.certificationId==null}">
+                            <option value="">Select One</option>
+                        </select>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <div class="section" ng-show="declarationsCtrl.isInterviewFaceToFace()">
+                <div class="declarations-row">
+                <div class="declarations-row-left" ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower()) || (declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan && !declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower()))">                        
+                        <span style="float:right;">ID Number and State Issued</span>
+                    </div>
+                <div class="declarations-row-left" ng-show="(declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan && declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower()) && declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower()) || (!declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan && declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower())))">                      
+                    <span style="float:right;">Please enter ID type</span>
+                </div>
+                    <div class="declarations-row-right">
+                    <div ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower())">
+                        <input style="width:105px; float:left;" type="text" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.numberId" placeholder="ID Number"
+                               ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.numberId}"/>
+                            <div class="declarations-div-state">
+                                <div class="imp-span-ddl-container medium fleft" ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.stateId==null}">
+                                    <select class="imp-ddl imp-psection-left-borderadius"
+                                            ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.stateId"
+                                            ng-options="item.value as item.text for item in declarationsCtrl.applicationData.lookup.states"
+                                            ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.stateId==null}">
+                                        <option value="" selected disabled style="display:none">State</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower())">
+                        <input style="width:105px; float:left;" type="text" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.numberId" placeholder="ID Number"
+                               ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.numberId}"/>
+                            <div class="declarations-div-state">
+                                <div class="imp-span-ddl-container medium fleft" ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.stateId==null}">
+                                    <select class="imp-ddl imp-psection-left-borderadius"
+                                            ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.stateId"
+                                            ng-options="item.value as item.text for item in declarationsCtrl.applicationData.lookup.states"
+                                            ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.stateId==null}">
+                                        <option value="" selected disabled style="display:none">
+                                            State
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="declarations-row">
+                    <div class="declarations-row-left">
+                    <span ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower()) || (declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan && !declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower()))" style="float:right;">Issue Date</span>
+                    </div>
+                    <div class="declarations-row-right">
+                        
+                    <div ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower())">                            
+                        <imp-date-picker display-picker="true"
+                                         type="text"
+                                         ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.dateIssued"
+                                         trigger-validation-on-init="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                                         date-settings="{hideErrorMessage: true, validateIsDate: declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.dateIssued, defaultValidationEnabled: false}"
+                                         has-error="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.dateIssued ||
+                                         !declarationsCtrl.isAfterIssued(false)">
+                        </imp-date-picker>
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        
+                    <div ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower())">                           
+                        <imp-date-picker display-picker="true"
+                                         type="text"
+                                         ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.dateIssued"
+                                         trigger-validation-on-init="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                                         date-settings="{hideErrorMessage: true, validateIsDate: declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.dateIssued, defaultValidationEnabled: false}"
+                                         has-error="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.dateIssued ||
+                                         !declarationsCtrl.isAfterIssued(true)">
+                        </imp-date-picker>
+                        </div>
+                    </div>
+                </div>
+                <div class="declarations-row">
+                    <div class="declarations-row-left">
+                    <span ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower()) || (declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan && !declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower()))" style="float:right;">Expiration Date</span>
+                    </div>
+                    <div class="declarations-row-right">
+                        
+                    <div ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower())">
+                        <imp-date-picker display-picker="true"
+                                         type="text"
+                                         ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.dateExpired"
+                                         trigger-validation-on-init="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                                         date-settings="{hideErrorMessage: true, validateIsDate: declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.dateExpired, defaultValidationEnabled: false}"
+                                         has-error="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.dateExpired ||
+                                         !declarationsCtrl.isAfterIssued(false)">
+                        </imp-date-picker>
+                        </div>
+                        <textarea class="declarations-textarea-other" ng-show="declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getBorrower())" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.otherInformation"
+                                  ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.otherInformation}"></textarea>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        
+                    <div ng-show="!declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower())">
+                        <imp-date-picker display-picker="true"
+                                         type="text"
+                                         ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.dateExpired"
+                                         trigger-validation-on-init="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                                         date-settings="{hideErrorMessage: true, validateIsDate: declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.dateExpired, defaultValidationEnabled: false}"
+                                         has-error="declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.dateExpired ||
+                                         !declarationsCtrl.isAfterIssued(true)">
+                        </imp-date-picker>
+                        </div>
+                        <textarea class="declarations-textarea-other" ng-show="declarationsCtrl.isIdentificationOther(declarationsCtrl.wrappedLoan.ref.active.getCoBorrower())" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.otherInformation"
+                                  ng-class="{'imp-has-error': declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.otherInformation}"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    <div class="declarations-row-subtitle">Declarations</div>
+                </div>
+                <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.declarations.loanOriginatorSource == 0" style="display:inline-block;">
+                    <div class="declarations-row-right">
+                        <div class="declarations-row-subtitle" style="text-align:center">Borrower</div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        <div class="declarations-row-subtitle" style="text-align:center">Co-Borrower</div>
+                    </div>
+                </div>
+             </div>
+        </div>
+        <div class="section">
+            <div class="declarations-row-left">
+                You may choose to answer the questions below or check the box to bypass this section.
+            </div>
+            <div class="declarations-row-right" style="height:60px;">
+                <input id="cbBorrower"
+                       type="checkbox"
+                       ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.additionalInformationCheckboxIndicator"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox"
+                       ng-change="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationPreviouslyProvided?'':declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationCheckboxIndicator=true;declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationPreviouslyProvided?'':declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationPreviouslyProvided=true" />
+                <label for="cbBorrower" class="imp-lb-checkbox" style="font-size: 12px; width:170px;">I do not wish to furnish this information</label>
+            </div>
+            <div class="declarations-row-right" style="height:60px;" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                <input id="cbCoBorrower"
+                       type="checkbox"
+                       ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationCheckboxIndicator"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label for="cbCoBorrower" class="imp-lb-checkbox" style="font-size: 12px;width:170px;">I do not wish to furnish this information</label>
+            </div>
+            <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.additionalInformationCheckboxIndicator && (declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan?declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationCheckboxIndicator:true)">
+                <div class="declarations-row">
+                    <div class="declarations-row-left">
+                        Are you Hispanic or Latino?
+                    </div>
+                    <div class="declarations-row-right">
+                        
+                        <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.additionalInformationCheckboxIndicator">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ethnicityId== null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ethnicityId==-1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ethnicityId"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.ethnicities"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ethnicityId==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ethnicityId== -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationCheckboxIndicator">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ethnicityId==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ethnicityId == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ethnicityId"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.ethnicities"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ethnicityId==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ethnicityId== -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="declarations-row">
+                    <div class="declarations-row-left">
+                        Are you American Indian or Alaska Native, Asian, Black or African American, Native Hawaiian or Other Pacific Islander, or White?
+                    </div>
+                    <div class="declarations-row-right">
+                        <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.additionalInformationCheckboxIndicator">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications&& (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.race==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.race == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.race"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.races"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.race==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.race == -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationCheckboxIndicator">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.race==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.race == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.race"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.races"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.race==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.race == -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="declarations-row">
+                    <div class="declarations-row-left">
+                        Are you male or female?
+                    </div>
+                    <div class="declarations-row-right">
+                        <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.additionalInformationCheckboxIndicator">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.sexId==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.sexId == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.sexId"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.sexTypes"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.sexId==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.sexId == -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        <div ng-hide="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.additionalInformationCheckboxIndicator">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.sexId==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.sexId == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.sexId"
+                                        class="imp-ddl"
+                                        style="width:170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.sexTypes"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.sexId==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.sexId == -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    <div class="declarations-row-separator"></div>
+                </div>
+                <div class="declarations-row-right">
+                    <div class="declarations-row-separator"></div>
+                </div>
+                <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-separator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    1. Are there any outstanding judgments against you?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio"
+                               ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.outstandingJudgmentsIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.outstandingJudgmentsIndicator=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator=0:'';"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.outstandingJudgmentsIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio"
+                               ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.outstandingJudgmentsIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.outstandingJudgmentsIndicator=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.outstandingJudgmentsIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan" >
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.outstandingJudgmentsIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    2. Have you been declared bankrupt within the past 7 years?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class=" declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.bankrupcyIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.bankrupcyIndicator=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.bankrupcyIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.bankrupcyIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.bankrupcyIndicator=1;declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.bankrupcyIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan" >
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications&& declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.bankrupcyIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    3. Have you had property foreclosed upon or given title or deed in lieu thereof in the last 7 years?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyForeclosedIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyForeclosedIndicator=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyForeclosedIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyForeclosedIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyForeclosedIndicator=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyForeclosedIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyForeclosedIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    4. Are you a party to a lawsuit?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.partyToLawsuitIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.partyToLawsuitIndicator=0;declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.partyToLawsuitIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.partyToLawsuitIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.partyToLawsuitIndicator=1;declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.partyToLawsuitIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px"  ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator = 0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.partyToLawsuitIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    5. Have you directly or indirectly been obligated on any loan which resulted in foreclosure, transfer in title in lieu of foreclosure, or judgment?
+                    (This would include such loans as home mortgage loans, SBA loans, home improvement
+                    loans, educational loans, manufactured(mobile) home loans, any mortgage,
+                    financial obligation, bond, or loan guarantee. If "Yes" provide details, including
+                    date, name and address of Lender, FHA or VA case number, if any, and
+                    reasons for the action.)
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.obligatedLoanIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.obligatedLoanIndicator=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.obligatedLoanIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.obligatedLoanIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.obligatedLoanIndicator=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.obligatedLoanIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px"  ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.obligatedLoanIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    6. Are you presently delinquent or in default on any Federal debt or any other
+                    loan, mortgage, financial obligation, bond, or loan guarantee? If "Yes" give
+                    details as described in the preceding question.
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.presentlyDelinquentIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.presentlyDelinquentIndicator=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.presentlyDelinquentIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.presentlyDelinquentIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.presentlyDelinquentIndicator=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.presentlyDelinquentIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px"  ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.presentlyDelinquentIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    7. Are you obligated to pay alimony, child support, or separate maintenance?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=0:''; declarationsCtrl.addLiability(false)"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=1:''; declarationsCtrl.removeLiability(false)"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px"  ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=0; declarationsCtrl.addLiability(true)"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=1; declarationsCtrl.removeLiability(true)"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right-button" ng-show="(declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation=='0' || (declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=='0')) && !declarationsCtrl.disableFields">
+                    <div class="actions add" ng-click="declarationsCtrl.addRow()">
+                        <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="float:left; margin-top: -5px;"></imp-circle>
+                        <div class="declarations-div-additem"> Add Item</div>
+                    </div>
+                </div>
+            </div>
+            <!--REPEATER-->
+            <div ng-show="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation=='0' || (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=='0' && declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan)">
+                <div class="declarations-row-repeater" ng-repeat="miscDebt in declarationsCtrl.miscDebts track by $index">
+                    <div class="declarations-row-left">
+                        <div class="declarations-div-payee">Payee</div>
+                        <div style="width: 50%;" class="col-lg-3 imp-psection-col-shorten">
+                            <input type="text" ng-model="miscDebt[0].payee" class="declarations-input-payee" ng-blur="declarationsCtrl.payeeChange(miscDebt[0].payee, miscDebt[1].payee)" />
+                        </div>
+                        <div style="width: 16%;" class="col-lg-3 imp-psection-col-shorten">
+                            <span class="declarations-visible-placeholder" style="padding-right:10px;">Months Left</span>
+                            <input type="text" maxlength="3" ng-model="miscDebt[0].monthsLeft" ng-blur="declarationsCtrl.monthsLeftChange(miscDebt[0].monthsLeft, miscDebt[1].payee)" class="declarations-input-months-left imp-psection-left-borderadius" />
+                        </div>
+                        <div class="declarations-div-amount">
+                            Amount
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" style="padding-top: 15px; padding-left:14px">
+                        <input type="text" style="width: 125px!important" class="declarations-input-amount" ng-if="miscDebt[0].isCoBorrower == false" ng-model="miscDebt[0].Amount" imp-currency ng-show="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation=='0'" />
+                        <input type="text" style="width: 125px!important" class="declarations-input-amount" ng-if="miscDebt[1].isCoBorrower == false" ng-model="miscDebt[1].Amount" imp-currency ng-show="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.alimonyChildSupportObligation=='0'" />
+                    </div>
+                    <div class="declarations-row-right" style="padding-top: 15px;padding-left:6px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        
+                        <input type="text" class="declarations-input-amount" style="width: 125px!important" ng-if="miscDebt[0].isCoBorrower" imp-currency ng-model="miscDebt[0].Amount" ng-show="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=='0'" />
+                        <input type="text" class="declarations-input-amount" style="width: 125px!important" ng-if="miscDebt[1].isCoBorrower" imp-currency ng-model="miscDebt[1].Amount" ng-show="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.alimonyChildSupportObligation=='0'" />
+                    </div>
+                    <div class="declarations-row-right-button" ng-click="declarationsCtrl.removeRow(miscDebt[0].payee)" ng-hide="declarationsCtrl.disableFields">
+
+                        <imp-circle size="xsmall" style="display: block; float:left; padding-left:6px;" color="#F4BABC" hover-color="#e73302" is-plus="false"></imp-circle>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    8. Is any part of the down payment borrowed?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.downPaymentIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.downPaymentIndicator=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.downPaymentIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.downPaymentIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.downPaymentIndicator=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.downPaymentIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.downPaymentIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    9. Are you a co-maker or endorser on a note?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.noteEndorserIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.noteEndorserIndicator=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.noteEndorserIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.noteEndorserIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.noteEndorserIndicator=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.noteEndorserIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.noteEndorserIndicator == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    10. Are you a U.S. Citizen?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().usCitizen" ng-value="true" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().usCitizen = true"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().usCitizen" ng-value="false" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().usCitizen = false "
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().usCitizen" ng-value="true" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().usCitizen = true"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().usCitizen" ng-value="false" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().usCitizen = false"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    11. Are you a permanent Resident Alien?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().permanentAlien" ng-value="true" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().permanentAlien = true"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().permanentAlien" ng-value="false" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().permanentAlien = false"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().permanentAlien" ng-value="true" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().permanentAlien = true"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().permanentAlien" ng-value="false" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().permanentAlien = false"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    12. Do you intend to occupy the property as your Primary Residence?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyAsPrimaryResidence" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyAsPrimaryResidence=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyAsPrimaryResidence == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyAsPrimaryResidence" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyAsPrimaryResidence=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.propertyAsPrimaryResidence == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" class="imp-radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.propertyAsPrimaryResidence == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="declarations-row">
+                <div class="declarations-row-left">
+                    13. Have you had an ownership interest in a property in the last three years?
+                </div>
+                <div class="declarations-row-right" style="padding-left:20px" ng-init="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears == null? declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears = declarationsCtrl.wrappedLoan.ref.ownershipLastThreeYears() : ''">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears" class="imp-radio" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears=0; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYear==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYear=0:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears" class="imp-radio" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears=1; declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYear==null && !declarationsCtrl.disableFields ? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYear=1:''"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+                <div class="declarations-row-right" style="padding-left:5px" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan" ng-init="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears == null? declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears = declarationsCtrl.wrappedLoan.ref.ownershipLastThreeYears() : ''">
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears" class="imp-radio" ng-value="0" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears=0"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears == null)}"
+                               class="imp-lbl-radio">Yes</label>
+                    </div>
+                    <div class="declarations-row-radio-container">
+                        <input type="radio" ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears" class="imp-radio" ng-value="1" />
+                        <label ng-click="declarationsCtrl.disableFields ? '' : declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears=1"
+                               ng-class="{'imp-radio-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears == null)}"
+                               class="imp-lbl-radio">No</label>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears=='0' || (declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan && declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears=='0')">
+                <div class="declarations-row">
+                    <div class="declarations-row-left">
+                        14. What type of property did you own?
+                    </div>
+                    <div class="declarations-row-right">
+                        
+                        <div ng-show="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears=='0'">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.typeOfProperty==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.typeOfProperty == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.typeOfProperty"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.typeOfProperty"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.typeOfProperty==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.typeOfProperty ==-1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        
+                        <div ng-show="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears=='0'">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.typeOfProperty==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.typeOfProperty == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.typeOfProperty"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.typeOfProperty"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.typeOfProperty==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.typeOfProperty == -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="declarations-row">
+                    <div class="declarations-row-left">
+                        15. How did you hold title to the home?
+                    </div>
+                    <div class="declarations-row-right">
+                        
+                        <div ng-show="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.ownershipInterestLastThreeYears=='0'">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.priorPropertyTitleType==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.priorPropertyTitleType == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.priorPropertyTitleType"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.priorPropertyTitle"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.priorPropertyTitleType==null || declarationsCtrl.wrappedLoan.ref.active.getBorrower().declarationsInfo.priorPropertyTitleType == -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="declarations-row-right" ng-show="declarationsCtrl.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                        
+                        <div ng-show="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.ownershipInterestLastThreeYears=='0'">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.priorPropertyTitleType==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.priorPropertyTitleType == -1))}">
+                                <select ng-model="declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.priorPropertyTitleType"
+                                        class="imp-ddl"
+                                        style="width: 170px;"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in declarationsCtrl.applicationData.lookup.priorPropertyTitle"
+                                        ng-class=" {'imp-has-error': (declarationsCtrl.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.priorPropertyTitleType==null || declarationsCtrl.wrappedLoan.ref.active.getCoBorrower().declarationsInfo.priorPropertyTitleType == -1))}">
+                                    <option value="">Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

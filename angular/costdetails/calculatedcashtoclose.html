@@ -1,0 +1,77 @@
+﻿<div class="imp-cgrid calculated-cash">
+    <div class="header main">
+        <span id="cashToClose"> Calculated Cash to Close</span>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-l">
+
+            </div>
+            <div class="col-m">Loan Estimate</div>
+            <div class="col-m">Final</div>
+            <div class="col-a">Did this Change?</div>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                Loan Amount
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.loanAmount | impCurrency:"" }}</span>
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{ costDetailsCtrl.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount | impCurrency:"" }}</span>
+            </div>            
+            <cash-to-close-value-changed loan-estimate="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.loanAmount"
+                                         final-value="costDetailsCtrl.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount"
+                                         is-disclosure-available="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.isDisclosureAvailable">
+            </cash-to-close-value-changed>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                Total Closing Costs (J)
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{ costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.totalClosingCosts | formatCashToCloseTotalClosingCosts }}</span>
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{ costDetailsCtrl.closingCostViewModel.totals.closingCosts.borrowerTotal | formatCashToCloseTotalClosingCosts }}</span>
+            </div>            
+            <cash-to-close-value-changed loan-estimate="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.totalClosingCosts | impRound: 2"
+                                         final-value="costDetailsCtrl.closingCostViewModel.totals.closingCosts.borrowerTotal | impRound: 2"
+                                         is-disclosure-available="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.isDisclosureAvailable">
+            </cash-to-close-value-changed>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                Closing Costs Paid Before Closing
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{ costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.closingCostsPaidBeforeClosing | formatCashToClosePOC }}</span>
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{ costDetailsCtrl.closingCostViewModel.totals.closingCosts.borrowerPaidBeforeClosingTotal | formatCashToClosePOC }}</span>
+            </div>
+            <cash-to-close-value-changed loan-estimate="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.closingCostsPaidBeforeClosing | impRound: 2"
+                                         final-value="costDetailsCtrl.closingCostViewModel.totals.closingCosts.paidBeforeClosingTotal | impRound: 2"
+                                         is-disclosure-available="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.isDisclosureAvailable">
+            </cash-to-close-value-changed>
+        </div>
+        <div class="row">
+            <div class="col-l">
+                Total Payoffs and Payments (K)
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.totalPayoffsAndPayments  | formatCashToClosePayments }}</span>
+            </div>
+            <div class="col-m">
+                <span class="cvalue">{{ costDetailsCtrl.closingCostViewModel.totals.payOffSectionTotal | formatCashToClosePayments }}</span>
+            </div>
+            <cash-to-close-value-changed loan-estimate="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.loanEstimates.totalPayoffsAndPayments | impRound: 2"
+                                         final-value="costDetailsCtrl.closingCostViewModel.totals.payOffSectionTotal | impRound: 2"
+                                         is-disclosure-available="costDetailsCtrl.closingCostViewModel.calculatedCashToClose.isDisclosureAvailable"></cash-to-close-value-changed>
+        </div>
+
+    </div>
+    <div ng-include src="'angular/costdetails/cashtotal.html'">
+    </div>
+</div>  

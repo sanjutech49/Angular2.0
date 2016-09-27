@@ -1,0 +1,11 @@
+﻿<div class="imp-buttonmenu imp-body" style="list-style-type: none;">
+    <div class="imp-buttonmenu-item">
+        <input type="submit" value="Open in new window" ng-click="modalpopoverCtrl.ctrl.openDocument(modalpopoverCtrl.model.repositoryId, true, false); modalpopoverCtrl.cancel()" ng-disabled="!modalpopoverCtrl.ctrl.browserSupported(modalpopoverCtrl.model.contentType)" />
+    </div>
+    <div class="imp-buttonmenu-item">
+        <input type="submit" value="Open in new tab" ng-click="modalpopoverCtrl.ctrl.openDocument(modalpopoverCtrl.model.repositoryId, true, true); modalpopoverCtrl.cancel()" ng-disabled="!modalpopoverCtrl.ctrl.browserSupported(modalpopoverCtrl.model.contentType)" />
+    </div>
+    <div class="imp-buttonmenu-item">
+        <input type="submit" value="Download a copy" ng-click="modalpopoverCtrl.ctrl.downloadDocument(modalpopoverCtrl.model.repositoryId); modalpopoverCtrl.cancel()" />
+    </div>
+</div>

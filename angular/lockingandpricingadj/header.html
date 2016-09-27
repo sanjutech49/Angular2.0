@@ -1,0 +1,71 @@
+﻿<div class="header">
+    <div class="tab-container">
+    </div>
+    <div class="content">
+        <div class="section-1">
+            <div ng-if="lockingpricingCtrl.wrappedLoan.ref.product.programName != null">
+                <span class="product-name">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.product.programName }}
+                </span>
+                <span class="lbl-name imp-disclaimer">
+                    Product Name
+                </span>
+            </div>
+        </div>
+        <div class="section-2">
+            <div class="col" ng-if="lockingpricingCtrl.wrappedLoan.ref.product.ruCode != null">
+                <span class="lbl-value">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.product.ruCode }}
+                </span>
+                <span class="lbl-name imp-disclaimer">
+                    Product Code
+                </span>
+            </div>
+            <div class="col" ng-if="lockingpricingCtrl.wrappedLoan.ref.financialInfo.noteRate != null">
+                <span class="lbl-value">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.financialInfo.noteRate | impRound: 3 | impPercentage:3 }}
+                </span>
+                <span class="lbl-name imp-disclaimer">
+                    Note Rate
+                </span>
+            </div>
+            <div class="col" ng-if="lockingpricingCtrl.wrappedLoan.ref.financialInfo.apr != null">
+                <span class="lbl-value">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.financialInfo.apr | impRound: 3 | impPercentage:3 }}
+                </span>
+                <span class="lbl-name imp-disclaimer">
+                    APR
+                </span>
+            </div>
+            <div class="col" ng-if="lockingpricingCtrl.wrappedLoan.ref.loanLock.newMonthlyPayment != null">
+                <span class="lbl-value">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.loanLock.newMonthlyPayment | impCurrency }}
+                </span>
+                <span class="lbl-name imp-disclaimer">
+                    Monthly Payment
+                </span>
+            </div>
+            <div class="col" ng-if="lockingpricingCtrl.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount != null">
+                <span class="lbl-value">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.detailsOfTransaction.totalLoanAmount | impCurrency }}
+                </span>
+                <span class="lbl-name imp-disclaimer">
+                    Total Loan Amount
+                </span>
+            </div>
+            <div class="col" ng-if="lockingpricingCtrl.wrappedLoan.ref.lockingInformation.lockStatus != null">
+                <span class="lbl-value">
+                    <strong>
+                        {{ lockingpricingCtrl.loanLockStatus }}
+                    </strong>
+                </span>
+                <span class="lbl-name imp-disclaimer">
+                    Lock Status
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

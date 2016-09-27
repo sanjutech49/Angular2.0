@@ -1,0 +1,36 @@
+﻿<div class="unit-control">
+    <div class="housing-expenses-chart">
+        <div class="new-monthly-payment">
+            <div class="new-monthly-payment-value">
+                {{ housingExpenses.wrappedLoan.ref.loanLock.newMonthlyPayment | impCurrency }}&nbsp;
+            </div>
+            <div class="new-monthly-payment-label">
+                New Monthly Payment
+            </div>
+        </div>
+        <div class="new-monthly-payment-bar-container">
+            <div class="bar-graph" housing-expenses-bar-graph
+                 primary-value="{{ housingExpenses.wrappedLoan.ref.loanLock.newMonthlyPayment }}"
+                 reference-value="{{housingExpenses.totalCurrentExpenses()}}"
+                 monthly-payment-bar-width="335">
+                &nbsp;
+            </div>
+        </div>
+        <div class="current-monthly-payment">
+            <div class="current-monthly-payment-value">
+                {{housingExpenses.totalCurrentExpenses() | impCurrency}}&nbsp;
+            </div>
+            <div class="current-monthly-payment-label">
+                Current Monthly Payment
+            </div>
+        </div>
+        <div class="current-monthly-payment-bar-container">
+            <div class="bar-graph" housing-expenses-bar-graph
+                 primary-value="{{housingExpenses.totalCurrentExpenses()}}"
+                 reference-value="{{ housingExpenses.wrappedLoan.ref.loanLock.newMonthlyPayment }}"
+                 monthly-payment-bar-width="335">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+</div>

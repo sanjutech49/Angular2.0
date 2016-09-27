@@ -1,0 +1,92 @@
+﻿<div class="usda-information">
+    <div class="section-header">
+        <div class="section-body">
+            <div ng-class="{'imp-psection-subtitle-noborder margin-bottom': !loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.isusdaLoan, 'imp-psection-subtitle' : loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.isusdaLoan }"
+                 style="float:left; width: 100%; padding-bottom:0px;">
+                <div class="mainCb">
+                    <input id="cbUSDAinformation"
+                           type="checkbox"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           class="imp-checkbox"
+                           ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.isusdaLoan"
+                           ng-change="loanScenario.onUSDAinformationChange(loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.isusdaLoan)" />
+                    <label for="cbUSDAinformation" class="imp-lb-checkbox"></label>
+                </div>
+
+                <div style="width:130px; float:left">USDA Information</div>
+
+            </div>
+            <div class="row loan-scenario-va-information ng-scope" ng-show="loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.isusdaLoan">
+                <div class="col-lg-4" style="width: 30%;">
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-11 usdaLbRight">
+                            <div class="imp-psection-label">
+                                Is the Subject Property <a href="http://eligibility.sc.egov.usda.gov/eligibility/welcomeAction.do" style="color: #208DDC" target="_blank">USDA eligible?</a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 usdaCbLeft">
+                            <input id="cbUsdaEligible"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.isusdaEligible" />
+                            <label for="cbUsdaEligible" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4" style="width: 30%;">
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-11 usdaLbRight">
+                            <div class="imp-psection-label">
+                                Are the Borrowers <a href="http://www.rd.usda.gov/files/RD-GRHLimitMap.pdf" style="color: #208DDC" target="_blank">income eligible?</a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 usdaCbLeft">
+                            <input id="cbBorrowersIncomeEligible"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.isBorrowersIncomeEligible" />
+                            <label for="cbBorrowersIncomeEligible" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4" style="width: 30%;">
+
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-11 usdaLbRight">
+                            <div class="imp-psection-label">
+                                Add USDA Guaranteed Fee to Loan Amount?
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1 usdaCbLeft">
+                            <input id="cbFinanceGFee"
+                                   type="checkbox"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox"
+                                   ng-model="loanScenario.wrappedLoan.ref.otherInterviewData.usdaInformation.addUSDAGFeeToLoanAmount" />
+                            <label for="cbFinanceGFee" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

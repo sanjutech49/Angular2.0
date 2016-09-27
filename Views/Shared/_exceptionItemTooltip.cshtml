@@ -1,0 +1,49 @@
+﻿@using MML.Contracts
+@model List<ExceptionItem>
+<div class="exceptionBubble">
+    <div class="triangle">
+    </div>
+    <div class="exceptiontooltip">
+        <div class="exceptiontooltipg">
+            <div class="close" id="closePopupContainer"></div>
+            <table>
+                <tr>
+                    <td colspan="3" class="line1">
+                        Exceptions
+                    </td>
+                </tr>
+                <tr>
+                    <td class="firstColumn">
+                        Date created:
+                    </td>
+                    <td class="secondColumn">
+                        Exception type:
+                    </td>
+                    <td class="thirdColumn">
+                        Comment:
+                    </td>
+                </tr>
+                @{
+                    foreach ( ExceptionItem item in Model )
+                    {
+                        <tr class="trdotted">
+                            <td class="regularfont">
+                                @(item.DateCreated)
+                            </td>
+                            <td class="regularfont">
+                                @(item.ExceptionType.Description)
+                            </td>
+                            <td class="regularfont">
+                                @Html.Raw(item.Comment)
+                            </td>
+                        </tr> 
+                    }
+                }
+                <tr>
+                    <td colspan="3" class="line2">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

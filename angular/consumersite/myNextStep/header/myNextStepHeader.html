@@ -1,0 +1,75 @@
+﻿<div>
+    <div>
+        <navigation-bar />
+    </div>
+    <nav class="navbar navbar-default loan-app-navbar">
+        <div class="app-container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img class="logo-img" id="loanAppNavbarLogo" /></a>
+                <button type="button" class="navbar-toggle loan-app-navbar-toggle collapsed" data-toggle="collapse" data-target="#loan-app-navbar" aria-expanded="false" aria-controls="navbar" ng-click="loanAppHeaderCntrl.toggleMobileMenu()">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="loan-app-navbar-close" ng-class="{'in': loanAppHeaderCntrl.isMobileMenuOpen}" ng-click="loanAppHeaderCntrl.toggleMobileMenu()">X</div>
+                <div class="mobile-menu-divider"></div>
+                <div class="back-button"><i class="icon-angle-left fa-3x"></i></div>
+            </div>
+            <div id="loan-app-navbar" class="loan-app-navbar-collapse collapse" ng-class="{'collapse': !loanAppHeaderCntrl.isMobileMenuOpen, 'in': loanAppHeaderCntrl.isMobileMenuOpen}">
+                <bread-crumb-my-next-step></bread-crumb-my-next-step>
+                <ul class="nav loan-app-navbar-nav mobile-menu">
+                    <li>
+                        <a href="#">
+                            <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/price-tag.png"></div>See Rates
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="navbar-link-img"><i class="icon-cash-house fa-1x5"></i></div>What Can I Afford?
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/house-search.png"></div>Find a Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/open-mail.png"></div>Resources
+                        </a>
+                    </li>
+                    <li class="sign-in">
+                        <a href="#">
+                            <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/person.png"></div>Sign in
+                        </a>
+                    </li>
+                </ul>
+                <div class="loan-app-navbar-collapse-backdrop"></div>
+            </div>
+            <div class="stats-region">
+                <progress-spinner width="67" height="67" percent="loanAppHeaderCntrl.getProgress()" anim-init="false"></progress-spinner>
+                <!--<img class="percent-indicator-img pct-{{loanAppHeaderCntrl.getProgressRounded()}}">-->
+                <div class="stats-divider"></div>
+                <div class="loan-stats-table">
+                    <div class="rTable">
+                        <div class="rTableBody">
+                            <div class="rTableRow data-row">
+                                <div>{{loanAppHeaderCntrl.loanRate}}%</div>
+                                <div>{{loanAppHeaderCntrl.monthlyPayment | currency }}</div>
+                                <div>{{loanAppHeaderCntrl.loanAmount | currency }}</div>
+                                <div><b>{{loanAppHeaderCntrl.cashOutAmount | currency }}</b></div>
+                            </div>
+                            <div class="rTableRow label-row">
+                                <div>Int. Rate</div>
+                                <div>Payment</div>
+                                <div>Loan Amount</div>
+                                <div>Cash Out</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

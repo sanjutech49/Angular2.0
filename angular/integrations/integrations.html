@@ -1,0 +1,87 @@
+﻿<div>
+    <div class="loan-application-error-container" ng-if="integrationsCtrl.showErrorContainer">
+        An error occurred while loading data
+    </div>
+    <div class="imp-loader-container" ng-if="integrationsCtrl.showLoader">
+        <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+    <div>
+        <div class="imp-lcgrid integration-panel-margin" ng-if="!integrationsCtrl.showLoader">
+            <div class="header main flex">
+                <div class="imp-integration-header">
+                    <span class="imp-text-hm-wl-prim">Integration Services</span>
+                </div>
+            </div>
+            <div ng-repeat=" (folderName, items) in integrationsCtrl.groupedEvents.ref">
+                <div>
+                    <div class="header imp-integration-title">
+                        <div></div>
+                        <div>
+                            <span class="imp-integration-title">{{folderName}} </span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="content container">
+                            <div class="row">
+                                <div style="margin-left: 14px;">
+                                </div>
+                                <div class="col imp-integration-col-event">
+                                    Integration Event
+                                </div>
+                                <div class="col-m">
+                                    Event Type
+                                </div>
+                                <div class="imp-integration-col-date">
+                                    Date
+                                </div>
+                                <div class="imp-integration-col-status">
+                                    Event Status
+                                </div>
+
+                                <div class="col imp-integration-xml">
+                                    XML
+                                </div>
+                                <div class="col imp-integration-col-xml">
+                                    Documents
+                                </div>
+                                <div class="col imp-integration-col-xml">
+                                </div>
+                            </div>
+
+                            <div class="imp-integrations-panel" ng-repeat="event in items">
+                                <div class="col imp-integration-col-event-name">
+                                    {{integrationsCtrl.formatName(event.folderName,event.name)}}
+                                </div>
+                                <div class="col-m">
+                                    {{event.eventType}}
+                                </div>
+                                <div class="imp-integration-col-date">
+                                    {{event.dateCreated}}
+                                </div>
+                                <div class="col-m">
+                                    {{event.status}}
+                                </div>
+                                <div class="col imp-integration-xml">
+                                    <div class="imp-icon-xml-small imp-integration-margin-left" ng-show="integrationsCtrl.shouldIconBeVisible(event, event.eventId, true)" ng-click="integrationsCtrl.downloadXmlDocument(event, false, true)">
+                                    </div>
+                                    <div class="imp-icon-xml-small" ng-show="integrationsCtrl.shouldIconBeVisible(event, event.requestRepositoryId, false)" ng-click="integrationsCtrl.downloadXmlDocument(event, false, false)">
+                                    </div>
+                                    <div class="imp-icon-xml-small" ng-show="integrationsCtrl.shouldIconBeVisible(event, event.responseRepositoryId, false)" ng-click="integrationsCtrl.downloadXmlDocument(event, true, false)">
+                                    </div>
+                                </div>
+                                <div class="col imp-integration-col-xml">
+                                    <div class="imp-icon-pdf-small imp-integration-margin-left" ng-click="integrationsCtrl.downloadDocument(event)" ng-show="integrationsCtrl.shouldPdfIconBeVisible(event)">
+                                    </div>
+                                </div>
+                                <div class="col imp-integration-col-xml">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+
+

@@ -1,0 +1,11 @@
+﻿<div ng-repeat="item in masterListCntrl.collection">
+    <div class="row item-box" style="cursor: pointer" ng-click="masterListCntrl.setActiveItem(item)">
+        <div ng-include src="masterListCntrl.templateUrl"></div>
+        <div class="col-md-push-1">
+            <div class="imp-hyperlink" ng-hide="masterListCntrl.isActiveItem($index)">edit</div>
+            <!-- Replace this button with the delete image-->
+            <i class="fa fa-minus-circle" ng-click="masterListCntrl.removeItem($index)" ng-show="masterListCntrl.isActiveItem($index)"></i>
+            <!--<button style="height: 20px;" ng-click="masterListCntrl.removeItem($index)" ng-show="masterListCntrl.isActiveItem($index)"> X </button>-->
+        </div>
+    </div>
+</div>

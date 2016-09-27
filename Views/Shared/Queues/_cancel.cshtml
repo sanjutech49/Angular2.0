@@ -1,0 +1,278 @@
+﻿@model MML.Web.LoanCenter.ViewModels.CancelViewModel
+@using MML.Common
+@using MML.Common.Helpers
+@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div class="fleft"><span class="namelink">Cancelled Loans</span></div>
+        <div class="smallarrow">
+        </div>
+        </div>
+        
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.TotalItems.ToString()</span>  <span class="font15">Items</span>
+            
+        </div>
+        <div class="right1">
+            <div class="left1">
+                <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@MML.Common.Helpers.EnumHelper.GetStringValue( ( ( MML.Web.LoanCenter.Helpers.Utilities.CancelLoanListState )HttpContext.Current.Session[ SessionHelper.CancelListState ] ).BoundDate )</span>
+            </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul>
+                                <li></li>
+                                <li id="ftoday" class="lower">@Ajax.ActionLink( "Today", "Execute", "Command", new { Command = "CancelGridDateFilter,DateFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo()", OnSuccess = "CancelGrid.CancelDataOnSuccess('Today')" }, new { id = "aftoday" } )</li>
+                                <li id="ftomorrow" class="lower">@Ajax.ActionLink( "Yesterday", "Execute", "Command", new { Command = "CancelGridDateFilter,DateFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo()", OnSuccess = "CancelGrid.CancelDataOnSuccess('Tomorrow')" }, new { id = "aftomorrow" } )</li>
+                                <li id="fthisweek" class="lower">@Ajax.ActionLink( "Last Week", "Execute", "Command", new { Command = "CancelGridDateFilter,DateFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo()", OnSuccess = "CancelGrid.CancelDataOnSuccess('This Week')" }, new { id = "afthisweek" } )</li>
+                                <li id="fnextweek" class="lower">@Ajax.ActionLink( "Last Month", "Execute", "Command", new { Command = "CancelGridDateFilter,DateFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo()", OnSuccess = "CancelGrid.CancelDataOnSuccess('Next Week')" }, new { id = "afnextweek" } )</li>
+                                <li id="fthismonth" class="lower">@Ajax.ActionLink( "All Open", "Execute", "Command", new { Command = "CancelGridDateFilter,DateFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnBegin = "ShowProcessingInfo()", OnSuccess = "CancelGrid.CancelDataOnSuccess('This Month')" }, new { id = "afthismonth" } )</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday" title="Minimize/Maximize Section">
+                    <div id="minmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="listandpage">
+        <div class="cancelcontent">
+            <table class="canceltable">
+                <tr class="cancelsubjects" id="trGridHeader">
+                       <td>
+                    </td>
+                    <td class="t0">
+                    </td>
+                    <td style="display:none"></td>
+                    <td class="t1">@Ajax.ActionLink( "Concierge", "Execute", "Command", new { Command = "CancelGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('ConciergeFullName')", OnComplete = "CancelGrid.CancelDataOnComplete('ConciergeFullName')", OnBegin = "CancelGrid.CancelDataOnBegin('ConciergeFullName')", OnSuccess = "CancelGrid.CancelDataOnSuccess('ConciergeFullName')" } )
+                    </td>
+                    <td class="t2">@Ajax.ActionLink( "Alerts#", "Execute", "Command", new { Command = "CancelGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('NumberofAlerts')", OnComplete = "CancelGrid.CancelDataOnComplete('NumberofAlerts')", OnBegin = "CancelGrid.CancelDataOnBegin('NumberofAlerts')", OnSuccess = "CancelGrid.CancelDataOnSuccess('NumberofAlerts')" } )
+                    </td>
+                    <td class="t3">@Ajax.ActionLink( "Docs", "Execute", "Command", new { Command = "CancelGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Due Date')", OnComplete = "CancelGrid.CancelDataOnComplete('Due Date')", OnBegin = "CancelGrid.CancelDataOnBegin('Due Date')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Contact')" } )
+                    </td>
+                    <td class="t4">@Ajax.ActionLink( "Loan #", "Execute", "Command", new { Command = "CancelGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Subject/Task')", OnComplete = "CancelGrid.CancelDataOnComplete('Subject/Task')", OnBegin = "CancelGrid.CancelDataOnBegin('Subject/Task')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Loan Purpose')" } )
+                    </td>
+                    <td class="t5">@Ajax.ActionLink( "App Date", "Execute", "Command", new { Command = "CancelGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Contact')", OnComplete = "CancelGrid.CancelDataOnComplete('Contact')", OnBegin = "CancelGrid.CancelDataOnBegin('Contact')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Source')" } )
+                    </td>
+                    <td class="t6">@Ajax.ActionLink( "Borrower", "Execute", "Command", new { Command = "CancelGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Status')", OnComplete = "CancelGrid.CancelDataOnComplete('Status')", OnBegin = "CancelGrid.CancelDataOnBegin('Status')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Status')" } )
+                     <div class="canceledBorrowerStatusArrow">
+                            <div class="canceledBorrowerStatusFilter">
+                                <ul id="canceledBorrowerStatusFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(String.IsNullOrEmpty(((CancelLoanListState)Session[SessionHelper.CancelListState]).BorrowerStatusFilter) ? "lowers" : "lower")">
+                                                @Ajax.ActionLink("Show All", "Execute", "Command", new { Command = "CancelBorrowerStatusFilter,BorroweStatusFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CancelGrid.CancelDataOnSuccess()" })
+                                            </li>
+                                            @foreach (BorrowerStatusType borrowerStatusType in Model.BorrowerStatusList)
+                                            {
+                                                <li class="@(((CancelLoanListState)Session[SessionHelper.CancelListState]).BorrowerStatusFilter != null && ((CancelLoanListState)Session[SessionHelper.CancelListState]).BorrowerStatusFilter == borrowerStatusType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink(borrowerStatusType.GetStringValue(), "Execute", "Command", new { Command = "CancelBorrowerStatusFilter,BorroweStatusFilter=" + borrowerStatusType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "CancelGrid.CancelDataOnSuccess()" })
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t7">@Ajax.ActionLink( "Program", "Execute", "Command", new { Command = "CancelGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Status')", OnComplete = "CancelGrid.CancelDataOnComplete('Status')", OnBegin = "CancelGrid.CancelDataOnBegin('Status')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t8">@Ajax.ActionLink( "Loan Amt", "Execute", "Command", new { Command = "CancelGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Status')", OnComplete = "CancelGrid.CancelDataOnComplete('Status')", OnBegin = "CancelGrid.CancelDataOnBegin('Status')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t9">@Ajax.ActionLink( "Rate", "Execute", "Command", new { Command = "CancelGridSorting,Column=9" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Status')", OnComplete = "CancelGrid.CancelDataOnComplete('Status')", OnBegin = "CancelGrid.CancelDataOnBegin('Status')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t10">@Ajax.ActionLink( "Lock Expire Date", "Execute", "Command", new { Command = "CancelGridSorting,Column=10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Status')", OnComplete = "CancelGrid.CancelDataOnComplete('Status')", OnBegin = "CancelGrid.CancelDataOnBegin('Status')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t11">@Ajax.ActionLink( "Current Activity", "Execute", "Command", new { Command = "CancelGridSorting,Column=11" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Status')", OnComplete = "CancelGrid.CancelDataOnComplete('Status')", OnBegin = "CancelGrid.CancelDataOnBegin('Status')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Status')" } )
+                    </td>
+                    <td class="t12">@Ajax.ActionLink( "Activity Status", "Execute", "Command", new { Command = "CancelGridSorting,Column=12" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Status')", OnComplete = "CancelGrid.CancelDataOnComplete('Status')", OnBegin = "CancelGrid.CancelDataOnBegin('Status')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Status')" } )
+                    </td>
+                    
+                </tr>
+                @if (Model.CancelItems != null)
+                {
+                    for ( int i = 0; i < Model.CancelItems.Count; i++ )
+                    {
+                        if (Model.CancelItems[i].CancelViewItems != null)
+                        {
+                            <tr class="@Model.CancelItems[i].CancelViewItems[0].ClassCollection last"  id="task_@{@String.Format("{0}P", i)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.CancelItems[i].CancelViewItems[0].ClassCollection', true, 'Cancel')">
+                                <td>
+                                    <div class="biggreen" id="arrowdiv_@{@String.Format("{0}P", i)}">
+                                            </div>
+                                            @if (Model.CancelItems[i].CancelViewItems.Count > 1)
+                                            {
+                                                <div class="childIndicator" id="childIndicator_@{@String.Format("{0}P", i)}" onclick="$(this).unbind('click'); SelectedTask('@String.Format("{0}P", i)',
+                                                '@Model.CancelItems[i].CancelViewItems[0].ClassCollection', false, 'Cancel')">
+                                
+                                                </div>  
+                                            }
+                                </td>
+                                <td><div class="loanid" style="display: none">@Model.CancelItems[i].CancelViewItems[0].LoanId.ToString()</div></td>
+                                <td style="display: none" class="encryptedloanid">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.CancelItems[ i ].CancelViewItems[ 0 ].LoanId.ToString(), EncriptionKeys.Default ) )</td>
+                                <td style="display: none" class="prospectid">@Model.CancelItems[i].CancelViewItems[0].LoanId</td>
+                                <td>
+                                <span class="@Model.CancelItems[i].CancelViewItems[0].LicenseExpiredClass" title="@Model.CancelItems[i].CancelViewItems[0].LicenseExpiredMessage">
+                                    @Model.CancelItems[i].CancelViewItems[0].ConciergeFullName
+                                </span>
+                                </td>
+                                <td class="textcenter">@Model.CancelItems[i].CancelViewItems[0].NumberOfAlerts.ToString()
+                                </td>
+                                <td class="Docs">@Model.CancelItems[i].CancelViewItems[0].NumberOfDocsToReview.ToString()
+                                </td>
+                                <td class="alertDocs">@Model.CancelItems[i].CancelViewItems[0].LoanNumber
+                                </td>
+                                               
+                                <td class="alertDocs">@Model.CancelItems[i].CancelViewItems[0].OpenDate.ToString("MM/dd/yyyy")</td>
+                                <td class="alertBorrower"><span title="@Model.CancelItems[i].CancelViewItems[0].FullName">@(Model.CancelItems[i].CancelViewItems[0].FullName.Length > 15 ?
+                                String.Format("{0}...", Model.CancelItems[i].CancelViewItems[0].FullName.Substring(0, 15)) : Model.CancelItems[i].CancelViewItems[0].FullName) </span></td>
+                               <td class="alertProgram">   <span rel="ProgramNameToolTip,LoanId=@Model.CancelItems[i].CancelViewItems[0].LoanId.ToString()" class="PopupTrigger2 cursorhand" title="@Model.CancelItems[i].CancelViewItems[0].ProgramName">@(Model.CancelItems[i].CancelViewItems[0].ProgramName.Length > 28 ?
+                               String.Format("{0}...", Model.CancelItems[i].CancelViewItems[0].ProgramName.Substring(0, 26)) : Model.CancelItems[i].CancelViewItems[0].ProgramName) </span></td>
+                                <td class="alertDocs">@Model.CancelItems[i].CancelViewItems[0].MortgageAmount.ToString().ToMoney()</td>
+                                <td class="alertDocs">@String.Format("{0:0.000}%", Model.CancelItems[i].CancelViewItems[0].Rate)</td>
+                                <td class="alertDocs">@(Model.CancelItems[i].CancelViewItems[0].LockExpireDate != DateTime.MinValue ? Model.CancelItems[i].CancelViewItems[0].LockExpireDate.ToString() : String.Empty)</td>
+                              <td class="alertCurrentActivity"><span title="@Model.CancelItems[i].CancelViewItems[0].ActivityName">@Model.CancelItems[i].CancelViewItems[0].ActivityName</span></td>
+                                 <td>@Model.CancelItems[i].CancelViewItems[0].ActivityStatus</td>
+                            </tr>
+                            // Render child loans
+                                for (int j = 1; j < Model.CancelItems[i].CancelViewItems.Count; j++)
+                                {
+                                    <tr class="@Model.CancelItems[ i ].CancelViewItems[ j ].ClassCollection childloan"  id="task_@{@String.Format("{0}P{1}", i, j)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.CancelItems[ i ].CancelViewItems[ j ].ClassCollection', true, 'Cancel')" style="display:none">
+                                        <td><!-- Empty slot --></td>
+                                        <td>
+                                            <div class="loanid" style="display: none">@Model.CancelItems[i].CancelViewItems[j].LoanId.ToString()</div>
+                                        </td>
+                                        <td style="display: none" class="prospectid">@Model.CancelItems[i].CancelViewItems[j].LoanId</td>
+                                        <td>
+                                            <span class="@Model.CancelItems[i].CancelViewItems[j].LicenseExpiredClass" title="@Model.CancelItems[i].CancelViewItems[j].LicenseExpiredMessage">
+                                                @Model.CancelItems[i].CancelViewItems[j].ConciergeFullName
+                                            </span>
+                                        </td>
+                                        <td class="textcenter">@Model.CancelItems[i].CancelViewItems[j].NumberOfAlerts.ToString()
+                                        </td>
+                                        <td class="Docs">@Model.CancelItems[i].CancelViewItems[j].NumberOfDocsToReview.ToString()
+                                        </td>
+                                        <td class="alertDocs">@Model.CancelItems[i].CancelViewItems[j].LoanNumber
+                                        </td>
+                                        <td class="alertDocs">@Model.CancelItems[i].CancelViewItems[j].OpenDate.ToString("MM/dd/yyyy")
+                                        </td>
+                                        <td class="alertBorrower">
+                                            <span title="@Model.CancelItems[i].CancelViewItems[j].FullName">
+                                                @(Model.CancelItems[i].CancelViewItems[j].FullName.Length > 15 ?
+                                                String.Format("{0}...", Model.CancelItems[i].CancelViewItems[j].FullName.Substring(0, 15)) : Model.CancelItems[i].CancelViewItems[j].FullName) 
+                                            </span>
+                                        </td>
+                                        <td class="alertProgram">
+                                            <span rel="ProgramNameToolTip,LoanId=@Model.CancelItems[i].CancelViewItems[j].LoanId.ToString()" class="PopupTrigger2 cursorhand" title="@Model.CancelItems[i].CancelViewItems[j].ProgramName">
+                                                @(Model.CancelItems[i].CancelViewItems[j].ProgramName.Length > 28 ?
+                                                String.Format("{0}...", Model.CancelItems[i].CancelViewItems[j].ProgramName.Substring(0, 26)) : Model.CancelItems[i].CancelViewItems[j].ProgramName) 
+                                            </span>
+                                        </td>
+                                        <td class="alertDocs">@Model.CancelItems[i].CancelViewItems[j].MortgageAmount.ToString().ToMoney()</td>
+                                        <td class="alertDocs">@String.Format("{0:0.000}%", Model.CancelItems[i].CancelViewItems[j].Rate)</td>
+                                        <td class="alertDocs">@(Model.CancelItems[i].CancelViewItems[j].LockExpireDate != DateTime.MinValue ? Model.CancelItems[i].CancelViewItems[j].LockExpireDate.ToString() : String.Empty)</td>
+                                        <td class="alertCurrentActivity">
+                                            <span title="@Model.CancelItems[i].CancelViewItems[j].ActivityName">
+                                                @Model.CancelItems[i].CancelViewItems[j].ActivityName
+                                            </span>
+                                        </td>
+                                        <td>@Model.CancelItems[i].CancelViewItems[j].ActivityStatus</td>
+                                    </tr>
+                                }
+                        }		        
+                    }                    
+                }
+            </table>
+        </div>
+        <div class="todolistfooter">
+        
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+        @if ( Model.TotalItems != 0 )
+        {     
+                @(( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage * 10 - 9) <span>-</span> @(( ( MML.Web.LoanCenter.Helpers.Utilities.CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage * 10 - ( 10 - @Model.CancelItems.Count )) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+        }
+        else if ( Model.TotalItems == 0 )
+        {
+            <span>0 records</span>
+        }
+                </div>
+            @if ( Model.PageCount > 1 )
+            { 
+            <div id="pagingDiv" class="normalfont left20">
+            @if ( Model.TotalItems != 0 )
+            {
+                if ( ( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage != 1 )
+                {               
+                 <a href="javascript:void(0)" onclick="CancelGrid.CancelDataHelper('command=CancelGridPaging,Page=@(( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage - 1)')">				
+                    <div class="leftarrow">
+                    </div>
+                </a>
+                }
+                else
+                {
+                <div class="leftarrow">
+                    </div>
+                }
+                <div class="left1010">
+                        @if ( Model.CurrentPage > 10 )
+                        {
+                            @Ajax.ActionLink( "...", "Execute", "Command", new
+                       {
+                           Command = String.Format( "CancelGridPaging,Page={0}",
+                           ( Model.PageCount >= ( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage - 10 ) ?
+                           ( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage - 10 :
+                           Model.PageCount )
+                       },
+                                                     new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Page, plusTen')", OnComplete = "CancelGrid.CancelDataOnComplete('Page, plusTen')", OnBegin = "CancelGrid.CancelDataOnBegin('Page, plusTen')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                        }
+                    
+                    @for ( int j = Model.StartPage; j <= Model.EndPage; j++ )
+                    {
+                        if ( j != ( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage )
+                        { 
+                        @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "CancelGridPaging,Page={0}", j ) },
+                                                                                                new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "CancelGrid.CancelDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "CancelGrid.CancelDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "CancelGrid.CancelDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "CancelGrid.CancelDataOnSuccess('Page{0}')", j ) }, new { @class = "page" } )
+                        }
+                        else
+                        { 
+                        @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "CancelGridPaging,Page={0}", j ) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "CancelGrid.CancelDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "CancelGrid.CancelDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "CancelGrid.CancelDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "CancelGrid.CancelDataOnSuccess('Page{0}')", j ) }, new { @class = "pageselected" } )
+                        }
+                    }
+                    @if ( Model.LastPageDots == false )
+                    {
+                        @Ajax.ActionLink( "...", "Execute", "Command", new
+                   {
+                       Command = String.Format( "CancelGridPaging,Page={0}",
+                       ( Model.PageCount >= ( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage + 10 ) ?
+                       ( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage + 10 :
+                       Model.PageCount )
+                   },
+                                                                         new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "CancelGrid.CancelDataOnFailure('Page, plusTen')", OnComplete = "CancelGrid.CancelDataOnComplete('Page, plusTen')", OnBegin = "CancelGrid.CancelDataOnBegin('Page, plusTen')", OnSuccess = "CancelGrid.CancelDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                    }
+                </div>
+                if ( ( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage != Model.PageCount )
+                    {              
+				        <a href="javascript:void(0)" onclick="CancelGrid.CancelDataHelper('command=CancelGridPaging,Page=@(( ( CancelLoanListState )HttpContext.Current.Session[ "CancelListState" ] ).CurrentPage + 1)')">
+					        <div class="rightarrow">
+                            </div>
+				        </a>
+                    }
+                    else
+                    { 
+                <div class="rightarrow">
+                    </div>
+                    }
+            }
+            </div>
+            }
+        </div>
+    </div>
+</div>

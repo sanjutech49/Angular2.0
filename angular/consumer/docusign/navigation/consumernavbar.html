@@ -1,0 +1,55 @@
+﻿<div class="consumer-nav-bar-container">
+    <!--<div>This is my header.!</div>
+    <button ng-click="navBarCtrl.test()">Test</button>-->
+
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">
+                    <img class="logo-img" src="../../../../Content/images/Consumer/logo-white.png" />
+                </div>
+                <div class="nav-vertical-divider"></div>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-class="navBarCtrl.isESigningBold() ? 'active' : 'disabled'">
+                        <a ng-click="navBarCtrl.goToESigning()">
+                            <div class="img-check-placemark inline" ng-hide="navBarCtrl.isESigningComplete">&nbsp;</div>
+                            <img class="img-green-check inline" src="../../../../Content/images/Consumer/green-check.png" ng-show="navBarCtrl.isESigningComplete">Sign Disclosures
+                        </a>
+                    </li>
+                    <li ng-class="navBarCtrl.isAppraisalBold()? 'active' : 'disabled'" ng-show="navBarCtrl.isPrimaryApplication()">
+                        <a ng-click="navBarCtrl.goToAppraisal()">
+                            <div class="img-check-placemark inline" ng-hide="navBarCtrl.isAppraisalComplete()">&nbsp;</div>
+                            <img class="img-green-check inline" src="../../../../Content/images/Consumer/green-check.png" ng-show="navBarCtrl.isAppraisalComplete()">Order Appraisal
+                        </a>
+                    </li>
+                    <li ng-hide="true" ng-class="navBarCtrl.isUploadBold()? 'active' : 'disabled'">
+                        <a ng-click="navBarCtrl.goToUpload()">Upload Documents</a>
+                    </li>
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav signout">
+                        <li><a ng-click="navBarCtrl.signOut()">Sign Out</a></li>
+                        <li class="dropdown">
+                            <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <div><i class="glyphicon glyphicon-cog">&nbsp;</i></div>
+                            </div>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a ng-click="navBarCtrl.goToEConsentSettings()">eConsent Settings</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</div>

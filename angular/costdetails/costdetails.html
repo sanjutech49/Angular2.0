@@ -1,0 +1,32 @@
+﻿<div class="cost-details" ng-init="costDetailsCtrl.checkVaRules()">
+    <div id="cost-details">
+        <div class="loan-application-error-container" ng-show="costDetailsCtrl.showErrorContainer">
+            An error occurred while loading data
+        </div>
+        <div>
+            <form name="frmCostDetails" novalidate action="">
+                <div ng-include src="'angular/costdetails/loancosts.html'">
+                </div>
+                <div ng-include src="'angular/costdetails/othercosts.html'">
+                </div>
+                <div ng-include src="'angular/costdetails/lendercredits.html'">
+                </div>
+                <div ng-include src="'angular/costdetails/totals.html'">
+                </div>
+                <div ng-include src="'angular/costdetails/payoffs.html'" ng-if="costDetailsCtrl.isRefinance">
+                </div>
+                <div ng-include src="'angular/costdetails/calculatedcashtoclose.html'" ng-if="costDetailsCtrl.isRefinance">
+                </div>
+                <div class="imp-footer">
+                </div>
+                <div class="imp-main-buttons-div">
+                    <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" ng-click="costDetailsCtrl.cancelChanges();"
+                           ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields" />
+                    <input type="button" class="imp-button-hm-wl-prim" value="Save" ng-click="costDetailsCtrl.saveAll();"
+                           ng-disabled="!costDetailsCtrl.wrappedLoan.canSave() || (costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields)" />
+                </div>
+            </form>
+            <div ui-view="redirection"></div>
+        </div>
+    </div>
+</div>

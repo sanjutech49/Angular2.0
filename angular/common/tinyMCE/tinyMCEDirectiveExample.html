@@ -1,0 +1,26 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>AngularUI - Directive TinyMCE Demo</title>
+    <link href="/Content/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="../../../scripts/angular/angular.js"></script>
+    <script type="text/javascript" src="../../../scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="../../../scripts/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="../../../angular/ts/global/global.js"></script>
+    <script type="text/javascript" src="tinymce.js"></script>
+
+    <script type="text/javascript" src="tinyMCE.directive.js"></script>
+    <script type="text/javascript" src="tinyMCE.module.js"></script>
+    <script type="text/javascript" src="tinyMCE.DirectiveExample.controller.js"></script>
+    <script type="text/javascript" src="tinyMCEDialog.controller.js"></script>
+</head>
+<body ng-app="demo" ng-controller="tinyMCEDemoController as tinyMCECntrl">
+    <div><strong>Bound HTML</strong></div>
+    <button ng-click="tinyMCECntrl.popUp()">Show Popup Dialog</button>
+    <div>{{tinyMCECntrl.html}}</div>
+    <tiny-mce html="tinyMCECntrl.html" />
+
+</body>
+</html>

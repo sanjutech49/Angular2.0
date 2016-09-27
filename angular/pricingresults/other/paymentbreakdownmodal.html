@@ -1,0 +1,40 @@
+﻿<div class="imp-tooltip payment-breakdown-container" >
+    
+    <div class="imp-div-close-x floatright" style="margin:9px;" onclick="$(this).parents('.tooltip').prev().trigger('click');"></div>
+    <div class="payment-breakdown-content" >
+        <div class="payment-breakdown-header">Payment Breakdown</div>
+        <div class="first-row">
+            APR
+            <div class="value">{{product.paymentBreakdownModalVM.apr | impPercentage  }}</div>
+        </div>
+        <div class="pb-row">
+            Principal & Interest
+            <div class="value">{{product.paymentBreakdownModalVM.principalAndInterest | currency : "" : 2}}</div>
+        </div>
+        <div class="pb-row">
+            Taxes<span class="percent">({{product.paymentBreakdownModalVM.taxesMonthlyAmountPercent | impPercentage }})</span>
+            <div class="value">{{product.paymentBreakdownModalVM.taxesMonthlyAmount | currency : "" : 2}}</div>
+        </div>
+        <div class="pb-row">
+            Insurance <span class="percent">({{product.paymentBreakdownModalVM.insuranceMonthlyAmountPercent | impPercentage}})</span>
+            <div class="value">{{product.paymentBreakdownModalVM.insuranceMonthlyAmount | currency : "" : 2}}</div>
+        </div>
+        <div class="pb-row" ng-if="product.mortgageType != 5">
+            {{product.mortgageType == 1 ? 'MIP' : 'MI'}}<span class="percent">({{product.paymentBreakdownModalVM.mipPercent | impPercentage }})</span>
+            <div class="value">{{product.paymentBreakdownModalVM.mip | currency : "" : 2}}</div>
+        </div>
+        <div class="pb-row" ng-if="product.mortgageType == 5">
+            MI<span class="percent">(0.5%)</span>
+            <div class="value">{{product.paymentBreakdownModalVM.mip | currency : "" : 2}}</div>
+        </div>
+        <!--<div class="pb-row">
+            HOA
+            <div class="value">150.00</div>
+        </div>-->
+        <div class="payment-breakdown-footer">
+            Total Estimated Payment
+            <span class="total-value">{{product.paymentBreakdownModalVM.totalMonthlyPayment | currency : "$" : 2}}</span>
+        </div>
+    </div>
+
+</div>

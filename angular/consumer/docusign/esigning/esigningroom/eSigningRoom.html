@@ -1,0 +1,61 @@
+﻿<div class="esigningRoom-container">
+    <div class="esigningRoom">
+        <iframe class="eSigningRoomIFrame" ng-src="{{eSigningRoomCtrl.iframeSrc}}" sandbox="allow-same-origin allow-scripts allow-popups" ng-show="eSigningRoomCtrl.showESigningRoomIFrame"></iframe>
+        <!--<iframe style="width: 100%; min-height: 100px;" class="fullheight" fullheight ng-src="{{eSigningRoomCtrl.iframeSrc}}" sandbox="allow-same-origin allow-scripts"></iframe>-->
+        <!--<img style="width: 100%;" src="../../../../../Content/images/Consumer/mock-signing-room.PNG" />
+        <button class="imp-button-general" style="position: fixed; bottom: 40px; right: 40px; z-index: 1000; width: 200px; height: 40px;" ng-click="eSigningRoomCtrl.finish()">Finish</button>-->
+    
+        <!--These regions will be shown as needed based on the signing room result-->
+
+        <!--Success Region-->
+        <div class="jumbotron" style="height: 100%; margin: 0px; background-color: transparent;" ng-show="eSigningRoomCtrl.showSuccessRegion">
+            <div class="container">
+                <h1>Thank you!</h1>
+                <br />
+                <br />
+                <br />
+                <br />
+                <p>Your eSigning is complete. Please wait while we save your document...</p>
+            </div>
+        </div>
+
+        <!--CoBorrower Required Region-->
+        <div class="jumbotron" style="height: 100%; margin: 0px; background-color: transparent;" ng-show="eSigningRoomCtrl.showCoBorrowerRequiredRegion">
+            <div class="container">
+                <h1>We're sorry!</h1>
+                <br />
+                <br />
+                <br />
+                <br />
+                <p>Our records indicate that a coborrower has not yet signed.  Please contact them to ensure that they sign too.  You cannot continue until all borrowers have signed.</p>
+            </div>
+        </div>
+
+        <!--Decline Region-->
+        <div class="jumbotron" style="height: 100%; margin: 0px; background-color: transparent;" ng-show="eSigningRoomCtrl.showDeclineRegion">
+            <div class="container">
+                <h1>We're sorry!</h1>
+                <br />
+                <br />
+                <br />
+                <br />
+                <p>You have declined to sign your disclosures.  Please contact your loan officer to continue with your loan.</p>
+            </div>
+        </div>
+
+        <!--StartOver Region-->
+        <div class="jumbotron" style="height: 100%; margin: 0px; background-color: transparent;" ng-show="eSigningRoomCtrl.showRestartRegion">
+            <div class="container">
+                <h1>We're sorry!</h1>
+                <br />
+                <br />
+                <br />
+                <br />
+                <p>{{eSigningRoomCtrl.startOverMessage}}</p>
+                <br />
+                <button class="btn imp-button-general btn-continue" style="width: 160px;" ng-click="eSigningRoomCtrl.restart()">Restart</button>
+            </div>
+        </div>   
+
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿<div class="imp-ui-tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <div ng-class="imp-main-area-section">
+        <div class=" 1003-main-container">
+    <div class="imp-loader-container" ng-show="ausCtrl.showLoader">
+        <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+    <div class="1003-loan-application-header" ng-hide="ausCtrl.showLoader">
+        <div class="imp-text-hs-wl-prim imp-aus-type" style="margin-right:1px; margin-top:8px; width:250px;">
+            <span style="font-weight: normal;">AUS Type:</span>
+                    <div class="imp-span-ddl-container medium" style="width: 170px">
+                <select class="imp-ddl" ng-model="ausCtrl.defaultAus.value"
+                        ng-options="ausType for ausType in ausCtrl.ausTypes"></select>
+            </div>
+        </div>
+        <div ng-if="!ausCtrl.showLoader">
+            <imp-tabset tabset-template-url="/angular/common/tabset.html">
+                <imp-tab id="DU" title="Fannie Mae - DU" ui-sref="{{ausCtrl.ausTabs.du.isDisabled ? '-' : 'loanCenter.loan.aus.du'}}" specific-class="imp-corner-left" tab-template-url="/angular/common/tab.html" is-disabled="ausCtrl.ausTabs.du.isDisabled" is-selected="ausCtrl.ausTabs.du.isSelected"></imp-tab>
+                <imp-tab id="LP" title="Freddie Mac - LP" ui-sref="{{ausCtrl.ausTabs.lp.isDisabled ? '-' : 'loanCenter.loan.aus.lp'}}" specific-class="imp-angular-subtabs" tab-template-url="/angular/common/tab.html" is-disabled="ausCtrl.ausTabs.lp.isDisabled" is-selected="ausCtrl.ausTabs.lp.isSelected"></imp-tab>
+                <imp-tab id="GUS" title="USDA - GUS" template-url="" specific-class="imp-angular-subtabs" tab-template-url="/angular/common/tab.html" is-disabled="ausCtrl.ausTabs.gus.isDisabled"></imp-tab>
+                <imp-tab id="Manual" title="Manual Underwriting" template-url="" specific-class="imp-angular-subtabs imp-corner-right" tab-template-url="/angular/common/tab.html" is-disabled="ausCtrl.ausTabs.manual.isDisabled"></imp-tab>
+            </imp-tabset>
+                    <div ui-view="ausDetails"></div>
+                </div>
+
+        </div>
+    </div>
+</div>
+</div>

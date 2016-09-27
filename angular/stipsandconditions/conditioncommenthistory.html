@@ -1,0 +1,56 @@
+﻿<div id="conditionHistoryPopup" class="condition-popup-container-main width680 ">
+    <div class="conditions-add-new-popup-header">
+        History
+        <div class=" imp-div-close-x floatright" ng-click="ConCommentHistoryModalCtrl.ok()">
+        </div>
+    </div>
+    <div class="imp-sa-split" style="margin-left: 2%; min-width: 95%">
+    </div>
+    <div class="modal-body">
+        <div id="divConditionDescription" >
+            <label class="boldFont12 condition-history-title">
+                Condition Description
+            </label>
+            <label class="boldFont12 condition-history-title">
+                {{ ConCommentHistoryModalCtrl.Code }}</label>
+            <label class="font12 condition-history-title">
+                {{ ConCommentHistoryModalCtrl.Description }}</label>
+        </div>
+        <div id="divitems" class="imp-sa-history-body floatleft" style="margin-left: 0px; width: 640px">
+            <div class="imp-sa-history-table-container" style="width: 640px">
+                <div class="imp-sa-history-table-header">
+                    <div style="margin-left: 15px; width: 350px">
+                        Comment
+                    </div>
+                    <div style="width: 120px">
+                        Updated By
+                    </div>
+                    <div style="width: 130px; padding-left: 5px;">
+                        Date
+                    </div>
+                </div>
+                <div class="imp-sa-history-table-body">
+                    <div id="divRow" class="" style="clear: both; padding: 7px; border-top:1px solid #bdbebe" ng-repeat="comment in ConCommentHistoryModalCtrl.ConditionCommentHistoryViewModel">
+                        <div class="imp-sa-history-table-column" style="margin-left: 10px; width: 350px">
+                            {{comment.Comment}}
+                        </div>
+                        <div class="imp-sa-history-table-column" style="width:120px">
+                            {{comment.UpdatedBy}}
+                        </div>
+                        <div class="imp-sa-history-table-column" style="width: 130px; padding-left: 5px;">
+                            {{ comment.Date | date: 'medium' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="imp-sa-split" style="margin-left: 2%; min-width: 95%">
+     </div>
+    <div class="conditions-popup-footer" style="padding: 15px 30px;">
+        <button class="imp-button-hm-wm-prim" ng-click="ConCommentHistoryModalCtrl.ok()">
+            OK
+        </button>
+    </div>
+</div>

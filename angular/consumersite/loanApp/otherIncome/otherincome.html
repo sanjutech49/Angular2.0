@@ -1,0 +1,94 @@
+﻿<div class="other-income">
+    <div class="row wizard-content">
+        <div class="col-xs-12">
+            <div class="row center section-content">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12 section-question-text top">
+                            Do you or Leia Skywalker recieve any <b>other type</b> of income?
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 section-question-subtext">
+                            such as dividends, alimony, social security or retirement
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 section-question-radio">
+                            <div class="form-group">
+                                <input type="radio" name="radios2" id="radios2-1" value="1" checked="checked">
+                                <label class="radios-inline" for="radios2-1">
+                                    Yes
+                                </label>
+                                <input type="radio" name="radios2" id="radios2-2" value="2">
+                                <label class="radios-inline" for="radios2-2">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row section-title center top">Other Income</div>
+            <div class="row center">
+                <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                    <master-list collection="otherIncomeCntrl.loan.loanApp.otherIncomes"
+                                 template-url="'/angular/consumersite/directives/masterlist/otherIncome.template.html'"
+                                 active-item="otherIncomeCntrl.otherIncomeActive">
+                    </master-list>
+                </div>
+            </div>
+            <div class="row section-title center section-content" ng-show="otherIncomeCntrl.loan.loanApp.otherIncomes.length > 1">Other Income Information</div>
+            <ng-form name="otherIncomeForm">
+                <div class="row section-content center-col">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label" for="belongsToSelect">Belongs To</label>
+                            <div class="col-xs-12">
+                                <select id="belongsToSelect" class="form-control select-validation"
+                                        ng-model="otherIncomeCntrl.otherIncomeActive.ownerType"
+                                        ng-options="ownerType.value as ownerType.text for ownerType in otherIncomeCntrl.getOwnerTypeLookups()"
+                                        required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label" for="incomeTypeSelect">Income Type</label>
+                            <div class="col-xs-12">
+                                <select id="incomeTypeSelect" class="form-control select-validation"
+                                        ng-model="otherIncomeCntrl.otherIncomeActive.incomeType"
+                                        ng-change="otherIncomeCntrl.otherIncomeActive.setIncomeTypeName(otherIncomeCntrl.applicationData.lookup.incomeTypesOther, otherIncomeCntrl.otherIncomeActive.incomeType)"
+                                        ng-options="incomeType.value as incomeType.text for incomeType in otherIncomeCntrl.applicationData.lookup.incomeTypesOther"
+                                        required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label" for="textinput">Amount</label>
+                            <div class="col-xs-12">
+                                <div class="input-group dual-input-60-40">
+                                    <input type="text" class="form-control first select-validation"
+                                           placeholder="$ Pretax"
+                                           ng-model="otherIncomeCntrl.otherIncomeActive.incomeValue"
+                                           format-currency
+                                           required>
+                                    <select class="form-control second select-validation" id="incomePeriod"
+                                            ng-model="otherIncomeCntrl.otherIncomeActive.preferredPaymentPeriodId"
+                                            ng-options="incomePeriodType.value as incomePeriodType.text for incomePeriodType in otherIncomeCntrl.applicationData.lookup.paymentPeriodOptions"
+                                            required>
+                                        <option value="" disabled selected>Select One</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-form>
+            <div class="row section-content center">
+                <button class="btn btn-secondary btn-add-item" ng-disabled="otherIncomeForm.$invalid" ng-click="otherIncomeCntrl.addOtherIncome(); otherIncomeForm.$setPristine(); otherIncomeForm.$setUntouched()"><i class="fa fa-plus-circle"></i> Add more Other Income</button>
+            </div>
+        </div>
+    </div>
+</div>

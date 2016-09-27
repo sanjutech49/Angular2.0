@@ -1,0 +1,90 @@
+﻿<div class="income-content">
+    <div class="loan-application-error-container" ng-show="income.controllerData.showErrorContainer">
+        An error occurred while loading data
+    </div>
+    <div class="imp-loader-container" ng-show="income.controllerData.showLoader">
+        <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+    </div>
+    <div ng-hide="income.controllerData.showLoader || income.controllerData.showErrorContainer">
+
+        <div class="income-main-header">
+            <div ng-class="income.controllerData.isExpanded.borrower ? 'imp-collapsed down':'imp-collapsed right'"
+                 ng-click="income.controllerData.isExpanded.borrower = !income.controllerData.isExpanded.borrower"></div>
+            <span class="income-title imp-text-enhanced-color">Borrower &nbsp;</span>
+            <span class="income-title imp-text-enhanced-color" style="font-weight:normal;margin-left:-8px">|&nbsp; {{::income.wrappedLoan.ref.active.getBorrower().fullName}}</span>
+
+            <div class="fleft imp-icon-borrower"></div>
+        </div>      
+        <div class="income-container" ng-if="!income.controllerData.showLoader && !showErrorContainer" ng-show="income.controllerData.isExpanded.borrower"
+             ng-init="borrowerRegularIncome = income.wrappedLoan.ref.active.getBorrower().getRegularIncome(); borrowerMilitaryIncome=income.wrappedLoan.ref.active.getBorrower().getMilitaryIncome();">
+            <employment-info borrower-with-info="income.wrappedLoan.ref.active.getBorrower()"
+                             is-disabled="income.controllerData.disableFields"
+                             is-additional-emp-info="false"
+                             drop-down-lists="income.applicationData.lookup"
+                             default-military-income-info-list="borrowerMilitaryIncome"
+                             default-regular-income-info-list="borrowerRegularIncome"
+                             are-six-pieces-acquired="income.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                             wrapped-loan="income.wrappedLoan"
+                             on-years-on-this-job-changed-fn="income.validateEmploymentDuration"
+                             remove-employment-info-fn="income.removeEmploymentInfo"></employment-info>
+            <employment-info borrower-with-info="income.wrappedLoan.ref.active.getBorrower()"
+                             is-disabled="income.controllerData.disableFields"
+                             is-additional-emp-info="true"
+                             default-military-income-info-list="borrowerMilitaryIncome"
+                             default-regular-income-info-list="borrowerRegularIncome"
+                             are-six-pieces-acquired="income.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                             drop-down-lists="income.applicationData.lookup"
+                             on-years-on-this-job-changed-fn="income.validateEmploymentDuration"
+                             remove-employment-info-fn="income.removeEmploymentInfo"></employment-info>
+            <div class="add-employer" ng-click="income.addEmploymentInfo(income.wrappedLoan.ref.active.getBorrower())">
+                <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="vertical-align: middle; margin-top: -4px; "></imp-circle>
+                <span class="actions add">Add Employer</span>
+            </div>
+        </div>
+
+        <div class="income-main-header" ng-show="income.wrappedLoan.ref.active.isSpouseOnTheLoan">
+            <div ng-class="income.controllerData.isExpanded.coBorrower ? 'imp-collapsed down':'imp-collapsed right'"
+                 ng-click="income.controllerData.isExpanded.coBorrower = !income.controllerData.isExpanded.coBorrower"></div>
+            <span class="income-title imp-text-enhanced-color">Co-Borrower &nbsp;</span>
+            <span class="income-title imp-text-enhanced-color" style="font-weight: normal; margin-left: -8px">|&nbsp; {{::income.wrappedLoan.ref.active.getCoBorrower().fullName}}</span>
+
+            <div class="fleft imp-icon-coborrower"></div>
+        </div>
+        <div class="income-container" ng-show="income.controllerData.isExpanded.coBorrower"
+             ng-if="income.wrappedLoan.ref.active.isSpouseOnTheLoan && !income.controllerData.showLoader && !showErrorContainer"
+             ng-init="coBorrowerRegularIncome = income.wrappedLoan.ref.active.getCoBorrower().getRegularIncome(); coBorrowerMilitaryIncome=income.wrappedLoan.ref.active.getCoBorrower().getMilitaryIncome();">
+            <employment-info borrower-with-info="income.wrappedLoan.ref.active.getCoBorrower()"
+                             is-disabled="income.controllerData.disableFields"
+                             is-additional-emp-info="false"
+                             drop-down-lists="income.applicationData.lookup"
+                             default-military-income-info-list="coBorrowerMilitaryIncome"
+                             default-regular-income-info-list="coBorrowerRegularIncome"
+                             are-six-pieces-acquired="income.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                             wrapped-loan="income.wrappedLoan"
+                             on-years-on-this-job-changed-fn="income.validateEmploymentDuration"
+                             remove-employment-info-fn="income.removeEmploymentInfo"></employment-info>
+            <employment-info borrower-with-info="income.wrappedLoan.ref.active.getCoBorrower()"
+                             is-disabled="income.controllerData.disableFields"
+                             is-additional-emp-info="true"
+                             default-military-income-info-list="coBorrowerMilitaryIncome"
+                             default-regular-income-info-list="coBorrowerRegularIncome"
+                             are-six-pieces-acquired="income.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                             drop-down-lists="income.applicationData.lookup"
+                             on-years-on-this-job-changed-fn="income.validateEmploymentDuration"
+                             remove-employment-info-fn="income.removeEmploymentInfo"></employment-info>
+            <div class="add-employer" ng-click="income.addEmploymentInfo(income.wrappedLoan.ref.active.getCoBorrower())">
+                <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="vertical-align: middle; margin-top: -4px; "></imp-circle>
+                <span class="actions add">Add Employer</span>
+            </div>
+        </div>        
+        <div ng-include src="'angular/loanapplication/income/otherincome.html'"></div>
+
+        <!--<div class="income-content-footer imp-main-buttons-div">
+            <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes"
+                   ng-disabled="income.savingDataInProgress || income.controllerData.disableFields" />
+            <input type="button" class="imp-button-hm-wl-prim" value="Save" ng-click="income.saveLoan()"
+                   ng-disabled="income.savingDataInProgress || income.controllerData.disableFields" />
+        </div>-->
+
+    </div>
+</div>

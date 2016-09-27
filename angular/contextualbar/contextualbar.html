@@ -1,0 +1,147 @@
+﻿<div class="imp-contextual-wrapper" style="background-color: #414141; height:36px; text-align: justify;">
+    <div class="imp-upper-contextual" ng-if="contextualBarCtrl.getContextualType() == contextualBarCtrl.enums.ContextualTypes.Appraisal">
+        <div class="imp-upper-contextual-title"> {{contextualBarCtrl.getContextualName() | uppercase }} </div>
+    </div>
+    <div class="imp-upper-contextual" ng-if="contextualBarCtrl.getContextualType() == contextualBarCtrl.enums.ContextualTypes.PricingResults">
+        <div class="imp-upper-contextual-title"> {{contextualBarCtrl.getContextualName() | uppercase }} </div>
+        <div>
+            <span class="box-label">Primary: </span>
+            <span>{{contextualBarCtrl.wrappedLoan.ref.primary.getBorrower().fullName}}</span>
+        </div>
+        <div>
+            <span ng-if="contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().fullAddressString!=''">{{contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().fullAddressString}}</span>
+        </div>
+        <div>
+            <span class="box-label">Loan Amt:</span>
+            <div style="width: 90px; display: inline;">
+                <span>{{contextualBarCtrl.wrappedLoan.ref.loanAmount  | currency : "$" : 0}}</span>
+            </div>
+        </div>
+        <div ng-if="contextualBarCtrl.wrappedLoan.ref.loanPurposeType == 2">
+            <span class="box-label" style="width:59px; padding-right:5px;">Est. Value:</span>
+            <div style="width: 75px; display: inline;">
+                <span>{{contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().currentEstimatedValue | currency : "$" : 0}}</span>
+            </div>
+        </div>
+        <div ng-if="contextualBarCtrl.wrappedLoan.ref.loanPurposeType == 1">
+            <span class="box-label" style="width:59px; padding-right:5px;">Pur. Price:</span>
+            <div style="width: 75px; display: inline;">
+                <span>{{contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().purchasePrice | currency : "$" : 0}}</span>
+            </div>
+        </div>
+        <div>
+            <span class="box-label" style="width:63px; padding-right:5px;">LTV | CLTV  <span ng-show="contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().hcltv > 0">| HCLTV</span></span>
+            <div style="width: 120px; display: inline;">
+                <span>{{contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().ltv | impPercentage : 2}} | {{contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().cltv | impPercentage : 2}}</span>
+                <span ng-show="contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().hcltv > 0"> | {{contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().hcltv | impPercentage : 2}}</span>
+            </div>
+        </div>
+        <div>
+            <span class="box-label" style="float:left; padding-right: 5px; -webkit-margin-start: -9px;-webkit-margin-end: 10px;">DTI</span>
+            <div style="width: 100px; display: inline;">
+                <span>{{contextualBarCtrl.getDTI() | impRound : 3 | impPercentage}}</span>
+            </div>
+        </div>
+        <div>
+            <span class="box-label" style="padding-right: 5px;">FICO: </span>
+            <span style="min-width: 154px;-webkit-margin-start: 10px;"> {{contextualBarCtrl.getLowestMiddleFicoScore()}}</span>
+        </div>
+        <div style="margin-top:-3px;">
+            <div class="imp-contextual-comparison-report" ng-click="contextualBarCtrl.toggleComparisonModal()"
+                 ng-show="contextualBarCtrl.getContextualType() == contextualBarCtrl.enums.ContextualTypes.PricingResults &&
+                     contextualBarCtrl.wrappedLoan.ref.primary.getBorrower().fullName">
+                <span class="glyphicon imp-contextual-comparison-report-icon"> </span>
+            </div>
+        </div>
+        <div class="imp-contextual-wrapper">
+            <div ng-show="contextualBarCtrl.alertPanelVisible()" class="disc-alert-panel">
+                <div ng-class="contextualBarCtrl.areDisclosuresCreatedForAnyLoanApplication ? 'div-warninglight-notification' : 'div-warning-notification'">
+                    <div ng-include src="'angular/contextualbar/disclosurealertpanel.html'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="imp-upper-contextual" ng-if="contextualBarCtrl.getContextualType() && contextualBarCtrl.getContextualType() != contextualBarCtrl.enums.ContextualTypes.PricingResults && contextualBarCtrl.getContextualType() != contextualBarCtrl.enums.ContextualTypes.Appraisal">
+        <div class=" imp-upper-contextual-title">{{contextualBarCtrl.getContextualName() | uppercase }}</div>
+        <div style="color: white;">
+            <span class="box-label">Primary: </span>
+            <span>{{contextualBarCtrl.wrappedLoan.ref.primary.getBorrower().fullName}}</span>
+        </div>
+        <div>
+            <span ng-if="contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().fullAddressString!=''">{{contextualBarCtrl.wrappedLoan.ref.getSubjectProperty().fullAddressString}}</span>
+        </div>
+        <div class="loan-status-dropdown">
+            <span class="box-label" style="float:left;">Loan Status: </span>
+            <div class="btn-group-parent" style="margin-top: -4px; margin-left: 8px;">
+                <div class="btn-group" style="vertical-align: inherit;" dropdown>
+                    <div class="ddl-button"
+                         ng-disabled="!contextualBarCtrl.hasModifyMilestonePrivilege()"
+                         ng-class="contextualBarCtrl.loanStatusDropdownOpened ? 'dropdown-opened' : 'dropdown-closed'"
+                         ng-click="contextualBarCtrl.changeLoanStatusDropdownOpened(); $event.stopPropagation();" dropdown-toggle>
+                        <span ng-bind="contextualBarCtrl.loanStatus(contextualBarCtrl.wrappedLoan.ref.currentMilestone)"
+                              ng-style="contextualBarCtrl.wrappedLoan.ref.isMilestoneStatusManual ?  {'font-style': 'italic'} : ''">
+                        </span>
+                        <div class="imp-icon-gray-arrow-down" style="float:right; margin-top:4px;"></div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a ng-repeat="milestoneStatus in contextualBarCtrl.milestoneStatuses"
+                               ng-click="contextualBarCtrl.dropdownStatusChanged(milestoneStatus, contextualBarCtrl.enums.contextualBarDropDownTypes.milestoneStatus)">
+                                <input id="milestoneStatus{{milestoneStatus.value}}" class="imp-checkbox" type="checkbox"
+                                       ng-model="milestoneStatus.selected"
+                                       ng-class="{'glyphicon glyphicon-ok pull-right': contextualBarCtrl.isManualSelection(milestoneStatus)}" />
+                                <label for="milestoneStatus{{milestoneStatus.value}}"
+                                       class="imp-lb-checkbox"></label>
+                                {{ milestoneStatus.text }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="loan-app-date" ng-if="contextualBarCtrl.isApplicationDateVisible()">
+            <span class="box-label" style="margin-top: -2px;">Loan App Date: </span>
+            <input type="text" class="contextual-bar-input" placeholder="mm/dd/yyyy" imp-date on-blur-fn="contextualBarCtrl.onAppliationDateBlur()"
+                   ng-model="contextualBarCtrl.wrappedLoan.ref.applicationDate"
+                   ng-disabled="!contextualBarCtrl.applicationData.currentUser.hasPrivilege(contextualBarCtrl.enums.privileges.EditLoanApplicationDate)">
+        </div>
+        <div class="loan-status-dropdown" ng-if="!contextualBarCtrl.isApplicationDateVisible()">
+            <span class="box-label" style="float:left;">Prospect Status: </span>
+            <div class="btn-group-parent" style="margin-top: -4px; margin-left: 8px;">
+                <div class="btn-group" style="vertical-align: inherit;" dropdown>
+                    <div class="ddl-button" ng-class="contextualBarCtrl.leadStatusDropdownOpened ? 'dropdown-opened' : 'dropdown-closed'" ng-click="$event.stopPropagation();" dropdown-toggle>
+                        <span ng-bind="contextualBarCtrl.leadStatus">
+                        </span>
+                        <div class="imp-icon-gray-arrow-down" style="float:right; margin-top:4px;"></div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a ng-repeat="leadStatus in contextualBarCtrl.leadStatuses" ng-click="contextualBarCtrl.dropdownStatusChanged(leadStatus, contextualBarCtrl.enums.contextualBarDropDownTypes.leadStatus)"> {{ leadStatus.text }} </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="loan-number" ng-if="(contextualBarCtrl.isApplicationDateVisible()  && contextualBarCtrl.isLoanNumberVisible())|| contextualBarCtrl.isLoanNumberVisible()">
+            <span class="box-label imp-contextual-spanlabel">Loan #: </span>
+            <span class="imp-contextual-spanlabel"> {{contextualBarCtrl.wrappedLoan.ref.loanNumber}}</span>
+        </div>
+        <div style="color: white; margin-top:-3px;">
+            <div class="imp-contextual-comparison-report" ng-click="contextualBarCtrl.toggleComparisonModal()"
+                 ng-show="contextualBarCtrl.getContextualType() == contextualBarCtrl.enums.ContextualTypes.LoanScenario ||
+                 contextualBarCtrl.getContextualType() == contextualBarCtrl.enums.ContextualTypes.LoanDetails  &&
+                 contextualBarCtrl.wrappedLoan.ref.primary.getBorrower().fullName">
+                <span class="glyphicon imp-contextual-comparison-report-icon"> </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="imp-contextual-wrapper" style="background-color: white">
+    <div ng-show="contextualBarCtrl.alertPanelVisible()" class="disc-alert-panel">
+        <div ng-class="contextualBarCtrl.areDisclosuresCreatedForAnyLoanApplication ? 'div-warninglight-notification' : 'div-warning-notification'">
+            <div ng-include src="'angular/contextualbar/disclosurealertpanel.html'">
+            </div>
+        </div>
+    </div>
+</div>

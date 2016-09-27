@@ -1,0 +1,305 @@
+﻿@using MML.Common
+@using MML.Web.LoanCenter.Helpers.Enums
+@using MML.Common.Helpers
+@using MML.iMP.Aus.FannieMaeHelper
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.FannieMaeDuViewModel  
+
+@{var blocknum = 1;}
+
+<div class="refreshMain" style="margin-bottom: 10px;">
+    <span class="txtRefresh" onclick="Aus.OpenAusTab('FannieMae', '@Model.LoanId' )">Refresh</span>
+    <div class="refreshPageButton" onclick="Aus.OpenAusTab('FannieMae', '@Model.LoanId' )">
+    </div>
+</div>
+<div class="imp-aus-header">
+    <div class="imp-aus-header-title-div">
+        <span class="imp-text-hm-wl-prim">Automated Underwriting Services - AUS </span>
+    </div>
+    <div class="imp-aus-header-title-div imp-aus-header-caseidselector-div imp-text-hs-wl-prim">
+        <div class="imp-aus-title-span">
+            <span>Case ID:</span>
+        </div>
+        <div id="case-id-div" class="imp-aus-case-id">
+            <div class="imp-span-ddl-container">
+                <select id="case-id" class="imp-ddl" onchange=" ausoverride.caseidwaschanged();" style="margin-left: 2px" />
+            </div>
+        </div>
+        <input id="caseid-override" style="width:200px; display: none;" class="imp-aus-header-caseidselect-override" type="text" />
+        <span id="canceloverride" class="imp-aus-header-cancel" style="display: none;" onclick="AUSOverride.cancelOverride();">Cancel</span>
+        </div>
+    <div class="imp-aus-header-buttons-div">
+        <input type="button" class="imp-button-hm-wl-prim" disabled="disabled" value="Validate" />
+        @if ( Model.ProcessingItem || !AccountHelper.HasPrivilege( PrivilegeName.InitiateAUS ) )
+        {
+            <input type="button" class="imp-button-hm-wl-prim" value="Submit DU" disabled="disabled" />     
+        }
+        else
+        {
+            <input type="button" class="imp-button-hm-wl-prim" value="Submit DU" onclick="Aus.DUSubmittButton( '@Model.LoanId', AUSOverride.caseId() )"/>
+        }
+    </div>
+</div>
+
+<div class="imp-aus-content" id="ausContent">
+    @if ( !( ( Model.DuResults != null && Model.DuResults.Count > 0 ) || ( Model.DuResults != null && Model.DuResults.Count > 0 ) ) )
+    {
+        <div style="padding: 20px;">
+            <span class="imp-text-hm-wl-sec ausSubmittButtonMessage">Click Submit button to get
+                validation information.</span>
+        </div>
+    }
+    @if ( Model.DuValidation != null && Model.DuValidation.Count > 0 )
+    {
+        <div id="duValidation">
+            <div class="imp-aus-subtitle-div">
+                <div class="imp-aus-arrow-collapsed-div arrowCollapsedValidation" style="display: none;"
+                    onclick="Aus.AusArrowClick('expand', 'validation')">
+                </div>
+                <div class="imp-aus-arrow-exspanded-div arrowExpandedValidation" style="display: inline-block;"
+                    onclick="Aus.AusArrowClick('collapse', 'validation')">
+                </div>
+                <span style="font-weight: bold; padding-left: 3px;">VALIDATION - </span><span id="validationDescription"
+                    style="font-size: 14px; font-family: Arial;">Validation data</span>
+            </div>
+            <table class="ausValidationTable">
+                <tr class="imp-aus-row-title-tr">
+                    <th class="imp-aus-row-td-th" style="width: 98px;">
+                        Code
+                    </th>
+                    <th style="width: 130px;" align="left">
+                        Importance
+                    </th>
+                    <th style="width: 320px;" align="left">
+                        Description
+                    </th>
+                    <th style="width: 280px;" align="left">
+                        Solution
+                    </th>
+                    <th style="width: 280px;" align="left">
+                        Link
+                    </th>
+                </tr>
+                @if ( Model.DuValidation != null )
+                {
+                    foreach ( var validationItem in Model.DuValidation )
+                    {
+                    <tr class="imp-aus-row-data-tr">
+                        <td style="width: 100px;" align="center">
+                            <div style="width: 100px; height: 20px; padding-top: 5px;">
+                                @validationItem.Code
+                            </div>
+                        </td>
+                        <td style="width: 130px;">
+                            @validationItem.Importance
+                        </td>
+                        <td style="width: 320px;">
+                            @validationItem.Description
+                        </td>
+                        <td style="width: 280px;">
+                            @validationItem.Solution
+                        </td>
+                        <td style="width: 280px;">
+                            @validationItem.Link
+                        </td>
+                    </tr>
+                    }
+                }
+            </table>
+        </div>
+    }
+
+    @if ( Model.DuResults != null && Model.CaseIds.Count > 0 )
+    {
+        
+        foreach (var currentcaseid in Model.CaseIds)
+        {
+        <div id="duResults">
+            <div class="imp-aus-subtitle-div">
+
+                <div class="imp-aus-arrow-exspanded-div arrowExpandedResults fakeexpanded@(blocknum)" style="display: none;"
+                    onclick="Aus.AusArrowClick('collapse', 'results', @blocknum)">
+                </div>
+                <div class="imp-aus-arrow-collapsed-div arrowCollapsedResults fakecollapsed@(blocknum)" style="display: inline-block;"
+                    onclick="Aus.AusArrowClick('expand', 'results', @blocknum)">
+                </div>
+
+
+                <span style="font-weight: bold; padding-left: 3px;">DU FINDINGS - @currentcaseid - </span>
+                @if (Model[currentcaseid].DuResultsTitle != null)
+                {
+                    if (Model[currentcaseid].DuResultsTitle.Status == DuStatusType.NotApproved.GetStringValue() || Model[currentcaseid].DuResultsTitle.Status == DuStatusType.UnableToConnect.GetStringValue() || Model[currentcaseid].DuResultsTitle.Status == DuStatusType.OutOfScope.GetStringValue())
+                    {                            
+                    <span style="font-size: 13px; font-family: Arial; color: #FD3701; font-weight: bold;">
+                        @Model[currentcaseid].DuResultsTitle.Status
+                    </span>
+                    }
+                    else if (Model[currentcaseid].DuResultsTitle.Status == DuStatusType.Conditional.GetStringValue())
+                    {
+                    <span style="font-size: 13px; font-family: Arial; color: #208DDC; font-weight: bold;">
+                        @Model[currentcaseid].DuResultsTitle.Status
+                    </span>      
+                    }
+                    else if (Model[currentcaseid].DuResultsTitle.Status == DuStatusType.ApproveEligible.GetStringValue())
+                    {
+                    <span style="font-size: 13px; font-family: Arial; color: #1FB25A; font-weight: bold;">
+                        @Model[currentcaseid].DuResultsTitle.Status
+                    </span>
+                    }
+                    else if (Model[currentcaseid].DuResultsTitle.Status == DuStatusType.ApproveIneligible.GetStringValue())
+                    {
+                    <span style="font-size: 13px; font-family: Arial; color: #1FB25A; font-weight: bold;">
+                        @Model[currentcaseid].DuResultsTitle.Status
+                    </span>
+                    }
+                    else
+                    {
+                    <span style="font-size: 13px; font-family: Arial; color: #1FB25A; font-weight: bold;">
+                        DU Item is in process</span>  
+                    }
+                }
+                <span style="padding-left: 3px; font-size: 13px; font-family: Arial;">- @Model[currentcaseid].DuResultsTitle.Date.ToString("MM/dd/yyyy")
+                </span>
+                @if (Model[currentcaseid].DuResultsTitle.EndTime != null && Model[currentcaseid].DuResultsTitle.EndTime != DateTime.MinValue)
+                {
+                    <span style="padding-left: 10px; font-size: 13px; font-family: Arial;">End Time: @Model[currentcaseid].DuResultsTitle.EndTime.GetValueOrDefault().ToString("hh:mm tt")
+                    </span> 
+                }
+                else
+                {
+                    <span style="padding-left: 10px; font-size: 13px; font-family: Arial;">Start Time: @Model[currentcaseid].DuResultsTitle.StartTime.GetValueOrDefault().ToString("hh:mm tt")
+                    </span>
+                }
+                <span style="padding-left: 3px; font-size: 13px; font-family: Arial;">- @Model[currentcaseid].DuResultsTitle.SubmittedBy
+                </span>
+                @if (Model[currentcaseid].ProcessingItem)
+                {
+@*                    <input type="button" class="imp-button-hxxs-wm-prim btn" style="float: right; margin-right: 20px;
+                        margin-top: -5px;" value="Stop processing" />*@
+                    <div style="background: url('../../Content/ajax-loader-small.gif'); float: right;
+                        width: 22px; height: 22px; margin-right: 20px; margin-top: -5px;">
+                    </div>
+                }
+                else
+                {
+@*                    <input type="button" class="imp-button-hxxs-wm-prim btn" style="float: right; margin-right: 20px;
+                        margin-top: -5px;" value="Stop processing" disabled="disabled" />*@
+                }
+            </div>
+                <table class="ausResultsTable resulttable@(blocknum)" style="display: none">
+                <tr class="imp-aus-row-title-tr">
+                    <th class="imp-aus-row-td-th" style="width: 120px;">
+                        File
+                    </th>
+                    <th style="width: 100px;" align="left">
+                        Item
+                    </th>
+                    <th style="width: 100px;" align="left">
+                        Case ID
+                    </th>
+                    <th style="width: 100px;" align="left">
+                        Sequence
+                    </th>
+                    <th style="width: 140px;" align="left">
+                        Status
+                    </th>
+                    <th style="width: 130px;" align="left">
+                        Date
+                    </th>
+                    <th style="width: 100px;" align="left">
+                        Start Time
+                    </th>
+                    <th style="width: 170px;" align="left">
+                        End Time
+                    </th>
+                    <th style="width: 290px;" align="left">
+                        Submitted By
+                    </th>
+                </tr>
+                @if (Model[currentcaseid].DuResults != null)
+                {
+                    foreach (var resultItem in Model[currentcaseid].DuResults)
+                    {
+                    <tr class="imp-aus-row-data-tr">
+                        <td style="width: 100px;" align="center">
+                            <div style="width: 100px; height: 20px; padding-top: 2px; padding-bottom: 3px;">
+                                @if (resultItem.IsError)
+                                {
+                                    <div class="exceptionIconAus last" @* title="@resultItem.ErrorMessage" *@ onclick="Aus.ShowErrorPopup('@resultItem.ServiceTrackingId');">
+                                    </div>
+                                }
+                                else
+                                    if (resultItem.FilestoreId != null && resultItem.FilestoreId != Guid.Empty)
+                                {
+                                    <a href="Downloader.axd?documentType=repositoryItem&repositoryItemId=@Server.UrlEncode(EncryptionHelper.EncryptRijndael(resultItem.FilestoreId.ToString(), EncriptionKeys.Default))"  >
+                                        <div class="imp-aus-row-pdfimage-div">
+                                        </div>
+                                    </a>                            
+                                }
+                            </div>
+                        </td>
+                        <td style="width: 100px;">
+                            @resultItem.Item
+                        </td>
+                        <td style="width: 100px;">
+                            @resultItem.CaseId
+                        </td>
+                        <td style="width: 100px; text-align: center" >
+                            @resultItem.TransactionId
+                        </td>
+                        @if (resultItem.Status == DuStatusType.NotApproved.GetStringValue() || resultItem.Status == DuStatusType.UnableToConnect.GetStringValue() || resultItem.Status == DuStatusType.OutOfScope.GetStringValue())
+                        {                            
+                            <td style="width: 140px; color: #FD3701">
+                                @resultItem.Status
+                            </td>  
+                        }
+                        else if (resultItem.Status == DuStatusType.Conditional.GetStringValue())
+                        {
+                            <td style="width: 140px; color: #208DDC">
+                                @resultItem.Status
+                            </td>       
+                        }
+                        else if (resultItem.Status == DuStatusType.ApproveEligible.GetStringValue())
+                        {
+                            <td style="width: 140px; color: #1FB25A">
+                                @resultItem.Status
+                            </td>  
+                        }
+                        else
+                        {
+                            <td style="width: 140px;">
+                                @resultItem.Status
+                            </td>   
+                        }
+                        <td style="width: 120px;">
+                            @((resultItem.Date != null && resultItem.Date != DateTime.MinValue) ? resultItem.Date.ToString("MM/dd/yyyy") : String.Empty)
+                        </td>
+                        <td style="width: 100px;">
+                            @((resultItem.StartTime != null && resultItem.StartTime != DateTime.MinValue) ? resultItem.StartTime.GetValueOrDefault().ToString("hh:mm tt") : String.Empty)
+                        </td>
+                        <td style="width: 170px;">
+                            @((resultItem.EndTime != null && resultItem.EndTime != DateTime.MinValue) ? resultItem.EndTime.GetValueOrDefault().ToString("hh:mm tt") : String.Empty)
+                        </td>
+                        <td style="width: 290px;">
+                            @resultItem.SubmittedBy
+                        </td>
+                    </tr>
+                    }
+                }
+            </table>
+        </div>
+        
+                blocknum++;
+
+        }
+    }
+    @if ((Model.DuResults != null && Model.DuResults.Count > 0) || (Model.DuResults != null && Model.DuResults.Count > 0))
+    {
+        <div style="padding: 20px;">
+            <span class="imp-text-hm-wl-sec">All Critical Validation Codes must be cured before
+                the loan can be submitted to Fannie Mae's Desktop Underwriter</span>
+        </div>
+    }
+</div>
+<div class="imp-aus-footer">
+</div>

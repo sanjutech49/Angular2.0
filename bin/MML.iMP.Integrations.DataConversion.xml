@@ -1,0 +1,1126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MML.iMP.Integrations.DataConversion</name>
+    </assembly>
+    <members>
+        <member name="T:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues">
+            <summary>
+            AdditionalComplianceEaseXMLValues Class
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.LateChargeGracePeriod">
+            <summary>
+            LateChargeGracePeriod
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.LateChargePercent">
+            <summary>
+            LateChargePercent
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MERSMINNumber">
+            <summary>
+            MERSMINNumber
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.InterimInterestDays">
+            <summary>
+            InterimInterestDays
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.InterimInterestAmount">
+            <summary>
+            InterimInterestAmount
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.LifetimeCapRate">
+            <summary>
+            LifetimeCapRate
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.FinanceCreditsTotalAmount">
+            <summary>
+            FinanceCreditsTotalAmount
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.TotalMonthlyHousingExpenseAmount">
+            <summary>
+            TotalMonthlyHousingExpenseAmount
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.TotalLiabilityMonthylPaymentsAmount">
+            <summary>
+            TotalLiabilityMonthylPaymentsAmount
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.TotalMonthlyIncomeAmount">
+            <summary>
+            TotalMonthlyIncomeAmount
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MIIndicator">
+            <summary>
+            MIIndicator
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MIUpfrontPremiumRatePercent">
+            <summary>
+            MIUpfrontPremiumRatePercent
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MIRenewalMonthlyAmount">
+            <summary>
+            MIRenewalMonthlyAmount
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MIRenewalMonthlyRate">
+            <summary>
+            MIRenewalMonthlyRate
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MIRenewalDurationMonths">
+            <summary>
+            MIRenewalDurationMonths
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MICancelAtMidpoint">
+            <summary>
+            MICancelAtMidpoint
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalComplianceEaseXMLValues.MIAndFundingFeeRefundable">
+            <summary>
+            MIAndFundingFeeRefundable
+            </summary>
+        </member>
+        <member name="T:MML.iMP.Integrations.AdditionalMismoXmlValues">
+            <summary>
+            AdditionalMismoXmlValues Class
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.DetailsOfTransaction">
+            <summary>
+            DetailsOfTransaction
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.ProposedHazardInsurance">
+            <summary>
+            ProposedHazardInsurance
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.ProposedRealEstateTaxes">
+            <summary>
+            ProposedRealEstateTaxes
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.ProposedHomeOwnerAsscDues">
+            <summary>
+            ProposedHomeOwnerAsscDues
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.ProposedMortgageInsurance">
+            <summary>
+            ProposedMortgageInsurance
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.ProposedOtherFinancing">
+            <summary>
+            ProposedOtherFinancing
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.ProposedOther">
+            <summary>
+            ProposedOther
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedHazardInsurance">
+            <summary>
+            CombinedHazardInsurance
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedRealEstateTaxes">
+            <summary>
+            CombinedRealEstateTaxes
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedHomeOwnerAsscDues">
+            <summary>
+            CombinedHomeOwnerAsscDues
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedOtherExpenses">
+            <summary>
+            CombinedOtherExpenses
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedOtherFinancing">
+            <summary>
+            CombinedOtherFinancing
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedRent">
+            <summary>
+            CombinedRent
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedPrincipalAndInterestPayment">
+            <summary>
+            CombinedPrincipalAndInterestPayment
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CombinedMortgageInsurance">
+            <summary>
+            CombinedMortgageInsurance
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.PrincipalAndInterestPayment">
+            <summary>
+            PrincipalAndInterestPayment
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.CompanyProfile">
+            <summary>
+            CompanyProfile
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.Branch">
+            <summary>
+            Branch
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.ConciergeInformation">
+            <summary>
+            ConciergeInformation
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.AUSConfigData">
+            <summary>
+            AUSConfigData
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.LoanSummary">
+            <summary>
+            LoanSummary
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.AdditionalComplianceEaseXMLValues">
+            <summary>
+            AdditionalComplianceEaseXMLValues
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.LPSettings">
+            <summary>
+            LPSettings
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.InvestorMatrix">
+            <summary>
+            InvestorMatrix
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalMismoXmlValues.AdditionalUlddXMLValues">
+            <summary>
+            AdditionalUlddXMLValues
+            </summary>
+        </member>
+        <member name="T:MML.iMP.Integrations.AdditionalUlddXMLValues">
+            <summary>
+            AdditionalUlddXMLValues class
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalUlddXMLValues.DocCustodianId">
+            <summary>
+            DocCustodianId
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalUlddXMLValues.LoanSellerId">
+            <summary>
+            LoanSellerId
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalUlddXMLValues.SellerServiceNumber">
+            <summary>
+            SellerServiceNumber
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.AdditionalUlddXMLValues.NotePayTo">
+            <summary>
+            NotePayTo
+            </summary>
+        </member>
+        <member name="T:MML.iMP.Integrations.DataConversion">
+            <summary>
+            DataConversion class
+            </summary>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.ParseOrLookupLoanIds(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            ParseOrLookupLoanIds
+            </summary>
+            <param name="values">values</param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.CreateLoanXml(System.Collections.Generic.IEnumerable{System.Guid})">
+            <summary>
+            Builds a loan xml from a loan
+            </summary>
+            <param name="loanIds">Loan Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.CreateMultiborrowerLoanXml(System.Guid,System.Boolean)">
+            <summary>
+            Builds a loan xml from a multiborrower loan
+            </summary>
+            <param name="parentLoanId">Parent Loan Id</param>
+            <param name="removeDupREO">Flag that controls if Duplicated REO should be removed from the retrieved loan</param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.CreateAdditionalMismoXmlValues(MML.Contracts.Loan)">
+            <summary>
+            CreateAdditionalMismoXmlValues
+            </summary>
+            <param name="loan">Loan</param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.CreateAdditionalComplianceEaseXMLValues(MML.Contracts.Loan)">
+            <summary>
+            CreateAdditionalComplianceEaseXMLValues
+            </summary>
+            <param name="loan"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.CreateAdditionalUlldXMLValues(MML.Contracts.Loan)">
+            <summary>
+            CreateAdditionalUlldXMLValues
+            </summary>
+            <param name="loan"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.PMIOnLoan(MML.Contracts.Property,System.Double,System.Boolean,MML.Contracts.MortgageType)">
+            <summary>
+            PMIOnLoan
+            </summary>
+            <param name="subjectProperty"></param>
+            <param name="loanAmount"></param>
+            <param name="hasMmi"></param>
+            <param name="mortgageType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.GetPMIRenewalTerm(MML.Contracts.Property,System.Double,System.Nullable{System.DateTime},System.Int32)">
+            <summary>
+            GetPMIRenewalTerm
+            </summary>
+            <param name="subjectProperty"></param>
+            <param name="loanAmount"></param>
+            <param name="dateFHACaseAssigned"></param>
+            <param name="loanTerm"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.SelectMismoXslt(System.String,System.String,System.String)">
+            <summary>
+            SelectMismoXslt
+            </summary>
+            <param name="vendor"></param>
+            <param name="product"></param>
+            <param name="requestType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.GetVendorsAndProducts">
+            <summary>
+            GetVendorsAndProducts
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.GetDataConversionXsltsMeta">
+            <summary>
+            GetDataConversionXsltsMeta
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.TransformXmlWithXslt(System.String,System.String)">
+            <summary>
+            TransformXmlWithXslt
+            </summary>
+            <param name="xml"></param>
+            <param name="xslt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.TransformXmlToText(System.String,System.String)">
+            <summary>
+            TransformXmlToText
+            </summary>
+            <param name="xml"></param>
+            <param name="xslt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MML.iMP.Integrations.DataConversion.TransformXmlToText(System.String,System.String,System.String,System.String)">
+            <summary>
+            Transforms a XML to a text output with a named xslt
+            </summary>
+            <param name="xml">XML to be transformed</param>
+            <param name="vendor">Vendor name</param>
+            <param name="product">Product name</param>
+            <param name="type">Transformation name</param>
+            <returns>Converted output</returns>
+            <example>TransformXmlWithXsltByName(somexml, "FreddieMac", "LP", "DATA-ERROR" )</example>
+        </member>
+        <member name="T:MML.iMP.Integrations.DupReoHelper">
+            <summary>
+            Helper class to remove Duplicated REO records from a loan
+            </summary>
+        </member>
+        <member name="M:MML.iMP.Integrations.DupReoHelper.NormalizeReo(MML.Contracts.Loan)">
+            <summary>
+            Normalizes loan by removing duplicated REOs
+            </summary>
+            <param name="loan">Loan object</param>
+        </member>
+        <member name="M:MML.iMP.Integrations.DupReoHelper.IsDupAccount(System.String)">
+            <summary>
+            Verifies Account for duplicity
+            </summary>
+            <param name="account">Account (for example "123124234")</param>
+            <returns>True/False depends on if account was already processed</returns>
+        </member>
+        <member name="T:MML.iMP.Integrations.HtmlToPdfMarginOptions">
+            <summary>
+            HtmlToPdfMarginOptions
+            </summary>
+        </member>
+        <member name="M:MML.iMP.Integrations.HtmlToPdfMarginOptions.#ctor(System.Int32)">
+            <summary>
+            HtmlToPdfMarginOptions
+            </summary>
+            <param name="size"></param>
+        </member>
+        <member name="M:MML.iMP.Integrations.HtmlToPdfMarginOptions.#ctor(System.Int32,System.Int32)">
+            <summary>
+            HtmlToPdfMarginOptions
+            </summary>
+            <param name="topAndBottom"></param>
+            <param name="leftAndRight"></param>
+        </member>
+        <member name="M:MML.iMP.Integrations.HtmlToPdfMarginOptions.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            HtmlToPdfMarginOptions
+            </summary>
+            <param name="top"></param>
+            <param name="bottom"></param>
+            <param name="left"></param>
+            <param name="right"></param>
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfMarginOptions.LeftMargin">
+            <summary>
+            LeftMargin
+            </summary>
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfMarginOptions.TopMargin">
+            <summary>
+            TopMargin
+            </summary>
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfMarginOptions.BottomMargin">
+            <summary>
+            BottomMargin
+            </summary>
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfMarginOptions.RightMargin">
+            <summary>
+            RightMargin
+            </summary>
+        </member>
+        <member name="T:MML.iMP.Integrations.HtmlToPdfOptions">
+            <summary>
+            HtmlToPdfOptions
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.Margins">
+            <summary>
+            Margins
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.Title">
+            <summary>
+            Title
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.CopyCount">
+            <summary>
+            CopyCount
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.ImageQuality">
+            <summary>
+            ImageQuality
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.LoslessCompression">
+            <summary>
+            LoslessCompression
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.MaxImageDpi">
+            <summary>
+            MaxImageDpi
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.OutlineGeneration">
+            <summary>
+            OutlineGeneration
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.OutputDpi">
+            <summary>
+            OutputDpi
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.PaperOrientation">
+            <summary>
+            PaperOrientation
+            </summary>
+        </member>
+        <member name="P:MML.iMP.Integrations.HtmlToPdfOptions.PaperKind">
+            <summary>
+            PaperKind
+            </summary>
+        </member>
+        <member name="T:MML.iMP.Integrations.HtmlToPdfPaperKindOptions">
+            <summary>
+            HtmlToPdfPaperKindOptions enum
+            </summary>
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Custom">
+            <summary>
+            The paper size is defined by the user.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Letter">
+            <summary>
+            Letter paper (8.5 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.LetterSmall">
+            <summary>
+            Letter small paper (8.5 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Tabloid">
+            <summary>
+            Tabloid paper (11 in. by 17 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Ledger">
+            <summary>
+            Ledger paper (17 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Legal">
+            <summary>
+            Legal paper (8.5 in. by 14 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Statement">
+            <summary>
+            Statement paper (5.5 in. by 8.5 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Executive">
+            <summary>
+            Executive paper (7.25 in. by 10.5 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A3">
+            <summary>
+            A3 paper (297 mm by 420 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A4">
+            <summary>
+            A4 paper (210 mm by 297 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A4Small">
+            <summary>
+            A4 small paper (210 mm by 297 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A5">
+            <summary>
+            A5 paper (148 mm by 210 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B4">
+            <summary>
+            B4 paper (250 mm by 353 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B5">
+            <summary>
+            B5 paper (176 mm by 250 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Folio">
+            <summary>
+            Folio paper (8.5 in. by 13 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Quarto">
+            <summary>
+            Quarto paper (215 mm by 275 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Standard10x14">
+            <summary>
+            Standard paper (10 in. by 14 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Standard11x17">
+            <summary>
+            Standard paper (11 in. by 17 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Note">
+            <summary>
+            Note paper (8.5 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Number9Envelope">
+            <summary>
+            #9 envelope (3.875 in. by 8.875 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Number10Envelope">
+            <summary>
+            #10 envelope (4.125 in. by 9.5 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Number11Envelope">
+            <summary>
+            #11 envelope (4.5 in. by 10.375 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Number12Envelope">
+            <summary>
+            #12 envelope (4.75 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Number14Envelope">
+            <summary>
+            #14 envelope (5 in. by 11.5 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.CSheet">
+            <summary>
+            C paper (17 in. by 22 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.DSheet">
+            <summary>
+            D paper (22 in. by 34 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.ESheet">
+            <summary>
+            E paper (34 in. by 44 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.DLEnvelope">
+            <summary>
+            DL envelope (110 mm by 220 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.C5Envelope">
+            <summary>
+            C5 envelope (162 mm by 229 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.C3Envelope">
+            <summary>
+            C3 envelope (324 mm by 458 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.C4Envelope">
+            <summary>
+            C4 envelope (229 mm by 324 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.C6Envelope">
+            <summary>
+            C6 envelope (114 mm by 162 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.C65Envelope">
+            <summary>
+            C65 envelope (114 mm by 229 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B4Envelope">
+            <summary>
+            B4 envelope (250 mm by 353 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B5Envelope">
+            <summary>
+            B5 envelope (176 mm by 250 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B6Envelope">
+            <summary>
+            B6 envelope (176 mm by 125 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.ItalyEnvelope">
+            <summary>
+            Italy envelope (110 mm by 230 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.MonarchEnvelope">
+            <summary>
+            Monarch envelope (3.875 in. by 7.5 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PersonalEnvelope">
+            <summary>
+            6 3/4 envelope (3.625 in. by 6.5 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.USStandardFanfold">
+            <summary>
+            US standard fanfold (14.875 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.GermanStandardFanfold">
+            <summary>
+            German standard fanfold (8.5 in. by 12 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.GermanLegalFanfold">
+            <summary>
+            German legal fanfold (8.5 in. by 13 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.IsoB4">
+            <summary>
+            ISO B4 (250 mm by 353 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapanesePostcard">
+            <summary>
+            Japanese postcard (100 mm by 148 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Standard9x11">
+            <summary>
+            Standard paper (9 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Standard10x11">
+            <summary>
+            Standard paper (10 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Standard15x11">
+            <summary>
+            Standard paper (15 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.InviteEnvelope">
+            <summary>
+            Invitation envelope (220 mm by 220 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.LetterExtra">
+            <summary>
+            Letter extra paper (9.275 in. by 12 in.). This value is specific to the PostScript
+            driver and is used only by Linotronic printers in order to conserve paper.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.LegalExtra">
+            <summary>
+            Legal extra paper (9.275 in. by 15 in.). This value is specific to the PostScript
+            driver and is used only by Linotronic printers in order to conserve paper.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.TabloidExtra">
+            <summary>
+            Tabloid extra paper (11.69 in. by 18 in.). This value is specific to the
+            PostScript driver and is used only by Linotronic printers in order to conserve
+            paper.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A4Extra">
+            <summary>
+            A4 extra paper (236 mm by 322 mm). This value is specific to the PostScript
+            driver and is used only by Linotronic printers to help save paper.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.LetterTransverse">
+            <summary>
+            Letter transverse paper (8.275 in. by 11 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A4Transverse">
+            <summary>
+            A4 transverse paper (210 mm by 297 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.LetterExtraTransverse">
+            <summary>
+            Letter extra transverse paper (9.275 in. by 12 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.APlus">
+            <summary>
+            SuperA/SuperA/A4 paper (227 mm by 356 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.BPlus">
+            <summary>
+            SuperB/SuperB/A3 paper (305 mm by 487 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.LetterPlus">
+            <summary>
+            Letter plus paper (8.5 in. by 12.69 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A4Plus">
+            <summary>
+            A4 plus paper (210 mm by 330 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A5Transverse">
+            <summary>
+            A5 transverse paper (148 mm by 210 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B5Transverse">
+            <summary>
+            JIS B5 transverse paper (182 mm by 257 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A3Extra">
+            <summary>
+            A3 extra paper (322 mm by 445 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A5Extra">
+            <summary>
+            A5 extra paper (174 mm by 235 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B5Extra">
+            <summary>
+            ISO B5 extra paper (201 mm by 276 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A2">
+            <summary>
+            A2 paper (420 mm by 594 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A3Transverse">
+            <summary>
+            A3 transverse paper (297 mm by 420 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A3ExtraTransverse">
+            <summary>
+            A3 extra transverse paper (322 mm by 445 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseDoublePostcard">
+            <summary>
+            Japanese double postcard (200 mm by 148 mm). Requires Windows 98, Windows
+            NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A6">
+            <summary>
+            A6 paper (105 mm by 148 mm). Requires Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeKakuNumber2">
+            <summary>
+            Japanese Kaku #2 envelope. Requires Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeKakuNumber3">
+            <summary>
+            Japanese Kaku #3 envelope. Requires Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeChouNumber3">
+            <summary>
+            Japanese Chou #3 envelope. Requires Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeChouNumber4">
+            <summary>
+            Japanese Chou #4 envelope. Requires Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.LetterRotated">
+            <summary>
+            Letter rotated paper (11 in. by 8.5 in.).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A3Rotated">
+            <summary>
+            A3 rotated paper (420 mm by 297 mm).
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A4Rotated">
+            <summary>
+            A4 rotated paper (297 mm by 210 mm). Requires Windows 98, Windows NT 4.0,
+            or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A5Rotated">
+            <summary>
+            A5 rotated paper (210 mm by 148 mm). Requires Windows 98, Windows NT 4.0,
+            or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B4JisRotated">
+            <summary>
+            JIS B4 rotated paper (364 mm by 257 mm). Requires Windows 98, Windows NT
+            4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B5JisRotated">
+            <summary>
+            JIS B5 rotated paper (257 mm by 182 mm). Requires Windows 98, Windows NT
+            4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapanesePostcardRotated">
+            <summary>
+            Japanese rotated postcard (148 mm by 100 mm). Requires Windows 98, Windows
+            NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseDoublePostcardRotated">
+            <summary>
+            Japanese rotated double postcard (148 mm by 200 mm). Requires Windows 98,
+            Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.A6Rotated">
+            <summary>
+            A6 rotated paper (148 mm by 105 mm). Requires Windows 98, Windows NT 4.0,
+            or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeKakuNumber2Rotated">
+            <summary>
+            Japanese rotated Kaku #2 envelope. Requires Windows 98, Windows NT 4.0, or
+            later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeKakuNumber3Rotated">
+            <summary>
+            Japanese rotated Kaku #3 envelope. Requires Windows 98, Windows NT 4.0, or
+            later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeChouNumber3Rotated">
+            <summary>
+            Japanese rotated Chou #3 envelope. Requires Windows 98, Windows NT 4.0, or
+            later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeChouNumber4Rotated">
+            <summary>
+            Japanese rotated Chou #4 envelope. Requires Windows 98, Windows NT 4.0, or
+            later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B6Jis">
+            <summary>
+            JIS B6 paper (128 mm by 182 mm). Requires Windows 98, Windows NT 4.0, or
+            later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.B6JisRotated">
+            <summary>
+            JIS B6 rotated paper (182 mm by 128 mm). Requires Windows 98, Windows NT
+            4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Standard12x11">
+            <summary>
+            Standard paper (12 in. by 11 in.). Requires Windows 98, Windows NT 4.0, or
+            later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeYouNumber4">
+            <summary>
+            Japanese You #4 envelope. Requires Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.JapaneseEnvelopeYouNumber4Rotated">
+            <summary>
+            Japanese You #4 rotated envelope. Requires Windows 98, Windows NT 4.0, or
+            later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Prc16K">
+            <summary>
+            People's Republic of China 16K paper (146 mm by 215 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Prc32K">
+            <summary>
+            People's Republic of China 32K paper (97 mm by 151 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Prc32KBig">
+            <summary>
+            People's Republic of China 32K big paper (97 mm by 151 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber1">
+            <summary>
+            People's Republic of China #1 envelope (102 mm by 165 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber2">
+            <summary>
+            People's Republic of China #2 envelope (102 mm by 176 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber3">
+            <summary>
+            People's Republic of China #3 envelope (125 mm by 176 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber4">
+            <summary>
+            People's Republic of China #4 envelope (110 mm by 208 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber5">
+            <summary>
+            People's Republic of China #5 envelope (110 mm by 220 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber6">
+            <summary>
+            People's Republic of China #6 envelope (120 mm by 230 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber7">
+            <summary>
+            People's Republic of China #7 envelope (160 mm by 230 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber8">
+            <summary>
+            People's Republic of China #8 envelope (120 mm by 309 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber9">
+            <summary>
+            People's Republic of China #9 envelope (229 mm by 324 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber10">
+            <summary>
+            People's Republic of China #10 envelope (324 mm by 458 mm). Requires Windows
+            98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Prc16KRotated">
+            <summary>
+            People's Republic of China 16K rotated paper (146 mm by 215 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Prc32KRotated">
+            <summary>
+            People's Republic of China 32K rotated paper (97 mm by 151 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.Prc32KBigRotated">
+            <summary>
+            People's Republic of China 32K big rotated paper (97 mm by 151 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber1Rotated">
+            <summary>
+            People's Republic of China #1 rotated envelope (165 mm by 102 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber2Rotated">
+            <summary>
+            People's Republic of China #2 rotated envelope (176 mm by 102 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber3Rotated">
+            <summary>
+            People's Republic of China #3 rotated envelope (176 mm by 125 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber4Rotated">
+            <summary>
+            People's Republic of China #4 rotated envelope (208 mm by 110 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber5Rotated">
+            <summary>
+            People's Republic of China Envelope #5 rotated envelope (220 mm by 110 mm).
+            Requires Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber6Rotated">
+            <summary>
+            People's Republic of China #6 rotated envelope (230 mm by 120 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber7Rotated">
+            <summary>
+            People's Republic of China #7 rotated envelope (230 mm by 160 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber8Rotated">
+            <summary>
+            People's Republic of China #8 rotated envelope (309 mm by 120 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber9Rotated">
+            <summary>
+            People's Republic of China #9 rotated envelope (324 mm by 229 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+        <member name="F:MML.iMP.Integrations.HtmlToPdfPaperKindOptions.PrcEnvelopeNumber10Rotated">
+            <summary>
+            People's Republic of China #10 rotated envelope (458 mm by 324 mm). Requires
+            Windows 98, Windows NT 4.0, or later.
+            </summary>  
+        </member>
+    </members>
+</doc>

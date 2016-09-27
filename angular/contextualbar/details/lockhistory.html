@@ -1,0 +1,21 @@
+﻿    <div class='imp-popover imp-body'>
+            <div class='container'>
+                <div class="imp-div-close-x floatright imp-lockhistory-button-close" ng-click="modalpopoverCtrl.cancel()"></div>
+                <div class='header'>Lock Expiration History</div>
+                <div class='imp-split'></div>
+                <div class="imp-lockhistory-row imp-lockhistory-text-heading">
+                    <div class="imp-lockhistory-date-col">Locked On</div>
+                    <div class="imp-lockhistory-date-col">Expires On</div>
+                    <div class="imp-lockhistory-col">Period</div>
+                    <div class="imp-lockhistory-col">Modified By</div>
+                </div>
+
+                <div class="imp-lockhistory-row imp-lockhistory-text" ng-repeat="lockHistory in modalpopoverCtrl.model">
+                    <div class="imp-lockhistory-date-col">{{ lockHistory.lockedOn | date : 'short' }}</div>
+                    <div class="imp-lockhistory-date-col">{{ lockHistory.expiresOn | date : 'short' }}</div>
+                    <div class="imp-lockhistory-col">{{ lockHistory.period }}</div>
+                    <div class="imp-lockhistory-col">{{ lockHistory.modifiedBy }}</div>
+                </div>
+                </div>
+            </div>
+              

@@ -1,0 +1,1319 @@
+﻿/* Bootstrap has breakpoints at 768px(sm), 992px(md), 1200px(lg)
+@media (min-width: 768px) {
+    .my-class {
+        padding: 10px 10% 5px 10%;
+    }
+}
+*/
+
+
+/*==================================================
+ * Buttons
+ * ===============================================*/
+
+.btn {
+    height: 44px;
+    font-size: 15px;
+    padding: 0px 25px;
+    width: 240px;
+}
+.btn-primary {
+    border-radius: 3px;
+    border: 1px solid #0271da;
+    color: #ffffff;
+    background-image: url(images/ConsumerSite/primary-button-fill.png);
+}
+.btn-secondary {
+    border-radius: 3px;
+    border: 1px solid #bdbebe;
+    color: #000000;
+    background-color: #f9f9f9;
+}
+.save-and-continue-button {
+    margin-top: 22px;
+    margin-bottom: 50px;
+}
+.btn-option {
+    height: 35px;
+    border-radius: 3px;
+    border: 1px solid #bdbebe;
+    font-size: 15px;
+    color: #3d3d3d;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+.btn-option-selected {
+    background-color: #1FB25A !important;
+    color: #fff !important;
+}
+.btn-get-my-rates {
+    margin-top: 50px;
+    padding: 0px 38px;
+    width: 170px;
+    height: 41px;
+}
+.btn-sign-disclosures {
+    margin-top: -15px;
+    height: 55px;
+    font-size: 21px;
+}
+.btn-sign-disclosures-text {
+    margin-top: -1px;
+    margin-left: 9px;
+    vertical-align: top;
+}
+@media (min-width: 405px) {
+    .btn-sign-disclosures {
+        margin-left: 15px;
+    }
+}
+.btn-select-rate {
+    height: 39px;
+    width: 155px;
+    font-weight: bold;
+}
+.btn-send-my-report {
+    margin-left: 0px !important;
+    margin-bottom: 15px;
+    height: 39px;
+    width: 133px;
+    padding-left: 11px;
+    background-color: #FF8B17;
+    color: white;
+    font-weight: 400;
+}
+
+/*==================================================
+ * General Icons
+ * ===============================================*/
+
+.fa-plus-circle {
+    color: #208ddc;
+    font-size: 19px;
+    margin-right: 2px;
+}
+
+/*==================================================
+ * General Styles
+ * ===============================================*/
+
+.total-label {
+    font-size: 13px !important;
+    color: #3d3d3d !important;
+    font-weight: bold !important;
+}
+.total-value {
+    margin-left: 1px;
+    margin-top: 6px;
+    font-size: 13px !important;
+    color: #2fbc64 !important;
+}
+.disabled {
+    color: #9d9d9d;
+}
+
+/*==================================================
+ * Center Column
+ * ===============================================*/
+
+.center-col .form-label {
+    font-weight: normal;
+}
+@media (min-width: 768px) {
+    .center-col .form-group {
+        width: 270px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+    .center-col .control-label {
+        position: absolute;
+        right: 270px;
+        top: 1px;
+        white-space: nowrap;
+        direction: rtl;
+    }
+    .center-col .form-label {
+        /* a label that goes in place of an input (eg. Email label at top of Account Info page) */
+        height: 34px;
+        padding-top: 6px;
+        margin-bottom: 0px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+    .center-col-md .form-group {
+        width: 270px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+    .center-col-md .control-label {
+        position: absolute;
+        right: 270px;
+        top: 1px;
+        white-space: nowrap;
+        direction: rtl;
+    }
+    .center-col-md .form-label {
+        /* a label that goes in place of an input (eg. Email label at top of Account Info page) */
+        height: 34px;
+        padding-top: 6px;
+        margin-bottom: 0px;
+    }
+}
+@media (min-width: 1200px) {
+    .center-col-md .control-label {
+        /* at large widths make sure the labels don't overlap with the inputs to their left */
+        padding-left: 70px;
+    }
+}
+
+/*==================================================
+ * Section Title
+ * ===============================================*/
+
+.section-title {
+    font-size: 21px;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 15px;
+}
+.section-subtitle {
+    font-size: 17px;
+    color: #000000;
+}
+.section-subtitle-lg {
+    font-size: 21px;
+    color: #3d3d3d;
+}
+.section-subtitle-xs {
+    font-size: 11px;
+    color: #9d9d9d;
+}
+.section-title.top {
+    margin-top: 0px;
+}
+.section-content {
+    margin-top: 25px;
+}
+.section-content-lg {
+    margin-top: 45px;
+}
+.section-content-sm {
+    margin-top: 11px;
+}
+.section-underline {
+    margin-bottom: 11px;
+    border-bottom: 1px solid #BDBEBE;
+}
+
+/*==================================================
+ * Section Questions
+ * ===============================================*/
+
+.section-question-text {
+    color: #3d3d3d;
+    font-size: 21px;
+    margin-top: 15px;
+    margin-bottom: 9px;
+    font-weight: normal;
+}
+.section-question-text.top {
+    margin-top: 0px;
+}
+.section-question-subtext {
+    color: #9d9d9d;
+    margin-bottom: 17px;
+}
+.section-question-underline {
+    padding-bottom: 9px;
+    margin-bottom: 17px;
+    border-bottom: 1px solid #BDBEBE;
+}
+
+/*==================================================
+ * Item Box
+ * ===============================================*/
+
+.item-box {
+    padding: 11px 0px;
+    margin-top: 9px;
+    min-height: 45px;
+    border: 1px solid #BDBEBE;
+    background-color: #F9F9F9;
+    border-radius: 3px;
+}
+.item-box.add-box {
+    background-color: transparent;
+}
+.item-box > div {
+    vertical-align: middle;
+}
+.item-box-title {
+    font-weight: bold;
+}
+.item-box-edit {
+    cursor: pointer;
+    color: #208DDC;
+    font-weight: bold;
+}
+.item-box .fa-minus-circle {
+    color: #F4BABC;
+    cursor: pointer;
+}
+
+/*==================================================
+ * Validation
+ * ===============================================*/
+
+.invalid-field {
+    color: red !important;
+    border-color: #ef1126;
+    background-color: #fdeaea;
+}
+
+/*==================================================
+ * Dual Inputs - 70-30 - a dual inputs with 70% width to the first input
+ * ===============================================*/
+
+.input-group.dual-input-70-30 {
+    display: block;
+}
+.dual-input-70-30 {
+    min-width: 120px;
+}
+.dual-input-70-30 input,
+.dual-input-70-30 select {
+    min-width: 40px !important;
+    display: inline-block;
+}
+.dual-input-70-30 input {
+    width: 69% !important;
+}
+.dual-input-70-30 select {
+    width: 31% !important;
+}
+
+/*==================================================
+ * Dual Inputs - 60-40 - a dual inputs with 60% width to the first input
+ * ===============================================*/
+
+.input-group.dual-input-60-40 {
+    display: block;
+}
+.dual-input-60-40 {
+    min-width: 120px;
+}
+.dual-input-60-40 input,
+.dual-input-60-40 select {
+    min-width: 40px !important;
+    display: inline-block;
+}
+.dual-input-60-40 .first {
+    width: 59% !important;
+}
+.dual-input-60-40 .second {
+    width: 41% !important;
+}
+.dual-input-60-40 select {
+    color: gray;
+}
+
+/*==================================================
+ * Dual Input - e.g Year Month inputs - dual input with equally wide inputs.
+ * ===============================================*/
+
+.input-group.dual-input {
+    display: block;
+}
+.dual-input {
+    min-width: 120px;
+}
+.dual-input input {
+    display: inline-block;
+    min-width: 20px !important;
+    width: 50% !important;
+}
+
+/*==================================================
+ * Dual Input - Spaced.  A dual input with a little space between the inputs.
+ * ===============================================*/
+
+.input-group.dual-input-spaced {
+    display: block;
+}
+.dual-input-spaced {
+    min-width: 120px;
+}
+.dual-input-spaced input {
+    display: inline-block;
+    min-width: 40px !important;
+    width: 49% !important;
+    border-radius: 3px !important;
+}
+.dual-input-spaced input.second-input {
+    margin-left: 2%;
+}
+
+/*==================================================
+ * Dual Input - Joined. A dual input without a border separation between the inputs.
+ * ===============================================*/
+
+.input-group.dual-input-joined {
+    display: block;
+}
+.dual-input-joined {
+    min-width: 120px;
+}
+.dual-input-joined input {
+    display: inline-block;
+    min-width: 40px !important;
+    width: 50% !important;
+}
+.dual-input-joined input.first {
+    border-right-width: 0px;
+}
+.dual-input-joined input.second {
+    border-left-width: 0px;
+}
+.dual-input-joined.time-period:after {
+    position: absolute;
+    content: "to";
+    color: #9d9d9d;
+    margin-top: 6px;
+    margin-left: -59%;
+    z-index: 2;
+}
+
+/*==================================================
+ * Dual Input Zip State - A special dual input for when a zipcode textbox and state dropdown are needed.
+ * ===============================================*/
+
+.input-group.dual-input-zip-state {
+    display: block;
+}
+.dual-input-zip-state {
+    min-width: 120px;
+}
+.dual-input-zip-state select,
+.dual-input-zip-state input {
+    display: inline-block;
+    min-width: 40px !important;
+    width: 49% !important;
+    border-radius: 3px !important;
+}
+.dual-input-zip-state select,
+.dual-input-zip-state .second {
+    color: gray;
+    margin-left: 2%;
+}
+
+/*==================================================
+ * General Bootstrap Overrides
+ * ===============================================*/
+
+.form-horizontal .control-label {
+    color: #9d9d9d;
+    font-weight: 100;
+    font-size: 15px;
+    padding-top: 5px;
+}
+.form-control {
+    color: #000000;
+    min-width: 120px;
+    height: 34px;
+    border-radius: 3px;
+}
+.form-control:hover {
+    border-color: #208ddc;
+}
+input.form-control {
+    padding: 0px 0px 0px 9px;
+}
+select.form-control {
+    padding: 0px 0px 0px 5px;
+}
+.form-control.half-box {
+    min-width: 117px;
+}
+.form-horizontal .form-group {
+    margin-bottom: 9px;
+}
+.form-horizontal .form-group-short {
+    margin-bottom: 5px !important;
+}
+
+/*==================================================
+ * Mega Important Bootstrap Layout overrides
+ * ===============================================*/
+
+@media(min-width: 992px) {
+    /*
+    .personal-information .form-control,
+    .personal-information .input-group,
+    .property-info .form-control,
+    .property-info .input-group,
+    .property-info .radio-group,
+    .address .form-control,
+    .address .input-group,
+    .address .radio-group,
+    .employment-info .form-control,
+    .employment-info .input-group,
+    .employment-info .radio-group,
+    .credit-info .form-control,
+    .credit-info .input-group,
+    .credit-info .radio-group {
+        width: 240px;
+    }
+*/
+    .form-control,
+    .input-group,
+    .radio-group {
+        width: 240px;
+    }
+}
+
+/*==================================================
+ * Declarations Page Styles
+ * ===============================================*/
+
+.declarations .form-group label {
+    text-align: left;
+}
+.declaration-question-text {
+    max-width: 530px;
+}
+
+/*==================================================
+ * Pricing Page
+ * ===============================================*/
+
+@media (min-width: 1350px) {
+    .pricing-left-margin {
+        padding-left: 181px !important;
+    }
+}
+
+/*==================================================
+ * Pricing Filter
+ * ===============================================*/
+
+.pricing-filter-bar {
+    background-image: url(images/ConsumerSite/pricing-filter-bar-bg.jpg);
+    background-size: cover;
+    padding: 30px 0px 0px 0px;
+    color: #727272;
+}
+.pricing-filter-bar-title-region {
+    width: 187px;
+    margin-bottom: 20px;
+}
+.pricing-filter-bar-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1em;
+    max-width: 150px;
+}
+.pricing-filter-bar-subtitle {
+    margin-top: 4px;
+    font-size: 12px;
+    width: 100%;
+}
+.pricing-filter-bar-content {
+    margin-top: -7px;
+    padding-left: 15px;
+}
+@media (min-width: 768px) {
+    .pricing-filter-bar-content {
+        padding-left: 51px;
+    }
+}
+.pricing-filter-box {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0px 5px;
+    margin: 0px -1px 5px 0px;
+    width: 105px;
+    height: 87px;
+    background: #F4F3F3;
+    opacity: 0.7;
+    text-align: center;
+    line-height: 1.1em;
+    color: #464646;
+    cursor: pointer;
+}
+@media (min-width: 992px) {
+    .pricing-filter-box {
+        width: 115px;
+        margin: 0px 19px 20px 0px;
+    }
+}
+.pricing-filter-box.active {
+    opacity: 1;
+    color: #208DDC;
+}
+.pricing-filter-box > i {
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+.pricing-content {
+    margin-top: 20px;
+}
+
+/*==================================================
+ * Product Search Form
+ * ===============================================*/
+
+@media (min-width: 768px) {
+    .product-search-region {
+        width: 219px;
+    }
+}
+.product-search-form {
+    background-color: #ebebeb;
+    /*    width: 187px;*/
+    padding: 13px 13px 14px 13px;
+    min-width: 195px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    float: left;
+}
+.product-search-form.form-horizontal .control-label {
+    text-align: left;
+}
+.product-search-form .form-control {
+    width: 180px;
+}
+.product-search-form-full {
+    background-color: #ebebeb;
+    min-width: 585px;
+    min-height: 636px;
+    font-size: 13px;
+}
+.product-search-form-full.form-horizontal .control-label {
+    text-align: left;
+}
+.product-search-form-full .form-control {
+    width: 180px;
+}
+.loan-purpose-select {
+    font-weight: bold;
+    font-size: 17px;
+}
+.all-options-form {
+    background-color: #ebebeb;
+    /*    width: 187px;*/
+    padding: 13px 13px 14px 13px;
+    min-width: 195px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    float: left;
+}
+.all-options-form.form-horizontal .control-label {
+    text-align: left;
+}
+.all-options-form .form-control {
+    width: 180px;
+}
+.all-options-form-full {
+    background-color: #ebebeb;
+    min-width: 300px;
+    min-height: 400px;
+    font-size: 13px;
+
+}}
+.all-options-form-full.form-horizontal .control-label {
+    text-align: left;
+}
+.btn-all-options {
+    width: 128px;
+    margin-left:200px;
+}
+}
+
+/*==================================================
+ * Product Grid
+ * ===============================================*/
+
+.product-grid-region {
+    margin-left: 15px;
+    min-width: 200px;
+}
+.product-grid {
+    font-size: 27px;
+    line-height: 0.85em;
+    white-space: nowrap;
+    margin-left: 5px;
+}
+.product-grid-row {
+    padding: 15px 0px 15px 0px;
+    border-top: 1px solid #D8D8D8;
+    min-height: 89px;
+}
+.product-grid-row > div {
+    margin-bottom: 5px;
+}
+.product-loan-type {
+    text-align: center;
+    font-size: 17px;
+    min-width: 85px;
+}
+.product-grid-loan-term-text {
+    white-space: nowrap;
+    font-weight: bold;
+    margin-top: 11px;
+    line-height: .9em;
+}
+.product-grid .fav-col {
+    text-align: center;
+}
+@media(min-width: 992px) and (max-width: 1200px) {
+    .product-grid .fav-col {
+        max-width: 35px;
+        padding: 0px;
+    }
+}
+.product-grid .fa-heart,
+.product-grid .fa-heart-o,
+.product-grid .icon-heart,
+.product-grid .icon-heart-o {
+    margin: 13px 0px 0px 5px;
+    color: #208DDC;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.product-grid .grey-text {
+    color: #BDC1D6;
+    font-size: 13px;
+}
+.product-grid-payment-text {
+    font-weight: bold;
+}
+@media(min-width: 992px) and (max-width: 1200px) {
+    .product-grid .view-details-col {
+        max-width: 45px;
+        padding: 0px;
+    }
+}
+
+.product-grid-select-rate-div{
+    margin-left: 15px; 
+    height:60px;
+}
+
+.product-grid-view-details {
+    font-size: 15px;
+    color: #0271DA;
+    margin-top: 15px;
+    cursor: pointer;
+    text-align: center;
+     position: absolute; 
+       left:35px; 
+       top:35px;
+}
+
+.report-disclaimer-content{
+    position:absolute; 
+    top: 30px;left:20px; 
+    text-align:justify; 
+    color:#727272; 
+    font-size: 12px;
+}
+
+.report-disclaimer-content-show{
+     font-size:13px; 
+     color: #9d9d9d; 
+     position: absolute; 
+     left:20px;
+      cursor: pointer;
+}
+
+
+.report-disclaimer-content-hide{
+    font-size:13px; 
+    color:#208ddc; 
+    position: absolute; 
+    left:20px;
+     cursor: pointer;
+}
+
+.product-select-rate-div{
+    position: absolute; 
+    left:0px;
+}
+
+.product-grid .btn-select-rate {
+    margin-top: 4px;
+    text-align: center;
+}
+
+@media(min-width: 960px) {
+
+
+    .product-grid .product-grid-view-details {
+       position: absolute; 
+       left:0px; 
+       top:0px;
+    }
+    .product-grid .product-select-rate-div{
+        position: absolute; 
+        left:95px;
+    }
+}
+
+@media (min-width: 992px) {
+    .product-grid .btn-select-rate {
+        margin-left: 35px;
+    }
+}
+.send-my-report-region {
+    border-top: 1px solid #D8D8D8;
+    padding-top: 15px;
+    color: #94949a;
+    font-size: 15px;
+    white-space: normal;
+}
+.send-my-report-explanation {
+    margin-top: -10px;
+}
+.send-my-report-explanation .fa-heart-o {
+    color: #208DDC;
+}
+
+/*==================================================
+ * Relativity Bar
+ * ===============================================*/
+
+.relativity-bar {
+    width: 100%;
+    height: 10px;
+}
+.relativity-bar-apr {
+    background-color: #D52A28;
+}
+.relativity-bar-payment {
+    background-color: #12B5CB;
+}
+.relativity-bar-closing-cost {
+    background-color: #30B34A;
+}
+
+/*==================================================
+ * Race
+ * ===============================================*/
+
+.race .radio-group {
+    margin-left: 4px;
+    padding-left: 2px;
+}
+.race .radio-group input {
+    margin-right: 15px;
+}
+
+/*==================================================
+ * Summary
+ * ===============================================*/
+
+.edit-link {
+    color: #3981c4;
+    font-size: 13px;
+    font-weight: 100;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.summary-section {
+    margin-bottom: 50px;
+}
+.summary-subsection {
+    margin-bottom: 25px;
+}
+.summary-subtitle {
+    margin-bottom: 2px;
+}
+.summary-subtitle-text {
+    font-weight: bold;
+}
+.summary-form {
+    margin-bottom: 3px !important;
+}
+.summary-form .control-label {
+    padding-top: 0px;
+}
+
+/*==================================================
+ * Secure Input
+ * ===============================================*/
+
+.secure-input input {
+    border-right: none;
+}
+.secure-input i.fa-lock {
+    color: #9D9D9D;
+}
+.secure-input .input-group-addon {
+    background-color: white;
+    border-left: none;
+}
+.secure-input.input-group[class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.secure-input div.input-state {
+    position: absolute;
+    top: 7px;
+    right: 37px;
+    z-index: 100;
+}
+.secure-input.invalid input {
+    border: 1px solid red;
+    border-right: none;
+}
+.secure-input.invalid .input-group-addon {
+    border: 1px solid red;
+    border-left: none;
+}
+.secure-input.invalid .input-group-addon {
+    border: 1px solid red;
+    border-left: none;
+}
+.secure-input.invalid div.input-state:after {
+    content: "invalid";
+    color: red;
+}
+.secure-input.valid i.fa-lock {
+    color: #208DDC;
+}
+
+/*==================================================
+ * Credit Scores
+ * ===============================================*/
+
+.credit-score-region {
+    padding-bottom: 40px;
+}
+.credit-score-row {
+    height: 27px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
+.credit-bar {
+    width: 100%;
+    background-color: #E2F5EA;
+    color: #1FB25A;
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 1px;
+    padding-right: 9px;
+    padding-left: 9px;
+}
+.credit-bar.right {
+    float: right;
+}
+.credit-bar-50 {
+    width: 50%;
+}
+.credit-bar-60 {
+    width: 60%;
+}
+.credit-bar-75 {
+    width: 75%;
+}
+.credit-label {
+    font-size: 16px;
+    color: #9d9d9d;
+    padding-top: 3px;
+}
+
+/*==================================================
+ * eConsent
+ * ===============================================*/
+
+.econsent-scrollbox {
+    height: 185px;
+    overflow-y: scroll;
+    border: 1px solid #b1aaaa;
+    padding: 17px 7px 20px 7px;
+    font-size: 12px;
+    line-height: 1.3em;
+    background-color: white;
+}
+.econsent-title {
+    text-align: center;
+    font-weight: bold;
+}
+.econsent-heading {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.econsent-indent {
+    padding-left: 40px;
+}
+
+/*==================================================
+ * My Next Step Region
+ * ===============================================*/
+
+.img-stairs {
+    margin-top: -20px;
+    height: 60px;
+}
+.my-next-step {
+    font-family: cursive;
+    font-size: 29px;
+}
+.my-next-step-header {
+    margin-bottom: 25px;
+    font-family: cursive;
+    font-size: 23px;
+    color: blue;
+}
+
+/*==================================================
+ * Logged Out
+ * ===============================================*/
+
+.img-mail-sm {
+    height: 45px;
+}
+
+/* ================================================
+ * Home Page
+ * ==============================================*/
+
+.home-page-banner {
+    margin-top: 25px;
+    min-height: 141px;
+    padding: 55px 0px 25px 0px;
+    background-color: #F9F9F9;
+}
+@media (max-width: 992px) {
+    .home-page-banner {
+        margin-top: 65px;
+        min-height: 170px
+    }
+}
+.home-page-property-section {
+    line-height: 17px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #727272;
+    margin-bottom: 40px;
+}
+.home-page-property-section div.inline.first {
+    margin-right: 50px;
+}
+.home-page-property-section div.inline {
+    margin-bottom: 10px;
+    margin-right: 20px;
+    text-align: left;
+}
+.home-page-label {
+    font-size: 15px;
+    font-weight: normal;
+}
+.home-page-underline {
+    max-width: 610px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.home-page-progress-section {
+    font-size: 19px;
+    margin-top: 2px;
+    color: #727272;
+}
+.home-page-progress-section .complete {
+    color: #73B85A;
+}
+.home-page-progress-section .active {
+    color: #000000;
+    font-weight: bold;
+    border-bottom: 2px solid #3d3d3d;
+}
+.home-page-arrow {
+    margin-top: -5px;
+    height: 23px;
+}
+.home-page-finish-flag {
+    margin-top: -5px;
+    height: 39px;
+}
+.home-page-action-items,
+.home-page-contacts {
+    margin-top: 19px;
+    font-size: 17px;
+}
+.home-page-action-items > div {
+    margin-bottom: 11px;
+}
+.home-page-action-items i {
+    width: 15px;
+    margin-right: 13px;
+    color: #208DDC;
+}
+.home-page-contacts > div {
+    margin-bottom: 11px;
+}
+.home-page-contacts i {
+    width: 13px;
+    margin-right: 7px;
+    color: #9D9D9D;
+}
+@media (min-width: 992px) {
+    .home-page-action-items,
+    .home-page-contacts {
+        margin-left: 20px;
+    white-space: nowrap;
+    }
+}
+.home-page-contact-info {
+    margin-left: 21px;
+    margin-top: 7px;
+    margin-bottom: 27px;
+}
+.home-page-contact-info > div {
+    margin-top: -3px;
+}
+.home-page-indicator-section {
+    z-index: -1;
+}
+
+/* ================================================
+ * Modals
+ * ==============================================*/
+
+.modal {
+    z-index: 1028 !important;
+}
+.modal-backdrop.noBackdrop {
+    display: none;
+}
+
+/* ================================================
+ * FLYOUTS
+ * ==============================================*/
+
+.modal.fade:not(.in).flyout .modal-dialog {
+    -webkit-transform: translate(25%, 0);
+    -ms-transform: translate(25%, 0);
+    -o-transform: translate(25%, 0);
+    transform: translate(25%, 0);
+}
+
+/* ================================================
+ * product-details-flyout
+ * ==============================================*/
+
+.modal-backdrop.in.product-details-flyout {
+    display: none;
+    top: 80px;
+}
+.modal.in.product-details-flyout {}
+.modal.in.product-details-flyout .modal-dialog {
+    top: 66px;
+    float: right;
+    -webkit-box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    width: 355px;
+    margin: 0px -1px 0px 0px;
+}
+.modal.product-details-flyout .modal-dialog {
+    float: right;
+}
+.modal.in.product-details-flyout .modal-content {
+    border: none;
+    border-radius: 0;
+    padding: 0px;
+}
+.product-details-flyout .modal-body {
+    text-align: left;
+    padding: 0px;
+}
+.product-details-flyout .img-demo-col {
+    padding: 0px;
+}
+.product-details-flyout label {
+    font-weight: normal;
+}
+.product-details-flyout .label-xl {
+    font-size: 37px;
+}
+.product-details-flyout .label-lg {
+    font-size: 15px;
+}
+.product-details-flyout .label-md {
+    font-size: 14px;
+}
+.product-details-flyout .label-sm {
+    font-size: 13px;
+}
+.product-details-flyout .label-xs {
+    font-size: 12px;
+}
+.product-details-flyout .short {
+    line-height: 16px;
+}
+.product-details-flyout .pad-left {
+    margin-left: 25px;
+}
+.product-details-flyout .pad-left-sm {
+    margin-left: 5px;
+}
+.product-details-flyout .loan-stats-section {
+    margin-top: 19px;
+    line-height: 9px;
+}
+.product-details-flyout .close-button {
+    position: relative;
+    top: 10px;
+    left: 320px;
+    z-index: 100;
+    width: 10px;
+    cursor: pointer;
+}
+
+/* ================================================
+ * all-options-flyout
+ * ==============================================*/
+
+.modal.in.all-options-flyout {}
+.modal.in.all-options-flyout .modal-dialog {
+    top: 66px;
+    float: right;
+    -webkit-box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    width: 500px;
+    margin: 0px -1px 0px 0px;
+}
+.modal.in.all-options-flyout .modal-content {
+    border: none;
+    border-radius: 0;
+    padding: 0px;
+}
+.all-options-flyout .modal-body {
+    text-align: left;
+    padding: 0px;
+}
+.all-options-flyout .img-demo-col {
+    padding: 0px;
+}
+.all-options-flyout label {
+    font-weight: normal;
+}
+.all-options-flyout .label-xl {
+    font-size: 37px;
+}
+.all-options-flyout .label-lg {
+    font-size: 15px;
+}
+.all-options-flyout .label-md {
+    font-size: 14px;
+}
+.all-options-flyout .label-sm {
+    font-size: 13px;
+}
+.all-options-flyout .label-xs {
+    font-size: 12px;
+}
+.all-options-flyout .short {
+    line-height: 16px;
+}
+.all-options-flyout .pad-left {
+    margin-left: 25px;
+}
+.all-options-flyout .pad-left-sm {
+    margin-left: 5px;
+}
+.all-options-flyout .loan-stats-section {
+    margin-top: 19px;
+    line-height: 9px;
+}
+.all-options-flyout .close-button {
+    position: relative;
+    top: 10px;
+    left: 320px;
+    z-index: 100;
+    width: 10px;
+    cursor: pointer;
+}
+
+/* ================================================
+ * file-picker-flyout
+ * ==============================================*/
+
+.modal .modal-dialog.file-picker-flyout {
+    width: auto !important;
+    height: auto !important;
+    min-height: 0px !important;
+}
+.modal-backdrop.in.file-picker-flyout {
+    display: none;
+    top: 80px;
+}
+.modal.in.file-picker-flyout .modal-dialog {
+    top: 66px;   
+    -webkit-box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+    width: 520px;
+    margin: 0px auto;
+    margin-top: 150px;
+}
+.modal.in.file-picker-flyout .modal-content {
+    border: none;
+    border-radius: 0;
+    padding: 12px 12px 12px 0px;
+}
+.file-picker-flyout{
+    margin: 0;
+}
+.file-picker-flyout h3{
+    position: relative;
+    top: -12px;
+}
+.file-picker-flyout .modal-header {
+    text-align: left;
+    padding: 12px;
+}
+.file-picker-flyout .modal-header .header-button {
+    margin-left: 42px;
+}
+.file-picker-flyout .modal-header label {
+    padding-top: 8px;
+    margin-left: 42px;
+    width: 140px;
+}
+.file-picker-flyout .modal-body {
+    text-align: left;
+    min-height: 200px;
+    padding: 12px 0px 12px 0px;
+}
+.file-picker-flyout .footer {
+    text-align: right;
+}
+.file-picker-flyout button {
+    width: auto;
+    cursor: pointer;
+}
+.file-picker-flyout .footer .footer-button {
+    /*position: relative;
+    top: 10px;
+    right: 6px;
+    z-index: 100;
+    width: auto;
+    cursor: pointer;*/
+    width: auto;
+    margin: 12px 0px 0px 12px;
+    cursor: pointer;
+}
+
+/* ================================================
+ * Spinner Modal With Text
+ * ==============================================*/
+
+.common-modal .modal-dialog {
+    margin-top: 300px;
+    width: 250px;
+    height: 150px;
+}

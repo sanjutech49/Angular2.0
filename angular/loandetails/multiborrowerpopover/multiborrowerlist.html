@@ -1,0 +1,13 @@
+﻿<div>
+    <div class="imp-mb-popover-left-section col-md-4">
+        <div class="imp-mb-popover-list" ng-class="mbList.isClicked(borrower) ? 'imp-mb-popover-list-clicked' : ''" ng-repeat="borrower in mbList.model" ng-click="mbList.setBorrower(borrower)">
+            <p class="imp-mb-popover-borrower">{{borrower.name}}</p>
+            <span class="imp-mb-popover-coborrower">{{borrower.coname}}</span>
+            <span class="imp-mb-popover-price">{{borrower.price}}</span>
+        </div>
+        <div class="imp-mb-popover-list">
+            <p class="imp-mb-popover-borrower">Combine Total</p>
+            <span style="font-weight: bold; color: #24B358;" class="imp-mb-popover-price">$2000</span>
+        </div>
+    </div>
+</div>

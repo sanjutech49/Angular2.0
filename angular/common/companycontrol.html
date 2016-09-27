@@ -1,0 +1,20 @@
+﻿<div class='imp-popover imp-body'>
+    <div class='container'>
+        <fieldset ng-disabled="modalpopoverCtrl.ctrl.DisableFields">
+            <div class='header'>{{modalpopoverCtrl.ctrl.itemContactInfoModalTitle}}</div>
+            <div class='imp-split'></div>
+            <div class="content" ng-include src="'angular/common/companycontent.html'"></div>
+            <div class='imp-split'></div>
+        </fieldset>
+        <div class='footer'>
+            <div class="buttons">
+                <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+                <div class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Done</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,15 @@
+﻿<div ng-class="{'row-stripped': stripped, 'edit-mode': costController.closingCostsRW }" class="row edit-mode" ng-init="hover = false;" ng-mouseover="hover = true" ng-mouseleave="hover = false">
+    <div class="imp-icon-pen" ng-show="hover && costController.closingCostsRW"></div>
+    <div class="col-a" ng-click="costController.closingCostsRW && setTemplate(mode)">
+        <div class="sub-col-s"></div>
+        <div class="sub-col-xs imp-disclaimer">{{ item.displayLineNumber }}</div>
+        <div class="sub-col-l">{{ item.costNameString }}</div>
+        <div class="sub-col-m">{{ item.from | date:'MM/dd/yyyy' }}</div>
+        <div class="sub-col-xs imp-disclaimer">to</div>
+        <div class="sub-col-m">{{ item.to | date:'MM/dd/yyyy'}}</div>
+    </div>
+    <div class="col-m" ng-click="costController.closingCostsRW && setTemplate(mode)">
+        <span class="cvalue">{{ item.amount | impCurrency:"" }}</span>
+    </div>
+    <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style="margin-right: -30px; margin-top: 4px; position: absolute; z-index: 1;" ng-show="hover && costController.closingCostsRW" ng-click="costController.closingCostsRW && remove();"></imp-circle>
+</div>

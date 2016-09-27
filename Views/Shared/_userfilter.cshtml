@@ -1,0 +1,92 @@
+﻿@using Telerik.Web.Mvc.UI
+@using MML.Common
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.FilterViewModel
+
+@{
+    bool hasPrivilegeForManagingQueues = ( Session[ SessionHelper.PrivilegeForManagingQueues ] is bool && ( bool )Session[ SessionHelper.PrivilegeForManagingQueues ] );
+    bool hasPrivilegeForManagingAppraisalQueues = ( Session[ SessionHelper.DisplayAppraisalQueues ] != null && ( Boolean )Session[ SessionHelper.DisplayAppraisalQueues ] );
+    bool hasPrivilegeForViewQueuesFilter = ( AccountHelper.HasPrivilege(PrivilegeName.ViewQueuesFilter) );
+    
+    bool hasPrivilegeForManagingAppraisalOrders = ( Session[ SessionHelper.PrivilegeForManagingAppraisalOrders ] != null && ( Boolean )Session[ SessionHelper.PrivilegeForManagingAppraisalOrders ] );
+    bool isOrderRequestedQueue = ( Session[ SessionHelper.CurrentTab ] != null && ( MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab )Session[ SessionHelper.CurrentTab ] == MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab.OrderRequested );
+    bool isOrderProcessedQueue = ( Session[ SessionHelper.CurrentTab ] != null && ( MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab )Session[ SessionHelper.CurrentTab ] == MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab.OrderProcessed );
+    bool isDeliveredForReviewQueue = ( Session[ SessionHelper.CurrentTab ] != null && ( MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab )Session[ SessionHelper.CurrentTab ] == MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab.OrderDeliveredForReview );
+    bool isExceptionQueue = ( Session[ SessionHelper.CurrentTab ] != null && ( MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab )Session[ SessionHelper.CurrentTab ] == MML.Web.LoanCenter.Helpers.Enums.LoanCenterTab.OrderException );
+    }
+<div id="filter" style="width: 100%; min-height:5px; padding-top: 10px;">
+
+            @Html.HiddenFor(m => m.FilterContext)
+                @if ( hasPrivilegeForManagingAppraisalQueues || AccountHelper.IsInRole( RoleName.Administrator ) || hasPrivilegeForViewQueuesFilter )
+                { 
+                    <div class="filterItemView" style="padding-left: 6px;"><p>View</p></div>
+
+                    <div id="companyFilter" class="filterItem">
+                        <p>Company</p>
+                        @Html.Telerik().DropDownListFor( m => m.CompanyId ).BindTo( new SelectList( Model.Companies, "Value", "Text" ) ).ClientEvents( events => events.OnChange( "UserFilter.CompanyOnChange" ) )
+                    </div>
+        
+                    <div id="channelFilter" class="filterItem">
+                        <p>Channel</p>
+                        @Html.Telerik().DropDownListFor( m => m.ChannelId ).BindTo( new SelectList( Model.Channels, "Value", "Text" ) ).ClientEvents( events => events.OnChange( "UserFilter.ChannelOnChange" ) )
+                    </div>
+
+                    <div id="divisionFilter" class="filterItem">
+                        <p>Division</p>
+                        @Html.Telerik().DropDownListFor( m => m.DivisionId ).BindTo( new SelectList( Model.Divisions, "Value", "Text" ) ).ClientEvents( events => events.OnChange( "UserFilter.DivisionOnChange" ) )
+                    </div>
+
+                    <div id="branchFilter" class="filterItem">
+                        <p>Branch</p>
+                        @Html.Telerik().DropDownListFor( m => m.BranchId ).BindTo( new SelectList( Model.Branches, "Value", "Text" ) ).ClientEvents( events => events.OnChange( "UserFilter.BranchOnChange" ) )
+                    </div>
+                }
+        
+                @if ( AccountHelper.IsInRole( RoleName.Administrator ) || AccountHelper.IsInRole( RoleName.BranchManager ) || AccountHelper.IsInRole( RoleName.TeamLeader ) || hasPrivilegeForManagingAppraisalQueues || hasPrivilegeForViewQueuesFilter )
+                {
+                    <div id="userFilter" class="filterItem">
+                        <p>Users</p>
+                        @Html.Telerik().DropDownListFor( m => m.UserId ).BindTo( new SelectList( Model.Users, "Value", "Text" ) )
+                    </div>
+                }
+
+            @if ( AccountHelper.IsInRole( RoleName.Administrator ) || AccountHelper.IsInRole( RoleName.BranchManager ) || AccountHelper.IsInRole( RoleName.TeamLeader ) || hasPrivilegeForManagingAppraisalQueues || hasPrivilegeForViewQueuesFilter )
+                 {
+                     <div id="sortFilter" class="filterItem" style="vertical-align:middle;height:35">
+                            <p>&nbsp</p>
+                            <div class="gobutton imp-button-div-hs-wxs-prim" onclick="UserFilter.SortFilters()" >Sort
+                            </div>
+                      
+                    </div>
+                
+                    
+                    <div id="clearFilter" class="filterItemNoFloat" >
+                          <p>&nbsp</p>
+                            <div class="clearButton imp-button-div-hs-wxs-prim" onclick="UserFilter.ClearAllFilters()" >Clear
+                            </div>
+                     
+                    </div>
+                     
+                    
+                 }
+            
+
+                
+
+    
+    
+
+         
+
+    <div class="refreshMain">
+        <span id="txtRefresh" class="txtRefresh" onclick="Refresh.RefreshDataHelper()">Refresh</span>        
+            <div class="refreshPageButton" onclick="Refresh.RefreshDataHelper()" id="refreshPage">
+            </div>      
+    </div> 
+
+    <section id="hiddenFields">
+        @*needed for retrieveing a list of users in case session breaks*@
+        @Html.HiddenFor(m => m.BranchId, new { @class = "hdnBranchId", @id = "hdnBranchId" })
+    </section> 
+</div>

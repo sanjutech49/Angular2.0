@@ -1,0 +1,82 @@
+﻿<div class="pgrid investor-price">
+    <div class="header">
+            <div class="title" ng-mouseover="lockingpricingCtrl.hoverInTitle(lockingpricingCtrl.investorPricingModel)"
+                 ng-mouseleave="lockingpricingCtrl.hoverOutTitle(lockingpricingCtrl.investorPricingModel)"
+                 ng-class="{'edit-mode':!lockingpricingCtrl.investorPricingModel.isDisabled}">
+
+                <span class="lbl" style="padding-top:4.5px; padding-bottom:4.5px; font-size:15px;">Enterprise Table of Adjustments</span>
+
+                <input type="text" display-currency-sign="false" decimal-places="3" imp-currency ng-model="lockingpricingCtrl.pricingLockingModel.investorPrice"
+                       ng-disabled="lockingpricingCtrl.investorPricingModel.isDisabled || lockingpricingCtrl.isDisabled()" style="margin-right: 1px;" />
+
+                <input type="text" always-three-decimals="true" return-float="true" additional-space="true" imp-percentage ng-model="lockingpricingCtrl.wrappedLoan.ref.loanLock.investorRate"
+                       ng-disabled="lockingpricingCtrl.investorPricingModel.isDisabled || lockingpricingCtrl.isDisabled()" />
+            </div>
+        <div class="action-edit" ng-mouseover="lockingpricingCtrl.hoverInTitle(lockingpricingCtrl.investorPricingModel)"
+             ng-mouseleave="lockingpricingCtrl.hoverOutTitle(lockingpricingCtrl.investorPricingModel)"
+             ng-hide="lockingpricingCtrl.isDisabled()">
+            <span ng-show="lockingpricingCtrl.investorPricingModel.hoverEdit" class="imp-icon-pen" ng-click="lockingpricingCtrl.enableInvestor(lockingpricingCtrl.investorPricingModel)"></span>
+        </div>
+        <div class="divider"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-s">
+                <span class="imp-disclaimer">Adjustment</span>
+            </div>
+            <div class="col-xl">
+                <span class="imp-disclaimer">Description</span>
+            </div>
+            <div class="col-xs">
+                <span class="imp-disclaimer">Price</span>
+            </div>
+            <div class="col-xs">
+                <span class="imp-disclaimer">Rate</span>
+            </div>
+        </div>
+        <div ng-repeat="adjustment in lockingpricingCtrl.tableAdjustmentList(lockingpricingCtrl.enums.pricingAdjustmentSectionType.enterprise)" ng-hide="adjustment.isDeleted">
+            <div class="row" ng-show="!adjustment.editMode" ng-click="lockingpricingCtrl.editAdjustment(adjustment)">
+                <div class="col-s">
+                    <span>{{lockingpricingCtrl.getAdjustmentDescription(lockingpricingCtrl.lookups.investorAdjustmentTypes, adjustment)}}</span>
+                </div>
+                <div class="col-xl">
+                    <span ng-bind="lockingpricingCtrl.adjustNoteMessage(adjustment)" />
+                </div>
+                <div class="col-xs" ng-class="{'imp-negative-value': adjustment.value < 0}">
+                    <span>{{adjustment.value | impCurrency:"":3}}</span>
+                </div>
+                <div class="col-xs">
+                    <span>{{adjustment.rate | impRound: 3 | impPercentage}}</span>
+                </div>
+            </div>
+            <div ng-include src="'angular/lockingandpricingadj/investorpriceedit.html'" ng-show="adjustment.editMode">
+            </div>
+        </div>
+        <div class="row total">
+            <div class="col-s">
+                &nbsp;
+                <!--ng-hide="lockingpricingCtrl.isDisabled()"-->
+                <div class="add-item" ng-show="false" ng-click="lockingpricingCtrl.addRow(lockingpricingCtrl.pricingLockingModel, lockingpricingCtrl.enums.pricingAdjustmentSectionType.enterprise)">
+                    <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="vertical-align: middle; margin-top: -4px; "></imp-circle>
+                    <span class="actions add">Add Item</span>
+                </div>
+            </div>
+            <div class="col-xl">
+                <span class="imp-text-enhanced-color">
+                    Enterprise Price/Rate
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="imp-text-enhanced-color">
+                    {{ lockingpricingCtrl.pricingLockingModel.enterprisePrice | impCurrency:"":3 }}
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="imp-text-enhanced-color">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.loanLock.enterpriceRate | impRound: 3 | impPercentage }}
+                </span>
+            </div>
+        </div>
+        <div class="row total-g">&nbsp;</div>
+    </div>
+</div>

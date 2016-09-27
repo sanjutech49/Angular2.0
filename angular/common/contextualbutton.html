@@ -1,0 +1,19 @@
+﻿<div class="btn-group contextual-button-action" dropdown style="margin-right:2px;">
+    <button type="button" ng-class="ctrl.cssClassAction" ng-disabled="false" style=" width:186px;" ng-click="ctrl.executeCommand(ctrl.selectedItem)">
+        {{ctrl.selectedItem.name}}
+        <span class="divider"></span>
+    </button>
+
+    <button type="button"
+            ng-class="ctrl.cssClassDropdown" dropdown-toggle ng-disabled="false">
+        <span class="arrow"></span>
+    </button>
+
+    <ul ng-class="ctrl.cssClassDropdownMenu" role="menu">
+        <li ng-repeat="item in ctrl.items">
+            <a ng-click="!item.disabled && ctrl.select(item)" ng-style="{'color' : item.disabled ? 'grey': 'black'}">
+                {{item.name}}
+            </a>
+        </li>
+    </ul>
+</div>

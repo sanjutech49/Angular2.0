@@ -1,0 +1,448 @@
+﻿@{
+    var version = Session[SessionHelper.LoanCenterVersion] != null ? (int)Session[SessionHelper.LoanCenterVersion] : 2;
+    Layout = version == 2 ? "~/Views/Shared/_OldLayout.cshtml" : "~/Views/Shared/_MainLayout.cshtml";
+}
+@using MML.Common;
+@using MML.Common.Helpers;
+@using MML.Common.ViewData;
+@using MML.Web.Facade;
+@using Telerik.Web.Mvc.UI
+@using MML.Web.LoanCenter.Helpers.Utilities;
+@using MML.Web.LoanCenter.Helpers.Enums;
+@using MML.Web.LoanCenter.ViewModels;
+@using System.Web.Optimization;
+@using WebGrease;
+@using System.Web.Services;
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using System.Configuration;
+@using MML.Web.LoanCenter.Helpers
+
+@{
+    bool viewSystemAdmin = (Session[SessionHelper.PrivilegeForViewSystemAdmin] != null && (Boolean)Session[SessionHelper.PrivilegeForViewSystemAdmin]);
+    bool viewConciergeCenter = (Session[SessionHelper.PrivilegeForViewConciergeCenter] != null && (Boolean)Session[SessionHelper.PrivilegeForViewConciergeCenter]);
+    bool displayAppraisalQueues = Session[SessionHelper.DisplayAppraisalQueues] != null && (Boolean)Session[SessionHelper.DisplayAppraisalQueues];
+    bool displayQueues = Session[SessionHelper.PrivilegeForManagingQueues] != null && (Boolean)Session[SessionHelper.PrivilegeForManagingQueues];
+    if (Session[SessionHelper.SessionSynchronization] == null)
+    {
+        Session[SessionHelper.SessionLastActivityTime] = DateTime.Now.ToString();
+    }
+}
+
+@section OldHeader{
+    @Styles.Render(string.Format("{0}/Content/LayoutCss-3.css?v=81", CDNHelper.CssStaticContentUrl))
+    @( Html.Telerik().ScriptRegistrar())
+}
+
+@if (Session[SessionHelper.DisplaySystemAdmin] != null && (bool)Session[SessionHelper.DisplaySystemAdmin])
+{
+    @section SystemAdminHeader{
+        @if (version == 3)
+        {
+            Html.RenderPartial("_navBar");
+        }
+
+    }
+}
+<div class="modalBackground">
+    <div id="divpopup" class="divpopup">
+    </div>
+</div>
+<div class="modalBackgroundUpper">
+</div>
+<div class="modalBackgroundWhite">
+</div>
+
+<div id="divConversationLogPopup" class="divConversationLogPopup" style="display: none;">
+</div>
+<div id="divClosingCostsHistoryPopup" class="divClosingCostsHistoryPopup" style="display: none;">
+</div>
+<div id="divProcessingPopup" class="divProcessingPopup" style="display: none;">
+    <div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle divProcessingPopupHeader">
+        Request is being processed
+    </div>
+    <div class="ui-dialog-content" style="padding-top: 24px;">
+        <img src="/Content/ajax-loader.gif">
+    </div>
+</div>
+<div id="divEmailDetailsPopup">
+</div>
+<div id="AUSMessageDialog" style="display: none;" title="Error Message">
+    <div id="aus-error-message" class="AUSErrorMessage">
+    </div>
+</div>
+<div class="page">
+    <input type="hidden" id="hdnLastActivityTime" value="@(DateTime.Now.ToString())" />
+    <input type="hidden" id="hdnSessionExpirationTime" value="@(System.Configuration.ConfigurationManager.AppSettings[ "SessionExpirationTime" ])" />
+    <input type="hidden" id="hdnWarningTime" value="@(System.Configuration.ConfigurationManager.AppSettings[ "SessionWarningTime" ])" />
+    <input type="hidden" id="hdnHeartBeatTime" value="@(System.Configuration.ConfigurationManager.AppSettings[ "SessionHeartBeatTime" ])" />
+    @if (version == 2)
+    {
+        Html.RenderPartial("OldLayoutParts/_headerSection");
+    }
+    <section id="main" style="clear:both;" ng-hide="navigation=='Appraisal'">
+        @if (version == 2)
+        {
+            Html.RenderPartial("OldLayoutParts/_mainHeader");
+        }
+        @if (Session[SessionHelper.DisplaySystemAdmin] == null || !(bool)Session[SessionHelper.DisplaySystemAdmin])
+        {
+            <div class="tabs">
+                <div>
+                    @if (displayAppraisalQueues && AccountHelper.IsInRole(RoleName.Administrator))
+                    {
+                        <ul class="tabrowarrow" style="float: left;">
+                            <li id="leftarrow"><a href="#"><</a></li>
+                        </ul>
+                    }
+                    <ul class="tabrow">
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.IsInRole(RoleName.BranchManager) || AccountHelper.IsInRole(RoleName.TeamLeader) || AccountHelper.IsInRole(RoleName.LoanProcessor)
+                         || AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant)))
+                        {
+                            <a href="javascript:void(0)" onclick="ProspectGrid.ProspectDataHelper('command=OpenProspectTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Prospect ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Prospects</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Prospect ) ? "queue queueselected" : "queue")" id="prospectstab">
+                                        <div id="tabProspectsCount" class="smallnumber">
+                                            @(Session["ContactViewModel"] != null ? (new ContactViewModel().FromXml(Session["ContactViewModel"].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        }
+                        @if (Session[SessionHelper.PrivilegeForReviewPreApprovalQueue] != null && (Boolean)Session[SessionHelper.PrivilegeForReviewPreApprovalQueue])
+                        {
+                            <a href="javascript:void(0)" onclick="PreApprovalGrid.PreApprovalDataHelper('command=OpenPreApprovalTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.PreApproval ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">PreApproval</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.PreApproval ) ? "queue queueselected" : "queue")" id="preapprovaltab">
+                                        <div id="tabPreApprovalCount" class="smallnumber">
+                                            @(Session[SessionHelper.PreApprovalViewModel] != null ? (new PreApprovalViewModel().FromXml(Session[SessionHelper.PreApprovalViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        }
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.IsInRole(RoleName.BranchManager) || AccountHelper.IsInRole(RoleName.TeamLeader) || AccountHelper.IsInRole(RoleName.LoanProcessor)
+                         || AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant) || AccountHelper.HasPrivilege(PrivilegeName.ViewPendingDisclosures)))
+                        {
+                            <a href="javascript:void(0)" onclick="NewLoanApplicationGrid.NewLoanApplicationDataHelper('command=OpenNewLoanApplicationTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.NewLoanApplication ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Pending Disclosures</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.NewLoanApplication ) ? "queue queueselected" : "queue")" id="newloanapplicationtab">
+                                        <div id="tabNewLoanApplicationCount" class="smallnumber">
+                                            @(Session[SessionHelper.NewLoanApplicationViewModel] != null ? (new NewLoanApplicationViewModel().FromXml(Session[SessionHelper.NewLoanApplicationViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+
+
+                        }
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.HasPrivilege(PrivilegeName.MailRoomQueue)))
+                        {
+                            <a href="javascript:void(0)" onclick="MailRoomGrid.MailRoomDataHelper('command=OpenMailRoomTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.MailRoom ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Mail Room</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.MailRoom ) ? "queue queueselected" : "queue")" id="mailroomtab">
+                                        <div id="tabMailRoomCount" class="smallnumber">
+                                            @(Session[SessionHelper.MailRoomViewModel] != null ? (new MailRoomViewModel().FromXml(Session[SessionHelper.MailRoomViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        }
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.IsInRole(RoleName.BranchManager) || AccountHelper.IsInRole(RoleName.TeamLeader) || AccountHelper.IsInRole(RoleName.LoanProcessor)
+                         || AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant) || AccountHelper.HasPrivilege(PrivilegeName.ViewPipeline)))
+                        {
+                            <a href="javascript:void(0)" onclick="PipelineGrid.PipelineDataHelper('command=OpenPipelineTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Pipeline ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Pipeline</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Pipeline ) ? "queue queueselected" : "queue")" id="pipelinetab">
+                                        <div id="tabPipelineCount" class="smallnumber">
+                                            @(Session[SessionHelper.PipelineViewModel] != null ? (new PipelineViewModel().FromXml(Session[SessionHelper.PipelineViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        }
+
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.IsInRole(RoleName.BranchManager) || AccountHelper.IsInRole(RoleName.TeamLeader) || AccountHelper.IsInRole(RoleName.LoanProcessor)
+                         || AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant)))
+                        {
+                            <a href="javascript:void(0)" onclick="AlertGrid.AlertDataHelper('command=OpenAlertTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Alerts ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Alerts</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Alerts ) ? "queue queueselected" : "queue")" id="alertstab">
+                                        <div id="tabAlertsCount" class="smallnumber">
+                                            0
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        }
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.IsInRole(RoleName.BranchManager) || AccountHelper.IsInRole(RoleName.TeamLeader) || AccountHelper.IsInRole(RoleName.LoanProcessor)
+                         || AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant)))
+                        {
+                            <a href="javascript:void(0)" onclick="PendingApprovalGrid.PendingApprovalDataHelper('command=OpenPendingApprovalTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.PendingApproval ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Review Required</div>
+                                    <div class="@(( Session[ SessionHelper.CurrentTab ] != null ) && ( ( LoanCenterTab )Session[ SessionHelper.CurrentTab ] == LoanCenterTab.PendingApproval ) ? "queue queueselected" : "queue")" id="pendingapprovaltab">
+                                        <div id="tabPendingApprovalCount" class="smallnumber">
+                                            @(Session[SessionHelper.PendingApprovalViewModel] != null ? (new PendingApprovalViewModel().FromXml(Session[SessionHelper.PendingApprovalViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        }
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.IsInRole(RoleName.BranchManager) || AccountHelper.IsInRole(RoleName.TeamLeader) || AccountHelper.IsInRole(RoleName.LoanProcessor)
+                         || AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant)))
+                        {
+                            <a href="javascript:void(0)" onclick="CompletedLoansGrid.CompletedLoansDataHelper('command=OpenCompletedLoansTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.CompletedLoans ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Completed</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.CompletedLoans ) ? "queue queueselected" : "queue")" id="completedloanstab">
+                                        <div id="tabCompletedLoansCount" class="smallnumber">
+                                            @(Session[SessionHelper.CompletedLoansViewModel] != null ? (new CompletedLoansViewModel().FromXml(Session[SessionHelper.CompletedLoansViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+                        }
+                        @if ((AccountHelper.IsInRole(RoleName.Administrator) || AccountHelper.IsInRole(RoleName.BranchManager) || AccountHelper.IsInRole(RoleName.TeamLeader) || AccountHelper.IsInRole(RoleName.LoanProcessor)
+                         || AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant)))
+                        {
+                            <a href="javascript:void(0)" onclick="CancelGrid.CancelDataHelper('command=OpenCancelTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Cancelled ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Cancelled</div>
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.Cancelled ) ? "queue queueselected" : "queue")" id="canceltab">
+                                        <div id="tabCanceledCount" class="smallnumber">
+                                            @(Session[SessionHelper.CancelViewModel] != null ? (new CancelViewModel().FromXml(Session[SessionHelper.CancelViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+
+                        }
+                        @if (displayAppraisalQueues)
+                        {
+
+                            <a href="javascript:void(0)" onclick="OrderRequestedGrid.OrderRequestedDataHelper('command=OpenOrderRequestedTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.OrderRequested ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Order Requested</div>
+                                    <div class="@(( Session[ SessionHelper.CurrentTab ] != null ) && ( ( LoanCenterTab )Session[ SessionHelper.CurrentTab ] == LoanCenterTab.OrderRequested ) ? "queue queueselected" : "queue")" id="orderrequestedtab">
+                                        <div id="tabOrderRequestedCount" class="smallnumber">
+                                            @(Session[SessionHelper.OrderRequestedViewModel] != null ? (new OrderRequestedViewModel().FromXml(Session[SessionHelper.OrderRequestedViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+
+                            <a href="javascript:void(0)" onclick="OrderProcessedGrid.OrderProcessedDataHelper('command=OpenOrderProcessedTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.OrderProcessed ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Order Processed</div>
+                                    <div class="@(( Session[ SessionHelper.CurrentTab ] != null ) && ( ( LoanCenterTab )Session[ SessionHelper.CurrentTab ] == LoanCenterTab.OrderProcessed ) ? "queue queueselected" : "queue")" id="orderprocessedtab">
+                                        <div id="tabOrderProcessedCount" class="smallnumber">
+                                            @(Session[SessionHelper.OrderProcessedViewModel] != null ? (new OrderProcessedViewModel().FromXml(Session[SessionHelper.OrderProcessedViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+
+                            <a href="javascript:void(0)" onclick="OrderDeliveredForReviewGrid.OrderDeliveredForReviewDataHelper('command=OpenOrderDeliveredForReviewTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.OrderDeliveredForReview ) ? "menuitem selected" : "menuitem")">
+                                    <div class="menutitle">Delivered For Review</div>
+                                    <div class="@(( Session[ SessionHelper.CurrentTab ] != null ) && ( ( LoanCenterTab )Session[ SessionHelper.CurrentTab ] == LoanCenterTab.OrderDeliveredForReview ) ? "queue queueselected" : "queue")" id="orderdeliveredforreviewtab">
+                                        <div id="tabOrderDeliveredForReviewCount" class="smallnumber">
+                                            @(Session[SessionHelper.OrderDeliveredForReviewViewModel] != null ? (new OrderDeliveredForReviewViewModel().FromXml(Session[SessionHelper.OrderDeliveredForReviewViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+
+                            <a href="javascript:void(0)" onclick="OrderExceptionGrid.OrderExceptionDataHelper('command=OpenOrderExceptionTab')">
+                                <li class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.OrderException ) ? "menuitem selected" : "menuitem")">
+                                    <div class="@(( Session[ "CurrentTab" ] != null ) && ( ( LoanCenterTab )Session[ "CurrentTab" ] == LoanCenterTab.OrderException ) ? "menutitle menutitleRed" : "menutitle")">Exceptions</div>
+                                    <div class="@(( Session[ SessionHelper.CurrentTab ] != null ) && ( ( LoanCenterTab )Session[ SessionHelper.CurrentTab ] == LoanCenterTab.OrderException ) ? "queue queueselected" : "queue")" id="orderexceptiontab">
+                                        <div id="tabOrderExceptionCount" class="smallnumber">
+                                            @(Session[SessionHelper.OrderExceptionViewModel] != null ? (new OrderExceptionViewModel().FromXml(Session[SessionHelper.OrderExceptionViewModel].ToString())).TotalItems : 0)
+                                        </div>
+                                    </div>
+                                </li>
+                            </a>
+
+                        }
+                    </ul>
+                    @if (displayAppraisalQueues && AccountHelper.IsInRole(RoleName.Administrator))
+                    {
+                        <ul class="tabrowarrow" style="float: right;">
+                            <li id="rightarrow"><a href="#">></a></li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        }
+        @RenderBody()
+    </section>
+    <section id="oldAppraisal" ng-show="navigation=='Appraisal'"></section>
+    @if (!AccountHelper.HasPrivilege(MML.Common.PrivilegeName.ViewLoanCenter3))
+    {
+        Html.RenderPartial("OldlayoutParts/_footer");
+    }
+
+    <div class="errorPopUp">
+        <div id="dialog-modal" title="Error">
+            <strong><span class="message" style="display: none">An internal Server error occurred</span></strong>
+        </div>
+    </div>
+    <div class="sessionSyncPopup">
+        <div id="dialog-SessionSync" title="">
+            <strong><span id="sessionSyncMessage" class="message" style="display: none"></span></strong>
+        </div>
+    </div>
+</div>
+
+
+@section ScriptsFooter{
+    @if (@System.Configuration.ConfigurationManager.AppSettings["UseMinifiedJS"].ToLower() == "true")
+    {
+        @LCScripts.Render("Scripts/LayoutJavascript.js?v=29")
+    }
+    else
+    {
+        @Html.Partial("_LayoutScripts")
+    }
+    @if (Session[SessionHelper.DisplaySystemAdmin] is bool && (bool)Session[SessionHelper.DisplaySystemAdmin])
+    {
+        @LCScripts.Render("Scripts/SystemAdmin.js?v=1")
+        <script src="@Url.Content( "~/Scripts/jquery.unobtrusive-ajax.js" )" type="text/javascript"></script>
+        <script src="@Url.Content( "~/Scripts/jquery.validate.js" )" type="text/javascript"></script>
+        <script src="@Url.Content( "~/Scripts/jquery.validate.unobtrusive.js" )" type="text/javascript"></script>
+        <script src="@Url.Content( "~/Scripts/jquery.extend.js" )" type="text/javascript"></script>
+    }
+}
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $(document).ready(function () {
+            //HeartBeatCheck();
+        });
+
+        $(".page").mousemove(function (event) {
+            BindSessionExpirationEvents();
+        });
+
+        $(".page").click(function (event) {
+            BindSessionExpirationEvents();
+        });
+
+        var sumWidth = 0;
+        $(".tabrow a").filter(function () {
+            var $this = $(this);
+            pWidth = $this.parent().width();
+
+            sumWidth += $this.outerWidth(true);
+
+            return sumWidth > pWidth;
+        }).hide();
+
+        $(".menuitem").click(function (e) {
+            e.preventDefault();
+            $("li").removeClass("selected");
+            $(this).addClass("selected");
+        });
+
+        $("#rightarrow").click(function (e) {
+            if (!$(".tabrow").find('a:last').children().is(':visible')) {
+                $(".tabrow").find('a:visible:last').next().children().show();
+                $(".tabrow").find('a:visible:last').next().show();
+                $(".tabrow").find("a:visible:first").hide();
+
+                var sumWidth = 0;
+                $(".tabrow a:visible").each(function () {
+                    var $this = $(this);
+                    pWidth = $this.parent().width();
+
+                    sumWidth += $this.outerWidth(true);
+
+                    if (sumWidth > pWidth)
+                        $(".tabrow").find("a:visible:first").hide();
+                })
+            }
+        });
+
+        $("#leftarrow").click(function (e) {
+            if (!$(".tabrow").find('a:first').is(':visible')) {
+                $(".tabrow").find("a:visible:last").hide();
+                $(".tabrow").find("a:visible:first").prev().children().show();
+                $(".tabrow").find("a:visible:first").prev().show();
+            }
+        });
+
+    });
+
+    function BindSessionExpirationEvents() {
+        var currentDateTime = new Date();
+        var curTime = currentDateTime.format("MM/dd/yyyy hh:mm:ss tt");
+        $('#hdnLastActivityTime').val(curTime);
+    }
+
+    function openNewWindows() {
+        document.cookie = "startaprospect = opened";
+        //document.cookie = "startaprospectopened"
+        window.open('@(System.Configuration.ConfigurationManager.AppSettings[ "StartProspect" ])');
+    }
+
+    function openNewProspect() {
+        document.cookie = "startaprospect = opened";
+        window.open('@(System.Configuration.ConfigurationManager.AppSettings[ "StartProspect" ])');
+    }
+
+    $.ajaxSetup({
+
+        // Disable caching of AJAX responses
+        cache: false
+
+    });
+    $.ajaxSetup({
+        error: function (e) {
+            window.console && console.log("Error occured: " + e.statusText);
+            @if (Session[ SessionHelper.DisplaySystemAdmin ] == null || !( bool ) Session[ SessionHelper.DisplaySystemAdmin ])
+                   {
+                    <text>$("#body").parent().unblock();</text>
+                   }
+            //Call the method ShowAjaxErrorPopUp if you want to show user that error happend
+            //ShowAjaxErrorPopUp(e);
+        }
+    });
+
+    $(document).keyup(function (event) {
+        if (event.which === 27) {
+            $(".LoanCenterPopup").hide();
+            $(".divPopupClose").hide();
+            $('#divpopup').hide();
+            $('#divClosingCostsHistoryPopup').hide();
+            $(".modalBackground").fadeOut();
+            ManageFees.ClosePTCPopup();
+            @if (Session[SessionHelper.DisplaySystemAdmin] is bool && (bool)Session[SessionHelper.DisplaySystemAdmin])
+                {
+                    <text>Contacts.CloseSystemAdminBusinessContactPopup();
+            Contacts.CloseChooseBuyerSellerAgentPoPup();
+            Contacts.HideDuplicateLoanContactPopUp();
+            Contacts.CloseDeleteLoanContactPopup();</text>
+                 }
+        }
+    });
+
+    $("#refreshLoanCenterPageOnClickOnLogo").live("click", Redirect);
+
+    function Redirect() {
+        if (AreThereAnyChangesOnManageFees(Redirect, null) == true)
+            return;
+
+        window.location = window.location.protocol + '//' + window.location.host;
+    }
+
+</script>

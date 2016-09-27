@@ -1,0 +1,860 @@
+/*==================================================
+ * General Styles
+ * ===============================================*/
+
+
+/*Bootstrap has breakpoints at 768px(sm), 992px(md), 1200px(lg) */
+
+.body {
+    font-family: sans-serif;
+}
+.wizard-content {
+    padding: 15px 10px 150px 10px;
+}
+.section-title {
+    font-size: 21px;
+    font-weight: bold;
+    color: #3d3d3d;
+    text-align: center;
+    margin-top: 15px;
+}
+.section-subtitle {
+    font-size: 15px;
+    color: #3d3d3d;
+    text-align: center;
+}
+.section-title.top {
+    margin-top: 0px;
+}
+.section-content {
+    margin-top: 21px;
+}
+.section-title.section-content {
+    margin-top: 45px;
+}
+.center {
+    text-align: center
+}
+.save-and-continue-button {
+    margin-top: 22px;
+}
+.btn-option {
+    height: 35px;
+    width: 240px;
+    border-radius: 3px;
+    border: 1px solid #bdbebe;
+    font-size: 15px;
+    color: #3d3d3d;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+.btn-option-selected {
+    background-color: #1FB25A !important;
+    color: #fff !important;
+}
+.total-label {
+    font-size: 13px !important;
+    color: #3d3d3d !important;
+    font-weight: bold !important;
+}
+.total-value {
+    margin-left: 1px;
+    margin-top: 6px;
+    font-size: 13px !important;
+    color: #2fbc64 !important;
+}
+.div-inline {
+    display: inline-block;
+}
+
+/*==================================================
+ * Section Questions
+ * ===============================================*/
+
+.section-question-text {
+    color: #3d3d3d;
+    font-size: 21px;
+}
+.section-question-subtext {
+    color: #9d9d9d;
+    margin-bottom: 17px;
+}
+.section-question-radio {
+    margin-left: -20px;
+}
+.section-question-underline {
+    padding-bottom: 9px;
+    margin-bottom: 17px;
+    border-bottom: 1px solid #BDBEBE;
+}
+
+/*==================================================
+ * Page Body
+ * ===============================================*/
+
+.page-body {
+    margin-top: 67px;
+}
+
+/*==================================================
+ * Item Box
+ * ===============================================*/
+
+.item-box {
+    padding: 11px 0px;
+    margin-top: 9px;
+    min-height: 45px;
+    border: 1px solid #BDBEBE;
+    background-color: #F9F9F9;
+    border-radius: 3px;
+}
+.item-box.add-box {
+    background-color: transparent;
+}
+.item-box > div {
+    /*    margin-top: 2.4%;*/
+    vertical-align: middle;
+}
+.item-box-title {
+    font-weight: bold;
+}
+.item-box-range {
+    /*    font-style: italic; */
+}
+.item-box-edit {
+    cursor: pointer;
+    color: #208DDC;
+    font-weight: bold;
+}
+.item-box .fa-minus-circle {
+    color: #F4BABC;
+    cursor: pointer;
+}
+
+/*==================================================
+ * Validation
+ * ===============================================*/
+
+.invalid-field {
+    color: red !important;
+    border-color: #ef1126;
+    background-color: #fdeaea;
+}
+
+/*==================================================
+ * Dual Inputs - 70-30
+ * ===============================================*/
+
+.dual-input-70-30 {
+    min-width: 240px;
+}
+.dual-input-70-30 input,
+.dual-input-70-30 select {
+    min-width: 40px !important;
+    display: inline-block;
+}
+.dual-input-70-30 input {
+    width: 69% !important;
+}
+.dual-input-70-30 select {
+    width: 31% !important;
+}
+
+/*==================================================
+ * Dual Inputs - 60-40
+ * ===============================================*/
+
+.dual-input-60-40 {
+    min-width: 240px;
+}
+.dual-input-60-40 input,
+.dual-input-60-40 select {
+    min-width: 40px !important;
+    display: inline-block;
+}
+.dual-input-60-40 .first {
+    width: 59% !important;
+}
+.dual-input-60-40 .second {
+    width: 41% !important;
+}
+.dual-input-60-40 select {
+    color: gray;
+}
+
+/*==================================================
+ * Dual Input - e.g Year Month inputs
+ * ===============================================*/
+
+.dual-input {
+    min-width: 240px;
+}
+.dual-input input {
+    display: inline-block;
+    min-width: 40px !important;
+    width: 50% !important;
+}
+
+/*==================================================
+ * Dual Input - Spaced
+ * ===============================================*/
+
+.dual-input-spaced {
+    min-width: 240px;
+}
+.dual-input-spaced input {
+    display: inline-block;
+    min-width: 40px !important;
+    width: 49% !important;
+}
+.dual-input-spaced input.second-input {
+    margin-left: 2%;
+}
+
+/*==================================================
+ * Dual Input - Joined
+ * ===============================================*/
+
+.dual-input-joined {
+    min-width: 240px;
+}
+.dual-input-joined input {
+    display: inline-block;
+    min-width: 40px !important;
+    width: 50% !important;
+}
+.dual-input-joined input.first {
+    border-right-width: 0px;
+}
+.dual-input-joined input.second {
+    border-left-width: 0px;
+}
+.dual-input-joined.time-period:after {
+    position: absolute;
+    content: "to";
+    color: #9d9d9d;
+    margin-top: 8px;
+    margin-left: -55%;
+    z-index: 2;
+}
+
+/*==================================================
+ * State Zip Input
+ * ===============================================*/
+
+.zip-state-input {
+    min-width: 240px;
+}
+.zip-state-input select,
+.zip-state-input input {
+    display: inline-block;
+    min-width: 40px !important;
+    width: 49% !important;
+}
+.zip-state-input select {
+    color: gray;
+    margin-left: 2%;
+}
+
+/*==================================================
+ * Checkboxes - code from http://codepen.io/CreativeJuiz/pen/BiHzp
+ * ===============================================*/
+
+.checkbox label {
+    font-size: 17px;
+}
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+}
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 1px;
+    width: 19px;
+    height: 19px;
+    border: 1.5px solid #C6C7C7;
+    background: #fff;
+}
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+    content: '✔';
+    position: absolute;
+    top: -1px;
+    left: -7px;
+    font-size: 18px;
+    line-height: 0.8;
+    color: #09ad7e;
+    transition: all .2s;
+}
+[type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+    opacity: 1;
+    transform: scale(1.5);
+}
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #ddd;
+}
+[type="checkbox"]:disabled:checked + label:after {
+    color: #999;
+}
+[type="checkbox"]:disabled + label {
+    color: #aaa;
+}
+
+/*==================================================
+ * Radio Buttons
+ * ===============================================*/
+
+input[type=radio] {
+    /* Hide original inputs */
+    visibility: hidden;
+    position: absolute;
+}
+input[type=radio] + label:before {
+    height: 17px;
+    width: 17px;
+    margin-right: 15px;
+    margin-bottom: -2px;
+    content: " ";
+    display: inline-block;
+    vertical-align: baseline;
+    border: 1px solid #777;
+    border-radius: 100%;
+}
+input[type=radio]:checked + label:before {
+    background: #208ddc;
+}
+input[type=radio] + label:hover {
+    border-radius: 0% !important;
+}
+.radio-group label {
+    font-size: 16px;
+}
+.form-group .radio-inline {
+    font-size: 16px;
+}
+
+/*
+.verticle-radios input[type=radio] + label:before {
+    display: inline-block;
+}
+*/
+
+
+/*==================================================
+ * General Bootstrap Overrides
+ * ===============================================*/
+
+.btn {
+    height: 44px;
+    font-size: 15px;
+    padding: 0px 21px;
+}
+.btn-primary {
+    border-radius: 3px;
+    border: 1px solid #0271da;
+    color: #fff;
+    background-image: url("Images/primary-button-fill.png");
+}
+.btn-secondary {
+    border-radius: 3px;
+    border: 1px solid #bdbebe;
+    color: #3d3d3d;
+    background-color: #f9f9f9;
+}
+.form-horizontal .control-label {
+    color: #9d9d9d;
+    font-weight: 100;
+}
+.form-control {
+    color: #3d3d3d;
+    min-width: 120px;
+    height: 31px;
+}
+.form-control:hover {
+    border-color: #208ddc;
+}
+input.form-control {
+    padding: 2px 0px 0px 11px;
+}
+select.form-control {
+    padding: 2px 0px 0px 7px;
+}
+.form-control.half-box {
+    min-width: 117px;
+}
+.form-horizontal .form-group {
+    margin-bottom: 9px;
+}
+
+/*==================================================
+ * Navigation Bar
+ * ===============================================*/
+
+.my-navbar {
+    text-align: center;
+    -webkit-box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.4);
+}
+.navbar-default {
+    background-color: white;
+    border-color: transparent;
+}
+.navbar-default > .container-fluid {
+    padding: 10px 1% 5px 1%;
+}
+@media (min-width: 1600px) {
+    .navbar-default > .container-fluid {
+        padding: 10px 10% 5px 10%;
+    }
+}
+.logo-img {
+    content: url(Images/cloud-virga-logo2.png);
+    height: 39px;
+    margin-top: -14px;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #787878;
+    padding: 15px 0px 0px 0px;
+}
+.navbar-default .navbar-nav > li.active > a {
+    color: #73B85A;
+    border-bottom: 2px solid #73B85A;
+    background-color: transparent;
+}
+.navbar-default .navbar-nav > li.complete > a {
+    color: #73B85A;
+}
+.breadcrumb-arrow {
+    margin-top: 14px;
+    margin-right: 4px;
+    height: 20px;
+}
+.icon-finish-flag {
+    margin-top: 9px;
+    margin-right: 15px;
+    height: 30px;
+}
+.percent-finish-indicator {
+    height: 70px;
+    margin-top: -10px;
+    margin-right: 55px;
+}
+@media (max-width: 910px) {
+    .percent-finish-indicator {
+        display: none;
+    }
+}
+.nav-vertical-divider {
+    float: left;
+    border-left: 1px solid #C6C6C6;
+    height: 45px;
+    margin-right: 25px;
+}
+.loan-stats {
+    color: #787878;
+    font-size: 17px;
+    float: left;
+}
+.loan-stats table td {
+    width: 100px;
+}
+.loan-stats table label {
+    color: #C0BEBE;
+    font-weight: 100;
+    font-size: 14px;
+}
+@media (max-width: 1340px) {
+    .loan-stats {
+        display: none;
+    }
+    .nav-vertical-divider {
+        display: none;
+    }
+}
+.navbar-toggle {
+    float: left;
+    margin-left: 15px;
+    border: none;
+}
+.navbar-button-divider {
+    border-right: 1px solid #bdbebe;
+    position: absolute;
+    left: 60px;
+    height: 50px;
+    top: -10px;
+}
+.navbar-back-button {
+    position: absolute;
+    left: 75px;
+    top: -7px;
+    display: block;
+}
+.navbar-brand {
+    float: right;
+}
+@media (min-width: 500px) {
+    /* at this width we hide the phone number, show the back button, and align logo to right*/
+    .navbar-back-button {
+        display: none;
+    }
+    .navbar-brand {
+        float: left;
+    }
+    .logo-img {
+        content: url(Images/cloud-virga-logo.png);
+    }
+}
+
+/*==================================================
+ * Wizard Navbar
+ * ===============================================*/
+
+.wizard-navbar {
+    min-height: 120px;
+    padding: 5px 5% 15px 5%;
+    background-color: #F9F9F9;
+}
+@media (max-width: 992px) {
+    .wizard-navbar {
+        margin-top: -30px;
+    }
+}
+.wizard-navbar > div {
+    display: inline-block;
+    text-align: center;
+}
+.wizard-navbar .back-button {
+    text-align: center;
+    color: #3497DE;
+    margin-top: 37px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.wizard-navbar .back-button i {
+    display: block;
+    text-align: center;
+}
+.wizard-navbar .back-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+}
+.wizard-navbar .wizard-title-region {
+    margin-top: 25px;
+}
+.wizard-title-img {
+    height: 70px;
+    margin-top: -10px;
+    vertical-align: bottom;
+}
+@media (max-width: 468px) {
+    .wizard-title-img {
+        margin-top: 20px;
+    }
+}
+.wizard-navbar .wizard-title-text {
+    font-size: 25px;
+    font-weight: 100;
+}
+.wizard-navbar .wizard-subtitle-text {
+    font-size: 16px;
+}
+.wizard-navbar .wizard-right-region {
+    margin-top: 20px;
+}
+.wizard-navbar .wizard-save-for-later-text {
+    color: #147ce0;
+    font-size: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+/*==================================================
+ * Personal Info Page Styles
+ * ===============================================*/
+
+.personal-info table.wizard-title-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+.personal-info .wizard-title-table .img-col {
+    width: 100px;
+}
+
+/*==================================================
+ * Personal Info Page Styles
+ * ===============================================*/
+
+.other-income .fa-plus-circle {
+    color: #208ddc;
+    font-size: 19px;
+    margin-right: 2px;
+}
+
+/*==================================================
+ * Declarations Page Styles
+ * ===============================================*/
+
+.declarations .form-group label {
+    text-align: left;
+}
+
+/*==================================================
+ * Pricing Navigation Bar
+ * ===============================================*/
+
+.navbar-need-help-region {
+    position: absolute;
+    top: 15px;
+    right: 5%;
+    color: #815f5f;
+    text-align: right;
+    display: none;
+}
+@media (min-width: 500px) {
+    /* at this width we hide the phone number, show the back button, and align logo to right*/
+    .navbar-need-help-region {
+        display: block !important;
+    }
+}
+.navbar-need-help-region > div {
+    height: 15px;
+}
+.navbar-collapse.in .navbar-need-help-region {
+    /* make it centered when the nav-bar is in the collapsed state */
+    float: none;
+}
+.navbar-need-help-phone {
+    color: #73B85A;
+}
+.navbar-default.pricing-navbar .navbar-nav > li {
+    /* the margin-left here has to be in px not percentage or the last one or two will float to the next line. */
+    margin-left: 35px;
+}
+.navbar-default.pricing-navbar .navbar-nav > li > a {
+    color: #554545;
+}
+.navbar-default.pricing-navbar .navbar-nav > li.active > a {
+    color: #594dde;
+    border-bottom: none;
+    background-color: transparent;
+}
+
+/*==================================================
+ * Pricing Filter
+ * ===============================================*/
+
+.pricing-filter-bar {
+    background-image: url("Images/pricing-filter-bar-bg3.png");
+    background-size: cover;
+    padding: 30px 0px 0px 0px;
+    color: #727272;
+}
+.pricing-filter-bar-title-region {
+    margin-bottom: 20px;
+}
+.pricing-filter-bar-title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1em;
+    max-width: 150px;
+}
+.pricing-filter-bar-subtitle {
+    margin-top: 4px;
+    font-size: 12px;
+    width: 100%;
+}
+.pricing-filter-bar-content {
+    margin-top: -7px;
+    padding: 0px;
+}
+.pricing-filter-box {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0px 10px;
+    margin: 0px 7px 20px 7px;
+    width: 110px;
+    height: 87px;
+    background: #F4F3F3;
+    opacity: 0.7;
+    text-align: center;
+    line-height: 1.1em;
+    color: #464646;
+    cursor: pointer;
+}
+.pricing-filter-box.active {
+    opacity: 1;
+    color: #208DDC;
+}
+.pricing-filter-box > i {
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+.pricing-filter-box > i.fa-dollar {
+    margin-bottom: 7px;
+}
+.pricing-filter-box > i.fa-heart {
+    margin-top: 18px;
+    margin-bottom: 7px;
+}
+.pricing-content {
+    margin: 20px 20px 20px -10px;
+}
+
+/*==================================================
+ * Product Search Form
+ * ===============================================*/
+
+.product-search-form {
+    background-color: #ebebeb;
+    width: 187px;
+    padding: 13px 13px 14px 13px;
+    min-width: 195px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+.product-search-form.form-horizontal .control-label {
+    text-align: left;
+}
+.loan-purpose-select {
+    font-weight: bold;
+    font-size: 17px;
+}
+.btn-get-my-rates {
+    margin-top: 50px;
+    padding: 0px 38px;
+}
+
+/*==================================================
+ * Product Grid
+ * ===============================================*/
+
+@media (min-width: 768px) {
+    .product-grid-col {
+        padding-left: 115px;
+    }
+}
+@media (min-width: 992px) {
+    .product-grid-col {
+        padding-left: 90px;
+    }
+}
+@media (min-width: 1200px) {
+    .product-grid-col {
+        padding-left: 50px;
+    }
+}
+.product-grid {
+    font-size: 23px;
+    line-height: 1em;
+    white-space: nowrap;
+    margin-left: 5px;
+}
+@media (min-width: 768px) {
+    .product-grid {
+        margin-left: 0px;
+    }
+}
+.product-grid-row {
+    padding: 15px 0px 15px 0px;
+    border-top: 1px solid #D8D8D8;
+    min-height: 89px;
+}
+.product-grid-row > div {
+    margin-bottom: 5px;
+}
+.product-loan-type {
+    text-align: center;
+    font-size: 17px;
+    min-width: 110px;
+}
+.product-grid-loan-term-text {
+    white-space: nowrap;
+    font-weight: bold;
+    margin-top: 7px;
+}
+.product-grid .fa-heart,
+.product-grid .fa-heart-o {
+    margin: 13px 0px 0px 5px;
+    color: #208DDC;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.product-grid .grey-text {
+    color: #BDC1D6;
+    font-size: 13px;
+}
+.product-grid-payment-text {
+    font-weight: bold;
+}
+.product-grid-view-details {
+    font-size: 15px;
+    color: #0271DA;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.product-grid .btn-select-rate {
+    margin-top: 4px;
+    text-align: center;
+}
+@media (min-width: 992px) {
+    .product-grid .btn-select-rate {
+        margin-left: 35px;
+    }
+}
+.send-my-report-region {
+    border-top: 1px solid #D8D8D8;
+    padding-top: 15px;
+    color: #94949a;
+    font-size: 15px;
+}
+.btn-send-my-report {
+    margin-bottom: 10px;
+}
+.send-my-report-explanation .fa-heart-o {
+    color: #208DDC;
+}
+.btn-get-my-rates {
+    margin-top: 50px;
+    padding: 0px 38px;
+    height: 41px;
+}
+
+/*==================================================
+ * Relativity Bar
+ * ===============================================*/
+
+.relativity-bar {
+    width: 100%;
+    height: 10px;
+}
+.relativity-bar-apr {
+    background-color: #ff0000;
+    opacity: 0.1;
+}
+.relativity-bar-payment {
+    background-color: #0000ff;
+    opacity: 0.1;
+}
+.relativity-bar-closing-cost {
+    background-color: #0e900e;
+    opacity: 0.1;
+}

@@ -1,0 +1,30 @@
+﻿<div class="queue-contextual-bar">
+    <div class="items">
+        <div class="selected">
+            {{queueBarCtrl.selectedQueue}}
+        </div>
+        <div class="divider first-divider"></div>
+        <div class="number-of-records hyperlink" ng-click="queueBarCtrl.openColumnOptionsModalWindow()">Column Options</div>
+        <div class="divider"></div>
+
+        <div class="clear-all-filter hyperlink" ng-click="queueBarCtrl.clearAllFilters()">
+            <div class="imp-icon-clear "></div>
+            <div>Clear All Filters</div>
+        </div>
+
+        <div class="refresh hyperlink" ng-click="queueBarCtrl.refreshQueue()">
+            <div class="text">Refresh</div>
+            <div class="imp-icon-refresh"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="number-of-records">{{ queueBarCtrl.totalNumberOfRecords }} Records</div>
+
+        <div ng-if="queueBarCtrl.applicationData.currentUser.isWholesale" style="margin-left:auto;" ng-click="queueBarCtrl.createNewLoanApplication()">
+            <span style="float: left; padding-top:6px;">
+                <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>
+            </span>
+            <span style="float: left; padding-top:12px;" class="hyperlink">Create New Loan Application</span>
+        </div>
+    </div>
+
+</div>

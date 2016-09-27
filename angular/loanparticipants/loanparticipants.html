@@ -1,0 +1,126 @@
+﻿<div class="agents-parties">
+    <div id="agents-parties-borrower-container" class="clearfix">
+        <div class="header clearfix">
+            <div class="header-text">Borrower Information</div>
+            <div class="add-row contract-margin">
+                <div class="actions add">
+                    <a href="#" class="imp-hyperlink hidden">View Purchase Contract</a>
+                </div>
+            </div>
+            <div class='border-bottom'></div>
+        </div>
+        <div class="row firstRow">
+            <div class="col-xs  imp-disclaimer">App</div>
+            <div class="col-xs  imp-disclaimer">&nbsp;</div>
+            <div class="col-m   imp-disclaimer">eConsent</div>
+            <div class="col-m   imp-disclaimer">ITP</div>
+            <!--
+        <div class="col-s   imp-disclaimer">Primary</div>
+        -->
+            <div class="col-xs  imp-disclaimer">&nbsp;</div>
+            <div class="col-xl  imp-disclaimer">Borrower Name / AKA</div>
+            <div class="col-xxl imp-disclaimer">Mailing Address</div>
+            <div class="col-l   imp-disclaimer">Preferred Phone</div>
+            <div class="col-xl  imp-disclaimer">Email</div>
+            <div class="col-m   imp-disclaimer">&nbsp;</div>
+        </div>
+        <div ng-repeat="application in modalCtrl.wrappedLoan.ref.getLoanApplications()" class="vert-grey-extend clearfix application-row" ng-show="log(application);">
+            <div class="borrower-row clearfix" ng-show="application.getBorrower()" ng-class="{'imp-disclaimer': !application.getBorrower().isActive}">
+                <div class=" col-xs">
+                    <div class="col-xxs row-text-align"> &nbsp;</div>
+                    <div class="col-xxs row-text-align">{{ $index + 1 }}</div>
+                </div>
+                <div class="col-xs">
+                    <imp-account-status ng-model="application.getBorrower()" ng-model-options="{ getterSetter: true }"
+                                        spouse-model="application.getCoBorrower()"
+                                        is-spouse-on-the-loan="application.isSpouseOnTheLoan"></imp-account-status>
+                    <div class="imp-icon-user"
+                         ng-click="modalCtrl.manageAccountsModal(application.getBorrower().userAccount, application, false, $event)"
+                         ng-class="application.getBorrower().accountStatus">
+                    </div>
+                </div>
+                <div class="col-m row-text-align">
+                    <div ng-show="application.getBorrower().eConsent.consentStatus == 1">{{application.getBorrower().eConsent.statusAt | date:'MM/dd/yyyy'}}</div>
+                </div>
+                <div class="col-m row-text-align">
+                    <div ng-show="application.getBorrower().eApprovalConfirmation.statusId == 2">{{application.getBorrower().eApprovalConfirmation.timeStamp | date:'MM/dd/yyyy'}}</div>
+                </div>
+                <div class="col-xs imp-disclaimer row-text-align">
+                    <div ng-show="!application.getBorrower().isCoBorrower">B</div>
+                </div>
+                <div class="col-xl row-text-align" ng-init="fullName = application.getBorrower().fullName"> {{fullName}} </div>
+                <div class="col-xxl row-text-align" ng-init="address = application.getBorrower().getMailingAddress().fullAddressString"> {{(address.trim() != ", ,") ? address : '&nbsp;'}} </div>
+                <div class="col-l row-text-align ">{{application.getBorrower().preferredPhone.number | impFormatTelephone}}</div>
+                <div class="col-xl row-text-align">
+                    <div ng-show="!application.getBorrower().userAccount.username">
+                        &nbsp;
+                    </div>
+                    <div ng-show="application.getBorrower().userAccount.username">
+                        <a class="imp-hyperlink" href="mailto:{{application.getBorrower().userAccount.username}}">{{(application.getBorrower().userAccount.username.length > 20) ? application.getBorrower().userAccount.username.substring(0, 18) + ' ...' : application.getBorrower().userAccount.username}}</a>
+                    </div>
+                </div>
+                <div class="col-m">
+                    <div ng-show="application.getBorrower().isPrimaryBorrower" class="imp-hyperlink text-center primary">Primary</div>
+                    <div ng-show="!application.getBorrower().isPrimaryBorrower">
+                        <input type="button" class="imp-button-hm-wl-prim" value="{{ (application.getCoBorrower().isActive) ? 'Remove' : 'Add'; }}" ng-click="application.getBorrower().isActive = !application.getBorrower().isActive">
+                    </div>
+                </div>
+            </div>
+
+            <div class="borrower-row clearfix" ng-show="application.getCoBorrower().fullName != 'New Application'" ng-class="{'imp-disclaimer': !application.getCoBorrower().isActive}">
+                <div class=" col-xs">
+                    <div class="col-xxs row-text-align"><!-- <span class="vert-gray"></span> --> &nbsp;</div>
+                    <div class="col-xxs row-text-align">&nbsp; <!-- {{ $index + 1 }} --></div>
+                </div>
+                <div class="col-xs">
+                    <imp-account-status ng-model="application.getCoBorrower()" ng-model-options="{ getterSetter: true }"
+                                        spouse-model="application.getBorrower()"
+                                        is-spouse-on-the-loan="application.isSpouseOnTheLoan"></imp-account-status>
+                    <div class="imp-icon-user"
+                         ng-click="modalCtrl.manageAccountsModal(application.getCoBorrower().userAccount, application, false, $event)"
+                         ng-class="application.getCoBorrower().accountStatus">
+                    </div>
+                </div>
+                <div class="col-m row-text-align">
+                    <div ng-show="application.getCoBorrower().eConsent.consentStatus == 1">{{application.getCoBorrower().eConsent.statusAt | date:'MM/dd/yyyy'}}</div>
+                    <div ng-show="application.getCoBorrower().eConsent.consentStatus != 1">&nbsp;</div>
+                </div>
+                <div class="col-m row-text-align">
+                    <div ng-show="application.getCoBorrower().eApprovalConfirmation.statusId == 2">{{application.getCoBorrower().eApprovalConfirmation.timeStamp | date:'MM/dd/yyyy'}}</div>
+                    <div ng-show="application.getCoBorrower().eApprovalConfirmation.statusId != 2">&nbsp;</div>
+                </div>
+                <div class="col-xs imp-disclaimer row-text-align">
+                    <div ng-show="application.getCoBorrower().isCoBorrower">C</div>
+                </div>
+                <div class="col-xl row-text-align" ng-init="cofullName = application.getCoBorrower().fullName"> {{cofullName}} </div>
+                <div class="col-xxl row-text-align" ng-init="coAddress = application.getCoBorrower().getMailingAddress().fullAddressString"> {{(coAddress.trim() != ", ,") ? coAddress : '&nbsp;'}} </div>
+                <div class="col-l row-text-align">{{application.getCoBorrower().preferredPhone.number | impFormatTelephone}}</div>
+                <div class="col-xl row-text-align">
+                    <div ng-show="!application.getCoBorrower().userAccount.username">
+                        &nbsp;
+                    </div>
+                    <div ng-show="application.getCoBorrower().userAccount.username">
+                        <a class="imp-hyperlink" href="mailto:{{application.getCoBorrower().userAccount.username}}">{{ (application.getCoBorrower().userAccount.username.length > 20) ? application.getCoBorrower().userAccount.username.substring(0, 18) + ' ...' : application.getCoBorrower().userAccount.username }}</a>
+                    </div>
+                </div>
+                <div class="col-m">
+                    <div ng-show="application.getCoBorrower().isPrimaryBorrower" class="imp-hyperlink text-center primary">Primary</div>
+                    <div ng-show="!application.getCoBorrower().isPrimaryBorrower">
+                        <input type="button" class="imp-button-hm-wl-prim" value="{{ (application.getCoBorrower().isActive) ? 'Remove' : 'Add'; }}" ng-click="application.getCoBorrower().isActive = !application.getCoBorrower().isActive">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <participants-table view-model="modalCtrl.clonedParticipants"></participants-table>
+    <div class="agents-parties-button-container">
+        <div class="footer">
+            <div class="imp-split"></div>
+        </div>
+        <div class="buttons">
+            <button type="button" class="imp-button-hm-wm-sec" ng-click="modalCtrl.close()">Cancel</button>
+            <button type="button" class="imp-button-hm-wm-prim" ng-click="modalCtrl.save()">Done</button>
+            <!--<button type="button" class="imp-button-hm-wm-prim" ng-click="modalCtrl.saveAndClose()" style="width:140px;">Save and Close</button>-->
+        </div>
+    </div>
+</div>

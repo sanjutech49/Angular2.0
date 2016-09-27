@@ -1,0 +1,13 @@
+﻿<div class="origination-date imp-popover imp-body">
+    <div class="origination-date-content">
+        <div class="title">Loan Origination Date:</div>
+
+        <div class="data-picker-section">
+            <imp-date-picker display-picker="true" type="text" date-settings="{maxDate: modalpopoverCtrl.model.currentDate }" ng-model="modalpopoverCtrl.model"></imp-date-picker>
+        </div>
+    </div>
+    <div class="buttons">
+        <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+        <div class='button-done imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Done</div>
+    </div>
+</div>

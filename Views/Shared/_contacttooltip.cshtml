@@ -1,0 +1,78 @@
+﻿@model MML.Contracts.DomainModels.OfficerTask
+         @using MML.Common.Helpers
+<div class="contactbubble">
+    <div class="triangle">
+    </div>
+    <div class="contacttooltip">
+        <div class="contacttooltipg">
+            <div class="close" id="closePopupContainer"></div>
+            <table>
+                <tr>
+                    <td colspan="2" class="line1">
+                        Contact
+                    </td>
+                </tr>
+                <tr>
+                    <td class="first">
+                        Name
+                    </td>
+                    <td class="regularfont">
+                        @StringHelper.FormatStringForDisplay(Model.ContactFirstName) @StringHelper.FormatStringForDisplay(Model.ContactLastName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Preffered Phone
+                    </td>
+                    <td class="regularfont">
+                        @if (Model.ContactPreferredPhone != "")
+                { 
+                            
+                         @StringHelper.FormatPhoneNumber(Model.ContactPreferredPhone) <span> (</span>@Model.ContactPreferredPhoneType<span>)</span>
+                }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Alternate Phone
+                    </td>
+                    <td class="regularfont">
+                        @if (Model.ContactAlternatePhone != string.Empty)
+                        { 
+                            @StringHelper.FormatPhoneNumber(Model.ContactAlternatePhone) <span> (</span>@Model.ContactAlternatePhoneType<span>)</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                    <td class="regularfont">
+                        <a class="contactemail" href="mailto: @Model.ContactEmail">
+                            @Model.ContactEmail</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lead Source Type
+                    </td>
+                    <td class="regularfont">@Model.ContactLeadSourceType
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Contact Name
+                    </td>
+                    <td class="regularfont">
+                        @StringHelper.FormatStringForDisplay(Model.ReferralContact)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="line2">
+                        <input type="button" class="viewedit" value="" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

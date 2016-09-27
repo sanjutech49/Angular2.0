@@ -1,0 +1,31 @@
+﻿<div class="sub-col-l">
+    <div ng-show="!loanCost.editMode" style="float:left">
+        <div class="amount-label">{{loanCost.interestRate | impCurrency}}</div>
+        <span class="imp-disclaimer">/day fm</span>
+        <span>{{costDetailsCtrl.wrappedLoan.ref.closingDate.dateValue | date:'MM/dd/yyyy'}}</span>
+        <span class="imp-disclaimer">to</span>
+        <span>{{loanCost.closingDateEnd | date:'MM/dd/yyyy'}}</span>
+    </div>
+    <div ng-show="loanCost.editMode" style="float:left">
+        <input type="text"
+               ng-model="loanCost.interestRate"
+               ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+               class="amount"
+               placeholder="$ per day"
+               ng-change="costDetailsCtrl.amountClosingDataChange(loanCost)"
+               imp-currency="" style="float:left;">
+        <div class="input-group cost-date-group ">
+            <input type="text" class="form-control" style="border-right: none; text-align: left;" placeholder="mm/dd/yyyy"
+                   ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                   ng-change="costDetailsCtrl.amountClosingDataChange(loanCost)"
+                   ng-model="costDetailsCtrl.wrappedLoan.ref.closingDate.dateValue" imp-date min="01/01/1900">
+            <span class="date-mid-group">to</span>
+            <input type="text" class="form-control" style="border-left: none; text-align: center;" placeholder="mm/dd/yyyy"
+                   ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                   ng-change="costDetailsCtrl.amountClosingDataChange(loanCost)"
+                   ng-model="loanCost.closingDateEnd" imp-date min="01/01/1900">
+        </div>
+    </div>
+    <div class="imp-icon-lock" ng-if="loanCost.canBeLocked && (loanCost.isLocked && !loanCost.editMode || loanCost.editMode)" ng-class="{'un': !loanCost.isLocked}"
+         ng-click="loanCost.isLocked = !loanCost.isLocked"></div>
+</div> 

@@ -1,0 +1,13 @@
+﻿<div class="sub-col-l">
+    <div ng-show="!loanCost.editMode" style="float:left">
+        <div class="imp-disclaimer" style="float:left">% </div>
+        <div class="percent">{{loanCost.percent}}</div>
+        <div class="imp-disclaimer" style="float:left"> of Loan Amount</div>
+    </div>
+    <div ng-show="loanCost.editMode" style="float:left">
+        <span class="imp-disclaimer">% </span>
+        <input type="text" ng-model="loanCost.percent" class="amount" ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || !loanCost.userAdded">
+        <span class="imp-disclaimer"> of Loan Amount</span>
+    </div>
+    <div class="imp-icon-lock" ng-if="loanCost.canBeLocked && (loanCost.isLocked && !loanCost.editMode || loanCost.editMode)" ng-class="{'un': !loanCost.isLocked}" ng-click="loanCost.isLocked = !loanCost.isLocked"></div>
+</div>

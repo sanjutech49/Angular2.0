@@ -1,0 +1,9 @@
+﻿<li class="ui-state-default {{specificClass}}" ng-class="{'ui-tabs-selected': isSelected, 'ui-state-active': isSelected, 'ui-state-disabled' : isDisabled}">
+    <a href="" ng-click="isDisabled || select()" ng-style="!isCheckAvailable && {'margin-left': '-2px'}">
+        {{ title }}
+        <div ng-show="isCheckAvailable"
+             class="glyphicon glyphicon-ok"
+             ng-style="{color: checkColor}"></div>
+    </a>
+    <imp-triangle ng-show=isSelected></imp-triangle>
+</li>

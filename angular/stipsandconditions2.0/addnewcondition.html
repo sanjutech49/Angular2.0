@@ -1,0 +1,97 @@
+﻿<div id="conditionAddNewPopup" class="conditions-add-new-popup-container condition-popup-container-main">
+   <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+    <form name="fmNewCondition" novalidate ng-submit="conditions_addnewcondition_addItem()">
+         <div class="conditions-add-new-popup-header">
+            Add Condition
+             <div class=" imp-div-close-x floatright" ng-click="conditions_addnewcondition_cancel()"></div>
+            <div class="imp-sa-split" style="min-width: 100%"></div>
+        </div>
+        <div class="modal-body">
+            <div id="leftSection" class="condition-add-new-popup-left-section imp-div-txt-input">
+                <div id="lblSearch" class="boldFont12"> Search</div>
+                <div class="inner-addon right-addon">
+                 <i class="glyphicon glyphicon-search" style="padding-top: 8px; padding-right: 18px;"></i>
+                    <input type="text" ng-model="q" placeholder="Search" style="margin-top: 5px; width:109px;" />
+                </div>
+                
+                <ul class="conditions-codes-list-container">
+                    <li class="conditions-code-row" ng-repeat="code in CodesList | filter:q" ng-click="configurationcodechanged(code)">
+                        {{ code.Code }}
+                    </li>
+                </ul>
+            </div>
+            <div id="rightSection" class="condition-add-new-popup-right-section">
+                <div id="codeName" class="condition-add-new-popup-code-name">
+                   {{ NewConditionViewModel.ConfigurationCode.Code }} {{NewConditionViewModel.Category.Code}}
+                </div>
+                <div id="codeDescription" class="condition-codes-description-label"> {{ NewConditionViewModel.ConfigurationCode.Title }}</div>
+                <div class="condition-add-new-popup-comment-section imp-div-txt-input">
+                    <div id="lblComment" class="boldFont12">Comments</div>
+                    <div id="txtComment">
+                        <input type="text" ng-model="NewConditionViewModel.Comment" placeholder="Comment" style="margin-top:5px;width:570px;font-size: 12px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="condition-add-new-popup-select-section">
+                <div id="lblHeaders">
+                    <label class="condition-add-new-popup-cell">
+                        Assigned To
+                    </label>
+                    <label class="condition-add-new-popup-cell">
+                        Due
+                    </label>
+                    <label class="condition-add-new-popup-cell">
+                        Sign-Off
+                    </label>
+                </div>
+                <div style="margin-top: 5px;" class="floatleft">
+                    <div class="condition-add-new-popup-cell imp-span-ddl-container" ng-class="{  'ng-invalid ng-dirty' : fmNewCondition.assigneTo.$dirty && fmNewCondition.assigneTo.$invalid}">
+                        <select id="assigneTo"
+                                name="assigneTo"
+                                ng-model="NewConditionViewModel.AssignedTo"
+                                ng-selected="assigned.RoleId==NewConditionViewModel.ConfigurationCode.CurativeRoleCdId"
+                                ng-options="assigned.RoleName for assigned in AssignedToList | orderBy: 'RoleName'  track by assigned.RoleId"
+                                class="condition-add-new-popup-select imp-ddl"
+                                required>
+                            <option value="">Select One</option>
+                        </select>
+                        <div class="error" imp-val-required="Please select value" ng-show="fmNewCondition.assigneTo.$dirty && fmNewCondition.assigneTo.$invalid">
+                        </div>
+                    </div>
+                    <div class="condition-add-new-popup-cell imp-span-ddl-container ">
+                        <select ng-model="NewConditionViewModel.Due" ng-options="due.Description for due in DueList | orderBy: 'Description' track by due.EnumerationValueId "
+                                class="condition-add-new-popup-select imp-ddl"
+                                ng-class="{'ng-invalid ng-dirty' : fmNewCondition.due.$dirty && fmNewCondition.due.$invalid}"
+                                required
+                                id="due">
+                            <option value="">Select One</option>
+                        </select>
+                        <div class="error" imp-val-required="Please select value" ng-show="fmNewCondition.due.$dirty && fmNewCondition.due.$invalid">
+                        </div>
+                    </div>
+                    <div class="condition-add-new-popup-cell imp-span-ddl-container ">
+                        <select ng-model="NewConditionViewModel.SignedOff" ng-options="signed.RoleName for signed in SignedOffList | orderBy: 'RoleName'  track by signed.RoleId "
+                                class="condition-add-new-popup-select imp-ddl"
+                                ng-class="{'ng-invalid ng-dirty' : fmNewCondition.signedOff.$dirty && fmNewCondition.signedOff.$invalid}"
+                                required
+                                id="signedOff">
+                            <option value="">Select One</option>
+                        </select>
+                        <div class="error" imp-val-required="Please select value" ng-show="fmNewCondition.signedOff.$dirty && fmNewCondition.signedOff.$invalid">
+                        </div>
+                    </div>
+                    <div class="condition-add-new-popup-cell">
+                        <input type="checkbox" ng-model="NewConditionViewModel.InternalOnly" class="imp-checkbox" id="internalOnly"/>
+                        <label for="internalOnly"  class="imp-lb-checkbox floatright" style="padding-right: 40px; font-size:12px">Internal Only</label> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="conditions-popup-footer">
+            <div class="imp-sa-split conditions-popup-footer-separator"></div>
+            <button class="imp-button-hm-wm-sec" ng-click="conditions_addnewcondition_cancel()">  Cancel</button>
+            <button class="imp-button-hm-wl-prim" type="submit" ng-disabled="fmNewCondition.$invalid">Add Item</button>
+        </div>
+    </form>
+</div>
+

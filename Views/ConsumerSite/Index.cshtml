@@ -1,0 +1,253 @@
+﻿@{
+    ViewBag.Title = "Consumer Site";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    
+    <link href="~/Content/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet" />
+    @*<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>*@
+    <link href="~/Content/ConsumerSite/OpenSans/css/fonts.css" rel="stylesheet">
+    <link href="~/Content/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/angular-block-ui.min.css" rel="stylesheet" />
+
+    <link href="~/Content/ConsumerSite/CommonStyle.css" rel="stylesheet" />
+    <link href="~/Content/ConsumerSite/font-icons/css/style.css" rel="stylesheet" />
+
+    <link href="~/Content/angular-grid/angular-slider.css" rel="stylesheet" />
+
+    <link id="restApiRoot" href="@(System.Configuration.ConfigurationManager.AppSettings["RestApiRoot"])" rel="tag" />
+</head>
+<body ng-app="consumersite">
+    <div ui-view="abstract">
+        <i>Consumer Site Loading...</i>
+    </div>
+
+
+    @*Base libraries*@
+    <script src="~/Scripts/underscore-min.js"></script>
+    <script src="~/Scripts/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/bootstrap-3.3.5/js/bootstrap.js"></script>
+
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/d3.min.js"></script>
+    @*<script src="~/Scripts/angular-pattern-restrict/ng-pattern-restrict.js"></script>*@
+
+
+    @*Angular code*@
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/angular/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/ui-router/0.2.13/angular-ui-router.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/angular-block-ui.js"></script>
+    <script src="~/Scripts/angular-grid/angularGrid.js"></script>
+    <script src="~/Scripts/angular/angular-slider.js"></script>
+    @*<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>*@
+    <script src="~/Scripts/angular/angular-resource.min.js"></script>
+    <script src="~/Scripts/angular/angular-animate.min.js"></script>
+    <script src="~/Scripts/angular-block-ui.js"></script>
+    <script src="~/Scripts/ui-utils/ui-utils.js"></script>
+    <script src="~/Scripts/angular-ui/ui-mask.min.js"></script>
+
+    @* generated view model *@
+    <script src="~/angular/loancenter/loancenter.serviceprovider.js"></script>
+    <script src="~/angular/ts/global/global.js"></script>
+    <script src="~/angular/ts/lib/httpUtil.js"></script>
+    <script src="~/angular/ts/generated/enums.js"></script>
+    <script src="~/angular/ts/generated/viewModels.js"></script>
+    <script src="~/angular/ts/generated/viewModelBaseClasses.js"></script>
+    <script src="~/angular/ts/generated/viewModelClasses.js"></script>
+
+    @* wysiwyg editor *@
+    <script src="~/angular/common/tinyMCE/tinymce.js"></script>
+    <script src="~/angular/common/tinyMCE/tinyMCE.directive.js"></script>
+
+    <script src="~/angular/ts/generated/serviceProxies/MegaLoanService.js"></script>
+    <script src="~/angular/ts/generated/serviceProxies/SecurityService.js"></script>
+    <script src="~/angular/ts/generated/serviceProxies/DocVaultService.js"></script>    
+
+    <script src="~/angular/ts/lib/http.blockui.js"></script>
+    <script src="~/angular/ts/lib/common.util.js"></script>
+    <script src="~/angular/ts/lib/identityGenerator.js"></script>
+    @*<script src="~/angular/ts/lib/genericUtil.ts"></script>*@
+    <script src="~/angular/loancenter/util.module.js"></script>
+    <script src="~/angular/loancenter/loancenter.module.js"></script>
+
+    @*Consumer Site Code*@
+    <script src="~/angular/consumersite/consumersite.module.js"></script>
+    <script src="~/angular/consumersite/providers/uiNavigation.provider.js"></script>
+    <script src="~/angular/consumersite/consumersite.util.js"></script>
+    <script src="~/angular/consumersite/consumersite.config.js"></script>
+    <script src="~/angular/consumersite/apiroot.js"></script>
+
+    <script src="~/angular/consumersite/services/ui.navigation.service.js"></script>
+
+    @** Credit Services *@
+    <script src="~/angular/loancenter/loancenter.constants.js"></script>
+    <script src="~/angular/loanapplication/credit/credit.service.js"></script>
+    <script src="~/angular/common/credit/creditext.service.js"></script>
+
+    @* Demo... *@
+    <script src="~/angular/consumersite/demo/ui.messageBlockWithSpinner.js"></script>
+
+    @* current view model *@
+    <script src="~/angular/ts/extendedViewModels/enums.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/loan.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/transactionInfo.js"></script>
+    <script src="~/angular/ts/extendedViewModels/borrower.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/property.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/incomeInfo.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/liability.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/loanApplication.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/employmentInfo.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/housingExpenses.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/asset.extendedViewModel.js"></script>
+    <script src="~/angular/ts/extendedViewModels/extendedViewModels.js"></script>
+    <script src="~/angular/ts/lib/referenceWrapper.js"></script>
+    <script src="~/angular/ts/extendedViewModels/lookupItem.extendedViewModel.js"></script>
+
+    <script src="~/angular/common/common.string.js"></script>
+    <script src="~/angular/common/common.objects.js"></script>
+    <script src="~/angular/queue/queue.module.js"></script>
+    <script src="~/angular/queue/queue.resolver.js"></script>
+    <script src="~/angular/queue/queue.service.js"></script>
+    <script src="~/angular/loancenter/applicationData.resolver.js"></script>
+    <script src="~/angular/loancenter/userAccountId.resolver.js"></script>
+    <script src="~/angular/loancenter/applicationData.service.js"></script>
+    <script src="~/angular/loancenter/applicationdata.service2.js"></script>
+    <script src="~/angular/loancenter/applicationdata.service2.js"></script>
+
+    @*View Models*@
+    <script src="~/angular/consumersite/viewModels/address.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/asset.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/borrower.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/comsumersite.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/declarations.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/employment.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/loan.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/loanApplication.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/otherIncome.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/property.viewModel.js"></script>
+    <script src="~/angular/consumersite/viewModels/pricing.viewModel.js"></script>
+
+    @*Controllers/Services/Directives*@
+    <script src="~/angular/consumersite/consumersite.controller.js"></script>
+
+    <script src="~/angular/consumersite/header/loanAppHeader.controller.js"></script>
+
+    <script src="~/angular/consumersite/services/ui.loanApp.pageContext.service.js"></script>
+
+    <script src="~/angular/consumersite/util/factory.js"></script>
+
+    <script src="~/angular/consumersite/pricing/pricing.controller.js"></script>
+    <script src="~/angular/consumersite/pricing/productDetails/productDetails.controller.js"></script>
+    <script src="~/angular/consumersite/pricing/advancedSearch/advancedSearch.service.js"></script>  
+    <script src="~/angular/consumersite/pricing/allOptions/allOptions.service.js"></script>  
+    <script src="~/angular/consumersite/pricing/detailedClosingCosts/detailedClosingCosts.service.js"></script>  
+    
+    <script src="~/angular/consumersite/services/pricing.service.js"></script>
+    <script src="~/angular/consumersite/services/mock.pricing.service.js"></script>
+    <script src="~/angular/consumersite/services/loan.service.js"></script>
+    <script src="~/angular/consumersite/services/consumerCredit.service.js"></script>    
+    <script src="~/angular/consumersite/services/eSigning.service.js"></script> 
+    
+    <script src="~/angular/consumersite/authentication/authentication.module.js"></script>
+    <script src="~/angular/consumersite/authentication/authentication.service.js"></script>
+    <script src="~/angular/consumersite/authentication/authentication.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/additionalBorrower/additionalBorrower.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/account/account.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/activationCode/activationcode.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/addresses/address.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/alertPreferences/alertPreferences.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/assets/assets.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/credit/credit.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/credit/creditresults.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/declarations/declarations.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/employment/employment.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/otherincome/otherincome.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/personal/personal.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/property/property.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/governmentMonitoring/governmentMonitoring.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/signout/signout.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/success/success.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/summary/summary.controller.js"></script>
+    <script src="~/angular/consumersite/loanApp/activationcode/activationcode.controller.js"></script>    
+
+    <script src="~/angular/consumersite/myNextStep/myNextStepMain/myNextStepMain.controller.js"></script> 
+    <script src="~/angular/consumersite/myNextStep/success/success.service.js"></script> 
+    <script src="~/angular/consumersite/myNextStep/eConsent/eConsentModal.service.js"></script>    
+    <script src="~/angular/consumersite/myNextStep/eConsent/eConsent.controller.js"></script>
+    <script src="~/angular/consumersite/myNextStep/docusign/docusign.instructions.controller.js"></script>
+    <script src="~/angular/consumersite/myNextStep/docusign/docusign.controller.js"></script>
+    <script src="~/angular/consumersite/myNextStep/appraisal/appraisal.controller.js"></script>   
+    
+    @*Doc Vault*@    
+        @*<script src="~/angular/common/calculator/calculator.module.js"></script>
+        <script src="~/Scripts/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+        <script src="~/angular/common/simplemodalwindow/simplemodalwindow.module.js"></script>
+        <script src="~/angular/common/modalpopover/modalpopover.module.js"></script>
+        <script src="~/angular/common/modalpopover/modalpopover.provider.js"></script>
+        <script src="~/angular/common/modalpopover/modalpopover.factory.js"></script>
+        <script src="~/angular/common/common.module.js"></script>
+        <script src="~/angular/common/common.directives.js"></script>
+        <script src="~/angular/common/common.filters.js"></script>
+        <script src="~/angular/loancenter/loancenter.core.module.js"></script>
+        <script src="~/angular/loanapplication/common/document/document.controller.js"></script>
+        <script src="~/angular/documents/docvault/docvault.module.js"></script>
+        <script src="~/angular/documents/docvault/docvault.service.js"></script>
+        <script src="~/angular/documents/docvault/docvault.controller.js"></script>*@  
+
+    @*Upload Files*@
+    <script src="~/angular/common/uploadfiles/uploadfiles.module.js"></script>
+    <script src="~/angular/common/uploadfiles/uploadfiles.service.js"></script>
+
+    @*Document Upload*@
+    <script src="~/angular/consumersite/myNextStep/documentUpload/documentUpload.controller.js"></script>
+    <script src="~/angular/consumersite/myNextStep/documentUpload/filePicker.controller.js"></script>
+    <script src="~/angular/consumersite/myNextStep/documentUpload/fileChange.directive.js"></script>
+    <script src="~/angular/consumersite/myNextStep/documentUpload/docLoad.service.js"></script>
+
+    <script src="~/angular/consumersite/directives/formatCurrency/formatCurrency.directive.js"></script>
+    <script src="~/angular/consumersite/directives/savecontinue/savecontinue.directive.js"></script>
+    <script src="~/angular/consumersite/directives/back/back.directive.js"></script>
+    <script src="~/angular/consumersite/directives/masterlist/masterlist.directive.js"></script>
+    <script src="~/angular/consumersite/directives/breadcrumb/breadcrumb.directive.js"></script>
+    <script src="~/angular/consumersite/directives/breadcrumb/breadcrumb.myNextStep.directive.js"></script>
+    <script src="~/angular/consumersite/directives/progressSpinner/progressSpinnerDirective.js"></script>
+    <script src="~/angular/consumersite/directives/inputMatch/inputmatch.directive.js"></script>
+    <script src="~/angular/consumersite/directives/navigationBar/navigationBar.directive.js"></script>
+    <script src="~/angular/common/address/address.directive.js"></script>
+
+    <script src="~/angular/consumersite/filters/filters.js"></script>
+
+    <script src="~/angular/consumersite/banner/banner.controller.js"></script>
+
+    <script src="~/angular/common/zipcode/zipcode.service.js"></script>
+
+    <script src="~/scripts/navbar/navbar-consumersite.js"></script>
+
+   @*common*@
+
+    <script src="~/angular/common/common.module.js"></script>
+    <script src="~/angular/common/common.factory.js"></script>
+    <script src="~/angular/common/guid.service.js"></script>
+    <script src="~/angular/common/common.directives.js"></script>
+    <script src="~/angular/common/common.filters.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.module.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.template.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.provider.js"></script>
+    <script src="~/angular/common/modalpopover/modalpopover.factory.js"></script>
+    <script src="~/angular/common/simplemodalwindow/simplemodalwindow.module.js"></script>
+    <script src="~/angular/common/simplemodalwindow/simplemodalwindow.factory.js"></script>
+    <script src="~/angular/common/simplemodalwindow/simplemodalwindow.controller.js"></script>
+
+     
+    
+    @*C:\dev\sahv-tfs01\iMP\Dev\3.1-Consumer-Site\MML.Web.LoanCenter\angular\consumersite\filters\filters.ts*@
+</body>
+</html>
+
+

@@ -1,0 +1,60 @@
+﻿@model MML.Web.LoanCenter.ViewModels.MailboxViewModel
+<div class="emaildiv">
+    <div class="emailhead" id="emailhead">
+        <div class="left0">
+            <span class="namelink">Email</span></div>
+        <div class="smallarrow">
+        </div>
+        <div class="ecompose">
+            <span class="font15"></span>
+        </div>
+        <div class="right1">
+            <div class="left1"></div>
+            <div class="right0">
+                <a id="minimizeemail" title="Minimize/Maximize Section">
+                    <div id="eminmax" class="min"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="emailcontent" class="emailcontent">
+        <article class="emailtabs">
+	        <section class="emailtabs1 current">
+		        <h3></h3>
+			   <div id="inbox">
+		        <table class="email">
+                <tr><td class="td1">From</td><td  class="td2">Subject</td><td class="td3">Date Received</td></tr>
+                    @foreach (var email in Model.Inbox)
+                    { 
+                        <tr><td class="td1"> @email.From </td> <td class="td2">@email.Subject</td><td class="td3"> @email.DateReceived.ToString("MM/dd/yyyy hh:mm:ss tt")</td></tr>
+                    }
+                </table>
+                </div>
+		    </section>
+		    <section class="emailtabs2">
+			    <h3 ></h3>
+			     <div id="sent">
+		        <table class="email">
+                <tr><td class="td1">To</td><td class="td2">Subject</td><td class="td3">Date Sent</td></tr>
+                    @foreach (var email in Model.Sent)
+                    { 
+                       <tr><td class="td1"> @email.From </td> <td class="td2">@email.Subject</td><td class="td3"> @email.DateReceived.ToString("MM/dd/yyyy hh:mm:ss tt")</td></tr>
+                    }
+                </table>
+                </div>
+		    </section>
+		    <section class="emailtabs3">
+			    <h3 ></h3>
+			     <div id="drafts">
+		        <table class="email">
+                <tr><td  class="td1">To</td><td class="td2">Subject</td><td class="td3">Date Saved</td></tr>
+                    @foreach (var email in Model.Draft)
+                    { 
+                       <tr><td class="td1"> @email.From </td> <td class="td2">@email.Subject</td><td class="td3"> @email.DateReceived.ToString("MM/dd/yyyy hh:mm:ss tt")</td></tr>
+                    }
+                </table>
+                </div>
+		    </section>
+	    </article>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+﻿@model MML.Web.LoanCenter.ViewModels.LoanDetailsViewModel
+@using MML.Common
+
+
+<div class="commandnamebubble">
+    <div class="triangle">
+    </div>
+    <div class="commandnametooltip">
+        <div class="commandnametooltip2g">
+            <div class="close" id="closePopupContainer">
+            </div>
+            <table>
+                <tr>
+                    <td colspan="4" class="line1">
+                        Program
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Product Name
+                    </td>
+                    <td colspan="4" class="regularfont">
+                        @Model.LoanProgram
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="line3">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Rate
+                    </td>
+                    <td  class="regularfont">
+                        @Model.Rate
+                    </td>
+                    @if ( Model.Margin != null && Model.Margin != 0 )
+                    {
+                         <td class="first3">
+                            Index Type
+                        </td>
+                        <td colspan="3" class="regularfont">
+                            @Model.IndexType
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        APR
+                    </td>
+                    <td class="regularfont">
+                        @Model.Apr
+                    </td>
+                    @if ( Model.Margin != null && Model.Margin != 0 )
+                    {
+                    <td class="first3">
+                            Index Value
+                        </td>
+                        <td colspan="3" class="regularfont">
+                            @Model.IndexValue
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        Monthly Payment
+                    </td>
+                    <td class="regularfont">
+                        @Model.MonthlyPayment
+                    </td>
+                    @if ( Model.Margin != null && Model.Margin != 0 )
+                    {
+                      <td class="first3">
+                            First Adj. Cap
+                        </td>
+                        <td colspan="3" class="regularfont">
+                            @Model.RateAdjustmentFirstChangeCapRate
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        Price
+                    </td>
+                    <td class="regularfont">
+                        @Model.Price
+                    </td>
+                    @if ( Model.Margin != null && Model.Margin != 0 )
+                    {
+                     <td class="first3">
+                            Subs Adj. Cap
+                        </td>
+                        <td class="regularfont">
+                            @Model.RateAdjustmentSubsequentCapPercent
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td class="first1">
+                        Total Price Adjusment
+                    </td>
+                    <td class="regularfont">
+                        @Model.TotalPriceAdjustment
+                    </td>
+                     @if ( Model.Margin != null && Model.Margin != 0 )
+                    {
+                     <td class="first3">
+                            Lifetime Adj. Cap
+                        </td>
+                        <td class="regularfont">
+                            @Model.RateAdjustmentLifetimeCapPercent
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        Adjustment Details
+                    </td>
+                    <td class="regularfont">
+          
+                        @if ( Model.Adjustments != null && Model.Adjustments.Count > 0 )
+                        {
+                            @Model.Adjustments.Aggregate( String.Empty, ( current, adjustment ) => current + String.Format( "{0} @ {1} ", adjustment.Reason, adjustment.Value ) );
+                        }
+                    </td>
+                    @if ( Model.Margin != null && Model.Margin != 0 )
+                    {
+                     <td class="first3">
+                        Lock Period
+                    </td>
+                    <td class="regularfont">
+                        @Model.LockDays days
+                    </td>
+                    }
+                </tr>
+                @if ( Model.Margin != null && Model.Margin != 0 )
+                {
+                    <tr>
+                        <td>
+                            Margin
+                        </td>
+                        <td class="regularfont">
+                            @Model.Margin
+                        </td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="line2">
+                      </td>
+                    </tr>
+                }
+                 @if ( Model.Margin == null || Model.Margin == 0 )
+                 {
+                    <tr>
+                    <td class="first3">
+                        Lock Period
+                    </td>
+                    <td class="regularfont">
+                        @Model.LockDays days
+                    </td>
+                </tr>
+                    <tr>
+                      <td colspan="4" class="line2">
+                      </td>
+                    </tr>
+                 }
+            </table>
+        </div>
+    </div>
+</div>
+
+

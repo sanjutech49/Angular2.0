@@ -1,0 +1,81 @@
+﻿<div class="imp-popover imp-body edit-section-seven" style="width: 385px">
+    <div class="header" style="  margin-left: 17px;margin-top: 17px;padding-bottom: 7px;">Subordinate Financing Details</div>
+    <div class="body" style="padding-bottom: 17px;padding-left: 6px;padding-right: 0px;margin-top: 7px;margin-left: 12px;">
+        <div class="item" style="margin-top:8px">
+            <div class="text">
+                Concurrent 2nd Mortgage
+            </div>
+            <div class="field">
+                <div class="input-group" style="width:159px;">
+                    <input type="text" class="form-control"
+                           ng-model="modalpopoverCtrl.model.subordinateFinancingDetails.loanAmount"
+                           placeholder="$"
+                           imp-currency
+                           ng-disabled="!modalpopoverCtrl.ctrl.concurrent2ndMortgageEnable">
+                    <span class="input-group-btn" style="width: 0;"></span>
+                    <div class="imp-span-ddl-container medium select-picker" style="width:70px;">
+                        <select class="imp-ddl"
+                                ng-model="modalpopoverCtrl.model.subordinateFinancingDetails.secondMortgageType"
+                                ng-options="mt.value as mt.text for mt in modalpopoverCtrl.ctrl.applicationData.lookup.concurentSecondMortgage"
+                                ng-change="modalpopoverCtrl.ctrl.onConcurrent2ndMortgageChange(modalpopoverCtrl.model.subordinateFinancingDetails.secondMortgageType)"
+                                ng-disabled=""></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item" style="margin-top: 7px;">
+            <div class="text">
+                Credit Line Cap<span class="imp-asterisks" ng-show="modalpopoverCtrl.ctrl.creditLineCapEnable"> *</span>
+            </div>
+            <div class="field">
+                <div class="">
+                    <input type="text" class=""
+                           ng-model="modalpopoverCtrl.model.subordinateFinancingDetails.creditLineCap"
+                           placeholder="$"
+                           imp-currency
+                           ng-disabled="!modalpopoverCtrl.ctrl.creditLineCapEnable"
+                           ng-class="{'imp-has-error': modalpopoverCtrl.ctrl.creditLineCapEnable
+                               && (!modalpopoverCtrl.model.subordinateFinancingDetails.creditLineCap
+                               || modalpopoverCtrl.model.subordinateFinancingDetails.creditLineCap == 0)}">
+                </div>
+            </div>
+        </div>
+
+        <div class="item" style="margin-top:7px;">
+            <div class="text">
+                Interest Rate
+            </div>
+            <div class="field">
+                <input type="text" return-float="true" ng-model="modalpopoverCtrl.model.subordinateFinancingDetails.interestRate" imp-percentage />
+            </div>
+        </div>
+        <div class="item" style="margin-top: 7px;">
+            <div class="text">
+                Term in Months
+            </div>
+            <div class="field">
+                <input type="text" ng-model="modalpopoverCtrl.model.subordinateFinancingDetails.termInMonths" imp-numeric />
+            </div>
+        </div>
+
+        <div class="item" style="margin-top:9px">
+            <div class="text" style="padding-right:5px">
+                Monthly Payment
+            </div>
+            <div class="field">
+                <span type="text" ng-model="modalpopoverCtrl.model.monthlyPayment" style="float:left">{{ modalpopoverCtrl.model.subordinateFinancingDetails.monthlyPayment = modalpopoverCtrl.ctrl.calculateMonthlyPayment(modalpopoverCtrl.model.subordinateFinancingDetails.loanAmount,modalpopoverCtrl.model.subordinateFinancingDetails.interestRate,modalpopoverCtrl.model.subordinateFinancingDetails.termInMonths) | currency : "$"}}</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="buttons" style="margin-bottom: 15px;margin-left: 20px;">
+        <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+        <input type="button" value="Done" class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)"
+               ng-disabled="modalpopoverCtrl.ctrl.creditLineCapEnable
+                            && (!modalpopoverCtrl.model.subordinateFinancingDetails.creditLineCap
+                            || modalpopoverCtrl.model.subordinateFinancingDetails.creditLineCap == '0')" style="width:82px; height:27px;" />
+    </div>
+
+</div>

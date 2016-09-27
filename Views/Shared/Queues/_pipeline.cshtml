@@ -1,0 +1,374 @@
+﻿@model MML.Web.LoanCenter.ViewModels.PipelineViewModel
+@using MML.Contracts
+@using Telerik.Web.Mvc.UI
+@using MML.Common
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div class="fleft">
+                <span id="currentWorkQueueType" class="namelink">Pipeline</span></div>
+            <div class="smallarrow">
+            </div>
+        </div>
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.TotalItems.ToString()</span> <span class="font15">Pipeline
+                items</span>
+        </div>
+        <div class="right1">
+            <div class="left1">
+                <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@MML.Common.Helpers.EnumHelper.GetStringValue( ( ( MML.Web.LoanCenter.Helpers.Utilities.PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).BoundDate )</span>
+            </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul>
+                                <li></li>
+                                <li id="ftoday" class="lower">@Ajax.ActionLink( "Today", "Execute", "Command", new { Command = "PipelineGridDateFilter,DateFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Today')" }, new { id = "aftoday" } )</li>
+                                <li id="ftomorrow" class="lower">@Ajax.ActionLink( "Yesterday", "Execute", "Command", new { Command = "PipelineGridDateFilter,DateFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Tomorrow')" }, new { id = "aftomorrow" } )</li>
+                                <li id="fthisweek" class="lower">@Ajax.ActionLink( "Last Week", "Execute", "Command", new { Command = "PipelineGridDateFilter,DateFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('This Week')" }, new { id = "afthisweek" } )</li>
+                                <li id="fnextweek" class="lower">@Ajax.ActionLink( "Last Month", "Execute", "Command", new { Command = "PipelineGridDateFilter,DateFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Next Week')" }, new { id = "afnextweek" } )</li>
+                                <li id="fthismonth" class="lower">@Ajax.ActionLink( "All Open", "Execute", "Command", new { Command = "PipelineGridDateFilter,DateFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('This Month')" }, new { id = "afthismonth" } )</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday">
+                    <div id="minmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="listandpage">
+        <div class="pipelinecontent">
+            <table class="pipelinetable">
+                <tr class="pipelinesubjects" id="trGridHeader">
+                    <td>
+                    </td>
+                    <td class="t0">
+                    </td>
+                    <td style="display: none">
+                    </td>
+                    <td class="t1">@Ajax.ActionLink( AccountHelper.IsConciergeOnly() ? "LOA" : "Concierge", "Execute", "Command", new { Command = "PipelineGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('ConciergeFullName')", OnComplete = "PipelineGrid.PipelineDataOnComplete('ConciergeFullName')", OnBegin = "PipelineGrid.PipelineDataOnBegin('ConciergeFullName')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('ConciergeFullName')" } )
+                    </td>
+                    <td class="t2">
+                        @Ajax.ActionLink( "Alerts", "Execute", "Command", new { Command = "PipelineGridSorting,Column=11" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('Alerts')", OnComplete = "PipelineGrid.PipelineDataOnComplete('Alerts')", OnBegin = "PipelineGrid.PipelineDataOnBegin('Alerts')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Alerts')" } )
+                    </td>
+                    <td class="t13">
+                        @Ajax.ActionLink( "Docs", "Execute", "Command", new { Command = "PipelineGridSorting,Column=12" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('NumberOfDocsToReview')", OnComplete = "PipelineGrid.PipelineDataOnComplete('NumberOfDocsToReview')", OnBegin = "PipelineGrid.PipelineDataOnBegin('NumberOfDocsToReview')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('NumberOfDocsToReview')" } )
+                    </td>
+                    <td class="t14">@Ajax.ActionLink( "Borrower", "Execute", "Command", new { Command = "PipelineGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('BorrowerFullName')", OnComplete = "PipelineGrid.PipelineDataOnComplete('BorrowerFullName')", OnBegin = "PipelineGrid.PipelineDataOnBegin('BorrowerFullName')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('BorrowerFullName')" } )
+                        <div class="pipelineLoanPurposeArrow">
+                            <div class="pipelineLoanPurposeFilter">
+                                <ul id="pipelineBorrowerStatusFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(String.IsNullOrEmpty( ( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).BorrowerStatusFilter ) ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "PipelineBorrowerStatusFilter,BorroweStatusFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess()" } )
+                                            </li>
+                                            @foreach ( BorrowerStatusType borrowerStatusType in Model.BorrowerStatusList )
+                                            {
+                                                <li class="@(( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).BorrowerStatusFilter != null && ( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).BorrowerStatusFilter == borrowerStatusType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( borrowerStatusType.GetStringValue(), "Execute", "Command", new { Command = "PipelineBorrowerStatusFilter,BorroweStatusFilter=" + borrowerStatusType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess()" } )
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t12">@Ajax.ActionLink( "Purpose", "Execute", "Command", new { Command = "PipelineGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('BorrowerFullName')", OnComplete = "PipelineGrid.PipelineDataOnComplete('BorrowerFullName')", OnBegin = "PipelineGrid.PipelineDataOnBegin('BorrowerFullName')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('BorrowerFullName')" } )
+                        <div class="pipelineLoanPurposeArrow">
+                            <div class="pipelineLoanPurposeFilter">
+                                <ul id="pipelineLoanPurposeFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).LoanPurposeFilter == null || ( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).LoanPurposeFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "PipelineLoanPurposeTypeFilter,LoanPurposeFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess()" } )
+                                            </li>
+                                            @foreach ( MML.Contracts.LoanTransactionType loanTransactionType in Model.LoanPurposeList )
+                                            {
+                                                <li class="@(( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).LoanPurposeFilter != null && ( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).LoanPurposeFilter == loanTransactionType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( loanTransactionType.GetStringValue(), "Execute", "Command", new { Command = "PipelineLoanPurposeTypeFilter,LoanPurposeFilter=" + loanTransactionType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess()" } )
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t4">@Ajax.ActionLink( "Loan #", "Execute", "Command", new { Command = "PipelineGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('LoanNumber')", OnComplete = "PipelineGrid.PipelineDataOnComplete('LoanNumber')", OnBegin = "PipelineGrid.PipelineDataOnBegin('LoanNumber')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('LoanNumber')" } )
+                    </td>
+                    <td class="t5">@Ajax.ActionLink( "Program", "Execute", "Command", new { Command = "PipelineGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('ProgramName')", OnComplete = "PipelineGrid.PipelineDataOnComplete('ProgramName')", OnBegin = "PipelineGrid.PipelineDataOnBegin('ProgramName')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('ProgramName')" } )
+                    </td>
+                    <td class="t6">@Ajax.ActionLink( "App Date", "Execute", "Command", new { Command = "PipelineGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('ApplicationDate')", OnComplete = "PipelineGrid.PipelineDataOnComplete('ApplicationDate')", OnBegin = "PipelineGrid.PipelineDataOnBegin('ApplicationDate')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('ApplicationDate')" } )
+                    </td>
+                    <td class="t7">@Ajax.ActionLink( "Amount", "Execute", "Command", new { Command = "PipelineGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('Amount')", OnComplete = "PipelineGrid.PipelineDataOnComplete('Amount')", OnBegin = "PipelineGrid.PipelineDataOnBegin('Amount')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Amount')" } )
+                    </td>
+                    <td class="t8">@Ajax.ActionLink( "Rate", "Execute", "Command", new { Command = "PipelineGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('Rate')", OnComplete = "PipelineGrid.PipelineDataOnComplete('Rate')", OnBegin = "PipelineGrid.PipelineDataOnBegin('Rate')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Rate')" } )
+                    </td>
+                    <td class="t9">@Ajax.ActionLink( "Lock", "Execute", "Command", new { Command = "PipelineGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('LockExpiration')", OnComplete = "PipelineGrid.PipelineDataOnComplete('LockExpiration')", OnBegin = "PipelineGrid.PipelineDataOnBegin('LockExpiration')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('LockExpiration')" } )
+                    </td>
+                    <td class="t10">
+                        @Ajax.ActionLink( "Current Activity", "Execute", "Command", new { Command = "PipelineGridSorting,Column=9" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('CurrentActivity')", OnComplete = "PipelineGrid.PipelineDataOnComplete('CurrentActivity')", OnBegin = "PipelineGrid.PipelineDataOnBegin('CurrentActivity')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('CurrentActivity')" } )
+                        <div class="pipelineActivityFilterArrow">
+                            <div class="pipelineActivityFilter">
+                                <ul id="pipelineActivityFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).ActivityTypeFilter == null || ( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).ActivityTypeFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "All Activities", "Execute", "Command", new { Command = "PipelineGridActivityTypeFilter,ActivityTypeFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess()" }, new { @class = "pipelineActivityFilterOneRow" } )
+                                            </li>
+                                            @foreach ( MML.Contracts.ActivityType activityType in Model.ActivityTypeList )
+                                            {
+                                                <li class="@(activityType.GetStringValue().Length > 29 ? "pipelineActivityFilterTwoRows" : String.Empty) 
+                                                @(( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).ActivityTypeFilter != null && ( ( PipelineListState )Session[ SessionHelper.PipelineListState ] ).ActivityTypeFilter == activityType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( activityType.GetStringValue(), "Execute", "Command", new { Command = "PipelineGridActivityTypeFilter,ActivityTypeFilter=" + activityType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "PipelineGrid.PipelineDataOnSuccess()" }, new { @class = activityType.GetStringValue().Length > 29 ? "pipelineActivityFilterTwoRows" : "pipelineActivityFilterOneRow" } )
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t11">@Ajax.ActionLink( "Activity Status", "Execute", "Command", new { Command = "PipelineGridSorting,Column=10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('ActivityStatus')", OnComplete = "PipelineGrid.PipelineDataOnComplete('ActivityStatus')", OnBegin = "PipelineGrid.PipelineDataOnBegin('ActivityStatus')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('ActivityStatus')" } )
+                    </td>
+                </tr>
+                @if ( Model.PipelineItems != null )
+                {
+                    for ( int i = 0; i < Model.PipelineItems.Count; i++ )
+                    {
+                        if ( Model.PipelineItems[ i ].PipelineViewItems != null )
+                        { 
+                            <tr class="@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ClassCollection"  id="task_@{@String.Format("{0}P", i)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ClassCollection', false, 'Pipeline')">
+                                <td>
+                                    <div class="biggreen" id="arrowdiv_@{@String.Format("{0}P", i)}">
+                                    </div>
+                                     @if ( Model.PipelineItems[ i ].PipelineViewItems.Count > 1 )
+                                    {
+                                        <div class="childIndicator" id="childIndicator_@{@String.Format( "{0}P", i )}" onclick="$(this).unbind('click'); SelectedTask('@String.Format( "{0}P", i )',
+                                        '@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ClassCollection', false, 'Pipeline')">
+                                
+                                        </div>  
+                                    }
+                                </td>
+                                <td>
+                                    <div class="@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ExceptionClassCollection">
+                                    </div>
+                                </td>
+                                <td style="display: none" class="loanid">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LoanId</td>
+                                <td style="display: none" class="encryptedloanid">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LoanId.ToString(), EncriptionKeys.Default ) )</td>
+                                <td>
+                                    <span class="@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LicenseExpiredClass" title="@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LicenseExpiredMessage">
+                                        @Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ConciergeFullName
+                                    </span>
+                                </td>
+                                <td class="textcenter">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].Alerts
+                                </td>
+                                <td class="textcenter">
+                                    @if ( Model.PipelineItems[ i ].PipelineViewItems[ 0 ].NumberOfDocsToReview == -1 )
+                                    {
+                                        <div class="eDisclosureNotSigned" title="eConsent Pending">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @Model.PipelineItems[ i ].PipelineViewItems[ 0 ].NumberOfDocsToReview
+                                    }
+                                </td>
+                                <td>@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].BorrowerFullName
+                                </td>
+                                <td>
+                                    <span rel="ProspectLoanPurposeToolTip,LoanId=@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LoanId.ToString()" class="PopupTrigger2 cursorhand">@(MML.Common.Helpers.EnumHelper.GetStringValue( ( ( LoanTransactionType )Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LoanType ) ))
+                                    </span>
+                                </td>
+                                <td>
+                                    @Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LoanNumber
+                                </td>
+                                <td>
+                                    <span rel="ProgramNameToolTip,LoanId=@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LoanId.ToString()" class="PopupTrigger2 cursorhand" title="@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ProgramName">@(Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ProgramName.Length
+                                                                                                                                                                                                                                                     > 25 ? String.Format( "{0}...", Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ProgramName.Substring( 0, 23 ) )
+                                                                                                                                                                                                                                                         : Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ProgramName)
+                                    </span>
+                                </td>
+                                <td>@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ApplicationDate.ToString( "MM/dd/yyyy" )
+                                </td>
+                                <td>
+                                    <div class="numbersright">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].MortgageAmount.ToString().ToMoney()</div>
+                                </td>
+                                <td>
+                                    <div class="numbersright">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].Rate.ToString( "n3" ) %</div>
+                                </td>
+                                <td>
+                                    @if ( Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LockExpiration != DateTime.MinValue )
+                                    {
+                                        if ( Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LockStatus != -1 && ( LockStatus )Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LockStatus == LockStatus.LockRequested )
+                                        {                
+                                        <div style="cursor: pointer;" class="lockRequested" onmouseover="PipelineGrid.PipelineShowLockRequestedPopup('@i')" onmouseout="PipelineGrid.PipelineHideLockRequestedPopup('@i')">
+                                            <div class="divLockRequestedImage">
+                                            </div>
+                                        </div>
+                                        <div style="display: none;" class="divLockRequestedPopup @i">
+                                            <div>
+                                                Lock Requested</div>
+                                            <span class="lockExpireDate">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LockExpiration.ToString( "MM/dd/yyyy" )</span>
+                                            <span class="lockExpireTime">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LockExpiration.ToString( "hh:mm tt" )</span>
+                                        </div>
+                                        }
+                                        else
+                                        {
+                                        <span class="lockExpireDate">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LockExpiration.ToString( "MM/dd/yyyy" )</span>
+                                        <span class="lockExpireTime">@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].LockExpiration.ToString( "hh:mm tt" )</span>
+                                        }
+                                    }
+                                </td>
+                                <td>@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ActivityName
+                                </td>
+                                <td>@Model.PipelineItems[ i ].PipelineViewItems[ 0 ].ActivityStatus
+                                </td>
+                                @*
+                                <td>
+                                @Html.Telerik().DropDownListFor(m => m.Contacts[i].OwnerAccountId).Name(i + i.ToString()).BindTo(new SelectList(Model.ProspectLO, "Value", "Text", Model.Contacts[i].OwnerAccountId)).ClientEvents(events => events.OnChange("ChangeProspectLO")).HtmlAttributes(new { @class = "t-grid-header2" })
+                                </td>*@
+                            </tr>
+                            //Render childs loans
+                            for ( int j = 1; j < Model.PipelineItems[ i ].PipelineViewItems.Count; j++ )
+                            {
+                                <tr class="@Model.PipelineItems[ i ].PipelineViewItems[ j ].ClassCollection childloan"  id="task_@{@String.Format("{0}P{1}", i, j)}" onclick="SelectedTask('@String.Format("{0}P", i)','@Model.PipelineItems[ i ].PipelineViewItems[ j ].ClassCollection', true, 'Pipeline')" style="display:none">
+                                    <td></td>
+                                    <td>
+                                        <div class="@Model.PipelineItems[ i ].PipelineViewItems[ j ].ExceptionClassCollection">
+                                        </div>
+                                    </td>
+                                    <td style="display: none" class="loanid">@Model.PipelineItems[ i ].PipelineViewItems[ j ].LoanId </td>
+                                    <td></td>
+                                    <td class="textcenter"> @Model.PipelineItems[ i ].PipelineViewItems[ j ].Alerts </td>
+                                    <td class="textcenter">
+                                        @if ( Model.PipelineItems[ i ].PipelineViewItems[ j ].NumberOfDocsToReview == -1 )
+                                        {
+                                            <div class="eDisclosureNotSigned" title="eConsent Pending">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            @Model.PipelineItems[ i ].PipelineViewItems[ j ].NumberOfDocsToReview
+                                        }
+                                    </td>
+                                    <td> @Model.PipelineItems[ i ].PipelineViewItems[ j ].BorrowerFullName </td>
+                                    <td> @*Purpose*@ </td>
+                                    <td> @*LoanNumber*@ </td> 
+                                    <td> @*ProgramName*@ </td> 
+                                    <td>
+                                        @if (Model.PipelineItems[i].PipelineViewItems[j].ApplicationDate != DateTime.MinValue)
+                                        {
+                                            <span> @Model.PipelineItems[i].PipelineViewItems[j].ApplicationDate.ToString("MM/dd/yyyy")</span>
+                                        }
+                                    </td>
+                                    <td> @*MortgageAmount*@ </td>
+                                    <td> @*Rate*@ </td>
+                                    <td> @*Lock*@ </td>
+                                    <td> @Model.PipelineItems[ i ].PipelineViewItems[ j ].ActivityName </td>
+                                    <td> @Model.PipelineItems[ i ].PipelineViewItems[ j ].ActivityStatus </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+            </table>
+        </div>
+        <div class="todolistfooter">
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+                @if ( Model.TotalItems != 0 )
+                {     
+                    @(( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage * 10 - 9) <span>-</span> @(( ( MML.Web.LoanCenter.Helpers.Utilities.PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage * 10 - ( 10 - @Model.PipelineItems.Count )) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+                }
+                else if ( Model.TotalItems == 0 )
+                {
+                    <span>0 records</span>
+                }
+            </div>
+            @if ( Model.PageCount > 1 )
+            { 
+                <div id="pagingDiv" class="normalfont left20">
+                    @if ( Model.TotalItems != 0 )
+                    {
+                        if ( ( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage != 1 )
+                        {               
+                        <a href="javascript:void(0)" onclick="PipelineGrid.PipelineDataHelper('command=PipelineGridPaging,Page=@(( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage - 1)')">
+                            <div class="leftarrow">
+                            </div>
+                        </a>
+                        }
+                        else
+                        {
+                        <div class="leftarrow">
+                        </div>
+                        }
+                        <div class="left1010">
+                            @if ( Model.CurrentPage > 10 )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "PipelineGridPaging,Page={0}",
+                                 ( Model.PageCount >= ( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage - 10 ) ?
+                                 ( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage - 10 :
+                                 Model.PageCount )
+                           },
+                                                               new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('Page, plusTen')", OnComplete = "PipelineGrid.PipelineDataOnComplete('Page, plusTen')", OnBegin = "PipelineGrid.PipelineDataOnBegin('Page, plusTen')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                            @for ( int j = Model.StartPage; j <= Model.EndPage; j++ )
+                            {
+                                if ( j != ( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage )
+                                { 
+                                @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "PipelineGridPaging,Page={0}", j ) },
+                                                                                       new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "PipelineGrid.PipelineDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "PipelineGrid.PipelineDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "PipelineGrid.PipelineDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "PipelineGrid.PipelineDataOnSuccess('Page{0}')", j ) }, new { @class = "page" } )
+                                }
+                                else
+                                { 
+                                @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "PipelineGridPaging,Page={0}", j ) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "PipelineGrid.PipelineDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "PipelineGrid.PipelineDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "PipelineGrid.PipelineDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "PipelineGrid.PipelineDataOnSuccess('Page{0}')", j ) }, new { @class = "pageselected" } )
+                                }
+                            }
+                            @if ( Model.LastPageDots == false )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "PipelineGridPaging,Page={0}",
+                               ( Model.PageCount >= ( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage + 10 ) ?
+                               ( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage + 10 :
+                               Model.PageCount )
+                           },
+                                                               new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "PipelineGrid.PipelineDataOnFailure('Page, plusTen')", OnComplete = "PipelineGrid.PipelineDataOnComplete('Page, plusTen')", OnBegin = "PipelineGrid.PipelineDataOnBegin('Page, plusTen')", OnSuccess = "PipelineGrid.PipelineDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                        </div>
+                            if ( ( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage != Model.PageCount )
+                            {              
+                        <a href="javascript:void(0)" onclick="PipelineGrid.PipelineDataHelper('command=PipelineGridPaging,Page=@(( ( PipelineListState )HttpContext.Current.Session[ SessionHelper.PipelineListState ] ).CurrentPage + 1)')">
+                            <div class="rightarrow">
+                            </div>
+                        </a>
+                            }
+                            else
+                            { 
+                        <div class="rightarrow">
+                        </div>
+                            }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿<div class="imp-cgrid totals" ng-class="{'purchase': !costDetailsCtrl.isRefinance}">
+    <div class="header main">
+        <span>Totals</span>
+    </div>
+    <div class="footer">
+        <div class="row">
+            <div class="col-a">
+
+            </div>
+            <div class="col-xm"><span>At / Before Closing Subtotals</span></div>
+            <div class="col-s"><span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.closingCosts.borrowerPaidAtClosingTotal | impRound: 2 | currency}}</span></div>
+            <div class="col-s"><span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.closingCosts.borrowerPaidBeforeClosingTotal | impRound: 2 | currency}}</span></div>
+            <div class="col-s" ng-if="!costDetailsCtrl.isRefinance"><span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.closingCosts.sellerPaidAtClosingTotal | impRound: 2 | currency}}</span></div>
+            <div class="col-s" ng-if="!costDetailsCtrl.isRefinance"><span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.closingCosts.sellerPaidBeforeClosingTotal | impRound: 2 | currency}}</span></div>
+            <div class="col-s"><span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.closingCosts.otherPaidAtClosingTotal | impRound: 2 | currency}}</span></div>
+            <div class="col-s"><span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.closingCosts.otherPaidBeforeClosingTotal | impRound: 2 | currency}}</span></div>
+        </div>
+        <div class="row">
+            <div class="col-a">
+            </div>
+            <div class="col-xm"><span>Total Lender Credits</span></div>
+            <div class="col-m lender-total"><span class="tvalue">{{ costDetailsCtrl.closingCostViewModel.totals.lenderCredits | impRound: 2 | currency}}</span></div>
+            <div class="col-m" ng-if="!costDetailsCtrl.isRefinance"><span class="tvalue"></span></div>
+            <div class="col-m"><span class="tvalue"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-a">
+            </div>
+            <div class="col-xm"><span class="tlabel">J. Total Closing Costs</span></div>
+            <div class="col-m main-total"><span class="tvalue">{{costDetailsCtrl.closingCostViewModel.totals.closingCosts.borrowerTotal | impRound: 2 | currency}}</span></div>
+            <div class="col-m" ng-if="!costDetailsCtrl.isRefinance"><span class="tvalue"></span></div>
+            <div class="col-m"><span class="tvalue"></span></div>
+        </div>
+    </div>
+
+</div> 

@@ -1,0 +1,126 @@
+﻿<div class="summary-section">
+    <div class="section-title section-underline">Property Information</div>
+    <div class="summary-subsection">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">Subject Property</span><span class="edit-link"><a ng-href="{{summaryCntrl.getPropertyLink()}}">edit</a></span></div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Address</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.property.fullAddress}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Loan Purpose</label>
+            <div ng-repeat="purposeType in summaryCntrl.applicationData.lookup.subjectPropertyTypes">
+                <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.loanPurposeType==purposeType.value">
+                    {{purposeType.text}}
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Property Type</label>
+            <div ng-repeat="propertyType in summaryCntrl.applicationData.lookup.subjectPropertyTypes">
+                <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.property.propertyType==propertyType.value">
+                    {{propertyType.text}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Occupancy Type</label>
+            <div ng-repeat="occupancyType in summaryCntrl.applicationData.lookup.occupancyTypeList">
+                <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.property.occupancyType==occupancyType.value">
+                    {{occupancyType.text}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Est. Property Value</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.property.currentEstimatedValue | currency : "$" : 0}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Loan Amount</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.property.loanAmount | currency: "$":0}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Original Purch Price</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.property.purchasePrice | currency : "$":0}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Original Purch Date</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.property.purchaseDate.toLocaleDateString()}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Current Address</label>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.property.isCurrentAddressSame">
+                Same
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="!summaryCntrl.loan.property.isCurrentAddressSame">
+                Different
+            </div>
+        </div>
+    </div>
+    <div class="summary-subsection">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">{{summaryCntrl.loan.loanApp.borrower.fullName}} Current Address</span><span class="edit-link"><a ng-href="{{summaryCntrl.getBorrowerAddressLink()}}">edit</a></span></div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Address</label>
+            <div class="col-xs-6 col-lg-8">
+                {{summaryCntrl.loan.loanApp.borrower.currentAddress.fullAddress}}
+            </div>
+        </div>
+        <div class="form-group summary-form" ng-if="summaryCntrl.loan.loanApp.borrower.currentAddress.ownOrRent>0">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Ownership</label>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.loanApp.borrower.currentAddress.ownOrRent==2">
+                Rent
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.loanApp.borrower.currentAddress.ownOrRent==1">
+                Own
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Time at Address</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.borrower.currentAddress.timeAtAddressYears + " years, " + summaryCntrl.loan.loanApp.borrower.currentAddress.timeAtAddressMonths + " month"}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Mailing Address</label>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.loanApp.borrower.currentAddress.isMailingAddressDifferent">
+                Different than current address
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="!summaryCntrl.loan.loanApp.borrower.currentAddress.isMailingAddressDifferent">
+                same as current address
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Mailing Address</label>
+            <div class="col-xs-6 col-lg-8">
+                {{summaryCntrl.loan.loanApp.borrower.mailingAddress.fullAddress}}
+            </div>
+        </div>
+    </div>
+    <div class="summary-subsection" ng-if="summaryCntrl.loan.loanApp.coBorrower.fullName != 'New Application'">
+        <div class="summary-subtitle"><span class="summary-subtitle-text">{{summaryCntrl.loan.loanApp.coBorrower.fullName}} Current Address</span><span class="edit-link"><a ng-href="{{summaryCntrl.getCoBorrowerAddressLink()}}">edit</a></span></div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Address</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.coBorrower.currentAddress.fullAddress}}</div>
+        </div>
+        <div class="form-group summary-form" ng-if="summaryCntrl.loan.loanApp.coBorrower.currentAddress.ownOrRent>0">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Ownership</label>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.loanApp.coBorrower.currentAddress.ownOrRent==2">
+                Rent
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.loanApp.coBorrower.currentAddress.ownOrRent==1">
+                Own
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Time at Address</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.loan.loanApp.coBorrower.currentAddress.timeAtAddressYears + " years, " + summaryCntrl.loan.loanApp.coBorrower.currentAddress.timeAtAddressMonths + " month"}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Mailing Address</label>
+            <div class="col-xs-6 col-lg-8" ng-if="summaryCntrl.loan.loanApp.coBorrower.currentAddress.isMailingAddressDifferent">
+                Different than current address
+            </div>
+            <div class="col-xs-6 col-lg-8" ng-if="!summaryCntrl.loan.loanApp.coBorrower.currentAddress.isMailingAddressDifferent">
+                same as current address
+            </div>
+        </div>
+    </div>
+</div>

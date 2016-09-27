@@ -1,0 +1,33 @@
+﻿<div class="footer">
+    <div class="row">
+        <div class="col-a">
+            <span class="tlabel">{{'I. Total Other Costs'}}</span> <span class="tvalue">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.total | impRound: 2 | currency}}</span>
+        </div>
+        <div class="col-xm">
+            <span>Section Subtotals</span></div>
+        <div class="col-s">
+            <span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.borrowerPaidAtClosingTotal | impRound: 2 | currency}}</span></div>
+        <div class="col-s">
+            <span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.borrowerPaidBeforeClosingTotal | impRound: 2 | currency}}</span></div>
+        <div class="col-s" ng-if="!costDetailsCtrl.isRefinance">
+            <span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.sellerPaidAtClosingTotal | impRound: 2 | currency}}</span></div>
+        <div class="col-s" ng-if="!costDetailsCtrl.isRefinance">
+            <span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.sellerPaidBeforeClosingTotal | impRound: 2 | currency}}</span></div>
+        <div class="col-s">
+            <span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.otherPaidAtClosingTotal | impRound: 2 | currency}}</span></div>
+        <div class="col-s">
+            <span class="cvalue ">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.otherPaidBeforeClosingTotal | impRound: 2 | currency}}</span></div>
+    </div>
+    <div class="row">
+        <div class="col-a">
+        </div>
+        <div class="col-xm">
+            <span>Subtotals</span></div>
+        <div class="col-m">
+            <span class="tvalue">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.borrowerTotal | impRound: 2 | currency}}</span></div>
+        <div class="col-m" ng-if="!costDetailsCtrl.isRefinance">
+            <span class="tvalue">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.sellerTotal | impRound: 2 | currency}}</span></div>
+        <div class="col-m">
+            <span class="tvalue">{{costDetailsCtrl.closingCostViewModel.totals.otherCosts.otherTotal | impRound: 2 | currency}}</span></div>
+    </div>
+</div>

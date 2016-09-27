@@ -1,0 +1,105 @@
+﻿<div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Endorsement Date of Existing FHA Loan</div>
+        </div>
+        <div class="right-section">
+            <imp-date-picker display-picker="true" type="text" ng-model="streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.endorsmentDate"
+                             date-settings="{defaultValidationEnabled: false,  appendToBody: true}"
+                             custom-filters="[{ruleFunction:streamlineRefi.ruleFunctionEndorsementDate, callBackFunction:streamlineRefi.calculateFHAFields, executeOn:'blur'}]"></imp-date-picker>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">A. Original Total Loan Amount of Current FHA Loan</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.originalTotalLoanAmount" ng-blur="streamlineRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">B. Unpaid Principle Balance</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.unpaidPrincipleBalance" ng-blur="streamlineRefi.calculateFHAFields()" ng-focus="streamlineRefi.setTooltipText()"
+                   tooltip-placement="bottom" tooltip-trigger="focus"
+                   tooltip-html-unsafe="<div class='imp-tooltip' style='width:425px;'>
+                <div class='tooltip-content'>
+                    The Unpaid Principle Balance for owner-occupied Principal Residences and HUD-approved Secondary Residences is the lesser of:
+                    <ul>
+                        <li>the outstanding principal balance of the existing Mortgage as of the month prior to mortgage Disbursement; plus interest 
+                        due on the existing Mortgage; and MIP due on existing Mortgage; or </li>
+                        <li>the original principal balance of the existing Mortgage (including financed UFMIP)</li>
+                    </ul>
+                    The Unpaid Principle Balance for Investment Properties is the lesser of:
+                    <ul>
+                        <li>the outstanding principal balance of the existing Mortgage as of the month prior to mortgage Disbursement; or</li>
+                        <li>the original principal balance of the existing Mortgage (including financed UFMIP)</li>
+                    </ul>
+                    <div></div>
+                </div>
+            </div>"/>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Lesser of A or B</div>
+        </div>
+        <div class="right-section field-value">
+            <span>{{streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.totalLoanAmountUnpaidBalanceMinValue | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">C. Unearned UFMIP Refund (From FHA Connection)</div>
+        </div>
+        <div class="right-section">
+            <input type="text" class="input-text" imp-currency ng-model="streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.unearnedUFMIPRefund" ng-blur="streamlineRefi.calculateFHAFields()" />
+        </div>
+    </div>
+    <div class="calculator-row">
+        <div class="left-section">
+            <div class="imp-psection-label">D. New Estimated UFMIP</div>
+            <div class="imp-icon-question-mark"
+                 tooltip-placement="bottom" tooltip-trigger="mouseenter"
+                 tooltip-html-unsafe="
+                <div class='imp-tooltip' style='width:425px;'><div class='tooltip-content'>May include up to 2 months of MIP if itemized on payoff statement
+            + up to 60 day interest charged by servicing lender for the current month. May not include latest charges, escrow shortages, deliquent interets and processing type fees. 
+            <div></div></div></div>">
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="normal-label">{{streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newEstimatedUFMIP | currency}}</div>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Maximum UFMIP (Lessed of C or D)</div>
+        </div>
+        <div class="right-section field-value">
+            <span class="critical">-{{streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.maxUFMIP | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section">
+            <div class="imp-psection-label">Maximum Base Mortgage</div>
+        </div>
+        <div class="right-section field-value">
+            <span class="bold">{{streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.maxBaseMortgage | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+    <div class="calculator-row  grey-row">
+        <div class="left-section" style="justify-content: flex-start;">
+            <div class="imp-psection-label">New UFMIP (Max base x UFMIP factor)</div>
+            <div class="imp-icon-question-mark" style="margin-left:66px;"
+                 tooltip-placement="bottom" tooltip-trigger="mouseenter"
+                 tooltip-html-unsafe="
+                <div class='imp-tooltip' style='width:425px;'><div class='tooltip-content'>FHA Loans endorsed <strong>on or before</strong> 5/31/2009 have a UFMIP factor of 0.01% and <strong>after</strong> have a factor of 1.75%.<div></div></div></div>">
+            </div>
+        </div>
+        <div class="right-section field-value">
+            <span class="success">+</span><span>{{streamlineRefi.wrappedLoan.ref.fhaScenarioViewModel.fhaCalculatorResults.newUFMIP | impRound: 2 | currency}}</span>
+        </div>
+    </div>
+</div>

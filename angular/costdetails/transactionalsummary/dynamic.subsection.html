@@ -1,0 +1,21 @@
+﻿<div class="row header-row" ng-mouseover="hover = true" ng-mouseleave="hover = false">
+    <div class="section-add" ng-click="initializeEmptyDebtCredit()">
+        <imp-circle size="xsmall" color="#208DDC" is-plus="true" ng-show="hover && canAdd()"></imp-circle>
+    </div>
+    <div class="col-a imp-disclaimer">
+        {{ subSection.subSectionNameString }}
+    </div>
+    <div class="col-m">
+        <span ng-show="hover && canAdd()" class="imp-hyperlink hyperlink" ng-click="initializeEmptyDebtCredit()">click to add a fee</span>
+    </div>
+</div>
+<div ng-repeat="item in subSection.records | filter: {isRemoved: false} | orderBy:'displayLineNumber'">
+    <transaction-row mode="view"
+                     item="item"
+                     recalulate="calculateSectionTotal"
+                     view-model="wrappedLoan"
+                     section-key="sectionKey"
+                     sub-section-key="subSection.subSectionKey"
+                     dictionary="subSection.dropdownDictionary"
+                     cost-controller="costController"></transaction-row>
+</div>

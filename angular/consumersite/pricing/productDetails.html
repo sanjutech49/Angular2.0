@@ -1,0 +1,34 @@
+﻿<div class="imp-modal flyout product-pricing" style="padding: 6px">
+    <div class="header">
+        <span class="imp-text-enhanced-color">Loan Product Information </span> <div class="imp-icon-flayout" style="position: relative;top: 3px;"></div>
+    </div>
+    <div class="row" style="margin-bottom: 12px;">
+        <div class="col-md-12">
+            <button type="button" class="imp-button-hm-wm-sec" style="margin-left: 40px; width: 120px;" ng-click="productDetailsCtrl.cancel()"> Cancel </button>
+            <button type="button" class="imp-button-hm-wm-prim" style="width: 120px;"> Select Rate </button>
+            <button type="button" class="imp-button-hm-wm-sec" style="width: 200px;"> Send My Report </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ productDetailsCtrl.selectedProduct.LoanAmortizationTerm }}
+            {{ productDetailsCtrl.selectedProduct.AmortizationType }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            ${{ productDetailsCtrl.selectedProduct.MonthlyPayment }}
+            P&amp;I per month</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">{{ productDetailsCtrl.selectedProduct.Rate | number:3 }}&#37</div>
+        <div class="col-md-4">{{ productDetailsCtrl.selectedProduct.APR | number:3 }}&#37</div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Rate</div>
+        <div class="col-md-4">APR</div>
+        <div class="col-md-4">Loan Points</div>
+    </div>
+    
+</div>

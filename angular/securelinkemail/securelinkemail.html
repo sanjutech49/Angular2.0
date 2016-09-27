@@ -1,0 +1,46 @@
+﻿<div class="content" style="height:600px">
+
+    <form method="post">
+        <div class="body">
+            <!--<select id="emailTemplate" ng-bind="secureLinkEmailCtrl.secureLinkEmailTemplateArray.title">Select Type of SecureLink to Send</select>-->
+            <select name="emailTemplate" id="emailTemplate" ng-model="secureLinkEmailCtrl.secureLinkEmail.activeTemplate.title" ng-click="secureLinkEmailCtrl.setActiveTemplate()">
+                <option>Select Type of SecureLink to Send</option>
+                <option ng-repeat="option in secureLinkEmailCtrl.secureLinkEmailTemplateArray" value="{{option.title}}">{{option.title}}</option>
+            </select>
+        </div>
+
+        <div class="body">
+            To:<label ng-bind="secureLinkEmailCtrl.toEmail"></label>
+        </div>
+        <div class="body">
+            Cc:<label ng-bind="secureLinkEmailCtrl.ccEmail"></label>
+        </div>
+        <div class="body">
+            From:<label ng-bind="secureLinkEmailCtrl.fromEmail"></label>
+        </div>
+        <div class="body">
+            Subject:<label ng-bind="secureLinkEmailCtrl.secureLinkEmail.activeTemplate.emailSubject"></label>s
+        </div>
+        <div class="body">
+            SecureLink Docs: Select the Documents from the Docvault that you would like the user to eSign when they click the SecureLink
+        </div>
+        <div class="body">
+            <input type="button" class="imp-button-hm-wm-sec" value="GetSecureLinkURL" ng-click="secureLinkEmailCtrl.getSecureLinkURL()" />
+        </div>
+        <div class="body">
+            <textarea cols="80" rows="40" ng-bind="secureLinkEmailCtrl.secureLinkEmail.activeTemplate.emailBody"></textarea>
+            <!--<textarea ui-tinymce="{trusted: true}" ng-bind="secureLinkEmailCtrl.secureLinkEmail.activeTemplate.emailBody"
+                      ng-model="secureLinkEmailCtrl.tinymce"
+                      ng-change="secureLinkEmailCtrl.updateHtml()"></textarea>-->
+            <!--<tiny-mce html="secureLinkEmailCtrl.secureLinkEmail.activeTemplate.emailBody"></tiny-mce>-->
+        </div>
+
+
+        <div class="imp-main-buttons-div imp-button-section">
+            <div class="imp-button-wrapper">
+                <input type="button" class="imp-button-hm-wm-sec" value="Cancel" ng-click="secureLinkEmailCtrl.close()" />
+                <input type="button" class="imp-button-hm-wl-prim" value="Send" ng-click="secureLinkEmailCtrl.sendEmail()" />
+            </div>
+        </div>
+    </form>
+</div>

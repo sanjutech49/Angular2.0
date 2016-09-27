@@ -1,0 +1,60 @@
+﻿@using MML.Common
+@model MML.Web.LoanCenter.ViewModels.ManageFeesViewModel
+@{
+    int groupNumber = ViewBag.GroupNumber;
+    var costGroup = Model.TitleAndEscrow.CostGroups.First( c => c.CostGroupNumber == groupNumber );
+    var hudlineNumber = ( int )ViewBag.HUDLineNumber;
+    var subHudlineNumber = ViewBag.SubHUDLineNumber as string;
+    var costPrefix = String.Format( "TitleAndEscrow.CostGroups[{0}].Costs[{1}]", Model.TitleAndEscrow.CostGroups.IndexOf( costGroup ),
+        costGroup.Costs.FindIndex( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) ) );
+    var cost = costGroup.Costs.First( c => c.HUDLineNumber == hudlineNumber && ( subHudlineNumber == null || c.SubHUDLineNumber == subHudlineNumber ) );
+
+    var htmlAttr = new Dictionary<string, object>()
+    {
+        { "class", ViewBag.ClassName },
+        { "id" , "txtName" + hudlineNumber + subHudlineNumber ?? ""}
+    };
+
+    List<string> feeTitles = new List<string>();
+
+    switch ( groupNumber )
+    {
+        case 80:
+            if ( hudlineNumber == 801 )
+            {
+                feeTitles = Model.FeeTitles801;
+            }
+            else if ( hudlineNumber >= 804 && hudlineNumber <= 820 )
+            {
+                feeTitles = Model.FeeTitles804To820;
+            }
+            break;
+        case 90:
+            feeTitles = Model.FeeTitles900;
+            break;
+        case 10:
+            feeTitles = Model.FeeTitles1000;
+            break;
+        case 11:
+            feeTitles = Model.FeeTitles1100;
+            break;
+        case 12:
+            feeTitles = Model.FeeTitles1200;
+            htmlAttr.Add("onchange", "ManageFees.MapProviderTo1200Section(this)");
+            break;
+        case 13:
+            if ( hudlineNumber >= 1302 && hudlineNumber <= 1307 )
+            {
+                feeTitles = Model.FeeTitles1302To1307;
+            }
+            else if ( hudlineNumber >= 1308 )
+            {
+                feeTitles = Model.FeeTitles1308To1311;
+            }
+            break;
+    }
+
+    @Html.DropDownList( String.Format( "{0}.Name", costPrefix ), new SelectList( feeTitles, cost.Title ?? cost.Name ), htmlAttr )
+
+
+}

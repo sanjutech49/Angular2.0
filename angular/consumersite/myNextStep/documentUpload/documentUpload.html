@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- LEFT TEMPORARILY UNTIL STYLING IS MIGRATED-->
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../../Content/ConsumerSiteFeatureStyle.css">
+</head>
+<body>
+
+    <div class="page-body" style="margin-top:140px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 col-md-7">
+                    <div class="col-xs-12">
+                        <h3>{{ documentUploadCntrl.titleRequestedDocuments }}</h3>
+                        <hr />
+                        <ul class="list-unstyled list-group" ng-show="documentUploadCntrl.requestedDocuments.length > 0">
+                            <li class="list-group-item" data-ng-repeat="doc in documentUploadCntrl.requestedDocuments  | filter: { removed: 'false' } | orderBy: 'description'"
+                                ng-show="!!doc.description">
+                                <h4>{{ doc.category }}</h4>
+                                {{ doc.description }}
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-primary btn-sm" style="width:auto" ng-click="documentUploadCntrl.downloadRequestedDocs()"
+                                ng-show="documentUploadCntrl.requestedDocuments.length > 0">
+                            <span class="glyphicon glyphicon-print" aria-hidden="true"></span> &nbsp;
+                            Download Docs to Print &amp Sign
+                        </button>
+                        <ul class="list-unstyled" ng-show="documentUploadCntrl.requestedDocuments.length === 0 && documentUploadCntrl.dataLoaded">
+                            <li>
+                                No additional documents are requested at this time.
+                            </li>
+                        </ul>                        
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5">
+                    <div class="col-xs-12">
+                        <h3>{{ documentUploadCntrl.titleChooseFilesToSend }}</h3>
+                        <hr />
+
+                        <p>You can upload the requested documents as one or multiple files. We'll take care of the rest.</p>
+
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="documentUploadCntrl.toggleModal()">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>&nbsp;
+                            Choose Files to Upload
+                        </button>
+
+                        <p></p>
+                        <p>If you are unable to upload files, you may fax the documents.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 col-md-7">
+                    <div class="col-xs-12" ng-show="documentUploadCntrl.incompleteDocuments.length > 0">
+                        <h3>{{ documentUploadCntrl.titleIncompleteDocuments }}</h3>
+                        <hr />
+                        <ul class="list-unstyled list-group">
+                            <li class="list-group-item" data-ng-repeat="doc in documentUploadCntrl.incompleteDocuments | orderBy: 'fileName'"
+                                ng-show="!!doc.fileName">
+                                <h4>{{ doc.fileName }}</h4>
+                                <span>{{ doc.fileNotification }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-5">
+                    <div class="col-xs-12" ng-show="documentUploadCntrl.uploadedDocuments.length > 0">
+                        <h3>{{ documentUploadCntrl.titleUploadHistory }}</h3>
+                        <hr />
+                        <ul class="list-unstyled list-group">
+                            <li class="list-group-item" data-ng-repeat="doc in documentUploadCntrl.uploadedDocuments | orderBy: 'fileName'"
+                                ng-show="!!doc.fileName">
+                                {{ doc.fileName }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

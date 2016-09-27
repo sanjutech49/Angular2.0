@@ -1,0 +1,638 @@
+﻿<div class="personal-content">
+    <div ng-show="personal.showErrorMessage" style="text-align: center;">
+        An error occurred while loading data
+    </div> 
+    <form name="personalForm" novalidate>
+    <fieldset ng-disabled="personal.disableFields" ng-show="personal.showPersonalTab">
+        <!-- Borrower Information -->
+        <div class="borrower-section">
+            <div class="borrower-section-header">
+                <div class="imp-psection-header">
+                    <div class="imp-sa-grid-row-collaps right" style="margin-left: -20px; margin-top: 10px;"
+                         ng-class="{down: personal.wrappedLoan.ref.active.isBorrowerSectionShown, 'right marginTop': !personal.wrappedLoan.ref.active.isBorrowerSectionShown}"
+                         ng-click="personal.wrappedLoan.ref.active.collapseExpand('BorrowerSection')"></div>
+                    <div class="fleft imp-psection-title imp-psection-title-element">Borrower Information</div>
+                    <div class="fleft imp-personal-borrower-img"></div>
+                </div>
+            </div>
+            <div id="borrowerSection" class="borrower-section-body" ng-show="personal.wrappedLoan.ref.active.isBorrowerSectionShown">
+                <div class="row" style="margin-left: 0px;">
+                    <div class="imp-psection-subtitle col-lg-4">
+                        <div>Name</div>
+                    </div>
+                    <div class="imp-psection-subtitle col-lg-4">
+                        <div>Contact</div>
+                    </div>
+                    <div style="margin-left: -5px;" class="imp-psection-subtitle col-lg-4">
+                        <div>Employment & Background</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4" style="width:30%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">First Name</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" ng-model="personal.wrappedLoan.ref.active.getBorrower().firstName"
+                                       ng-change="personal.toggleTabs(); personal.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                       ng-blur="personalForm.$pristine?'':personal.onTitleHeldInChange()" imp-autofocus
+                                       ng-class="{'imp-has-error': !personal.wrappedLoan.ref.active.getBorrower().firstName && !personal.wrappedLoan.ref.active.isFirstAndLastNameEnteredForBorrowers }" ng-disabled="loanScenario.repricing" />
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Middle Name</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" ng-model="personal.wrappedLoan.ref.active.getBorrower().middleName" ng-blur="personal.onTitleHeldInChange()" ng-disabled="loanScenario.repricing" />
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Last Name</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" ng-model="personal.wrappedLoan.ref.active.getBorrower().lastName"
+                                       ng-change="personal.toggleTabs(); personal.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                       ng-blur=" personal.onTitleHeldInChange()"
+                                       ng-class="{'imp-has-error': !personal.wrappedLoan.ref.active.getBorrower().lastName && !personal.wrappedLoan.ref.active.isFirstAndLastNameEnteredForBorrowers }" ng-disabled="loanScenario.repricing" />
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Suffix</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" placeholder="Jr., Sr., II, III" ng-model="personal.wrappedLoan.ref.active.getBorrower().suffix" ng-disabled="loanScenario.repricing" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:30%">
+                        <div class='row imp-psection-row'>
+                            <div class='col-lg-5'>
+                                <div class='imp-psection-label'>Preferred Phone</div>
+                            </div>
+                            <imp-phone phone-number="personal.wrappedLoan.ref.active.getBorrower().preferredPhone.number"
+                                       selected-phone-type="personal.wrappedLoan.ref.active.getBorrower().preferredPhone.type"
+                                       phone-types-options="personal.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters="personal.phoneFunctions"
+                                       number-required="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                                       fields-disabled="loanScenario.repricing"
+                                       trigger-validation-on-init="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications">
+                            </imp-phone>
+                        </div>
+                        <div class='row imp-psection-row'>
+                            <div class='col-lg-5'>
+                                <div class='imp-psection-label'>Alternate Phone</div>
+                            </div>
+                            <imp-phone phone-number="personal.wrappedLoan.ref.active.getBorrower().alternatePhone.number"
+                                       selected-phone-type="personal.wrappedLoan.ref.active.getBorrower().alternatePhone.type"
+                                       phone-types-options="personal.applicationData.lookup.phoneNumberTypes"
+                                       custom-filters="personal.phoneFunctions"
+                                       number-required="false"
+                                       fields-disabled="loanScenario.repricing">
+                            </imp-phone>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5 imp-psection-email">
+                                <div class="imp-psection-label fleft">Email</div>
+                                <imp-account-status ng-model="personal.wrappedLoan.ref.active.getBorrower()" ng-model-options="{ getterSetter: true }"
+                                                    spouse-model="personal.wrappedLoan.ref.active.getCoBorrower()"
+                                                    is-spouse-on-the-loan="personal.wrappedLoan.ref.active.isSpouseOnTheLoan"></imp-account-status>
+                                <div id="borrowerEmail" class="imp-icon-user floatright"
+                                     ng-click="personal.manageAccountsModal(personal.wrappedLoan.ref.active.getBorrower().userAccount, false, $event)"
+                                     ng-class="personal.wrappedLoan.ref.active.getBorrower().accountStatus"
+                                     tooltip-html-unsafe="
+                                    <div class='imp-tooltip' style='width:230px;'><div style='padding:15px;font-weight:normal;'><div>{{personal.wrappedLoan.ref.active.getUserAccountTooltipMessage(personal.wrappedLoan.ref.active.getBorrower().userAccount, personal.wrappedLoan.ref.active.getCoBorrower().userAccount.username, personal.wrappedLoan.ref.active.getCoBorrower().userAccount.isOnlineUser, personal.wrappedLoan.ref.active.getCoBorrower().userAccount.isActivated)}}</div></div></div>"
+                                    tooltip-placement="bottom" tooltip-trigger="mouseenter">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten" ng-disabled="loanScenario.repricing">
+                                <imp-email on-email-blur="personal.onEmailBlur(personal.wrappedLoan.ref.active.getBorrower(), personal.wrappedLoan.ref.active.getBorrower().userAccount.username)"
+                                           has-error="personal.hasError(personal.wrappedLoan.ref.active.getBorrower().userAccount)"
+                                           is-email-valid="personal.wrappedLoan.ref.active.getBorrower().userAccount.isEmailValid"
+                                           fields-disabled="personal.wrappedLoan.ref.active.getBorrower().userAccount.isOnlineUser"
+                                           username="personal.wrappedLoan.ref.active.getBorrower().userAccount.username"
+                                           starts-with-prospect="personal.wrappedLoan.ref.active.getBorrower().userAccount.username && personal.wrappedLoan.ref.active.getBorrower().userAccount.username.startsWith('newprospect')">
+                                </imp-email>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:31%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Employment Status</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium">
+                                    <select class="imp-ddl" ng-disabled="loanScenario.repricing"
+                                            ng-model="personal.wrappedLoan.ref.active.getBorrower().getCurrentEmploymentInfo().EmploymentTypeId"
+                                            ng-options="employmentType.value as employmentType.text for employmentType in personal.applicationData.lookup.employmentTypes"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row" ng-hide="personal.wrappedLoan.ref.active.getBorrower().getCurrentEmploymentInfo().EmploymentTypeId == 4">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label" ng-bind="personal.wrappedLoan.ref.active.getBorrower().getCurrentEmploymentInfo().EmploymentTypeId == 3 ? 'Retired at least 2 years?' : 'On the job 2 years?'"></div>
+                            </div>
+                            <div style="margin: 2px -6px 0px 0px" class="col-lg-1" tabindex="0" ng-keydown="personal.onEnterPress($event)">
+                                <input id="cbBorrowerTwoYearsOnJob" ng-disabled="loanScenario.repricing"
+                                       type="checkbox"
+                                       ng-model="personal.wrappedLoan.ref.active.getBorrower().isEmployedTwoYears"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       class="imp-checkbox" />
+                                <label for="cbBorrowerTwoYearsOnJob" class="imp-lb-checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">U.S. Citizen</div>
+                            </div>
+                            <div style="margin: 2px -6px 0px 0px" class="col-lg-1" tabindex="0" ng-keydown="personal.onEnterPress($event)">
+                                <input id="cbBorrowerCitizen" ng-disabled="loanScenario.repricing"
+                                       type="checkbox"
+                                       ng-model="personal.wrappedLoan.ref.active.getBorrower().usCitizen"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       ng-click="personal.onUSCitizenChange($event)"
+                                       class="imp-checkbox" />
+                                <label for="cbBorrowerCitizen" class="imp-lb-checkbox" ng-style="{'background-position': (!personal.wrappedLoan.ref.active.getBorrower().usCitizen) ? '0 0' : '0 -19px'}"></label>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row" ng-show="!personal.wrappedLoan.ref.active.getBorrower().usCitizen">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">Permanent <br /> Resident Alien</div>
+                            </div>
+                            <div style="margin: 2px -6px 0px 0px" class="col-lg-1" tabindex="0" ng-keydown="personal.onEnterPress($event)">
+                                <input id="cbBorrowerPermanentResidentAlien" ng-disabled="loanScenario.repricing"
+                                       type="checkbox"
+                                       ng-model="personal.wrappedLoan.ref.active.getBorrower().permanentAlien"
+                                       ng-true-value="true"
+                                       ng-false-value="false"
+                                       ng-click="personal.onPermanentAlienChange($event)"
+                                       class="imp-checkbox" />
+                                <label for="cbBorrowerPermanentResidentAlien" class="imp-lb-checkbox" ng-style="{'background-position': personal.validatePermanentAlien(personal.wrappedLoan.ref.active.getBorrower().permanentAlien)}"></label>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Yrs of School</div>
+                            </div>
+                            <div class="col-lg-7 imp-psection-col-shorten">
+                                <input type="text" maxlength="2" imp-numeric imp-select-on-click ng-model="personal.wrappedLoan.ref.active.getBorrower().yearsOfSchool" ng-disabled="loanScenario.repricing"
+                                       ng-class="{'imp-has-error': personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (!personal.wrappedLoan.ref.active.getBorrower().yearsOfSchool || personal.wrappedLoan.ref.active.getBorrower().yearsOfSchool == 0) }" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 0px;">
+                    <div class="imp-psection-subtitle col-lg-12">
+                        <div>Personal</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4" style="width:30%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Date of Birth</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <imp-date-picker display-picker="true" type="text" ng-model="personal.wrappedLoan.ref.active.getBorrower().dateOfBirth" trigger-validation-on-init="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications" has-error="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !personal.wrappedLoan.ref.active.getBorrower().dateOfBirth" ng-disabled="loanScenario.repricing"></imp-date-picker>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">SSN</div>
+                            </div>
+                            <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(personal.wrappedLoan.ref.active.getBorrower().wrongSsn) ? 'imp-has-error' : ''" style="width: 94%;" type="text"
+                                       ng-model="personal.wrappedLoan.ref.active.getBorrower().ssn"
+                                       ng-change="personal.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();" />
+                            </div>
+                            <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(personal.wrappedLoan.ref.active.getBorrower().wrongSsn) ? 'imp-has-error' : ''" class="imp-psection-left-borderadius" type="text" ng-model="personal.wrappedLoan.ref.active.getBorrower().confirmSsn" ng-disabled="loanScenario.repricing" />
+                            </div>
+                            <div style="width:60%; margin-left:140px; position:absolute; margin-top:20px;" ng-show="personal.wrappedLoan.ref.active.getBorrower().wrongSsn">
+                                <span class="imp-error-label" style="color:#ef1126;">SSN does not match</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:30%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Marital Status</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-span-ddl-container medium" ng-class=" {'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && personal.wrappedLoan.ref.active.getBorrower().maritalStatus == -1)}">
+                                    <select class="imp-ddl" ng-disabled="loanScenario.repricing"
+                                            ng-model="personal.wrappedLoan.ref.active.getBorrower().maritalStatus"
+                                            ng-options="status.value as status.text for status in personal.applicationData.lookup.maritalStatuses"
+                                            ng-change="personalForm.$pristine? personal.onMaritalStatusActionChanged(false):personal.onMaritalStatusActionChanged(true)"
+                                            ng-class=" {'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && personal.wrappedLoan.ref.active.getBorrower().maritalStatus == -1)}"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label">Dependents</div>
+                            </div>
+                            <div style="width: 20%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input style="width: 94%;" placeholder="Number" type="text" imp-select-on-click ng-disabled="loanScenario.repricing"
+                                       ng-model="personal.wrappedLoan.ref.active.getBorrower().numberOfDependents"
+                                       ng-focus="personal.wrappedLoan.ref.active.getBorrower().DependentsError = false;"
+                                       ng-class="personal.wrappedLoan.ref.active.getBorrower().DependentsError ? 'imp-has-error' : '' " />
+                            </div>
+                            <div style="width: 36%;" class="col-lg-3 imp-psection-col-shorten">
+                                <input id="focused" placeholder="Ages (i.e. 3,8,12)" class="imp-psection-left-borderadius" type="text" imp-select-on-click ng-disabled="loanScenario.repricing"
+                                       ng-model="personal.wrappedLoan.ref.active.getBorrower().agesOfDependents"
+                                       ng-focus="personal.wrappedLoan.ref.active.getBorrower().DependentsError = false;"
+                                       ng-class="personal.wrappedLoan.ref.active.getBorrower().DependentsError ? 'imp-has-error' : '' " />
+                                <div ng-show="personal.wrappedLoan.ref.active.getBorrower().DependentsError" style="color:red; font-size: 11px;">Invalid dependents data</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" style="width:31%">
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">How did you hear <br /> about us?</div>
+                            </div>
+                            <div class="col-lg-7" ng-disabled="loanScenario.repricing">
+                                <div class="imp-span-ddl-container medium" ng-class="{'imp-is-disabled': !personal.wrappedLoan.ref.active.howDidYouHearAboutUsEnabled, 'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && ( !personal.wrappedLoan.ref.active.howDidYouHearAboutUs || personal.wrappedLoan.ref.active.howDidYouHearAboutUs.trim() == ''))}">
+                                    <select class="imp-ddl"
+                                            ng-options="item.value as item.text for item in personal.applicationData.lookup.howDidYouHearAboutUsList"
+                                            ng-model="personal.wrappedLoan.ref.active.howDidYouHearAboutUs"
+                                            ng-disabled="!personal.wrappedLoan.ref.active.howDidYouHearAboutUsEnabled && loanscenario.repricing"
+                                            ng-class=" {'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (!personal.wrappedLoan.ref.active.howDidYouHearAboutUs || personal.wrappedLoan.ref.active.howDidYouHearAboutUs.trim() == '')) }">
+                                        <option value="">Select One</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">Lead Source</div>
+                            </div>
+                            <div class="col-lg-7" >
+                                <div class="imp-psection-label imp-psection-two-lines-labels">{{ personal.wrappedLoan.ref.leadSource }}</div>                               
+                            </div>
+                        </div>
+                        <div class="row imp-psection-row">
+                            <div class="col-lg-5">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">Lead Id</div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="imp-psection-label imp-psection-two-lines-labels">{{ personal.wrappedLoan.ref.leadManagerId }}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CoBorrower Information -->
+        <div class="coBorrower-section" ng-init="setCbSectionWhenEmailIsEmpty();">
+            <div class=" coborrower-section-header">
+                <div class="imp-psection-header">
+                    <div class="imp-sa-grid-row-collaps right" style="margin-left: -20px; margin-top: 10px;"
+                         ng-class="{down: personal.wrappedLoan.ref.active.isCoBorrowerSectionShown, 'right marginTop': !personal.wrappedLoan.ref.active.isCoBorrowerSectionShown}"
+                         ng-click="personal.wrappedLoan.ref.active.collapseExpand('CoBorrowerSection')"></div>
+                    <div class="fleft imp-psection-title imp-psection-title-element">Co-Borrower Information</div>
+                    <div class="fleft imp-personal-coborrower-img"></div>
+                    <div style="float: right; margin-right: 10px;" ng-show="personal.wrappedLoan.ref.active.isSwitchBorrowerCoBorrowerShown">
+                        <div class="fleft imp-psection-title-element" style="margin-left: 25px;">Switch Co-Borrower to Borrower</div>
+                        <div class="fleft" style="margin-top: 4px;">
+                            <input id="cbCoBorrowerToBorrowerSwitch"
+                                   type="checkbox"
+                                   ng-model="personal.wrappedLoan.ref.active.switchCoBorrowerToBorrower"
+                                   ng-true-value="true"
+                                   ng-false-value="false"
+                                   class="imp-checkbox" />
+                            <label for="cbCoBorrowerToBorrowerSwitch" class="imp-lb-checkbox"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="coBorrower-section-body" ng-show="personal.wrappedLoan.ref.active.isCoBorrowerSectionShown">
+                <div class="row" style="margin: 10px -6px;">
+                    <div style="width: 345px;" class="fleft imp-psection-title-element">Is your registered spouse or partner going to be on the loan?</div>
+                    <label style="margin: 5px;" class="imp-switch fleft">
+                        <input type="checkbox"
+                               ng-model="personal.wrappedLoan.ref.active.isSpouseOnTheLoan"
+                                   ng-change="personalForm.$pristine?personal.onIsSpouseOnTheLoanChange(false) : personal.onIsSpouseOnTheLoanChange(true)" /><i></i>
+                        <div ng-show="personal.wrappedLoan.ref.active.isSpouseOnTheLoan" style="color:white;font-size: 10px;position: absolute;margin-left: 5px;margin-top: -25px;">YES</div>
+                        <div ng-show="!personal.wrappedLoan.ref.active.isSpouseOnTheLoan" style="color:white;font-size: 10px;position: absolute;margin-left: 25px;margin-top: -25px;">NO</div>
+                    </label>
+                </div>
+                <div class="coBorrower-section-nameOfPartner" ng-show="!personal.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class="row imp-psection-row">
+                        <div class="col-md-2">
+                            <div class="imp-psection-label">Name of Partner</div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div style="width:69%">
+                                <input type="text" ng-model="personal.wrappedLoan.ref.active.titleInfo.nameOfPartner" ng-blur="personal.onIsSpouseOnTheTitleChange()"
+                                       ng-class=" {'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && ((!personal.wrappedLoan.ref.active.titleInfo.nameOfPartner || personal.wrappedLoan.ref.active.titleInfo.nameOfPartner.trim() == '') && personal.wrappedLoan.ref.active.getBorrower().maritalStatus == 0) ) }" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin: 10px -6px;">
+                        <div style="width: 345px;" class="fleft imp-psection-title-element">Is your registered spouse or partner going to be on title?</div>
+                        <label style="margin: 5px;" class="imp-switch fleft">
+                            <input type="checkbox"
+                                   ng-model="personal.wrappedLoan.ref.active.isSpouseOnTheTitle"
+                                   ng-change="personal.onIsSpouseOnTheTitleChange()" /><i></i>
+                            <div ng-show="personal.wrappedLoan.ref.active.isSpouseOnTheTitle" style="color:white;font-size: 10px;position: absolute;margin-left: 5px;margin-top: -25px;">YES</div>
+                            <div ng-show="!personal.wrappedLoan.ref.active.isSpouseOnTheTitle" style="color:white;font-size: 10px;position: absolute;margin-left: 25px;margin-top: -25px;">NO</div>
+                        </label>
+
+                    </div>
+                </div>
+                <div class="coBorrower-section-coBorrowerInfo" ng-show="personal.wrappedLoan.ref.active.isSpouseOnTheLoan">
+                    <div class=" row" style="margin-left: 0px;">
+                        <div class="imp-psection-subtitle col-lg-4">
+                            <div>Name</div>
+                        </div>
+                        <div class="imp-psection-subtitle col-lg-4">
+                            <div>Contact</div>
+                        </div>
+                        <div style="margin-left: -5px;" class="imp-psection-subtitle col-lg-4">
+                            <div>Employment & Background</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4" style="width:30%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">First Name</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" ng-model="personal.wrappedLoan.ref.active.getCoBorrower().firstName"
+                                           ng-blur="personal.onTitleHeldInChange()"
+                                           ng-change="personal.toggleTabs(); personal.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                           ng-class="{'imp-has-error': !personal.wrappedLoan.ref.active.getCoBorrower().firstName && !personal.wrappedLoan.ref.active.isFirstAndLastNameEnteredForBorrowers }" />
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Middle Name</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" ng-model="personal.wrappedLoan.ref.active.getCoBorrower().middleName" ng-blur="personal.onTitleHeldInChange()" />
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Last Name</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" ng-model="personal.wrappedLoan.ref.active.getCoBorrower().lastName"
+                                           ng-blur="personal.onTitleHeldInChange()"
+                                           ng-change="personal.toggleTabs(); personal.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                           ng-class="{'imp-has-error': !personal.wrappedLoan.ref.active.getCoBorrower().lastName && !personal.wrappedLoan.ref.active.isFirstAndLastNameEnteredForBorrowers }" />
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Suffix</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" placeholder="Jr., Sr., II, III" ng-model="personal.wrappedLoan.ref.active.getCoBorrower().suffix" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="width:30%">
+                            <div class='row imp-psection-row'>
+                                <div class='col-lg-5'>
+                                    <div class='imp-psection-label'>Preferred Phone</div>
+                                </div>
+                                <imp-phone phone-number="personal.wrappedLoan.ref.active.getCoBorrower().preferredPhone.number"
+                                           selected-phone-type="personal.wrappedLoan.ref.active.getCoBorrower().preferredPhone.type"
+                                           phone-types-options="personal.applicationData.lookup.phoneNumberTypes"
+                                           custom-filters="personal.phoneFunctions"
+                                           number-required="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications"
+                                           fields-disabled="false"
+                                           trigger-validation-on-init="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications">
+                                </imp-phone>
+                            </div>
+                            <div class='row imp-psection-row'>
+                                <div class='col-lg-5'>
+                                    <div class='imp-psection-label'>Alternate Phone</div>
+                                </div>
+                                <imp-phone phone-number="personal.wrappedLoan.ref.active.getCoBorrower().alternatePhone.number"
+                                           selected-phone-type="personal.wrappedLoan.ref.active.getCoBorrower().alternatePhone.type"
+                                           phone-types-options="personal.applicationData.lookup.phoneNumberTypes"
+                                           custom-filters="personal.phoneFunctions"
+                                           number-required="false"
+                                           fields-disabled="false">
+                                </imp-phone>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class=" col-lg-5 imp-psection-email">
+                                    <div class="imp-psection-label">
+                                        Email
+                                        <imp-account-status ng-model="personal.wrappedLoan.ref.active.getCoBorrower()" ng-model-options="{ getterSetter: true }"
+                                                            spouse-model="personal.wrappedLoan.ref.active.getBorrower()"
+                                                            is-spouse-on-the-loan="personal.wrappedLoan.ref.active.isSpouseOnTheLoan"></imp-account-status>
+                                        <div id="coborrowerEmail" class="imp-icon-user floatright"
+                                             ng-click="personal.manageAccountsModal(personal.wrappedLoan.ref.active.getCoBorrower().userAccount, true, $event)"
+                                             ng-class="personal.wrappedLoan.ref.active.getCoBorrower().accountStatus"
+                                             tooltip-html-unsafe="<div class='imp-tooltip' style='width:230px;'><div style='padding:15px;font-weight:normal;'><div>{{personal.wrappedLoan.ref.active.getUserAccountTooltipMessage(personal.wrappedLoan.ref.active.getCoBorrower().userAccount, personal.wrappedLoan.ref.active.getBorrower().userAccount.username, personal.wrappedLoan.ref.active.getBorrower().userAccount.isOnlineUser, personal.wrappedLoan.ref.active.getBorrower().userAccount.isActivated)}}</div></div></div>"
+                                            tooltip-placement="bottom" tooltip-trigger="mouseenter">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <imp-email on-email-blur="personal.onEmailBlur(personal.wrappedLoan.ref.active.getCoBorrower(), personal.wrappedLoan.ref.active.getCoBorrower().userAccount.username)"
+                                               is-email-valid="personal.wrappedLoan.ref.active.getCoBorrower().userAccount.isEmailValid"
+                                               has-error="personal.hasError(personal.wrappedLoan.ref.active.getCoBorrower().userAccount)"
+                                               fields-disabled="personal.wrappedLoan.ref.active.getCoBorrower().userAccount.isOnlineUser"
+                                               username="personal.wrappedLoan.ref.active.getCoBorrower().userAccount.username"
+                                               starts-with-prospect="personal.wrappedLoan.ref.active.getCoBorrower().userAccount.username && personal.wrappedLoan.ref.active.getCoBorrower().userAccount.username.startsWith('newprospect')">
+                                    </imp-email>
+                                   
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="width:31%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Employment Status</div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="imp-span-ddl-container medium">
+                                        <select class="imp-ddl"
+                                                ng-model="personal.wrappedLoan.ref.active.getCoBorrower().getCurrentEmploymentInfo().EmploymentTypeId"
+                                                ng-options="employmentType.value as employmentType.text for employmentType in personal.applicationData.lookup.employmentTypes"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row" ng-hide="personal.wrappedLoan.ref.active.getCoBorrower().getCurrentEmploymentInfo().EmploymentTypeId == 4">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label" ng-bind="personal.wrappedLoan.ref.active.getCoBorrower().getCurrentEmploymentInfo().EmploymentTypeId == 3 ? 'Retired at least 2 years?' : 'On the job 2 years?'"></div>
+                                </div>
+                                <div style="margin: 2px -6px 0px 0px" class="col-lg-1" tabindex="0" ng-keydown="personal.onEnterPress($event)">
+                                    <input id="cbCoBorrowerTwoYearsOnJob"
+                                           type="checkbox"
+                                           ng-model="personal.wrappedLoan.ref.active.getCoBorrower().isEmployedTwoYears"
+                                           ng-true-value="true"
+                                           ng-false-value="false"
+                                           class="imp-checkbox" />
+                                    <label for="cbCoBorrowerTwoYearsOnJob" class="imp-lb-checkbox"></label>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">U.S. Citizen</div>
+                                </div>
+                                <div style="margin: 2px -6px 0px 0px" class="col-lg-1" tabindex="0" ng-keydown="personal.onEnterPress($event)">
+                                    <input id="cbCoBorrowerCitizen"
+                                           type="checkbox"
+                                           ng-model="personal.wrappedLoan.ref.active.getCoBorrower().usCitizen"
+                                           ng-true-value="true"
+                                           ng-false-value="false"
+                                           ng-click="personal.onUSCitizenChange($event)"
+                                           class="imp-checkbox" />
+                                    <label for="cbCoBorrowerCitizen" class="imp-lb-checkbox" ng-style="{'background-position': (!personal.wrappedLoan.ref.active.getCoBorrower().usCitizen) ? '0 0' : '0 -19px'}"></label>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row" ng-show="!personal.wrappedLoan.ref.active.getCoBorrower().usCitizen">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label imp-psection-two-lines-labels">Permanent <br /> Resident Alien</div>
+                                </div>
+                                <div style="margin: 2px -6px 0px 0px" class="col-lg-1" tabindex="0" ng-keydown="personal.onEnterPress($event)">
+                                    <input id="cbCoBorrowerPermanentResidentAlien"
+                                           type="checkbox"
+                                           ng-model="personal.wrappedLoan.ref.active.getCoBorrower().permanentAlien"
+                                           ng-true-value="true"
+                                           ng-false-value="false"
+                                           ng-click="personal.onPermanentAlienChange($event)"
+                                           class="imp-checkbox" />
+                                    <label for="cbCoBorrowerPermanentResidentAlien" class="imp-lb-checkbox" ng-style="{'background-position': personal.validatePermanentAlien(personal.wrappedLoan.ref.active.getCoBorrower().permanentAlien)}"></label>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Yrs of School</div>
+                                </div>
+                                <div class="col-lg-7 imp-psection-col-shorten">
+                                    <input type="text" maxlength="2" imp-numeric imp-select-on-click ng-model="personal.wrappedLoan.ref.active.getCoBorrower().yearsOfSchool" ng-class="{'imp-has-error': ( personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (personal.wrappedLoan.ref.active.getCoBorrower().yearsOfSchool.trim() == ''|| !personal.wrappedLoan.ref.active.getCoBorrower().yearsOfSchool))}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="imp-psection-subtitle col-lg-12">
+                            <div>Personal</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4" style="width:30%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Date of Birth</div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <imp-date-picker display-picker="true" type="text" ng-model="personal.wrappedLoan.ref.active.getCoBorrower().dateOfBirth" trigger-validation-on-init="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications" has-error="personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && !personal.wrappedLoan.ref.active.getCoBorrower().dateOfBirth" ng-disabled="loanScenario.repricing"></imp-date-picker>
+                                </div>
+                            </div>
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">SSN</div>
+                                </div>
+                                <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(personal.wrappedLoan.ref.active.getCoBorrower().wrongSsn) ? 'imp-has-error' : ''" style="width: 94%;" type="text"
+                                           ng-model="personal.wrappedLoan.ref.active.getCoBorrower().ssn"
+                                           ng-change="personal.wrappedLoan.ref.areSixPiecesAcquiredForAllLoanApplications();"
+                                           ng-disabled="loanScenario.repricing" />
+                                </div>
+                                <div style="width: 28%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input ui-mask="999-99-9999" placeholder="xxx-xx-xxxx" ng-class="(personal.wrappedLoan.ref.active.getCoBorrower().wrongSsn) ? 'imp-has-error' : ''" class="imp-psection-left-borderadius" type="text" ng-model="personal.wrappedLoan.ref.active.getCoBorrower().confirmSsn" ng-disabled="loanScenario.repricing" />
+                                </div>
+                                <div style="width:60%; margin-left:140px; position:absolute; margin-top:20px;" ng-show="personal.wrappedLoan.ref.active.getCoBorrower().wrongSsn">
+                                    <span class="imp-error-label" style="color:#ef1126;">SSN does not match</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4" style="width:30%">
+                            <div class="row imp-psection-row">
+                                <div class="col-lg-5">
+                                    <div class="imp-psection-label">Dependents</div>
+                                </div>
+                                <div style="width: 20%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input style="width: 94%;" placeholder="Number" imp-select-on-click type="text" ng-disabled="loanScenario.repricing"
+                                           ng-model="personal.wrappedLoan.ref.active.getCoBorrower().numberOfDependents"
+                                           ng-focus="personal.wrappedLoan.ref.active.getCoBorrower().DependentsError = false;"
+                                           ng-class="personal.wrappedLoan.ref.active.getCoBorrower().DependentsError ? 'imp-has-error' : '' " />
+                                </div>
+                                <div style="width: 36%;" class="col-lg-3 imp-psection-col-shorten">
+                                    <input placeholder="Ages (i.e. 3,8,12)" class="imp-psection-left-borderadius" imp-select-on-click type="text"
+                                           ng-model="personal.wrappedLoan.ref.active.getCoBorrower().agesOfDependents" ng-disabled="loanScenario.repricing"
+                                           ng-focus="personal.wrappedLoan.ref.active.getCoBorrower().DependentsError = false;"
+                                           ng-class="personal.wrappedLoan.ref.active.getCoBorrower().DependentsError ? 'imp-has-error' : '' " />
+                                    <div ng-show="personal.wrappedLoan.ref.active.getCoBorrower().DependentsError" style="color:red; font-size: 11px;">Invalid dependents data</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Title Information -->
+        <div class="title-information-section" ng-show="personal.isVisible">
+            <div class="imp-psection-header">
+                <div class="imp-sa-grid-row-collaps right" style="margin-left: -20px; margin-top: 10px;"
+                     ng-class="{down: personal.wrappedLoan.ref.active.isTitleSectionShown, 'right marginTop': !personal.wrappedLoan.ref.active.isTitleSectionShown}"
+                     ng-click="personal.wrappedLoan.ref.active.collapseExpand('TitleSection')"></div>
+                <div class="fleft imp-psection-title imp-psection-title-element">Title Information</div>
+                <div class="fleft imp-personal-titleinfo-img"></div>
+            </div>
+            <div class="row title-information-body" ng-show="personal.wrappedLoan.ref.active.isTitleSectionShown">
+                <div class="col-lg-4" style="width:30%">
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-5">
+                            <div class="imp-psection-label">Title held in</div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="imp-span-ddl-container medium">
+                                <select class="imp-ddl" ng-disabled="loanScenario.repricing"
+                                        ng-model="personal.wrappedLoan.ref.active.titleInfo.titleHeldIn"
+                                        ng-options="title.value as title.text for title in personal.applicationData.lookup.titleHeldInTypes"
+                                        ng-change="personalForm.$pristine? personal.showNamesAndManner():personal.onTitleHeldInChange()"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="width:30%" ng-show="personal.wrappedLoan.ref.active.showNamesAndManner">
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-5">
+                            <div class="imp-psection-label">Names to be on title</div>
+                        </div>
+                        <div class="col-lg-7 imp-psection-col-shorten">
+                            <input type="text" ng-model="personal.wrappedLoan.ref.active.titleInfo.namesOnTitle" ng-class=" {'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && personal.wrappedLoan.ref.active.titleInfo.namesOnTitle.trim() == '') }" ng-disabled="loanScenario.repricing" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="width:31%" ng-show="personal.wrappedLoan.ref.active.showNamesAndManner">
+                    <div class="row imp-psection-row">
+                        <div class="col-lg-5">
+                            <div class="imp-psection-label">Manner title held</div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="imp-span-ddl-container medium"
+                                 ng-class=" {'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (!personal.wrappedLoan.ref.active.titleInfo.mannerTitleHeld || personal.wrappedLoan.ref.active.titleInfo.mannerTitleHeld == '-1'))}">
+                                <select class="imp-ddl" ng-disabled="loanScenario.repricing"
+                                        ng-model="personal.wrappedLoan.ref.active.titleInfo.mannerTitleHeld"
+                                        ng-options=" titleheld.value as titleheld.text for titleheld in personal.applicationData.lookup.mannerTitleHeldTypes"
+                                        ng-class=" {'imp-has-error': (personal.wrappedLoan.ref.sixPiecesAcquiredForAllLoanApplications && (!personal.wrappedLoan.ref.active.titleInfo.mannerTitleHeld || personal.wrappedLoan.ref.active.titleInfo.mannerTitleHeld == '-1'))}"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    </form>
+</div>

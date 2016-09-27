@@ -1,0 +1,56 @@
+﻿<div id="decisionHistoryPopup" class="conditions-add-new-popup-container condition-popup-container-main">
+    <div class="conditions-add-new-popup-header">
+        History
+        <div class=" imp-div-close-x floatright" ng-click="ok()">
+        </div>
+    </div>
+    <div class="imp-sa-split" style="margin-left: 2%; min-width: 95%">
+
+    </div>
+    <div class="modal-body">
+
+        <div id="divConditionDescription">
+            <label class="boldFont12 condition-history-title">
+                Underwriting Decision
+            </label>
+        </div>
+        <div id="divitems" class="imp-sa-history-body floatleft" style="margin-left: 0px; width: 100%">
+            <div class="imp-sa-history-table-container" style="width: 100%">
+                <div class="imp-sa-history-table-header">
+                    <div style="margin-left: 15px; width: 350px">
+                        Status
+                    </div>
+                    <div style="width: 120px">
+                        Updated By
+                    </div>
+                    <div style="width: 130px; padding-left: 5px;">
+                        Date
+                    </div>
+                </div>
+                <div class="imp-sa-history-table-body">
+                    <div id="divRow" runat="server" class="" style="clear: both; padding: 7px; border-top:1px solid #bdbebe" ng-repeat="m in model">
+                        <div class="imp-sa-history-table-column" style="margin-left: 10px; width: 350px">
+                            {{m.Status}}
+                        </div>
+                        <div class="imp-sa-history-table-column" style="width:120px">
+                            {{m.UpdatedBy}}
+                        </div>
+                        <div class="imp-sa-history-table-column" style="width: 130px; padding-left: 5px;">
+                            {{ m.Date | date: 'medium' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="imp-sa-split" style="margin-left: 2%; min-width: 95%">
+
+    </div>
+    <div class="conditions-popup-footer" style="padding: 15px 30px;">
+        <button class="imp-button-hm-wm-prim" ng-click="ok()">
+            OK
+        </button>
+    </div>
+</div>

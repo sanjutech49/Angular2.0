@@ -1,0 +1,53 @@
+﻿<div class="econsent-settings">
+    <div class="econsent-settings page-content">
+        <div class="page-title"><img class="pen-img" src="../../../Content/images/Consumer/pentip.png">eConsent Settings</div>
+        <div class="page-body">
+            <div class="row">
+                <div class="col col-md-6">
+                    <div>
+                        <div class="column-header">eConsent Terms</div>
+                        <div class="scrollbox">
+                            <div ng-include src="'/angular/consumer/eConsentTerms.html'"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-md-6">
+                    <div>
+                        <div class="column-header">Accepted eConsent</div>
+                        <div class="acceptance">
+                            <div ng-repeat="b in settingsCtrl.authenticatedBorrowers">
+                                <div class="inline img-check-placemark" ng-hide="b.eConsent.consentStatus == settingsCtrl.eConsentAcceptedStatus()">&nbsp;</div>
+                                <img class="img-check" ng-show="b.eConsent.consentStatus == settingsCtrl.eConsentAcceptedStatus()" src="../../../../Content/images/Consumer/green-check-wh.png">
+                                <div class="inline"><b>{{ b.fullName }}</b> acceptance acknowledged on {{ b.eConsent.statusAt | date: 'MM/dd/yyyy h:mm a' }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="column-header decline-header">Decline eConsent</div>
+                        <form class="form-horizontal econsent-form">
+                            <div class="control-group">
+                                <div class="controls checkboxes">
+                                    <label class=" checkbox" for="declineCheckbox">
+                                    <input type="checkbox" id="declineCheckbox" ng-model="settingsCtrl.eConsentDeclined">
+                                    <div class="checkbox-text"><b>We</b> decline the terms above and would like to complete out home loan application offline (a concierge will contact you)</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="green-separator"></div>
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-lg-12">
+                    <button class="imp-button-sec-general"      ng-click="settingsCtrl.cancel()">Cancel</button>
+                    <button class="imp-button-general btn-save" ng-disabled="!settingsCtrl.eConsentDeclined" ng-click="settingsCtrl.save()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

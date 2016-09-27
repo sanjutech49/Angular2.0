@@ -1,0 +1,36 @@
+﻿@using Telerik.Web.Mvc.UI
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.ErrorMessage
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(function () {
+        $("#divconversationlogpopup").draggable({ handle: "div.conversationlogsectionheadtitle" });
+    });
+
+    function Close() {
+        $("#divconversationlogpopup").hide();
+        $('.modalBackground').css('display', 'none');
+    };
+
+</script>
+<div id="divconversationlogpopup" class="divconversationlogpopup LoanCenterPopup">
+	<div class="conversationlogsectionheadcontent">
+		<div class="conversationlogsectionheadtitle">
+			<span class="namelink">@Model.Title</span>
+		</div>
+		<a id="closeconversationlog" onclick="Close()" title="Minimize/Maximize Section">
+				<div id="minmaxconversationlog" class="close"></div>
+		</a>
+		<div class="conversationlogheadline">
+		</div>
+	</div>
+	<div id="conversationlogcontentsection">
+		<div id="conversationlogcontent" class="conversationlogcontent">
+            @Model.Message
+		</div>
+		<div class="conversationlogheadline"></div> 
+		<div id="conversationlogManageButtonsSection" class="conversationlogManageButtonsSection">
+			<div id="btnClose" class="imp-button-div-hs-ws-prim" style="float: right;" onclick="Close()">OK</div >
+		</div>
+	</div>
+</div>

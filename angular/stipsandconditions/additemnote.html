@@ -1,0 +1,76 @@
+﻿<div id="conditionAddItemNotePopup" class="condition-popup-container-main width680">
+    <div class="imp-div-popup-header">
+        <div class="imp-notes read popup">
+        </div>
+        <div class="conditions-item-notes-popup-header-div">
+            Add a Note</div>
+        <div class=" imp-div-close-x floatright" style="margin-top: -45px;" ng-click="ModalNotesCtrl.cancel()">
+        </div>
+        <div class="imp-sa-split" style="min-width: 100%">
+        </div>
+    </div>
+    <div class="modal-body">
+        <div id="addNote">
+            <div id="divItemNoteDescription">
+                <label class="boldFont12" style="float: left;">
+                    Item Description: &nbsp;
+                </label>
+                <label class="font12" style="float: left;">
+                    {{ ModalNotesCtrl.CurativeItemNotesViewModel.description }}
+                </label>
+            </div>
+            <textarea rows="4" cols="77" ng-model="ModalNotesCtrl.CurativeItemNotesViewModel.content" placeholder="Add a note"
+                      style="min-width: 97.5%; max-width: 97.5%"></textarea>
+            <div style="margin-left: -7px; padding-top: 10px;">
+                <button class="imp-button-general" ng-click="ModalNotesCtrl.addNote(ModalNotesCtrl.CurativeItemNotesViewModel)" ng-disabled="ModalNotesCtrl.CurativeItemNotesViewModel.signedOff">
+                    Add a Note
+                </button>
+            </div>
+        </div>
+        <div id="notesToFile" style="display: block; padding-top: 15px;">
+            <label class="boldFont12">
+                Notes to File
+            </label>
+            <div class="imp-popup-div-scrollable font12">
+                <div style="padding-bottom: 15px;" ng-repeat="note in ModalNotesCtrl.CurativeItemNotesViewModel.notes | orderBy:'DateCreated':true">
+                    <div class="imp-notes read popup" style="float: left;">
+                    </div>
+                    <div style="padding-left: 30px; padding-bottom: 30px; border-width: thin; border-bottom-style: inset">
+                        <p>
+                            {{ note.content }}
+                        </p>
+                        <div>
+                            <div style="float: left; width: 40%;">
+                                <b>By:</b> {{ note.userAccountCreatedUserName }} <span style="padding-left: 15px;">{{ note.dateCreated | date:"MM/dd/yyyy h:mma" | lowercase }}</span>
+                            </div>
+                            <div style="float: left; width: 25%; margin-top: -5px;">
+                                <input type="checkbox" ng-model="note.AddNoteToFile" style="z-index: 0; top: 0; display: none;"
+                                       class="imp-checkbox" id="addNoteToFile_{{$index}}">
+                                <label class="imp-lb-checkbox" style="font-size: 12px" for="addNoteToFile_{{$index}}">
+                                    <b>Add Note To File</b>
+                                </label>
+                            </div>
+                            <div style="float: left; width: 25%; margin-top: -5px;">
+                                <input type="checkbox" ng-model="note.MarkAsUnread" style="z-index: 0; top: 0; display: none;"
+                                       class="imp-checkbox" id="markAsUnread_{{$index}}">
+                                <label class="imp-lb-checkbox" style="font-size: 12px" for="markAsUnread_{{$index}}">
+                                    <b>Mark as Unread</b>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="imp-div-popup-footer" style="padding-top: 15px;">
+        <div class="imp-sa-split" style="min-width: 100%; margin-bottom: 15px;">
+        </div>
+        <button class="imp-button-hm-wm-sec" data-dismiss="modal" ng-click="ModalNotesCtrl.cancel()">
+            Cancel
+        </button>
+        <button class="imp-button-hm-wm-prim" ng-click="ModalNotesCtrl.save(ModalNotesCtrl.CurativeItemNotesViewModel)">
+            Save
+        </button>
+    </div>
+</div>

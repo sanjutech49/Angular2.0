@@ -1,0 +1,53 @@
+﻿<div class="summary-section">
+    <div class="section-title section-underline">Other Income Information<span class="edit-link"> <a ng-href="{{summaryCntrl.getOtherIncomeLink()}}">edit</a> </span></div>
+    <div class="summary-subsection">
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label control-label left">Belongs To</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.ownerTypeLookup[0].text}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Income Type</label>
+            <div ng-repeat="incomeType in summaryCntrl.applicationData.lookup.incomeTypesOther">                          
+                <div class="col-xs-6 col-lg-8" ng-if="incomeType.value==summaryCntrl.otherIncomeActive.incomeType">
+                    {{incomeType.text}}
+                </div>
+            </div>
+            </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Monthly Amount</label>
+            <div class="col-xs-6 col-lg-8"> {{summaryCntrl.otherIncomeActive.incomeValue | currency : "$": 0}} </div>
+        </div>
+    </div>
+    <div class="summary-subsection" ng-if="summaryCntrl.cootherIncomeActive.incomeType > 0">
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label control-label left">Belongs To</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.ownerTypeLookup[1].text}}</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Income Type</label>
+            <div ng-repeat="incomeType in summaryCntrl.applicationData.lookup.incomeTypesOther">
+                <div class="col-xs-6 col-lg-8" ng-if="incomeType.value==summaryCntrl.cootherIncomeActive.incomeType">
+                    {{incomeType.text}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Monthly Amount</label>
+            <div class="col-xs-6 col-lg-8">{{summaryCntrl.cootherIncomeActive.incomeValue | currency : "$": 0}}</div>
+        </div>
+    </div>
+    <!--<div class="summary-subsection">
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label control-label left">Belongs To</label>
+            <div class="col-xs-6 col-lg-8">Leia Skywalker</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Income Type</label>
+            <div class="col-xs-6 col-lg-8">Social Security</div>
+        </div>
+        <div class="form-group summary-form">
+            <label class="col-xs-4 col-md-6 col-lg-4 control-label left">Monthly Amount</label>
+            <div class="col-xs-6 col-lg-8">$20</div>
+        </div>
+    </div>-->
+</div>

@@ -1,0 +1,27 @@
+﻿<div class="ineligible-products">
+    <div class="header">&nbsp;&nbsp;&nbsp;INELIGIBLE PRODUCTS</div>
+    <!--ng-click="loanScenario.collapseExpand('LoanInformationSection')"-->
+
+    <div ng-repeat="product in pricingResults.wrappedLoan.ref.pricingResults.productListViewModel.ineligibleProducts">
+        <div style="margin-left:-15px;">
+            <div class="imp-sa-grid-row-collaps right" ng-click="pricingResults.collapseExpand(product)"
+                 ng-class="{down: product.productRowExpanded, 'right marginTop': !product.productRowExpanded}" />
+        </div>
+        <div class="product-row" ng-dblclick="pricingResults.collapseExpand(product)" ng-click="pricingResults.selectRow($index)" ng-class="{'selected-row':$index == pricingResults.selectedRow}">
+            <div class="product-label">{{product.productName}}</div>
+        </div>
+        <div ng-show="product.productRowExpanded">
+            <div class="reasons-row">
+                <div class="reason" ng-repeat="reason in product.reasons">
+                    <span class="reason-index">{{$index + 1}}.</span><div class="reason-description">{{reason}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>
+
+
+
+
+

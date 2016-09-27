@@ -1,0 +1,108 @@
+﻿<div class="imp-contextual-bar-product-pricing" style="border-bottom: 1px solid #c6c6c6;" >
+    <div class="container">
+        <div>
+            <div>
+                <!--refinance-->
+                <div class="product-pricing-bar-container refinance">
+                    <div class="main-container">
+                        <div class="left-container">
+                            <div class="all-products-comparison">
+                                <div>
+                                    <div class="all-products-container">
+                                        <div class="all-products-label selected">
+                                            All Products
+                                        </div>
+
+                                    </div>
+                                    <div class="all-products-indicator active" style="margin-top: 11px;position: fixed;width: 120px !important;z-index: 10000;">
+                                    </div>
+                                </div>
+
+                                <!-- Commented out, PBI 26437 -->
+                                <!--
+                                <div>
+                                    <div class="comparison-container">
+
+                                        <div class=" all-products-label">
+                                            Comparison
+                                        </div>
+
+                                       <div class="imp-bar-graph-icon bar-graph-icon-position"></div>
+                                    </div>
+                                    <div class="all-products-indicator"></div>
+                                </div>-->
+
+                            </div>
+                            <div class="divider"></div>
+                            <div class="middle-container">
+                                <a ng-click="pricingBarCtrl.back()">
+                                    <div class="back-button-container">
+                                        <div class="imp-back-button-icon back-button-icon-position"></div>
+                                        <div class="button-section-label">
+                                            Back
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- Commented out, PBI 26437 -->
+                                <!--<div class="current-loan-container" ng-hide="pricingBarCtrl.wrappedLoan.ref.loanPurposeType != '1'">
+                                    <div class=" button-section-label">
+                                        Current Loan Info
+                                    </div>
+                                </div>-->
+                                <div class="impound-container">
+
+                                    <div class="button-section-label">
+                                        Impound
+                                    </div>
+                                    <div ng-click="pricingBarCtrl.openImpoundCalculator($event)" class="imp-calculator-icon calculator-icon-position"></div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+
+                            <!-- Commented out, PBI 26437 -->
+                            <!--<div class="file-container">
+                                <div class="imp-file-icon file-icon-position"></div>
+                                <div style=" width: 100%">Payoff 2nd Mortgage,  </div>
+                            </div>-->
+
+                            <div class="middle-container">
+                                <div class="adjustments-container">
+                                    <div class="adjustments textlabel">
+                                        Adjustments
+                                    </div>
+                                    <div class="adjustments number" ng-click="pricingBarCtrl.showAdjustmentsPopup()"> {{ pricingBarCtrl.totalAdjustmentsValue != null ? pricingBarCtrl.totalAdjustmentsValue : '0' }} </div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+
+                        </div>
+
+                        <!-- Commented out, PBI 26437 -->
+                        <div ng-disabled="pricingBarCtrl.getSelectedProducts().length < 1" class="imp-button-div-hs-ws-prim button-position" ng-class="{disabled: pricingBarCtrl.getSelectedProducts().length < 1}" ng-click="pricingBarCtrl.getSelectedProducts().length < 1 || pricingBarCtrl.openShareComparisonReportModal()">
+                            <div class="button-text-position">
+                                Share
+                            </div>
+                            <div class="button-graph-icon-position" ng-class="(pricingBarCtrl.getSelectedProducts().length >= 1) ? 'imp-small-white-bar-graph-icon' : 'imp-white-bar-graph-icon' " style="margin-top:-1px;"></div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+            <!-- Purchase
+            <div>
+
+            </div>-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,295 @@
+﻿@using MML.Common;
+@using MML.Web.LoanCenter.Helpers.Enums
+@using MML.Common.Helpers
+@using MML.iMP.Aus.FreddieMacHelper
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.FreddieMacLpViewModel  
+
+@{var blocknum = 1;}
+
+<div class="refreshMain" style="margin-bottom: 10px;">
+    <span class="txtRefresh" onclick="Aus.OpenAusTab('FreddieMac', '@Model.LoanId' )">Refresh</span>
+    <div class="refreshPageButton" onclick="Aus.OpenAusTab('FreddieMac', '@Model.LoanId' )">
+    </div>
+</div>
+<div class="imp-aus-header">
+    <div class="imp-aus-header-title-div">
+        <span class="imp-text-hm-wl-prim">Automated Underwriting Services - AUS </span>
+    </div>
+    <div class="imp-aus-header-title-div imp-aus-header-caseidselector-div imp-text-hs-wl-prim">
+        <div class="imp-aus-title-span">
+            <span>Key ID:</span>
+        </div>
+        <div id="case-id-div" class="imp-aus-case-left-id">
+            <div class="imp-span-ddl-container">
+                <select id="case-id" class="imp-ddl imp-aus-header-caseidselect" onchange="AUSOverride.caseIdWasChanged();" style="margin-left: 2px" />
+            </div>
+        </div>
+
+        <div class="imp-aus-title-span">
+            <input id="caseid-override" style="width:200px; display: none;" class="imp-aus-header-caseidselect-override" type="text" />
+            <span id="canceloverride" class="imp-aus-header-cancel" style="display: none;" onclick="AUSOverride.cancelOverride();">Cancel</span>
+            <span id="vendorloanidlabel" style="display: none;">Loan ID:</span>
+            <span id="vendorloanid"></span>
+        </div>
+    </div>
+    <div class="imp-aus-header-buttons-div">
+        <input type="button" class="imp-button-hm-wl-prim" disabled="disabled" value="Validate" />
+        @if ( Model.ProcessingItem || !AccountHelper.HasPrivilege( PrivilegeName.InitiateAUS ) )
+        {
+            <input type="button" class="imp-button-hm-wl-prim" value="Submit LP" disabled="disabled" />     
+        }
+        else
+        {
+            <input type="button" class="imp-button-hm-wl-prim" value="Submit LP" onclick="Aus.LPSubmittButton( '@Model.LoanId', AUSOverride.caseId() );"/>
+        }
+    </div>
+</div>
+
+<div class="imp-aus-content" id="ausContent">
+    @if (!((Model.LpResults != null && Model.LpResults.Count > 0) || (Model.LpResults != null && Model.LpResults.Count > 0)))
+    {
+        <div style="padding: 20px;">
+            <span class="imp-text-hm-wl-sec ausSubmittButtonMessage">Click Submit button to get
+                validation information.</span>
+        </div>
+    }
+    @if (Model.LpValidation != null && Model.LpValidation.Count > 0)
+    {
+        <div id="lpValidation">
+            <div class="imp-aus-subtitle-div">
+                <div class="imp-aus-arrow-collapsed-div arrowCollapsedValidation" style="display: none;"
+                    onclick="Aus.AusArrowClick('expand', 'validation')">
+                </div>
+                <div class="imp-aus-arrow-exspanded-div arrowExpandedValidation" style="display: inline-block;"
+                    onclick="Aus.AusArrowClick('collapse', 'validation')">
+                </div>
+                <span style="font-weight: bold; padding-left: 3px;">VALIDATION - </span><span id="validationDescription"
+                    style="font-size: 14px; font-family: Arial;">Validation data</span>
+            </div>
+            <table class="ausValidationTable">
+                <tr class="imp-aus-row-title-tr">
+                    <th class="imp-aus-row-td-th" style="width: 98px;">
+                        Code
+                    </th>
+                    <th style="width: 130px;" align="left">
+                        Importance
+                    </th>
+                    <th style="width: 320px;" align="left">
+                        Description
+                    </th>
+                    <th style="width: 280px;" align="left">
+                        Solution
+                    </th>
+                    <th style="width: 280px;" align="left">
+                        Link
+                    </th>
+                </tr>
+                @if (Model.LpValidation != null)
+                {
+                    foreach (var validationItem in Model.LpValidation)
+                    {
+                    <tr class="imp-aus-row-data-tr">
+                        <td style="width: 100px;" align="center">
+                            <div style="width: 100px; height: 20px; padding-top: 5px;">
+                                @validationItem.Code
+                            </div>
+                        </td>
+                        <td style="width: 130px;">
+                            @validationItem.Importance
+                        </td>
+                        <td style="width: 320px;">
+                            @validationItem.Description
+                        </td>
+                        <td style="width: 280px;">
+                            @validationItem.Solution
+                        </td>
+                        <td style="width: 280px;">
+                            @validationItem.Link
+                        </td>
+                    </tr>
+                    }
+                }
+            </table>
+        </div>
+    }
+    @if (Model.LpResults != null && Model.LpResults.Count > 0)
+    {
+        foreach (var currentcaseid in Model.CaseIds)
+        {
+            <div id="lpResults">
+                <div class="imp-aus-subtitle-div">
+                    <div class="imp-aus-arrow-exspanded-div arrowExpandedResults fakeexpanded@(blocknum)" style="display: none;"
+                        onclick="Aus.AusArrowClick('collapse', 'results', @blocknum)">
+                    </div>
+                    <div class="imp-aus-arrow-collapsed-div arrowCollapsedResults fakecollapsed@(blocknum)" style="display: inline-block;"
+                        onclick="Aus.AusArrowClick('expand', 'results', @blocknum)">
+                    </div>
+                    <span style="font-weight: bold; padding-left: 3px;">LP FINDINGS - @currentcaseid - </span>
+
+                    @if (Model[currentcaseid].LpResultsTitle != null)
+                    {
+
+                        if (Model[currentcaseid].LpResultsTitle.IsLPPending)
+                        {
+                            <span style="font-size: 13px; font-family: Arial; color: #1FB25A; font-weight: bold;">
+                            LP Item is in process</span>  
+                        }
+                        else
+
+                            if (Model[currentcaseid].LpResultsTitle.IsLPSuccessful)
+                            {                            
+                        <span style="font-size: 13px; font-family: Arial; color: #1FB25A; font-weight: bold;">
+                            @Model[currentcaseid].LpResultsTitle.Status
+                        </span>
+                            }
+                            else
+                            {
+                        <span style="font-size: 13px; font-family: Arial; color: #FD3701; font-weight: bold;">
+                            @Model[currentcaseid].LpResultsTitle.Status
+                        </span>
+                            }
+                    }
+                
+                    <span style="padding-left: 3px; font-size: 13px; font-family: Arial;">- @Model.LpResultsTitle.Date.ToString("MM/dd/yyyy")
+                    </span>
+                    @if (Model[currentcaseid].LpResultsTitle.EndTime != null && Model[currentcaseid].LpResultsTitle.EndTime != DateTime.MinValue)
+                    {
+                        <span style="padding-left: 10px; font-size: 13px; font-family: Arial;">End Time: @Model[currentcaseid].LpResultsTitle.EndTime.GetValueOrDefault().ToString("hh:mm tt")
+                        </span> 
+                    }
+                    else
+                    {
+                        <span style="padding-left: 10px; font-size: 13px; font-family: Arial;">Start Time: @Model[currentcaseid].LpResultsTitle.StartTime.GetValueOrDefault().ToString("hh:mm tt")
+                        </span>
+                    }
+                    <span style="padding-left: 3px; font-size: 13px; font-family: Arial;">- @Model[currentcaseid].LpResultsTitle.SubmittedBy
+                    </span>
+                    @if (Model[currentcaseid].ProcessingItem)
+                    {
+    @*                    <input type="button" class="imp-button-hxxs-wm-prim btn" style="float: right; margin-right: 20px;
+                            margin-top: -5px;" value="Stop processing" />*@
+                        <div style="background: url('../../Content/ajax-loader-small.gif'); float: right;
+                            width: 22px; height: 22px; margin-right: 20px; margin-top: -5px;">
+                        </div>
+                    }
+                    else
+                    {
+    @*                    <input type="button" class="imp-button-hxxs-wm-prim btn" style="float: right; margin-right: 20px;
+                            margin-top: -5px;" value="Stop processing" disabled="disabled" />*@
+                    }
+                </div>
+                <table class="ausResultsTable resulttable@(blocknum)" style="display: none">
+                    <tr class="imp-aus-row-title-tr">
+                        <th class="imp-aus-row-td-th" style="width: 120px;">
+                            File
+                        </th>
+                        <th style="width: 110px;" align="left">
+                            Item
+                        </th>
+                        <th style="width: 110px;" align="left">
+                          Key ID
+                        </th>
+                        <th style="width: 130px;" align="left">
+                            Trans. ID
+                        </th>
+                        <th style="width: 170px;" align="left">
+                            Status
+                        </th>
+                        <th style="width: 120px;" align="left">
+                            Date
+                        </th>
+                        <th style="width: 100px;" align="left">
+                            Start Time
+                        </th>
+                        <th style="width: 170px;" align="left">
+                            End Time
+                        </th>
+                        <th style="width: 345px;" align="left">
+                            Submitted By
+                        </th>
+                    </tr>
+                    @if (Model[currentcaseid].LpResults != null)
+                    {
+                        foreach (var resultItem in Model[currentcaseid].LpResults)
+                        {
+                        <tr class="imp-aus-row-data-tr">
+                            <td style="width: 100px;" align="center">
+                                <div style="width: 100px; height: 20px; padding-top: 2px; padding-bottom: 3px;">
+                                    @if (resultItem.IsError)
+                                    {
+                                        <div class="exceptionIconAus last" @* title="@resultItem.ErrorMessage" *@ onclick="Aus.ShowErrorPopup('@resultItem.ServiceTrackingId');">
+                                        </div>
+                                    }
+                                    else
+                                        if (resultItem.FilestoreId != null && resultItem.FilestoreId != Guid.Empty)
+                                        {
+                                        <a href="Downloader.axd?documentType=repositoryItem&repositoryItemId=@Server.UrlEncode(EncryptionHelper.EncryptRijndael(resultItem.FilestoreId.ToString(), EncriptionKeys.Default))"  >
+                                            <div class="imp-aus-row-pdfimage-div">
+                                            </div>
+                                        </a>                            
+                                        }
+                                </div>
+                            </td>
+
+                            <td style="width: 100px;">
+                                @resultItem.Item
+                            </td>
+                            <td style="width: 100px;">
+                                @resultItem.CaseId
+                            </td>
+                            <td style="width: 120px; text-align: left" >
+                                @resultItem.TransactionId
+                            </td>
+
+                            @if (resultItem.IsLPPending)
+                            {
+                                <td style="width: 140px;">
+                                    @resultItem.Status
+                                </td>   
+                            }
+                            else if (resultItem.IsLPSuccessful)
+                            {                            
+                                <td style="width: 140px; color: #1FB25A">
+                                    @resultItem.Status
+                                </td>  
+                            }
+                            else
+                            {
+                                <td style="width: 140px; color: #FD3701">
+                                    @resultItem.Status
+                                </td>  
+                            }
+
+                            <td style="width: 120px;">
+                                @((resultItem.Date != null && resultItem.Date != DateTime.MinValue) ? resultItem.Date.ToString("MM/dd/yyyy") : String.Empty)
+                            </td>
+                            <td style="width: 100px;">
+                                @((resultItem.StartTime != null && resultItem.StartTime != DateTime.MinValue) ? resultItem.StartTime.GetValueOrDefault().ToString("hh:mm tt") : String.Empty)
+                            </td>
+                            <td style="width: 170px;">
+                                @((resultItem.EndTime != null && resultItem.EndTime != DateTime.MinValue) ? resultItem.EndTime.GetValueOrDefault().ToString("hh:mm tt") : String.Empty)
+                            </td>
+                            <td style="width: 345px;">
+                                @resultItem.SubmittedBy
+                            </td>
+                        </tr>
+                        }
+                    }
+                </table>
+            </div>
+        
+            blocknum++;
+
+        }
+    }
+    @if ((Model.LpResults != null && Model.LpResults.Count > 0) || (Model.LpResults != null && Model.LpResults.Count > 0))
+    {
+        <div style="padding: 20px;">
+            <span class="imp-text-hm-wl-sec">All Critical Validation Codes must be cured before
+                the loan can be submitted to Freddie Mac's Loan Prospector</span>
+        </div>
+    }
+</div>
+<div class="imp-aus-footer">
+</div>

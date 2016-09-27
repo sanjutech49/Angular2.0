@@ -1,0 +1,23 @@
+﻿<div class="sub-col-l">
+    <div ng-show="!loanCost.editMode" style="float:left">
+        <div style="float:left; width: 42px;">{{loanCost.monthsToBePaid}} mo</div>
+        <div class="imp-disclaimer" ng-show="loanCost.provider != null && loanCost.provider != ''" style="margin-left:10px; margin-right: 10px; float:left;">to</div>
+        <div style="float:left;"> {{loanCost.provider}}</div>
+    </div>
+    <div ng-show="loanCost.editMode" style="float:left">
+        <input type="text" style="width: 37px;"
+               ng-model="loanCost.monthsToBePaid"
+               ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || !loanCost.userAdded"
+               imp-numeric=""
+               class="months"
+               placeholder="Months" />
+               mo&nbsp;
+        <input type="text"
+               ng-model="loanCost.provider"
+               ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+               class="paid"
+               placeholder="Paid To" />
+    </div>
+    <div class="imp-icon-lock" ng-if="loanCost.canBeLocked && (loanCost.isLocked && !loanCost.editMode || loanCost.editMode)" ng-class="{'un': !loanCost.isLocked}"
+         ng-click="loanCost.isLocked = !loanCost.isLocked"></div>
+</div> 

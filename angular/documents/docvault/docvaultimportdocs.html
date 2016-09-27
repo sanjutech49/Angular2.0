@@ -1,0 +1,26 @@
+﻿<div class='imp-popover imp-body docvault-import-docs'>
+    <div class='container'>
+        <div class="imp-div-close-x floatright" style="margin: -2px 4px" ng-click="modalpopoverCtrl.cancel()"></div>
+        <div class='header' style="line-height: 20px;">Import Documents from Loan</div>
+        <div class='imp-split'></div>
+        <div class="body">
+            <span class="item">
+                Enter a Loan Number and click the "Browse" button to open the DocVault for the loan you want to import documents from:
+            </span>
+            <div class="item">
+                <form action="" name="docvaultimportform">
+                    <span style="margin-left: 30px; margin-right: 50px;">Loan Number:</span>
+                    <input type="text" name="loanNumber" ng-model="selectedObject" placeholder="Type Loan Number"
+                           typeahead-editable="false" typeahead-select-on-exact="true"
+                           typeahead="result as result.loanNumber for result in modalpopoverCtrl.ctrl.onLoanNumberFilterChanged($viewValue)"
+                           typeahead-on-select="modalpopoverCtrl.ctrl.onSelect($item, $model, $label, docvaultimportform.loanNumber)"
+                           style="width: 300px;" />
+                </form>
+            </div>
+        </div>
+        <div class="buttons">
+            <input type="button" class="imp-button-hm-wl-sec" value="Cancel" ng-click="modalpopoverCtrl.cancel()" />
+            <input type="button" class="imp-button-hm-wl-prim" value="Browse" ng-disabled="selectedObject == null" ng-click="modalpopoverCtrl.ctrl.openImportDocsFlyout(selectedObject); modalpopoverCtrl.cancel()" />
+        </div>
+    </div>
+</div>

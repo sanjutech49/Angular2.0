@@ -1,0 +1,50 @@
+﻿<div class="closing-date imp-popover imp-body">
+      
+    <div class="left-side"> 
+
+        <div class="closing-date-title">{{modalpopoverCtrl.model.title}}:</div>
+                
+        <div class="data-picker-section">
+            <imp-date-picker display-picker="true" set-default-date="true" type="text" date-settings="{defaultValidationEnabled:false,minDate: modalpopoverCtrl.model.currentDate, closingDateValidationEnabled:true,closingDate: modalpopoverCtrl.model.dateValue }" ng-model="modalpopoverCtrl.model.dateValue"></imp-date-picker>
+        </div>
+    </div>
+
+
+    <div class="right-side">
+        
+        <div class="header"> {{modalpopoverCtrl.model.title}} History </div>
+
+        <div class="body">
+            
+            <div class="row title">
+
+                    <div class="col-1" style="margin-top: 14px;"> User </div>
+
+                    <div class="col-2"> {{modalpopoverCtrl.model.title}} </div>
+
+                    <div class="col-3" style="margin-top: 14px;"> Date of Change </div>
+
+            </div>
+
+
+            <div class="row" ng-repeat="dateHistory in modalpopoverCtrl.model.dateHistory | orderBy:'dateOfChange'">
+
+                <div class="col-1"> {{dateHistory.userName }}</div>
+
+                <div class="col-2"> {{dateHistory.dateValue | date:'MM/dd/yy' }} &nbsp; </div>
+
+                <div class="col-3"> {{dateHistory.dateOfChange | date:'MM/dd/yy h:mma'}} </div>
+
+            </div>
+
+             
+        </div>
+
+        <div class="buttons">
+            <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+            <div class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Done</div>
+        </div>
+         
+    </div>
+
+</div>

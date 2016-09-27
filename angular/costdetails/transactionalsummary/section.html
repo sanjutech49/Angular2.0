@@ -1,0 +1,27 @@
+﻿<div id="{{(sectionLetter == 'k' || sectionLetter == 'l') ? 'borrower-container-' + sectionLetter : 'seller-container-' + sectionLetter}}" ng-class="(sectionLetter == 'k' || sectionLetter == 'l') ? 'borrower-container' : 'seller-container'">
+    <div class="header main" ng-show="sectionTitle != null">
+        <span class="tlabel"> {{ sectionTitle }}</span>
+    </div>
+    <div class="container">
+         <div ng-repeat="item in subSection.subSectionList">
+            <transaction-sub-section wrapped-loan="wrappedLoan"
+                                     sub-section="item"
+                                     section-key="subSection.sectionKey"
+                                     section-name-string="subSection.sectionKeyString + '. ' + subSection.sectionNameString"
+                                     calculate-section-total="calculateSectionTotal"
+                                     cost-controller="costController">
+            </transaction-sub-section>
+        </div>
+        <div ng-repeat="a in range(addEmptyRows)">
+            <div class="row section-header">
+                <div class="col-a imp-disclaimer">&nbsp;</div>
+                <div class="col-m">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-row">{{ sectionFooter }}</div>
+        <div class="footer-row tlabel">{{ sectionTotal | currency : "$" : 2 }}</div>
+    </div>
+</div>

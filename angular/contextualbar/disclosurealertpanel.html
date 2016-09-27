@@ -1,0 +1,29 @@
+﻿<div class="overlapp">
+    <div ng-repeat="loanApplication in contextualBarCtrl.loanApplicationsForStatuses  | orderBy: ['disclosureStatusDetails.disclosureStatus', '-docDelivery']">
+        <div ng-if="$index == 0">
+            <div class="status">
+                <div ng-class="contextualBarCtrl.alertExpanded ? 'imp-icon-arrow-down white':'imp-icon-arrow-right white'" ng-click="contextualBarCtrl.toggleIsAlertExpanded()">
+                </div>
+                <span class="first-title">{{loanApplication.disclosureStatusDetails.disclosureStatusText}}</span>
+                -
+                <span>{{loanApplication.disclosureStatusDetails.disclosureStatusDetailsMessageBody}}</span>
+            </div>
+        </div>
+        <div ng-if="$index != 0" ng-show="contextualBarCtrl.alertExpanded && contextualBarCtrl.areDisclosuresCreatedForAnyLoanApplication">
+            <div class="status">
+                <span class="other-titles">{{loanApplication.disclosureStatusDetails.disclosureStatusText}}</span>
+                -
+                <span>{{loanApplication.disclosureStatusDetails.disclosureStatusDetailsMessageBody}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="!contextualBarCtrl.areDisclosuresCreatedForAnyLoanApplication">
+        <div ng-class="contextualBarCtrl.moreThanFourReasons() ? 'scroll':'non-scroll'" ng-show="contextualBarCtrl.alertExpanded">
+            <div ng-repeat="reason in contextualBarCtrl.wrappedLoan.ref.active.disclosureStatusDetails.disclosureStatusReasons">
+                <div class="reasons">
+                    <span>{{$index + 1}}. {{reason}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

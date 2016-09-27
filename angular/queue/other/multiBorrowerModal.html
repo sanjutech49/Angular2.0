@@ -1,0 +1,23 @@
+﻿<div class="imp-popover imp-body">
+    <div class="multiborrower-popup container" style="width: 220px; padding: 20px 0px 20px 20px;">
+        <div class="header">
+            <div class="app-id">App</div>
+            <div class="flag">&nbsp;</div>
+            <div class="borrower-name">Borrower Name</div>
+        </div>
+        <div class="body">
+            <div class="item" ng-repeat="item in modalpopoverCtrl.model">
+                <div class="borrower">
+                    <div class="app-id">{{$index + 1}}</div>
+                    <div class="flag">{{item.borrowerFlag}}</div>
+                    <div class="borrower-name">{{item.borrowerFirstName}} &nbsp; {{item.borrowerLastName}} </div>
+                </div>
+                <div class="coborrower" ng-show="item.isCoBorrowerExists">
+                    <div class="app-id">&nbsp;</div>
+                    <div class="flag">C</div>
+                    <div class="borrower-name">{{item.coBorrowerFirstName}} &nbsp; {{item.coBorrowerLastName}}r</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

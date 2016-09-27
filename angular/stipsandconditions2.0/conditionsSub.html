@@ -1,0 +1,158 @@
+﻿<div id="divConditionsSubTab">
+    <div class="div-conditions-conditionsgrid">
+        <div class="imp-sa-table-title-row">
+            <div class="imp-sa-table-title">
+                <span class="imp-sa-title">Conditions</span>
+            </div>
+            <div class="imp-sa-table-title-filter imp-sa-grid-filter">
+                <span class="imp-sa-title">Show:</span>
+                <div class="imp-span-ddl-container">
+                    <select ng-model="ConditionsDueFilterId" ng-options="filter.Code as filter.Description for filter in ConditionsMainViewModel.ConditionFilter  | orderBy: 'Description'" class="imp-ddl" style="width:170px;">
+                        <option value="">All</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-click="addNewCondition()" style="margin-top: 8px!important; margin-right: 22px;" class="imp-sa-grid-add">
+                <imp-circle size="large" color="{{ iconColors.add }}" is-plus="true"></imp-circle>
+                <span class="imp-sa-grid-add-title">Add Condition</span>
+            </div>
+        </div>
+        <!--conditions for loan-->
+        <div class="imp-sa-grid-content" style="width: 100%;">
+            <div ng-repeat="(group1, ownerGroups) in groupedConditions" ng-init="groupIndex = $index">
+                <div ng-if="group1 != ''">
+                    <div class="imp-sa-grid-row imp-sa-grid-section-header conditions-grid-row-owner">
+                        <span style="padding-left: 22px !important">{{ group1 }} </span> <span style="font-style: italic; font-weight:normal; padding-left: 7px;" ng-bind="isOwnerOccupied(ConditionsMainViewModel.IsOwnerOccupied)"></span>
+                    </div>
+                </div>
+                <!--conditions for loan-->
+                <div ng-class="{'imp-sa-grid-row-first' : ($index == 0), 'imp-sa-grid-row' : ($index != 0) }"
+                     ng-repeat="(group2, categoryGroups) in ownerGroups" ng-init="categoryIndex = $index">
+                    <div ng-class="{'div-conditions-grid-owned-sublist' : (group1 != ''), 'imp-sa-grid-col-1 imp-sa-grid-section-header' : true}">
+                        <div ng-click="CategoryGroupsExpand(categoryGroups)" ng-class="(categoryGroups.DetailsVisible ) ? 'imp-sa-grid-row-collaps down' : 'imp-sa-grid-row-collaps right'">
+                        </div>
+                        <div ng-class="{'condition-category-header' : (group1 != ''), 'condition-category-property-header' : (group1 == '')}" style="float:left; ">
+                        {{ group2.replace("0", "").replace("1", "").replace("2", "").replace("3", "").replace("4", "").replace("5", "").replace("6", "").replace("7", "") |uppercase }}</div>
+                       <div ng-show="showCount(categoryGroups)" ng-class="getCategoryOpenItemsCount(categoryGroups) > 0 ? 'imp-counter total-counter floatleft' : 'imp-counter zero-counter floatleft'">
+                                     <label ng-bind="getCategoryOpenItemsCount(categoryGroups)" style="line-height:16px !important;font-size:14px !important; font-weight:bold;"></label>
+                        </div>
+                        <div ng-show="getCategoryReadyForReviewItemsCount(categoryGroups) > 0" class="imp-incomplete-counter floatleft">
+                            <label ng-bind="getCategoryReadyForReviewItemsCount(categoryGroups)" style="line-height:16px !important;font-size:14px !important; font-weight:bold;"></label>
+                        </div>
+                    </div>
+                    <div class="div-conditionCategories-rowsDetails" data-ng-repeat="condition in categoryGroups" ng-show="!condition.IsRemoved">
+                        <div class="div-conditionCategories-rowChild condition-category-group-details" ng-show="conditionsDueFilter(condition, ConditionsDueFilterId) && categoryGroups.DetailsVisible">
+                            <div ng-class="{'div-conditions-grid-owned-items-sublist' : (group1 != '')}">
+                                <div ng-click="ConditionExpand(condition)" ng-class=" (condition.CurativeItemsVisible ) ? 'imp-sa-grid-row-collaps down' : 'imp-sa-grid-row-collaps right'" style="margin-left:40px;">
+                                </div>
+                                <div class="div-conditionCategories-childcolumns floatleft" style="width:57%;">
+                                    <input data-ng-model="condition.ConditionId" type="hidden" ng-show="false" value="{{condition.ConditionId}}" />
+                                    <input data-ng-model="condition.ClientId" type="hidden" ng-show="false" value="{{condition.ClientId}}" />
+                                    <div ng-class="(condition.ReadyForReviewItemsCount > 0) ? 'imp-incomplete-counter' : (condition.OpenitemsCount > 0) ? 'imp-counter total-counter' : 'imp-complete-icon'">
+                                        {{ (condition.ReadyForReviewItemsCount > 0) ? condition.ReadyForReviewItemsCount : (condition.OpenitemsCount > 0) ? condition.OpenitemsCount : ''}}
+                                    </div>
+                                    <label class="boldFont12">{{ condition.ConfigurationCode.Code }}</label> <label class="font12">{{ condition.ConfigurationCode.Title }}</label>
+                                </div>
+                                <div class="div-conditionCategories-childcolumns floatright imp-div-txt-input" style="padding-bottom: 5px;">
+                                    <input type="text" data-ng-model="condition.Comment" style="width: 320px; font-size: 12px;" />
+                                    <div ng-class="(condition.CommentHistoryExists) ? 'imp-sa-grid-history' : 'imp-sa-grid-history-empty'" style="margin-top:3px; margin-left: 15px;"
+                                         ng-click="!condition.CommentHistoryExists || openCommentHistoryPopUp(condition)"></div>
+                                </div>
+                            </div>
+
+                            <div class="div-conditionCategories-rowsDetails floatleft" ng-show="condition.CurativeItemsVisible">
+                                <div style="background-color: #f5f5f5; width:100%; float:left; padding: 5px 0px;">
+                                    <div style="padding: 0px 15px 0px 57px;" class="floatleft">
+                                        <label class="boldFont12">Source:</label>
+                                        <a popover="this is test" popover-placement="bottom" class="hyperlink">{{ condition.ConditionSource.Code }}</a>
+                                    </div>
+                                    <div class="floatleft" style="padding: 0px 15px;">
+                                        <label class="boldFont12" style="padding: 0px 2px;">Assigned To:</label>
+                                        <div class="imp-span-ddl-container imp-span-ddl-condition-details-container">
+                                            <select ng-model="condition.AssignedTo" ng-options="assigned.RoleName for assigned in ConditionsMainViewModel.ConditionsSub.AssignedToList | orderBy: 'RoleName' track by assigned.RoleId" style="width:125px;" class="imp-ddl">
+                                                <option value="">Select One</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="floatleft" style="padding: 3px 15px;">
+                                        <input type="checkbox" ng-model="condition.InternalOnly" class="imp-checkbox"
+                                               id="internalOnly_{{groupIndex}}_{{categoryIndex}}_{{$index}}" />
+                                        <label for="internalOnly_{{groupIndex}}_{{categoryIndex}}_{{$index}}" class="imp-lb-checkbox floatright" style="font-size: 12px">
+                                            Internal Only
+                                        </label>
+                                    </div>
+                                    <div class="floatleft">
+                                        <label class="boldFont12" style="padding: 0px 2px;">Due:</label>
+                                        <div class="imp-span-ddl-container imp-span-ddl-condition-details-container">
+                                            <select ng-model="condition.Due" ng-options="due.Description for due in ConditionsMainViewModel.ConditionsSub.DueList track by due.EnumerationValueId | orderBy: 'Description'" class="imp-ddl" style="width:135px;">
+                                                <option value="">Select One</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div ng-show="condition.IsSignedOff" style="padding: 0px 5px; float: left;">
+                                        <div class="imp-complete-icon" style="padding: 1px;">
+                                        </div>
+                                        <label style="padding: 1px; width: 130px; font-size: 12px; margin-left:-5px">
+                                            {{condition.UserSignedOff.UserName}}
+                                        </label><label>
+                                            {{condition.SignOffDate | date: 'MM/dd/yyyy h:mm a'}}
+                                        </label>
+                                    </div>
+                                    <div class="floatright" ng-init="isCondDeleteDisabled = deleteConditionDisabled(condition)">
+                                        <div ng-show="ConditionsMainViewModel.Privileges.Delete" ng-disabled="isCondDeleteDisabled" ng-style="isCondDeleteDisabled ? {cursor: 'default'} : {cursor: 'pointer'}"
+                                             style="margin-right: 10px;" ng-click="isCondDeleteDisabled || conditionRemoved(condition)">
+                                            <imp-circle size="small" style="padding-top: 3px; margin-right: -3px; display:block" color="{{ isCondDeleteDisabled ? iconColors.disabled : iconColors.del }}"></imp-circle>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="floatleft" style="width:100%">
+                                    <div class="condition-detail-main-header">
+                                        <div class="boldFont12 floatleft" style="padding: 0px 5px 0px 57px">File</div>
+                                        <div class="boldFont12 condition-details-cell">Note</div>
+                                        <div class="boldFont12 condition-details-cell" style="width:400px;">Item</div>
+                                        <div class="boldFont12 condition-details-cell">For</div>
+                                        <div class="boldFont12 condition-details-cell" style="width:158px;">Status</div>
+                                        <div class="boldFont12 condition-details-cell" style="width:130px;">Updated By</div>
+                                        <div class="boldFont12 condition-details-cell">Last Updated</div>
+                                        <div ng-click="condition.IsSignedOff || addNewCurativeItem(condition)" ng-disabled="condition.IsSignedOff" ng-style="condition.IsSignedOff ? {cursor: 'default'} : {cursor: 'pointer'}" class="floatright" style="padding: 0px 5px;">
+                                            <imp-circle size="small" style="padding-top: 3px; margin-right: -3px; display: block; float:left;" color="{{ condition.IsSignedOff ? iconColors.disabled : iconColors.add }}" is-plus="true"></imp-circle>
+                                            <div style="padding:2px 5px;" class="boldFont12 floatright"> Add Item</div>
+                                        </div>
+                                    </div>
+                                    <div class="condition-detail-sub-header" ng-controller="ItemController" ng-repeat="item in condition.CurativeItems"
+                                         ng-class="{'imp-notification-highlight' : (item.Status.Code == 'PastDue'), 'imp-sa-grid-row-expanded' : condition.CurativeItemsVisible }"
+                                         ng-show="!item.IsRemoved && item.PreviouslyAdded">
+                                        <div imp-context-menu="{{ item.Document != null ? 'pdfMenu' : 'docVaultMenu' }}"
+                                             ng-dblclick="item.Document == null || downloadDocument($event)"
+                                             ng-class="{'imp-row-docvault-div' : (item.Document == null), 'imp-row-pdfimage-div' : (item.Document != null), 'conditions-row-file-waived' : (item.Status.Code == 'Waived') }" style="float:left; margin: 0px 5px 0px 57px"></div>
+                                        <div class="condition-details-cell">
+                                            <div class="imp-notes" ng-class="getNotesIcon(item.Notes)" ng-click="openAddItemNotePopUp(item.Notes, item.Description, ConditionsMainViewModel.CurrentUser, condition.IsSignedOff)"></div>
+                                        </div>
+                                        <div class="condition-details-cell" style="width:400px;">{{item.Item.Code + ' '  + (item.Description == null ? '' : item.Description) }}&nbsp;</div>
+                                        <div class="condition-details-cell" style="color: #208ddc; font-weight:bold; width:20px">{{item.For.SourceDescription}}</div>
+                                        <div class="condition-details-cell" style="width:158px;">
+                                            <div class="imp-span-ddl-container imp-span-ddl-condition-details-container">
+                                                <select ng-disabled="!ConditionsMainViewModel.Privileges.ChangeItemStatus || condition.IsSignedOff" class="imp-ddl" style="width:135px;"
+                                                        ng-options="status.Description for status in ConditionsMainViewModel.ConditionsSub.StatusList | orderBy: 'Description' track by status.EnumerationValueId"
+                                                        ng-model="item.Status" ng-focus="preserveCurrentState()" ng-change="conditionItemStatusChanged(condition, item)" class="condition-add-new-popup-select"></select>
+                                            </div>
+                                        </div>
+                                        <div class="condition-details-cell" style="width:130px;">{{item.UpdatedBy.UserName}}</div>
+                                        <div class="condition-details-cell" style="width:130px;">{{item.UpdatedDate | date: 'MM/dd/yyyy h:mm a'}}</div>
+                                        <div style="cursor: pointer" class="floatright" ng-init="deleteConditionItemDisabled = ConditionsMainViewModel.LoanSummary.DecisionStatus == '48'">
+                                            <imp-circle size="small" style="padding-top: 2px; margin-right: -10px; display: block; float:left;" color="{{ deleteConditionItemDisabled ? iconColors.disabled : iconColors.del }}" ng-show="{{ ConditionsMainViewModel.Privileges.Delete }}" ng-disabled="{{ deleteConditionItemDisabled }}" ng-click="deleteConditionItemDisabled || curativeItemRemoved(item, condition)"></imp-circle>
+                                            <div ng-class="(item.HistoryExists) ? 'imp-sa-grid-history' : 'imp-sa-grid-history-empty'"
+                                                 style="margin-top: 3px; margin-left: 15px;" ng-click="!item.HistoryExists || openItemHistoryPopUp(item)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

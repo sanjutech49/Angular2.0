@@ -1,0 +1,21 @@
+﻿<div class="sub-col-l">
+    <div ng-show="!loanCost.editMode" style="float: left">
+        <span>{{loanCost.includeInTotal == 1 ? 'Include in Total' : 'Not Included in Total'}}</span>
+    </div>
+    <div ng-show="loanCost.editMode" style="float: left; width: 208px">
+        <div class="imp-span-ddl-container medium" ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields}">
+            <select class="imp-ddl"
+                    ng-change="costDetailsCtrl.includeInTotalChanged(loanCost)"
+                    ng-model="loanCost.includeInTotal"
+                    ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields">
+                <option value='null' selected disabled style="color: #999; display: none"></option>
+                <option value="1">Include in Total</option>
+                <option value="0">Not Included in Total</option>
+            </select>
+        </div>
+    </div>
+    <div class="imp-icon-lock" ng-if="loanCost.canBeLocked && (loanCost.isLocked && !loanCost.editMode || loanCost.editMode)"
+         ng-class="{'un': !loanCost.isLocked}" ng-click="loanCost.isLocked = !loanCost.isLocked"
+         ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields">
+    </div>
+</div>

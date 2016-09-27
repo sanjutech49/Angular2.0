@@ -1,0 +1,52 @@
+﻿@using System.Web.Optimization;
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using MML.Web.LoanCenter.Helpers
+<!DOCTYPE html>
+<html ng-app="loanCenterOldLayout">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("/Content/fonts.css")
+
+    @RenderSection("OldHeader", required: false)
+    <link rel="stylesheet" href="~/Content/SiteOld.css?v=2">
+</head>
+<body id='body'>
+    <div>
+        @if (IsSectionDefined("SystemAdminHeader"))
+        {
+            @RenderSection("SystemAdminHeader")
+        }
+        @RenderBody()
+    </div>
+    @if (IsSectionDefined("ScriptsFooter"))
+    {
+        @RenderSection("ScriptsFooter")
+
+    }
+    <script type="text/javascript" src="/Scripts/SessionSynchronization.js"></script>
+    @if (@System.Configuration.ConfigurationManager.AppSettings["UseMinifiedJS"].ToLower() == "true")
+    {
+        @LCScripts.Render("Scripts/AngularJavascript.js?v=4")
+        @LCScripts.Render("Scripts/LayoutAngularJavascript.js?v=4")
+    }
+    else
+    {
+        @LCScripts.Render("angular/common/modalpopover/modalpopover.module.js")
+        @LCScripts.Render("angular/common/modalpopover/modalpopover.template.js")
+        @LCScripts.Render("angular/common/modalpopover/modalpopover.provider.js")
+        @LCScripts.Render("angular/common/modalpopover/modalpopover.factory.js")
+        @LCScripts.Render("angular/common/simplemodalwindow/simplemodalwindow.module.js")
+        @LCScripts.Render("angular/common/simplemodalwindow/simplemodalwindow.factory.js")
+        @LCScripts.Render("angular/common/simplemodalwindow/simplemodalwindow.controller.js")
+        @LCScripts.Render("angular/common/common.module.js")     
+        @LCScripts.Render("angular/common/common.directives.js")
+        @LCScripts.Render("angular/common/common.filters.js")
+        @LCScripts.Render("angular/stipsandconditions2.0/conditionsangularapp.js")
+        @LCScripts.Render("angular/loancenter/loancenter.oldlayout.module.js")
+    }
+
+
+
+</body>
+</html>

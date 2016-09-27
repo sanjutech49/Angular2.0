@@ -1,0 +1,15 @@
+﻿<div class="row section-header">
+    <div class="col-a imp-disclaimer">{{ sectionNameString }}</div>
+    <div class="col-m"></div>
+</div>
+<div ng-repeat="item in subSection.records | orderBy:'displayLineNumber'" class="row">
+    <div class="col-a">
+        <div class="sub-col-s"></div>
+        <div class="sub-col-xs imp-disclaimer">{{ item.displayLineNumber }}</div>
+        <div class="sub-col-l">{{ item.costNameString }}</div>
+    </div>
+    <div class="col-m">
+        <span class="cvalue" ng-show="item.useLoanInfoRequestKey && !costController.closingCostsRW">{{ item.getAmount() | impCurrency:"" }}</span>
+        <span class="cvalue" ng-show="!item.useLoanInfoRequestKey && costController.closingCostsRW"><input ng-model="item.amount" type="text" class="imp-currency" imp-currency="" display-currency-sign="false" style="width:60px;" ng-blur="save(item)" /></span>
+    </div>
+</div>

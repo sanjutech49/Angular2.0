@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MML.Contracts.CostHistory>
+
+
+
+<div id="closingCostHistoryRoot" class="closingCostHistoryRoot" style="width:840px;margin-left:-475px;">
+    <div id="closingCostHistoryHead" class="closingCostHistoryHead">
+        <div class="closingCostHistoryHeadLeftCorner">
+        </div>
+        <div class="closingCostHistoryHeadContent" style="width:800px;">
+            <div class="left0 w180">
+                <div class="fleft" style="padding-top: 4px;">
+                    <span class="namelink">Closing Cost History</span>
+                </div>
+            </div>
+            <div class="right0" style="padding-left: 75px">
+                <a id="minimizeClosingCostHistory" title="Minimize/Maximize Section" onclick="CloseClosingCosthistory()">
+                    <div id="minmaxClosingCostHistory" class="close" style="margin-left:535px;">
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="closingCostHistoryHeadRightCorner">
+        </div>
+    </div>
+    <div class="divClosingCostsHistoryBody" style="width:800px;">
+        <div class="divClosingCostsHistoryRoundedbox" style="width:800px; overflow-y: scroll;">
+            <div class="divClosingCostsHistoryHeader">
+                <div class="divClosingCostsHistoryColumn" style="margin-left: 10px; width: 160px">
+                    Modified Date
+                </div>
+                <div class="divClosingCostsHistoryColumn" style="width: 400px">
+                    Changes
+                </div>
+                <div class="divClosingCostsHistoryColumn" style="width: 190px">
+                    Modified By
+                </div>
+            </div>
+            @foreach ( var item in Model )
+            {
+                <div id="divRow" runat="server" class="divClosingCostsHistoryRow" style="width:800px;margin-left:0px;">
+                    <div id="divClosingDate" class="divClosingCostsHistoryColumn" style="width: 160px">
+                     @String.Format( "{0:MM/dd/yyyy hh:mm tt}", item.ModifiedDate )  
+                    </div>
+                    <div id="divDateOfChange" class="divClosingCostsHistoryColumn" style="width: 400px">
+                       @Html.DisplayFor( modelItem => item.Changes )
+                    </div>
+                    <div id="divModifiedBy" class="divClosingCostsHistoryColumn" style="width: 190px">
+                       @if(item.ModifiedBy != null && !String.IsNullOrEmpty(item.ModifiedBy.FullName)) {  <text>@item.ModifiedBy.FullName</text>}else{ <text>System</text>}
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#closingCostHistoryRoot").draggable({ handle: "div.closingCostHistoryHead" });
+    });
+
+    function CloseClosingCosthistory() {
+        $('#divClosingCostsHistoryPopup').hide();
+        $(".modalBackground").fadeOut();
+    }
+</script>

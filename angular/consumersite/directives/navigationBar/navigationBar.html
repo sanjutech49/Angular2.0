@@ -1,0 +1,52 @@
+﻿<nav class="navbar navbar-default pricing-navbar" ng-class="{'front': isMobileMenuOpen}">
+    <div class="app-container">
+        <div class="navbar-header">
+            <button type="button" class="pricing-navbar-toggle collapsed in" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false" aria-controls="navbar" ng-click="toggleMobileMenu()">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="pricing-navbar-close" ng-class="{'in': isMobileMenuOpen}" ng-click="toggleMobileMenu()">X</div>
+            <div class="mobile-menu-divider"></div>
+            <div class="back-button"><i class="icon-angle-left fa-3x"></i></div>
+            <a class="navbar-brand" href="#">
+                <img class="logo-img" />
+            </a>
+        </div>
+        <div id="navbar-main" class="pricing-navbar-collapse collapse" ng-class="{'collapse': !isMobileMenuOpen, 'in': isMobileMenuOpen}">
+            <ul class="nav pricing-navbar-nav">
+                <li>
+                    <a href="#">
+                        <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/price-tag.png"></div>See Rates
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="navbar-link-img"><i class="icon-cash-house fa-1x5"></i></div>What Can I Afford?
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/house-search.png"></div>Find a Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/open-mail.png"></div>Resources
+                    </a>
+                </li>
+                <li class="sign-in">
+                    <a href="#">
+                        <div class="navbar-link-img"><img src="../../../Content/ConsumerSite/images/person.png"></div>Sign in
+                    </a>
+                </li>
+            </ul>
+            <div class="pricing-navbar-collapse-backdrop"></div>
+        </div>
+        <div class="need-help-region">
+            <div>Need Help? Call Us</div>
+            <div class="need-help-phone">(800) 555-5555</div>
+        </div>
+    </div>
+</nav>

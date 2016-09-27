@@ -1,0 +1,546 @@
+﻿
+/*manage fees tabs*/
+.managefeesTabsContainer
+{
+    clear: both;
+    float: left;
+    height: 16px;
+    margin-left: 11px;
+    margin-top: 9px;
+    position: relative;
+}
+
+.managefeesTabsSubContainer
+{
+    height: 16px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    width: 375px;
+    z-index: 1;
+    height: 40px;
+}
+
+.managefeesTabs
+{
+    background-color: #F1F1F1;
+    border: 1px solid #9CCCAF;
+    border-radius: 4px 4px 0 0;
+    color: #9CCCAF;
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    height: 26px;
+    line-height: 26px;
+    margin-left: 2px;
+    text-align: center;
+    vertical-align: middle;
+    width: 120px;
+    cursor: pointer;
+}
+
+.managefeesTabsSelectedArrow
+{
+    position: relative;
+    top: 2px;
+    left: 42px;
+    display: block;
+}
+
+.managefeesTabsSelected
+{
+    background-color: #9CCCAF;
+    border-color: #D7D7D7;
+    border-top: 1px;
+    border-left: 1px;
+    border-right: 1px;
+    border-bottom: 0px solid transparent;
+    color: #F1F1F1;
+    padding-bottom: 2px;
+}
+
+/*end of manage fees tabs*/
+
+/*manage fees page 1*/
+.closingTransactionCostsTable
+{
+    width:100%;
+    border-collapse:collapse;
+   
+}
+
+.closingTransactionCostsTableRowDoubleBorder 
+{
+    border-bottom:2px solid black;
+}
+
+.closingTransactionCostsTableInnerAlignment td
+{
+    padding-top:3px;
+    padding-left:3px;
+}
+
+.closingTransactionCostsTable td
+{
+    border:1px solid black;
+    border-collapse:collapse;
+    vertical-align: text-top;
+    padding-left: 5px;
+}
+
+.closingTransactionCostsTable td:nth-child(1)
+{
+    border-left: none;
+}
+
+.closingTransactionCostsTable tr > td:last-of-type
+{
+    border-right: none;
+}
+
+
+.closingTransactionCostsTitle
+{
+    font-weight:bold;
+    width:98%;
+    padding:3px 1px 0px 10px;
+    background-color:Black;
+    color: White;
+    font-size:13px;
+    height: 23px;
+    line-height: 23px;
+    vertical-align:middle;
+}
+
+.closingTransactionCostsTable td:nth-child(1)
+{
+    width:276px;
+}
+
+.closingTransactionCostsTable2
+{
+    width:100%;
+}
+
+
+.closingTransactionCostsTable2 td:nth-child(1)
+{
+    width:75%;
+    padding-left: 5px;
+}
+
+.closingTransactionCostsTable2 td:nth-child(2)
+{
+    width:25%;
+    padding-left: 2px;
+}
+
+.closingTransactionCostsTable2 tr
+{
+    height:25px;
+    max-height:25px;
+}
+
+.closingTransactionCostsTable2 td
+{
+   line-height: 24px;
+   vertical-align: middle;
+}
+
+.closingTransactionCostsTableContainers
+{
+    width:49%; 
+    float:left;
+}
+
+.closingTransactionCostsTableBorderRight
+{
+    border-right:1px solid #B4B4B4;
+}
+
+.closingTransactionCostsTableBorderLeft 
+{
+    border-left:1px solid #B4B4B4;
+}
+
+.closingCostTransactionTypeOfLoanContainer 
+{
+    border-color: #B4B4B4;
+    border-left: 1px solid #B4B4B4;
+    border-radius: 6px 6px 6px 6px;
+    border-right: 1px solid #B4B4B4;
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    font-size: 12px;
+    height: auto;
+    margin-left: 8px;
+    margin-top: 10px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    position: relative;
+    width: 1140px;
+    border-collapse: collapse;
+}
+
+input[type="text"].closingTransactionCostsTextBoxAmount 
+{
+    width: 129px;
+
+    margin:2px;    
+    background-image: url("images/input-decorators.png");
+    background-position: 7px 4px;
+    background-repeat: no-repeat;
+    font-size: 12px;
+    padding: 4px 5px 4px 15px;
+    padding-top:4px !important;
+    text-align: right;
+}
+
+input[type="text"].closingTransactionCostsTextBoxAmountLeftLarge 
+{
+    width: 355px;
+    padding-bottom:4px;
+    padding-top:4px !important;
+    margin:2px;
+}
+
+input[type="text"].closingTransactionCostsTextBoxAmountLeftSmall 
+{
+    width: 121px;
+    padding-bottom:4px;
+    padding-top:4px !important;
+    margin: 2px;
+}
+
+.closingTransactionCostsTextBoxAmount, .closingTransactionCostsTextBoxAmountLeftLarge, .closingTransactionCostsTextBoxAmountLeftSmall, .manageFeesPageThreeTextBoxLeftLarge, 
+.manageFeesPageThreeTextBoxLeftSmall, .manageFeesPageThreeTextBoxRight, .manageFeesPageThreeTextBoxRightSmall, .manageFeesPageThreeTextBoxLeft, .manageFeesPageThreeLoanTermsPercentTextBox,
+.manageFeesPageThreeLoanTermsTextBox 
+ {
+    border-radius: 6px 6px 6px 6px;
+    display: inline;
+}
+
+.closingTransactionCostsCheckBox
+{
+    display: inline;
+    float: left;
+    margin-right: 50px;
+    min-width: 55px;
+}
+.closingTransactionCostsCheckBox input {
+    margin-left: 5px;
+    margin-top: -1px;
+    margin-right: 5px;
+}
+
+.closingTransactionCostsTextarea
+{
+    resize:none;
+    border:1px solid #B4B4B4;
+    border-radius: 6px 6px 6px 6px;
+    overflow: auto;
+}
+
+.closingTransactionCostsTextareaLeft
+{
+   width: 368px;
+   margin-right: 2px;
+}
+
+.closingTransactionCostsTextareaMiddle
+{
+   width: 223px;
+   margin-right: 2px;
+}
+
+.closingTransactionCostsTextareaMiddleSecondRow
+{
+   width: 455px;
+   margin-right: 2px;
+}
+
+.closingTransactionCostsTextareaRight
+{
+   width: 281px;
+}
+
+input[type="text"].closingTransactionCostsTextareaMiddleSecondRow
+{
+    width: 451px;
+    margin-left: 0px;
+}
+
+input[type="text"].closingTransactionCostsTextareaRight
+{
+   width: 278px;
+   margin-left: 0px;
+}
+.closingTransactionCostsCountyTaxesContainer
+{
+    float:left;
+    width: 111px;
+    margin-top: 2px;
+}
+/*end of manage fees page 1*/
+
+/*manage fees page 3*/
+
+ .manageFeesPageThreeTable, .manageFeesPageThreeLoanTermsTable
+ {
+     width:100%;
+     border-collapse:collapse;
+ }
+ 
+  .manageFeesPageThreeTable tr
+ {
+     height:23px;
+ }
+ 
+.manageFeesPageThreeTable td
+{
+     border:1px solid black;
+     padding: 2px;
+     line-height: 24px;
+     vertical-align: middle;
+}
+
+.manageFeesPageThreeTable td:nth-child(1)
+{
+    border-left: none;
+    width:33%;
+}
+
+.manageFeesPageThreeTable td:nth-child(2)
+{
+    border:none;
+    width:0.5%;
+}
+
+.manageFeesPageThreeTable td:nth-child(3), .manageFeesPageThreeTable td:nth-child(4)
+{
+    width:9%;
+}
+
+.manageFeesPageThreeTable tr > td:last-of-type
+{
+    border-right: none;
+}
+
+.manageFeesPageThreeTableImportantContent
+{
+    font-weight: bold;
+}
+
+.manageFeesPageThreeCollumnOneSubcollumnOne
+{
+    float:left;    
+    width:58%;
+}
+
+.manageFeesPageThreeCollumnOneSubcollumnOneText
+{
+    margin-left:3px;
+}
+
+.manageFeesPageThreeCollumnOneSubcollumnTwo
+{
+    float:left; 
+    width:40%;
+}
+
+.manageFeesPageThreeTableRightCollumnsContent
+{
+    text-align: center;
+}
+
+.manageFeesPageThreeSpacingRow
+{
+    border:none;
+    height:30px;
+}
+
+input[type="text"].manageFeesPageThreeTextBoxLeftLarge 
+{
+    margin: 2px;
+    padding-bottom: 4px;
+    padding-top: 4px !important;
+    width: 420px;
+}
+
+input[type="text"].manageFeesPageThreeTextBoxLeftSmall, input[type="text"].manageFeesPageThreeTextBoxRightSmall
+{
+    margin: 2px;
+    padding-bottom: 4px;
+    padding-top: 4px !important;
+    width: 120px;
+}
+
+input[type="text"].manageFeesPageThreeTextBoxRight
+{
+    margin: 2px;
+    width: 86%;
+    padding-bottom: 4px;
+    padding-top: 4px !important;
+}
+
+input[type="text"].manageFeesPageThreeTextBoxRightSmall
+{
+    margin: 2px;
+    width: 39% !important;
+    padding-bottom: 4px;
+    padding-top: 4px !important;
+}
+
+input[type="text"].manageFeesPageThreeTextBoxLeft
+{
+    margin: 2px;
+    margin-left: 70px;
+    width: 50px;
+    padding-bottom: 4px;
+    padding-top: 4px !important;
+}
+
+input[type="text"].manageFeesPageThreeDollarAmountTextBox,input.manageFeesPageThreeDollarAmountTextBox
+{
+    background-image: url("images/input-decorators.png");
+    background-position: 7px 4px;
+    background-repeat: no-repeat;
+    padding: 4px 5px 4px 15px;
+    padding-top:4px !important;
+    text-align: right;
+}
+
+input[type="text"].manageFeesPageThreePercentTextBox
+{
+    background-image: url("images/input-decorators.png");
+    background-position: 136px -26px;
+    background-repeat: no-repeat;
+    font-size: 12px;
+    padding: 4px 15px 4px 1px;
+    text-align: right;
+}
+
+.manageFeesPageThreeTableImportantRightAlignedContent
+{
+    float:right;
+    margin-right: 5px;
+}
+/*Second part*/
+.manageFeesPageThreeLoanTermsTitle
+{
+    width:100%; 
+    font-weight: bold; 
+    text-align: left;
+    margin-left: 5px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+.manageFeesPageThreeLoanTermsTable input[type="text"].closingTransactionCostsTextBoxAmount
+{
+     width: 200px;
+}
+
+input[type="text"].manageFeesPageThreeLoanTermsTableTextBoxAmount, .manageFeesPageThreeLoanTermsTable input[type="text"].manageFeesPageThreeLoanTermsTableTextBoxAmount
+{
+    width: 140px;
+}
+
+input[type="text"].manageFeesPageThreeLoanTermsPercentTextBox
+{
+    background-position: 77px -26px;
+    width: 85px;
+    margin: 2px;
+    height: 16px;
+}
+
+input[type="text"].manageFeesPageThreeLoanTermsTextBox
+{
+    width: 97px;
+    padding-top: 4px !important;
+    padding-bottom: 4px;
+    margin: 2px;
+    height: 16px;
+}
+
+.manageFeesPageThreeLoanTermsTable tr
+{
+     height:23px;
+}
+ 
+.manageFeesPageThreeLoanTermsTable td
+{
+     border: 1px solid black;
+     padding: 2px;
+     line-height: 24px;
+     vertical-align: top;
+}
+
+
+.manageFeesPageThreeLoanTermsTable td:nth-child(1)
+{
+    border-left: none;
+    width: 45%;
+}
+
+.manageFeesPageThreeLoanTermsTable td:nth-child(2)
+{
+    border-right: none;
+    width: 55%;
+}
+
+.manageFeesPageThreeLoanTermsTable .manageFeesPageThreeCollumnOneSubcollumnOneText
+{
+    float:left;
+}
+.manageFeesPageThreeMonthlyAmountOwed
+{
+    width:43%;
+    float:left;
+}
+.manageFeesPageThreeLoanTermsTableCheckbox
+{
+    float: left;
+    margin-right: 10px;
+    padding-top: 2px;
+}
+.manageFeesPageThreeMonthlyAmountOwedText
+{
+    margin-left: 6px;
+    padding-bottom: 3px;
+    vertical-align: middle;
+    
+}
+
+.manageFeesPageThreeMonthlyAmountOwedText input[type="text"].manageFeesPageThreeLoanTermsTextBox
+{
+    margin-left: -1px;
+    width: 215px;
+    margin: 3px 3px 0px 5px;
+    height: 16px;
+}
+
+.manageFeesPageThreeInterestRateRiseContent
+{
+    margin-left:5px;
+    float:left;
+}
+
+.manageFeesPageThreeMonthlyAmountOwedTextarea
+{
+    border-radius: 6px 6px 6px 6px;
+    height: 45%;
+    resize: none;
+    width: 99%;
+    border: 1px solid #CCCCCC;
+}
+
+.manageFeesPageThreeLoanTermsTableRightSubcollumn
+{
+    float:left;
+    width:95%;
+}
+
+/*end of manage fees page 3*/

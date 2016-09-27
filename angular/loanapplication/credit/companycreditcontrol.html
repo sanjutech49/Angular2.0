@@ -1,0 +1,47 @@
+﻿<div class='imp-popover imp-body'>
+   
+        <div class='container'>
+            <div class='header'>{{modalpopoverCtrl.ctrl.title}}</div>
+            <div class='imp-split'></div>
+            <fieldset ng-disabled="modalpopoverCtrl.ctrl.disableFields">
+                <div class="content">
+                    <div class="rowitem " ng-if="modalpopoverCtrl.ctrl.isLiabilities " style="padding-bottom:2px;">
+                        <div class="left-column">Liability</div>
+                        <div class="right-column">
+                            <div class="imp-span-ddl-container medium" ng-class="{'disabled' :  modalpopoverCtrl.model.liabilityDisabled}">
+                                <select name="debtsAccountOwnershipType"
+                                        class="imp-ddl"
+                                        ng-change="modalpopoverCtrl.ctrl.updateDTI(true)"
+                                        ng-model="modalpopoverCtrl.ctrl.debtsAccountOwnershipType"
+                                        ng-options="selectedItem.value as selectedItem.text for selectedItem in modalpopoverCtrl.ctrl.debtAccountOwnershipTypes"
+                                        required></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-include src="'angular/common/companycontent.html'"></div>
+                    <div class="rowitem" style="margin-top:7px;margin-bottom:10px;">
+                        <div class="left-column" style="white-space:nowrap;">
+                            From Credit - Balance:
+                            <span class="imp-body">{{::modalpopoverCtrl.ctrl.unpaidBalance  | currency:'$':2}}</span>
+                        </div>
+                        <div class="right-column"></div>
+                        <div class="left-column" style="padding-left:75px;width:auto;">
+                            Payment:
+                            <span class="imp-body">{{::modalpopoverCtrl.ctrl.minPayment  | currency:'$':2}}</span>
+                        </div>
+                        <div class="right-column"></div>
+                    </div>
+
+                </div>
+            </fieldset>
+    <div class='imp-split'></div>
+
+    <div class='footer'>
+        <div class="buttons">
+            <button class='imp-button-hm-wm-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</button>
+            <button class='imp-button-hm-wm-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)" ng-disabled="modalpopoverCtrl.ctrl.DisableFields">Done</button>
+        </div>
+    </div>
+    </div>
+
+</div>

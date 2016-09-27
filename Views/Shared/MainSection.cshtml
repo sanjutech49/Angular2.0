@@ -1,0 +1,43 @@
+﻿@using MML.Common.Helpers;
+@{
+    ViewBag.Title = "Loan Center";
+
+    if (Session[SessionHelper.SessionSynchronization] == null)
+    {
+        Session[SessionHelper.SessionLastActivityTime] = DateTime.Now.ToString();
+    }
+
+}
+@using System.Web.Mvc
+
+
+@if (Session[MML.Common.Helpers.SessionHelper.DisplaySystemAdmin] == null || !(bool)Session[MML.Common.Helpers.SessionHelper.DisplaySystemAdmin])
+{
+    <div class="imp-workspace" ui-view="mainView" style="position:initial;"></div>
+}
+<script type="text/javascript">
+
+    $(function () {
+
+        $(document).ready(function () {
+            //HeartBeatCheck();
+        });
+
+        $(".page").mousemove(function (event) {
+            BindSessionExpirationEvents();
+        });
+
+        $(".page").click(function (event) {
+            BindSessionExpirationEvents();
+        });
+   
+    });
+
+    function BindSessionExpirationEvents() {
+        var currentDateTime = new Date();
+        var curTime = currentDateTime.format("MM/dd/yyyy hh:mm:ss tt");
+        $('#hdnLastActivityTime').val(curTime);
+    }
+    
+
+</script>

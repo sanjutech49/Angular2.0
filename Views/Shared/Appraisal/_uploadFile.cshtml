@@ -1,0 +1,74 @@
+﻿@using Telerik.Web.Mvc.UI
+@using MML.Web.LoanCenter.Helpers.Utilities
+@model MML.Web.LoanCenter.ViewModels.UploadFileViewModel
+
+<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/UploadFile.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    function CloseShowUploadFilePopup() {
+        $("#divconversationlogpopup_uploadFile").hide();
+        $('.modalBackground').css('display', 'none');
+        document.getElementById("DocumentForm").reset();
+//        UploadFile.ReloadAppraisalDocuments('@(Model.LoanID)', '@(Model.UserAccountID)','uploadFile');
+    }
+
+    function SubmitFileToServer() {
+        var listOfDocObjects = [];
+        $(".uploadedDocumentFileDataContainer").each(function () {
+            var docObj = { };
+            docObj['id'] = $(this).attr("id");
+            docObj['value'] = $("#" + $(this).attr("id") + " .uploadDocumentContent input[type='checkbox']").is(':checked');
+            listOfDocObjects.push(docObj);
+        });
+
+        $('#appraisalOrderInformationDocuments').data({
+            _DocObjects: listOfDocObjects
+        });
+        
+        $("#DocumentForm").submit();
+    }
+
+    $(function () {
+        $("#divconversationlogpopup").draggable({ handle: "div.conversationlogsectionheadtitle" });
+    });
+</script>
+<div id="divconversationlogpopup_uploadFile" class="divconversationlogpopup LoanCenterPopup"  >
+	<div class="conversationlogsectionheadcontent">
+		<div class="conversationlogsectionheadtitle">
+			<span class="namelink">Upload File</span>
+		</div>
+		<a id="closeconversationlog" onclick="CloseShowUploadFilePopup()" title="Minimize/Maximize Section">
+				<div class="close" onclick="CloseShowUploadFilePopup()"></div>
+		</a>
+		<div class="conversationlogheadline">
+		</div>
+	</div>
+    @using ( Html.BeginForm( "Uploadfile", "Appraisal", FormMethod.Post, new { enctype = "multipart/form-data", id = "DocumentForm", name = "DocumentForm", target = "UploadTarget" } ) )
+    {
+        @Html.TextBoxFor( m => m.LoanID, new { type = "hidden", id = "isNotNotesPopup" } );
+        @Html.TextBoxFor( m => m.UserAccountID, new { type = "hidden", id = "isNotNotesPopup" } );
+        <div id="conversationlogcontentsection">
+            <div id="conversationlogcontent" class="conversationlogcontent">
+                <div id="conversationlogcontentcategory" class="conversationlogcontent">
+                    <p style="margin-bottom: 5px; margin-top: 5px;">
+                        Document Type</p>
+                    @Html.DropDownListFor( m => m.SelectedDocumentCategory, new SelectList( Model.DocumentCategories, "Id", "Name", 2 ) )
+                    <div id="conversationlogcontentfile" style="padding-top: 10px;">
+                        <p style="margin-bottom: 5px; margin-top: 5px;">
+                            Select File</p>
+                        <input type="file" name="file" id="file" />
+                    </div>
+                </div>
+            </div>
+            <div class="conversationlogheadline">
+            </div>
+            <div id="conversationlogManageButtonsSection" class="conversationlogManageButtonsSection">
+                    <div id="btnUpload" class="imp-button-div-hs-ws-prim" style="float: left; margin-right: 10px;" onclick="SubmitFileToServer()">Submit</div>
+                    <div id="btnCancel" class="imp-button-div-hs-ws-prim" style="float: right;" onclick="CloseShowUploadFilePopup()">Cancel</div>
+            </div>
+        </div>
+    }
+
+    <iframe id="UploadTarget" name="UploadTarget" onload="UploadFile_Complete();" style="display: none;"></iframe>
+</div>

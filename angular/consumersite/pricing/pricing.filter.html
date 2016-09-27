@@ -1,0 +1,47 @@
+﻿<div class="container-fluid" ng-model="pricingCntrl.ProductFilter">
+    <div class="row pricing-filter-bar  pricing-left-margin">
+        <div class="col-xs-12 col-sm-2 pricing-filter-bar-title-region">
+            <div class="pricing-filter-bar-title">Your Rates & Options</div>
+            <div class="pricing-filter-bar-subtitle">Custom Message Right Here!</div>
+        </div>
+        <div class="col-xs-12 col-sm-9 pricing-filter-bar-content" id="divRowFilter" ng-class="pricingFilter.topPicksClass">
+            <div ng-class="pricingCntrl.isActiveFilter('TopPicks')" id="btnTopPicks" ng-click="pricingCntrl.filterBtnClicked('TopPicks')">
+                <i class="fa fa-star fa-3x"></i>
+                <div>Top Picks</div>
+            </div>
+            <div ng-class="pricingCntrl.isActiveFilter('LowRateARMs')" id="btnLowRateARMs" ng-click="pricingCntrl.filterBtnClicked('LowRateARMs')">
+                <i class="fa fa-refresh fa-3x"></i>
+                <div>Low Rate Arms</div>
+            </div>
+            <div ng-class="pricingCntrl.isActiveFilter('PayoffQuickly')" id="btnPayoffQuickly" ng-click="pricingCntrl.filterBtnClicked('PayoffQuickly')">
+                <i class="fa fa-home fa-3x"></i>
+                <div>Payoff Quickly</div>
+            </div>
+            <div ng-class="pricingCntrl.isActiveFilter('LowFixedRates')" id=" btnlowfixedrates" ng-click="pricingCntrl.filterBtnClicked('LowFixedRates')">
+                <i class="fa fa-lock fa-3x"></i>
+                <div>Low Fixed Rates</div>
+            </div>
+            <div ng-class="pricingCntrl.isActiveFilter('NoCost')" id="btnNoCost" ng-click="pricingCntrl.filterBtnClicked('NoCost')">
+                <i class="fa fa-dollar fa-3x"></i>
+                <div>No Cost</div>
+            </div>
+            <div ng-class="pricingCntrl.isActiveFilter('GetAdvancedFilter')" id="btnAllOptions" ng-click="pricingCntrl.filterBtnClicked('GetAdvancedFilter'); ">
+                <i class=" fa fa-file fa-3x">
+                </i>
+                <div>All Options</div>
+            </div>
+            <div ng-class="pricingCntrl.isActiveFilter('CompareMyFavorites')" id="btnCompareMyFavorites" ng-click="pricingCntrl.filterBtnClicked('CompareMyFavorites')">
+                <i class="fa fa-heart fa-3x"></i>
+                <div>Compare My Favorites</div>
+            </div>
+            <!--
+            <div ng-class="pricingCntrl.isActiveFilter('ClearFilter')" id="btnClearFilter" ng-click="pricingCntrl.filterBtnClicked('ClearFilter')">
+                <i class="fa fa-globe fa-3x"></i>
+                <div>All Search Results</div>
+            </div>
+                -->
+        </div>
+        
+        <div><input type="hidden" ng-model="pricingCntrl.productFilter"></div>
+    </div>
+</div>

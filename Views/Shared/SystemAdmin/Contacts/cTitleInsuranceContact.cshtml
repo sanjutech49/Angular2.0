@@ -1,0 +1,23 @@
+﻿@using MML.Contracts
+@model MML.Web.LoanCenter.ViewModels.ContactsProfileViewModel
+@Html.HiddenFor(x=>x.cTitleInsuranceContact.TitleInsuranceContactId)
+
+         <div class="separator">
+            <span>@ViewBag.ContactTypeSpecificTitle</span>
+        </div>  
+
+        <div class="rowCompanyProfileContainer">
+
+            <div class="cCompanyLeft">
+                Contact License Number
+            </div>
+
+            <div class="cCompanyRight">
+               @Html.TextBoxFor(x=>x.cTitleInsuranceContact.ContactLicenseNumber)
+               @Html.ValidationMessageFor( model => model.cTitleInsuranceContact.ContactLicenseNumber )
+            </div>
+        </div> 
+
+
+
+

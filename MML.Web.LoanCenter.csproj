@@ -1,0 +1,2664 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{240685C8-FF5D-4260-B059-39BEEC76B37F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MML.Web.LoanCenter</RootNamespace>
+    <AssemblyName>MML.Web.LoanCenter</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <!--   <TypeScriptToolsVersion>1.4</sVersion> -->
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>905b3fef</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="APS.Common.Activities">
+      <HintPath>..\ExternalLibraries\APS\APS.Common.Activities.dll</HintPath>
+    </Reference>
+    <Reference Include="APS.Common.Contracts, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibraries\APS\APS.Common.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="APS.ServiceProxy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibraries\APS\APS.ServiceProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet">
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.3.4.13329\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified">
+      <HintPath>..\packages\YUICompressor.NET-MsBuild-Task.1.7.0.0\lib\net35\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
+    <Reference Include="iMP.Streetlinks.DataContracts">
+      <HintPath>..\ExternalLibraries\LenderX\iMP.Streetlinks.DataContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="iMP.Streetlinks.Utilities">
+      <HintPath>..\ExternalLibraries\LenderX\iMP.Streetlinks.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.ServiceBus, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.ServiceBus.2.2.0\lib\net45\Microsoft.AspNet.SignalR.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Ccr.Core, Version=2.0.913.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ExternalLibraries\Microsoft\Robotics\v2.0\Microsoft.Ccr.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ExternalLibraries\Microsoft\EnterpriseLibrary5.0\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ExternalLibraries\Microsoft\EnterpriseLibrary5.0\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Database, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ExternalLibraries\Microsoft\EnterpriseLibrary5.0\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\ExternalLibraries\Microsoft\EnterpriseLibrary5.0\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2">
+      <HintPath>..\ExternalLibraries\Microsoft\EnterpriseLibrary\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.ServiceBus.2.1.0.0\lib\net40-full\Microsoft.ServiceBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net45\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.0.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvcMiniProfiler, Version=1.9.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibraries\MvcMiniProfiler\MvcMiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Web.Mvc, Version=2011.2.712.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\ExternalLibraries\Telerik\2011.2.712.340\Telerik.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.3\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.3\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\packages\YUICompressor.NET-MsBuild-Task.1.7.0.0\lib\net35\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+    <Reference Include="Yahoo.Yui.Compressor.MsBuildTask">
+      <HintPath>..\packages\YUICompressor.NET-MsBuild-Task.1.7.0.0\lib\net35\Yahoo.Yui.Compressor.MsBuildTask.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\MeAndMyLoan.Designer.cs">
+      <DependentUpon>MeAndMyLoan.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Commands\AlertGridActivityTypeFilterCommand.cs" />
+    <Compile Include="Commands\AlertsLoanPurposeTypeFilterCommand.cs" />
+    <Compile Include="Commands\AssignLoanInfoLoadBranchesCommand.cs" />
+    <Compile Include="Commands\AssignLoanInfoLoadChannelsCommand.cs" />
+    <Compile Include="Commands\AssignLoanInfoLoadConciergesAndLOsCommand.cs" />
+    <Compile Include="Commands\AssignLoanInfoLoadDivisionsCommand.cs" />
+    <Compile Include="Commands\BorrowerDetailsSectionCommand.cs" />
+    <Compile Include="Commands\CalendarDataLoadCommand.cs" />
+    <Compile Include="Commands\CancelBorrowerStatusFilterCommand.cs" />
+    <Compile Include="Commands\CommandInvoker.cs" />
+    <Compile Include="Commands\CommandResult.cs" />
+    <Compile Include="Commands\CommandsBase.cs" />
+    <Compile Include="Commands\CommandsBaseUserFilter.cs" />
+    <Compile Include="Commands\CompletedLoansBorrowerStatusFilterCommand.cs" />
+    <Compile Include="Commands\CompletedLoansGridDateFilterCommand.cs" />
+    <Compile Include="Commands\CompletedLoansGridPagingCommand.cs" />
+    <Compile Include="Commands\CompletedLoansGridSortingCommand.cs" />
+    <Compile Include="Commands\CreateChildLoanCommand.cs" />
+    <Compile Include="Commands\MailRoomGridPagingCommand.cs" />
+    <Compile Include="Commands\MailRoomBorrowerStatusFilterCommand.cs" />
+    <Compile Include="Commands\MailRoomGridSortingCommand.cs" />
+    <Compile Include="Commands\MailRoomGridDateFilterCommand.cs" />
+    <Compile Include="Commands\OpenMailRoomTabCommand.cs" />
+    <Compile Include="Commands\LoanDetailsCommand.cs" />
+    <Compile Include="Commands\NewLoanApplicationGridBorrowerStatusFilterCommand.cs" />
+    <Compile Include="Commands\NewLoanApplicationGridLoanPurposeFilterCommand.cs" />
+    <Compile Include="Commands\OpenLoanServiceDownloadPopupCommand.cs" />
+    <Compile Include="Commands\OpenRateOptionNotesPopupCommand.cs" />
+    <Compile Include="Commands\PreApprovalTabCommand.cs" />
+    <Compile Include="Commands\ProspectConciergeFilterCommand.cs" />
+    <Compile Include="Commands\ProspectLoanPurposeTypeFilterCommand.cs" />
+    <Compile Include="Commands\ManageProspectsLoadBranchesCommand.cs" />
+    <Compile Include="Commands\ManageProspectsLoadChannelsCommand.cs" />
+    <Compile Include="Commands\ManageProspectsLoadConciergesAndLOsCommand.cs" />
+    <Compile Include="Commands\ManageProspectsLoadDivisionsCommand .cs" />
+    <Compile Include="Commands\OpenOrderDeliveredForReviewTabCommand.cs" />
+    <Compile Include="Commands\OpenOrderExceptionTabCommand.cs" />
+    <Compile Include="Commands\OpenOrderProcessedTabCommand.cs" />
+    <Compile Include="Commands\OpenOrderRequestedTabCommand.cs" />
+    <Compile Include="Commands\OrderDeliveredForReviewGridDateFilterCommand.cs" />
+    <Compile Include="Commands\OrderDeliveredForReviewGridPagingCommand.cs" />
+    <Compile Include="Commands\OrderDeliveredForReviewGridSortingCommand.cs" />
+    <Compile Include="Commands\OrderExceptionGridDateFilterCommand.cs" />
+    <Compile Include="Commands\OrderExceptionGridPagingCommand.cs" />
+    <Compile Include="Commands\OrderExceptionGridSortingCommand.cs" />
+    <Compile Include="Commands\OrderProcessedGridDateFilterCommand.cs" />
+    <Compile Include="Commands\OrderProcessedGridPagingCommand.cs" />
+    <Compile Include="Commands\OrderProcessedGridSortingCommand.cs" />
+    <Compile Include="Commands\OrderRequestedGridDateFilterCommand.cs" />
+    <Compile Include="Commands\OrderRequestedGridPagingCommand.cs" />
+    <Compile Include="Commands\OrderRequestedGridSortingCommand.cs" />
+    <Compile Include="Commands\OrderRequestedLoanPurposeTypeFilterCommand.cs" />
+    <Compile Include="Commands\OrderRequestedNonConformingFilterCommand.cs" />
+    <Compile Include="Commands\OrderRequestedRushFilterCommand.cs" />
+    <Compile Include="Commands\RetrieveLoanServicesCommand.cs" />
+    <Compile Include="Commands\ManageFeesCommand.cs" />
+    <Compile Include="Commands\GetLoansAndRatesFromManageProspectsCommand.cs" />
+    <Compile Include="Commands\ManageProspectsCommand.cs" />
+    <Compile Include="Commands\ContactStatusFilterCommand.cs" />
+    <Compile Include="Commands\OpenBusinessContactPopupCommand.cs" />
+    <Compile Include="Commands\PipelineBorrowerStatusFilterCommand.cs" />
+    <Compile Include="Commands\PreApprovalGridPagingCommand.cs" />
+    <Compile Include="Commands\PreApprovalGridSortingCommand.cs" />
+    <Compile Include="Commands\PreApprovalGridDateFilterCommand.cs" />
+    <Compile Include="Commands\OpenPreApprovalTabCommand.cs" />
+    <Compile Include="Commands\OpenCompletedLoansTabCommand.cs" />
+    <Compile Include="Commands\AlertGridDateFilterCommand.cs" />
+    <Compile Include="Commands\AlertGridSortingCommand.cs" />
+    <Compile Include="Commands\AlertGridPagingCommand.cs" />
+    <Compile Include="Commands\CancelGridDateFilterCommand.cs" />
+    <Compile Include="Commands\CancelGridPagingCommand.cs" />
+    <Compile Include="Commands\CancelGridSortingCommand.cs" />
+    <Compile Include="Commands\OpenCancelTabCommand.cs" />
+    <Compile Include="Commands\PipelineGridDateFilterCommand.cs" />
+    <Compile Include="Commands\ProgramNameToolTipCommand.cs" />
+    <Compile Include="Commands\SaveBorrowerChangesCommand.cs" />
+    <Compile Include="Commands\ShowAppraisalBillingHistoryCommand.cs" />
+    <Compile Include="Commands\UnLoanDetailsSectionLoadCommand.cs" />
+    <Compile Include="Commands\OpenAlertTabCommand.cs" />
+    <Compile Include="Commands\ConciergeEmbeddedUnloadCommand.cs" />
+    <Compile Include="Commands\AssignLoanInfoLoadCommand.cs" />
+    <Compile Include="Commands\LoanDetailsSectionLoadCommand.cs" />
+    <Compile Include="Commands\PipelineLoanPurposeTypeFilterCommand.cs" />
+    <Compile Include="Commands\PendingApprovalGridDateFilterCommand.cs" />
+    <Compile Include="Commands\PendingApprovalGridSortingCommand.cs" />
+    <Compile Include="Commands\PendingApprovalGridPagingCommand.cs" />
+    <Compile Include="Commands\OpenPendingApprovalTabCommand.cs" />
+    <Compile Include="Commands\NewLoanApplicationGridSortingCommand.cs" />
+    <Compile Include="Commands\NewLoanApplicationGridPagingCommand.cs" />
+    <Compile Include="Commands\NewLoanApplicationGridDateFilterCommand.cs" />
+    <Compile Include="Commands\ConciergeEmbeddedLoadCommand.cs" />
+    <Compile Include="Commands\OpenNewLoanApplicationTabCommand.cs" />
+    <Compile Include="Commands\ExceptionItemTooltipCommand.cs" />
+    <Compile Include="Commands\GetStartedUnLoadCommand.cs" />
+    <Compile Include="Commands\GetStartedLoadCommand.cs" />
+    <Compile Include="Commands\PipelineGridActivityTypeFilterCommand.cs" />
+    <Compile Include="Commands\PipelineGridPagingCommand.cs" />
+    <Compile Include="Commands\PipelineGridSortingCommand.cs" />
+    <Compile Include="Commands\OpenPipelineTabCommand.cs" />
+    <Compile Include="Commands\EmailDataLoadCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\OpenHomeTabCommand.cs" />
+    <Compile Include="Commands\OpenProspectTabCommand.cs" />
+    <Compile Include="Commands\ProspectContactTooltipCommand.cs" />
+    <Compile Include="Commands\ProspectGridDataLoadCommand.cs" />
+    <Compile Include="Commands\ProspectGridDateFilterCommand.cs" />
+    <Compile Include="Commands\ProspectGridPagingCommand.cs" />
+    <Compile Include="Commands\ProspectGridSortingCommand.cs" />
+    <Compile Include="Commands\ProspectLoanPurposeTooltipCommand.cs" />
+    <Compile Include="Commands\ProspectOwnerChangeCommand.cs" />
+    <Compile Include="Commands\ProspectSourceOfBussinesTooltipCommand.cs" />
+    <Compile Include="Commands\ProspectStatusChangeCommand.cs" />
+    <Compile Include="Commands\ShowAppraisalFormCommand.cs" />
+    <Compile Include="Commands\TaskContactTooltipCommand.cs" />
+    <Compile Include="Commands\TaskGridDataLoadCommand.cs" />
+    <Compile Include="Commands\TaskGridDateFilterCommand.cs" />
+    <Compile Include="Commands\TaskGridPagingCommand.cs" />
+    <Compile Include="Commands\TaskGridSortingCommand.cs" />
+    <Compile Include="Commands\TaskLoanPurposeTooltipCommand.cs" />
+    <Compile Include="Commands\TaskOwnerChangeCommand.cs" />
+    <Compile Include="Commands\TaskSubjectTooltipCommand.cs" />
+    <Compile Include="Commands\UserFilterClearCommand.cs" />
+    <Compile Include="Commands\UserFilterDataLoadCommand.cs" />
+    <Compile Include="Commands\UserFilterLoadBranchesCommand.cs" />
+    <Compile Include="Commands\UserFilterLoadChannelsCommand.cs" />
+    <Compile Include="Commands\UserFilterLoadDivisionsCommand.cs" />
+    <Compile Include="Commands\UserFilterLoadUsersCommand.cs" />
+    <Compile Include="Commands\UserFilterSelectedUserChangedCommand.cs" />
+    <Compile Include="Controllers\AppraisalController.cs" />
+    <Compile Include="Controllers\ArmIndexRoutinesController.cs" />
+    <Compile Include="Controllers\AusController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\BorrowerInformationController.cs" />
+    <Compile Include="Controllers\BusinessContactController.cs" />
+    <Compile Include="Controllers\CommandController.cs" />
+    <Compile Include="Controllers\ConditionsController.cs" />
+    <Compile Include="Controllers\ConsumerSiteController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvestorConfigurationController.cs" />
+    <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\MailRoomController.cs" />
+    <Compile Include="Controllers\ManageFeesController.cs" />
+    <Compile Include="Controllers\IntegrationsController.cs" />
+    <Compile Include="Controllers\SecureLinkController.cs" />
+    <Compile Include="Controllers\SystemAdminController.cs" />
+    <Compile Include="Controllers\ReDisclosureController.cs" />
+    <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="Controllers\ValidationController.cs" />
+    <Compile Include="Controllers\WrappedJsonResult.cs" />
+    <Compile Include="Extensions\AsyncManagerExtensions.cs" />
+    <Compile Include="Extensions\GeneralExtensions.cs" />
+    <Compile Include="Extensions\HtmlExtensions.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\ProxyHandler.cs" />
+    <Compile Include="Helpers\ActionFilters\CacheFilterAttribute.cs" />
+    <Compile Include="Helpers\ActionFilters\CompressFilter.cs" />
+    <Compile Include="Helpers\ActionFilters\MainControlFilter.cs" />
+    <Compile Include="Helpers\ActionFilters\ValidateAntiForgeryTokenWrapperAttribute.cs" />
+    <Compile Include="Helpers\Attributes\UrlAttribute.cs" />
+    <Compile Include="Helpers\Classes\CSSMin.cs" />
+    <Compile Include="Helpers\Classes\FileDownloadResult.cs" />
+    <Compile Include="Helpers\Classes\JavascriptMin.cs" />
+    <Compile Include="Helpers\Classes\LoginHelper.cs" />
+    <Compile Include="Helpers\Enums\CompletedLoansAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\CancelAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\EnumHelper.cs" />
+    <Compile Include="Helpers\Enums\MailRoomAttribute.cs" />
+    <Compile Include="Helpers\Enums\OrderExceptionAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\OrderDeliveredForReviewAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\OrderProcessedAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\OrderRequestedAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\PreApprovalAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\PendingApprovalAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\NewLoanApplicationAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\AlertsAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\FilterContextEnum.cs" />
+    <Compile Include="Helpers\Enums\LoanCenterTabs.cs" />
+    <Compile Include="Helpers\Enums\LoanTypeEnum.cs" />
+    <Compile Include="Helpers\Enums\MainControlEnum.cs" />
+    <Compile Include="Helpers\Enums\OfficerTaskAttribute.cs" />
+    <Compile Include="Helpers\Enums\OfficerTaskDateFilterEnum.cs" />
+    <Compile Include="Helpers\Enums\PipelineAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\ContactViewAttributeEnum.cs" />
+    <Compile Include="Helpers\Enums\SystemAdminContactTypesEnum.cs" />
+    <Compile Include="Helpers\Enums\SystemAdminEnum.cs" />
+    <Compile Include="Helpers\EventArguments\IndexEventArgs.cs" />
+    <Compile Include="Helpers\Handler\DownloadHandler.cs" />
+    <Compile Include="Helpers\InvestorRules\InvestorRulesConversion.cs" />
+    <Compile Include="Helpers\ModelBinders\DecimalModelBinder.cs" />
+    <Compile Include="Helpers\MvcHelpers\Classes\Fieldset.cs" />
+    <Compile Include="Helpers\MvcHelpers\CustomHtmlHelper.cs" />
+    <Compile Include="Helpers\MvcHelpers\LCScripts.cs" />
+    <Compile Include="Helpers\SharedMethods\GetStartedHelper.cs" />
+    <Compile Include="Helpers\SystemAdmin\ContactHelper.cs" />
+    <Compile Include="Helpers\SystemAdmin\GridHelper.cs" />
+    <Compile Include="Helpers\Utilities\AccountHelper.cs" />
+    <Compile Include="Helpers\Utilities\AddressHelper.cs" />
+    <Compile Include="Helpers\Utilities\AppraisalDocumentsHelper.cs" />
+    <Compile Include="Helpers\Utilities\AppraisalOrderHelper.cs" />
+    <Compile Include="Helpers\Utilities\CDNHelper.cs" />
+    <Compile Include="Helpers\Utilities\CommonHelper.cs" />
+    <Compile Include="Helpers\Utilities\ContactDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\ContactGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\ContactViewModelHelper.cs" />
+    <Compile Include="Helpers\Utilities\AlertsDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\AlertsGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\AlertsListState.cs" />
+    <Compile Include="Helpers\Utilities\CancelLoanListState.cs" />
+    <Compile Include="Helpers\Utilities\CancelDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\CancelGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\CompletedLoansListState.cs" />
+    <Compile Include="Helpers\Utilities\CompletedLoansDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\CompletedLoansGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\LoanDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\MailRoomGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\MailRoomDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\DeliveredForReviewListState.cs" />
+    <Compile Include="Helpers\Utilities\ElementConditionalDisableHelper.cs" />
+    <Compile Include="Helpers\Utilities\ExceptionsListState.cs" />
+    <Compile Include="Helpers\Utilities\ListState.cs" />
+    <Compile Include="Helpers\Utilities\MailRoomListState.cs" />
+    <Compile Include="Helpers\Utilities\ManageFeesHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderDeliveredForReviewDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderDeliveredForReviewGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderDeliveredForReviewListState.cs" />
+    <Compile Include="Helpers\Utilities\OrderExceptionDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderExceptionGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderExceptionListState.cs" />
+    <Compile Include="Helpers\Utilities\OrderProcessedDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderProcessedGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderProcessedListState.cs" />
+    <Compile Include="Helpers\Utilities\OrderRequestedDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderRequestedGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\OrderRequestedListState.cs" />
+    <Compile Include="Helpers\Utilities\PreApprovalGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\PreApprovalDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\PreApprovalListState.cs" />
+    <Compile Include="Helpers\Utilities\MinifierHelper.cs" />
+    <Compile Include="Helpers\Utilities\PendingApprovalGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\PendingApprovalDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\PendingApprovalListState.cs" />
+    <Compile Include="Helpers\Utilities\NewLoanApplicationGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\NewLoanApplicationDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\NewLoanApplicationListState.cs" />
+    <Compile Include="Helpers\Utilities\PipelineDataHelper.cs" />
+    <Compile Include="Helpers\Utilities\PipelineGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\OfficerTaskGridHelper.cs" />
+    <Compile Include="Helpers\Utilities\OfficerTaskListState.cs" />
+    <Compile Include="Helpers\Utilities\PipelineListState.cs" />
+    <Compile Include="Helpers\Utilities\ContactListState.cs" />
+    <Compile Include="Helpers\Utilities\UploadedDocument.cs" />
+    <Compile Include="Helpers\Utilities\ValidationHelper.cs" />
+    <Compile Include="Helpers\Utilities\ValidationPartialViewHelper.cs" />
+    <Compile Include="Helpers\Utilities\ViewHelper.cs" />
+    <Compile Include="Helpers\Utilities\ZipDataHelper.cs" />
+    <Compile Include="Models\Alert.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\CommandHeader.cs" />
+    <Compile Include="Models\ConciergeCommandEmbedded.cs" />
+    <Compile Include="Models\ConditionsModel.cs" />
+    <Compile Include="Models\Dashboard.cs" />
+    <Compile Include="Models\EMail.cs" />
+    <Compile Include="Models\GetStartedModel.cs" />
+    <Compile Include="Models\LoanDetailsModel.cs" />
+    <Compile Include="Models\LoanPurpose.cs" />
+    <Compile Include="Models\Pipeline.cs" />
+    <Compile Include="Models\Referal.cs" />
+    <Compile Include="Models\SecureLink\AuthenticationViewModel.cs" />
+    <Compile Include="Models\SecureLink\SigningCompleteHandlerViewModel.cs" />
+    <Compile Include="Models\SourceOfBussines.cs" />
+    <Compile Include="Models\UploadFile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SessionExpiration.asmx.cs">
+      <DependentUpon>SessionExpiration.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SignalR\Hubs\LoanActivityHub.cs" />
+    <Compile Include="SignalR\Startup.cs" />
+    <Compile Include="ViewModels\AppraisalBillingHistoryViewModel.cs" />
+    <Compile Include="ViewModels\AppraisalConfirmationMessage.cs" />
+    <Compile Include="ViewModels\AppraisalViewModel.cs" />
+    <Compile Include="ViewModels\AlertsViewModel.cs" />
+    <Compile Include="ViewModels\BorrowerDetailsViewModel.cs" />
+    <Compile Include="ViewModels\BusinessContactInfoViewModel.cs" />
+    <Compile Include="ViewModels\CancelViewModel.cs" />
+    <Compile Include="ViewModels\CompletedLoansViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionCommentHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionItemViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionsDeliveryVaultViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionsDocument.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionsDocVaultViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionsLoanSummaryViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionsMainViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionsSubViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\ConditionViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\CurativeItemNote.cs" />
+    <Compile Include="ViewModels\Conditions\ForConditionMenuModel.cs" />
+    <Compile Include="ViewModels\Conditions\ItemHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\LoanDecisionStatusHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Conditions\Privileges.cs" />
+    <Compile Include="ViewModels\ContactsProfileViewModel.cs" />
+    <Compile Include="ViewModels\CCompanyHistoryViewModel.cs" />
+    <Compile Include="ViewModels\ExportCreditReportViewModel.cs" />
+    <Compile Include="ViewModels\LP_DUViewModel.cs" />
+    <Compile Include="ViewModels\InvestorConfiguration\InvestorConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\InvestorConfiguration\InvestorHistoryViewModel.cs" />
+    <Compile Include="ViewModels\InvestorConfiguration\InvestorProductDetailsViewModel.cs" />
+    <Compile Include="ViewModels\MailRoomViewModel.cs" />
+    <Compile Include="ViewModels\FannieMaeDuViewModel.cs" />
+    <Compile Include="ViewModels\FreddieMacLpViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\GridCommonBaseViewModel.cs" />
+    <Compile Include="ViewModels\LoanServiceDocumentDownload.cs" />
+    <Compile Include="ViewModels\LoanServicesViewModel.cs" />
+    <Compile Include="ViewModels\ManageFeesViewModel.cs" />
+    <Compile Include="ViewModels\LogItemViewModel.cs" />
+    <Compile Include="ViewModels\LogViewModel.cs" />
+    <Compile Include="ViewModels\ManageProspectsViewModel.cs" />
+    <Compile Include="ViewModels\OrderDeliveredForReviewViewModel.cs" />
+    <Compile Include="ViewModels\OrderExceptionViewModel.cs" />
+    <Compile Include="ViewModels\OrderProcessedViewModel.cs" />
+    <Compile Include="ViewModels\OrderRequestedViewModel.cs" />
+    <Compile Include="ViewModels\PreApprovalViewModel.cs" />
+    <Compile Include="ViewModels\ErrorMessage.cs" />
+    <Compile Include="ViewModels\LoanDetailsViewModel.cs" />
+    <Compile Include="ViewModels\PendingApprovalViewModel.cs" />
+    <Compile Include="ViewModels\AssignLoanInfoViewModel.cs" />
+    <Compile Include="ViewModels\NewLoanApplicationViewModel.cs" />
+    <Compile Include="ViewModels\PipelineViewModel.cs" />
+    <Compile Include="ViewModels\FilterViewModel.cs" />
+    <Compile Include="ViewModels\IndexViewModel.cs" />
+    <Compile Include="ViewModels\MailboxViewModel.cs" />
+    <Compile Include="ViewModels\OfficerTasksViewModel.cs" />
+    <Compile Include="ViewModels\ContactViewModel.cs" />
+    <Compile Include="ViewModels\RateOptionItemViewModel.cs" />
+    <Compile Include="ViewModels\RateOptionViewModel.cs" />
+    <Compile Include="ViewModels\SystemAdminContactsViewModel.cs" />
+    <Compile Include="ViewModels\ReDisclosureModel.cs" />
+    <Compile Include="ViewModels\UploadFileViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="angular\common\addresscontrol\addresscontroltemplate.html" />
+    <Content Include="angular\common\address\address.html" />
+    <Content Include="angular\common\contextualbutton.html" />
+    <Content Include="angular\common\directives\common\impdirectives.settings.js" />
+    <Content Include="angular\common\directives\demo\modal\demo.dialog.html" />
+    <Content Include="angular\common\directives\demo\modal\demo.html" />
+    <Content Include="angular\common\directives\templates\impddl.html" />
+    <Content Include="angular\common\directives\templates\impinput.html" />
+    <Content Include="angular\common\directives\templates\impinputcurrency.html" />
+    <Content Include="angular\common\tinyMCE\demo\tinyMCEDirectiveDialogExampleTemplate.html" />
+    <Content Include="angular\common\tinyMCE\demo\tinyMCEDirectiveExample.html" />
+    <Content Include="angular\common\tinyMCE\demo\tinyMCE.html" />
+    <Content Include="angular\common\tinyMCE\tinymce.js" />
+    <Content Include="angular\common\tinyMCE\tinyMCE.template.html" />
+    <Content Include="angular\consumersite\authentication\authentication.html" />
+    <Content Include="angular\consumersite\demo\spinnerMessage.html" />
+    <Content Include="angular\consumersite\directives\breadcrumb\breadcrumb.myNextStep.html" />
+    <Content Include="angular\consumersite\loanApp\additionalBorrower\additionalBorrower.html" />
+    <Content Include="angular\consumersite\loanApp\templates\addressWidget.template-center.html" />
+    <Content Include="angular\consumersite\loanApp\templates\addressWidget.template-left.html" />
+    <Content Include="angular\consumersite\loanApp\templates\addressWidget.template-right.html" />
+    <Content Include="angular\consumersite\myNextStep\appraisal\appraisal.html" />
+    <Content Include="angular\consumersite\myNextStep\documentUpload\documentUpload.html" />
+    <Content Include="angular\consumersite\myNextStep\documentUpload\filePicker.template.html" />
+    <Content Include="angular\consumersite\loanApp\templates\addressWidget.template2.html" />
+    <Content Include="angular\consumersite\loanApp\templates\addressWidget.template.html" />
+    <Content Include="angular\common\emailcontrol\email.html" />
+    <Content Include="angular\consumersite\banner\banner.html" />
+    <Content Include="angular\consumersite\directives\back\back.template.html" />
+    <Content Include="angular\consumersite\directives\breadcrumb\breadcrumb.html" />
+    <Content Include="angular\consumersite\directives\masterlist\assets.template.html" />
+    <Content Include="angular\consumersite\directives\masterlist\employment.template.html" />
+    <Content Include="angular\consumersite\directives\masterlist\masterlist.template.html" />
+    <Content Include="angular\consumersite\directives\masterlist\otherIncome.template.html" />
+    <Content Include="angular\consumersite\directives\navigationBar\navigationBar.html" />
+    <Content Include="angular\consumersite\directives\progressSpinner\progressSpinner.html" />
+    <Content Include="angular\consumersite\directives\savecontinue\savecontinue.template.html" />
+    <Content Include="angular\consumersite\header\loanAppHeader.html" />
+    <Content Include="angular\consumersite\header\loanAppHeader.bak.html" />
+    <Content Include="angular\consumersite\loanApp\account\11-account-info.html" />
+    <Content Include="angular\consumersite\loanApp\activationcode\15-activationcode.html" />
+    <Content Include="angular\consumersite\loanApp\addresses\2b-address.html" />
+    <Content Include="angular\consumersite\loanApp\addresses\2c-address-2.html" />
+    <Content Include="angular\consumersite\loanApp\addresses\addressNew.html" />
+    <Content Include="angular\consumersite\loanApp\credit\creditloading.html" />
+    <Content Include="angular\consumersite\loanApp\personal\personalinfomedium.html" />
+    <Content Include="angular\consumersite\loanApp\personal\personalInfoNarrow.html" />
+    <Content Include="angular\consumersite\loanApp\alertPreferences\14-alertpreferences.html" />
+    <Content Include="angular\consumersite\loanApp\alertPreferences\alertpreferences.html" />
+    <Content Include="angular\consumersite\loanApp\assets\5-assets.html" />
+    <Content Include="angular\consumersite\loanApp\credit\10-credit-info.html" />
+    <Content Include="angular\consumersite\loanApp\declarations\7-declarations.html" />
+    <Content Include="angular\consumersite\loanApp\declarations\declarations.html" />
+    <Content Include="angular\consumersite\loanApp\eConsent\13-econsent.html" />
+    <Content Include="angular\consumersite\loanApp\governmentMonitoring\6-race.html" />
+    <Content Include="angular\consumersite\loanApp\loanapp.page.html" />
+    <Content Include="angular\consumersite\loanApp\otherIncome\4a-other-income.html" />
+    <Content Include="angular\consumersite\loanApp\otherIncome\4b-other-income-2.html" />
+    <Content Include="angular\consumersite\loanApp\personal\personalinfo.html" />
+    <Content Include="angular\consumersite\loanApp\signout\16-signout.html" />
+    <Content Include="angular\consumersite\loanApp\success\12-credit-scores.html" />
+    <Content Include="angular\consumersite\loanApp\success\success.html" />
+    <Content Include="angular\consumersite\loanApp\summary\8-summary.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.asset.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.declarations.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.employment.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.govt.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.otherIncome.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.personal.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.property.html" />
+    <Content Include="angular\consumersite\myNextStep\appraisal\appraisal.html" />
+    <Content Include="angular\consumersite\myNextStep\documentUpload\fileChange.directive.js" />
+    <Content Include="angular\consumersite\myNextStep\docusign\docusign.html" />
+    <Content Include="angular\consumersite\myNextStep\docusign\docusign.instructions.html" />
+    <Content Include="angular\consumersite\myNextStep\eConsent\eConsent.html" />
+    <Content Include="angular\consumersite\myNextStep\eConsent\eConsentTerms.html" />
+    <Content Include="angular\consumersite\myNextStep\header\myNextStepHeader.html" />
+    <Content Include="angular\consumersite\myNextStep\myNextStep.page.html" />
+    <Content Include="angular\consumersite\myNextStep\myNextStepMain\myNextStepMain.html" />
+    <Content Include="angular\consumersite\myNextStep\success\success.esigning.html" />
+    <Content Include="angular\consumersite\pricing\advancedSearch\advancedSearch.html" />
+    <Content Include="angular\consumersite\pricing\advancedSearch\advancedSearch.modalWindow.html" />
+    <Content Include="angular\consumersite\pricing\allOptions\allOptions.html" />
+    <Content Include="angular\consumersite\pricing\allOptions\allOptions.modalWindow.html" />
+    <Content Include="angular\consumersite\pricing\detailedclosingcosts\detailedClosingCosts.html" />
+    <Content Include="angular\consumersite\pricing\detailedclosingcosts\detailedClosingCosts.modalWindow.html" />
+    <Content Include="angular\consumersite\pricing\directives\filterbox\filterbox.template.html" />
+    <Content Include="angular\consumersite\pricing\pricing.advanced.filter.html" />
+    <Content Include="angular\consumersite\pricing\pricing.search.advanced.html" />
+    <Content Include="angular\consumersite\pricing\productDetails.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="angular\consumersite\pricing\directives\products\product.row.template.html" />
+    <Content Include="angular\consumersite\pricing\directives\statusIndicator\statusIndicator.template.html" />
+    <Content Include="angular\consumersite\pricing\pricing.filter.html" />
+    <Content Include="angular\consumersite\pricing\pricing.header.html" />
+    <Content Include="angular\consumersite\pricing\pricing.html" />
+    <Content Include="angular\consumersite\pricing\pricing.search.html" />
+    <Content Include="angular\consumersite\pricing\pricing.products.html" />
+    <Content Include="angular\consumersite\pricing\productDetails\productDetails.html" />
+    <Content Include="angular\consumersite\pricing\sendEmailReport.html" />
+    <Content Include="angular\complianceease\complianceresultdetails.html" />
+    <Content Include="angular\contextualbar\contextualbars.html" />
+    <Content Include="angular\contextualbar\contextualbarsadditionaldetails.html" />
+    <TypeScriptCompile Include="angular\common\common.factory.ts" />
+    <TypeScriptCompile Include="angular\common\directives\buttondirectives\buttondirectives.module.ts" />
+    <TypeScriptCompile Include="angular\common\directives\buttondirectives\impaddbutton\impaddbutton.directive.ts" />
+    <TypeScriptCompile Include="angular\common\directives\common.ui.directives.ts" />
+    <TypeScriptCompile Include="angular\common\credit\creditext.service.ts" />
+    <TypeScriptCompile Include="angular\common\directives\common\impdirectives.settings.ts" />
+    <TypeScriptCompile Include="angular\common\directives\demo\modal\demo.controller.ts" />
+    <TypeScriptCompile Include="angular\common\directives\demo\modal\demo.dialog.controller.ts" />
+    <TypeScriptCompile Include="angular\common\directives\demo\modal\demo.module.ts" />
+    <TypeScriptCompile Include="angular\common\directives\inputdirectives\imptextarea\imptextarea.directive.ts" />
+    <TypeScriptCompile Include="angular\common\directives\inputdirectives\imptextbox\imptextbox.directive.ts" />
+    <TypeScriptCompile Include="angular\common\directives\inputdirectives\inputdirectives.module.ts" />
+    <TypeScriptCompile Include="angular\common\impoundcalculator\impoundcalculator.helpers.service.ts" />
+    <TypeScriptCompile Include="angular\common\directives\includereplace.directive.ts" />
+    <TypeScriptCompile Include="angular\common\directives\modal.directive.ts" />
+    <TypeScriptCompile Include="angular\common\directives\modal.module.ts" />
+    <TypeScriptCompile Include="angular\common\integrations\closingcost\closingcost.directive.ts" />
+    <Content Include="angular\common\integrations\closingcost\closingcostredirection.html" />
+    <Content Include="angular\common\signalR\signalR.module.js" />
+    <Content Include="angular\common\signalR\signalR.factory.js" />
+    <Content Include="angular\consumersite\loanApp\account\account.html" />
+    <Content Include="angular\consumersite\loanApp\activationcode\activationcode.html" />
+    <Content Include="angular\consumersite\loanApp\addresses\address.html" />
+    <Content Include="angular\consumersite\loanApp\assets\assets.html" />
+    <Content Include="angular\consumersite\loanApp\credit\creditresults.html" />
+    <Content Include="angular\consumersite\loanApp\credit\credit.html" />
+    <Content Include="angular\consumersite\loanApp\eConsent\eConsent.html" />
+    <Content Include="angular\consumersite\loanApp\employment\employment.html" />
+    <Content Include="angular\consumersite\loanApp\otherIncome\otherincome.html" />
+    <Content Include="angular\consumersite\loanApp\personal\personalInfowide.html" />
+    <Content Include="angular\consumersite\loanApp\property\property.html" />
+    <Content Include="angular\consumersite\loanApp\governmentMonitoring\governmentMonitoring.html" />
+    <Content Include="angular\consumersite\loanApp\signout\signout.html" />
+    <Content Include="angular\consumersite\loanApp\summary\summary.html" />
+    <Content Include="angular\copyloan\copyloan.html" />
+    <Content Include="angular\costdetails\aggregateadjustment.html" />
+    <Content Include="angular\documents\docvault\docvaultcontent.html" />
+    <Content Include="angular\documents\docvault\docvaultflyoutmenu.html" />
+    <Content Include="angular\documents\docvault\docvaultimportdocs.html" />
+    <Content Include="angular\consumersite\consumersite.html" />
+    <Content Include="angular\documents\docvault\importdocsflyout.html" />
+    <Content Include="angular\fhacenter\cashoutrefinance\cashoutrefinance.html" />
+    <Content Include="angular\common\itemizedpropertytaxcalculator\itemizedpropertytaxcalculator.html" />
+    <Content Include="angular\fhacenter\fhacenter.html" />
+    <Content Include="angular\fhacenter\purchase\purchase.html" />
+    <Content Include="angular\fhacenter\rateandtermrefinance\rateandtermrefinance.html" />
+    <Content Include="angular\fhacenter\simplerefinance\simplerefinance.html" />
+    <Content Include="angular\fhacenter\streamlinerefinance\streamlinerefinance.html" />
+    <Content Include="angular\contextualbar\productandpricing\adjustmentspopup.html" />
+    <Content Include="angular\integrations\closingcorp\redirection.html" />
+    <Content Include="angular\loanapplication\coborrowerpersonalinformation\CoBorrowerPersonaInformation.html" />
+    <Content Include="angular\loanapplication\coborrowerpersonalinformation\coborrowerpersonalinformationcontroller.js" />
+    <Content Include="angular\loanapplication\manageaccount\mycurrentaddress.html" />
+    <Content Include="angular\integrations\integrations.html" />
+    <Content Include="angular\loanapplication\credit\realestate\priorAdverseRating.html" />
+    <Content Include="angular\loanapplication\manageaccount\verifyaccountinformation.html" />
+    <Content Include="angular\loandetails\compliancecheckpopup\compliancecheckfailedpopup.html" />
+    <Content Include="angular\loandetails\compliancecheckpopup\compliancecheckpassedpopup.html" />
+    <Content Include="angular\loandetails\sections\propertyinfo\contingencydates.html" />
+    <Content Include="angular\loandetails\testmodeproductpopup\testmodeproductpopup.html" />
+    <Content Include="angular\loanparticipants\loanparticipants.html" />
+    <Content Include="angular\loanapplication\credit\creditrunbutton\authorizationpopup.html" />
+    <Content Include="angular\assignments\assignments.html" />
+    <Content Include="angular\aus\aus.controller.js" />
+    <Content Include="angular\aus\aus.html" />
+    <Content Include="angular\aus\aus.module.js" />
+    <Content Include="angular\aus\aus.resolver.js" />
+    <Content Include="angular\aus\aus.service.js" />
+    <Content Include="angular\aus\du\du.controller.js" />
+    <Content Include="angular\aus\du\du.resolver.js" />
+    <Content Include="angular\aus\du\du.html" />
+    <Content Include="angular\aus\lp\lp.controller.js" />
+    <Content Include="angular\aus\lp\lp.resolver.js" />
+    <Content Include="angular\aus\lp\lp.html" />
+    <Content Include="angular\common\addresscontrol\addresscontrol.directive.js" />
+    <Content Include="angular\common\anchor.smooth.scroll.js" />
+    <Content Include="angular\common\calculator\calculator.module.js" />
+    <Content Include="angular\common\calculator\calculator.service.js" />
+    <Content Include="angular\common\columnoptions\columnoptions.controller.js" />
+    <Content Include="angular\common\columnoptions\columnoptions.html" />
+    <Content Include="angular\common\columnoptions\columnoptions.service.js" />
+    <Content Include="angular\common\common.durationyearsmonths.directive.js" />
+    <Content Include="angular\common\common.module.js" />
+    <Content Include="angular\common\common.numeric.directive.js" />
+    <Content Include="angular\common\common.directives.js" />
+    <Content Include="angular\common\common.filters.js" />
+    <Content Include="angular\common\commonmodalwindow\commonmodalwindow.controller.js" />
+    <Content Include="angular\common\commonmodalwindow\commonmodalwindow.factory.js" />
+    <Content Include="angular\common\commonmodalwindow\confirmationmodalwindow.html" />
+    <Content Include="angular\common\commonmodalwindow\errormodalwindow.html" />
+    <Content Include="angular\common\commonmodalwindow\loadermodalwindow.html" />
+    <Content Include="angular\consumer\docusign\esigning\esigningroom\eSigningRoom.html" />
+    <Content Include="angular\contextualbar\appraisal\appraisalcontextualbar.html" />
+    <Content Include="angular\contextualbar\comparisonpdf\multiplerecipients.html" />
+    <Content Include="angular\contextualbar\comparisonpdf\simplecontentmodal.controller.js" />
+    <Content Include="angular\contextualbar\comparisonpdf\simplecontentmodal.html" />
+    <Content Include="angular\common\commonmodalwindow\successmodalwindow.html" />
+    <Content Include="angular\common\commonmodalwindow\unsuccessmodalwindow.html" />
+    <Content Include="angular\common\directives\validateemail.directive.js" />
+    <Content Include="angular\common\errormodalwindow\errormodalwindow.controller.js" />
+    <Content Include="angular\common\errormodalwindow\errormodalwindow.factory.js" />
+    <Content Include="angular\common\errormodalwindow\errormodalwindow.html" />
+    <Content Include="angular\common\impoundcalculator\impoundcalculator.controller.js" />
+    <Content Include="angular\common\impoundcalculator\impoundcalculator.html" />
+    <Content Include="angular\common\impoundcalculator\impoundcalculator.module.js" />
+    <Content Include="angular\common\impoundcalculator\impoundcalculator.service.js" />
+    <Content Include="angular\common\integrations\integrations.common.module.js" />
+    <Content Include="angular\common\integrations\integrations.common.service.js" />
+    <Content Include="angular\common\integrations\digitaldoc\digitaldoc.module.js" />
+    <Content Include="angular\common\integrations\digitaldoc\digitaldoc.service.js" />
+    <Content Include="angular\common\integrations\encompass\encompass.module.js" />
+    <Content Include="angular\common\integrations\encompass\encompass.service.js" />
+    <Content Include="angular\common\modalpopover\modalpopover.factory.js" />
+    <Content Include="angular\common\modalpopover\modalpopover.module.js" />
+    <Content Include="angular\common\modalpopover\modalpopover.provider.js" />
+    <Content Include="angular\common\modalpopover\modalpopover.template.js" />
+    <Content Include="angular\common\simplemodalwindow\simplemodalwindow.controller.js" />
+    <Content Include="angular\common\simplemodalwindow\simplemodalwindow.errorintegration.html" />
+    <Content Include="angular\common\simplemodalwindow\simplemodalwindow.factory.js" />
+    <Content Include="angular\common\simplemodalwindow\simplemodalwindow.loadsave.html" />
+    <Content Include="angular\common\simplemodalwindow\simplemodalwindow.module.js" />
+    <Content Include="angular\common\templatecontrol\templatecontrol.directive.js" />
+    <Content Include="angular\common\addresscontrol\addresscontrol.html" />
+    <Content Include="angular\common\companycontent.html" />
+    <Content Include="angular\common\companycontrol.html" />
+    <Content Include="angular\common\datecontrol.html" />
+    <Content Include="angular\common\historycontrol.html" />
+    <Content Include="angular\common\uploadfiles\importfnmfiles.controller.js" />
+    <Content Include="angular\common\uploadfiles\importfnmfiles.html" />
+    <Content Include="angular\common\uploadfiles\importfnmfiles.service.js" />
+    <Content Include="angular\common\uploadfiles\uploadfiles.controller.js" />
+    <Content Include="angular\common\uploadfiles\uploadfiles.directive.js" />
+    <Content Include="angular\common\uploadfiles\uploadfiles.html" />
+    <Content Include="angular\common\uploadfiles\uploadfiles.module.js" />
+    <Content Include="angular\common\uploadfiles\uploadfiles.service.js" />
+    <Content Include="angular\common\zipcode\zipcode.service.js" />
+    <Content Include="angular\compliancecenter\auditlog\auditlog.html" />
+    <Content Include="angular\compliancecenter\compliancecenter.html" />
+    <Content Include="angular\complianceease\complianceease.html" />
+    <Content Include="angular\consumer\docusign\appraisal\appraisal.html" />
+    <Content Include="angular\consumer\authentication\authentication.html" />
+    <Content Include="angular\consumer\docusign\docupload\docupload.html" />
+    <Content Include="angular\consumer\docusign\esigning\confirmation\success.esigning.html" />
+    <Content Include="angular\consumer\docusign\econsentsettings\econsentsettings.html" />
+    <Content Include="angular\consumer\docusign\econsent\econsent.html" />
+    <Content Include="angular\consumer\docusign\esigning\instructions\esigningInstructions.html" />
+    <Content Include="angular\consumer\eConsentTerms.html" />
+    <Content Include="angular\consumer\index.html" />
+    <Content Include="angular\contextualbar\comparisonpdf\comparisonpdf.controller.js" />
+    <Content Include="angular\contextualbar\comparisonpdf\comparisonpdf.service.js" />
+    <Content Include="angular\contextualbar\comparisonpdf\comparisonreportmodal.html" />
+    <Content Include="angular\contextualbar\contextualbar.controller.js" />
+    <Content Include="angular\contextualbar\contextualbar.html" />
+    <Content Include="angular\contextualbar\contextualbar.module.js" />
+    <Content Include="angular\contextualbar\contextualtabs\contextualbartabs.controller.js" />
+    <Content Include="angular\contextualbar\contextualtabs\contextualbartabs.html" />
+    <Content Include="angular\contextualbar\contextualtabs\contextualtabs.html" />
+    <Content Include="angular\contextualbar\contextualtitle\contextualtitle.html" />
+    <Content Include="angular\contextualbar\costdetails\contextualbarcostdetails.controller.js" />
+    <Content Include="angular\contextualbar\costdetails\contextualbarcostdetails.html" />
+    <Content Include="angular\contextualbar\costdetails\tolerance.directive.js" />
+    <Content Include="angular\contextualbar\costdetails\tolerance.html" />
+    <Content Include="angular\contextualbar\costdetails\tolerance.modal.controller.js" />
+    <Content Include="angular\contextualbar\costdetails\tolerance.select.directive.js" />
+    <Content Include="angular\contextualbar\costdetails\tolerance.service.js" />
+    <Content Include="angular\contextualbar\costdetails\tolerancemodal.html" />
+    <Content Include="angular\contextualbar\costdetails\toleranceselect.html" />
+    <Content Include="angular\contextualbar\details\contextualbardetails.html" />
+    <Content Include="angular\contextualbar\details\lockhistory.html" />
+    <Content Include="angular\contextualbar\disclosurealertpanel.html" />
+    <Content Include="angular\contextualbar\productandpricing\contextualbarproductandpricing.controller.js" />
+    <Content Include="angular\contextualbar\productandpricing\contextualbarproductandpricing.html" />
+    <Content Include="angular\contextualbar\queue\contextualbarqueue.controller.js" />
+    <Content Include="angular\contextualbar\queue\contextualbarqueue.html" />
+    <Content Include="angular\costdetails\calculatedcashtoclose.html" />
+    <Content Include="angular\costdetails\cashtotal.html" />
+    <TypeScriptCompile Include="angular\common\tinyMCE\demo\tinyMCE.DirectiveExample.controller.ts" />
+    <TypeScriptCompile Include="angular\common\tinyMCE\demo\tinyMCE.controller.ts" />
+    <TypeScriptCompile Include="angular\common\tinyMCE\tinyMCE.directive.ts" />
+    <TypeScriptCompile Include="angular\common\tinyMCE\demo\tinyMCE.module.ts" />
+    <TypeScriptCompile Include="angular\common\tinyMCE\demo\tinyMCEDialog.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\authentication\authentication.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\authentication\authentication.module.ts" />
+    <TypeScriptCompile Include="angular\consumersite\authentication\authentication.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\consumersite.util.ts" />
+    <TypeScriptCompile Include="angular\consumersite\demo\ui.messageBlockWithSpinner.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\breadcrumb\breadcrumb.myNextStep.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\additionalBorrower\additionalBorrower.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\appraisal\appraisal.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\documentUpload\docLoad.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\documentUpload\documentUpload.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\documentUpload\filePicker.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\docusign\docusign.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\docusign\docusign.instructions.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\eConsent\eConsent.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\eConsent\eConsentModal.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\myNextStepMain\myNextStepMain.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\myNextStep\success\success.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\advancedSearch\advancedSearch.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\allOptions\allOptions.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\detailedclosingcosts\detailedClosingCosts.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\services\eSigning.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\appraisal.viewModel.ts" />
+    <TypeScriptCompile Include="angular\costdetails\costdetails.controller.ts" />
+    <Content Include="angular\costdetails\costdetails.filters.js" />
+    <Content Include="angular\costdetails\costdetails.html" />
+    <Content Include="angular\costdetails\costdetails.directives.js" />
+    <Content Include="angular\costdetails\costdetails.module.js" />
+    <TypeScriptCompile Include="angular\costdetails\costdetails.services.ts" />
+    <Content Include="angular\costdetails\costedit.html" />
+    <Content Include="angular\costdetails\edittemplates\costedit1.html" />
+    <Content Include="angular\costdetails\edittemplates\costedit2.html" />
+    <Content Include="angular\costdetails\edittemplates\costedit3.html" />
+    <Content Include="angular\costdetails\edittemplates\costedit4.html" />
+    <Content Include="angular\costdetails\edittemplates\costedit5.html" />
+    <Content Include="angular\costdetails\edittemplates\costedit6.html" />
+    <Content Include="angular\costdetails\edittemplates\costEdit7.html" />
+    <Content Include="angular\costdetails\edittemplates\costEdit8.html" />
+    <TypeScriptCompile Include="angular\costdetails\helpers\costdetails.helpers.service.ts" />
+    <Content Include="angular\costdetails\lendercredits.html" />
+    <Content Include="angular\costdetails\lendercreditsedit.html" />
+    <Content Include="angular\costdetails\loancosts.html" />
+    <Content Include="angular\costdetails\loanestimatefees.html" />
+    <Content Include="angular\costdetails\loantotal.html" />
+    <Content Include="angular\costdetails\othercosts.html" />
+    <Content Include="angular\costdetails\othertotal.html" />
+    <Content Include="angular\costdetails\payoffs.html" />
+    <Content Include="angular\costdetails\totals.html" />
+    <Content Include="angular\costdetails\transactionalsummary\dynamic.subsection.html" />
+    <Content Include="angular\costdetails\transactionalsummary\row.costitem.edit.html" />
+    <Content Include="angular\costdetails\transactionalsummary\row.costitem.html" />
+    <Content Include="angular\costdetails\transactionalsummary\row.costitem.static.html" />
+    <Content Include="angular\costdetails\transactionalsummary\row.datecostitem.edit.html" />
+    <Content Include="angular\costdetails\transactionalsummary\row.datecostitem.html" />
+    <Content Include="angular\costdetails\transactionalsummary\section.html" />
+    <Content Include="angular\costdetails\transactionalsummary\static.subsection.html" />
+    <Content Include="angular\costdetails\transactionalsummary\subsection.html" />
+    <Content Include="angular\costdetails\transactionalsummary\transaction.row.html" />
+    <Content Include="angular\costdetails\transactionalsummary\transactionalsummary.html" />
+    <Content Include="angular\costdetails\transactionalsummary\transactions.html" />
+    <Content Include="angular\costdetails\_blank.html" />
+    <Content Include="angular\documentlibrary\documentlibrary.html" />
+    <Content Include="angular\documents\documents.html" />
+    <Content Include="angular\documents\docvault\docvault.html" />
+    <Content Include="angular\documents\docvault\docvault.resolver.js" />
+    <Content Include="angular\documents\docvault\docvaultclassify.controller.js" />
+    <Content Include="angular\documents\docvault\docvaultclassify.html" />
+    <Content Include="angular\documents\docvault\docvaulthistory.html" />
+    <Content Include="angular\documents\docvault\docvaultmenu.html" />
+    <Content Include="angular\documents\needslist\needslist.html" />
+    <Content Include="angular\loanapplication\assets\assets.html" />
+    <Content Include="angular\loanapplication\common\document\document.controller.js" />
+    <Content Include="angular\documents\docvault\docvault.controller.js" />
+    <Content Include="angular\documents\docvault\docvault.module.js" />
+    <Content Include="angular\documents\docvault\docvault.service.js" />
+    <Content Include="angular\loanapplication\assets\assets.controller.js" />
+    <Content Include="angular\loanapplication\assets\assets.service.js" />
+    <Content Include="angular\loanapplication\credit\collections\collections.controller.js" />
+    <Content Include="angular\loanapplication\credit\collections\collections.html" />
+    <Content Include="angular\loanapplication\credit\companycreditcontrol.html" />
+    <Content Include="angular\loanapplication\credit\credit.html" />
+    <Content Include="angular\loanapplication\credit\creditrunbutton\creditrunbutton.html" />
+    <Content Include="angular\loanapplication\credit\creditrunconfirmcontrol.html" />
+    <Content Include="angular\loanapplication\credit\creditscorepopup.html" />
+    <Content Include="angular\loanapplication\credit\helpers\credit.helpers.service.js" />
+    <Content Include="angular\loanapplication\credit\credit.service.js" />
+    <Content Include="angular\loanapplication\credit\liabilities\liabilities.controller.js" />
+    <Content Include="angular\loanapplication\credit\liabilities\liabilities.html" />
+    <Content Include="angular\loanapplication\credit\miscellaneousexpenses\miscexpenses.controller.js" />
+    <Content Include="angular\loanapplication\credit\miscellaneousexpenses\miscexpenses.html" />
+    <Content Include="angular\loanapplication\credit\publicrecords\publicrecords.html" />
+    <Content Include="angular\loanapplication\credit\publicrecords\publicrecordtypetooltip.html" />
+    <Content Include="angular\loanapplication\credit\realestate\realestate.html" />
+    <Content Include="angular\loanapplication\credit\realestate\realestateItem.html" />
+    <Content Include="angular\loanapplication\credit\reolenderinfo.html" />
+    <Content Include="angular\loanapplication\credit\reopropertyaddressinfo.html" />
+    <Content Include="angular\loanapplication\credit\reopropertyexpenses.html" />
+    <Content Include="angular\loanapplication\declarations\declarations.controller.js" />
+    <Content Include="angular\loanapplication\declarations\declarations.html" />
+    <Content Include="angular\loanapplication\declarations\declarations.service.js" />
+    <Content Include="angular\loanapplication\income\additionalemployer.html" />
+    <Content Include="angular\loanapplication\income\currentemployer.html" />
+    <Content Include="angular\loanapplication\income\historypopup.html" />
+    <Content Include="angular\loanapplication\income\income.controller.js" />
+    <Content Include="angular\loanapplication\income\helpers\income.helpers.service.js" />
+    <Content Include="angular\loanapplication\income\income.html" />
+    <Content Include="angular\loanapplication\income\income.service.js" />
+    <Content Include="angular\loanapplication\income\income.directives.js" />
+    <Content Include="angular\loanapplication\income\incomeinformation.html" />
+    <Content Include="angular\loanapplication\income\otherincome.html" />
+    <Content Include="angular\loanapplication\loanapplication.html" />
+    <Content Include="angular\loanapplication\loanapplication.module.js" />
+    <Content Include="angular\loanapplication\loanapplicationtab.controller.js" />
+    <Content Include="angular\loanapplication\manageaccount\manageaccount.html" />
+    <Content Include="angular\loanapplication\personal\citizenshipmodal.html" />
+    <Content Include="angular\loanapplication\personal\personal.resolver.js" />
+    <Content Include="angular\loanapplication\personal\personal.controller.js" />
+    <Content Include="angular\loanapplication\personal\personal.html" />
+    <Content Include="angular\loanapplication\personal\personal.service.js" />
+    <Content Include="angular\loanapplication\property\property.constant.js" />
+    <Content Include="angular\loanapplication\property\property.html" />
+    <Content Include="angular\loanapplication\property\property.service.js" />
+    <Content Include="angular\common\tab.html" />
+    <Content Include="angular\common\tabset.html" />
+    <Content Include="angular\loancenter\applicationData.resolver.js" />
+    <Content Include="angular\loancenter\applicationData.service.js" />
+    <Content Include="angular\loancenter\loan.resolver.js" />
+    <Content Include="angular\loancenter\loan.service.js" />
+    <Content Include="angular\loancenter\loancenter.broadcast.js" />
+    <Content Include="angular\loancenter\loancenter.config.js" />
+    <Content Include="angular\loancenter\loancenter.constants.js" />
+    <Content Include="angular\loancenter\loancenter.core.module.js" />
+    <Content Include="angular\loanapplication\credit\credit.resolver.js" />
+    <Content Include="angular\loanapplication\income\income.resolver.js" />
+    <Content Include="angular\loancenter\loancenter.oldlayout.module.js" />
+    <Content Include="angular\loancenter\loancenter.serviceprovider.js" />
+    <Content Include="angular\loancenter\loancenter.module.js" />
+    <Content Include="angular\loancenter\userAccountId.resolver.js" />
+    <Content Include="angular\loancenter\_blankLoan.html" />
+    <Content Include="angular\loandelivery\contextualbar.html" />
+    <Content Include="angular\loandetails\loandetails.directives.js" />
+    <Content Include="angular\loandetails\loandetails.resolver.js" />
+    <Content Include="angular\loandetails\appraisedvaluehistorypopup\appraisedvaluehistorypopup.html" />
+    <Content Include="angular\loandetails\appraisedvaluehistorypopup\appraisedvaluehistorypopup.controller.js" />
+    <Content Include="angular\loandetails\appraisedvaluehistorypopup\appraisedvaluehistorypopup.service.js" />
+    <Content Include="angular\loandetails\calculator\calculator.controller.js" />
+    <Content Include="angular\loandetails\calculator\calculator.service.js" />
+    <Content Include="angular\common\loandatehistorypopup.html" />
+    <Content Include="angular\loandetails\dynamics\fulllegaldescription.html" />
+    <Content Include="angular\loandetails\dynamics\propertydetails.html" />
+    <Content Include="angular\loandetails\housingexpense\housingexpense.controller.js" />
+    <Content Include="angular\loandetails\housingexpense\housingexpense.html" />
+    <Content Include="angular\loandetails\loandetails.controller.js" />
+    <Content Include="angular\loandetails\loandetails.module.js" />
+    <Content Include="angular\loandetails\loandetails.service.js" />
+    <Content Include="angular\loandetails\lockdiclosuresmodals\lockconfirmation.html" />
+    <Content Include="angular\loandetails\maincontainer.html" />
+    <Content Include="angular\loandetails\monthlyincome\monthlyincome.controller.js" />
+    <Content Include="angular\loandetails\monthlyincome\monthlyincome.html" />
+    <Content Include="angular\loandetails\monthlyliabilities\monthlyliabilities.controller.js" />
+    <Content Include="angular\loandetails\monthlyliabilities\monthlyliabilities.html" />
+    <Content Include="angular\loandetails\multiborrowerpopover\multiborrowerlist.html" />
+    <Content Include="angular\loandetails\multiborrowerpopover\multiborrowerpopover.directive.js" />
+    <Content Include="angular\loandetails\multiborrowerpopover\multiborrowerpopover.html" />
+    <Content Include="angular\loandetails\multiborrowerpopover\multiborrowerpopover.module.js" />
+    <Content Include="angular\loandetails\propertydetails\propertydetails.controller.js" />
+    <Content Include="angular\loandetails\propertydetails\propertydetails.service.js" />
+    <Content Include="angular\loandetails\sections\assets.html" />
+    <Content Include="angular\loandetails\sections\debttoincome.html" />
+    <Content Include="angular\loandetails\sections\housingexpenses\housingexpenses.controller.js" />
+    <Content Include="angular\loandetails\sections\housingexpenses\housingexpensesbreakdown.html" />
+    <Content Include="angular\loandetails\sections\housingexpenses\housingexpensesbreakdownchart.html" />
+    <Content Include="angular\loandetails\sections\loanagentsandparties.html" />
+    <Content Include="angular\loandetails\sections\monthlyincome.html" />
+    <Content Include="angular\loandetails\sections\monthlyliabilities.html" />
+    <Content Include="angular\loandetails\sections\pricinginformation.html" />
+    <Content Include="angular\loandetails\sections\productinfodirective.html" />
+    <Content Include="angular\loandetails\sections\productinformation.html" />
+    <Content Include="angular\loandetails\sections\propertyinfo\propertyinfo.controller.js" />
+    <Content Include="angular\loandetails\sections\propertyinfo\propertydetailgraph.html" />
+    <Content Include="angular\loandetails\sections\propertyinfo\propertydetails.html" />
+    <Content Include="angular\loandetails\sections\propertyinfo\propertyinfo.html" />
+    <Content Include="angular\loandetails\sections\secondaryinformation.html" />
+    <Content Include="angular\loandetails\sections\sectionseven\sectionseven.html" />
+    <Content Include="angular\loandetails\sections\sectionseven\sectionsevenpopup.html" />
+    <Content Include="angular\loandetails\sections\sectionseven\sectionsevenbarchart.html" />
+    <Content Include="angular\loandetails\sections\sectionseven\subordinatefinancingdetails.html" />
+    <Content Include="angular\loandetails\sections\titlerow.html" />
+    <Content Include="angular\loandetails\sections\underwritinginformation.html" />
+    <Content Include="angular\loanparticipants\participant.row.default.html" />
+    <Content Include="angular\loanparticipants\participant.row.view.html" />
+    <Content Include="angular\loanparticipants\participants.table.html" />
+    <Content Include="angular\loanscenario\loanscenario.controller.js" />
+    <Content Include="angular\loanscenario\loanscenario.html" />
+    <Content Include="angular\loanscenario\loanscenario.module.js" />
+    <Content Include="angular\loanscenario\loanscenario.resolver.js" />
+    <Content Include="angular\loanscenario\loanscenario.service.js" />
+    <Content Include="angular\loanscenario\sections\currentloan.html" />
+    <Content Include="angular\loanscenario\sections\fhainformation.html" />
+    <Content Include="angular\loanscenario\sections\loaninformation.html" />
+    <Content Include="angular\loanscenario\sections\newloan.html" />
+    <Content Include="angular\loanscenario\sections\personal.html" />
+    <Content Include="angular\loanscenario\sections\qualifyinginformation.html" />
+    <Content Include="angular\loanscenario\sections\searchcriteria.html" />
+    <Content Include="angular\loanscenario\sections\subjectproperty.html" />
+    <Content Include="angular\loanscenario\sections\usdainformation.html" />
+    <Content Include="angular\loanscenario\sections\vainformation.html" />
+    <Content Include="angular\lockingandpricingadj\integrationsxmloptions.html" />
+    <Content Include="angular\lockingandpricingadj\investorbasepurchaseedit.html" />
+    <Content Include="angular\lockingandpricingadj\lopriceedit.html" />
+    <Content Include="angular\lockingandpricingadj\investorpriceedit.html" />
+    <Content Include="angular\mailroom\mailroom.html" />
+    <Content Include="angular\mailroom\_blank.html" />
+    <Content Include="angular\messagecenter\messagecenter.controller.js" />
+    <Content Include="angular\messagecenter\messagecenter.html" />
+    <Content Include="angular\messagecenter\messagecenter.module.js" />
+    <Content Include="angular\messagecenter\messagecenter.service.js" />
+    <Content Include="angular\lockingandpricingadj\header.html" />
+    <Content Include="angular\lockingandpricingadj\investorbasepurchase.html" />
+    <Content Include="angular\lockingandpricingadj\loprice.html" />
+    <Content Include="angular\lockingandpricingadj\lockinginfo.html" />
+    <Content Include="angular\lockingandpricingadj\investorprice.html" />
+    <Content Include="angular\lockingandpricingadj\lockingandpricingadj.html" />
+    <Content Include="angular\lockingandpricingadj\pricinginfo.html" />
+    <Content Include="angular\lockingandpricingadj\sellsideinfo.html" />
+    <Content Include="angular\navigation\antisteering\antisteering.controller.js" />
+    <Content Include="angular\navigation\antisteering\antisteeringmodawindow.html" />
+    <Content Include="angular\navigation\adverse\adversemodalwindow.html" />
+    <Content Include="angular\navigation\checkoutpopup.html" />
+    <Content Include="angular\navigation\contactsmenu.html" />
+    <Content Include="angular\navigation\loanmenu.controller.js" />
+    <Content Include="angular\navigation\loanmenu.html" />
+    <Content Include="angular\navigation\mylistsmenu.html" />
+    <Content Include="angular\navigation\navigation.constants.js" />
+    <Content Include="angular\navigation\navigation.controller.js" />
+    <Content Include="angular\navigation\navigation.html" />
+    <Content Include="angular\navigation\navigation.services.js" />
+    <Content Include="angular\navigation\search.html" />
+    <Content Include="angular\navigation\startmenu.html" />
+    <Content Include="angular\navigation\toolsmenu.html" />
+    <Content Include="angular\navigation\workbenchmenu.html" />
+    <Content Include="angular\ntbcenter\ntbcenter.html" />
+    <Content Include="angular\ntbcenter\sections\results.html" />
+    <Content Include="angular\pages\pricingresults.page.controller.js" />
+    <Content Include="angular\pages\viewtype1.template.html" />
+    <Content Include="angular\pages\aus.page.controller.js" />
+    <Content Include="angular\pages\costdetails.page.controller.js" />
+    <Content Include="angular\pages\viewtype2.template.html" />
+    <Content Include="angular\pages\documents.page.controller.js" />
+    <Content Include="angular\pages\home.page.controller.js" />
+    <Content Include="angular\pages\loanapplication.page.controller.js" />
+    <Content Include="angular\pages\loandetails.page.controller.js" />
+    <Content Include="angular\pages\loanscenario.page.controller.js" />
+    <Content Include="angular\pages\router.js" />
+    <Content Include="angular\preapprovalletters\preapprovalletters.html" />
+    <Content Include="angular\preapprovalletters\preapprovalletterstemplates\Branding\NewLeafLending\Images\NewLeafLendingLogo.png" />
+    <Content Include="angular\preapprovalletters\sendtosection.html" />
+    <Content Include="angular\preapprovalletters\preapprovalletterstemplates\offlineborrowerproperty.html" />
+    <Content Include="angular\preapprovalletters\preapprovalletterstemplates\onlineborrowerproperty.html" />
+    <Content Include="angular\preapprovalletters\preapprovalletters.preview.modal.html" />
+    <Content Include="angular\pricingresults\other\paymentbreakdownmodal.html" />
+    <Content Include="angular\pricingresults\other\sharecomparisonmodal.controller.js" />
+    <Content Include="angular\pricingresults\other\sharecomparisonmodal.html" />
+    <Content Include="angular\pricingresults\pricingresults.controller.js" />
+    <Content Include="angular\pricingresults\pricingresults.html" />
+    <Content Include="angular\pricingresults\pricingresults.module.js" />
+    <Content Include="angular\pricingresults\pricingresults.service.js" />
+    <Content Include="angular\pricingresults\sections\closingcostoptions.html" />
+    <Content Include="angular\pricingresults\sections\detailedclosingcosts.html" />
+    <Content Include="angular\pricingresults\sections\ineligibleproducts.html" />
+    <Content Include="angular\pricingresults\pricingresults.resolver.js" />
+    <Content Include="angular\pricingresults\sections\integrationsxmloptions.html" />
+    <Content Include="angular\pricingresults\sections\integrationxmlsfooter.html" />
+    <Content Include="angular\pricingresults\sections\lifeofloanoptions.html" />
+    <Content Include="angular\pricingresults\sections\pricepercentagespoints.html" />
+    <Content Include="angular\pricingresults\sections\products.html" />
+    <Content Include="angular\queue\other\multiBorrowerModal.html" />
+    <Content Include="angular\queue\queue.column.defs.js" />
+    <Content Include="angular\queue\queue.controller.js" />
+    <Content Include="angular\queue\queue.html" />
+    <Content Include="angular\queue\queue.module.js" />
+    <Content Include="angular\queue\queue.resolver.js" />
+    <Content Include="angular\queue\queue.service.js" />
+    <Content Include="angular\loancenter\_blank.html" />
+    <Content Include="angular\loandelivery\loandelivery.html" />
+    <Content Include="angular\securelinkemail\securelinkemail.html" />
+    <Content Include="angular\usdacenter\usdacenter.html" />
+    <Content Include="angular\vacenter\generalinformation\generalinformation.html" />
+    <Content Include="angular\vacenter\irrlmax\irrlmax.html" />
+    <Content Include="angular\vacenter\irrlqmcertification\irrlqmcertification.html" />
+    <Content Include="angular\vacenter\irrlqmcertification\originationdate.html" />
+    <Content Include="angular\vacenter\vacenter.html" />
+    <Content Include="Content\1003-Arrows.png" />
+    <Content Include="Content\ajax-loader-small.gif" />
+    <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\angular-block-ui.css" />
+    <Content Include="Content\angular-block-ui.min.css" />
+    <Content Include="Content\angular-grid\angular-slider.css" />
+    <Content Include="Content\angular-grid\angularGrid.css" />
+    <Content Include="Content\assets-automobiles.png" />
+    <Content Include="Content\assets-financial.png" />
+    <Content Include="Content\assets-lifeinsurance.png" />
+    <Content Include="Content\aus_header.png" />
+    <Content Include="Content\BackBtn.png" />
+    <Content Include="Content\BarGraph.png" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap.css" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap-3.3.5\js\bootstrap.js" />
+    <Content Include="Content\bootstrap-3.3.5\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-3.3.5\js\npm.js" />
+    <Content Include="Content\bootstrap\css\bootstrap-2.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\btnCheckStatus.png" />
+    <Content Include="Content\btnClear.png" />
+    <Content Include="Content\btnGetProductsAndFees.png" />
+    <Content Include="Content\btnNewCreditCard.png" />
+    <Content Include="Content\btnSave.png" />
+    <Content Include="Content\btnSubmitAppraisalOrder.png" />
+    <Content Include="Content\btnSubmitToLenderX.png" />
+    <Content Include="Content\CalculatorImage.PNG" />
+    <Content Include="Content\CFeaturesStyle.css" />
+    <Content Include="Content\collapse.jpg" />
+    <Content Include="Content\collapse_blue.jpg" />
+    <Content Include="Content\CommandButtonSprites.gif" />
+    <Content Include="Content\ConsumerSiteFeatureStyle.css" />
+    <Content Include="Content\ConsumerSite\CommonStyle.css" />
+    <Content Include="Content\ConsumerSite\font-icons\css\style.css" />
+    <Content Include="Content\ConsumerSite\font-icons\fonts\consumer-site.svg" />
+    <Content Include="Content\ConsumerSite\LoanAppFeatureStyle.css" />
+    <Content Include="Content\ConsumerSite\MyNextStepFeatureStyle.css" />
+    <Content Include="Content\ConsumerSite\OpenSans\css\fonts.css" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-300\LICENSE.txt" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-300\Open-Sans-300.svg" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-regular\LICENSE.txt" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-regular\Open-Sans-regular.svg" />
+    <Content Include="Content\ConsumerSite\PricingFeatureStyle.css" />
+    <Content Include="Content\DatePickerIcon.PNG" />
+    <Content Include="Content\errorIcon.png" />
+    <Content Include="Content\expand.jpg" />
+    <Content Include="Content\expand_blue.jpg" />
+    <Content Include="Content\Files.png" />
+    <Content Include="Content\font-awesome-4.5.0\css\font-awesome.css" />
+    <Content Include="Content\font-awesome-4.5.0\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome-4.5.0\HELP-US-OUT.txt" />
+    <Content Include="Content\fonts.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\GrayHeader.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\greenCompletedIcon.png" />
+    <Content Include="Content\historyiconDisabled.png" />
+    <Content Include="Content\historyicongreen.jpg" />
+    <Content Include="Content\history_icon_blue_filled.png" />
+    <Content Include="Content\history_icon_blue_hollow.png" />
+    <Content Include="Content\images\ausArrows.png" />
+    <Content Include="Content\images\Bank.png" />
+    <Content Include="Content\images\btn-x-close.png" />
+    <Content Include="Content\images\checkbox.png" />
+    <Content Include="Content\images\closelabel.gif" />
+    <Content Include="Content\images\ConsumerSite\all-options.png" />
+    <Content Include="Content\images\ConsumerSite\bank.png" />
+    <Content Include="Content\images\ConsumerSite\breadcrumb-arrow.png" />
+    <Content Include="Content\images\ConsumerSite\cloud-virga-logo.png" />
+    <Content Include="Content\images\ConsumerSite\cloud-virga-logo2.png" />
+    <Content Include="Content\images\ConsumerSite\clouds-4.jpg" />
+    <Content Include="Content\images\ConsumerSite\cogs-lg.png" />
+    <Content Include="Content\images\ConsumerSite\cogs.png" />
+    <Content Include="Content\images\ConsumerSite\dash-indicator.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-100.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-18.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-46.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-5.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-54.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-65.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-78.png" />
+    <Content Include="Content\images\ConsumerSite\finish-indicator-92.png" />
+    <Content Include="Content\images\ConsumerSite\green-flag.png" />
+    <Content Include="Content\images\ConsumerSite\home-page-indicator.png" />
+    <Content Include="Content\images\ConsumerSite\house.png" />
+    <Content Include="Content\images\ConsumerSite\icon-finish-flag-green.png" />
+    <Content Include="Content\images\ConsumerSite\icon-finish-flag.png" />
+    <Content Include="Content\images\ConsumerSite\keys.png" />
+    <Content Include="Content\images\ConsumerSite\low-fixed-rates.png" />
+    <Content Include="Content\images\ConsumerSite\low-rate-arms.png" />
+    <Content Include="Content\images\ConsumerSite\mail.png" />
+    <Content Include="Content\images\ConsumerSite\map.png" />
+    <Content Include="Content\images\ConsumerSite\my-next-step.png" />
+    <Content Include="Content\images\ConsumerSite\no-cost.png" />
+    <Content Include="Content\images\ConsumerSite\payoff-quickly.png" />
+    <Content Include="Content\images\ConsumerSite\piggy-bank.png" />
+    <Content Include="Content\images\ConsumerSite\pricing-filter-bar-bg.jpg" />
+    <Content Include="Content\images\ConsumerSite\pricing-filter-bar-bg.png" />
+    <Content Include="Content\images\ConsumerSite\pricing-filter-bar-bg2.png" />
+    <Content Include="Content\images\ConsumerSite\pricing-filter-bar-bg3.png" />
+    <Content Include="Content\images\ConsumerSite\primary-button-fill.png" />
+    <Content Include="Content\images\ConsumerSite\product-details.png" />
+    <Content Include="Content\images\ConsumerSite\report.png" />
+    <Content Include="Content\images\ConsumerSite\rocket-ship.png" />
+    <Content Include="Content\images\ConsumerSite\stairs.png" />
+    <Content Include="Content\images\Consumer\green-check-wh.png" />
+    <Content Include="Content\images\Consumer\green-check.png" />
+    <Content Include="Content\images\Consumer\icon-house-white.png" />
+    <Content Include="Content\images\Consumer\mock-signing-room.PNG" />
+    <Content Include="Content\images\Consumer\thank-you-logo.png" />
+    <Content Include="Content\images\Consumer\esign-instructions1.png" />
+    <Content Include="Content\images\Consumer\esign-instructions2.png" />
+    <Content Include="Content\images\Consumer\logo-white.png" />
+    <Content Include="Content\images\Consumer\logo.png" />
+    <Content Include="Content\images\Consumer\pentip.png" />
+    <Content Include="Content\images\content-types\defaultdoc.gif" />
+    <Content Include="Content\images\content-types\doc.gif" />
+    <Content Include="Content\images\content-types\docx.gif" />
+    <Content Include="Content\images\content-types\pdf.gif" />
+    <Content Include="Content\images\content-types\xml.gif" />
+    <Content Include="Content\images\documentClassification.png" />
+    <Content Include="Content\images\documentdelivery.png" />
+    <Content Include="Content\images\docvault.png" />
+    <Content Include="Content\images\edit-pen_button_imp.png" />
+    <Content Include="Content\images\greenTabArrowDown.png" />
+    <Content Include="Content\images\Individual.png" />
+    <Content Include="Content\images\jqTransform\active.png" />
+    <Content Include="Content\images\jqTransform\checkbox.png" />
+    <Content Include="Content\images\jqTransform\radiobutton.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\Llc.png" />
+    <Content Include="Content\images\moreinfo.png" />
+    <Content Include="Content\images\notes-attached.png" />
+    <Content Include="Content\images\notes-blank.png" />
+    <Content Include="Content\images\notes-read.png" />
+    <Content Include="Content\images\notes-unread.png" />
+    <Content Include="Content\images\notokhandred.png" />
+    <Content Include="Content\images\okhandgreen.png" />
+    <Content Include="Content\images\pdf-blue.png" />
+    <Content Include="Content\images\radiobutton.png" />
+    <Content Include="Content\images\tooltipLockExpireDate.png" />
+    <Content Include="Content\images\tooltip\smallhintbox1.png" />
+    <Content Include="Content\images\tooltip\smallhintbox2.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackground.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackground2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\images\tooltip\ValidationTooltipBackgroundBig.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackgroundMedium.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackgroundMedium_2.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipContactsBackground.png" />
+    <Content Include="Content\images\ValidationTooltipBackground2.png" />
+    <Content Include="Content\CommonStyle.css" />
+    <Content Include="Content\FeaturesStyle.css" />
+    <Content Include="Content\jqtransform.css" />
+    <Content Include="Content\jqtransformNOCDN.css" />
+    <Content Include="Content\jqTransform\MMLcheckbox.png" />
+    <Content Include="Content\jqTransform\MMLcheckboxAll.png" />
+    <Content Include="Content\jqTransform\MMLradio.png" />
+    <Content Include="Content\jqTransform\MMLradioAll.png" />
+    <Content Include="Content\covenantdirect.png" />
+    <Content Include="Content\historyicon.jpg" />
+    <Content Include="Content\httpcode.jquery.comui1.9.2themesbasejquery-ui.css" />
+    <Content Include="Content\iHomeLendingLogo.png" />
+    <Content Include="Content\images\btnCancel.png" />
+    <Content Include="Content\images\btnCancelSmall.png" />
+    <Content Include="Content\images\btnCancel_with_arrow.png" />
+    <Content Include="Content\images\btnNo.png" />
+    <Content Include="Content\images\btnSaveAndExit.png" />
+    <Content Include="Content\images\btnSaveAndExitWithArrow.png" />
+    <Content Include="Content\images\btnUpdateSmall.png" />
+    <Content Include="Content\images\btnYes.png" />
+    <Content Include="Content\images\ConciergeHomeSprite.png" />
+    <Content Include="Content\images\input-decorator-datetime.png" />
+    <Content Include="Content\images\input-decorators-dollar.png" />
+    <Content Include="Content\images\input-decorators-percent.png" />
+    <Content Include="Content\images\input-decorators.png" />
+    <Content Include="Content\images\jqTransform\MMLcheckbox.png" />
+    <Content Include="Content\images\jqTransform\MMLcheckboxAll.png" />
+    <Content Include="Content\images\jqTransform\MMLradio.png" />
+    <Content Include="Content\images\jqTransform\MMLradioAll.png" />
+    <Content Include="Content\images\lock.png" />
+    <Content Include="Content\images\nolabel.png" />
+    <Content Include="Content\images\SmartGFELogo.PNG" />
+    <Content Include="Content\images\tooltip\smallhintbox1.png" />
+    <Content Include="Content\images\tooltip\smallhintbox2.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackground.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackground2.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackgroundBig.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackgroundMedium.png" />
+    <Content Include="Content\images\tooltip\ValidationTooltipBackgroundMedium_2.png" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\images\yeslabel.png" />
+    <Content Include="Content\jqtransform.css" />
+    <Content Include="Content\jquery.qtip.css" />
+    <Content Include="Content\kendo.all.min.js" />
+    <Content Include="Content\kendo.common.min.css" />
+    <Content Include="Content\kendo.default.min.css" />
+    <Content Include="Content\LeftBlueArrow.png" />
+    <Content Include="Content\LeftGreyArrow.png" />
+    <Content Include="Content\LO Sprites.png" />
+    <Content Include="Content\LoanCenterSprite.png" />
+    <Content Include="Content\LP_DU.css" />
+    <Content Include="Content\MailLetterIcon.png" />
+    <Content Include="Content\ManageFees.css" />
+    <Content Include="Content\ProgramArrowDown.png" />
+    <Content Include="Content\ProgramArrowUp.png" />
+    <Content Include="Content\QuestionMarkBulb.png" />
+    <Content Include="Content\RightBlueArrow.png" />
+    <Content Include="Content\RightGreyArrow.png" />
+    <Content Include="Content\SecurityPacificLogo.png" />
+    <Content Include="Content\SiteOld.css" />
+    <Content Include="Content\SkylineLogoVerySmall.png" />
+    <Content Include="Content\smallremovebutton.gif" />
+    <Content Include="Content\small_add_gray.png" />
+    <Content Include="Content\small_edit_gray.png" />
+    <Content Include="Content\small_new.png" />
+    <Content Include="Content\small_new_gray.png" />
+    <Content Include="Content\telerik.common.min.css" />
+    <Content Include="Content\telerik.vista.min.css" />
+    <Content Include="Content\LO SpritesSPHL.png" />
+    <Content Include="Content\themesbasejquery-ui.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\treeview.png" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="Content\Vista\editor.png" />
+    <Content Include="Content\Vista\imagebrowser.png" />
+    <Content Include="Content\Vista\loading.gif" />
+    <Content Include="Content\Vista\slider-h.gif" />
+    <Content Include="Content\Vista\slider-v.gif" />
+    <Content Include="Content\Vista\sprite-vertical.png" />
+    <Content Include="Content\Vista\sprite.png" />
+    <Content Include="Content\WhiteBarGraph.png" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\2011.2.712\jquery-1.5.1.min.js" />
+    <Content Include="Scripts\2011.2.712\jquery.validate.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.autocomplete.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.calendar.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.chart.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.combobox.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.common.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.datepicker.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.datetimepicker.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.draganddrop.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.editor.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.grid.editing.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.grid.filtering.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.grid.grouping.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.grid.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.grid.reordering.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.grid.resizing.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.imagebrowser.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.list.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.menu.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.panelbar.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.slider.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.splitter.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.tabstrip.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.textbox.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.timepicker.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.treeview.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.upload.min.js" />
+    <Content Include="Scripts\2011.2.712\telerik.window.min.js" />
+    <Content Include="Scripts\angular-block-ui.js" />
+    <Content Include="Scripts\angular-block-ui.min.js" />
+    <Content Include="Scripts\angular-grid\angularGrid.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular-ui\ui-mask.min.js" />
+    <Content Include="Scripts\AngularUI\ui-router.js" />
+    <Content Include="Scripts\AngularUI\ui-router.min.js" />
+    <Content Include="Scripts\angular\angular-animate.min.js" />
+    <Content Include="Scripts\angular\angular-mocks.js" />
+    <Content Include="Scripts\angular\angular-resource.min.js" />
+    <Content Include="Scripts\angular\angular-route.min.js" />
+    <Content Include="Scripts\angular\angular-sanitize.js" />
+    <Content Include="Scripts\angular\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular\angular-signalr-hub.js" />
+    <Content Include="Scripts\angular\angular-signalr-hub.min.js" />
+    <Content Include="Scripts\angular\angular-slider.js" />
+    <Content Include="Scripts\angular\angular.js" />
+    <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\d3.min.js" />
+    <Content Include="Scripts\impInterval.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\navbar\navbar-consumersite.js" />
+    <Content Include="Scripts\navbar\navbar.js" />
+    <Content Include="Scripts\tinymce\license.txt" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\css\prism.css" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\css\dialog.css" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\buttons.png" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\icons.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\items.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_arrow.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_check.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\progress.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\tabs.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\tiny_mce_popup.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\editable_selects.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\form_utils.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\mctabs.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\validate.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example\dialog.html" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\media\moxieplayer.swf" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\address.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\article.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\aside.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\blockquote.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\div.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\dl.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\figure.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h1.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h2.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h3.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h4.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h5.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h6.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\hgroup.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ol.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\p.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\pre.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\section.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ul.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\anchor.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\loader.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\object.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\trans.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.ie7.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
+    <Content Include="Scripts\tinymce\tinymce.js" />
+    <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\ui-router\0.2.13\angular-ui-router.min.js" />
+    <Content Include="Scripts\ui-router\0.2.14\angular-ui-router.js" />
+    <Content Include="Scripts\ui-router\0.2.14\angular-ui-router.min.js" />
+    <Content Include="Scripts\underscore-groupByMulti.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\ui-bootstrap\ui-bootstrap-tpls-0.12.0.min.js" />
+    <Content Include="Scripts\ui-utils\ui-utils.js" />
+    <Content Include="Scripts\Appraisal.js" />
+    <Content Include="Scripts\AppraisalRequest.js" />
+    <Content Include="Scripts\autoNumeric.js" />
+    <Content Include="Scripts\BorrowerInformation.js" />
+    <Content Include="Scripts\BussinesContactDetails.js" />
+    <Content Include="Scripts\CanvasDrawings.js" />
+    <Content Include="Scripts\CompletedLoansGrid.js" />
+    <Content Include="Scripts\Aus.js" />
+    <Content Include="Scripts\ContactsControlsValidationDesign.js" />
+    <Content Include="Scripts\InvestorConfiguration.js" />
+    <Content Include="Scripts\jquery.ui.core.js" />
+    <Content Include="Scripts\jquery.ui.mouse.js" />
+    <Content Include="Scripts\jquery.ui.widget.js" />
+    <Content Include="Scripts\jQuery\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\MailRoomGrid.js" />
+    <Content Include="Scripts\jquery.extend.js" />
+    <Content Include="Scripts\jquery.mmlZipData.js" />
+    <Content Include="Scripts\jquery.qtip.min.js" />
+    <Content Include="Scripts\jquery.scrollTo-min.js" />
+    <Content Include="Scripts\LoanDetails.js" />
+    <Content Include="Scripts\LoanServices.js" />
+    <Content Include="Scripts\FormatHelper.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\jquery.jqtransform.js" />
+    <Content Include="Scripts\jquery.jstepper.js" />
+    <Content Include="Scripts\jquery.jstepper.min.js" />
+    <Content Include="Scripts\jquery.maskedinput-1.2.2.js" />
+    <Content Include="Scripts\Log.js" />
+    <Content Include="Scripts\ManageFees.js" />
+    <Content Include="Scripts\ManageProspects.js" />
+    <Content Include="Scripts\OrderDeliveredForReviewGrid.js" />
+    <Content Include="Scripts\OrderExceptionGrid.js" />
+    <Content Include="Scripts\OrderProcessedGrid.js" />
+    <Content Include="Scripts\OrderRequestedGrid.js" />
+    <Content Include="Scripts\PreApprovalGrid.js" />
+    <Content Include="Scripts\RateOptions.js" />
+    <Content Include="Scripts\Refresh.js" />
+    <Content Include="Scripts\Search.js" />
+    <Content Include="Scripts\AlertGrid.js" />
+    <Content Include="Scripts\AdditionalViews.js" />
+    <Content Include="Scripts\ConciergeCommandEmbedded.js" />
+    <Content Include="Scripts\CancelGrid.js" />
+    <Content Include="Scripts\ErrorMessagePopUp.js" />
+    <Content Include="Scripts\jquery.bgiframe-2.1.2.js" />
+    <Content Include="Scripts\jquery.comui1.9.2jquery-ui.js" />
+    <Content Include="Scripts\PendingApprovalGrid.js" />
+    <Content Include="Scripts\AssignLoanInfo.js" />
+    <Content Include="Scripts\NewLoanApplicationGrid.js" />
+    <Content Include="Scripts\GetStarted.js" />
+    <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.5.1.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.js" />
+    <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.ajax.antiCSRF.js" />
+    <Content Include="Scripts\jquery.ba-postmessage.min.js" />
+    <Content Include="Scripts\jquery.bgiframe.js" />
+    <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.contextMenu.js" />
+    <Content Include="Scripts\jquery.jqtransform.js" />
+    <Content Include="Scripts\jquery.maskedinput-1.2.2.js" />
+    <Content Include="Scripts\jquery.qtip.js" />
+    <Content Include="Scripts\jquery.tooltip.min.js" />
+    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\LoanCenterShared.js" />
+    <Content Include="Scripts\modernizr-1.7.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\PipelineGrid.js" />
+    <Content Include="Scripts\ProspectGrid.js" />
+    <Content Include="Scripts\SessionSynchronization.js" />
+    <Content Include="Scripts\SystemAdmin.js" />
+    <Content Include="Scripts\SystemAdminContacts.js" />
+    <Content Include="Scripts\TaskGrid.js" />
+    <Content Include="Scripts\TestLoans.js" />
+    <Content Include="Scripts\ToDictionary.js" />
+    <Content Include="Scripts\underscore-min.js" />
+    <Content Include="Scripts\UploadFile.js" />
+    <Content Include="Scripts\UserFilter.js" />
+    <Content Include="Scripts\Validation.js" />
+    <Content Include="Scripts\WorkQueueCommands.js" />
+    <Content Include="Scripts\WorkQueueTypes.js" />
+    <Content Include="Scripts\zipdata.js" />
+    <Content Include="Services\SessionExpiration.asmx" />
+    <Content Include="Views\Shared\Aus\_aus.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\Commands\ManageFees\_closingcosts.cshtml" />
+    <Content Include="Views\Shared\Queues\_orderException.cshtml" />
+    <Content Include="Views\Shared\_coborroweraddresses.cshtml" />
+    <Content Include="Views\Shared\_navBar.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="angular\stipsandconditions\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\ContactsProfile\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_mailbox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\iMP.Contracts\iMP.Contracts.csproj">
+      <Project>{B087A38E-A819-4554-BAE9-C1BBA666CA9F}</Project>
+      <Name>iMP.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Calculator\MML.Calculator.csproj">
+      <Project>{AD4867B1-6BA2-4BFF-80FA-611E6232D959}</Project>
+      <Name>MML.Calculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Common.Configuration\MML.Common.Configuration.csproj">
+      <Project>{6B36511C-226C-4145-8F92-7F50489DAEA1}</Project>
+      <Name>MML.Common.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Common.Web\MML.Common.Web.csproj">
+      <Project>{6BAADD8B-2994-4A16-8CD9-51CB03C4199C}</Project>
+      <Name>MML.Common.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Common\MML.Common.csproj">
+      <Project>{9A186AA1-0DA7-4A7E-980B-C81ACE0E3FE9}</Project>
+      <Name>MML.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Contacts.Interfaces\MML.Contacts.Interfaces.csproj">
+      <Project>{3B0AB033-02CE-481A-BA69-E3EE2A7631B7}</Project>
+      <Name>MML.Contacts.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Contacts\MML.Contacts.csproj">
+      <Project>{4ABB0CAD-9700-4044-A718-FD8850E1EDAB}</Project>
+      <Name>MML.Contacts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Data\MML.Data.csproj">
+      <Project>{68fefea8-fedd-4557-bbd5-2799c0d61f85}</Project>
+      <Name>MML.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Services.Caching\MML.Services.Caching.csproj">
+      <Project>{8f22ea65-b7a0-4f61-a14d-516812b6f0c2}</Project>
+      <Name>MML.Services.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.RemoveHttpHeadersModule\MML.RemoveHttpHeadersModule.csproj">
+      <Project>{C6840D84-6EEF-4F6A-8D7B-20C751074BF8}</Project>
+      <Name>MML.RemoveHttpHeadersModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.ServiceModel\MML.ServiceModel.csproj">
+      <Project>{F15CA38A-C019-4C08-BE8E-8531BBBF8EBE}</Project>
+      <Name>MML.ServiceModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Services.Caching\MML.Services.Caching.csproj">
+      <Project>{8F22EA65-B7A0-4F61-A14D-516812B6F0C2}</Project>
+      <Name>MML.Services.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Services.Facade\MML.Web.Facade.csproj">
+      <Project>{65255736-81A7-4A0D-B472-65376E8DF42B}</Project>
+      <Name>MML.Web.Facade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.TraceListeners\MML.TraceListeners.csproj">
+      <Project>{FB71C177-A838-430F-8FDB-8394749F139F}</Project>
+      <Name>MML.TraceListeners</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Web.Common\MML.Web.Common.csproj">
+      <Project>{f3f64ef3-357e-4444-9582-b0d6b482d48e}</Project>
+      <Name>MML.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML.Web.LoanCenterModel\MML.Web.LoanCenterModel.csproj">
+      <Project>{4E7128C0-4BC3-49FB-A150-113F2052817E}</Project>
+      <Name>MML.Web.LoanCenterModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\AppraisalProducts\Common\MML.iMP.AppraisalProduct.Contracts\MML.iMP.AppraisalProducts.Contracts.csproj">
+      <Project>{7BBF14B8-ABA3-4AD2-85E8-90C09F1EDE01}</Project>
+      <Name>MML.iMP.AppraisalProducts.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Aus\Contracts\MML.iMP.Aus.Contracts.csproj">
+      <Project>{131a43bd-ebad-4b70-8713-307d386b7318}</Project>
+      <Name>MML.iMP.Aus.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Aus\FannieMaeHelper\MML.iMP.Aus.FannieMaeHelper.csproj">
+      <Project>{125bae31-58c7-4b10-9314-7aa14e02e0be}</Project>
+      <Name>MML.iMP.Aus.FannieMaeHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Aus\FreddieMacHelper\MML.iMP.Aus.FreddieMacHelper.csproj">
+      <Project>{f0117f40-eff4-4da3-baa6-eb61287996e1}</Project>
+      <Name>MML.iMP.Aus.FreddieMacHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\BiDirectional\Common\Common\MML.iMP.BiDirectional.Common.csproj">
+      <Project>{A6605777-44D9-47DB-919A-14C8C55AF33C}</Project>
+      <Name>MML.iMP.BiDirectional.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Common\MML.iMP.Common.Configuration\MML.iMP.Common.Configuration.csproj">
+      <Project>{50d8a99b-fe93-4f34-874d-5515e1297783}</Project>
+      <Name>MML.iMP.Common.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Common\MML.iMP.Common\MML.iMP.Common.csproj">
+      <Project>{9BAA537E-B5D6-48D4-9A8E-F49E2BEDAF01}</Project>
+      <Name>MML.iMP.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\DocumentVault\Common\MML.iMP.DocumentVault.Common.csproj">
+      <Project>{b2086281-3953-4974-a549-f2aeb0f19db6}</Project>
+      <Name>MML.iMP.DocumentVault.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\DocumentVault\Contracts\MML.iMP.DocumentVault.Contracts.csproj">
+      <Project>{07d7b007-fdcb-428d-83b4-fa2b7cc0c738}</Project>
+      <Name>MML.iMP.DocumentVault.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Events\Context\MML.iMP.Events.Context.csproj">
+      <Project>{2FB80EA0-FC78-46F9-84C0-1808A650A8F8}</Project>
+      <Name>MML.iMP.Events.Context</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Events\Contracts\MML.iMP.Events.Contracts.csproj">
+      <Project>{E58233B7-DF6F-49B4-805F-4C0DCB5ECAC3}</Project>
+      <Name>MML.iMP.Events.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MML\iMP\Integrations\Contracts\MML.iMP.Integrations.Contracts.csproj">
+      <Project>{6714A713-0F5F-442D-BA86-93AF81E7836E}</Project>
+      <Name>MML.iMP.Integrations.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_appointment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_officertask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_tasksubject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_contacttooltip.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_loanpurpose.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_userfilter.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_sourceofbusinesstooltip.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_loanpurposeoncontact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\_createatask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_contact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_contacttooltiponcontact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_appraisalform.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_pipeline.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_getStarted.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_exceptionItemTooltip.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_alerts.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_pendingapproval.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_newLoanApplication.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_assignloaninfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_conciergecommandembedded.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\ErrorViews\CustomError.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_loandetailsandcontactinfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_completedloans.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_preapproval.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Queues\_cancel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Log\_log.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Log\_conversationLogItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Commands\_manageprospects.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_bussinescontactinfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_emaildetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\__unsupportedcommanderror.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Message\_customMessage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_programnamedetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\MeAndMyLoan.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>MeAndMyLoan.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Commands\ManageFees\_closingCostsHistory.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="angular\pages\complianceease.page.controller.js" />
+    <Content Include="angular\loandetails\sections\sectionseven\sectionseven.controller.js" />
+    <Content Include="angular\loanparticipants\participant.row.edit.html" />
+    <Content Include="angular\fhacenter\purchasedown\purchasedown.html" />
+    <Content Include="angular\consumer\docusign\esigning\confirmation\success.appraisal.html" />
+    <Content Include="angular\ts\generated\ServiceGeneration.txt4" />
+    <Content Include="angular\ts\generated\serviceProxies\ServiceGeneration.txt4" />
+    <Content Include="angular\common\directives\common\impdirectives.settings.js.map" />
+    <None Include="Compress.msbuild">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Shared\Commands\ManageFees\_closingCostsSectionFromTo1100.cshtml" />
+    <Content Include="Views\Shared\Commands\ManageFees\_costHistoryPopUp.cshtml" />
+    <Content Include="Views\Shared\_borrowersInformation.cshtml" />
+    <Content Include="Views\Shared\_appraisalbillinghistory.cshtml" />
+    <Content Include="Views\Shared\_loanservices.cshtml" />
+    <Content Include="Views\Shared\Queues\_orderRequested.cshtml" />
+    <Content Include="Views\Shared\Appraisal\_uploadFile.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Shared\Message\_customMessageReloadAppraisal.cshtml" />
+    <Content Include="Views\Shared\Queues\_orderProcessed.cshtml" />
+    <Content Include="Views\Shared\Queues\_orderDeliveredForReview.cshtml" />
+    <Content Include="Views\Shared\_borrowerInformation.cshtml" />
+    <Content Include="Views\Shared\Message\_customMessageBusinessContact.cshtml" />
+    <Content Include="Views\Shared\Commands\ManageFees\_manageFeesPageOne.cshtml" />
+    <Content Include="Views\Shared\Commands\ManageFees\_manageFees.cshtml" />
+    <Content Include="Views\Shared\Commands\ManageFees\_closingTransactionCostsTable.cshtml" />
+    <Content Include="Views\Shared\Commands\ManageFees\_manageFeesPageThree.cshtml" />
+    <Content Include="Views\Shared\Commands\ManageFees\_closingCostDropDownName.cshtml" />
+    <Content Include="Views\Shared\Commands\_rateOption.cshtml" />
+    <Content Include="Views\Shared\Commands\_rateOptionsNotePopup.cshtml" />
+    <Content Include="Views\Shared\_borrowersInformationPopupMessage.cshtml" />
+    <Content Include="Views\Shared\Commands\ManageFees\_manageFeeSmartGfeSection.cshtml" />
+    <Content Include="Views\Shared\Commands\_loandetails.cshtml" />
+    <Content Include="Views\Shared\_commandHeader.cshtml" />
+    <Content Include="Views\Shared\Log\_loanServiceDocumentDownload.cshtml" />
+    <Content Include="Views\Shared\Aus\_fannieMaeDu.cshtml" />
+    <Content Include="Views\Shared\Aus\_freddieMacLp.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\_SystemAdmin.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\_contacts.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Menu\_menu.cshtml" />
+    <Content Include="Views\Shared\_contactsProfile.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cCPACompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cDocSigningCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cEmployerCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cEscrowCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cFloodInsuranceCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cHazardInsuranceCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cHomeWarrantyCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cMortgageInsuranceCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cPropertyManagementCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cRealtorCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cSurveyCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cTermiteCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cTitleInsuranceCompany.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cCPAContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cDocSigningContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cEmployerContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cEscrowContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cFloodInsuranceContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cHazardInsuranceContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cHomeWarrantyContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cMortgageInsuranceContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cPropertyManagementContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cRealtorContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cSurveyContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cTermiteContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Contacts\cTitleInsuranceContact.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\Company\cCompanyHistoryPopup.cshtml" />
+    <Content Include="Views\Shared\_loanDetailsAndContactsInfoSearchResult.cshtml" />
+    <Content Include="Views\Shared\Queues\_mailRoom.cshtml" />
+    <Content Include="Views\Shared\ReDisclosure\_reDisclosure.cshtml" />
+    <Content Include="Views\Shared\ReDisclosure\_counterofferapproval.cshtml" />
+    <Content Include="Views\Shared\_loanDetailsAndContactsInfoOtherSearchResult.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\_SystemAdminPartialViewContainer.cshtml" />
+    <Content Include="Views\Shared\Appraisal\_appraisalUploadDocuments.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\ArmIndexRoutines\ArmIndexRoutines.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\LP_DU\LP_DU.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\LP_DU\LP.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\LP_DU\DU.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\InvestorConfiguration\_investordetails.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\InvestorConfiguration\_investorgridresult.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\InvestorConfiguration\_investorhistory.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\InvestorConfiguration\_investorproductdetails.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\InvestorConfiguration\_investorsubgridresult.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\InvestorConfiguration\_investorwarningmessage.cshtml" />
+    <Content Include="Views\Shared\ErrorViews\LoanCenterError.cshtml" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Content\LoanCenterSprite.psd" />
+    <Content Include="Views\Shared\MainSection.cshtml" />
+    <Content Include="Views\Shared\_footer.cshtml" />
+    <Content Include="Views\Shared\_contextualSection.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\_ExportCreditReport.cshtml" />
+    <Content Include="Views\Shared\SystemAdmin\InvestorConfiguration\_investorextension.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\InvestorExtensionValue.cshtml" />
+    <Content Include="Views\Shared\_OldLayout.cshtml" />
+    <Content Include="Views\Shared\OldLayoutParts\_headerSection.cshtml" />
+    <Content Include="Views\Shared\OldLayoutParts\_mainHeader.cshtml" />
+    <Content Include="Views\Shared\OldLayoutParts\_footer.cshtml" />
+    <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Scripts\angular\angular-resource.min.js.map" />
+    <Content Include="Scripts\angular\angular-route.min.js.map" />
+    <Content Include="Scripts\angular\angular.min.js.map" />
+    <Content Include="Scripts\angular\angular-animate.min.js.map" />
+    <Content Include="Views\Shared\_LayoutScripts.cshtml" />
+    <Content Include="Scripts\angular-block-ui.min.js.map" />
+    <Content Include="Scripts\angular-block-ui.js.map" />
+    <Content Include="Content\angular-block-ui.css.map" />
+    <Content Include="Views\Shared\_ConsumerLayout.cshtml" />
+    <Content Include="angular\consumer\docusign\navigation\consumernavbar.html" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-3.3.5\css\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap-3.3.5\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Views\SecureLink\Index.cshtml" />
+    <Content Include="Views\Shared\_ConsumerLayoutNew.cshtml" />
+    <Content Include="Views\SecureLink\SigningCompleteHandler.cshtml" />
+    <Content Include="Views\ConsumerSite\Index.cshtml" />
+    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome-4.5.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome-4.5.0\less\animated.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\core.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\fixed-width.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\font-awesome.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\icons.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\larger.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\list.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\mixins.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\path.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\stacked.less" />
+    <Content Include="Content\font-awesome-4.5.0\less\variables.less" />
+    <Content Include="Content\font-awesome-4.5.0\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_animated.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_core.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_icons.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_larger.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_list.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_path.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome-4.5.0\scss\_variables.scss" />
+    <Content Include="Scripts\d3\LICENSE" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Content\ConsumerSite\CommonStyle.css.bak" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-300\Open-Sans-300.eot" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-300\Open-Sans-300.ttf" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-300\Open-Sans-300.woff" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-300\Open-Sans-300.woff2" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-regular\Open-Sans-regular.eot" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-regular\Open-Sans-regular.ttf" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-regular\Open-Sans-regular.woff" />
+    <Content Include="Content\ConsumerSite\OpenSans\fonts\Open-Sans-regular\Open-Sans-regular.woff2" />
+    <Content Include="Content\ConsumerSite\font-icons\fonts\consumer-site.eot" />
+    <Content Include="Content\ConsumerSite\font-icons\fonts\consumer-site.ttf" />
+    <Content Include="Content\ConsumerSite\font-icons\fonts\consumer-site.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Commands\ManageFees\_closingcostsPOCDropdowns.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Commands\ManageFees\_closingCostSectionRightWithoutAmount.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Commands\ManageFees\_closingCostTextBoxAmountRight.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Commands\ManageFees\_closingCostTextBoxName.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="angular\common\address\address.directive.ts" />
+    <TypeScriptCompile Include="angular\common\emailcontrol\email.directive.ts" />
+    <TypeScriptCompile Include="angular\common\itemizedpropertytaxcalculator\itemizedpropertytaxcalculator.ts" />
+    <TypeScriptCompile Include="angular\consumersite\apiroot.ts" />
+    <TypeScriptCompile Include="angular\consumersite\banner\banner.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\back\back.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\breadcrumb\breadcrumb.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\formatCurrency\formatCurrency.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\masterlist\masterlist.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\inputMatch\inputmatch.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\navigationBar\navigationBar.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\progressSpinner\progressSpinnerDirective.ts" />
+    <TypeScriptCompile Include="angular\consumersite\directives\savecontinue\savecontinue.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\filters\filters.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\account\account.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\activationcode\activationcode.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\addresses\address.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\alertPreferences\alertpreferences.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\assets\assets.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\consumersite.config.ts" />
+    <TypeScriptCompile Include="angular\consumersite\consumersite.module.ts" />
+    <TypeScriptCompile Include="angular\consumersite\header\loanAppHeader.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\consumersite.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\declarations\declarations.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\success\success.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\productDetails\AdvancedFilterViewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\directives\filterbox\filterbox.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\directives\statusIndicator\statusIndicator.directive.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\pricing.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\credit\creditresults.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\credit\credit.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\employment\employment.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\otherIncome\otherincome.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\personal\personal.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\property\property.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\governmentMonitoring\governmentMonitoring.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\signout\signout.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\loanApp\summary\summary.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\pricing\productDetails\productDetails.controller.ts" />
+    <TypeScriptCompile Include="angular\consumersite\providers\uiNavigation.provider.ts" />
+    <TypeScriptCompile Include="angular\consumersite\services\consumerCredit.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\services\loan.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\services\mock.pricing.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\services\pricing.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\services\ui.navigation.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\services\ui.loanApp.pageContext.service.ts" />
+    <TypeScriptCompile Include="angular\consumersite\util\factory.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\account.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\activationCode.viewModel..ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\address.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\borrower.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\declarations.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\comsumersite.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\employment.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\lookup.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\loan.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\loanApplication.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\asset.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\otherIncome.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\pricing.viewModel.ts" />
+    <TypeScriptCompile Include="angular\consumersite\viewModels\property.viewModel.ts" />
+    <TypeScriptCompile Include="angular\copyloan\copyloan.controller.ts" />
+    <TypeScriptCompile Include="angular\copyloan\copyloan.module.ts" />
+    <TypeScriptCompile Include="angular\copyloan\copyloan.service.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\cashoutrefinance\cashoutrefinance.controller.ts" />
+    <TypeScriptCompile Include="angular\complianceease\complianceease.controller.ts" />
+    <TypeScriptCompile Include="angular\complianceease\complianceease.module.ts" />
+    <TypeScriptCompile Include="angular\complianceease\complianceease.routes.ts" />
+    <TypeScriptCompile Include="angular\complianceease\complianceease.service.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\fhacenter.controller.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\fhacenter.module.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\fhacenter.routes.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\fhacenter.service.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\purchasedown\purchasedown.controller.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\purchase\purchase.controller.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\rateandtermrefinance\rateandtermrefinance.controller.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\simplerefinance\simplerefinance.controller.ts" />
+    <TypeScriptCompile Include="angular\fhacenter\streamlinerefinance\streamlinerefinance.controller.ts" />
+    <TypeScriptCompile Include="angular\integrations\integrations.controller.ts" />
+    <TypeScriptCompile Include="angular\integrations\integrations.module.ts" />
+    <TypeScriptCompile Include="angular\integrations\integrations.service.ts" />
+    <TypeScriptCompile Include="angular\integrations\integrations.routes.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\credit.enumerations.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\credit.occupancymtx.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\property\property.controller.ts" />
+    <TypeScriptCompile Include="angular\costdetails\transactionalsummary\owedDueTextFilter.filter.ts" />
+    <TypeScriptCompile Include="angular\loancenter\util.module.ts" />
+    <TypeScriptCompile Include="angular\loandetails\compliancecheckpopup\compliancecheckfailedpopup.controller.ts" />
+    <TypeScriptCompile Include="angular\loandetails\compliancecheckpopup\compliancecheckpassedpopup.controller.ts" />
+    <TypeScriptCompile Include="angular\loandetails\testmodeproductpopup\testmodeproductpopup.controller.ts" />
+    <TypeScriptCompile Include="angular\loanparticipants\loanparticipants.modal.controller.ts" />
+    <TypeScriptCompile Include="angular\appraisal\appraisal.controller.ts" />
+    <TypeScriptCompile Include="angular\assignments\assignments.controller.ts" />
+    <TypeScriptCompile Include="angular\assignments\assignments.module.ts" />
+    <TypeScriptCompile Include="angular\common\common.collections.ts" />
+    <TypeScriptCompile Include="angular\common\common.date.ts" />
+    <TypeScriptCompile Include="angular\common\common.objects.ts" />
+    <TypeScriptCompile Include="angular\common\common.string.ts" />
+    <TypeScriptCompile Include="angular\common\directives\updatingValueIndicator.directive.ts" />
+    <TypeScriptCompile Include="angular\common\httpstatusUI\http.ui.status.service.ts" />
+    <TypeScriptCompile Include="angular\common\httpstatusUI\ui.status.module.ts" />
+    <TypeScriptCompile Include="angular\common\guid.service.ts" />
+    <TypeScriptCompile Include="angular\compliancecenter\auditlog\auditlog.controller.ts" />
+    <TypeScriptCompile Include="angular\compliancecenter\auditlog\auditlog.routes.ts" />
+    <TypeScriptCompile Include="angular\compliancecenter\auditlog\auditlog.service.ts" />
+    <TypeScriptCompile Include="angular\compliancecenter\compliancecenter.controller.ts" />
+    <TypeScriptCompile Include="angular\compliancecenter\compliancecenter.module.ts" />
+    <TypeScriptCompile Include="angular\compliancecenter\compliancecenter.routes.ts" />
+    <TypeScriptCompile Include="angular\contextualbar\contextualbar.service.ts" />
+    <TypeScriptCompile Include="angular\consumer\consumer.settings.ts" />
+    <TypeScriptCompile Include="angular\consumer\docusign\esigning\esigningroom\eSigningRoom.controller.ts" />
+    <TypeScriptCompile Include="angular\consumer\http.status.service.ts" />
+    <TypeScriptCompile Include="angular\consumer\consumer.testdata.ts" />
+    <TypeScriptCompile Include="angular\contextualbar\appraisal\appraisalcontextualbar.controller.ts" />
+    <TypeScriptCompile Include="angular\contextualbar\contextualbar.service.ts" />
+    <TypeScriptCompile Include="angular\contextualbar\contextualtitle\contextualtitle.controller.ts" />
+    <TypeScriptCompile Include="angular\costdetails\transactionalsummary\transaction.section.directive.ts" />
+    <TypeScriptCompile Include="angular\costdetails\transactionalsummary\transaction.subsection.directive.ts" />
+    <TypeScriptCompile Include="angular\costdetails\transactionalsummary\transactionalsummaryservice.ts" />
+    <TypeScriptCompile Include="angular\costdetails\transactionalsummary\transactions.directive.ts" />
+    <TypeScriptCompile Include="angular\costdetails\transactionalsummary\transaction.row.directive.ts" />
+    <TypeScriptCompile Include="angular\consumer\docusign\appraisal\appraisal.controller.ts" />
+    <TypeScriptCompile Include="angular\consumer\docusign\docupload\docupload.controller.ts" />
+    <TypeScriptCompile Include="angular\consumer\docusign\esigning\confirmation\success.controller.ts" />
+    <TypeScriptCompile Include="angular\consumer\consumer.config.ts" />
+    <TypeScriptCompile Include="angular\consumer\consumer.module.ts" />
+    <TypeScriptCompile Include="angular\consumer\authentication\authentication.controller.ts" />
+    <TypeScriptCompile Include="angular\consumer\consumer.service.ts" />
+    <TypeScriptCompile Include="angular\consumer\docusign\econsentsettings\econsentsettings.controller.ts" />
+    <TypeScriptCompile Include="angular\consumer\docusign\esigning\instructions\esigningInstructions.controller.ts" />
+    <TypeScriptCompile Include="angular\consumer\docusign\navigation\consumernavbar.controller.ts" />
+    <TypeScriptCompile Include="angular\contextualbar\details\contextualbardetails.controller.ts" />
+    <TypeScriptCompile Include="angular\debug\DebugController.ts" />
+    <TypeScriptCompile Include="angular\documents\documents.controller.ts" />
+    <TypeScriptCompile Include="angular\documents\documents.module.ts" />
+    <TypeScriptCompile Include="angular\documents\documents.routes.ts" />
+    <TypeScriptCompile Include="angular\documents\documents.service.ts" />
+    <TypeScriptCompile Include="angular\documents\needslist\needslist.controller.ts" />
+    <TypeScriptCompile Include="angular\documents\needslist\needslist.service.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\assets\assets.utils.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\credit.controller.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\credit.state.service.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\creditrunbutton\creditrunbtn.controller.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\publicrecords\publicrecords.controller.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\realestate\realestate.controller.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\credit\realestate\realestateitem.controller.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\declarations\declarations.utils.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\manageaccount\accountstatus.directive.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\manageaccount\manageaccount.service.ts" />
+    <TypeScriptCompile Include="angular\loanapplication\personal\personal.ts" />
+    <TypeScriptCompile Include="angular\loancalculator\loan.calculator.ts" />
+    <TypeScriptCompile Include="angular\loancenter\applicationdata.service2.ts" />
+    <TypeScriptCompile Include="angular\loancenter\globalApplicationData.service.ts" />
+    <TypeScriptCompile Include="angular\loancenter\loan.ts" />
+    <TypeScriptCompile Include="angular\loancenter\loancenter.app.ts" />
+    <TypeScriptCompile Include="angular\loandetails\lockdiclosuresmodals\lockconfirmation.modal.controller.ts" />
+    <TypeScriptCompile Include="angular\loanevents\eventHandler.ts" />
+    <TypeScriptCompile Include="angular\loanevents\loanEvents.service.ts" />
+    <TypeScriptCompile Include="angular\loanevents\loanEvents.module.ts" />
+    <TypeScriptCompile Include="angular\loanparticipants\loanparticipants.service.ts" />
+    <TypeScriptCompile Include="angular\loanparticipants\loanparticipants.viewmodel.ts" />
+    <TypeScriptCompile Include="angular\loanparticipants\participant.row.ts" />
+    <TypeScriptCompile Include="angular\loanparticipants\participants.table.ts" />
+    <TypeScriptCompile Include="angular\lockingandpricingadj\lockingandpricing.controller.ts" />
+    <TypeScriptCompile Include="angular\lockingandpricingadj\lockingandpricing.services.ts" />
+    <TypeScriptCompile Include="angular\lockingandpricingadj\lockingandpricingadj.routes.ts" />
+    <TypeScriptCompile Include="angular\lockingandpricingadj\lockingandpricingadj.module.ts" />
+    <TypeScriptCompile Include="angular\mailroom\mailroom.controller.ts" />
+    <TypeScriptCompile Include="angular\mailroom\mailroom.module.ts" />
+    <TypeScriptCompile Include="angular\mailroom\mailroom.resolver.ts" />
+    <TypeScriptCompile Include="angular\mailroom\mailroom.routes.ts" />
+    <TypeScriptCompile Include="angular\mailroom\mailroom.service.ts" />
+    <TypeScriptCompile Include="angular\navigation\adverse\adverse.controller.ts" />
+    <TypeScriptCompile Include="angular\ntbcenter\ntbcenter.controller.ts" />
+    <TypeScriptCompile Include="angular\ntbcenter\ntbcenter.module.ts" />
+    <TypeScriptCompile Include="angular\ntbcenter\ntbcenter.routes.ts" />
+    <TypeScriptCompile Include="angular\ntbcenter\ntbcenter.service.ts" />
+    <TypeScriptCompile Include="angular\preapprovalletters\preapprovalletters.preview.modal.controller.ts" />
+    <TypeScriptCompile Include="angular\preapprovalletters\preapprovalletters.controller.ts" />
+    <TypeScriptCompile Include="angular\preapprovalletters\preapprovalletters.module.ts" />
+    <TypeScriptCompile Include="angular\preapprovalletters\preapprovalletters.routes.ts" />
+    <TypeScriptCompile Include="angular\preapprovalletters\preapprovalletters.services.ts" />
+    <TypeScriptCompile Include="angular\securelinkemail\securelinkemail.controller.ts" />
+    <TypeScriptCompile Include="angular\securelinkemail\securelinkemail.module.ts" />
+    <TypeScriptCompile Include="angular\securelinkemail\securelinkemail.service.ts" />
+    <TypeScriptCompile Include="angular\security\PermissionsService.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\asset.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\borrower.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\employmentInfo.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\enums.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\extendedViewModels.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\genericTypes.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\hdmaDiclosure.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\housingExpenses.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\incomeInfo.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\liability.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\loan.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\loanApplication.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\lookupItem.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\transactionInfo.ts" />
+    <TypeScriptCompile Include="angular\ts\generated\enums.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\ActivityService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\ApplicationDataService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\AusService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\CompanyProfileService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\ComparisonService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\ComplianceCheckErrorService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\ComplianceResultService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\CopyLoanService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\CostService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\CreditService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\DocVaultService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\EncompassService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\GeneralSettingService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\GlobalContactsService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\IdentityGeneratorService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\IntegrationServicesResultService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\InvestorService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LeadManagerService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LiabilityService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LoanCalculatorService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LoanImportService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LoanLockHistoryService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LoanParticipantsService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LockingPricingService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\LookupService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\MegaLoanService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\NetTangibleBenefitService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\PricingService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\QueueService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\SecureLinkEmailAlternativeService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\SecureLinkEmailService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\SecureLinkService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\SecurityService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\TransactionSummaryService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\serviceProxies\UserService.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\viewModelBaseClasses.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\viewModelClasses.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\generated\viewModels.ts">
+      <DependentUpon>ServiceGeneration.txt4</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="angular\ts\lib\common.util.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\flaggedEnum.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\genericUtil.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\http.blockui.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\identityGenerator.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\referenceWrapper.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\property.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\common.util.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\enum.util.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\flaggedEnum.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\genericUtil.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\http.blockui.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\IdentityGenerator.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\referenceWrapper.ts" />
+    <TypeScriptCompile Include="angular\ts\extendedViewModels\property.extendedViewModel.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\enum.util.ts" />
+    <TypeScriptCompile Include="angular\ts\global\global.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\directiveFactory.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\httpUtil.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\srvDef.ts" />
+    <TypeScriptCompile Include="angular\ts\lib\underscore.extended.ts" />
+    <TypeScriptCompile Include="angular\usdacenter\usdacenter.controller.ts" />
+    <TypeScriptCompile Include="angular\usdacenter\usdacenter.module.ts" />
+    <TypeScriptCompile Include="angular\usdacenter\usdacenter.routes.ts" />
+    <TypeScriptCompile Include="angular\usdacenter\usdacenter.service.ts" />
+    <TypeScriptCompile Include="angular\vacenter\generalinformation\generalinformation.controller.ts" />
+    <TypeScriptCompile Include="angular\vacenter\irrlmax\irrlmax.controller.ts" />
+    <TypeScriptCompile Include="angular\vacenter\irrlqmcertification\irrlqmcertification.controller.ts" />
+    <TypeScriptCompile Include="angular\vacenter\vacenter.controller.ts" />
+    <TypeScriptCompile Include="angular\vacenter\vacenter.module.ts" />
+    <TypeScriptCompile Include="angular\vacenter\vacenter.routes.ts" />
+    <TypeScriptCompile Include="angular\vacenter\vacenter.service.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\d3\d3.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\d3\plugins\d3.superformula.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\ui-router\angular-ui-router.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptModuleKind>none</TypeScriptModuleKind>
+    <TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>1933</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:1932</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+</Project>

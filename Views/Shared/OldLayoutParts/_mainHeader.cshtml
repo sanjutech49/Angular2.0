@@ -1,0 +1,120 @@
+﻿@using MML.Common;
+@using MML.Common.Helpers;
+@using MML.Web.LoanCenter.Helpers.Utilities;
+<div class='head'>
+    @if (Session[SessionHelper.StyleSheetTheme].Equals(BrandingConstants.NewLeafLending))
+    {
+        <div class="schl" id="refreshLoanCenterPageOnClickOnLogo">
+        </div>
+    }
+    else if (Session[SessionHelper.StyleSheetTheme].Equals(BrandingConstants.MeAndMyLoan))
+    {
+        <div class="mml" id="refreshLoanCenterPageOnClickOnLogo">
+        </div>
+    }
+    else if (Session[SessionHelper.StyleSheetTheme].Equals(BrandingConstants.CovenantDirect))
+    {
+        <div class="cov" id="refreshLoanCenterPageOnClickOnLogo">
+        </div>
+    }
+    else if (Session[SessionHelper.StyleSheetTheme].Equals(BrandingConstants.IHomeLending))
+    {
+        <div class="ihl" id="refreshLoanCenterPageOnClickOnLogo">
+        </div>
+    }
+    else if (Session[SessionHelper.StyleSheetTheme].Equals(BrandingConstants.SkylineHomeLoans))
+    {
+        <div class="skyline" id="refreshLoanCenterPageOnClickOnLogo">
+        </div>
+    }
+    else
+    {
+        <div class="schl" id="refreshLoanCenterPageOnClickOnLogo">
+        </div>
+    }
+    <div class="line">
+    </div>
+    @if (Session[SessionHelper.DisplaySystemAdmin] == null || !(bool)Session[SessionHelper.DisplaySystemAdmin])
+    {
+        <div class="lo">
+        </div>
+        <input type="hidden" id="displaySystemAdmin" value="false" />
+    }
+    else
+    {
+        <div style="font-size: 25px; padding-top: 14px; float: left;">
+            System Administrator
+        </div>
+        <input type="hidden" id="displaySystemAdmin" value="true" />
+    }
+    <div class="headright">
+        <form action="" method="post">
+            @if (CommonHelper.ShowStartProspectButton(HttpContext.Current))
+            {
+                if (AccountHelper.IsInRole(RoleName.Concierge) || AccountHelper.IsInRole(RoleName.LoanOfficer) || AccountHelper.IsInRole(RoleName.LoanOfficerAssistant) || AccountHelper.IsInRole(RoleName.BranchManager))
+                {
+                    <a onclick='openNewProspect()'>
+                        <div class="startaprospect">
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <div class="startaprospect2">
+                    </div>
+                }
+                <text>&nbsp; &nbsp; &nbsp;</text>
+                <a href="#">
+                    <div class="quickpriser">
+                    </div>
+                </a>
+            }
+            <div style="float: right">
+
+
+
+
+
+
+
+
+                @if (Session[SessionHelper.DisplaySystemAdmin] == null || !(bool)Session[SessionHelper.DisplaySystemAdmin])
+                {
+                    const string clearSearchOnClick = "Search.SearchDataHelper(true, '', true)";
+                    const string searchButtonOnClick = "Search.SearchDataHelper(false, '', true)";
+
+                    <input type="hidden" id="displaySystemAdmin" value="false"/>                   
+                    <a href="javascript:void(0)" onclick="@clearSearchOnClick" class="clearsearchbutton clearSearchButton"
+                       id="clearsearchbutton" style="display: none"></a>
+                    <input type="text" class="search searchinput" name="searchinput" id="searchinput"
+                           value="Search" style="margin-right: 10px;"/>                                       
+                    <a href="javascript:void(0)" onclick="@searchButtonOnClick"
+                       class="searchbutton">
+                        <div class="gobutton imp-button-div-hxxs-wxs-prim">
+                            Go
+                        </div>
+                    </a>
+
+                }
+                else
+                {
+                    <input type="hidden" id="displaySystemAdmin" value="true" />
+                    const string clearSearchOnClick = "event.preventDefault();SystemAdmin.ClearSearch(this);";
+                    const string searchButtonOnClick = "event.preventDefault();SystemAdmin.Search(this, '', true);";
+                    const string searchOnKeyDown = "SystemAdmin.SearchInputKeydown(event);";
+
+                    <a class="clearsearchbutton clearSearchButton"
+                       id="clearsearchbutton" style="display: none" onclick="@clearSearchOnClick"></a>
+                    <div class="inner-addon right-addon" style="float:left">
+                        <i class="glyphicon glyphicon-search" style="padding-top: 6px; padding-right: 18px;"></i>
+                        <input type="text" class="search searchinput" name="searchinput" id="searchinput" value="Search" style="margin-right:10px;" onkeydown="@searchOnKeyDown" />
+                    </div>
+                    <a class="searchbutton">
+                        <span class="gobutton imp-button-div-hxxs-wxs-prim" onclick="@searchButtonOnClick" style="vertical-align: bottom; width: 21px;margin-top: 2px;">Go </span>
+                    </a>
+                }
+
+            </div>
+        </form>
+    </div>
+</div>

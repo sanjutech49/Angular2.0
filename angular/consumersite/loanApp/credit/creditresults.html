@@ -1,0 +1,119 @@
+﻿<div class="credit-results">
+    <div class="row wizard-content">
+
+        <div class="col-xs-12" ng-hide="creditResultsCntrl.isCreditDataAvailable">
+            <div class="row center">
+                <img width="149" height="150" ng-src="../../../../Content/images/ConsumerSite/cogs-lg.png" />
+            </div>
+            <div class="row center" style="margin: 30px; font-size: large">
+                We are checking your credit results.
+            </div>
+        </div>
+
+        <div class="col-xs-12" ng-show="creditResultsCntrl.isCreditDataAvailable">
+            <div class="row section-question-text section-content center">
+                Which loans from your credit report currently belong to <b>{{creditResultsCntrl.subjectProperty.streetName}}</b>?
+            </div>
+
+            <div class="col-md-6 col-md-offset-3">
+                <div data-ng-repeat="liability in creditResultsCntrl.borrowerLiens | orderBy: creditResultsCntrl.sortOrder">
+                    <div class="form-group">
+                        <div class="checkbox checkbox-lg">
+                            <input id="chkIsLien" type="checkbox" ng-model="liability.isAllocatedSubjProp">
+                            <label class="checkbox-label-lg" for="chkIsLien">{{liability.payoffLender}} - <span class="grey-text">Balance</span> {{liability.amount | currency}} - <span class="grey-text">Payment</span> {{liability.calculatedMonthlyAmount | currency}} - <span class="grey-text">Acct#</span> {{liability.accountNumber}}</label>
+                        </div>
+                    </div>
+                    <div class="center-col" ng-show="liability.isAllocatedSubjProp">
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label">Lien Position</label>
+                            <div class="col-xs-12">
+                                <select id="selLienPosition" class="form-control select-validation"
+                                        ng-model="liability.lienPosition"
+                                        ng-change="creditResultsCntrl.checkLienPosition(liability)">
+                                    <option value="1">1st Position</option>
+                                    <option value="2">2nd Position</option>
+                                    <option value="3">3rd Position</option>
+                                    <option value="4">4th Position</option>
+                                    <option value="5">5th Position</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label">Payments Include</label>
+                            <div class="col-xs-12">
+                                <select class="form-control select-validation"
+                                        ng-model="liability.selectedImpound"
+                                        required>
+                                    <option value="InsuranceOnly">Insurance Only</option>
+                                    <option value="NoImpounds">No Impounds</option>
+                                    <option value="TaxesandInsurance">Taxes and Insurance</option>
+                                    <option value="TaxesOnly">Taxes Only</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox checkbox-lg">
+                        <input type="checkbox" id="chkFreeAndClear" ng-model="creditResultsCntrl.isPropertyFreeAndClear">
+                        <label class="checkbox-label-lg" for="chkFreeAndClear">This Property is Free & Clear</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="row section-content center-col">
+                <div class="col-xs-12">
+                    <div class="section-question-text center">What are your Taxes & Insurance?</div>
+                    <div class="form-group">
+                        <label class="col-xs-12 control-label" for="txtPropertyTaxes">Property Tax</label>
+                        <div class="col-xs-12">
+                            <div class="input-group dual-input-60-40">
+                                <input id="txtPropertyTaxes" type="text" placeholder="$" class="form-control first"
+                                       ng-model="creditResultsCntrl.subjectProperty.propertyTaxExpense.monthlyAmount"
+                                       format-currency>
+                                <select class="form-control second select-validation" id="propertyTax"
+                                        ng-model="creditResultsCntrl.subjectProperty.propertyTaxExpense.preferredPayPeriod"
+                                        ng-options="propExpPeriod.value as propExpPeriod.text for propExpPeriod in creditResultsCntrl.applicationData.lookup.propertyExpensesPayPeriods"
+                                        required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 control-label" for="txtHomeOwnerExpense">Home Owner Insurance</label>
+                        <div class="col-xs-12">
+                            <div class="input-group dual-input-60-40">
+                                <input id="txtHomeOwnerExpense" type="text" placeholder="$" class="form-control first"
+                                       ng-model="creditResultsCntrl.subjectProperty.homeOwnerExpense.monthlyAmount"
+                                       format-currency>
+                                <select class="form-control second select-validation" id="homeInsurance"
+                                        ng-model="creditResultsCntrl.subjectProperty.homeOwnerExpense.preferredPayPeriod"
+                                        ng-options="propExpPeriod.value as propExpPeriod.text for propExpPeriod in creditResultsCntrl.applicationData.lookup.propertyExpensesPayPeriods" required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 control-label" for="txtFloodInsurance">Flood Insurance</label>
+                        <div class="col-xs-12">
+                            <div class="input-group dual-input-60-40">
+                                <input id="txtFloodInsurance" type="text" placeholder="$" class="form-control first"
+                                       ng-model="creditResultsCntrl.subjectProperty.floodInsuranceExpense.monthlyAmount"
+                                       format-currency>
+                                <select class="form-control second select-validation" id="floodInsurance"
+                                        ng-model="creditResultsCntrl.subjectProperty.floodInsuranceExpense.preferredPayPeriod"
+                                        ng-options="propExpPeriod.value as propExpPeriod.text for propExpPeriod in creditResultsCntrl.applicationData.lookup.propertyExpensesPayPeriods" required>
+                                    <option value="" disabled selected>Select One</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,178 @@
+﻿<div class="imp-cgrid other-costs">
+
+    <div class="header main" style="justify-content: space-between;">
+        <div>
+            <span class="tlabel">Other Costs</span>
+            <span>
+                <span class="imp-disclaimer">Recording Fees:</span>
+                <span>{{costDetailsCtrl.closingCostViewModel.totals.recordingFeesTotal | impCurrency}}</span>
+            </span>
+            <span style="margin-left:30px;">
+                <span class="imp-disclaimer">Taxes:</span>
+                <span>{{costDetailsCtrl.closingCostViewModel.totals.taxesTotal | impCurrency}}</span>
+            </span>
+        </div>
+        <div style="margin-right:5px;">
+            <div class="imp-smart-gfe" style="margin-top:8px; margin-right:5px;" ng-click="costDetailsCtrl.createSmartGFE()"></div>
+            <div class="imp-icon-refresh" style="margin-bottom:7px; cursor:pointer;" ng-click="costDetailsCtrl.refreshSmartGFE()" ng-show="costDetailsCtrl.showSmartGfeRefreshButton == 'true'"></div>
+        </div>
+    </div>
+
+    
+
+    <div class="container" ng-repeat="(costSection, loanCosts) in costDetailsCtrl.costDetailsData.groupedOtherCosts" ng-class="{'purchase': !costDetailsCtrl.isRefinance}">
+        <div class="row" ng-class="{'edit-mode': costDetailsCtrl.closingCostsRW}"
+             ng-mouseover="costDetailsCtrl.hoverInSection(costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection])"
+             ng-mouseleave="costDetailsCtrl.hoverOutSection(costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection])"
+             ng-click="costDetailsCtrl.addCost(false, costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection])">
+            <div ng-mouseover="costDetailsCtrl.hoverInSection(costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection])"
+                 ng-mouseleave="costDetailsCtrl.hoverOutSection(costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection])"
+                 class="section-add">
+                <imp-circle size="xsmall" color="#208DDC" is-plus="true" ng-show="costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection].hoverEdit && costdetailsCtrl.closingCostsRW"></imp-circle>
+            </div>
+            <div class="col-a">
+                {{costSection | uppercase}}
+                <div class="hyperlink">
+                    <span ng-show="costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection].hoverEdit && costDetailsCtrl.closingCostsRW" class="imp-hyperlink">click to add a fee</span>
+                </div>
+                <div ng-if="costDetailsCtrl.isInitialEscrowPaymentSection(loanCosts) && costDetailsCtrl.closingCostsRW" ng-click="costDetailsCtrl.openImpoundCalculator($event); $event.stopPropagation();" class="imp-calculator-icon calc-icon-position"></div>
+            </div>
+            <div class="col-m"></div>
+            <div class="col-m" ng-if="!costDetailsCtrl.isRefinance"></div>
+            <div class="col-m"></div>
+        </div>
+        <div class="row" ng-repeat="loanCost in loanCosts | filter: costDetailsCtrl.removedItemsFilter | filter: costDetailsCtrl.zeroItemsFilter | filter: costDetailsCtrl.isCostImpounded"
+             ng-class="{'edit-mode': loanCost.canEdit && costDetailsCtrl.closingCostsRW}"
+             ng-mouseover="costDetailsCtrl.hoverIn(loanCost, costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection])"
+             ng-mouseleave="costDetailsCtrl.hoverOut(loanCost, costDetailsCtrl.costDetailsData.groupedOtherCosts[costSection])"
+             ng-click="costDetailsCtrl.rowClick(loanCost, false)">
+            <div ng-show="loanCost.hoverEdit && !loanCost.editMode && costDetailsCtrl.closingCostsRW" class="imp-icon-pen"></div>
+            <div class="col-a">
+                <div class="sub-col-s">
+                    <span ng-if="loanCost.isAprCost" ng-class="{'apr': true, 'fully-paid-by-rebate' : costDetailsCtrl.isCostFullyPaidByRebate(loanCost), 'partially-paid-by-rebate' : costDetailsCtrl.isCostPartiallyPaidByRebate(loanCost)}">
+                        APR
+                    </span>
+                </div>
+                <div class="sub-col-xs"><span class="imp-disclaimer">{{$index + 1 | numberFixedLength:2}}</span></div>
+                <div class="sub-col-m">
+                    <span ng-show="!loanCost.editMode">{{loanCost.name}}</span>
+                    <div class="imp-span-ddl-container medium" ng-show="loanCost.editMode" ng-class="{'disabled' : costDetailsCtrl.isLoanCostRowDisabled(loanCost)}">
+                        <select ng-if="loanCost.costSection != 'E'"
+                                class="imp-ddl"
+                                ng-model="loanCost.uniqueCostTypeId"
+                                ng-disabled="costDetailsCtrl.isLoanCostRowDisabled(loanCost)"
+                                ng-change="costDetailsCtrl.costTypeChanged(loanCost, false)">
+                            <option value="null" ng-selected="{{loanCost.uniqueCostTypeId==null}}" disabled style="color:#999;display:none">Cost Type</option>
+                            <option ng-repeat="costType in costDetailsCtrl.getSectionCostTypes(false, loanCost.sectionId) | orderBy: 'text'"
+                                    value="{{costType.value}}"
+                                    ng-disabled="costDetailsCtrl.isOptionDisabled(false, costType.value, loanCost.uniqueCostTypeId)"
+                                    ng-selected="{{loanCost.uniqueCostTypeId==costType.value}}">
+                                {{costType.text}}
+                            </option>
+                        </select>
+                        <select ng-if="loanCost.costSection == 'E'"
+                                class="imp-ddl"
+                                ng-model="loanCost.uniqueCostTypeId"
+                                ng-options="for.value as for.text group by for.costTypeGroupCategory for for in costDetailsCtrl.closingCostViewModel.otherCostTypes[loanCost.sectionId] | orderBy: 'text'"
+                                ng-disabled="costDetailsCtrl.isLoanCostRowDisabled(loanCost)"
+                                ng-change="costDetailsCtrl.costTypeChanged(loanCost, false)">
+                            <option value="" ng-selected="{{loanCost.uniqueCostTypeId==null}}" disabled style="color:#999;display:none">Cost Type</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-include="loanCost.templateUrl" style="display: flex; flex-grow:4"></div>
+            </div>
+            <!--Borrower Paid-->
+            <div class="col-s">
+                <span class=" alert-red tol-indicator" ng-if="loanCost.useLoanEstimateFee && !loanCost.editMode">TOL</span>
+                <span class="cvalue" ng-if="!loanCost.editMode">{{(loanCost.borrowerPaid.atClosing==0 ? '' : loanCost.borrowerPaid.atClosing) | impCurrency:"" }} </span>
+                <div class="imp-combined" ng-if="loanCost.editMode">
+                    <input type="text" ng-model="loanCost.borrowerPaid.atClosing" imp-currency="" display-currency-sign="false" negative-values="true"
+                           ng-if="loanCost.editMode" ng-change="costDetailsCtrl.borrowerPaidAmountChanged(false, loanCost)"
+                           ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost) || costDetailsCtrl.disableBorrowerPaid(loanCost)">
+                    <span ng-if="loanCost.editMode && loanCost.costSection != 'F' && loanCost.costSection !='G'" class="imp-icon-combined" ng-click="costDetailsCtrl.showLoanEstimateFeePopup(loanCost, $event)"></span>
+                </div>
+            </div>
+            <div class="col-s">
+                <span class="cvalue" ng-if="!loanCost.editMode">{{(loanCost.borrowerPaid.beforeClosing==0 ? '' : loanCost.borrowerPaid.beforeClosing) | impCurrency:"" }}</span>
+                <input type="text" ng-model="loanCost.borrowerPaid.beforeClosing" imp-currency="" display-currency-sign="false"
+                       ng-if="loanCost.editMode" ng-change="costDetailsCtrl.borrowerPaidAmountChanged(false, loanCost)"
+                       ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)"
+                       ng-blur="costDetailsCtrl.onRightSectionAmountBlur(loanCost, loanCost.borrowerPaid, costDetailsCtrl.enums.costPaidWhenTypes.beforeClosing)">
+            </div>
+            <!--END Borrower Paid-->
+            <!--Seller Paid-->
+            <div class="col-s" ng-if="!costDetailsCtrl.isRefinance">
+                <span class="cvalue" ng-if="!loanCost.editMode">{{(loanCost.sellerPaid.atClosing==0 ? '' : loanCost.sellerPaid.atClosing) | impCurrency:"" }}</span>
+                <input type="text" ng-model="loanCost.sellerPaid.atClosing" imp-currency="" display-currency-sign="false"
+                       ng-if="loanCost.editMode" ng-change="costDetailsCtrl.calculateOtherCostsTotals()"
+                       ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)"
+                       ng-blur="costDetailsCtrl.onRightSectionAmountBlur(loanCost, loanCost.sellerPaid, costDetailsCtrl.enums.costPaidWhenTypes.atClosing)">
+            </div>
+            <div class="col-s" ng-if="!costDetailsCtrl.isRefinance">
+                <span class="cvalue" ng-if="!loanCost.editMode">{{(loanCost.sellerPaid.beforeClosing==0 ? '' : loanCost.sellerPaid.beforeClosing) | impCurrency:"" }}</span>
+                <input type="text" ng-model="loanCost.sellerPaid.beforeClosing" imp-currency="" display-currency-sign="false"
+                       ng-if="loanCost.editMode" ng-change="costDetailsCtrl.calculateOtherCostsTotals()"
+                       ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)"
+                       ng-blur="costDetailsCtrl.onRightSectionAmountBlur(loanCost, loanCost.sellerPaid, costDetailsCtrl.enums.costPaidWhenTypes.beforeClosing)">
+
+            </div>
+            <!--END Seller Paid-->
+            <!--Other Paid-->
+            <div class="col-s">
+                <span class="cvalue" ng-if="!loanCost.editMode">{{(loanCost.otherPaid.atClosing==0 ? '' : loanCost.otherPaid.atClosing) | impCurrency:"" }}</span>
+                <input type="text" ng-model="loanCost.otherPaid.atClosing" imp-currency="" display-currency-sign="false"
+                       ng-if="loanCost.editMode" ng-show="loanCost.otherPaid.beforeClosing==0" ng-change="costDetailsCtrl.calculateOtherCostsTotals()"
+                       ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)"
+                       ng-blur="costDetailsCtrl.onRightSectionAmountBlur(loanCost, loanCost.otherPaid, costDetailsCtrl.enums.costPaidWhenTypes.atClosing)">
+                <span class="imp-disclaimer" style="margin-left:5px;" ng-if="!loanCost.editMode"
+                      ng-hide="loanCost.otherPaid.atClosing == 0">{{loanCost.otherPaid.paidByDisplayValue }}</span>
+                <div class="imp-span-ddl-container medium"
+                     ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)}"
+                     ng-show="loanCost.otherPaid.beforeClosing!=0"
+                     ng-if="loanCost.editMode">
+                    <select name="costType"
+                            class="imp-ddl"
+                            ng-model="loanCost.otherPaid.paidBy"
+                            ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in costDetailsCtrl.applicationData.lookup.paidBy">
+                        <option value='' selected disabled style="color:#999;display:none">Paid By</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-s">
+                <span class="cvalue" ng-if="!loanCost.editMode">{{(loanCost.otherPaid.beforeClosing==0 ? '' : loanCost.otherPaid.beforeClosing) | impCurrency:"" }}</span>
+                <input type="text" ng-model="loanCost.otherPaid.beforeClosing" imp-currency="" display-currency-sign="false"
+                       ng-if="loanCost.editMode" ng-show="loanCost.otherPaid.atClosing==0" ng-change="costDetailsCtrl.calculateOtherCostsTotals()"
+                       ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)"
+                       ng-blur="costDetailsCtrl.onRightSectionAmountBlur(loanCost, loanCost.otherPaid, costDetailsCtrl.enums.costPaidWhenTypes.beforeClosing)">
+                <span class="imp-disclaimer" style="margin-left:5px;" ng-if="!loanCost.editMode"
+                      ng-hide="loanCost.otherPaid.beforeClosing == 0">{{loanCost.otherPaid.paidByDisplayValue }}</span>
+                <div class="imp-span-ddl-container medium"
+                     ng-class="{'disabled' : costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)}"
+                     ng-show="loanCost.otherPaid.atClosing!=0"
+                     ng-if="loanCost.editMode">
+                    <select name="costType"
+                            class="imp-ddl"
+                            ng-model="loanCost.otherPaid.paidBy"
+                            ng-change="costDetailsCtrl.calculateOtherCostsTotals()"
+                            ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields || costDetailsCtrl.disableRightSection(loanCost)"
+                            ng-options="selectedItem.value as selectedItem.text for selectedItem in costDetailsCtrl.applicationData.lookup.paidBy">
+                        <option value='' selected disabled style="color:#999;display:none">Paid By</option>
+                    </select>
+                </div>
+            </div>
+            <!--END Other Paid-->
+
+            <div ng-show="(loanCost.hoverEdit || loanCost.editMode) && !costDetailsCtrl.isTaxOrInsuranceCost(loanCost) && costDetailsCtrl.closingCostsRW">
+                <imp-circle size="xsmall" color="#F4BABC" hover-color="#e73302" is-plus="false" style=" margin-right: -30px; margin-top: 4px; position: absolute;"
+                            ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields"
+                            ng-click="costDetailsCtrl.deleteCost(loanCost)"></imp-circle>
+            </div>
+
+        </div>
+        <div ng-if="costDetailsCtrl.wrappedLoan.ref.totalAggregateAdjustment && costDetailsCtrl.isInitialEscrowPaymentSection(loanCosts) " ng-include src="'angular/costdetails/aggregateadjustment.html'" ng-class="{'aggregate-adjustment-row': costDetailsCtrl.isAggregateAdjustmentIndexOdd()}"></div>
+    </div>
+    <div ng-include src="'angular/costdetails/othertotal.html'">
+    </div>
+</div> 

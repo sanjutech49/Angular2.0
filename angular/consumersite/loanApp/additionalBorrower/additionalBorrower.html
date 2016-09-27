@@ -1,0 +1,66 @@
+﻿<div class="additional-borrower">
+    <div class="container-fluid">
+        <div class="row wizard-content">
+            <div class="col-xs-12">
+                <div class="row section-title center">Additional Borrowers Information</div>
+               
+                <div class="row center section-content">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="section-question-text top">
+                            Are there any other borrowers you’d like to add to the loan?
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="addBorrower" id="addBorrowerYes" value="true" checked="checked" ng-value="true" ng-model="accountCntrl.loan.loanApp.borrower.anyOtherBorrower">
+                            <label for="addBorrowerYes">Yes</label>
+                            <input type="radio" name="addBorrower" id="addBorrowerNo" value="false" ng-value="false" ng-model="accountCntrl.loan.loanApp.borrower.anyOtherBorrower">
+                            <label for="addBorrowerNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="accountCntrl.loan.loanApp.borrower.anyOtherBorrower">
+                    <div class="row center section-content">
+                        <div class="col-md-6 col-md-offset-3 section-question-text">
+                            What is their name and email so we can invite them to complete their Loan Application?
+                        </div>
+                    </div>
+                    <div class="row section-content">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="form-group">
+                                <label class="col-md-3 col-lg-4 control-label" for="otherFirstNameInput">First Name</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="otherFirstNameInput" placeholder="" ng-model="additionalBorrowerCntrl.firstName" ng-minlength="2" required />
+                                   
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-lg-4 control-label" for="otherLastNameInput">Last Name</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="otherLastNameInput" placeholder="" ng-model="additionalBorrowerCntrl.lastName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-lg-4 control-label" for="otherEmailInput">Email</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="otherEmailInput" placeholder="so we can invite them" ng-model="additionalBorrowerCntrl.email" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-lg-4 control-label" for="otherPreferredPhoneInput">Preferred Phone</label>
+                                <div class="col-md-6">
+                                    <div class="input-group dual-input-70-30">
+                                        <input type="tel" class="form-control" id="otherPreferredPhoneInput" placeholder="so we can invite them" ng-model="additionalBorrowerCntrl.phone" required />
+                                        <select class="form-control select-validation"
+                                                ng-model="additionalBorrowerCntrl.phoneType"
+                                                ng-options="phonetype.value as phonetype.text for phonetype in additionalBorrowerCntrl.phoneTypeOptions" required>
+                                            <option value="" disable>Select One</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

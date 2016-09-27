@@ -1,0 +1,152 @@
+﻿<div class="pricing-info">
+    <div class="product-name"> Rate & Pricing Information </div>
+    <div class="edit-item" ng-click="lockingpricingCtrl.enableRateAndPriceEdit()" ng-hide="lockingpricingCtrl.isDisabled() || !(lockingpricingCtrl.displayPricingInfoEditButton)">
+        <div class="imp-icon-pen"></div>
+        <span>Edit</span>
+    </div>
+</div>
+<div class="pgrid">
+    <div class="header">
+        <div class="divider">
+        </div>
+    </div>
+
+    <fieldset ng-disabled="lockingpricingCtrl.rateAndPriceEditDisabled || lockingpricingCtrl.isDisabled()">
+        <div class="container">
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">Base Rate | Final Rate</span>
+                </div>
+                <div class="col-xxl">
+                    <span>
+                        {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.baseInterestRate | impCurrency:"":3}} |
+                        {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.adjustedInterestRate | impCurrency:"":3}}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">Base Price | Final Price</span>
+                </div>
+                <div class="col-xxl">
+                    <span>
+                        {{ lockingpricingCtrl.wrappedLoan.ref.pricingAdjustments.enterprisePrice | impCurrency:"":3}} |
+                        {{ lockingpricingCtrl.wrappedLoan.ref.pricingAdjustments.finalLoanOfficerPrice | impCurrency:"":3}}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">ARM Index Type</span>
+                </div>
+                <div class="col-xxl" ng-if="!(lockingpricingCtrl.rateAndPriceEditDisabled)">
+                    <div class="imp-span-ddl-container medium">
+                        <select name="armIndexType"
+                                class="imp-ddl"
+                                ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.indexType"
+                                ng-options="selecteditem.text as selecteditem.text for selecteditem in lockingpricingCtrl.applicationData.lookup.armIndexType">
+                            <option value='' selected disabled style="color:#999;display:none">{{lockingpricingCtrl.wrappedLoan.ref.financialInfo.indexType}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl" ng-if="lockingpricingCtrl.rateAndPriceEditDisabled">
+                    <span>{{lockingpricingCtrl.wrappedLoan.ref.financialInfo.indexType}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">ARM Caps</span>
+                </div>
+                <div class="col-xxl">
+                    <div ng-if="lockingpricingCtrl.rateAndPriceEditDisabled">
+                        <span>
+                            {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.rateAdjustmentFirstChangeCapRate}}/
+                            {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.rateAdjustmentSubsequentCapPercent}}/
+                            {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.rateAdjustmentLifetimeCapPercent}}
+                        </span>
+                    </div>
+                    <div ng-if="!(lockingpricingCtrl.rateAndPriceEditDisabled)">
+                        <input type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.rateAdjustmentFirstChangeCapRate" class="col-s width-28" />
+                        <input type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.rateAdjustmentSubsequentCapPercent" class="col-s width-28" />
+                        <input type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.rateAdjustmentLifetimeCapPercent" class="col-s" style="width:28.9%" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">ARM First Change</span>
+                </div>
+                <div ng-if="lockingpricingCtrl.rateAndPriceEditDisabled" class="col-xxl">
+                    <span>months {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.firstPaymentAdjustmentMonths}}</span>
+                </div>
+                <div ng-if="!(lockingpricingCtrl.rateAndPriceEditDisabled)" style="width:58.5%">
+                    <input type="text" style="width: 95%" ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.firstPaymentAdjustmentMonths" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">ARM Adj. Period</span>
+                </div>
+                <div ng-if="lockingpricingCtrl.rateAndPriceEditDisabled" class="col-xxl">
+                    <span>{{lockingpricingCtrl.wrappedLoan.ref.loanLock.armAdjustmentPeriod}} months</span>
+                </div>
+                <div ng-if="!(lockingpricingCtrl.rateAndPriceEditDisabled)" style="width: 58.5%">
+                    <input type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.loanLock.armAdjustmentPeriod" style="width: 95%" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">Margin | Index | Sum</span>
+                </div>
+                <div class="col-xxl">
+                    <div ng-if="lockingpricingCtrl.rateAndPriceEditDisabled">
+                        <span>
+                            {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.margin | impCurrency:"":3}}|
+                            {{lockingpricingCtrl.wrappedLoan.ref.financialInfo.indexValue | impCurrency:"":3}}|
+                            {{(lockingpricingCtrl.wrappedLoan.ref.financialInfo.margin + lockingpricingCtrl.wrappedLoan.ref.financialInfo.indexValue) | impCurrency:"":3}}
+                        </span>
+                    </div>
+                    <div ng-if="!(lockingpricingCtrl.rateAndPriceEditDisabled)">
+                        <input type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.margin" decimal-places="3" display-currency-sign="false" imp-currency class="col-s width-28" />
+                        <input type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.indexValue" decimal-places="3" display-currency-sign="false" imp-currency class="col-s width-28" />
+                        <input type="text" decimal-places="3" display-currency-sign="false" ng-readonly="true"
+                               value="{{lockingpricingCtrl.wrappedLoan.ref.financialInfo.margin + lockingpricingCtrl.wrappedLoan.ref.financialInfo.indexValue}}" class="col-s width-28" style="width:28.9%"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">Floor</span>
+                </div>
+                <div class="col-xxl" ng-if="lockingpricingCtrl.rateAndPriceEditDisabled">
+                    <span>{{lockingpricingCtrl.wrappedLoan.ref.financialInfo.floorRate | impCurrency:"":3}}</span>
+                </div>
+                <div style="width: 58.5%" ng-if="!(lockingpricingCtrl.rateAndPriceEditDisabled)">
+                    <input style="width: 95%" type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.financialInfo.floorRate" decimal-places="3" display-currency-sign="false" imp-currency />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-l">
+                    <span class="imp-disclaimer">Rounding</span>
+                </div>
+                <div class="col-xxl" ng-if="!(lockingpricingCtrl.rateAndPriceEditDisabled)">
+                    <input class="col-s width-28" type="text" ng-model="lockingpricingCtrl.wrappedLoan.ref.loanLock.roundingIncrement" decimal-places="3" display-currency-sign="false" imp-currency />
+                    <div class="imp-span-ddl-container medium">
+                        <select name="loanLockRoundingType"
+                                class="imp-ddl"
+                                ng-model="lockingpricingCtrl.wrappedLoan.ref.loanLock.roundingValue"
+                                ng-options=" selecteditem.value as selecteditem.text for selecteditem in lockingpricingCtrl.applicationData.lookup.loanLockRoundingType">
+                            <option value='' selected disabled style="color:#999;display:none">Rounding Type</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xxl" ng-if="lockingpricingCtrl.rateAndPriceEditDisabled">
+                    <span>
+                        {{lockingpricingCtrl.applicationData.lookup.loanLockRoundingType[lockingpricingCtrl.wrappedLoan.ref.loanLock.roundingValue].text}}
+                        {{lockingpricingCtrl.wrappedLoan.ref.loanLock.roundingIncrement | impCurrency:"":3}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>

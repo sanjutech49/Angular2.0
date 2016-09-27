@@ -1,0 +1,42 @@
+﻿<div class='imp-popover imp-body itemized-property-tax-modal' ng-init="modalpopoverCtrl.ctrl.initialize(modalpopoverCtrl.model)">
+    <div class='container'>
+        <div class='header'>Itemized Property Taxes</div>
+        <div class='imp-split'></div>
+        <div class="content">
+            <div class=" row header">
+                <div class="col-m">Description</div>
+                <div class="col-m">Itemized Amt</div>
+                <div class="col-s">Month Due</div>
+            </div>
+            <div class="row" ng-repeat="itemizedPropertyTax in modalpopoverCtrl.model.itemizedPropertyTaxes">
+                <div class="col-m"><span>{{itemizedPropertyTax.descriptionDisplaValue}}</span></div>
+                <div class="col-m"><input type="text" ng-model="itemizedPropertyTax.amount" imp-currency display-currency-sign="false" ng-blur="modalpopoverCtrl.ctrl.recalculateAmount(modalpopoverCtrl.model)" /></div>
+                <div class="col-s">
+                    <div ng-if="modalpopoverCtrl.model.impounded && itemizedPropertyTax.amount" class="imp-span-ddl-container medium select-picker imp-span-ddl-container-short-4">
+                        <select class="imp-ddl imp-ddl-short"
+                                ng-options=" selecteditem.value as selecteditem.text for selecteditem in modalpopoverCtrl.ctrl.paymentPeriodMonths"
+                                ng-model="itemizedPropertyTax.month"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row annual-amount">
+                <div class="col-m"><span>Annual Amount</span></div>
+                <div class="col-m"><span class="imp-text-enhanced-color">{{ modalpopoverCtrl.model.amountForYear | impRound: 2 | currency }}</span></div>
+            </div>
+            <div class="row monthly-amount">
+                <div class="col-m">
+                    <span>Monthly Amount</span>
+                </div>
+                <div class="col-m"><span class="imp-text-enhanced-color">{{ modalpopoverCtrl.model.amountPerMonth | impRound: 2 | currency }}</span></div>
+            </div>
+        </div>
+        <div class='imp-split'></div>
+        <div class='footer'>
+            <div class="buttons">
+                <div class='imp-button-div-hs-ws-sec' ng-click="modalpopoverCtrl.cancel()">Cancel</div>
+                <div class='imp-button-div-hs-ws-prim' ng-click="modalpopoverCtrl.done(modalpopoverCtrl.model)">Done</div>
+            </div>
+        </div>
+    </div>
+</div>
+

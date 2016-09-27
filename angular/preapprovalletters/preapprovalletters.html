@@ -1,0 +1,169 @@
+﻿<div class="preapproval-letters">
+    <div class="title">
+        <div class="product-name"> {{preapprovallettersCtrl.wrappedLoan.ref.product.programName}}</div>
+        <div class="approved-fields">
+            <div class="col">
+                <span class="lbl-name">
+                    Purchase Price:
+                </span>
+                <span class="lbl-value">
+                    {{preapprovallettersCtrl.wrappedLoan.ref.getSubjectProperty().purchasePrice | currency : "$" : 0}}
+                </span>
+            </div>
+            <div class="col" ng-show="preapprovallettersCtrl.wrappedLoan.ref.loanPurposeType == 1">
+                <span class="lbl-name">
+                    Down Payment:
+                </span>
+                <span class="lbl-value">
+                    {{preapprovallettersCtrl.wrappedLoan.ref.getSubjectProperty().purchasePrice - preapprovallettersCtrl.wrappedLoan.ref.loanAmount | currency : "$" : 0}} |
+                    {{(1 - (preapprovallettersCtrl.wrappedLoan.ref.loanAmount / preapprovallettersCtrl.wrappedLoan.ref.getSubjectProperty().purchasePrice)) * 100  | impRound: 0 | impPercentage}}
+                </span>
+            </div>
+            <div class="col">
+                <span class="lbl-name">
+                    Approved Loan Amount:
+                </span>
+                <span class="lbl-value">
+                    {{preapprovallettersCtrl.wrappedLoan.ref.loanAmount | currency : "$" : 0}}
+                </span>
+            </div>
+            <div class="col">
+                <span class="lbl-name ">
+                    Approved Inderest Rate:
+                </span>
+                <span class="lbl-value">
+                    {{preapprovallettersCtrl.wrappedLoan.ref.financialInfo.noteRate | impRound: 3 | impPercentage }}
+                </span>
+            </div>
+            <div class="col" style="float:right">
+                <span class="lbl-value" style="float: right">
+                    {{preapprovallettersCtrl.wrappedLoan.ref.financialInfo.apr | impRound: 3 | impPercentage }}
+                </span>
+                <span class="lbl-name" style="float: right">
+                    Approved APR:
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <div class="header-text">PreApproval Letters</div>
+        </div>
+        <div class="row">
+            <div class="col imp-disclaimer" style="width: 70px;">
+                Issue Date
+            </div>
+            <div class="col imp-disclaimer" style="width: 145px;">
+                Subject City / State / Zip
+            </div>
+            <div class="col imp-disclaimer" style="width: 140px;">
+                Template
+            </div>
+            <div class="col imp-disclaimer" style="width: 75px;">
+                Purchase
+            </div>
+            <div class="col imp-disclaimer" style="width: 75px;">
+                Loan Amt.
+            </div>
+            <div class="col imp-disclaimer" style="width: 110px;">
+                Expiration Date
+            </div>
+            <div class="col imp-disclaimer" style="width: 395px;">
+                Send Letter To
+            </div>
+            <div class="col" style="width: 60px;">
+            </div>
+        </div>
+        <div ng-repeat="preApprovalLetterHistory in preapprovallettersCtrl.wrappedLoan.ref.sentPreApprovalLetterHistories">
+            <div class="row">
+                <div class="col" style="width: 70px;">
+                    {{preApprovalLetterHistory.date | date: "MM/dd/yy"}}
+                </div>
+                <div class="col" style="width: 145px;">
+                    {{preapprovallettersCtrl.wrappedLoan.ref.getProperty(preApprovalLetterHistory.propertyId).fullAddressString}}
+                </div>
+                <div class="col" style="width: 140px;" title="{{preapprovallettersCtrl.getTemplateById(preApprovalLetterHistory.letterTemplateId).templateName}}">
+                    {{preapprovallettersCtrl.getTemplateById(preApprovalLetterHistory.letterTemplateId).templateName}}
+                </div>
+                <div class="col" style="width: 75px;">
+                    {{preApprovalLetterHistory.letterPurchasePrice | currency : "$" : 0}}
+                </div>
+                <div class="col" style="width: 75px;">
+                    {{preApprovalLetterHistory.letterLoanAmount | currency : "$" : 0}}
+                </div>
+                <div class="col" style="width: 110px;" ng-style="preapprovallettersCtrl.isLetterExpired(preApprovalLetterHistory.expirationDate) && {'color': '#ef1126'} ">
+                    {{preApprovalLetterHistory.expirationDate | date: "MM/dd/yy"}}
+                </div>
+                <div class=" col" style="width: 395px;" >
+                    {{preapprovallettersCtrl.getSentToUsersHistory(preApprovalLetterHistory)}}
+                </div>
+                <div class="col" style="width: 60px;">
+                    <div class="imp-icon-pdf-small" style="margin-left: 25px;" ng-dblclick="preapprovallettersCtrl.DownloadDocument(preApprovalLetterHistory.fileStoreItemId)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="new" style="align-items: flex-start;">
+            <div class="new-icon" style="margin-top: 5px;">New</div>
+            <div class="col" style="width: 70px;margin-top: 5px;">
+                {{preapprovallettersCtrl.issueDate}}
+            </div>
+            <div class="col" style="width: 145px;margin-top: 5px;">
+                {{preapprovallettersCtrl.subjectPropertyAddress}}
+            </div>
+            <div class="col" style="width: 140px;">
+                <div class="imp-span-ddl-container medium" style="margin-left:0px;" ng-class="{'imp-is-disabled': !preapprovallettersCtrl.validateCreditReportDate()}" >
+                    <select style="padding-right: 0px;" class="imp-ddl" ng-style="!preapprovallettersCtrl.validateCreditReportDate() && {'color': '#9d9d9d'}"
+                            ng-disabled="!preapprovallettersCtrl.validateCreditReportDate()" ng-model="preapprovallettersCtrl.templateId"
+                            ng-change="preapprovallettersCtrl.validateData()"
+                            ng-options="template.id as template.templateName for template in preapprovallettersCtrl.applicationData.preApprovalLetterTemplates">
+                        <option value='' selected disabled style="color:#9d9d9d;display:none">Select One</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col" style="width: 75px; overflow: visible;" >
+                <input ng-model="preapprovallettersCtrl.letterPurchasePrice" type="text" placeholder="$" style="width: 65px;" imp-currency
+                       ng-class="{'imp-has-error' :  !preapprovallettersCtrl.purchasePriceValidated, 'imp-is-disabled': !preapprovallettersCtrl.validateCreditReportDate() }"
+                       ng-disabled="!preapprovallettersCtrl.validateCreditReportDate()"
+                       ng-blur="preapprovallettersCtrl.onPurchasePriceBlur()"
+                       ng-focus="preapprovallettersCtrl.onPurchasePriceFocus()" />
+                <div style="margin-top:5px; line-height:1;" ng-if="preapprovallettersCtrl.showPurchasePriceDisclaimer">
+                    <span class="imp-error-label" style="color:#ef1126;">Cannot exceed Approved Purchase Price</span>
+                </div>
+            </div>
+            <div class="col" style="width: 75px; overflow: visible;" >
+                <input ng-model="preapprovallettersCtrl.letterLoanAmount" type="text" placeholder="$" style="width: 65px;" imp-currency
+                       ng-class="{'imp-has-error' :  !preapprovallettersCtrl.loanAmountlValidated, 'imp-is-disabled': !preapprovallettersCtrl.validateCreditReportDate() }"
+                       ng-disabled="!preapprovallettersCtrl.validateCreditReportDate()"
+                       ng-blur="preapprovallettersCtrl.onLoanAmountBlur()"
+                       ng-focus="preapprovallettersCtrl.onLoanAmountFocus()" />
+                <div style="margin-top:5px; line-height:1;" ng-if="preapprovallettersCtrl.showLoanAmountDisclaimer">
+                    <span class="imp-error-label" style="color:#ef1126;">Cannot exceed Approved Loan Price</span>
+                </div>
+            </div>
+            <div class="expirationdate" style="width: 110px;">
+                <imp-date-picker ng-model="preapprovallettersCtrl.letterExpirationDateEntered" display-picker="true" type="text"
+                                 ng-class="{'imp-is-disabled': !preapprovallettersCtrl.validateCreditReportDate()}"
+                                 custom-filters="[{ruleFunction:preapprovallettersCtrl.ruleFunctionExpirationDate, callBackFunction:preapprovallettersCtrl.validateExpirationDate, executeOn:'blur'}]"
+                                 date-settings="{defaultValidationEnabled:true, dateFormat: 'MM/dd/yy', minDate: preapprovallettersCtrl.issueDate, maxDate: preapprovallettersCtrl.letterExpirationDateEntered, placeholder: '__/__/__', hideErrorMessage: true, customErrorMessage:preapprovallettersCtrl.letterExpirationDateMessage, validateOnFocus:true, disabled:!preapprovallettersCtrl.validateCreditReportDate()}" />
+                </imp-date-picker>
+            </div>
+            <div class="col" style="width: 395px;" title="{{preapprovallettersCtrl.selectedNames}}" >
+                <button ng-disabled="!preapprovallettersCtrl.validateCreditReportDate()" ng-class="{'send-to-btn-disabled': !preapprovallettersCtrl.validateCreditReportDate()}" ng-click="preapprovallettersCtrl.showSendToSection($event)" type="button" class="btn btn-primary dropdown-toggle send-to-btn" dropdown-toggle ng-disabled="disabled">
+                    <div class="text">
+                        {{preapprovallettersCtrl.selectedNames}}
+                    </div>
+                    <div class="caret" style="border-top: 4px solid #9d9d9d; float: left; margin-top: 10px;"></div>
+                </button>
+            </div>
+            <div class="col" style="width: 60px;  margin-right: 0px;overflow: visible;">
+                <input type="button" class="imp-button-hm-wl-prim" style="height:24px; width: 60px; padding: 0 0; font-size:13px" value="Preview" ng-disabled="!preapprovallettersCtrl.validateData() || !preapprovallettersCtrl.expirationDateValidated || !preapprovallettersCtrl.validateCreditReportDate()" ng-click="preapprovallettersCtrl.openPreview(preapprovallettersCtrl.wrappedLoan, preapprovallettersCtrl.sendToUsers, preapprovallettersCtrl.applicationData,
+                       preapprovallettersCtrl.letterLoanAmount, preapprovallettersCtrl.letterPurchasePrice, preapprovallettersCtrl.letterExpirationDateEntered, preapprovallettersCtrl.templateId)">
+                <div style="margin-top:5px; line-height:1; float: right" ng-if="!preapprovallettersCtrl.validateCreditReportDate()">
+                    <span class="imp-error-label" style="color:#ef1126;">The Credit report is not valid. Please run Credit to issue a PreApproval Letter.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

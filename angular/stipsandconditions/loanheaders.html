@@ -1,0 +1,4 @@
+﻿<span class="green-title">{{title.split(',')[0] || 'Loan'}}</span>
+<span class="divider imp-disclaimer"> | </span>
+<span ng-class="{'green-title': title.split(',')[1].length > 0, 'grey-title': !title}">{{ (title.split(',')[1].length > 0) ? title.split(',')[1] : 'Refinance - Cash Out'}}</span>
+<span class="divider grey-title" ng-show="title.length"> | </span> <span class="grey-title"> {{ (title) ? 'Primary Residence' : ''}} </span>

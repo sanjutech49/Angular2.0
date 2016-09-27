@@ -1,0 +1,321 @@
+﻿@model MML.Web.LoanCenter.ViewModels.OrderRequestedViewModel
+@using MML.Contracts
+@using Telerik.Web.Mvc.UI
+@using MML.Common
+@using MML.Common.Helpers
+@using MML.Web.LoanCenter.Helpers.Utilities
+<div class="todolist">
+    <div id="todolisthead" class="todolisthead">
+        <div class="left0 w180">
+            <div class="fleft">
+                <span id="currentWorkQueueType" class="namelink">Order Requested</span></div>
+            <div class="smallarrow">
+            </div>
+        </div>
+        <div class="nooftasks">
+            <span id="nooftasks2">@Model.TotalItems.ToString()</span> <span class="font15">Requested Orders</span>
+        </div>
+        <div class="right1">
+            <div class="left1">
+                <span class="normalfont">Show: </span><span id="officerTaskHeadderSpan" class="g12">@MML.Common.Helpers.EnumHelper.GetStringValue( ( ( MML.Web.LoanCenter.Helpers.Utilities.OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).BoundDate )</span>
+            </div>
+            <div class="right0">
+                <div class="filter">
+                    <ul id="nav">
+                        <li><a href="#">&nbsp;</a>
+                            <ul>
+                                <li></li>
+                                <li id="ftoday" class="lower">@Ajax.ActionLink( "Today", "Execute", "Command", new { Command = "OrderRequestedGridDateFilter,DateFilter=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Today')" }, new { id = "aftoday" } )</li>
+                                <li id="ftomorrow" class="lower">@Ajax.ActionLink( "Yesterday", "Execute", "Command", new { Command = "OrderRequestedGridDateFilter,DateFilter=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Tomorrow')" }, new { id = "aftomorrow" } )</li>
+                                <li id="fthisweek" class="lower">@Ajax.ActionLink( "Last Week", "Execute", "Command", new { Command = "OrderRequestedGridDateFilter,DateFilter=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('This Week')" }, new { id = "afthisweek" } )</li>
+                                <li id="fnextweek" class="lower">@Ajax.ActionLink( "Last Month", "Execute", "Command", new { Command = "OrderRequestedGridDateFilter,DateFilter=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Next Week')" }, new { id = "afnextweek" } )</li>
+                                <li id="fthismonth" class="lower">@Ajax.ActionLink( "All Open", "Execute", "Command", new { Command = "OrderRequestedGridDateFilter,DateFilter=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('This Month')" }, new { id = "afthismonth" } )</li>
+                                <li></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <a id="minimizetoday">
+                    <div id="minmax" class="min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="listandpage">
+        <div class="queuecontent">
+            <table class="queuetable">
+                <tr class="queuesubjects" id="trGridHeader">
+                    <td>
+                    </td>
+                    <td class="t0">
+                    </td>
+                    <td style="display: none">
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Order", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Order')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Order')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Order')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Order')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Loan #", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=2" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('LoanNumber')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('LoanNumber')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('LoanNumber')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('LoanNumber')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Borrower", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=3" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Borrower')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Borrower')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Borrower')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Borrower')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Purpose", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=4" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Purpose')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Purpose')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Purpose')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Purpose')" } )
+                        <div class="orderRequestedLoanPurposeArrow">
+                            <div class="orderRequestedLoanPurposeFilter">
+                                <ul id="orderRequestedLoanPurposeFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).LoanPurposeFilter == null || ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).LoanPurposeFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "OrderRequestedLoanPurposeTypeFilter,LoanPurposeFilter=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                            </li>
+                                            @foreach ( MML.Contracts.LoanTransactionType loanTransactionType in Model.LoanPurposeList )
+                                            {
+                                                <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).LoanPurposeFilter != null && ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).LoanPurposeFilter == loanTransactionType.GetStringValue() ? "lowers" : "lower")">
+                                                    @Ajax.ActionLink( loanTransactionType.GetStringValue(), "Execute", "Command", new { Command = "OrderRequestedLoanPurposeTypeFilter,LoanPurposeFilter=" + loanTransactionType.GetStringValue() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                                </li>
+                                            }
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Loan Amt", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=5" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('LoanAmount')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('LoanAmount')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('LoanAmount')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('LoanAmount')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Purchase Amt", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=6" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('PurchaseAmount')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('PurchaseAmount')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('PurchaseAmount')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('PurchaseAmount')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Est Value", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=7" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Estimatedvalue')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Estimatedvalue')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Estimatedvalue')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Estimatedvalue')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Seller", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=8" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Seller')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Seller')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Seller')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Seller')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "NonConf", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=9" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('NonConforming')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('NonConforming')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('NonConforming')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('NonConforming')" } )
+                        <div class="orderRequestedNonConformingArrow">
+                            <div class="orderRequestedNonConformingFilter">
+                                <ul id="orderRequestedNonConformingFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).NonConformingFilter == null || ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).NonConformingFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "OrderRequestedNonConformingFilter,NonConforming=-1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                            </li>
+                                            <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).NonConformingFilter != null && ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).NonConformingFilter == "0" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Conforming", "Execute", "Command", new { Command = "OrderRequestedNonConformingFilter,NonConforming=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                            </li>
+                                            <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).NonConformingFilter != null && ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).NonConformingFilter == "1" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "NonConforming", "Execute", "Command", new { Command = "OrderRequestedNonConformingFilter,NonConforming=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                            </li>
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Rush", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=10" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Rush')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Rush')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Rush')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Rush')" } )
+                        <div class="orderRequestedRushArrow">
+                            <div class="orderRequestedRushFilter">
+                                <ul id="orderRequestedRushFilter">
+                                    <li><a href="#">&nbsp;</a>
+                                        <ul>
+                                            <li></li>
+                                            <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).RushFilter == null || ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).RushFilter == "" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Show All", "Execute", "Command", new { Command = "OrderRequestedRushFilter,Rush=-1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                            </li>
+                                            <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).RushFilter != null && ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).RushFilter == "1" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "Yes", "Execute", "Command", new { Command = "OrderRequestedRushFilter,Rush=1" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                            </li>
+                                            <li class="@(( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).RushFilter != null && ( ( OrderRequestedListState )Session[ SessionHelper.OrderRequestedListState ] ).RushFilter == "0" ? "lowers" : "lower")">
+                                                @Ajax.ActionLink( "No", "Execute", "Command", new { Command = "OrderRequestedRushFilter,Rush=0" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess()" } )
+                                            </li>
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Concierge", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=11" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('LoanOfficer')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('LoanOfficer')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('LoanOfficer')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('LoanOfficer')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Requested", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=12" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('RequestedDate')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('RequestedDate')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('RequestedDate')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('RequestedDate')" } )
+                    </td>
+                    <td class="t">@Ajax.ActionLink( "Age", "Execute", "Command", new { Command = "OrderRequestedGridSorting,Column=13" }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Age')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Age')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Age')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Age')" } )
+                    </td>
+                </tr>
+                @if ( Model.RequestedOrders != null )
+                {
+                    for ( int i = 0; i < Model.RequestedOrders.Count; i++ )
+                    {
+                    <tr class="@Model.RequestedOrders[ i ].ClassCollection first last"  id="task_@{@String.Format( "{0}P", i )}" onclick="SelectedTask('@String.Format( "{0}P", i )','@Model.RequestedOrders[ i ].ClassCollection first last', false, 'OrderRequested')">
+                        <td>
+                            <div class="biggreen" id="arrowdiv @i">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="@Model.RequestedOrders[ i ].ExceptionClassCollection exceptionIcon">
+                            </div>
+                        </td>
+                        <td style="display: none" class="loanid">@Model.RequestedOrders[ i ].LoanId</td>
+                        <td style="display: none" class="encryptedloanid">@Server.UrlEncode( EncryptionHelper.EncryptRijndael( Model.RequestedOrders[ i ].LoanId.ToString(), EncriptionKeys.Default ) )</td>
+                        <td>
+                            @Model.RequestedOrders[ i ].Order
+                        </td>
+                        <td>
+                            @Model.RequestedOrders[ i ].LoanNumber
+                        </td>
+                        <td>
+                            @Model.RequestedOrders[ i ].Borrower
+                        </td>
+                        <td>
+                            @Model.RequestedOrders[ i ].Purpose.GetStringValue()
+                        </td>
+                        <td>
+                            <div class="numbersrightloanamount">@Model.RequestedOrders[ i ].LoanAmount.ToString().ToMoney()</div>
+                        </td>
+                        <td>
+                            @if ( Model.RequestedOrders[ i ].PurchaseAmount.Equals(0))
+                            {
+                                <div></div>
+                            }
+                            else 
+                            {
+                                @Model.RequestedOrders[ i ].PurchaseAmount.ToString().ToMoney()
+                            }                            
+                        </td>
+                        <td>
+                            @if ( Model.RequestedOrders[ i ].EstimatedValue.Equals( 0 ) )
+                            {
+                                <div></div>
+                            }
+                            else 
+                            {
+                                @Model.RequestedOrders[ i ].EstimatedValue.ToString().ToMoney()
+                            }   
+                        </td>
+                        <td style="text-align: center">
+                            @if( Model.RequestedOrders[ i ].Category.Equals( BusinessContactCategory.Seller ) )
+                            {
+                                switch ( Model.RequestedOrders[ i ].Seller )
+                                {
+                                    case SellerType.Individual:
+                                            <img src="@CDNHelper.ImagesStaticContentUrl/Content/images/Individual.png" />
+                                                 break;
+                                    case SellerType.Bank:
+                                            <img src="@CDNHelper.ImagesStaticContentUrl/Content/images/Bank.png" />
+                                                 break;
+                                    case SellerType.LLC:
+                                            <img src="@CDNHelper.ImagesStaticContentUrl/Content/images/Llc.png" />
+                                                 break;
+                                    default:
+                                                 break;
+                                }
+                            }
+                        </td>
+                        <td style="text-align: center">
+                            @if ( Model.RequestedOrders[ i ].LoanAmount > 417000 && Model.RequestedOrders[ i ].NonConforming )
+                            {
+                                <b>$</b>
+                            }
+                        </td>
+                        <td style="text-align: center">
+                            @if ( Model.RequestedOrders[ i ].Rush )
+                            {
+                                <img src="@CDNHelper.ImagesStaticContentUrl/Content/images/okhandgreen.png" />
+                            }
+                        </td>
+                        <td>
+                            @Model.RequestedOrders[ i ].LoanOfficer
+                        </td>
+                        <td>
+                            @Model.RequestedOrders[ i ].RequestedDate.ToString( "MM/dd/yyyy" )
+                        </td>
+                        <td>
+                            @Model.RequestedOrders[ i ].Age
+                        </td>
+                    </tr>		        
+                    }
+                }
+            </table>
+        </div>
+        <div class="gridlistfooter">
+            <div id="numberOfRecordsDiv" class="normalfont left142" style="width: 170px;">
+                @if ( Model.TotalItems != 0 )
+                {     
+                    @(( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage * 10 - 9) <span>-</span> @(( ( MML.Web.LoanCenter.Helpers.Utilities.OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage * 10 - ( 10 - @Model.RequestedOrders.Count )) <span>of</span> @Model.TotalItems.ToString() <span>records</span>
+                }
+                else if ( Model.TotalItems == 0 )
+                {
+                    <span>0 records</span>
+                }
+            </div>
+            @if ( Model.PageCount > 1 )
+            { 
+                <div id="pagingDiv" class="normalfont left20">
+                    @if ( Model.TotalItems != 0 )
+                    {
+                        if ( ( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage != 1 )
+                        {               
+                        <a href="javascript:void(0)" onclick="RequestedOrdersGrid.DataHelper('command=RequestedOrdersGridPaging,Page=@(( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage - 1)')">
+                            <div class="leftarrow">
+                            </div>
+                        </a>
+                        }
+                        else
+                        {
+                        <div class="leftarrow">
+                        </div>
+                        }
+                        <div class="left1010">
+                            @if ( Model.CurrentPage > 10 )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "OrderRequestedGridPaging,Page={0}",
+                                   ( Model.PageCount >= ( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage - 10 ) ?
+                                   ( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage - 10 :
+                                   Model.PageCount )
+                           },
+                                                                       new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Page, plusTen')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Page, plusTen')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Page, plusTen')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                            @for ( int j = Model.StartPage; j <= Model.EndPage; j++ )
+                            {
+                                if ( j != ( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage )
+                                { 
+                                    @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "OrderRequestedGridPaging,Page={0}", j ) },
+                                                      new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "OrderRequestedGrid.OrderRequestedDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "OrderRequestedGrid.OrderRequestedDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "OrderRequestedGrid.OrderRequestedDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "OrderRequestedGrid.OrderRequestedDataOnSuccess('Page{0}')", j ) }, new { @class = "page" } )
+                                }
+                                else
+                                { 
+                                    @Ajax.ActionLink( String.Format( "{0} ", j ), "Execute", "Command", new { Command = String.Format( "OrderRequestedGridPaging,Page={0}", j ) }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = String.Format( "OrderRequestedGrid.OrderRequestedDataOnFailure('Page{0}')", j ), OnComplete = String.Format( "OrderRequestedGrid.OrderRequestedDataOnComplete('Page{0}')", j ), OnBegin = String.Format( "OrderRequestedGrid.OrderRequestedDataOnBegin('Page{0}')", j ), OnSuccess = String.Format( "OrderRequestedGrid.OrderRequestedDataOnSuccess('Page{0}')", j ) }, new { @class = "pageselected" } )
+                                }
+                            }
+                            @if ( Model.LastPageDots == false )
+                            {
+                                @Ajax.ActionLink( "...", "Execute", "Command", new
+                           {
+                               Command = String.Format( "OrderRequestedGridPaging,Page={0}",
+                               ( Model.PageCount >= ( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage + 10 ) ?
+                               ( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage + 10 : Model.PageCount )
+                           },
+                                                                    new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "mainsection", OnFailure = "OrderRequestedGrid.OrderRequestedDataOnFailure('Page, plusTen')", OnComplete = "OrderRequestedGrid.OrderRequestedDataOnComplete('Page, plusTen')", OnBegin = "OrderRequestedGrid.OrderRequestedDataOnBegin('Page, plusTen')", OnSuccess = "OrderRequestedGrid.OrderRequestedDataOnSuccess('Page, plusTen')" }, new { @class = "page" } )
+                            }
+                        </div>
+                            if ( ( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage != Model.PageCount )
+                            {              
+                        <a href="javascript:void(0)" onclick="RequestedOrdersGrid.DataHelper('command=OrderRequestedGridPaging,Page=@(( ( OrderRequestedListState )HttpContext.Current.Session[ SessionHelper.OrderRequestedListState ] ).CurrentPage + 1)')">
+                            <div class="rightarrow">
+                            </div>
+                        </a>
+                            }
+                            else
+                            { 
+                        <div class="rightarrow">
+                        </div>
+                            }
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

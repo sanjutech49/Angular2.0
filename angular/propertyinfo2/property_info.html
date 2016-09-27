@@ -1,0 +1,227 @@
+﻿<div>
+    <div class="purchaseRoundedBox" style="padding-bottom: 15px; background-color: #FFFFFF;">
+        <div class="purchaseHeader">
+            <span class="title">Loan Summary</span>
+        </div>
+        <div id="loanSummaryContentLoanInfo">
+            <div class="fieldsetSmallLeft">
+                <div class="legend">
+                    Loan Details
+                </div>
+                <!-- Loan Type -->
+                <div class="fieldsetRow" style="border-top: none">
+                    <div class="fieldsetLeftColumn">
+                        Loan Type:
+                    </div>
+                    <div id="divLoanType"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+                <!-- Loan Term -->
+                <div class="fieldsetRow">
+                    <div class="fieldsetLeftColumn">
+                        Loan Term:
+                    </div>
+                    <div id="divLoanTerm"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+                <!-- Loan Amount -->
+                <div class="fieldsetRow">
+                    <div class="fieldsetLeftColumn">
+                        Loan Amount:
+                    </div>
+                    <div id="divLoanAmount"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+                <!-- Interest Rate -->
+                <div class="fieldsetRow">
+                    <div class="fieldsetLeftColumn">
+                        Interest Rate:
+                    </div>
+                    <div id="divInterestRate"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+                <!-- APR -->
+                <div class="fieldsetRow">
+                    <div class="fieldsetLeftColumn">
+                        APR:
+                    </div>
+                    <div id="divApr"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+                <!-- Loan Points -->
+                <div class="fieldsetRow">
+                    <div class="fieldsetLeftColumn">
+                        Loan Points:
+                    </div>
+                    <div id="divLoanPoints"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+            </div>
+            <div class="fieldsetSmallRight">
+                <div class="legend">
+                    Monthly Payment
+                </div>
+                <!-- Principal & Interest -->
+                <div class="fieldsetRow" style="border-top: none;">
+                    <div class="fieldset2LeftColumn">
+                        Principal & Interest:
+                    </div>
+                    <div id="divPrincipalAndInterest"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+                <!-- Est. Monthly Impounds -->
+                <div class="fieldsetRow">
+                    <div class="fieldset2LeftColumn">
+                        Est. Monthly Impounds:
+                    </div>
+                    <div id="divEstMonthlyImpounds"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+                <div style="clear: left;">
+                </div>
+                <!--<asp:Repeater ID="rptImpounds"  >
+                    <itemtemplate>
+                        <div id="divImpounds">
+                            <div id="divImpoundsDesc"   style="float: left; width: 100px; margin-left: 20px;">
+                                Taxes
+                            </div>
+                            <div id="divImpoundsAmount"   style="float: left; color: #267BB1;">
+                            </div>
+                            <div style="clear: left;">
+                            </div>
+                        </div>
+                    </itemtemplate>
+                </asp:Repeater>-->
+                <!-- Total Est. Monthly Impounds -->
+                <div class="fieldsetRow" style="margin-top: 20px;">
+                    <div class="fieldset2LeftColumn">
+                        Total Est. Monthly Payment:
+                    </div>
+                    <div id="divTotalEstMonthlyPayment"   class="fieldsetRightColumn">
+                    </div>
+                </div>
+            </div>
+            <div style="clear: both;">
+            </div>
+            <!--  What You Told Us  -->
+            <div style="width: 684px; margin-left: 25px; margin-top: 30px; border: 1px solid #D7D7D7;
+                padding-top: 10px;">
+                <div style="position: absolute; margin-left: 30px; width: 140px; color: #6B973A;
+                    font-size: 16px; font-weight: bold; text-align: center;">
+                    What You Told Us
+                </div>
+                <div style="position: absolute; margin-left: 490px; width: 140px; color: #6B973A;
+                    font-size: 16px; font-weight: bold; text-align: center;">
+                    What We Found
+                </div>
+                <div style="clear: both; height: 20px;">
+                </div>
+                <table class="WhatYouToldUs" cellpadding="0" cellspacing="0" style="margin-top: 10px;
+                    width: 100%; text-align: center;">
+                    <tbody>
+                        <!-- Borrower FICO Score -->
+                        <tr style="border-top: none;">
+                            <td style="width: 31%;">
+                                <span id="spnFicoScoreBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Borrower FICO Score
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnFicoScore"  ></span>
+                            </td>
+                        </tr>
+                        <!-- Estimated Appraised Value -->
+                        <tr>
+                            <td style="width: 31%;">
+                                <span id="spnEstimatedAppraisedValueBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Estimated Appraised Value
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnEstimatedAppraisedValue"  ></span>
+                            </td>
+                        </tr>
+                        <!-- Loan To Value (LTV) -->
+                        <tr>
+                            <td style="width: 31%;">
+                                <span id="spnLtvBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Loan To Value (LTV)
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnLtv"  ></span>
+                            </td>
+                        </tr>
+                        <!-- Combined Loan To Value (LTV) -->
+                        <tr>
+                            <td style="width: 31%;">
+                                <span id="spnCltvBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Combined Loan To Value (CLTV)
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnCltv"  ></span>
+                            </td>
+                        </tr>
+                        <!-- Debt to Income Ratio - DTI -->
+                        <tr>
+                            <td style="width: 31%;">
+                                <span id="spnDtiBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Debt to Income Ratio - DTI
+                                <div id="qbDtiTooltip" class="questionbutton" style="float: right; margin-top: 2px;">
+                                </div>
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnDti"  ></span>
+                            </td>
+                        </tr>
+                        <!-- Housing Ratio -->
+                        <tr>
+                            <td style="width: 31%;">
+                                <span id="spnHousingRatioBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Housing Ratio
+                                <div id="qbHousingExpenseRatio" class="questionbutton" style="float: right; margin-top: 2px;">
+                                </div>
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnHousingRatio"  ></span>
+                            </td>
+                        </tr>
+                        <!-- Existing 1st Mortgage -->
+                        <tr>
+                            <td style="width: 31%;">
+                                <span id="spnFirstMortgageBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Existing 1st Mortgage
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnFirstMortgage"  ></span>
+                            </td>
+                        </tr>
+                        <!-- Existing 2nd Mortgage -->
+                        <tr>
+                            <td style="width: 31%;">
+                                <span id="spnSecondMortgageBorrower"  ></span>
+                            </td>
+                            <td style="width: 38%; font-weight: bold;">
+                                Existing 2nd Mortgage
+                            </td>
+                            <td style="width: 31%;">
+                                <span id="spnSecondMortgage"  ></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

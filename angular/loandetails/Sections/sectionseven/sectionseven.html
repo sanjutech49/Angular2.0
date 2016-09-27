@@ -1,0 +1,111 @@
+﻿<div class="unit-control section-VII">
+
+    <div class="unit-header">
+
+        Section VII - Details of Transaction        
+
+    </div>
+
+    <div class="unit-body">
+        <div class="item border-bottom">
+            <div class="left-side">Figures as of {{sectionSeven.wrappedLoan.ref.financialInfo.ratesAsOf}}</div>
+            <div class="imp-calculator-icon calculator" ng-click="sectionSeven.showSectionSeven($event)"></div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> a.</span> Purchase Price</div>
+            <div class="right"> {{(sectionSeven.wrappedLoan.ref.getSubjectProperty().purchasePrice == null || sectionSeven.wrappedLoan.ref.getSubjectProperty().purchasePrice == 0 || sectionSeven.wrappedLoan.ref.loanPurposeType == 2 ? ' ' : sectionSeven.wrappedLoan.ref.getSubjectProperty().purchasePrice) | impCurrency : "$"}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> b.</span>  Alterations, improvements, repairs </div>
+            <div class="right">{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.alterationImprovementsRepairs | hideZero | impCurrency}} </div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> c.</span>  Land (if acquired separately)</div>
+            <div class="right">{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.land | hideZero | impCurrency}} </div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> d.</span>  Refinance (include debts to paid)</div>
+            <div class="right"> {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.refinanceWithDebts | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> e.</span>  Estimated prepaid items </div>
+            <div class="right-side right"> {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.estimatedPrepaidItems | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> f.</span>  Estimated Closing Costs </div>
+            <div class="right"> {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.estimatedClosingCosts | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> g.</span>  PMI, MIP, Funding Fee </div>
+            <div class="right"> {{ sectionSeven.wrappedLoan.ref.detailsOfTransaction.pmiMipFundingFee | hideZero | impCurrency }} </div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> h.</span>  Discount (if Borrower will pay) </div>
+            <div class="right">{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.discount | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> i.</span>  Total Costs (add items a through h) </div>
+            <div class="right"> {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.totalCosts | hideZero | impCurrency}}</div>
+        </div>
+
+        
+        <div class="item">
+            <div class="left-side"><span> j.</span>  Subordinate financing</div>
+            <div class="right">
+                <div class="subordinate-financing" ng-click="sectionSeven.showSubordinateFinancingDetailsModal($event)" >
+                   {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.subordinateFinancing | impCurrency}}</div> </div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> k.</span>  Borrower’s closing costs paid by Seller </div>
+            <div class="right"> {{sectionSeven.wrappedLoan.ref.detailsOfTransaction.borrowerClosingCostPaidBySeller | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> l.</span>  Other Credits (explain)</div>
+            <div class="right-side right"> </div>
+        </div>
+
+        <div class="sub-item" ng-repeat="otherCredit in sectionSeven.wrappedLoan.ref.detailsOfTransaction.otherCredits">
+            <div class="left-side">{{otherCredit.description}}</div>
+            <div class="right">{{otherCredit.amount | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> m.</span>  Loan Amount (excluding n)</div>
+            <div class="right"> {{sectionSeven.wrappedLoan.ref.loanAmount | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> n.</span>  PMI, MIP, financed Funding Fee </div>
+            <div class="right-side right" ng-class="sectionSeven.getHudLineNumber() > 0 ? 'link' : ''" ng-click="sectionSeven.fundingFeeFinancedDetailsModal($event)">
+                {{ sectionSeven.wrappedLoan.ref.detailsOfTransaction.pmiMipFundingFeeFinanced | impCurrency }}
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="left-side"><span> o.</span>  Loan Amount (add m & n)</div>
+            <div class="right">{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.oLoanAmount | hideZero | impCurrency}}</div>
+        </div>
+
+        <div class="item" ng-switch on="sectionSeven.cashFromBorrower()">
+            <!--TODO: bind "to" if Refinance, bind "from" if Purchase-->
+            <div class="left-side" style="width:100%"><span> p.</span>  <span class="black">Cash <b ng-switch-when="true">from</b><b ng-switch-default>to</b> Borrower </span>(subtract j, k, l, & o from i) </div>          
+            <div>Total for Loan Estimate<div class="right imp-text-enhanced-color"> <b>{{sectionSeven.wrappedLoan.ref.detailsOfTransaction.cashFromToBorrower | hideZero | impAbs | impCurrency }} </b></div></div>
+            <div>Aggregate Adjustment<div class="right black" > {{sectionSeven.wrappedLoan.ref.totalAggregateAdjustment | hideZero | impCurrency }} </div></div>
+            <div>Total for Closing Disclosure<div class="right imp-text-enhanced-color"> <b>{{sectionSeven.getTotalForClosingDisclosure()  | hideZero | impAbs | impCurrency }} </b></div></div>
+        </div>
+
+        
+
+    </div>
+</div>

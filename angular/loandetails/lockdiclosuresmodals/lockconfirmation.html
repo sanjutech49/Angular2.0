@@ -1,0 +1,34 @@
+﻿<div class="imp-confirmation-modal-content modal-content">
+    <div class="imp-confirmation-modal-header modal-header">
+        <h4 class="imp-confirmation-modal-title modal-title">
+            Is the following what you've confirmed with the Lock Desk:
+        </h4>
+    </div>
+    <div class="imp-confirmation-modal-body modal-body">
+        <div class="productname">
+            {{lockConfirmationCtrl.model.programName}}
+        </div>
+        <div class="row-confirmation">
+            <div class="item">
+                <span class="labelfield">Rate </span>
+                <span>{{lockConfirmationCtrl.model.noteRate | impRound: 3 | impPercentage}}</span>
+            </div>
+            <div class="item-wide">
+                <span class="labelfield">Price </span>
+                <span>{{lockConfirmationCtrl.model.pricingEngine | impRound: 3}} | {{lockConfirmationCtrl.model.pricingAmount | impRound: 2 | impCurrency}}</span>
+            </div>
+            <div class="item">
+                <span class="labelfield">Lock Exp</span>
+                <span>{{lockConfirmationCtrl.LockExpDate}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="imp-confirmation-modal-footer modal-footer">
+        <div class="imp-confirmation-modal-button">
+            <button type="button" class="imp-button-hm-wm-sec" ng-click="lockConfirmationCtrl.onNoClicked()"> No </button>
+        </div>
+        <div class="imp-confirmation-modal-button">
+            <button type="button" class="imp-button-hm-wm-prim" ng-click="lockConfirmationCtrl.onYesClicked()"> Yes </button>
+        </div>
+    </div>
+</div>

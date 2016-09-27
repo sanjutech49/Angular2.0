@@ -1,0 +1,147 @@
+﻿<div class="pgrid loan-officer" style="margin-top:0px">
+    <div class="header">
+        <div class="title">
+            <span class="lbl" style="font-size:15px; padding-top:0px">Loan Officer Table of Adjustments</span>
+            <span class="value">{{ lockingpricingCtrl.pricingLockingModel.LoanOfficerPrice | impCurrency:"":3}}</span>
+            <span class="value">{{ lockingpricingCtrl.wrappedLoan.ref.loanLock.loanOfficerRate | impRound: 3 | impPercentage}}</span>
+        </div>
+        <div class="divider">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-s">
+                <span class="imp-disclaimer">Adjustment</span>
+            </div>
+            <div class="col-xl">
+                <span class="imp-disclaimer">Description</span>
+            </div>
+            <div class="col-xs width-15">
+                <span class="imp-disclaimer center">Paid By</span>
+            </div>   
+            <div class="col-xs">
+                <span class="imp-disclaimer">Price</span>
+            </div>
+            <div class="col-xs">
+                <span class="imp-disclaimer">Rate</span>
+            </div>
+        </div>
+        <div ng-repeat="adjustment in lockingpricingCtrl.tableAdjustmentList(lockingpricingCtrl.enums.pricingAdjustmentSectionType.lOPrice)" ng-hide="adjustment.isDeleted">
+            <div class="row" ng-show="!adjustment.editMode" ng-click="lockingpricingCtrl.editAdjustment(adjustment)">
+                <div class="col-s">
+                    <span>{{lockingpricingCtrl.getAdjustmentDescription(lockingpricingCtrl.lookups.loAdjustmentTypes, adjustment)}} {{adjustment.adjustmentCounter}}</span>
+                </div>
+                <div class="col-xl">
+                    <span ng-bind="lockingpricingCtrl.adjustNoteMessage(adjustment)" />
+                </div>
+                <div class="col-xs nnl-blue">
+                    <span class="center">{{lockingpricingCtrl.getPaidBy(lockingpricingCtrl.applicationData.lookup.loPricePaidBy, adjustment)}}</span>
+                </div>
+                <div class="col-xs" ng-class="{'imp-negative-value': adjustment.value < 0}">
+                    <span ng-blur="lockingpricingCtrl.adjustedPointsChange()">{{adjustment.value | impCurrency:"":3}}</span>
+                </div>
+                <div class="col-xs">
+                    <span>{{adjustment.rate | impRound: 3 | impPercentage}}</span>
+                </div>
+            </div>
+            <div ng-include src="'angular/lockingandpricingadj/lopriceedit.html'" ng-show="adjustment.editMode">
+            </div>
+        </div>
+        <div class="row total">
+            <div class="col-s">
+                <div class="add-item" ng-hide="lockingpricingCtrl.isDisabled() || lockingpricingCtrl.disableLoAddButton()" ng-click="lockingpricingCtrl.addRow(lockingpricingCtrl.pricingLockingModel, lockingpricingCtrl.enums.pricingAdjustmentSectionType.lOPrice)">
+                    <imp-circle size="xsmall" color="#208DDC" is-plus="true" style="vertical-align: middle; margin-top: -4px; "></imp-circle>
+                    <span class="actions add">Add Item</span>
+                </div>
+            </div>
+            <div class="col-xs">
+                &nbsp;
+            </div>
+            <div class="col-xl">
+                <span class="imp-text-enhanced-color">
+                    Final Loan Officer Price/Rate
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="imp-text-enhanced-color">
+                    {{ lockingpricingCtrl.pricingLockingModel.FinalLoanOfficerPrice | impCurrency:"":3}}
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="imp-text-enhanced-color rate">
+                    {{ lockingpricingCtrl.wrappedLoan.ref.loanLock.finalLoanOfficerRate | impRound: 3 | impPercentage}}
+                </span>
+            </div>
+        </div> 
+        <div class="row total-g">
+            <div class="col-s">
+                &nbsp;
+            </div>
+            <div class="col-xs">
+                &nbsp;
+            </div>
+            <div class="col-xl">
+                <span class="text">
+                    Total Paid by Loan Officer
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="">
+                    {{lockingpricingCtrl.pricingLockingModel.finalLoanOfficerPriceByLo | impCurrency:"":3}}
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="">
+                    1.125 %
+                </span>
+            </div>
+        </div>
+        <div class="row total-g">
+            <div class="col-s">
+                &nbsp;
+            </div>
+            <div class="col-xs">
+                &nbsp;
+            </div>
+            <div class="col-xl">
+                <span class="text">
+                    Total Paid by Division
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="">
+                    {{lockingpricingCtrl.pricingLockingModel.finalLoanOfficerPriceByDivision | impCurrency:"":3}}
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="">
+                    1.125 %
+                </span>
+            </div>
+        </div>
+        <div class="row total-g">
+            <div class="col-s">
+                &nbsp;
+            </div>
+            <div class="col-xs">
+                &nbsp;
+            </div>
+            <div class="col-xl">
+                <span class="text">
+                    Total Paid by Company
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="">
+                    {{lockingpricingCtrl.pricingLockingModel.finalLoanOfficerPriceByCompany | impCurrency:"":3}}
+                </span>
+            </div>
+            <div class="col-xs">
+                <span class="">
+                    1.125 %
+                </span>
+            </div>
+        </div>
+          
+    </div>
+</div>

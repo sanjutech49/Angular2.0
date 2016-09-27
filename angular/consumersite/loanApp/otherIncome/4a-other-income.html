@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="Content/bootstrap-3.3.5/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Content/ConsumerSiteFeatureStyle.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top loan-app-navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img class="logo-img" src="Content/images/ConsumerSite/cloud-virga-logo.png" /></a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">My Info</a></li>
+                    <li><img class="breadcrumb-arrow" src="Content/images/ConsumerSite/breadcrumb-arrow.png" /></li>
+                    <li><a href="#">Property Info</a></li>
+                    <li><img class="breadcrumb-arrow" src="Content/images/ConsumerSite/breadcrumb-arrow.png" /></li>
+                    <li class="active"><a href="#">Financial Info</a></li>
+                    <li><img class="breadcrumb-arrow" src="Content/images/ConsumerSite/breadcrumb-arrow.png" /></li>
+                    <li><a href="#">Summary</a></li>
+                    <li><img class="breadcrumb-arrow" src="Content/images/ConsumerSite/breadcrumb-arrow.png" /></li>
+                    <li><a href="#">Credit</a></li>
+                    <li><img class="breadcrumb-arrow" src="Content/images/ConsumerSite/breadcrumb-arrow.png" /></li>
+                    <li><img class="icon-finish-flag" src="Content/images/ConsumerSite/icon-finish-flag.png" /></li>
+                </ul>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><img class="percent-finish-indicator" src="Content/images/ConsumerSite/finish-indicator-54.png" /></li>
+                    </ul>
+                </div>
+                <div class="nav-vertical-divider"></div>
+                <div class="loan-stats">
+                    <table>
+                        <tr>
+                            <td>4.75%</td>
+                            <td>$3,616</td>
+                            <td>$300,000</td>
+                            <td><strong>$50,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <label>Int. Rate</label>
+                            </td>
+                            <td valign="top">
+                                <label>Payment</label>
+                            </td>
+                            <td valign="top">
+                                <label>Loan Amount</label>
+                            </td>
+                            <td valign="top">
+                                <label>Cash Out</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="view-body">
+        <div class="container-fluid">
+            <div class="row wizard-navbar">
+                <div class="col-xs-12 col-md-3 back-button">
+                    <table style="margin-right:auto;margin-left:auto;">
+                        <tr>
+                            <td style="width:20px"><i class="fa fa-angle-left fa-2x"></i></td>
+                            <td>
+                                <div class="back-text">Back</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-md-6 wizard-title-region">
+                    <table style="margin-right:auto;margin-left:auto;" class="wizard-title-table">
+                        <tr>
+                            <td style="width: 100px"><img class="wizard-title-img" src="Content/images/ConsumerSite/piggy-bank.png" /></td>
+                            <td>
+                                <div class="wizard-title-text">You've passed the midpoint.</div>
+                                <div class="wizard-subtitle-text">What does your <b>other income</b> look like?</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-md-3 wizard-right-region">
+                    <div class="wizard-save-for-later-text">Save for Later</div>
+                    <div>Need Help? Call Us</div>
+                    <div>(800) 555-5555</div>
+                </div>
+            </div>
+            <div class="row wizard-content">
+                <form class="form-horizontal">
+                    <div class="other-income">
+                        <div class="row center section-content">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12 section-question-text top">
+                                        Do you or Leia Skywalker recieve any <b>other type</b> of income?
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 section-question-subtext">
+                                        such as dividends, alimony, social security or retirement
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 section-question-radio">
+                                        <div class="form-group">
+                                            <input type="radio" name="radios2" id="radios2-1" value="1" checked="checked">
+                                            <label class="radios-inline" for="radios2-1">Yes
+                                            </label>
+                                            <input type="radio" name="radios2" id="radios2-2" value="2">
+                                            <label class="radios-inline" for="radios2-2">No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row section-title center">Other Income</div>
+                        <div class="row section-content">
+                            <div class="col-lg-7 col-lg-offset-2">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-lg-4 control-label" for="selectbasic">Belongs To</label>
+                                    <div class="col-md-7">
+                                        <select id="selectbasic" class="form-control">
+                                            <option value="1">Anakin Skywalker-Vader</option>
+                                            <option value="2">Option two</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-lg-4 control-label" for="selectbasic">Income Type</label>
+                                    <div class="col-md-7">
+                                        <select id="selectbasic" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-lg-4 control-label" for="textinput">Amount</label>
+                                    <div class="col-md-7">
+                                        <div class="input-group dual-input-60-40">
+                                            <input type="text" class="form-control first" placeholder="$ Pretax">
+                                            <select class="form-control second">
+                                                <option value="1">Monthly</option>
+                                                <option value="1">Yearly</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row section-content center">
+                            <button class="btn btn-secondary"><i class="fa fa-plus-circle"></i> Add more Other Income</button>
+                        </div>
+                        <div class="row center">
+                            <button class="btn btn-primary save-and-continue-button">Save & Continue</button>
+                        </div>
+                        <!--end section content-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="Scripts/navbar/navbar-consumersite.js"></script>
+</body>
+
+</html>

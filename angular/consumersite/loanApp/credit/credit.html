@@ -1,0 +1,130 @@
+﻿<div class="credit-info">
+    <div class="row wizard-content">
+        <div class="col-xs-12">
+            <div class="row section-title center">My Credit Information</div>
+            <div class="row section-content">
+                <div ng-if="!creditCntrl.hasCoBorrower()">
+                    <div class="col-md-6 col-md-offset-3 center-col">
+                        <div class="section-question-text center">{{ creditCntrl.BorrowerFullName }}</div>
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label" for="borrowerSocialInput">Social Security #</label>
+                            <div class="col-xs-12 input-group secure-input valid">
+                                <input id="borrowerSocialInput" type="password" class="form-control"
+                                       ng-model="creditCntrl.Borrower.ssn"
+                                       required />
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <div class="input-state"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label" for="borrowerConfirmSocialInput">Confirm Social Security #</label>
+                            <div class="col-xs-12 input-group secure-input">
+                                <input id=" borrowerconfirmsocialinput" type="password" class="form-control" placeholder="" ng-model="creditCntrl.CoBorrower.ssn" input-match="creditCntrl.Borrower.ssn" required />
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <div class="input-state"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 control-label" for="borrowerBirthdayInput">Birthday</label>
+                            <div class="col-xs-12">
+                                <input type="date" id="borrowerBirthdayInput" class="form-control"
+                                       placeholder="mm/dd/yyyy"
+                                       ng-model="creditCntrl.Borrower.dateOfBirth"
+                                       ng-change="creditCntrl.printMe()"
+                                       required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="creditCntrl.hasCoBorrower()">
+                    <div class="center-col-md">
+                        <div class="col-lg-3 col-lg-offset-1">
+                            <div class="form-group">
+                                <div class="col-lg-12 col-lg-offset-7 center">
+                                    <label class="form-label section-question-text">{{ creditCntrl.BorrowerFullName }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label" for="borrowerSocialInput">Social Security #</label>
+                                <div class="col-lg-1">
+                                    <div class="input-group secure-input valid">
+                                        <input id="borrowerSocialInput" type="password" class="form-control"
+                                               ng-model="creditCntrl.Borrower.ssn"
+                                               required />
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        <div class="input-state"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label" for="borrowerConfirmSocialInput">Confirm Social Security #</label>
+                                <div class="col-lg-1">
+                                    <div class="input-group secure-input">
+                                        <input id=" borrowerconfirmsocialinput" type="password" class="form-control" placeholder="" ng-model="creditCntrl.CoBorrower.ssn" input-match="creditCntrl.Borrower.ssn" required />
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        <div class="input-state"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-8 control-label" for="borrowerBirthdayInput">Birthday</label>
+                                <div class="col-lg-1">
+                                    <input type="date" id="borrowerBirthdayInput" class="form-control"
+                                           placeholder="mm/dd/yyyy"
+                                           ng-model="creditCntrl.Borrower.dateOfBirth"
+                                           ng-change="creditCntrl.printMe()"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-lg-offset-1">
+                            <div class="form-group">
+                                <div class="col-lg-12 col-lg-offset-3 center">
+                                    <label class="form-label section-question-text">{{ creditCntrl.CoBorrowerFullName }}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-6 control-label" for="coBorrowerSocialInput">Social Security #</label>
+                                <div class="col-lg-1">
+                                    <div class="input-group secure-input">
+                                        <input id="coBorrowerSocialInput" type="password" class="form-control" placeholder="" ng-model="creditCntrl.CoBorrower.ssn" required></input>
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        <div class="input-state"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-6 control-label" for="coBorrowerConfirmSocialInput">Confirm Social Security #</label>
+                                <div class="col-lg-1">
+                                    <div class="input-group secure-input">
+                                        <input id="coBorrowerConfirmSocialInput" type="password" class="form-control" placeholder="" required />
+                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                        <div class="input-state"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-6 control-label" for="coBorrowerBirthdayInput">Birthday</label>
+                                <div class="col-lg-1">
+                                    <input type="date" id="coBorrowerBirthdayInput" class="form-control" placeholder="mm/dd/yyyy"
+                                           ng-model="creditCntrl.CoBorrower.dateOfBirth"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row section-content">
+                <div class="col-xs-11 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+                    <div class="form-group">
+                        <div class="checkbox disabled">
+                            <input type="checkbox" name="checkboxes" id="checkboxes-0" ng-model="creditCntrl.AuthorizeCreditReport" />
+                            <label for="checkboxes-0">I / We ({{ creditCntrl.BorrowerFullName }}<span ng-if="creditCntrl.CoBorrowerFullName !== '' && creditCntrl.CoBorrowerFullName !== 'New Application'">, {{ creditCntrl.CoBorrowerFullName }}</span>) authorize lender or its designated representatives to obtain a credit report from the national credit reporting agencies in connection with my/our home loan application.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

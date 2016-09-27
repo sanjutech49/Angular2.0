@@ -1,0 +1,1229 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Contracts
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using System.Configuration
+@using MML.Common.Helpers;
+@using MML.Web.LoanCenter.Helpers;
+@using MML.Common;
+@model MML.Web.LoanCenter.ViewModels.AppraisalViewModel
+<!-- Import JS -->
+<script src="../../Scripts/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script type="text/javascript">    var $j = jQuery.noConflict(true);</script>
+<script src="../../Scripts/autoNumeric.js" type="text/javascript"></script>
+
+<script src="../../Scripts/AppraisalRequest.js?v=1" type="text/javascript"></script>
+<script src="../../Scripts/Validation.js" type="text/javascript"></script>
+<script src="../../Scripts/ToDictionary.js" type="text/javascript"></script>
+
+<script src="@CDNHelper.JavaScriptStaticContentUrl/Scripts/UploadFile.js" type="text/javascript"></script>
+@*<script src="../../Scripts/jquery.jqtransform.js" type="text/javascript"></script>*@
+@*<link href="@CDNHelper.CssStaticContentUrl/Content/Site.css" rel="stylesheet" type="text/css" />*@
+@*<link href="../../Content/jqtransform.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/jqtransformNOCDN.css" rel="stylesheet" type="text/css" />*@
+<script type="text/javascript">
+    function UploadFile_Complete() {
+
+        var jsonResult = $("#UploadTarget").contents().find("#jsonResult");
+
+        if (jsonResult != undefined && jsonResult.length > 0) {
+            document.getElementById("DocumentForm").reset();
+
+            var uploadedDocument = $.parseJSON(jsonResult[0].innerHTML);
+            CloseShowUploadFilePopup();
+            UploadFile.ReloadAppraisalDocuments('@(Model.Loan.LoanId)', '@(Model.UserAccount.UserAccountId)', 'appraisalForm');
+
+        }
+    }
+
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            DisablePaymentInformation(@Model.IsAppraisalDisabled.ToString().ToLower());
+        }, 600);
+    });
+    
+</script>
+<div class="appraisaldiv">
+    <div class="appraisalhead" id="appraisalhead">
+        <div class="left0">
+            <span class="namelink">Appraisal</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="titleInformation">@Model.TitleInformation <span style="color: #267BB1;">@Model.LeadSourceInformation</span></div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="closeAppraisalForm" class="xclose" title="Close Section" onclick="CloseCommandSection()">
+                </a><a id="minimizeappraisalform" class="minimizesection" title="Minimize/Maximize Section"
+                    onclick="Appraisal.BindAppraisalFormMinimize()">
+                    <div id="appraisalformminmax" class="minmax min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="appraisalcontent" id="appraisalcontent">
+        <p class="subcommandtext">
+            This Appraisal Order Form will be sent to Home Valuation Department (HVD) for review
+            before submission. If you have any questions please contact HVD at <a href="mailto:hvm@skylinehomeloans.com">
+                hvm@skylinehomeloans.com</a>
+        </p>
+        <div class="divValidation" id="divValidation">
+        </div>
+        @Html.HiddenFor( m => m.UserAccount.UserAccountId, new { id = "hdnUserAccountId", @class = "hdnUserAccountId" } )
+        @Html.HiddenFor( m => m.Loan.LoanId, new { id = "hdnLoanId", @class = "hdnLoanId" } )
+        @Html.HiddenFor( m => m.Loan.OrderAppraisals[ 0 ].OrderId, new { id = "hdnOrderId", @class = "hdnOrderId" } )
+        @Html.HiddenFor( m => m.Loan.OrderAppraisals[ 0 ].OrderAppraisalId, new { id = "hdnOrderAppraisalId", @class = "hdnOrderAppraisalId" } )
+        @Html.HiddenFor( m => m.Loan.OrderAppraisals[ 0 ].PreferredContact.PreferredContactId, new { id = "hdnPreferredContactId", @class = "hdnPreferredContactId" } )
+        @Html.HiddenFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.BillingInformationid, new { id = "hdnOriginalBillingId", @class = "hdnOriginalBillingId" } )
+        @Html.Hidden( "hdnNewBillingInformation", false, new { @class = "hdnNewBillingInformation" } )
+        <div id="firstDivRow" style="float: left;">
+            <fieldset class="AppraisalFieldset BorrowerInformationFieldset AppraisalRequest"
+                style="float: left; width: 525px; height: 190px">
+                <legend>Borrower information</legend>
+                <div id="mainDivBorrowerInformation">
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Borrower name:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.Borrower.BorrowerPersonalInfo.FullName, new { @class = "uxBorrowerName MMLhovertextbox BorrowerInfoTextbox", disabled = true } )
+                            <span><span class="uxBorrowerPreferredContact"></span>Preferred</span>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Home Phone:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.HomePhone, new { @class = "uxBorrowerPhone MMLhovertextbox BorrowerInfoTextbox", disabled = true } )
+                            @Html.RadioButtonFor( m => m.Preferred, 0, new { @class = "uxBorrowerPreferredContact textRadio ", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Work Phone:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.WorkPhone, new { @class = "uxBorrowerWorkPhone MMLhovertextbox BorrowerInfoTextbox", disabled = true } )
+                            @Html.RadioButtonFor( m => m.Preferred, 2, new { @class = "uxBorrowerPreferredContact textRadio", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Cell Phone:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.CellPhone, new { @class = "uxBorrowerCellPhone MMLhovertextbox BorrowerInfoTextbox", disabled = true } )
+                            @Html.RadioButtonFor( m => m.Preferred, 1, new { @class = "uxBorrowerPreferredContact textRadio", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Email:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.Borrower.BorrowerPersonalInfo.EmailAddress, new { @class = "uxBorrowerEmail MMLhovertextbox BorrowerInfoTextbox", disabled = true } )
+                            @Html.RadioButtonFor( m => m.Preferred, 3, new { @class = "uxBorrowerPreferredContact textRadio", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="AppraisalFieldset PropertyInformationFieldset AppraisalRequest"
+                style="float: left; width: 525px; height: 190px;">
+                <legend>Property information</legend>
+                <div id="mainDivPropertyInformation">
+                    <div class="sctRow" style="height: 90px;">
+                        <div class="scttxttitle">
+                            Property Address:
+                        </div>
+                        <div class="scttextcontent">
+                            <div class="sctRow" style="height: 35px;">
+                                <div style="float: left; width: 180px;">
+                                    <div>
+                                        Street
+                                    </div>
+                                    <div>
+                                        @Html.TextBoxFor( m => m.Loan.SubjectProperty.Address.StreetName, new { @class = "uxPropertyAddress MMLhovertextbox", @style = "float: left; width: 180px; margin-top:3px;", disabled = true } )
+                                    </div>
+                                </div>
+                                <div style="float: left; width: 65px; margin-left: 15px;">
+                                    <div>
+                                        Units
+                                    </div>
+                                    <div>
+                                        @Html.TextBoxFor( m => m.Loan.SubjectProperty.Address.UnitNumber, new { @class = "uxPropertyUnit MMLhovertextbox", @style = "float: left; width: 65px; margin-top:3px;", disabled = true } )
+                                    </div>
+                                </div>
+                                <div style="float: left; width: 55px; margin-left: 15px;">
+                                    <div>
+                                        Zip
+                                    </div>
+                                    <div>
+                                        @Html.TextBoxFor( m => m.Loan.SubjectProperty.Address.ZipCode, new { @class = "uxPropertyZip MMLhovertextbox", @style = "float: left; width: 55px; margin-top:3px;", disabled = true } )
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sctRow" style="height: 35px;">
+                                <div style="float: left; width: 120px;">
+                                    <div>
+                                        City
+                                    </div>
+                                    <div>
+                                        @Html.TextBoxFor( m => m.Loan.SubjectProperty.Address.CityName, new { @class = "uxPropertyCity MMLhovertextbox", @style = "float: left; width: 120px; margin-top:3px;", disabled = true } )
+                                    </div>
+                                </div>
+                                <div style="float: left; width: 70px; margin-left: 15px;">
+                                    <div>
+                                        State
+                                    </div>
+                                    <div>
+                                        @(Html.Telerik().DropDownListFor( m => m.Loan.SubjectProperty.Address.StateId )
+                                            .Name( "uxPropertyState" )
+                                            .BindTo( new SelectList( Model.States, "Value", "Text" ) )
+                                            .HtmlAttributes( new { @style = "width: 70px; margin-top:3px;" } )
+                                            .Enable( false )
+                                        )
+                                    </div>
+                                </div>
+                                <div style="float: left; width: 110px; margin-left: 15px;">
+                                    <div>
+                                        County
+                                    </div>
+                                    <div>
+                                        @Html.TextBoxFor( m => m.Loan.SubjectProperty.Address.CountyName, new { @class = "uxPropertyCounty MMLhovertextbox", @style = "float: left; width: 110px; margin-top:3px;", disabled = true } )
+                                    </div>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            <span>Property type: </span>
+                        </div>
+                        <div class="scttextcontent">
+                            @(Html.Telerik().DropDownList()
+                            .Name( "uxPropertyType" )
+                            .BindTo( new SelectList( Model.PropertyTypes, "Value", "Text" ) )
+                            .Value(Model.Loan.SubjectProperty.PropertyType.GetStringValue())
+                            .HtmlAttributes( new { @style = "float: left;" } ).Enable( false )
+                            )
+                            @if ( Model.Loan.SubjectProperty.PropertyType == PropertyType.Condominium )
+                            {
+                                <div style="float: left; width: 80px; margin-top: 4px; margin-left: 10px; text-align: right;">
+                                    No of Stories:
+                                </div>
+                                <div>
+                                    @Html.TextBoxFor( m => m.Loan.SubjectProperty.NumberOfStories, new { @class = "uxPropertyStories MMLhovertextbox", @style = "float: left; width: 30px; margin-left: 10px;", disabled = true } )
+                                </div>
+                            }
+                            else
+                            {
+                                <div style="float: left; width: 80px; margin-top: 4px; margin-left: 10px; text-align: right;">
+                                    No of Units:
+                                </div>
+                                <div>
+                                    @Html.TextBoxFor( m => m.Loan.SubjectProperty.NumberOfUnits, new { @class = "uxPropertyUnits MMLhovertextbox", @style = "float: left; width: 30px; margin-left: 10px;", disabled = true } )
+                                </div>
+                            }
+                            <div class="clear">
+                            </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            <span>Occupancy type: </span>
+                        </div>
+                        <div class="scttextcontent">
+                            @(Html.Telerik().DropDownList()
+                                    .Name( "uxPropertyOccupancy" )
+                                    .BindTo( new SelectList( Model.OcupancyTypes, "Value", "Text" ) )
+                                    .SelectedIndex( ( int )Model.Loan.SubjectProperty.OccupancyType )
+                                    .Enable( false )
+                             )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div id="secondDivRow" style="float: left;">
+            <!-- Loan Information section -->
+            <fieldset class="AppraisalFieldset AppraisalRequest" style="float: left; width: 525px;
+                height: 440px;">
+                <legend>Loan Information</legend>
+                <div id="mainDivLoanInformation">
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Loan Number:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.LoanNumber, new { @class = "uxLoanNumber MMLhovertextbox requiredValidateAndMaxLength20", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Loan Purpose:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.LoanType, new { @class = "uxLoanPurpose MMLhovertextbox requiredValidate", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Loan Type:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.MortgageType, new { @class = "uxLoanType MMLhovertextbox requiredValidate", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Loan Program:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.ProgramName, new { @class = "uxLoanProgram MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Actual Investor:
+                        </div>
+                        <div class="scttextcontent">
+                        @if ( Model.Loan.LockStatus != null && Model.Loan.LockStatus.Equals( LockStatus.Locked ) )
+                        {
+                             @Html.TextBoxFor( m => m.Loan.InvestorName, new { @class = "uxActualInvestor MMLhovertextbox", disabled = true } )
+                        }
+                        else 
+                        {
+                            @Html.TextBox( "uxActualInvestor", "", new { @class = "uxActualInvestor MMLhovertextbox", disabled = true } )
+                        }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Targeted Investor:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.InvestorName, new { @class = "uxTargetedInvestor MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Targeted Lender:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBox( "uxTargetedLender", "", new { @class = "uxTargetedLender MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            FHA Case Number:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor(m => m.Loan.AgencyCaseNumber, Model.Loan.MortgageType == MortgageType.FHA ? new { id = "txtFHACaseId", @class = "uxFHACaseNumber" } : new { id = "txtFHACaseId", @class = "uxFHACaseNumber", disabled = true } as object)
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Purchase Price:
+                        </div>
+                        <div class="scttextcontent currency">
+                            @(Html.Telerik().CurrencyTextBoxFor( m => m.Loan.SubjectProperty.PurchasePrice )
+                                .Name( "uxPurchasePrice" )
+                                .Spinners( false )
+                                .MinValue( 0 )
+                                                .HtmlAttributes( new { @class = "uxPurchasePrice rightalign ", @style = "text-align: right;position:relative;overflow:hidden;" } )
+                                .Enable( false )
+                                .DecimalDigits( 2 )
+                                .ClientEvents( x => x.OnLoad( "onLoad" ) )
+                            )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Conf/Non-Conf:
+                        </div>
+                        <div class="scttextcontent currency">
+                            @Html.TextBox( "uxConforming", "", new { @class = "uxConforming MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Loan Amount:
+                        </div>
+                        <div class="scttextcontent currency">
+                            @Html.Telerik().CurrencyTextBox().Name( "CurrencyTextBox" ).Spinners( false ).MinValue( 0 ).HtmlAttributes( new { @class = "uxLoanAmount rightalign", @style = "text-align: right;position:relative;overflow:hidden;" } ).Enable( false ).Value( ( decimal? )Model.Loan.TotalLoanAmount ).DecimalDigits( 2 ).ClientEvents( x => x.OnLoad( "onLoad" ) )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Seller Name:
+                        </div>
+                        <div class="scttextcontent">
+                            @if ( String.IsNullOrEmpty( Model.SellerName ) && Model.Loan.LoanType == LoanTransactionType.Purchase )
+                            {
+                                @Html.TextBoxFor( m => m.SellerName, new { @class = "uxSellerName MMLhovertextbox" } )  
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor( m => m.SellerName, new { @class = "uxSellerName MMLhovertextbox", disabled = true } )
+                            }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Seller Type:
+                        </div>
+                        <div class="scttextcontent">
+                            <div class="spanWrapper">
+                            @if ( String.IsNullOrEmpty( Model.SellerName ) && Model.Loan.LoanType == LoanTransactionType.Purchase )
+                            {
+                                <span class="itemWidth">
+                                    @Html.RadioButtonFor( m => m.SellerTypeId, 0, new { id = "uxSellerIndividual", @class = "uxSellerType", @checked = "checked" } )
+                                    @Html.Label( "uxSellerIndividual", "Individual" )
+                                </span><span class="itemWidth">
+                                    @Html.RadioButtonFor( m => m.SellerTypeId, 1, new { id = "uxSellerBank", @class = "uxSellerType" } )
+                                    @Html.Label( "uxSellerBank", "Bank" )
+                                </span><span class="itemWidth">
+                                    @Html.RadioButtonFor( m => m.SellerTypeId, 2, new { id = "uxSellerLLC", @class = "uxSellerType" } )
+                                    @Html.Label( "uxSellerLLC", "LLC" )
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="itemWidth">
+                                    @Html.RadioButtonFor( m => m.SellerTypeId, 0, new { id = "uxSellerIndividual", @class = "uxSellerType", disabled = true } )
+                                    @Html.Label( "uxSellerIndividual", "Individual" )
+                                </span><span class="itemWidth">
+                                    @Html.RadioButtonFor( m => m.SellerTypeId, 1, new { id = "uxSellerBank", @class = "uxSellerType", disabled = true } )
+                                    @Html.Label( "uxSellerBank", "Bank" )
+                                </span><span class="itemWidth">
+                                    @Html.RadioButtonFor( m => m.SellerTypeId, 2, new { id = "uxSellerLLC", @class = "uxSellerType", disabled = true } )
+                                    @Html.Label( "uxSellerLLC", "LLC" )
+                                </span>
+                            }
+                            </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Intent to Proceed:
+                        </div>
+                        <div style="float: left;">
+                            @Html.CheckBox( "uxIntentToProceed", Model.DisclosuresSummaryInfo.IntentToProceedReceivedBorrower != null ? true : false, new { disabled = "disabled" } )
+                        </div>
+                        <div>
+                            <div class="scttxttitleshort">
+                                Date:
+                            </div>
+                            <div>
+                                @Html.TextBoxFor( m => m.DisclosuresSummaryInfo.IntentToProceedReceivedBorrower, new { id = "uxIntentToProceedDate", @class = "uxIntentToProceedDate MMLhovertextbox", @style = "width: 180px", disabled = "disabled" } )
+                            </div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- End Loan Information section -->
+            <!-- Appointment and Access information section -->
+            <fieldset class="AppraisalFieldset AppraisalRequest" style="float: left; width: 525px;
+                height: 440px">
+                <legend>Property Access Information</legend>
+                <div id="mainDivAppointmentInformation" class="mainDivAppointmentInformation">
+                    <div id="accessInformationPanel">
+                        <div class="sctRow dropdownRow" style="height: 140px;">
+                            <div class="scttxttitle">
+                                Preferred Contact:
+                            </div>
+                            <div class="scttextcontent">
+                                <div class="sctRow">
+                                    @(Html.Telerik().DropDownListFor( m => m.Loan.OrderAppraisals[ 0 ].PreferredContact.PreferredContactType )
+                                        .Name( "uxAccessInformationList" )
+                                        .BindTo( new SelectList( Model.AppraisalAccessInfo, "Value", "Text" ) )
+                                        .Value( ( ( int )Model.Loan.OrderAppraisals[ 0 ].PreferredContact.PreferredContactType ).ToString() )
+                                        .HtmlAttributes( new { style = "width:206px;" } )
+                                        .ClientEvents( events => events.OnChange( "RetrieveAccessInformationData" ) )
+                                    )
+                                </div>
+                                <div class="sctRow" style="height: 35px;">
+                                    <div style="float: left; width: 165px;">
+                                        <div>
+                                            First Name
+                                        </div>
+                                        <div>
+                                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].PreferredContact.PreferredContactFirstName, new { id = "uxAccessInfoName", @class = "uxAccessInfoName MMLhovertextbox", @style = "width:150px;", disabled = true } )
+                                        </div>
+                                    </div>
+                                    <div style="float: left; width: 165px; margin-left: 15px;">
+                                        <div>
+                                            Last Name
+                                        </div>
+                                        <div>
+                                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].PreferredContact.PreferredContactLastName, new { id = "uxAccessInfoLastName", @class = "uxAccessInfoLastName MMLhovertextbox", @style = "width:150px;", disabled = true } )
+                                        </div>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="sctRow" style="height: 35px;">
+                                    <div style="float: left; width: 125px;">
+                                        <div>
+                                            Email:
+                                        </div>
+                                        <div>
+                                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].PreferredContact.PreferredContactEmail, new { id = "uxAccessInfoEmail", @class = "uxAccessInfoEmail MMLhovertextbox", @style = "width:120px;", disabled = true } )
+                                        </div>
+                                    </div>
+                                    <div style="float: left; width: 200px; margin-left: 15px;">
+                                        <div>
+                                            Preferred phone
+                                        </div>
+                                        <div>
+                                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].PreferredContact.PreferredContactPhone, new { id = "uxAccessInfoHomePhone", @class = "uxAccessInfoHomePhone MMLhovertextbox", @style = "width:100px; float: left;", disabled = true })
+                                        </div>
+                                        <div>
+                                            @(Html.Telerik().DropDownListFor(m => m.Loan.OrderAppraisals[0].PreferredContact.PreferredContactPhoneType)
+                                                .Name("uxAccessInfoPreferredPhone")
+                                                .BindTo(new SelectList(Model.PhoneTypes, "Value", "Text"))
+                                                .Value(((int)Model.Loan.OrderAppraisals[0].PreferredContact.PreferredContactPhoneType).ToString())
+                                                .HtmlAttributes(new { style = "width:77px; margin-left:10px; float: left;", @class = "uxAccessInfoPreferredPhone" })
+                                                .Enable(false)
+                                            )
+                                        </div>
+
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="mainDivSpecialInstructions">
+                    <div class="sctRow specialInstructions">
+                        <div class="scttxttitle">
+                            Special Instructions:
+                        </div>
+                        <div style="padding-left: 30px;">
+                            @Html.TextAreaFor( m => m.Loan.OrderAppraisals[ 0 ].SpecialInstructions, new { id = "uxSpecialInstructions", @class = "uxSpecialInstructions resizeable", @style = "height: 220px; width: 460px;" } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- end Approintment and Acccess Information section -->
+        </div>
+        <div id="thirdDivRow" style="float: left;">
+            <!-- Order information section -->
+            <fieldset class="AppraisalFieldset AppraisalRequest" style="float: left; width: 525px;">
+                <legend>Order Information</legend>
+                <div id="mainDivOrderInformation">
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Order Type:
+                        </div>
+                        <div class="scttextcontent">
+                            <span class="itemWidth">
+                                @Html.RadioButton( "uxOrders", 0, true )
+                                @Html.Label( "New" )
+                            </span><span class="itemWidth">
+                                @Html.RadioButton( "uxOrders", 1, false )
+                                @Html.Label( "Update" )
+                            </span><span class="itemWidth">
+                                @Html.RadioButton( "uxOrders", 2, false )
+                                @Html.Label( "Cancel" )
+                            </span><span class="itemWidth">
+                                @Html.RadioButton( "uxOrders", 3, false )
+                                @Html.Label( "Document" )</span>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <br />
+                    @for ( int i = 1; i < 8; i++ )
+                    {
+                        @Html.HiddenFor( m => m.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].OrderAppraisalProductsFeesId, new { id = "hdnOrderAppraisalProductsFeesId" + i, @class = "hdnOrderAppraisalProductsFeesId" + i } )
+                        <div class="sctRow">
+                            @if ( i == 1 )
+                            {
+                                <div class="scttxttitle">
+                                    <span>Appraisal Type:</span>
+                                </div>
+                            }
+                            <div class="scttextcontentLong  @( i == 1 ? string.Empty : "paddingL160")">
+                                @(Html.Telerik().DropDownListFor( m => m.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].ProductValue )
+                                    .Name( "uxAppraisalType" + i )
+                                    .BindTo( new SelectList( Model.AppraisalProducts, "Value", "Text" ) )
+                                    .ClientEvents( events => events
+                                    .OnChange( "AppraisalTypeChanged" )
+                                    .OnLoad( "AppraisalTypeLoad" )
+                                    )
+                                    .HtmlAttributes( new { style = "width:210px; float:left;", @class = "uxAppraisalTypeComboBox uxAppraisalType" + i } )
+                                )
+                                <div id="productMessage@(i)" class="button productMessage" style="display: @(Model.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].ProductMessageStatus == "Error" || Model.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].ProductMessageStatus == "Warning" ? "block" : "none"); float:left; margin-left:5px;" title="@(Model.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].ProductMessage)" ; onclick="ShowInfo()"></div>
+                            </div>
+                             <div class="scttextcontentShort">
+                                @(Html.Telerik().CurrencyTextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].FeeAmount )
+                                    .Name( "uxAppraisalFee" + i )
+                                    .Spinners( false )
+                                    .MinValue( 0 )
+                                    .ClientEvents( events => events
+                                        .OnChange( "RecalculateTotalFee" )
+                                        .OnLoad( "AppraisalFeeLoad" )
+                                        
+                                        
+                                    )
+                                .HtmlAttributes( new { @class = "uxAppraisalFee" + i + " appraisalFee rightalign uxAppraisalFeeTextBox", @style = "position:relative; margin-left: 5px;overflow:hidden;" } )
+                                    .DecimalDigits( 2 )
+                                    .EmptyMessage( "" )
+                                    
+                                )
+                            </div>                           
+                            <div style="float: right;">
+                                <div id="feeMessage@(i)" class="button feeMessage" style="display: @(Model.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].FeeMessageStatus == "Error" || Model.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].FeeMessageStatus == "Warning" ? "block" : "none");" title="@(Model.Loan.OrderAppraisals[ 0 ].OrderAppraisalProductsFees[ i - 1 ].FeeMessage)" ; onclick="ShowInfo()"></div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                        </div>
+                    }
+                                               
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Rush Order:
+                        </div>
+                        <div class="scttextcontentLong">
+                            @Html.CheckBoxFor( m => m.Loan.OrderAppraisals[ 0 ].RushOrder, new { @class = "uxRushChecked", @onclick = "AddRushFee()" } )
+                            @Html.LabelFor( m => m.Loan.OrderAppraisals[ 0 ].RushOrder, "$100 Fee Applies" )
+                        </div>
+                        <div class="scttextcontentShort">
+                            @(Html.Telerik().CurrencyTextBoxFor( m => m.RushFee )
+                                .Name( "uxRushFee" )
+                                .Spinners( false )
+                                .MinValue( 0 )
+                                .HtmlAttributes( new { @class = "uxRushFee appraisalFee rightalign ", @style = "position:relative; margin-left: 5px;overflow:hidden;" } )
+                                .ClientEvents( events => events.OnLoad( "DisplayRushFee" ) )
+                                .DecimalDigits( 2 )
+                                .EmptyMessage( "" )
+                                .Enable( false )
+                            )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                        </div>
+                        <div class="scttextcontentLong">
+                            <span style="float: right; margin-right: 20px; margin-top: 3px;"><b>Total Appraisal
+                                Fee:</b> </span>
+                        </div>
+                        <div class="scttextcontentShort">
+                            @(Html.Telerik().CurrencyTextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].PaymentAmount )
+                                .Name( "uxTotalFee" )
+                                .Spinners( false )
+                                .MinValue( 0 )
+                                .HtmlAttributes( new { @class = "uxTotalFee appraisalFee rightalign ", @style = "position:relative; margin-left: 5px;overflow:hidden;" } )
+                                .DecimalDigits( 2 )
+                                .EmptyMessage( "" )
+                                .Enable( false )
+                                .ClientEvents( x => x.OnLoad( "onLoad" ) )
+                            )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow" style="float: right; margin-top: 20px; margin-right: 18px;">
+                        <div id="btnClearProducts" class="imp-button-div-hs-ws-prim" onclick="ClearProductsAndFees()">Clear</div>
+                        <div id="btnGetProducts" class="imp-button-div-hs-wxl-prim" onclick="GetProductsAndFees()" >Get Products and Fees</div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    @if ( Model.Loan != null )
+                    {
+                        <input type="hidden" id="loanType" value="@Model.Loan.LoanType" />
+                        if ( Model.Loan.LoanType != LoanTransactionType.Refinance )
+                        {
+                            <div id="appraisalOrderInformationDocuments" class="sctRow clear ">
+                                @Html.Partial("~/Views/Shared/Appraisal/_appraisalUploadDocuments.cshtml", Model)
+                            </div>
+                                <div id="btnUploadDocument" class="imp-button-div-hs-wxl-prim" style="float: right; margin-top: 20px; margin-right: 25px;" onclick="UploadFile.ClickAndShowUploadFile('@(Model.Loan.LoanId)', '@(Model.UserAccount.UserAccountId)');">
+                                    Upload Document</div>
+                        }
+                    }
+                </div>
+            </fieldset>
+            <!-- End Order information section -->
+            <!-- Payment information section -->
+            <fieldset class="AppraisalFieldset AppraisalRequest" style="float: left; width: 525px;
+                height: 380px;">
+                <legend>Payment Information</legend>
+                @Html.HiddenFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.BillingInformationid, new { id = "hdnBillingId", @class = "hdnBillingId" } )
+                <div id="mainDivPaymentInformation">
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Paid By:
+                        </div>
+                        <div class="scttextcontent">
+                            <span class="itemWidth">
+                                @Html.RadioButtonFor( m => m.Loan.OrderAppraisals[ 0 ].PaidBy, PaidBy.Borrower, new { id = "uxPaidByBorrower", @class = "uxPaidBy" } )
+                                @Html.Label( "uxPaidByBorrower", "Borrower" )
+                            </span><span class="itemWidth">
+                                @Html.RadioButtonFor( m => m.Loan.OrderAppraisals[ 0 ].PaidBy, PaidBy.LoanOfficer, new { id = "uxPaidByLO", @class = "uxPaidBy" } )
+                                @Html.Label( "uxPaidByLO", "Loan Officer" )
+                            </span>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Payment Method:
+                        </div>
+                        <div class="scttextcontent">
+                            <span class="itemWidth">
+                                @Html.RadioButtonFor( m => m.Loan.OrderAppraisals[ 0 ].PaymentMethod, PaymentMethod.Check, new { id = "uxPaymentCheck", @class = "uxPaymentMethod" } )
+                                @Html.Label( "uxPaymentCheck", "Check" )
+                            </span><span class="itemWidth">
+                                @Html.RadioButtonFor( m => m.Loan.OrderAppraisals[ 0 ].PaymentMethod, PaymentMethod.CreditCard, new { id = "uxPaymentCreditCard", @class = "uxPaymentMethod" } )
+                                @Html.Label( "uxPaymentCreditCard", "Credit Card" )
+                            </span><span class="itemWidth">
+                                @Html.RadioButtonFor( m => m.Loan.OrderAppraisals[ 0 ].PaymentMethod, PaymentMethod.PTC, new { id = "uxPaymentPTC", @class = "uxPaymentMethod" } )
+                                @Html.Label( "uxPaymentPTC", "PTC" )
+                            </span>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="sctRow" style="display: none;">
+                        <div class="scttxttitle">
+                            Existing Credit card:
+                        </div>
+                        <div class="scttextcontent">
+                            @(Html.Telerik().DropDownListFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.BillingInformationid )
+                                .Name( "uxExistingCreditCards" )
+                                .BindTo( new SelectList( Model.BillingInformations, "Value", "Text" ) )
+                                .ClientEvents( events => events.OnChange( "GetBillingInformation" )
+                                )
+                                .Enable( false )
+                            )
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Credit card type:
+                        </div>
+                        <div class="scttextcontent">
+                            @(Html.Telerik().DropDownListFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.CreditCardType )
+                                .Name( "uxCreditCardType" )
+                                .BindTo( new SelectList( Model.CrediCardTypes, "Value", "Text" ) )
+                                .Value( ( ( int )Model.Loan.OrderAppraisals[ 0 ].BillingInformation.CreditCardType ).ToString() )
+                                .ClientEvents( events => events.OnChange( "onChange" )
+                                )
+                                .Enable( false )
+                                .HtmlAttributes( new { @class = "uxCreditCardType", @style = "float: left;" } )
+                            )
+                            @if (@Model.Loan.OrderAppraisals[0].BillingInformationHistoryCount > 0)
+                            {
+                                <div id="appraisalBillingInformationHistoryGreen" class="button appraisalBillingInformationHistoryGreen" onclick="Appraisal.OpenAppraisalBillingHistoryPopup('@Model.Loan.OrderAppraisals[ 0 ].OrderAppraisalId')"></div>
+                            }
+                            else
+                            {
+                                <div id="appraisalBillingInformationHistoryBlue" class="button appraisalBillingInformationHistoryBlue"></div>
+                            }
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Credit Card #:
+                        </div>
+                        @if ( Model.UserAccount.Privileges.FirstOrDefault( x => x.Name == MML.Common.PrivilegeName.ViewCreditCard ) != null )
+                        {
+                            <div class="scttextcontent">
+                                @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.UnmaskedCreditCardNumber, new { id = "txtCreditCardNr", @class = "txtCreditCardNr MMLhovertextbox", disabled = true } )
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="scttextcontent">
+                                @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.CreditCardNumber, new { id = "txtCreditCardNr", @class = "txtCreditCardNr MMLhovertextbox", disabled = true } )
+                            </div>
+                        }
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            CCV #:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.CCV, new { id = "txtCCVNr", @class = "txtCCVNr MMLhovertextbox validateCCV", disabled = true } )
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Expiration Date:
+                        </div>
+                        <div class="scttextcontent">
+                            @(Html.Telerik().DropDownListFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.ExpirationDate.Month )
+                                .Name( "uxExpirationMonth" )
+                                .BindTo( new List<SelectListItem> { 
+                                    new SelectListItem {Text = "(Select month)", Value = "-1"},
+                                    new SelectListItem {Text = "January", Value = "1"},
+                                    new SelectListItem {Text = "February", Value = "2"},
+                                    new SelectListItem {Text = "March", Value = "3"},
+                                    new SelectListItem {Text = "April", Value = "4"},
+                                    new SelectListItem {Text = "May", Value = "5"},
+                                    new SelectListItem {Text = "June", Value = "6"},
+                                    new SelectListItem {Text = "July", Value = "7"},
+                                    new SelectListItem {Text = "August", Value = "8"},
+                                    new SelectListItem {Text = "September", Value = "9"},
+                                    new SelectListItem {Text = "October", Value = "10"},
+                                    new SelectListItem {Text = "November", Value = "11"},
+                                    new SelectListItem {Text = "December", Value = "12"} } )
+                                .HtmlAttributes( new { @class = "uxExpirationMonth", @style = "float: left; width: 110px" } )
+                                .ClientEvents( events => events.OnChange( "onChange" ) )
+                                .Enable( false )
+
+                            )
+                            @(Html.Telerik().DropDownListFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.ExpirationDate.Year )
+                                .Name( "uxExpirationYear" )
+                                .BindTo( new SelectList( Model.Years, "Value", "Text" ) )
+                                .HtmlAttributes( new { @class = "uxExpirationYear", @style = "margin-left: 20px; float: left; width: 100px" } )
+                                .ClientEvents( events => events.OnChange( "onChange" ) )
+                                .Enable( false )
+                            )
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Name on the card:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].BillingInformation.NameOnCard, new { id = "txtNameOnCard", @class = "txtNameOnCard MMLhovertextbox", disabled = true } )
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Amount:
+                        </div>
+                        <div class="scttextcontent">
+                            @(Html.Telerik().CurrencyTextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].PaymentAmount )
+                                .Name( "uxPaymentAmount" )
+                                .Spinners( false )
+                                .MinValue( 0 )
+                                .HtmlAttributes( new { @class = "uxPaymentAmount appraisalFee rightalign ", @style = "position:relative;overflow:hidden;" } )
+                                .DecimalDigits( 2 )
+                                .EmptyMessage( "" )
+                                .Enable( false )
+                                .ClientEvents( x => x.OnLoad( "onLoad" ) )
+                            )
+                            @if (!@Model.IsAppraisalDisabled)
+                            {
+                            <div id="btnNewCreditCard" class="imp-button-div-hs-wl-prim" style="margin-left: 70px;" onclick="NewCreditCard()">New credit card</div>
+                            }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Reference Number:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].ReferenceNumber, new { id = "uxReferenceNumber", @class = "uxReferenceNumber MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Reference Date:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].ReferenceDate, new { id = "uxReferenceDate", @class = "uxReferenceDate MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Payment Status:
+                        </div>
+                        <div class="scttextcontent appraisalcontentshort">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].PaymentStatus, new { id = "uxPaymentStatus", @class = "uxPaymentStatus MMLhovertextbox", disabled = true } )
+                            @if (!@Model.IsAppraisalDisabled)
+                            {
+                            <div id="btnCheckPaymentStatus" class="imp-button-div-hs-wm-prim" style="margin-left: 15px;" onclick="CheckPaymentStatus('@Model.Loan.LoanId')">Check Status</div>
+                            }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- End Payment information -->
+        </div>
+        <div id="fourthDivRow" style="float: left;">
+            <!-- Appraisal Tracking Information -->
+            <fieldset class="AppraisalFieldset AppraisalRequest" style="float: left; width: 525px;
+                height: 320px;">
+                <legend>Appraisal Tracking Information</legend>
+                <div id="mainDivAppraisalTracking">
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Order Id:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].LenderXOrderId, new { id = "uxAppraisalOrderId", @class = "uxAppraisalOrderId MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Created Date:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalCreatedDate, new { id = "uxAppraisalCreatedDate", @class = "uxAppraisalCreatedDate MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Estimated Inspection:
+                        </div>
+                        <div class="scttextcontent">
+                            @{
+                                String estimatedInspection = String.Empty;
+                                if ( Model.Loan.OrderAppraisals[ 0 ].AppraisalEstimatedInspection.HasValue )
+                                {
+                                    estimatedInspection = Model.Loan.OrderAppraisals[ 0 ].AppraisalEstimatedInspection.Value.ToString( "MM/dd/yyyy" );
+                                }
+                            }
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalEstimatedInspection, new { id = "uxAppraisalEstimatedInspection", @class = "uxAppraisalEstimatedInspection MMLhovertextbox", @Value = estimatedInspection, disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Scheduled Inspection:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalScheduledInspection, new { id = "uxAppraisalScheduledInspection", @class = "uxAppraisalScheduledInspection MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Actual Inspection:
+                        </div>
+                        <div class="scttextcontent">
+                            @{
+                                String actualInspection = String.Empty;
+                                if ( Model.Loan.OrderAppraisals[ 0 ].AppraisalActualInspection.HasValue )
+                                {
+                                    actualInspection = Model.Loan.OrderAppraisals[ 0 ].AppraisalActualInspection.Value.ToString( "MM/dd/yyyy" );
+                                }
+                            }
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalActualInspection, new { id = "uxAppraisalActualInspection", @class = "uxAppraisalActualInspection MMLhovertextbox", @Value = actualInspection, disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Expected Delivery:
+                        </div>
+                        <div class="scttextcontent">
+                            @{
+                                String expectedDelivery = String.Empty;
+                                if ( Model.Loan.OrderAppraisals[ 0 ].AppraisalExpectedDelivery.HasValue )
+                                {
+                                    expectedDelivery = Model.Loan.OrderAppraisals[ 0 ].AppraisalExpectedDelivery.Value.ToString( "MM/dd/yyyy" );
+                                }
+                            }
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalExpectedDelivery, new { id = "uxAppraisalExpectedDelivery", @class = "uxAppraisalExpectedDelivery MMLhovertextbox", @Value = expectedDelivery, disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraisal Upload:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalUpload, new { id = "uxAppraisalUpload", @class = "uxAppraisalUpload MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Completed Date:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalCompletedDate, new { id = "uxAppraisalCompletedDate", @class = "uxAppraisalCompletedDate MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Cancelled Date:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor( m => m.Loan.OrderAppraisals[ 0 ].AppraisalCancelledDate, new { id = "uxCancelledDate", @class = "uxCancelledDate MMLhovertextbox", disabled = true } )
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraisal Status:
+                        </div>
+                        <div class="scttextcontent appraisalcontentshort">
+                            @Html.TextBox( "uxAppraisalStatus", Model.AppraisalStatus, new { @class = "uxAppraisalStatus MMLhovertextbox", disabled = true } )
+                            <div id="btnCheckAppraisalStatus" class="imp-button-div-hs-wm-prim" style="margin-left: 15px;" onclick="CheckAppraisalStatus('@Model.Loan.LoanId')">Check Status</div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- End Appraisal Tracking Information -->
+            <!-- Appraisal Report Information section -->
+            <fieldset class="AppraisalFieldset AppraisalRequest" style="float: left; width: 525px;
+                height: 320px;">
+                <legend>Appraisal Report Information</legend>
+                <div id="mainDivAppraisalReport">
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraisal Company:
+                        </div>
+                        <div class="scttextcontent">
+                        @if (AccountHelper.HasPrivilege(PrivilegeName.ViewAppraisalFormData))
+                        {
+                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].AppraisalCompany, new { id = "uxAppraisalCompany", @class = "uxAppraisalCompany MMLhovertextbox", disabled = true })
+                            
+                        }
+                        else
+                        {
+                             {
+                                 string parameterValue = String.IsNullOrEmpty( Model.Loan.OrderAppraisals[ 0 ].AppraisalCompany ) ? String.Empty : StringHelper.HideString( Model.Loan.OrderAppraisals[ 0 ].AppraisalCompany, '*' );
+                                 
+                                @Html.TextBoxFor(m => parameterValue, new { id = "uxAppraisalCompany", @class = "uxAppraisalCompany MMLhovertextbox", disabled = true })
+                             }
+                        }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraiser Name:
+                        </div>
+                        <div class="scttextcontent">
+                        @if (AccountHelper.HasPrivilege(PrivilegeName.ViewAppraisalFormData))
+                        {
+                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].AppraiserName, new { id = "uxAppraiserName", @class = "uxAppraiserName MMLhovertextbox", disabled = true })
+                        }
+                        else
+                        {
+                            {
+                                string parameterValue = String.IsNullOrEmpty( Model.Loan.OrderAppraisals[ 0 ].AppraiserName ) ? String.Empty : StringHelper.HideString( Model.Loan.OrderAppraisals[ 0 ].AppraiserName, '*' );
+                                 
+                                @Html.TextBoxFor(m => parameterValue, new { id = "uxAppraiserName", @class = "uxAppraiserName MMLhovertextbox", disabled = true })
+                            }
+                        }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraiser Lic. #:
+                        </div>
+                        <div class="scttextcontent">
+                        @if (AccountHelper.HasPrivilege(PrivilegeName.ViewAppraisalFormData))
+                        {
+                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].AppraiserLicenceNumber, new { id = "uxAppraiserLicenseNumber", @class = "uxAppraiserLicenseNumber MMLhovertextbox", disabled = true })
+                        }
+                        else
+                        {
+                             {
+                                 string parameterValue = String.IsNullOrEmpty( Model.Loan.OrderAppraisals[0].AppraiserLicenceNumber ) ? String.Empty : StringHelper.HideString(Model.Loan.OrderAppraisals[0].AppraiserLicenceNumber, '*');
+                              
+                                    @Html.TextBoxFor(m => parameterValue, new { id = "uxAppraiserLicenseNumber", @class = "uxAppraiserLicenseNumber MMLhovertextbox", disabled = true }) 
+                              }
+                        }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraiser Supervisor:
+                        </div>
+                        <div class="scttextcontent">
+                        @if (AccountHelper.HasPrivilege(PrivilegeName.ViewAppraisalFormData))
+                        {
+                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].AppraiserSupervisor, new { id = "uxAppraiserSupervisor", @class = "uxAppraiserSupervisor MMLhovertextbox", disabled = true })
+                        }
+                        else
+                        {
+                             {
+                                 string parameterValue = String.IsNullOrEmpty( Model.Loan.OrderAppraisals[ 0 ].AppraiserSupervisor ) ? String.Empty : StringHelper.HideString( Model.Loan.OrderAppraisals[ 0 ].AppraiserSupervisor, '*' );
+                                 
+                                 @Html.TextBoxFor(m => parameterValue, new { id = "uxAppraiserSupervisor", @class = "uxAppraiserSupervisor MMLhovertextbox", disabled = true })
+                             }
+                        }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraiser Supv. Lic. #:
+                        </div>
+                        <div class="scttextcontent">
+                        @if (AccountHelper.HasPrivilege(PrivilegeName.ViewAppraisalFormData))
+                        {
+                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].AppraiserSupervisorLicenceNumber, new { id = "uxAppraiserSupervisorLicenseNumber", @class = "uxAppraiserSupervisorLicenseNumber MMLhovertextbox", disabled = true })
+                        }
+                        else
+                        {
+                            {
+                                string parameterValue = String.IsNullOrEmpty( Model.Loan.OrderAppraisals[0].AppraiserSupervisorLicenceNumber ) ? String.Empty : StringHelper.HideString(Model.Loan.OrderAppraisals[0].AppraiserSupervisorLicenceNumber, '*');
+                                 
+                                @Html.TextBoxFor(m => parameterValue, new { id = "uxAppraiserSupervisorLicenseNumber", @class = "uxAppraiserSupervisorLicenseNumber MMLhovertextbox", disabled = true })
+                            }
+                        }
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Estimated Value:
+                        </div>
+                        <div class="scttextcontent currency">
+                            @Html.Telerik().CurrencyTextBoxFor(m => m.Loan.SubjectProperty.CurrentEstimatedValue).Name("uxEstimatedValue").Spinners(false).MinValue(0).HtmlAttributes(new { @class = "uxEstimatedValue rightalign" }).Enable(false).DecimalDigits(2).ClientEvents(x => x.OnLoad("onLoad"))
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraised Value:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.Telerik().CurrencyTextBoxFor(m => m.Loan.OrderAppraisals[0].AppraisedValue).Name("uxAppraisedValue").Spinners(false).MinValue(0).HtmlAttributes(new { @class = "uxEstimatedValue rightalign" }).Enable(false).DecimalDigits(2).ClientEvents(x => x.OnLoad("onLoad"))
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            Appraisal Condition:
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].AppraisalCondition, new { id = "uxAppraisalCondition", @class = "uxAppraisalCondition MMLhovertextbox", disabled = true })
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="sctRow">
+                        <div class="scttxttitle">
+                            UCDP Doc. ID#
+                        </div>
+                        <div class="scttextcontent">
+                            @Html.TextBoxFor(m => m.Loan.OrderAppraisals[0].UcdpDocumentIdNumber, new { id = "uxUCDPDocumentId", @class = "uxUCDPDocumentId MMLhovertextbox", disabled = true })
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- End Appraisal Report information section -->
+        </div>
+        <div style="float: right; margin-right: 20px; margin-bottom: 15px;">
+        @if (@Model.UserAccount.Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.EnableSubmitToLenderX) != null && !@Model.IsAppraisalDisabled)
+        {
+            <div style="float: right;">
+                <div id="btnSubmitLenderX" class="imp-button-div-hm-wxl-prim" onclick="SubmitToLenderX()">Submit to LenderX</div>
+            </div>
+        }
+        @if (@Model.UserAccount.Privileges.FirstOrDefault(x => x.Name == MML.Common.PrivilegeName.EnableSubmitAppraisalOrder) != null && !@Model.IsAppraisalDisabled)
+        {
+            <div style="float: right;">
+                <div id="btnSubmitAppraisal" class="imp-button-div-hm-wxl-prim" onclick="SubmitAppraisalOrder()">Submit Appraisal Order</div>
+            </div>
+        }
+        <div style="float: right;">
+            <div id="btnSaveAppraisal" class="imp-button-div-hm-wm-prim" onclick="SaveAppraisalOrder()">Save</div>
+        </div>
+        </div>
+    </div>
+</div>
+<div id="validationTooltip" style="position: absolute; width: 233px; height: 73px;
+    background-image: url('../../Content/images/tooltip/ValidationTooltipBackground2.png');
+    display: none; z-index: 999;">
+    <div id="validationTooltipClose" style="float: right; cursor: pointer; height: 10px;
+        width: 10px; margin-right: 12px; margin-top: 8px;">
+    </div>
+    <span id="spnTooltipMessage" style="float: left; color: red; font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px; padding-left: 35px; padding-top: 15px; width: 176px;">Please Enter
+        Value!</span>
+</div>

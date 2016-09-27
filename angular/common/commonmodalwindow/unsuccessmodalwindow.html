@@ -1,0 +1,11 @@
+﻿<div class="modal-body">
+    <div class="modal-body-half">
+        <div style="font-weight:bold;padding-top:18px;">{{commonModalCtrl.header}}</div>
+        <div style="padding:8px 40px 0px 40px;text-align:left; font-weight:normal; font-size:15px;">
+        {{commonModalCtrl.message}}</div>
+    </div>
+    <div class="modal-body-half" style="margin-top:20px;">
+        <button ng-class="{'imp-button-div-hm-wm-sec' : commonModalCtrl.ctrlButtons, 'imp-button-hm-wm-prim': !commonModalCtrl.ctrlButtons }" style="height:30px; padding:0px; font-size:12px;" ng-click="commonModalCtrl.close()">Close</button>
+        <button ng-repeat="button in commonModalCtrl.ctrlButtons" ng-class="button.styleClass" ng-style="{'width': button.width, 'height': button.height}" ng-click="commonModalCtrl.buttonCallback(button.callback)">{{button.title}}</button>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿<!--Grid loader-->
+<div id="floatBarsG" ng-show="queue.showGridLoader">
+    <div id="floatBarsG_1" class="floatBarsG"></div>
+    <div id="floatBarsG_2" class="floatBarsG"></div>
+    <div id="floatBarsG_3" class="floatBarsG"></div>
+    <div id="floatBarsG_4" class="floatBarsG"></div>
+    <div id="floatBarsG_5" class="floatBarsG"></div>
+    <div id="floatBarsG_6" class="floatBarsG"></div>
+    <div id="floatBarsG_7" class="floatBarsG"></div>
+    <div id="floatBarsG_8" class="floatBarsG"></div>  
+</div>
+
+<div style="width: 100%;  height:100%;  box-sizing: border-box;">
+
+    <div id="angularGrid" angular-grid="gridOptions" style="width: 1300px; padding-right:17px; margin-left:-110px; min-height:200px;" grid-height></div>
+
+</div>
+
+<div class="queue-bottom-table-bar">
+    <div class="items">
+        <div class="show">
+            <div class="show-text">Show</div>
+            <div class="btn-group-parent" style=" float: left;">
+                <div class="btn-group" dropdown>
+                    <div class="group-button-sec  imp-button-general ddl-button" dropdown-toggle>
+                        <span> {{queue.displayRecordItem.name}} </span>
+                        <span class="arrow"></span>
+                    </div>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="item in queue.recordItems">
+                            <a ng-click="queue.filterNumberOfRecordsInTheGrid(item, true)">{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height : 40px; width:100%;">&nbsp;</div>

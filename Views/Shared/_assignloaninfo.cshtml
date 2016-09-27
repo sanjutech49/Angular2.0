@@ -1,0 +1,254 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Telerik.Web.Mvc.UI.Fluent
+@using MML.Web.LoanCenter.Helpers.Utilities
+@using MML.Common
+@model MML.Web.LoanCenter.ViewModels.AssignLoanInfoViewModel
+<div class="assignloaninfodiv completesection">
+    <div class="assignloaninfohead">
+        <div class="left0">
+            <span class="namelink">Assign Loan Information</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="titleInformation">@Model.TitleInformation <span class="spnLeadSourceInfo">@Model.LeadSourceInformation</span></div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="closeAssignLoanInfo" class="xclose" title="Close Section" onclick="CloseCommandSection()"></a><a id="minimizeassignloaninfo" class="minimizesection" title="Minimize/Maximize Section">
+                    <div id="startnewprospectminmax" class="minmax min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="assignloaninfocontent" class="assignloaninfocontent maincontent">
+        <div class="assignloaninfotitle">
+            To export Loan data into LOS, please click the link below to download 1003 file.
+        </div>
+        <div class="assignloaninfodivleft">
+            <div class="title">
+                LOS
+            </div>
+            <div class="content">
+                <table class="assignloaninfotable">
+                    <tr>
+                        <td>
+                            LOS Loan Number:
+                        </td>
+                        <td>
+                            @if ( ( String.IsNullOrEmpty( Model.LoanNumber ) || Model.LoanNumber.ToLower() == "pending" ) && Model.UserCanChangeLoanNumber && !Model.ImportToLosInProgress )
+                            {
+                                @Html.TextBox("LoanNumber", Model.LoanNumber, new {@class = "assignloaninfoinput roundedinput onlynumberandletter"})
+                            }
+                            else
+                            {
+                                @Html.TextBox( "LoanNumber", Model.LoanNumber, new { @class = "assignloaninfoinput roundedinput onlynumberandletter", disabled = true } )
+                            }
+                            <input type="hidden" id="hdnCurrentLoanNumber" value="@Model.LoanNumber" />
+                        </td>
+                        <td class="italic10">
+                            @if ( Model.ImportToLosInProgress )
+                            {
+                                <div id="divInProgressMessage" class="divInProgressMessage" style="float: left; margin-left: 5px;
+                                    color: red; margin-top: 2px; font-size: 13px; font-weight: bold;">
+                                    Import to LOS is in Progress
+                                </div>
+                            }
+                            else
+                            {
+                                <div>Loan ID populates automatically from LOS</div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            LOS folder
+                        </td>
+                        <td>
+                            @if ( ( !String.IsNullOrEmpty( Model.LoanNumber ) && Model.LoanNumber.ToLower() != "pending" ) || Model.ImportToLosInProgress )
+                            {
+                                if ( Model.LosFolders.Any( a => a.IsDefault == true ) )
+                                {
+                                    @Html.Telerik().DropDownListFor( l => l.LosFolder ).BindTo( new SelectList( Model.LosFolders, "LosFolderId", "FolderName", Model.LosFolders.SingleOrDefault( a => a.IsDefault == true ).LosFolderId ) ).HtmlAttributes( new { @class = "assignloaninfoinput" } ).Enable( false )
+                                }
+                                else
+                                {
+                                    @Html.Telerik().DropDownListFor( l => l.LosFolder ).BindTo( new SelectList( Model.LosFolders, "LosFolderId", "FolderName" ) ).HtmlAttributes( new { @class = "assignloaninfoinput" } ).Enable( false )
+                                }
+                            }
+                            else
+                            {
+                                if ( Model.LosFolders.Any( a => a.IsDefault == true ) )
+                                {
+                                    @Html.Telerik().DropDownListFor( l => l.LosFolder ).BindTo( new SelectList( Model.LosFolders, "LosFolderId", "FolderName", Model.LosFolders.SingleOrDefault( a => a.IsDefault == true ).LosFolderId ) ).HtmlAttributes( new { @class = "assignloaninfoinput" } )
+                                }
+                                else
+                                {
+                                    @Html.Telerik().DropDownListFor( l => l.LosFolder ).BindTo( new SelectList( Model.LosFolders, "LosFolderId", "FolderName" ) ).HtmlAttributes( new { @class = "assignloaninfoinput" } )
+                                }
+                            }
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="title" style="margin-top: 10px;">
+                Download 1003 file
+            </div>
+            <div class="content">
+                Once the Loan Application is submitted or completed you can click on the download
+                file link to download the loan application in your preferred format.<br/><br/>
+                
+                Urla Delivery Format:<br/>
+                @Html.Telerik().DropDownList().BindTo( new SelectList( Model.UrlaDeliveryMethod, "Value", "Text", "0" ) ).Name( "ddlUrlaDeliveryMethod" ).Enable( Model.EnableDownload ).ClientEvents( e => e.OnChange( "AssignLoanInfo.UrlDeliveryMethodChanged" ) )
+                @if ( Model.EnableDownload )
+                {
+                    <div>
+                        <span class="orangearrow"></span><a id="aUrlaDownloadLink" href="@Model.DownloadLink" >Download 1003 file</a>
+                    </div>
+                }
+                else
+                {
+                    <div >
+                        <span class="alertSign_Yellow"></span><span>Export Disabled, @Model.ActivityName activity
+                            is not yet Submitted or Completed.</span>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="assignloaninfodivright">
+            
+            <div>
+                <table class="assignloaninfotable" style="width:540px">
+                    <tr>
+                        <td colspan="2">
+                            <div class="title">
+                                Select Channel/Branch Location
+                            </div>
+                        </td>
+                        
+                        <td colspan="2">
+                            <div class="title"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:60px">
+                            Channel:
+                        </td>
+                        <td>
+                            <div id="channelFilter" class="filterItem">
+                               @Html.Telerik().DropDownListFor( m => m.ChannelId ).BindTo( new SelectList( Model.Channels, "Value", "Text" ) ).Name( "ddlChannelId" ).ClientEvents( e => e.OnChange( "AssignLoanInfo.ChannelOnChange" ) ).Enable( AccountHelper.IsInRole( RoleName.Administrator ) )
+                            </div>
+                        </td>
+                        
+                        <td>
+                            LOA:
+                        </td>
+                        <td>
+                            @Html.Telerik().DropDownListFor( l => l.LoaId ).BindTo( new SelectList( Model.LoaList, "UserAccountId", "ConciergeName" ) ).HtmlAttributes( new { @class = "assignloaninfoinput" } )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:60px">
+                            Division:
+                        </td>
+                        <td>
+                            <div id="divisonFilter" class="filterItem">
+                                 @Html.Telerik().DropDownListFor( m => m.DivisionId ).BindTo( new SelectList( Model.Divisions, "Value", "Text" ) ).Name( "ddlDivisionId" ).ClientEvents( e => e.OnChange( "AssignLoanInfo.DivisionOnChange" ) ).Enable( AccountHelper.IsInRole( RoleName.Administrator ) )
+                            </div>
+                        </td>
+                        
+                        <td>
+                            Loan Processor:
+                        </td>
+                        <td>
+                             @Html.Telerik().DropDownListFor( c => c.CallCenterId ).HtmlAttributes( new { @class = "assignloaninfoinput" } ).BindTo( new SelectList( Model.CallCenterInfoList, "UserAccountId", "CallCenterName", Model.SelectedCallCenter ) )
+                        </td>
+                    </tr>
+                    <tr>
+                         <td style="width:60px">
+                            Branch:
+                        </td>
+                        <td>
+                            <div id="branchFilter" class="filterItem">
+                                @Html.Telerik().DropDownListFor( m => m.BranchId ).BindTo( new SelectList( Model.Branches, "Value", "Text" ) ).Name( "ddlBranchId" ).ClientEvents( e => e.OnChange( "AssignLoanInfo.BranchOnChange" ) ).Enable( AccountHelper.IsInRole( RoleName.Administrator ) )
+                            </div>
+                        </td>  
+                        <td>
+                          
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 60px">
+                          Concierge:
+                        </td>
+                        <td>
+                        @(Html.Telerik().DropDownListFor( l => l.ConciergeId ).BindTo( new SelectList( Model.ConciergeList, "UserAccountId", "ConciergeName", Model.ConciergeId ) )
+                                .HtmlAttributes( new { @style = "width: 175px;" } )
+                                .ClientEvents( e => e.OnChange( "AssignLoanInfo.NSMLChanged" ) ))
+                        </td>
+                        <td>                    
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:60px">
+                             NMLS#:
+                        </td>
+                        <td>
+                            @Html.TextBox( "ConciergeNMLS", Model.ConciergeNMLS, new { @class = "roundedinput", @style = "width: 170px;", @disabled = "disabled" } )    
+                        </td>
+                        
+                        <td colspan="2">
+                            @Html.CheckBox( "EnableDigitalDocs", Model.EnableDigitalDocsCall )
+                            Enable Digital Docs Call
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:60px">
+                        </td>
+                        <td>
+                            <div id="divionFilter" class="filterItem">
+                            </div>
+                        </td>
+                        <td >
+                        </td>
+                        
+                        <td align="right">
+                            <div id="assignloaninfosubmit" class="bluebutton imp-button-general" onclick="AssignLoanInfo.ShowConfirmationPopup('@Model.LoanId', '@Model.CompanyId')">Submit</div>
+                            <div id="assignloaninfosmallloader" class="smallloader" style="display:none;"></div>
+                            <div class="assignloaninfonotification"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divConfirmationPopup" class="divConfirmationPopup" style="display: none;">
+    <div class="divConfirmationPopupheadcontent">
+		<div class="conversationlogsectionheadtitle">
+			<span class="namelink">Confirmation needed</span>
+		</div>
+		<a id="closeconversationlog" onclick="AssignLoanInfo.CloseConfirmationPopup()" title="Minimize/Maximize Section">
+				<div id="minmaxconversationlog" class="close"></div>
+		</a>
+		<div class="conversationlogheadline">
+		</div>
+	</div>
+	<div id="confirmationpopupcontentsection">
+        <div class="confirmationpopuptext">
+            <span>Please confirm that the LOS Loan number and LOS folder values are correct?</span>
+        </div>
+        <div id="divConfirmationPopupButtons" class="divConfirmationPopupButtons">
+            <button type="button" value="" id="confirmationPopupButtonNo" class="confirmationPopupButtonNo" onclick="AssignLoanInfo.ConfirmChanges( false, '@Model.LoanId')" />
+            <button type="button" value="" id="confirmationPopupButtonYes" class="confirmationPopupButtonYes" onclick="AssignLoanInfo.ConfirmChanges( true, '@Model.LoanId')" />
+        </div>
+    </div>
+</div>

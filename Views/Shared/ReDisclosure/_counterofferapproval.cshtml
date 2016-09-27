@@ -1,0 +1,129 @@
+﻿@model MML.Web.LoanCenter.ViewModels.ReDisclosureModel
+@using MML.Common.Helpers
+@using MML.Contracts
+
+<div class="cocmainDiv" id="cocmainDiv">
+    @if ( Model.LoanChangeIndicators != null && Model.LoanChangeIndicators.CounterOfferApprovalItems != null && Model.LoanChangeIndicators.CounterOfferApprovalItems.Any() )
+    {
+        <div class="cafTitleDiv">
+            Counter Offer Approval (CAF)
+        </div>
+        <div class="cafSubTitleDiv">
+            Your initial application denial was based on the following reason(s):
+        </div>                   
+        <div class="cafMainDiv">
+            <div id="cafLeftSection" class="cafLeftSection">
+                <div class="cafSubSection">
+                    <div class="cafSectionSubtitle">
+                        A. CREDIT</div>
+                    @{
+        List<CounterOfferApprovalItem> CafItems =  Model.LoanChangeIndicators.CounterOfferApprovalItems.ToList();
+        List<CounterOfferApprovalItem> CafItemsCredit = Model.LoanChangeIndicators.CounterOfferApprovalItems.Where( p => p.CafName.GetCategoryValue() ==
+        CounterOfferApprovalTypeEnum.Credit.GetStringValue() ).ToList();    
+        List<int> ListOfPaddingLeftItems = new List<int>();     
+        for(int i = 0; i<CafItems.Count; i++)
+        {
+           if(
+              CafItems[i].CafName.GetStringValue() == CounterOfferApprovalNameEnum.InsufficientIncomeForTotalObligations.GetStringValue()  || 
+              CafItems[i].CafName.GetStringValue() == CounterOfferApprovalNameEnum.UnacceptablePaymentRecordOnPreviousMortgage.GetStringValue() || 
+              CafItems[i].CafName.GetStringValue() == CounterOfferApprovalNameEnum.UnacceptableProperty.GetStringValue() || 
+              CafItems[i].CafName.GetStringValue() == CounterOfferApprovalNameEnum.InsufficientDataProperty.GetStringValue() || 
+              CafItems[i].CafName.GetStringValue() == CounterOfferApprovalNameEnum.UnacceptableAppraisal.GetStringValue() || 
+              CafItems[i].CafName.GetStringValue() == CounterOfferApprovalNameEnum.UnacceptableLeaseholdEstate.GetStringValue()
+               )
+           {
+               ListOfPaddingLeftItems.Add(i);
+           }
+        }
+                          
+        for ( var i = 0; i < CafItemsCredit.Count; i++ )
+        {
+            int n = Model.LoanChangeIndicators.CounterOfferApprovalItems.IndexOf( CafItemsCredit.ElementAt( i ) );
+                       
+                        <div class="cafRowDiv" @if(ListOfPaddingLeftItems.Contains(n)){ <text>style="margin-left: 20px;"</text> }>
+                            @Html.CheckBoxFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].Checked )
+                            @Html.Label( Model.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName.GetStringValue() )
+                        </div>
+                          @Html.HiddenFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName )
+        }
+                    }
+                    <div class="cafSectionSubtitle">
+                        B. EMPLOYMENT STATUS
+                    </div>
+                    @{
+        List<CounterOfferApprovalItem> CafItemsEmploymentStatus = Model.LoanChangeIndicators.CounterOfferApprovalItems.Where( p => p.CafName.GetCategoryValue() ==
+        CounterOfferApprovalTypeEnum.EmploymentStatus.GetStringValue() ).ToList();
+        for ( var i = 0; i < CafItemsEmploymentStatus.Count; i++ )
+        {
+            int n = Model.LoanChangeIndicators.CounterOfferApprovalItems.IndexOf( CafItemsEmploymentStatus.ElementAt( i ) );
+                        <div class="cafRowDiv" @if(ListOfPaddingLeftItems.Contains(n)){ <text>style="margin-left: 20px;"</text> }>
+                            @Html.CheckBoxFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].Checked )
+                            @Html.Label( Model.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName.GetStringValue() )
+                        </div>
+                          @Html.HiddenFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName )
+        }
+                    }
+                </div>
+            </div>
+            <div id="cafRightSection" class="cafRightSection">
+                <div class="cafSubSection">
+                    <div class="cafSectionSubtitle">
+                        C. INCOME</div>
+                    @{
+        List<CounterOfferApprovalItem> CafItemsIncome = Model.LoanChangeIndicators.CounterOfferApprovalItems.Where( p => p.CafName.GetCategoryValue() ==
+        CounterOfferApprovalTypeEnum.Income.GetStringValue() ).ToList();
+        for ( var i = 0; i < CafItemsIncome.Count; i++ )
+        {
+            int n = Model.LoanChangeIndicators.CounterOfferApprovalItems.IndexOf( CafItemsIncome.ElementAt( i ) );
+                        <div class="cafRowDiv" @if(ListOfPaddingLeftItems.Contains(i)){ <text>style="margin-left: 20px;"</text> }>
+                            @Html.CheckBoxFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].Checked )
+                            @Html.Label( Model.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName.GetStringValue() )
+                        </div>
+                          @Html.HiddenFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName )
+        }
+                    }
+                    <div class="cafSectionSubtitle">
+                        D. RESIDENCY</div>
+                    @{
+        List<CounterOfferApprovalItem> CafItemsResidency = Model.LoanChangeIndicators.CounterOfferApprovalItems.Where( p => p.CafName.GetCategoryValue() ==
+        CounterOfferApprovalTypeEnum.Residency.GetStringValue() ).ToList();
+        for ( var i = 0; i < CafItemsResidency.Count; i++ )
+        {
+            int n = Model.LoanChangeIndicators.CounterOfferApprovalItems.IndexOf( CafItemsResidency.ElementAt( i ) );
+                        <div class="cafRowDiv" @if(ListOfPaddingLeftItems.Contains(n)){ <text>style="margin-left: 20px;"</text> }>
+                            @Html.CheckBoxFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].Checked )
+                            @Html.Label( Model.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName.GetStringValue() )
+                        </div>
+                          @Html.HiddenFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName )
+        }
+                    }
+                    <div class="cafSectionSubtitle">
+                        E. OTHER</div>
+                    @{
+                    
+        List<CounterOfferApprovalItem> CafItemsOther = Model.LoanChangeIndicators.CounterOfferApprovalItems.Where( p => p.CafName.GetCategoryValue() ==
+        CounterOfferApprovalTypeEnum.Other.GetStringValue() ).ToList();
+        for ( var i = 0; i < CafItemsOther.Count; i++ )
+        {
+
+            int n = Model.LoanChangeIndicators.CounterOfferApprovalItems.IndexOf( CafItemsOther.ElementAt( i ) );
+                        <div class="cafRowDiv" @if(ListOfPaddingLeftItems.Contains(n)){ <text>style="margin-left: 20px;"</text> }>
+                            @Html.CheckBoxFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].Checked )
+                            @if ( Model.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName == MML.Contracts.CounterOfferApprovalNameEnum.WeDoNotGrantCreditToAnyApplicantsOnReasonOne ||
+                        Model.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName == MML.Contracts.CounterOfferApprovalNameEnum.WeDoNotGrantCreditToAnyApplicantsOnReasonTwo )
+                            {
+                                @Html.TextBoxFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafValue )    
+                            }
+                            else
+                            {
+                                @Html.Label( Model.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName.GetStringValue() )                        
+                            }
+                        </div>
+                         @Html.HiddenFor( m => m.LoanChangeIndicators.CounterOfferApprovalItems[ n ].CafName )
+        }
+                    }
+                </div>
+            </div>
+        </div>                    
+    }
+</div>

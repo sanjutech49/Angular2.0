@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using MML.Common.Helpers;
+@using (Html.BeginForm())
+{
+    <section id="systemAdmin" style="clear: both; display: table; padding-top:30px;">
+        <section id="systemAdminMenu" style="width:199px; float:left;">
+            @Html.Partial("~/Views/Shared/SystemAdmin/Menu/_menu.cshtml")
+        </section>
+        <section id="systemAdminBody" style="float:left;">
+            @{ Html.RenderAction("GetActionResultForActionAndController", "SystemAdmin", new { pn = Session[SessionHelper.CurrentSystemAdminPage].ToString(), cntrl = Session[SessionHelper.CurrentSystemAdminController].ToString() });}
+        </section>
+    </section>
+    <section id="newBusinessContact" class="addNew"></section>
+}

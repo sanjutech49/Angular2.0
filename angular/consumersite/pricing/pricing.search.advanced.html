@@ -1,0 +1,182 @@
+﻿<div ng-show="pricingCntrl.showAdvancedSearch">
+    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-lg-offset-3" style="margin-left:5px;">
+        <form id="searchFormAdvanced" class="form-horizontal product-search-form-full">
+            <fieldset>
+                <div class="col-xs-4">
+                    <!--Column One-->
+
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="selectbasic">Loan&nbsp;Purpose</label>
+                        <div class="col-md-12">
+                            <select id="selectbasic" name="selectbasic" class="form-control loan-purpose-select" 
+                                    ng-model="pricingCntrl.loanPurposeType"
+                                    ng-options="lp.val|number as lp.text for lp in pricingCntrl.loanPurpose"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label">Zip&nbsp;Code</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control input-md"
+                                   ng-model="pricingCntrl.loan.getLoan().getSubjectProperty().zipCode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label">Existing 1st&nbsp;Mortgage</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control input-md"
+                                   ng-model="pricingCntrl.loan.firstMortgage"
+                                   format-currency>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label">Cash&nbsp;Out</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control input-md"
+                                   ng-model="pricingCntrl.loan.cashOutAmount"
+                                   format-currency>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="textinput">Estimated Property&nbsp;Value</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control input-md"
+                                   ng-model="pricingCntrl.loan.getLoan().getSubjectProperty().currentEstimatedValue"
+                                   format-currency>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="selectbasic">Credit&nbsp;Score</label>
+                        <div class="col-md-12">
+                            <select id="selectbasic" name="selectbasic" class="form-control loan-purpose-select" 
+                                    ng-model="pricingCntrl.loan.getLoan().otherInterviewData.selectedDecisionScoreRange"
+                                    ng-options="ficoScore.value as ficoScore.text for ficoScore in pricingCntrl.applicationData.lookup.ficoScore"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="lblLoanAmount">Desired&nbsp;Loan&nbsp;Amount</label>
+                        <div class="col-md-12">
+                            <!--@todo: get proper CSS class-->
+                            <output id="lblLoanAmount" style="font-weight: 700; font-size: 17px">{{pricingCntrl.getLoanAmount() | currency}}</output>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <button class="btn btn-primary btn-get-my-rates" ng-click="pricingCntrl.getProducts()">Get My Rates</button>
+                        </div>
+
+                    </div>
+                    <!--<div><button class="btn-link" ng-click="pricingCntrl.toggleAdvancedSearch()">Hide&nbsp;Advanced&nbsp;Options</button></div>-->
+                    <div><button class="btn-link" ng-click="pricingCntrl.toggleAdvancedSearchEx()">Hide&nbsp;Advanced&nbsp;Options</button></div>
+                </div><!--Column One-->
+
+                <div class="col-xs-4">
+                    <!--Column2-->
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="selectPropertyType">Property&nbsp;Type</label>
+                        <div class="col-md-12">
+                            <select id="selectPropertyType" class="form-control loan-purpose-select" ng-model="pricingCntrl.propertyType"
+                                    ng-options="propertyType.value as propertyType.text for propertyType in pricingCntrl.applicationData.lookup.subjectPropertyTypes">
+                                <!--<option value="" disabled selected>Select One</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="txtNumberOfUnits">Number&nbsp;of&nbsp;Units</label>
+                        <div class="col-md-12">
+                            <select id="numberOfUnits" class="form-control loan-purpose-select" ng-model="pricingCntrl.NumberOfUnits"
+                                    ng-options="unitNumber.value as unitNumber.text for unitNumber in pricingCntrl.applicationData.lookup.numberOfUnits">
+                                <!--<option value="" disabled selected>Select One</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="selectHomeUse">How&nbsp;is&nbsp;the&nbsp;Home&nbsp;Used?</label>
+                        <div class="col-md-12">
+                            <select id="selectHomeUse" class="form-control loan-purpose-select" ng-model="pricingCntrl.homeUseType"
+                                    ng-options="homeUseType.value as homeUseType.text for homeUseType in pricingCntrl.applicationData.lookup.typeOfProperty">
+                                <!--<option value="" disabled selected>Select One</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="selectTaxType">Taxes&nbsp;&amp;&nbsp;Insurance</label>
+                        <div class="col-md-12">
+                            <select id="selectTaxType" class="form-control loan-purpose-select" ng-model="pricingCntrl.taxType"
+                                    ng-options="taxType.value as taxType.text for taxType in pricingCntrl.typeImpounds">
+                                <!--<option value="" disabled selected>Select One</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="selectEmploymentStatus">Employment&nbsp;Status</label>
+                        <div class="col-md-12">
+                            <select id="selectEmploymentStatus" class="form-control loan-purpose-select" ng-model="pricingCntrl.employmentStatusType"
+                                    ng-options="employmentType.value as employmentType.text for employmentType in pricingCntrl.applicationData.lookup.employmentTypes">
+                                <!--<option value="" disabled selected>Select One</option>-->
+                            </select>
+                        </div>
+                    </div>
+
+                </div><!--Column Two-->
+
+                
+                <div class="col-xs-4">
+
+                    <!--Column3-->
+                    <div class="form-group" ng-show="pricingCntrl.isRefi">
+                        <label class="col-md-12 control-label" for="selectSecondMortgageType">Have&nbsp;a&nbsp;2nd&nbsp;Mortgage?</label>
+                        <div class="col-md-12">
+                            <select id="secondMortgageInsuranceType" class="form-control loan-purpose-select" ng-model="pricingCntrl.secondMortgageType"
+                                    ng-options="secondMortgageType.value as secondMortgageType.text for secondMortgageType in pricingCntrl.applicationData.lookup.secondMortgageInsuranceTypes">
+                                <!--<option value="" disabled selected>Select One</option>-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="pricingCntrl.has2nd">
+                        <label class="col-md-12 control-label" for="selectPayoffSecondMortgageType">Payoff&nbsp;a&nbsp;2nd&nbsp;Mortgage?</label>
+                        <div class="col-md-12">
+                            <select id="selectPayoffSecondMortgageType" class="form-control loan-purpose-select" ng-model="pricingCntrl.payoffSecondMortgageType"
+                                    ng-options="payoffSecondMortgageType.value as payoffSecondMortgageType.text for payoffSecondMortgageType in pricingCntrl.applicationData.lookup.secondMortgageInsurancePayOffTypes">
+                                <!--<option value="" disabled selected>Select One</option>-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="pricingCntrl.is2ndFixed">
+                        <label class="col-md-12 control-label" for="txtHELOCBalance">2nd&nbsp;Mortgage&nbsp;Balance</label>
+                        <div class="col-md-12">
+                            <!--property 'helocBalance' maps to same for 2nd and HELOC , should be renamed ...-->
+                            <input type="text" class="form-control input-md" id="txt2ndBalance"
+                                   ng-model="pricingCntrl.helocBalance"
+                                   format-currency>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="pricingCntrl.is2ndHeloc">
+                        <label class="col-md-12 control-label" for="txtHELOCCreditLimit">HELOC&nbsp;Credit&nbsp;Line&nbsp;Limit</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control input-md" id="txtHELOCCreditLimit"
+                                   ng-model="pricingCntrl.helocCreditLimit"
+                                   format-currency>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="pricingCntrl.is2ndHeloc">
+                        <label class="col-md-12 control-label" for="txtHELOCBalance">HELOC&nbsp;Balance</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control input-md" id="txtHELOCCreditLimit"
+                                   ng-model="pricingCntrl.helocBalance"
+                                   format-currency>
+                        </div>
+                    </div>
+
+                </div><!--Column Three-->
+
+            </fieldset>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,361 @@
+﻿<div class="imp-needs-list"
+     ng-repeat="loanApplication in needslistCtrl.wrappedLoan.ref.getLoanApplications()"
+     ng-init="sections={isBorrowerNeedsListSectionVisible: true, isReceivedFromBorrowerSectionVisible: false, isBorrowerUploadSectionVisible: false};
+              borrowerNamesList = needslistCtrl.pupulateBorrowerList(loanApplication);
+              addressDropdown = needslistCtrl.setPropertyAddresses(loanApplication);
+              sendList = needslistCtrl.populateSendList(loanApplication);">
+    <!-- Isloated model unique for every title row in multi borrower -->
+
+    <div class="application-title">
+        <!--
+             Borrower and/or Co-borrower section
+         -->
+        <div class="borrower-name-section">
+            <!-- Borrower -->
+            <span class="name-tokken">B</span>
+            <span class="imp-hyperlink"
+                  ng-click="needslistCtrl.openContactFlyout()">{{::loanApplication.getBorrower().firstName}} {{::loanApplication.getBorrower().lastName}}</span>
+
+            <span class="name-divider" ng-if="loanApplication.isSpouseOnTheLoan"> | </span>
+
+            <!-- CoBorrower -->
+            <span class="name-tokken"
+                  ng-if="loanApplication.isSpouseOnTheLoan">C</span>
+            <span class="imp-hyperlink"
+                  ng-if="loanApplication.isSpouseOnTheLoan"
+                  ng-click="needslistCtrl.openContactFlyout()">{{::loanApplication.getCoBorrower().firstName}} {{::loanApplication.getCoBorrower().lastName}}</span>
+        </div>
+
+        <!--
+             Expand & Collapse section
+         -->
+        <div class="imp-expandcollapse-div imp-hyperlink">
+            <span ng-click="needslistCtrl.toggleSections(sections, true);">Expand All</span>
+            <span> | </span>
+            <span ng-click="needslistCtrl.toggleSections(sections, false)">Collapse All</span>
+        </div>
+    </div>
+
+    <!--
+        Needed from Borrower
+    -->
+    <div class="needs-list-header">
+        <!-- arrow-down is used when the section is closed, arrow-right when the section is open  -->
+        <span class="needs-list-title" ng-click="sections.isBorrowerNeedsListSectionVisible = !sections.isBorrowerNeedsListSectionVisible">
+            <span ng-class="{'arrow-right' : !sections.isBorrowerNeedsListSectionVisible, 'arrow-down' : sections.isBorrowerNeedsListSectionVisible}"></span>Needed from Borrower
+        </span>
+
+        <!--
+            Preview & send list buttons
+        -->
+        <!-- Send List button -->
+        <div class="btn-group" dropdown="">
+            <button type="button"
+                    class="imp-button-general group-button-prim ng-binding"
+                    ng-click="needslistCtrl.isThereActiveDocuments(loanApplication.documents) ? needslistCtrl.triggerSendListButton(loanApplication) : needslistCtrl.createNeedsListButton(loanApplication)"
+                    ng-disabled="needslistCtrl.disableSendListButton(sendList)  && needslistCtrl.isThereActiveDocuments(loanApplication.documents)">
+                {{needslistCtrl.isThereActiveDocuments(loanApplication.documents) ?  'Send List' : 'Create Needs List'}}
+                <span class="divider"></span>
+            </button>
+            <button type="button"
+                    class="dropdown-toggle group-button-sec imp-button-general"
+                    dropdown-toggle=""
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                <span class="arrow"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                <!-- ngRepeat: item in send list -->
+                <li ng-repeat="item in sendList">
+                    <a ng-click="needslistCtrl.chooseBorrowerFromSendList(item, sendList, loanApplication)" ng-class="{'disabled-field': item.disabled, 'list-selected': item.selected}" ng-model="item">{{::item.name}}</a>
+                </li>
+                <li>
+                    <a ng-click="needslistCtrl.createNeedsListButton(loanApplication)">
+                        Create Needs List
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Preview button -->
+        <button type="button"
+                class="imp-button-hm-wm-sec loan-details-cancel"
+                ng-click="needslistCtrl.previewList(loanApplication.loanApplicationId)"
+                ng-disabled="!needslistCtrl.isThereActiveDocuments(loanApplication.documents)">
+            Preview List
+        </button>
+    </div>
+
+    <!-- Body -->
+    <div ng-show="sections.isBorrowerNeedsListSectionVisible" class="imp-lcgrid needed-from-borrower-section">
+        <!-- Row Header -->
+        <div class="needs-list-columns-titles imp-lcgrid">
+            <div class="row">
+                <div class="col-xs"><span>No</span></div>
+                <div class="col-xxxl" style="width: 27.6%;"><span>Document Name</span></div>
+                <div class="col-xxxl" style="width: 25%;"><span>Borrower</span></div>
+                <div class="col-xl" style="width: 12.8%;"><span>Requested</span></div>
+                <div class="col-xl"><span>Received</span></div>
+            </div>
+        </div>
+        <!-- | filter: {'isDeleted' : false} -->
+        <!-- To Be Completed -->
+        <div ng-repeat="item in needslistCtrl.filterDocumentList(loanApplication.documents) | filter: {'isDeleted' : false, 'isCompleted' : false} track by $index">
+            <div class="content"
+                 ng-class="{'needs-list-row-edit': item.isInEditMode, 'needs-list-row': !item.isInEditMode, 'row-clicked': item.isItemClicked}"
+                 ng-click="needslistCtrl.setRowClicked(loanApplication.documents, item, $event)"
+                 ng-dblclick="needslistCtrl.toggleEditMode(item)"
+                 ng-style="item.isAdded && {'background-color' : 'white'}">
+                <div class="row">
+                    <!-- Edit Button -->
+                    <div class="col-xs edit-icon" ng-class="{'show-icon': item.isItemClicked && !item.isAdded}" ng-click="needslistCtrl.toggleEditMode(item)">
+                        <div></div>
+                    </div>
+                    <div class="col-xs" ng-class="{'no-col-edit-mode' : item.isInEditMode}">
+                        <div class="needs-list-label">{{$index + 1}}</div>
+                    </div>
+
+                    <div class="col-xxxl" ng-style="{'width': item.isInEditMode ? '32.6%' : '27.7%', 'padding-left': item.isInEditMode ?  '0px' : '1px'}">
+                        <div ng-class="!item.isInEditMode ? 'imp-select-to-span-container' : 'imp-span-ddl-container medium'">
+                            <select class="imp-ddl-no-important" ng-disabled="!item.isInEditMode"
+                                    ng-class="{'imp-select-to-span': !item.isInEditMode}"
+                                    ng-init="!documentTypeId ? documentTypeId = needslistCtrl.getDocumentTypeIdFromMapping(item.documentCategoryId) : documentTypeId;"
+                                    ng-model="documentTypeId"
+                                    ng-change="needslistCtrl.updateDocumentCategoryIdFromMapping(item, documentTypeId); desc=needslistCtrl.getDescription(item.documentCategoryId, documentTypeId)"
+                                    ng-options="docVaultType.documentTypeId as docVaultType.fullDescription for docVaultType in needslistCtrl.getDocVaultTypes() | orderBy:'fullDescription' ">
+                                <option value="">Select One</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xxxl enable-edit" ng-hide="item.isInEditMode">
+                    </div>
+                    <div class="col-xxxl" ng-style="{'width': item.isInEditMode ?  '26.3%' : '25.1%'}">
+                        <div ng-class="!item.isInEditMode ? 'imp-select-to-span-container' : 'imp-span-ddl-container medium'" ng-click="$event.stopPropagation()">
+                            <select class="imp-ddl-no-important" ng-disabled="!item.isInEditMode"
+                                    ng-class="{'imp-select-to-span': !item.isInEditMode}"
+                                    ng-model="item.borrowerId"
+                                    ng-options="borrower.value as borrower.text for borrower in borrowerNamesList">
+                                <option value="" disabled selected ng-hide="item.borrowerId">Select One</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xxxl enable-edit" ng-hide="item.isInEditMode">
+                    </div>
+                    <div class="col-xl" style="width: 12.9%; padding-left: 18px;" ng-hide="item.isInEditMode">
+                        <div class="needs-list-label">{{::item.dateCreated | date:'MM/dd/yyyy h:mm a'}}</div>
+                    </div>
+                    <div class="col-xl" ng-hide="item.isInEditMode">
+                        <div class="needs-list-label">{{::item.received | date:'MM/dd/yyyy h:mm a'}}</div>
+                    </div>
+
+                    <!-- Delete Button -->
+                    <div class="col-xs delete-icon" ng-class="{'show-icon': (item.isItemClicked || item.isInEditMode) && !item.isAdded}" ng-click="needslistCtrl.deleteItem(loanApplication, item)">
+                        <imp-circle size="xsmall" color="red"></imp-circle>
+                    </div>
+
+                    <div class="col-xxxl" style="width: 35.9%; padding-right: 0px;" ng-show="item.isInEditMode && (needslistCtrl.enableAddressField(documentTypeId))" ng-click="$event.stopPropagation()">
+                        <div class="imp-span-ddl-container medium" ng-click="$event.stopPropagation()">
+                            <select class="imp-ddl ddlFinancials"
+                                    ng-model="item.addressId"
+                                    ng-options="selectedItem.value as selectedItem.text for selectedItem in addressDropdown">
+                                <option value="" disabled selected ng-hide="item.borrowerId">Select One</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instructions-row row" style="padding-top: 0px;" ng-show="item.isInEditMode" ng-click="$event.stopPropagation()">
+                    <input type="text" style="width: 99.2%;" ng-model="item.description" placeholder="Document Instructions/Comments" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Item -->
+        <div class="needs-add add" ng-click="needslistCtrl.addItem(loanApplication, item)">
+            <imp-circle size="xsmall" color="#208DDC" is-plus="true"></imp-circle>
+            <div>Add Item</div>
+        </div>
+
+        <!-- Compleated List -->
+        <div ng-repeat="item in loanApplication.documents | orderBy:'received':false">
+            <!-- @TODO: check why did this be included in to compleated list -->
+            <div class="content" 
+                 ng-if="item.isCompleted"
+                 ng-class="{'needs-list-row-edit': item.isInEditMode, 'needs-list-row': !item.isInEditMode, 'row-clicked': item.isItemClicked}"
+                 ng-click="needslistCtrl.setRowClicked(loanApplication.documents, item)">
+                <div class="row">
+                    <div class="col-xs"> 
+                        <div class="glyphicon glyphicon-ok doc-completed">
+                        </div>
+                    </div>
+                    <div class="col-xxxl" ng-style="{'width': '27.7%', 'padding-left': '1px'}">
+                        <div class="imp-select-to-span-container">
+                            <select class="imp-ddl-no-important" ng-disabled="true"
+                                    ng-class="{'imp-select-to-span': !item.isInEditMode}"
+                                    ng-init="documentTypeId = needslistCtrl.getDocumentTypeIdFromMapping(item.documentCategoryId)"
+                                    ng-model="documentTypeId"
+                                    ng-options="docVaultType.documentTypeId as docVaultType.fullDescription for docVaultType in needslistCtrl.getDocVaultTypes()"></select>
+                        </div>
+                    </div>
+                    <div class="col-xxxl enable-edit" ng-hide="item.isInEditMode">
+                    </div>
+                    <div class="col-xxxl" style="width: 25.1%">
+                        <div ng-class="!item.isInEditMode ? 'imp-select-to-span-container' : 'imp-span-ddl-container medium'">
+                            <select class="imp-ddl-no-important" ng-disabled="true"
+                                    ng-class="{'imp-select-to-span': !item.isInEditMode}"
+                                    ng-model="item.borrowerId"
+                                    ng-options="borrower.value as borrower.text for borrower in borrowerNamesList"></select>
+                        </div>
+                    </div>
+                    <div class="col-xxxl enable-edit" ng-hide="item.isInEditMode">
+                    </div>
+                    <div class="col-xl" style="width: 12.9%; padding-left: 18px;" ng-hide="item.isInEditMode">
+                        <div class="needs-list-label">{{::item.dateCreated | date:'MM/dd/yyyy h:mm a'}}</div>
+                    </div>
+                    <div class="col-xl" ng-hide="item.isInEditMode">
+                        <div class="needs-list-label">{{::item.received | date:'MM/dd/yyyy h:mm a'}}</div>
+                    </div>
+                    <div class="col-xxxl" style="width: 35.9%; padding-right: 0px;" ng-show="item.isInEditMode">
+                        <div class="imp-span-ddl-container medium">
+                            <select class="imp-ddl ddlFinancials"
+                                    ng-model="item.street"
+                                    ng-options="borrowerListItem.value as borrowerListItem.text for borrowerListItem in needslistCtrl.applicationData.lookup.additionalEmploymentTypes"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 0px;" ng-show="item.isInEditMode" ng-click="$event.stopPropagation()">
+                    <input type="text" style="width: 99.2%;" data-ng-model="item.desc" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--
+        Received from Borrower
+    -->
+    <div class="received-borrower-section dashed-border">
+        <!-- Title & Arrow -->
+        <span class="needs-list-title" ng-click="sections.isReceivedFromBorrowerSectionVisible = !sections.isReceivedFromBorrowerSectionVisible">
+            <span ng-class="{'arrow-right' : !sections.isReceivedFromBorrowerSectionVisible,'arrow-down' : sections.isReceivedFromBorrowerSectionVisible}"></span>Received from Borrower
+        </span>
+
+        <!-- Body -->
+        <div ng-show="sections.isReceivedFromBorrowerSectionVisible" class="imp-lcgrid">
+            <!-- Row Header -->
+            <div class="needs-list-columns-titles imp-lcgrid">
+                <div class="row">
+                    <div class="col-xs"><span>File</span></div>
+                    <div class="col-xxxl" style="width: 27.6%;"><span>Document Name</span></div>
+                    <div class="col-xxxl" style="width: 25%;"><span>Borrower</span></div>
+                    <div class="col-xl" style="width: 12.8%;"><span>Classified</span></div>
+                    <div class="col-xm"><span>Status</span></div>
+                    <div class="col-xs"><span>Batch ID</span></div>
+                </div>
+            </div>
+            <!-- Row Body -->
+            <div ng-repeat="item in needslistCtrl.receivedFromBorrower">
+                <div class="needs-list-row">
+                    <div class="row">
+                        <div class="col-xs">
+                            <div class="pdf-icon" ng-click="needslistCtrl.downloadDocument(item.repositoryId)">
+                            </div>
+                        </div>
+                        <div class="col-xxxl" style="width: 27.7%; padding-left:8px">
+                            <div class="needs-list-label">{{item.name.concat(".").concat(item.contentType) }}</div>
+                            <div class="needs-list-label disclaimer">{{::item.rejectReason}}</div>
+                        </div>
+                        <div class="col-xxxl" style="width: 25.2%">
+                            <div class="needs-list-label">{{::item.metadata[0].value}}</div>
+                        </div>
+                        <div class="col-xl" style="width: 12.9%; padding-right: 3px;" ng-hide="item.isInEditMode">
+                            <div class="needs-list-label">{{::item.lastUpdated | date:'MM/dd/yyyy h:mm a'}}</div>
+                        </div>
+                        <div class="col-xm">
+                            <div class="imp-select-to-span-container">
+                                <select class="imp-ddl imp-select-to-span"
+                                        ng-class="{'needs-list-label-red': item.status === 6 }"
+                                        ng-disabled="true"
+                                        ng-model="item.status"
+                                        ng-options="status.value as status.text for status in needslistCtrl.applicationData.lookup.documentStatus"></select>
+                            </div>
+                        </div>
+                        <div class="col-xs">
+                            <div class="needs-list-label">{{::needslistCtrl.getBatchIdFromMetadata(item.metadata)}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+        Borrower Uploaded
+    -->
+    <div class="borrower-uploaded-section dashed-border">
+        <!-- Title & Arrow -->
+        <span class="needs-list-title" ng-click="sections.isBorrowerUploadSectionVisible = !sections.isBorrowerUploadSectionVisible">
+            <span ng-class="{'arrow-right' : !sections.isBorrowerUploadSectionVisible, 'arrow-down' : sections.isBorrowerUploadSectionVisible}"></span>Borrower Uploaded
+        </span>
+
+        <!-- Body -->
+        <div ng-show="sections.isBorrowerUploadSectionVisible" class="imp-lcgrid">
+            <!-- Row Header -->
+            <div class="needs-list-columns-titles imp-lcgrid">
+                <div class="row">
+                    <div class="col-xs"><span>File</span></div>
+                    <div class="col-xxxl" style="width: 27.6%;"><span>Document Name</span></div>
+                    <div class="col-xxxl" style="width: 25%;"><span>Borrower</span></div>
+                    <div class="col-xl" style="width: 12.8%;"><span>Uploaded</span></div>
+                    <div class="col-xm"><span>Status</span></div>
+                    <div class="col-xs"><span>Batch ID</span></div>
+                </div>
+            </div>
+            <!-- Row Body -->
+            <div ng-repeat="document in loanApplication.documents">
+                <div ng-repeat="item in document.uploadedFiles">
+                    <div class="needs-list-row" ng-if="item.uploadedById === 1">
+                        <div class="row">
+                            <div class="col-xs">
+                                <div class="pdf-icon" ng-click="needslistCtrl.downloadDocument(item.repositoryItemId)">
+                                </div>
+                            </div>
+                            <div class="col-xxxl" style="width: 27.7%; padding-left:8px">
+                                <div class="needs-list-label">{{::item.fileName }}</div>
+                            </div>
+                            <div class="col-xxxl" style="width: 25.2%; padding-left: 4px;">
+                                <div class='imp-select-to-span-container'>
+                                    <select class="imp-ddl-no-important" ng-disabled="true"
+                                            ng-class="{'imp-select-to-span': !item.isInEditMode}"
+                                            ng-model="document.borrowerId"
+                                            ng-options="borrower.value as borrower.text for borrower in borrowerNamesList"></select>
+                                </div>
+                            </div>
+                            <div class="col-xl" style="width: 12.9%; padding-left: 16px;" ng-hide="item.isInEditMode">
+                                <div class="needs-list-label">{{::item.dateCreated | date:'MM/dd/yyyy h:mm a'}}</div>
+                            </div>
+                            <div class="col-xm"
+                                <div class="needs-list-label" ng-class="{'needs-list-label-red': item.status === 6 }">{{::needslistCtrl.getStatusByValue(item.status)}}</div>
+                            </div>
+                            <div class="col-xs">
+                                <div class="needs-list-label">{{::needslistCtrl.getBatchIdForBorrowerUploadedSection(item.repositoryItemId)}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!--
+    Save & cancel section
+-->
+<div class="imp-main-buttons-div imp-needs-list-save-section">
+    <div>
+        <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" ng-click="needslistCtrl.cancelChanges()" />
+        <input type="button" class="imp-button-hm-wl-prim" value="Save" ng-click="needslistCtrl.saveAll()" />
+    </div>
+</div>
+

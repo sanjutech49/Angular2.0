@@ -1,0 +1,29 @@
+﻿<div class="cost-details">
+    <div id="cost-details">
+        <div class="loan-application-error-container" ng-show="costDetailsCtrl.showErrorContainer">
+            An error occurred while loading data
+        </div>
+        <div class="imp-loader-container" ng-show="costDetailsCtrl.showLoader">
+            <img src="../../../Content/ajax-loader.gif" alt="loader" class="imp-loader" />
+        </div>
+        <div ng-hide="costDetailsCtrl.showLoader || costDetailsCtrl.showErrorContainer">
+            <form name="frmCostDetails" novalidate action="">
+                <imp-transactions-summary wrapped-loan="costDetailsCtrl.wrappedLoan"
+                                          borrower-data-k="costDetailsCtrl.wrappedLoan.ref.transactionSummary.borrowerDebits"
+                                          borrower-data-l="costDetailsCtrl.wrappedLoan.ref.transactionSummary.borrowerCredits"
+                                          seller-data-m="costDetailsCtrl.wrappedLoan.ref.transactionSummary.sellerCredits"
+                                          seller-data-n="costDetailsCtrl.wrappedLoan.ref.transactionSummary.sellerDebits"
+                                          cost-controller="costDetailsCtrl">
+                </imp-transactions-summary>
+                <div class="imp-footer">
+                </div>
+                <div class="imp-main-buttons-div">
+                    <input type="button" class="imp-button-hm-wm-sec" value="Cancel Changes" ng-click="costDetailsCtrl.cancelChanges();"
+                           ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields" />
+                    <input type="button" class="imp-button-hm-wl-prim" value="Save" ng-click="costDetailsCtrl.saveAll();"
+                           ng-disabled="costDetailsCtrl.savingDataInProgress || costDetailsCtrl.closingCostViewModel.disableFields" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

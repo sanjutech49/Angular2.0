@@ -1,0 +1,165 @@
+﻿    <div class="imp-contextual-bar-details">
+    <div class="container" ng-show="!conBarCtrl.wrappedLoan.ref.isContextualBarCollapsed" style="padding-top:10px;">
+        <div class="row-2">
+            <div class="section">
+                <div class="row-1">
+                    <div class="section-row imp-contextual-row-position">
+                        <div class="product-name">
+                            {{conBarCtrl.wrappedLoan.ref.product.name==''?'Product:':conBarCtrl.wrappedLoan.ref.product.name}}
+                            <span style="font-weight:normal" ng-if="conBarCtrl.wrappedLoan.ref.product.name==''">None</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Loan Type:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.getLoanPurposeTypeText()}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Mortgage Type:</span>
+                    <span ng-if="conBarCtrl.wrappedLoan.ref.financialInfo.mortgageType !== null" ng-repeat=" mt in conBarCtrl.applicationData.lookup.mortgageType | filter:{value:conBarCtrl.wrappedLoan.ref.financialInfo.mortgageType.toString()}:true">{{mt.text}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Amort Type:</span>
+                    <span ng-if="conBarCtrl.wrappedLoan.ref.financialInfo.amortizationType !== null" ng-repeat="at in conBarCtrl.applicationData.lookup.amortizationTypes | filter:{value:conBarCtrl.wrappedLoan.ref.financialInfo.amortizationType.toString()}:true">{{at.text}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Term:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.financialInfo.term}}</span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="row-1">
+                    <!--Added for align with other sections-->
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Loan Amount:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.loanAmount | currency}}</span>
+                    <!--<imp-loan-position-banner ng-show="{{ conBarCtrl.LoanDetailsContextualBarViewModel.LoanPosition }}"
+                                              number="{{ conBarCtrl.LoanDetailsContextualBarViewModel.LoanPosition }}"
+                                              color="{{ conBarCtrl.iconColors.active }}"></imp-loan-position-banner>-->
+
+                </div>
+                <div class="section-row">
+                    <div ng-switch="conBarCtrl.wrappedLoan.ref.loanPurposeType">
+                        <div ng-switch-when="1">
+                            <span class="cbar-label">2nd Mortgage:</span>
+                            <span>{{conBarCtrl.wrappedLoan.ref.subordinateFinancingDetails.loanAmount | currency}}</span>
+                        </div>
+                        <div ng-switch-when="2">
+                            <span class="cbar-label">Subordinate:</span>
+                            <span>{{ conBarCtrl.wrappedLoan.ref.calculateSubordinate() | impCurrencyAllowCustomStringValues}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-row">
+                    <div ng-switch="conBarCtrl.wrappedLoan.ref.loanPurposeType">
+                        <div ng-switch-when="1">
+                            <span class="cbar-label">Purchase Price:</span>
+                            <span>{{conBarCtrl.wrappedLoan.ref.getSubjectProperty().purchasePrice | currency}}</span>
+                        </div>
+                        <div ng-switch-when="2">
+                            <span class="cbar-label">Estimated Value:</span>
+                            <span>{{conBarCtrl.wrappedLoan.ref.getSubjectProperty().currentEstimatedValue | currency}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-row">
+                    <div ng-switch="conBarCtrl.wrappedLoan.ref.loanPurposeType">
+                        <div ng-switch-when="1">
+                            <span class="cbar-label">Downpayment:</span>
+                            <span>{{ !conBarCtrl.wrappedLoan.ref.downPaymentAmount() ? 0 : conBarCtrl.wrappedLoan.ref.downPaymentAmount() | currency}} | {{ !conBarCtrl.wrappedLoan.ref.downPaymentPercentage() ? 0 : conBarCtrl.wrappedLoan.ref.downPaymentPercentage() | impRound: 2 | impPercentage}}</span>
+                        </div>
+                        <div ng-switch-when="2">
+                            <span class="cbar-label">Cash Out:</span>
+                            <span>{{conBarCtrl.wrappedLoan.ref.financialInfo.cashOutAmount | currency}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="row-1">
+                    <!--Added for align with other sections-->
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Decision Score:</span>
+                    <span>{{ conBarCtrl.lowerDecisionScore }}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Occupancy:</span>
+                    <span ng-repeat="ot in conBarCtrl.applicationData.lookup.occupancyTypeList | filter:{value:conBarCtrl.wrappedLoan.ref.primary.occupancyType.toString()}:true">{{ot.text}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Property Type:</span>
+                    <span ng-repeat="pt in conBarCtrl.applicationData.lookup.subjectPropertyTypes | filter:{value:conBarCtrl.wrappedLoan.ref.getSubjectProperty().propertyType}:true">{{pt.text}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label"># of Units/Stories:</span>
+                    <span ng-show="conBarCtrl.wrappedLoan.ref.getSubjectProperty().propertyType == 2">{{conBarCtrl.wrappedLoan.ref.getSubjectProperty().numberOfStories==0?'':conBarCtrl.wrappedLoan.ref.getSubjectProperty().numberOfStories}}</span>
+                    <span ng-show="conBarCtrl.wrappedLoan.ref.getSubjectProperty().propertyType != 2">{{conBarCtrl.wrappedLoan.ref.getSubjectProperty().numberOfUnits==0?'':conBarCtrl.wrappedLoan.ref.getSubjectProperty().numberOfUnits}}</span>
+                </div>
+            </div>
+            <div class="section imp-contextual-col-max-width">
+                <div class="row-1">
+                    <div class="section-row imp-contextual-row-position">
+                        <div class="expirations lock-expiration" ng-if="conBarCtrl.wrappedLoan.ref.lockingInformation">
+                            <div ng-show="{{ conBarCtrl.wrappedLoan.ref.lockingInformation.isLocked == true }}">
+                                <span> Lock Expiration:</span>
+                                <imp-lock-popup loanid="{{ conBarCtrl.wrappedLoan.ref.loanId }}" useraccountid="{{conBarCtrl.userAccountId}}">
+                                    <span ng-class="{expired: conBarCtrl.wrappedLoan.ref.lockingInformation.isLockExpired}">
+                                        {{ conBarCtrl.wrappedLoan.ref.lockingInformation.lockExpirationDate | date:"MM/dd/yyyy" }}
+                                        <imp-lock color="{{ conBarCtrl.wrappedLoan.ref.getLockColor() }}"
+                                                  number="{{ conBarCtrl.wrappedLoan.ref.lockingInformation.lockExpirationNumber | impAbs }}">
+                                        </imp-lock>
+                                    </span>
+                                    <span class="imp-conditions-loan-summary-fieldset-header-lock-expiration"
+                                          ng-class="{expired: conBarCtrl.wrappedLoan.ref.lockingInformation.isLockExpired}">
+                                        ({{ conBarCtrl.wrappedLoan.ref.getLockExpirationText() }})
+                                    </span>
+                                </imp-lock-popup>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Housing Expense:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.financialInfo.housingRatioDu | impRound: 3 | impPercentage}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">DTI:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.financialInfo.dtiDu | impRound: 3 | impPercentage}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Note Rate:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.financialInfo.noteRate | impRound: 3 | impPercentage}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">Qual Rate:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.financialInfo.qualifyingRate | impRound: 3 | impPercentage}}</span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="row-1">
+                    <!--Added for align with other sections-->
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">LTV:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.getSubjectProperty().ltv | impRound: 3 | impPercentage}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">CLTV:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.getSubjectProperty().cltv | impRound: 3 | impPercentage}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">HCLTV:</span>
+                    <span>{{conBarCtrl.wrappedLoan.ref.getSubjectProperty().hcltv | impRound: 3 | impPercentage}}</span>
+                </div>
+                <div class="section-row">
+                    <span class="cbar-label">AUS Type:</span>
+                    <span>{{::conBarCtrl.getAusType()}}</span>
+                </div>
+            </div>
+            <span class="stretch"></span>
+        </div>
+    </div>
+</div>
+

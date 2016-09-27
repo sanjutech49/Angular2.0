@@ -1,0 +1,63 @@
+﻿<div class="unit-control">
+    <div class="product-info">
+        <div class="type-one-field-values">
+            <div class="first-column">
+                {{loanDetails.wrappedLoan.ref.loanAmount | currency}}&nbsp;
+            </div>
+            <div class="second-column">
+                {{loanDetails.wrappedLoan.ref.getLoanPurposeTypeText()}}&nbsp;
+            </div>
+            <div class="third-column">
+                <div class="closing-date-label">
+                    {{loanDetails.wrappedLoan.ref.closingDate.dateValue | date:'MM/dd/yyyy'}}&nbsp;
+                </div>
+                <div class="imp-sa-date-picker date-icon-position" ng-click="loanDetails.showClosingDate($event)"></div>
+            </div>
+        </div>
+        <div class="type-one-field-names">
+            <div class="first-column">
+                Loan Amount
+            </div>
+            <div class="second-column">
+                Loan Purpose
+            </div>
+            <div class="third-column">
+                Closing Date
+            </div>
+        </div>
+        <div class="type-two-field-values">
+            <div class="first-column">
+                {{loanDetails.wrappedLoan.ref.financialInfo.noteRate | impRound: 3 | impPercentage }}&nbsp;
+            </div>
+            <div class="second-column">
+                <div class="apr-label">
+                    {{loanDetails.wrappedLoan.ref.financialInfo.apr | impRound: 3 | impPercentage }}&nbsp;
+                </div>
+                <!--Hidden due to PBI 26768 -->
+                <!--
+                <div class="imp-historyIcon-empty apr-history-icon-position"></div>
+                -->
+                <!--
+        <div class="imp-sa-grid-history-empty" ng-class="(ConditionsMainViewModel.LastChange != null) ? 'imp-sa-grid-history' : 'imp-sa-grid-history-empty'"
+                ng-click="!ConditionsMainViewModel.LastChange || openDecisionHistoryPopup(ConditionsMainViewModel.LoanId)"></div>imp-sa-date-picker
+            -->
+
+            </div>
+            <div class="third-column">
+                {{loanDetails.amortizationType}}&nbsp;
+            </div>
+        </div>
+        <div class="type-two-field-names">
+            <div class="first-column">
+                Note Rate
+            </div>
+            <div class="second-column">
+                APR
+            </div>
+            <div class="third-column">
+                Amortization Type
+            </div>
+        </div>
+    </div>
+</div>
+   

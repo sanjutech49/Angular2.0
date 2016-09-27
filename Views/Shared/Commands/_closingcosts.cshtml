@@ -1,0 +1,1272 @@
+﻿@using Telerik.Web.Mvc.UI
+@using MML.Common
+@model MML.Web.LoanCenter.ViewModels.ManageFeesViewModel
+<div class="managefeesdiv completesection">
+    <div class="managefeeshead">
+        <div class="left0">
+            <span class="namelink">Manage Fees</span>
+        </div>
+        <div class="smallarrow">
+        </div>
+        <div class="titleInformation">@Model.TitleInformation <span style="color: #267BB1;">@Model.LeadSourceInformation</span></div>
+        <div class="right1">
+            <div class="left1">
+            </div>
+            <div class="right0">
+                <a id="closeManageFees" class="xclose" title="Close Section" onclick="CloseCommandSection()">
+                </a><a id="minimizemanagefees" class="minimizesection" title="Minimize/Maximize Section"
+                    onclick="ManageFees.BindManageFeesMinimize()">
+                    <div id="managefeesminmax" class="minmax min">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    @using ( Html.BeginForm( "SaveCosts", "ManageFees", FormMethod.Post ) )
+    {
+
+        int i = 0;
+        foreach ( var group in Model.TitleAndEscrow.CostGroups )
+        {
+        @Html.Hidden( String.Format( "TitleAndEscrow.CostGroups[{0}].CostGroupNumber", i ), group.CostGroupNumber )
+            
+            int j = 0;
+            foreach ( var cost in group.Costs )
+            {
+        @Html.Hidden( String.Format( "TitleAndEscrow.CostGroups[{0}].Costs[{1}].HUDLineNumber", i, j ), cost.HUDLineNumber )  
+        @Html.Hidden( String.Format( "TitleAndEscrow.CostGroups[{0}].Costs[{1}].SubHUDLineNumber", i, j ), cost.SubHUDLineNumber )  
+                j++;
+            }
+            i++;
+        }
+    
+        <div id="managefeescontent" class="managefeescontent maincontent">
+            @* Section 700 *@
+            @{
+        var closingcostsPOCDropdownsLocation = "~/Views/Shared/Commands/ManageFees/_closingcostsPOCDropdowns.cshtml";
+        var closingCostSectionRightWithoutAmountLocation = "~/Views/Shared/Commands/ManageFees/_closingCostSectionRightWithoutAmount.cshtml";
+        var closingCostTextBoxAmountRightLocation = "~/Views/Shared/Commands/ManageFees/_closingCostTextBoxAmountRight.cshtml";
+        var closingCostTextBoxNameLocation = "~/Views/Shared/Commands/ManageFees/_closingCostTextBoxName.cshtml";
+        var closingCostsSection1101Location = "~/Views/Shared/Commands/ManageFees/_closingCostsSection1101.cshtml";
+        var closingCostsSection1109Location = "~/Views/Shared/Commands/ManageFees/_closingCostsSection1109.cshtml";
+
+        var costGroup = Model.TitleAndEscrow.CostGroups.First( c => c.CostGroupNumber == 70 );
+        var costPrefix = "TitleAndEscrow.CostGroups[" + Model.TitleAndEscrow.CostGroups.IndexOf( costGroup ) + "].Costs";
+            }
+
+             <div class="manageFeesRoundedContainerHeader" style="width: 760px; float: right; margin-right: 10px;">
+                <div class="headerleftcorner">
+                </div>
+                <div class="closingCostHeaderItems" style="width: 215px">
+                    <div class="closingCostHeaderItemsTitle">
+                        Date Created:</div>
+                    <span>@Model.TitleAndEscrow.CostHeaderDateCreated</span>
+                </div>
+                <div class="closingCostHeaderItems" style="width: 220px">
+                    <div class="closingCostHeaderItemsTitle">
+                        Last Modified:</div>
+                    <span>@Model.TitleAndEscrow.CostHeaderDateModified</span>
+                </div>
+                <div class="closingCostHeaderItems" style="width: 225px">
+                    <div class="closingCostHeaderItemsTitle">
+                        User:</div>
+                    <span>@Model.TitleAndEscrow.CostHeaderModifiedBy</span>
+                </div>
+                <div class="closingCostHistoryImage closingCostHeaderItemsHistory" onclick="ManageFees.ManageFeesShowCostsHistory()"id="costHistoryIcon">
+                </div>
+                <div class="headerrightcorner">
+                </div>
+            </div>
+            <div class="closingCostSection700">
+                @Html.Hidden( String.Format( "{0}[{1}].HUDLineNumber", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 701 ) ), 701 )
+                <div class="divBorderTopBottom">
+                <div class="closingCostSection700Left">
+                    <div class="closingCostRow700Title">
+                        <span class="closingCostSectionTitleMedium"><span class="closingCostTitleNumber ">700.</span>Total
+                            Real Estate Broker Fees </span>
+                     </div>
+                    <div class="closingCostRow700">
+                        <div class="closingCostText marginLeft30">
+                            Division of commision (line 700) as follows
+                        </div>
+                    </div>
+                    <div class="closingCostRow700">
+                        <span class="closingCostSubtitleNumber">701.</span>
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBox( String.Format( "{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 701 ) ),
+         DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 701 ).Amount ), new { @class = "closingCostTextBoxAmount Amount", id = "txtAmount701" } )
+                        </div>
+                        <span class="closingCostText">to</span>
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBox("txtTo702", "", new { @class = "closingCostTextBoxMedium" })
+                        </div>
+                    </div>
+                    <div class="closingCostRow700">
+                        <span class="closingCostSubtitleNumber">702.</span>
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBox( String.Format( "{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 702 ) ),
+         DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 702 ).Amount ), new { @class = "closingCostTextBoxAmount Amount", id = "txtAmount702" } )
+                        </div>
+                        <span class="closingCostText">to</span>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxMedium" } )</div>
+                    </div>
+                    <div class="closingCostRow700">
+                        <span class="closingCostSubtitleNumber">703.</span>
+                        <div class="closingCostText">
+                            Commision paid at settlement
+                        </div>
+                    </div>
+                    <div class="closingCostRow700 borderRight">
+                        <span class="closingCostSubtitleNumber">704.</span>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxLarge" } )</div>
+                    </div>
+                </div>
+                <div class="closingCostSection700Right">
+                    <div class="divPaidatSettlement">
+                        <span class="closingCostSectionTitleMedium paddingLeft40Width130">Paid at Settlement</span> 
+                    </div>
+                    <div class="divPaidOutside">
+                    <span class="closingCostSectionTitleMedium">
+                        <span style="float: left" class="paddingLeft40Width130">Paid outside of closing </span><span style="float: left">
+                                <img src="../../../Content/images/moreinfo.png" style="cursor: pointer; margin: 0 0 0 10px;"
+                                    id="manageFeesInfoIcon" />
+                            </span></span>
+                   </div>
+                    <div class="closingCostRow">
+                        <div class="borderSmallTitle">
+                            <span class="closingCostSectionTitleSmall">From <br />Borrower's <br />Funds</span> 
+                        </div>
+                        <div class="borderSmallTitle">
+                            <span class="closingCostSectionTitleSmall"> From<br />Seller's<br />Funds</span>
+                        </div>   
+                        <div class="borderSmallTitle width102">                    
+                            <span class="closingCostSectionTitleSmall"> <br /><br /> Amount</span>
+                        </div>    
+                        <div class="borderSmallTitleForDropdown">
+                            <span class="closingCostSectionTitleForDropdown"> <br />  Paid By</span>
+                        </div>
+                        <div class="borderSmallTitleForDropdown">
+                            <span class="closingCostSectionTitleForDropdown"> <br /> Paid To</span> 
+                        </div>
+                        <div class="borderSmallTitleForDropdown">
+                            <span class="closingCostSectionTitleForDropdown"><br /> <br /> When</span>
+                        </div>
+                    </div>   
+                    
+                    <div class="borderFiled">&nbsp</div> 
+                    <div class="borderFiled">&nbsp</div>
+                    <div class="borderFiled" style="width:102px;" >&nbsp</div>
+                    <div class="borderFiledsmall">&nbsp</div>
+                    <div class="borderFiledsmall">&nbsp</div>
+                    <div class="borderFiledsmall">&nbsp</div>
+
+                    <div class="divBorrderleftBottom">
+                   
+                       @Html.TextBox( String.Format( "{0}[{1}].FromBorrowerFunds", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 703 ) ), "", new { @class = "closingCostTextBoxAmountRight Amount", id = "txtAmountBorrower703", disabled = "disabled" } )
+                    
+                     
+                       @Html.TextBox( "txtTotalAmount703",DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 701 ).Amount + costGroup.Costs.First( c => c.HUDLineNumber == 702 ).Amount ), new { @class = "closingCostTextBoxAmountRight Amount", id = "txtTotalAmount703", disabled = "disabled" } )
+                   
+
+                      
+                       @Html.TextBox( String.Format( "{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 703 ) ),DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 703 ).Amount ), new { @class = "closingCostTextBoxAmountRight Amount", id = "txtAmountSeller703", disabled = "disabled" } )
+                    
+
+                    
+                       @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 70 }, { "HUDLineNumber", 703 } } )
+                 
+
+
+                       @Html.TextBox( String.Format( "{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 704 ) ),DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 704 ).Amount ), new { @class = "closingCostTextBoxAmountRight Amount", id = "txtAmountBorrower704" } )
+                       @Html.TextBox( String.Format( "{0}[{1}].FromSellers", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 704 ) ), "", new { @class = "closingCostTextBoxAmountRight Amount", id = "txtAmountBorrower704", disabled = "disabled" } )
+                       @Html.TextBox( String.Format( "{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 704 ) ),DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 704 ).Amount ), new { @class = "closingCostTextBoxAmountRight Amount", id = "txtAmountBorrower704" } )
+                       @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 70 }, { "HUDLineNumber", 704 } } )
+
+                    </div>
+                </div>
+                </div>
+            </div>
+            @* Section 800 *@
+            @{
+        costGroup = Model.TitleAndEscrow.CostGroups.First( c => c.CostGroupNumber == 80 );
+            }
+            <div class="closingCostSection">
+                <span class="closingCostSectionTitle"><span class="closingCostTitleNumber">800.</span>Items
+                    Payable In Connection With Loan</span>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.</span><span class="closingCostText">Our
+                        origination charge</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxLarge" } )</div>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.TextBox( String.Format( "{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex( c => c.HUDLineNumber == 801 ) ),
+                    DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 801 ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount", id = "txtAmount801", disabled = "disabled" } )
+                    </div>
+                    <span class="closingCostText">Total GFE #1</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.a</span>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "a" }, { "ClassName", "closingCostTextBoxLarge"} })
+                    </div>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.TextBox( "txtAmount801a", DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 801 && c.SubHUDLineNumber == "a" ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount" } )
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "a" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "a" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.b</span>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "b" }, { "ClassName", "closingCostTextBoxLarge" } })
+                    </div>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.TextBox( "txtAmount801b", DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 801 && c.SubHUDLineNumber == "b" ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount" } )
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "b" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "b" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.c</span>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "c" }, { "ClassName", "closingCostTextBoxLarge" } })
+                    </div>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.TextBox( "txtAmount801c", DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 801 && c.SubHUDLineNumber == "c" ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount" } )
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "c" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "c" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.d</span>
+                    <div class="closingCostTextBoxDiv">@Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "d" }, { "ClassName", "closingCostTextBoxLarge" } })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxPercent Percent" })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "d" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "d" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.e</span>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "e" }, { "ClassName", "closingCostTextBoxLarge" } })
+                    </div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxPercent Percent" } )</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "e" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "e" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.f</span>
+                    <div class="closingCostTextBoxDiv">@Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "f" }, { "ClassName", "closingCostTextBoxLarge" } })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "f" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "f" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.g</span>
+                    <div class="closingCostTextBoxDiv">@Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "g" }, { "ClassName", "closingCostTextBoxLarge" } })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "g" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "g" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.h</span>
+                    <div class="closingCostTextBoxDiv">@Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "h" }, { "ClassName", "closingCostTextBoxLarge" } })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "h" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "h" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.i</span>
+                    <div class="closingCostTextBoxDiv">@Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "i" }, { "ClassName", "closingCostTextBoxLarge" } })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "i" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "i" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">801.j</span>
+                    <div class="closingCostTextBoxDiv">@Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "j" }, { "ClassName", "closingCostTextBoxLarge" } })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "j" } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 801 }, { "SubHUDLineNumber", "j" } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">802.</span><span class="closingCostText">Your
+                        credit or charge (points) for the specific interest rate choosen</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxPercent Percent" } )</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" } )</div>
+                    <span class="closingCostText closingCostGfeRight">Total GFE #2</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 802 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 802 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">803.</span><span class="closingCostText">Your
+                        adjusted origination charges</span> <span class="closingCostText closingCostGfeRight">
+                            Total GFE #A</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 803 }, { "Disabled", true } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 803 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">804.</span><span class="closingCostText">Appraisal
+                        fee to</span>
+                    <div class="closingCostGfeRight">
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                        <span class="closingCostText">(GFE #3)</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 804 }, { "Disabled", false } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 804 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">805.</span><span class="closingCostText">Credit
+                        report to</span>
+                    <div class="closingCostGfeRight">
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                        <span class="closingCostText">(GFE #3)</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 805 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 805 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">806.</span><span class="closingCostText">Tax
+                        service to</span>
+                    <div class="closingCostGfeRight">
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                        <span class="closingCostText">(GFE #3)</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 806 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 806 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">807.</span><span class="closingCostText">Flood
+                        certification to</span>
+                    <div class="closingCostGfeRight">
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                        <span class="closingCostText">(GFE #3)</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 807 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 807 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">808.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 808 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 808 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 808 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">809.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 809 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 809 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 809 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">810.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 810 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 810 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 810 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">811.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 811 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 811 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 811 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">812.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 812 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 812 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 812 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">813.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 813 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 813 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 813 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">814.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 814 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 814 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 814 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">815.</span>
+                    <div class="closingCostTextBoxDiv">
+                    @Html.Partial(closingCostTextBoxNameLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 815 }, { "ClassName", "closingCostTextBoxFromToLarge" } })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 815 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 80 }, { "HUDLineNumber", 815 } } )
+                </div>
+            </div>
+            @* Section 900 *@
+            @{
+                costGroup = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90);
+                ViewData.TemplateInfo.HtmlFieldPrefix = "TitleAndEscrow.CostGroups[" + Model.TitleAndEscrow.CostGroups.IndexOf(costGroup) + "]";
+            }
+               
+            <div class="closingCostSection">
+                <span class="closingCostSectionTitle"><span class="closingCostTitleNumber">900.</span>Items
+                    Required by Lender to Be Paid in Advance</span>
+                <div class="closingCostSectionLeft">
+                    <div class="closingCostSectionLeft">
+                        <span class="closingCostSubtitleNumber">901.</span><span class="closingCostText">Daily
+                            Interest charges</span>
+                        <div class="closingCostTextBoxDiv">
+                              @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 901)].InterestDays,
+                                           new { @class = "closingCostTextBoxNumberSmall Number" })
+                        </div>
+                        <span class="closingCostText">days @@</span>
+                        <div class="closingCostTextBoxDiv">
+                             @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 901)].InterestRate,
+                           new { 
+                               @class = "closingCostTextBoxAmount Amount", 
+                               disabled = "disabled", 
+                               @Value = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 901)].InterestRate.ToCurrencyFormat() 
+                           })
+                        </div>
+                        <span class="closingCostText">/day</span> <span class="closingCostText closingCostGfeRight">
+                            (GFE #10)</span>
+                    </div>
+                    <div class="closingCostSectionLeft">
+                        <span class="closingCostSubtitleNumber"></span><span class="closingCostText">from</span>
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.ClosingDate,
+                           new
+                           {
+                               @class = "closingCostTextBoxAmount",
+                               @id = "txtFromDate901",
+                               oldvalue = Model.TitleAndEscrow.ClosingDate != null ? String.Format("{0:MM/dd/yyyy}", Model.TitleAndEscrow.ClosingDate) : String.Empty,
+                               @Value = Model.TitleAndEscrow.ClosingDate != null ? String.Format("{0:MM/dd/yyyy}", Model.TitleAndEscrow.ClosingDate) : String.Empty,
+                               onfocus = "ManageFees.SaveOldClosingDate(this)"
+                           })
+                              </div>
+                        <span class="closingCostText">to</span>
+                        <div class="closingCostTextBoxDiv">
+                             @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 901)].ClosingDateTo,
+                                              new { @class = "closingCostTextBoxAmount", disabled = "disabled" })
+                        </div>
+                        <div class="closingCostHistoryImage" onclick="ManageFees.ManageFeesShowClosingCostsHistory()">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 901 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 901 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">902.</span><span class="closingCostText">Mortgage
+                        Insurance premium for</span>
+                    <div class="closingCostGfeRight">
+                         <div class="closingCostTextBoxDiv">
+                              @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 902)].MonthsToBePaid,
+                              new { @class = "closingCostTextBoxNumberSmall Number" } )
+                        </div>
+                       <span class="closingCostText">month to</span>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToMedium" } )</div>
+                        <span class="closingCostText">(GFE #3)</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 902 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 902 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">903.</span><span class="closingCostText">Homeowner's
+                        Insurance for</span>
+                    <div class="closingCostGfeRight">
+                         <div class="closingCostTextBoxDiv">
+                              @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 903)].YearsToBePaid,
+                              new { @class = "closingCostTextBoxNumberSmall Number" } )
+                        </div>
+                       <span class="closingCostText">years to</span>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToMedium" } )</div>
+                        <span class="closingCostText">(GFE #11)</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 903 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 903 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">904.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 904 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 904 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">905.</span>
+                    <div class="closingCostTextBoxDiv">
+                         @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 905)].Title,
+                                   new { @class = "closingCostTextBoxFromToLarge" })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 905 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 905 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">906.</span>
+                    <div class="closingCostTextBoxDiv">
+                         @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 90).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 906)].Title,
+                                   new { @class = "closingCostTextBoxFromToLarge" })
+                    </div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox( "textBox", "", new { @class = "closingCostTextBoxFromToLarge" } )</div>
+                    <span class="closingCostText">(GFE #3)</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 906 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 90 }, { "HUDLineNumber", 906 } } )
+                </div>
+            </div>
+            @* Section 1000 *@
+            @{
+                costGroup = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10);
+                ViewData.TemplateInfo.HtmlFieldPrefix =  "TitleAndEscrow.CostGroups[" + Model.TitleAndEscrow.CostGroups.IndexOf(costGroup) + "]";
+                
+
+            }
+            <div class="closingCostSection">
+                <span class="closingCostSectionTitle"><span class="closingCostTitleNumber">1000.</span>Reserves</span>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1001.</span> <span class="closingCostText">Initial
+                        deposit for your escrow account</span> <span class="closingCostText closingCostGfeRight">
+                            Total GFE #9</span>
+                </div>
+                <div>
+                    @Html.Partial( closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1001 }, { "Disabled", true } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1001 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1002.</span><span class="closingCostText">Homeowner's
+                        Insurance</span>
+                    <div class="closingCostGfeRight">
+                         <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1002)].MonthsToBePaid,
+                                             new  { @class = "closingCostTextBoxNumberSmall Number" })
+                        </div>
+                       <span class="closingCostText">month @@</span>
+                        <div class="closingCostTextBoxDiv">
+                            @{
+                                var amounthPerMonth = (Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1002)].MonthsToBePaid > 0
+                                                       && Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1002)].Amount != null) ?
+                                                          Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1002)].Amount/Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1002)].MonthsToBePaid :
+                                                          null;
+                            }
+                            @Html.TextBox("AmountPerMonth1002",amounthPerMonth.ToCurrencyFormat(),
+                                          new { @class = "closingCostTextBoxAmount Amount" })
+                        </div>
+                        <span class="closingCostText">per month</span>
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1002)].Amount,
+                                new { @class = "closingCostTextBoxAmount Amount",
+                                      @Value = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1002)].Amount.ToCurrencyFormat()
+                                })
+                        </div>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1002 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1002 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1003.</span><span class="closingCostText">Mortgage
+                        Insurance</span>
+                    <div class="closingCostGfeRight">
+                           <div class="closingCostTextBoxDiv">
+                             @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1003)].MonthsToBePaid,
+                                              new  { @class = "closingCostTextBoxNumberSmall Number" })         
+                        </div>
+                     <span class="closingCostText">month @@</span>
+                        <div class="closingCostTextBoxDiv">
+                            @{ amounthPerMonth = (Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1003)].MonthsToBePaid > 0
+                                                   && Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1003)].Amount != null) ?
+                                                      Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1003)].Amount / Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1003)].MonthsToBePaid :
+                                                      null; }
+                            @Html.TextBox("AmountPerMonth1003", amounthPerMonth.ToCurrencyFormat(),
+                           new { @class = "closingCostTextBoxAmount Amount" })
+                        </div>
+                        <span class="closingCostText">per month</span>
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1003)].Amount,
+                                new { @class = "closingCostTextBoxAmount Amount",
+                                      @Value = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1003)].Amount.ToCurrencyFormat()
+                                })
+                        </div>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial( closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1003 } } )
+                    @Html.Partial( closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1003 } } )
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1004.</span><span class="closingCostText">Property
+                        Taxes</span>
+                    <div class="closingCostGfeRight">
+                               <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1004)].MonthsToBePaid,
+                                              new { @class = "closingCostTextBoxNumberSmall Number" })
+                        </div>
+                 <span class="closingCostText">month @@</span>
+                        <div class="closingCostTextBoxDiv">
+                            @{ amounthPerMonth = (Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1004)].MonthsToBePaid > 0
+                                                   && Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1004)].Amount != null) ?
+                                                      Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1004)].Amount / Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1004)].MonthsToBePaid :
+                                                      null; }
+                            @Html.TextBox("AmountPerMonth1004", amounthPerMonth.ToCurrencyFormat(),
+                           new { @class = "closingCostTextBoxAmount Amount" })
+                        </div>
+                        <span class="closingCostText">per month</span>
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1004)].Amount,
+                                new { @class = "closingCostTextBoxAmount Amount",
+                                      @Value = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1004)].Amount.ToCurrencyFormat()
+                                })
+                        </div>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1004 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1004 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1005.</span>
+                    <div class="closingCostTextBoxDiv">
+                        @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].Title,
+                           new { @class = "closingCostTextBoxFromToLarge236" })
+                    </div>
+                    <div class="closingCostGfeRight">
+                                  <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].MonthsToBePaid,
+                                              new { @class = "closingCostTextBoxNumberSmall Number" })
+                        </div>
+              <span class="closingCostText">month @@</span>
+                        <div class="closingCostTextBoxDiv">
+                            @{ amounthPerMonth = (Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].MonthsToBePaid > 0
+                                                   && Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].Amount != null) ?
+                                                      Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].Amount / Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].MonthsToBePaid :
+                                                      null; }
+                            @Html.TextBox("AmountPerMonth1005", amounthPerMonth.ToCurrencyFormat(),
+                           new { @class = "closingCostTextBoxAmount Amount" })
+                        </div>
+                        <span class="closingCostText">per month</span>
+                        <div class="closingCostTextBoxDiv">
+                              @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].Amount,
+                               new
+                               {
+                                   @class = "closingCostTextBoxAmount Amount",
+                                   @Value = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1005)].Amount.ToCurrencyFormat()
+                               })
+                        </div>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1005 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1005 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1006.</span>
+                    <div class="closingCostTextBoxDiv">
+                          @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1006)].Title,
+                                      new { @class = "closingCostTextBoxFromToLarge236" })
+                    </div>
+                    <div class="closingCostGfeRight">
+                                     <div class="closingCostTextBoxDiv">
+                             @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1006)].MonthsToBePaid,
+                                              new { @class = "closingCostTextBoxNumberSmall Number" })
+                        </div>
+           <span class="closingCostText">month @@</span>
+                        <div class="closingCostTextBoxDiv">
+                          @{ amounthPerMonth = (Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1007)].MonthsToBePaid > 0
+                                                   && Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1007)].Amount != null) ?
+                                                      Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1007)].Amount / Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1006)].MonthsToBePaid :
+                                                      null; }
+                            @Html.TextBox("AmountPerMonth1007", amounthPerMonth.ToCurrencyFormat(),
+                           new { @class = "closingCostTextBoxAmount Amount" })
+                        </div>
+                        <span class="closingCostText">per month</span>
+                        <div class="closingCostTextBoxDiv">
+                              @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1006)].Amount,
+                               new
+                               {
+                                   @class = "closingCostTextBoxAmount Amount",
+                                   @Value = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1006)].Amount.ToCurrencyFormat()
+                               })
+                        </div>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1006 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1006 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1007.</span><span class="closingCostText">Aggregate
+                        Adjustment</span>
+                    <div class="closingCostGfeRight">
+                        <div class="closingCostTextBoxDiv">
+                            @Html.TextBoxFor(m => m.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1007)].Amount,
+                             new
+                             {
+                                 @class = "closingCostTextBoxAmount Amount",
+                                 @Value = Model.TitleAndEscrow.CostGroups.First(c => c.CostGroupNumber == 10).Costs[costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1007)].Amount.ToCurrencyFormat()
+                             })
+                        </div>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1007 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 10 }, { "HUDLineNumber", 1007 } })
+                </div>
+            </div>
+            @* Section 1100 *@
+            @{
+                ViewData.TemplateInfo.HtmlFieldPrefix = "";
+            }
+            <div class="closingCostSection">
+                <span class="closingCostSectionTitle"><span class="closingCostTitleNumber">1100.</span>Title
+                    Charges</span>
+                @if (Model.TitleAndEscrow.ShowSmartGfeLogo)
+                {
+                    <div class="closingCostSectionTitleRight">
+                        <a href="@String.Format("Downloader.axd?documentType=repositoryItem&repositoryItemId={0}", Model.TitleAndEscrow.SmartGfeDocumentLink)">
+                            <div class="divPdfIcon" />
+                        </a>
+                        <div class="divClosingCostsSmartGFE">
+                        </div>
+                    </div>
+                }
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1101.</span> <span class="closingCostText">Title
+                        services and lender's title insurance</span>
+                    <div class="closingCostGfeRight">
+                        <span class="closingCostText">Total GFE #4</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 }, { "Disabled", true } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                </div>
+                    @Html.Partial(closingCostsSection1101Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })                
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                </div>
+                @Html.Partial(closingCostsSection1101Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 }, { "SubHUDLineNumber", "a" } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                </div>
+                @Html.Partial(closingCostsSection1101Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 }, { "SubHUDLineNumber", "b" } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                </div>
+                @Html.Partial(closingCostsSection1101Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 }, { "SubHUDLineNumber", "c" } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                </div>
+                @Html.Partial(closingCostsSection1101Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 }, { "SubHUDLineNumber", "d" } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                </div>
+                @Html.Partial(closingCostsSection1101Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 }, { "SubHUDLineNumber", "e" } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1101 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1102.</span><span class="closingCostText closingCostTextWidth">Settlement
+                        or closing fee</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxLarge281" })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" })</div>
+                    <span class="closingCostText">(GFE #4)</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1102 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1102 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1103.</span><span class="closingCostText closingCostTextWidth">Owner's
+                        title insurance</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxLarge281" })</div>
+                    <span class="closingCostText closingCostGfeRight">(GFE #5)</span>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1103 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1103 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1104.</span><span class="closingCostText closingCostTextWidth">Lender's
+                        title insurance</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxLarge281" })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" })</div>
+                    <span class="closingCostText">(GFE #4)</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1104 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1104 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1105.</span><span class="closingCostText closingCostTextWidth">Lender's
+                        title policy limit</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmount Amount" })</div>
+                    <span class="closingCostText closingCostGfeRight">(GFE #4)</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1105 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1105 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1106.</span><span class="closingCostText closingCostTextWidth">Owner's
+                        title policy limit</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmount Amount" })</div>
+                    <span class="closingCostText closingCostGfeRight">(GFE #4)</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1106 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1106 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1107.</span><span class="closingCostText closingCostTextWidth220">Agent's
+                        portion of the total title Insurance
+                        <br />
+                        premium to</span>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToMedium207" })</div>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" })</div>
+                    <div class="closingCostGfeRight">                        
+                        <span class="closingCostText">(GFE #4)</span>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1107 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1107 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1108.</span><span class="closingCostText closingCostTextWidth220">Underwriter's
+                        portion of the total title
+                        <br />
+                        Insurance premium to</span>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToMedium207" })</div>
+                        <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" })</div>
+                    <div class="closingCostGfeRight">                        
+                        <span class="closingCostText">(GFE #4)</span>
+                    </div>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1108 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1108 } })
+                </div>
+                @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1109 } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1109 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1109 } })
+                </div>                
+                 @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1110 } })                  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1110 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1110 } })
+                </div>
+               @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1111 } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1111 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1111 } })
+                </div>
+                @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1112 } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1112 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1112 } })
+                </div>
+                @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1113 } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1113 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1113 } })
+                </div>
+                @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1114 } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1114 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1114 } })
+                </div>
+                @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1115 } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1115 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1115 } })
+                </div>
+                @Html.Partial(closingCostsSection1109Location, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1116 } })  
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1116 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 11 }, { "HUDLineNumber", 1116 } })
+                </div>
+            </div>
+            @* Section 1200 *@
+            @{
+             costGroup = Model.TitleAndEscrow.CostGroups.First( c => c.CostGroupNumber == 12 );
+            }
+            <div class="closingCostSection">
+                <span class="closingCostSectionTitle"><span class="closingCostTitleNumber">1200.</span>Government
+                    Recording And Transfered Charges</span>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1201.</span><span class="closingCostText">Total
+                        Recording Charges</span> <span class="closingCostText closingCostGfeRight">Total GFE
+                            #7</span>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1201 }, { "disabled", true } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1201 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1202.</span><span class="closingCostText closingCostTextWidth">Recording
+                        fees</span>
+                        <div class="closingCostTextBoxDiv"> 
+                            @Html.TextBox(String.Format("{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1202)),
+                            DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 1202 ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount", id = "txtAmount1202" } )
+                        </div>
+       <span class="closingCostText closingCostGfeRight">(GFE #7)</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1202 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1202 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1203.</span><span class="closingCostText closingCostTextWidth">Transfer
+                        taxes</span>
+                        <div class="closingCostTextBoxDiv"> 
+                            @Html.TextBox(String.Format("{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1203)),
+                            DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 1203 ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount", id = "txtAmount1203" } )
+                        </div>
+      <span class="closingCostText closingCostGfeRight">(GFE #8)</span>
+                </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1203 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1203 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1204.</span><span class="closingCostText closingCostTextWidth">City/County/Stamps</span>
+                        <div class="closingCostTextBoxDiv"> 
+                            @Html.TextBox(String.Format("{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1204)),
+                            DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 1204 ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount", id = "txtAmount1204" } )
+                        </div>
+  </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1204 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1204 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1205.</span><span class="closingCostText closingCostTextWidth">StateTax/Stamps</span>
+                         <div class="closingCostTextBoxDiv"> 
+                            @Html.TextBox(String.Format("{0}[{1}].Amount", costPrefix, costGroup.Costs.FindIndex(c => c.HUDLineNumber == 1205)),
+                            DecimalExtensionMethods.ToCurrencyFormat( costGroup.Costs.First( c => c.HUDLineNumber == 1205 ).Amount ), new { @class = "closingCostTextBoxAmountLeft Amount", id = "txtAmount1205" } )
+                        </div>
+  </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1205 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1205 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1206.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">(GFE #7)</span>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1206 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1206 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1207.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">(GFE #7)</span>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1207 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1207 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1208.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">(GFE #7)</span>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1208 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1208 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1209.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1209 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1209 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1210.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1210 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 12 }, { "HUDLineNumber", 1210 } })
+                </div>
+            </div>
+            @* Section 1300 *@
+            <div class="closingCostSection">
+                <span class="closingCostSectionTitle"><span class="closingCostTitleNumber">1300.</span>Additional
+                    Settlement Charges</span>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1301.</span> <span class="closingCostText">Required
+                        services that you can shop for </span>
+                    <div class="closingCostGfeRight">
+                        <span class="closingCostText">(GFE #6)</span>
+                    </div>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1301 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1301 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1302.</span>
+                                  <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" })</div>
+  </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1302 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1302 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1303.</span>
+                                  <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmountLeft Amount" })</div>
+  </div>
+                <div class="closingCostSectionRightWithoutAmount">
+                    @Html.Partial(closingCostSectionRightWithoutAmountLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1303 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1303 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1304.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1304 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1304 } })
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSubtitleNumber">1305.</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                    <span class="closingCostText">to</span>
+                    <div class="closingCostTextBoxDiv">@Html.TextBox("textBox", "", new { @class = "closingCostTextBoxFromToLarge" })</div>
+                </div>
+                <div>
+                    @Html.Partial(closingCostTextBoxAmountRightLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1305 } })
+                    @Html.Partial(closingcostsPOCDropdownsLocation, Model, new ViewDataDictionary { { "GroupNumber", 13 }, { "HUDLineNumber", 1305 } })
+                </div>
+            </div>
+            @* Section 1400 *@
+            <div class="closingCostSection">
+                <div class="closingCostSection1400Title">
+                    <div class="closingCostSectionLeft">
+                        Total Settlement Charges (enter on line 103, Section J and 502, Section K)
+                    </div>
+                    <div>
+                        @Html.TextBox("textBox", "", new { @class = "closingCostTextBoxSection1400Amount Amount", disabled = "disabled" })
+                        @Html.TextBox("textBox", "", new { @class = "closingCostTextBoxSection1400Amount Amount", disabled = "disabled" })
+                        @Html.TextBox("textBox", "", new { @class = "closingCostTextBoxSection1400Amount Amount", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="closingCostSectionLeft">
+                    <span class="closingCostSection1400Subtitle">TOTAL FINANCE CHARGES</span>
+                </div>
+                <div>
+                    @Html.TextBox("textBox", "", new { @class = "closingCostTextBoxAmountRight Amount", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="divSaveCostsManageFees">
+                <input type="submit" id="btnSaveCosts" class="btnSaveCosts" value='' />
+            </div>
+            @{Html.EndForm();}
+        </div>
+    }
+</div>
+<div id="changeClosingDatePopup" style="display: none;">
+    <div class="changeClosingDatePopup-inner">
+        <div id="changeClosingDatePopupText" class="changeClosingDatePopupText">
+            Do you want to update the closing date and have the system recalculate prepaids
+            and impounds?
+        </div>
+        <div style="padding-top: 20px">
+            <img onclick="ManageFees.UpdateClosingDate()" src="../../../Content/images/btnUpdateSmall.png"
+                alt="Update" style="cursor: pointer; margin-left: 70px;" />
+            <img onclick="ManageFees.CloseClosingDatePopup()" src="../../../Content/images/btnCancelSmall.png"
+                style="cursor: pointer; margin-left: 50px;" alt="Cancel" />
+        </div>
+    </div>
+</div>
+<div id="ptc-popup" style="display: none;">
+    <div id="ptc-popup-hdnMappedModelFields" style="display: block">
+        <input id="ptc-popup-hdnPaidByPOC" type="hidden" />
+        <input id="ptc-popup-hdnPaidToPOC" type="hidden" />
+        <input id="ptc-popup-hdnAmountPOC" type="hidden" />
+        <input id="ptc-popup-hdnPaidByPTC" type="hidden" />
+        <input id="ptc-popup-hdnPaidToPTC" type="hidden" />
+        <input id="ptc-popup-hdnAmountPTC" type="hidden" />
+        <input id="ptc-popup-hdnIsAprCost" type="hidden" />
+        <input id="ptc-popup-hdnFromBorrowerFunds" type="hidden" />
+        <input id="ptc-popup-hdnTotalAmount" type="hidden" />
+    </div>
+    <div id="ptc-popup-inner">
+        <h3 class="ptcPopupTitle">
+            <b>When – Paid Outside or Through Closing</b></h3>
+        <div>
+            <span>$ &nbsp;<input id="pocAmount" type="text" size="14" class="ClosingCostInputField" /></span>&nbsp;
+            <span>Paid by</span>&nbsp;
+            <select id="pocPaidBy" class="roundedDropdown">
+            </select>
+            &nbsp; Paid to
+            <select id="pocPaidTo" class="roundedDropdown">
+            </select>
+            &nbsp;
+            <input id="isPOC" type="checkbox" size="2" title="POC" disabled="disabled" /><span>POC</span>
+        </div>
+        <div style="padding-top: 5px">
+            <span>$ &nbsp;<input id="ptcAmount" type="text" size="14" class="ClosingCostInputField" /></span>&nbsp;
+            <span>Paid by</span>&nbsp;
+            <select id="ptcPaidBy" class="roundedDropdown">
+            </select>
+            &nbsp; Paid to
+            <select id="ptcPaidTo" class="roundedDropdown">
+            </select>
+            &nbsp;
+            <input id="isPTC" type="checkbox" size="2" title="PTC" disabled="disabled" /><span>PTC</span>
+            <input id="ptcIsAprCost" type="checkbox" size="2" title="APR" /><span>APR</span>
+        </div>
+        <div style="width: 400px; padding-top: 5px">
+            $ &nbsp;<input id="ptc-popup-FromBorrowerFunds" type="text" size="14" class="ClosingCostInputField" />
+            &nbsp;<span>Borrower to Pay</span></div>
+        <div style="float: left; width: 400px; padding-top: 5px">
+            $ &nbsp;<input id="ptc-popup-TotalAmount" type="text" size="14" disabled="disabled"
+                class="ClosingCostInputField" />
+            &nbsp;<span style="font-weight: bold">Total</span></div>
+        <div style="padding-top: 40px">
+            <img src="../../../Content/images/btnCancel_with_arrow.png" alt="Cancel" style="cursor: pointer"
+                onclick="ManageFees.ClosePTCPopup()" />
+            <img src="../../../Content/images/btnSaveAndExitWithArrow.png" style="cursor: pointer;
+                margin-left: 175px;" alt="Save and exit" />
+        </div>
+    </div>
+</div>
+<div class="infoinconbubble" style="display: none">
+    <div class="triangle">
+    </div>
+    <div class="infoincontooltip">
+        <div class="infoincontooltipg">
+            <div>
+                Manage fees info tool tip</div>
+        </div>
+    </div>
+</div>

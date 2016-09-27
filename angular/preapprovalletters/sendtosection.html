@@ -1,0 +1,77 @@
+﻿<div class="imp-popover imp-body preapproval-send-to">
+    <div class="section">
+        <div class="title">
+            Borrowers
+        </div>
+        <div ng-repeat="borrower in modalpopoverCtrl.model.borrowers">
+            <div class="row">
+                <div style="float: left;">
+                    <input id="selectBorrower{{$index.toString()}}"
+                           type="checkbox"
+                           ng-disabled="!borrower.email"
+                           ng-model="borrower.isSelected"
+                           ng-click="modalpopoverCtrl.ctrl.getSendToNames();"
+                           ng-true-value="true"
+                           ng-false-value="false"
+                           class="imp-checkbox" />
+                    <label ng-disabled="!borrower.email" for="selectBorrower{{$index.toString()}}" class="imp-lb-checkbox" style="float: left;padding-right: 0px;"></label>
+                </div>
+                <div class="name">
+                    {{borrower.fullname ? borrower.fullname: "(name not provided)"}}
+                </div>
+                <div class="email">
+                    {{borrower.email ? borrower.email: "(email not provided)"}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="section">
+        <div class="title">
+            Buyer's Agent
+        </div>
+        <div class="row">
+            <div style="float: left;">
+                <input id="selectBuyersAgent"
+                       type="checkbox"
+                       ng-disabled="!modalpopoverCtrl.model.buyersAgent.email"
+                       ng-class="{'imp-is-disabled': !modalpopoverCtrl.model.buyersAgent.email }"
+                       ng-model="modalpopoverCtrl.model.buyersAgent.isSelected"
+                       ng-click="modalpopoverCtrl.ctrl.getSendToNames();"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label ng-disabled="!modalpopoverCtrl.model.buyersAgent.email" ng-class="{'imp-is-disabled': !modalpopoverCtrl.model.buyersAgent.email }" for="selectBuyersAgent" class="imp-lb-checkbox" style="float: left;padding-right: 0px;"></label>
+            </div>
+            <div class="name" ng-style="modalpopoverCtrl.model.buyersAgent.fullname == '' && {'color': '#9d9d9d'} ">
+                {{modalpopoverCtrl.model.buyersAgent.fullname ? modalpopoverCtrl.model.buyersAgent.fullname: "(name not provided)"}}
+            </div>
+            <div class="email">
+                {{modalpopoverCtrl.model.buyersAgent.email ? modalpopoverCtrl.model.buyersAgent.email: "(email not provided)"}}
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-bottom: 25px;">
+        <div class="title">
+            Seller's Agent
+        </div>
+        <div class="row">
+            <div style="float: left;">
+                <input id="selectSellersAgent"
+                       type="checkbox"
+                       ng-disabled="!modalpopoverCtrl.model.sellersAgent.email"
+                       ng-click="modalpopoverCtrl.ctrl.getSendToNames();"
+                       ng-true-value="true"
+                       ng-false-value="false"
+                       class="imp-checkbox" />
+                <label ng-disabled="!modalpopoverCtrl.model.sellersAgent.email" for="selectSellersAgent" class="imp-lb-checkbox" style="float: left;padding-right: 0px;"></label>
+            </div>
+            <div class="name" ng-style="modalpopoverCtrl.model.sellersAgent.fullname == '' && {'color': '#9d9d9d'} ">
+                {{modalpopoverCtrl.model.sellersAgent.fullname ? modalpopoverCtrl.model.sellersAgent.fullname: "(name not provided)"}}
+            </div>
+            <div class="email">
+                {{modalpopoverCtrl.model.sellersAgent.email ? modalpopoverCtrl.model.sellersAgent.email: "(email not provided)"}}
+            </div>
+        </div>
+    </div>
+</div>
